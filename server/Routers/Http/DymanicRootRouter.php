@@ -59,9 +59,13 @@ class DymanicRootRouter implements HttpRouterInterface
 
         $rootName = $elements[0];
 
-        // 3. return 404 if no name in the list
+        // 3. try redirect to defaultRoot + path
         if (array_key_exists($rootName, $this->rootsList) !== true) {
-            return $this->pageNotFound();
+            return $this->routerResult->setHeaders([[
+                'Location: /' . $this->defaultRoot . $path,
+                true,
+                301
+            ]]);
         }
 
         $controllers = ($this->actionListCallback[0])($rootName);
@@ -84,7 +88,6 @@ class DymanicRootRouter implements HttpRouterInterface
 
         // 6. Exec
         try {
-            /** @todo test this */
             $controllerResult = $rootController->execute($elements);
 
             $path = $controllerResult->getPath();
@@ -94,7 +97,6 @@ class DymanicRootRouter implements HttpRouterInterface
             $this->routerResult->setStatusCode(200)->setResponse($response);
             return $this->setHeaders($path, $type);
         } catch (NotFoundException $e) {
-            /** @todo test this */
             return $this->pageNotFound();
         }
     }
