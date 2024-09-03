@@ -24,7 +24,7 @@
     "autoload": {
         "psr-4": {
             "Romchik38\\Server\\": "server/",
-            "Romchik38\\Site1\\": "app/code/"
+            "Romchik38\\Site2\\": "app/code/"
         }
     },
 
