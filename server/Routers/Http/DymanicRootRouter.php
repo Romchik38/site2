@@ -38,7 +38,7 @@ class DymanicRootRouter implements HttpRouterInterface
         [$url] = explode('?', $path);
 
         // 1. parse url
-        $elements = explode('/', $_SERVER['REQUEST_URI']);
+        $elements = explode('/', $url);
 
         // two blank elements for /
         if (count($elements) === 2 && $elements[0] === '' && $elements[1] === '') {
@@ -60,7 +60,7 @@ class DymanicRootRouter implements HttpRouterInterface
         $rootName = $elements[0];
 
         // 3. try redirect to defaultRoot + path
-        if (array_key_exists($rootName, $this->rootsList) !== true) {
+        if (array_search($rootName, $this->rootsList, true) === false) {
             return $this->routerResult->setHeaders([[
                 'Location: /' . $this->defaultRoot . $path,
                 true,
@@ -68,14 +68,15 @@ class DymanicRootRouter implements HttpRouterInterface
             ]]);
         }
 
+        // 4. Create a dynamic root
         $controllers = ($this->actionListCallback[0])($rootName);
 
-        // 4. method check 
+        // 5. method check 
         if (array_key_exists($method, $controllers) === false) {
             return $this->methodNotAllowed($controllers);
         }
 
-        // 5. redirect check
+        // 6. redirect check
         if ($this->redirectService !== null) {
             $redirectResult = $this->redirectService->execute($url, $method);
             if ($redirectResult !== null) {
