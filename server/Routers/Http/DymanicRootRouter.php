@@ -51,20 +51,28 @@ class DymanicRootRouter implements HttpRouterInterface
 
         // 2. for / redirect to default root
         if (count($elements) === 0) {
-            header('Location: ' . $this->defaultRoot);
+            return $this->routerResult->setHeaders([[
+                'Location: /' . $this->defaultRoot,
+                true,
+                301
+            ]]);
         }
 
-        // 3. get root and method
         $rootName = $elements[0];
+
+        // 3. return 404 if no name in the list
+        if (array_key_exists($rootName, $this->rootsList) !== true) {
+            return $this->pageNotFound();
+        }
+
         $controllers = ($this->actionListCallback[0])($rootName);
 
-
-        // 1. method check 
-        if (array_key_exists($method, $this->controllers) === false) {
-            return $this->methodNotAllowed();
+        // 4. method check 
+        if (array_key_exists($method, $controllers) === false) {
+            return $this->methodNotAllowed($controllers);
         }
 
-        // 2. redirect check
+        // 5. redirect check
         if ($this->redirectService !== null) {
             $redirectResult = $this->redirectService->execute($url, $method);
             if ($redirectResult !== null) {
@@ -73,9 +81,9 @@ class DymanicRootRouter implements HttpRouterInterface
         }
 
         /** @var ControllerInterface $rootController */
-        $rootController = $this->controllers[$method];
+        $rootController = $controllers[$method];
 
-        // 4. Exec
+        // 6. Exec
         try {
             /** @todo test this */
             $controllerResult = $rootController->execute($elements);
@@ -95,12 +103,12 @@ class DymanicRootRouter implements HttpRouterInterface
     /**
      * set the result to 405 - Method Not Allowed
      */
-    protected function methodNotAllowed(): HttpRouterResultInterface
+    protected function methodNotAllowed(array $controllers): HttpRouterResultInterface
     {
         $this->routerResult->setResponse('Method Not Allowed')
             ->setStatusCode(405)
             ->setHeaders([
-                ['Allow:' . implode(', ', array_keys($this->controllers))]
+                ['Allow:' . implode(', ', array_keys($controllers))]
             ]);
         return $this->routerResult;
     }
