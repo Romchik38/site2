@@ -13,7 +13,6 @@ use Romchik38\Server\Api\Services\Redirect\Http\RedirectInterface;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Api\Services\Request\Http\RequestInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
 
 class DymanicRootRouter implements HttpRouterInterface
 {
