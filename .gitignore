@@ -1,0 +1,8 @@
+app/config
+app/var
+vendor/
+.vscode/
+.idea
+# todo.md
+testsomecode/
+.phpunit.result.cache
