@@ -19,12 +19,12 @@ return function(Container $container) {
 
     // DTO
     $container->add(
-        \Romchik38\Server\Models\DTO\Language\LanguageDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\Language\LanguageDTOFactory()
+        \Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory()
     );
     $container->add(
-        \Romchik38\Server\Api\Models\DTO\Language\LanguageDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\Language\LanguageDTOFactory::class)
+        \Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory::class)
     );
 
     return $container;

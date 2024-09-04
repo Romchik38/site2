@@ -12,7 +12,7 @@ use Romchik38\Server\Api\Router\Http\HttpRouterInterface;
 use Romchik38\Server\Api\Services\Redirect\Http\RedirectInterface;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
-use Romchik38\Server\Api\Services\Language\LanguageInterface;
+use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
 use Romchik38\Server\Api\Services\Request\Http\RequestInterface;
 
 class DymanicRootRouter implements HttpRouterInterface
@@ -22,10 +22,8 @@ class DymanicRootRouter implements HttpRouterInterface
     public function __construct(
         protected HttpRouterResultInterface $routerResult,
         protected RequestInterface $request,
-        protected LanguageInterface $languageService,
+        protected DymanicRootInterface $dymanicRootService,
         protected array $actionListCallback,
-        // protected string $defaultRoot,
-        // protected array $rootsList = [],
         array $headers = [],
         protected ControllerInterface | null $notFoundController = null,
         protected RedirectInterface|null $redirectService = null
@@ -38,6 +36,9 @@ class DymanicRootRouter implements HttpRouterInterface
         $method = $this->request->getMethod();
         $path = $uri->getPath();
         [$url] = explode('?', $path);
+
+        $defaultRoot = $this->dymanicRootService->getDefaultRoot();
+        $rootList = $this->dymanicRootService->getRootNames();
 
         // 1. parse url
         $elements = explode('/', $url);
@@ -53,7 +54,7 @@ class DymanicRootRouter implements HttpRouterInterface
         // 2. for / redirect to default root
         if (count($elements) === 0) {
             return $this->routerResult->setHeaders([[
-                'Location: /' . $this->defaultRoot,
+                'Location: /' . $defaultRoot->getName(),
                 true,
                 301
             ]]);
@@ -62,9 +63,9 @@ class DymanicRootRouter implements HttpRouterInterface
         $rootName = $elements[0];
 
         // 3. try redirect to defaultRoot + path
-        if (array_search($rootName, $this->rootsList, true) === false) {
+        if (array_search($rootName, $rootList, true) === false) {
             return $this->routerResult->setHeaders([[
-                'Location: /' . $this->defaultRoot . $path,
+                'Location: /' . $defaultRoot->getName() . $path,
                 true,
                 301
             ]]);

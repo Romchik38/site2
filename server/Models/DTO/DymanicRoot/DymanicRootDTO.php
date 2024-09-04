@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Models\DTO\Language;
+namespace Romchik38\Server\Models\DTO\DymanicRoot;
 
-use Romchik38\Server\Api\Models\DTO\Language\LanguageDTOInterface;
+use Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOInterface;
 use Romchik38\Server\Models\DTO;
 
-class LanguageDTO extends DTO implements LanguageDTOInterface
+class DymanicRootDTO extends DTO implements DymanicRootDTOInterface
 {
     public function __construct(
         protected string $name
