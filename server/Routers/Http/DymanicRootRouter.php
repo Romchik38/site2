@@ -14,6 +14,7 @@ use Romchik38\Server\Controllers\Errors\NotFoundException;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
 use Romchik38\Server\Api\Services\Request\Http\RequestInterface;
+use Romchik38\Server\Routers\Errors\RouterProccessError;
 
 class DymanicRootRouter implements HttpRouterInterface
 {
@@ -32,6 +33,7 @@ class DymanicRootRouter implements HttpRouterInterface
     }
     public function execute(): HttpRouterResultInterface
     {
+        // 0. define
         $uri = $this->request->getUri();
         $method = $this->request->getMethod();
         $path = $uri->getPath();
@@ -85,6 +87,12 @@ class DymanicRootRouter implements HttpRouterInterface
             if ($redirectResult !== null) {
                 return $this->redirect($redirectResult);
             }
+        }
+
+        // 7. set current root
+        $isSetCurrentRoot = $this->dymanicRootService->setCurrentRoot($rootName);
+        if ($isSetCurrentRoot === false) {
+            throw new RouterProccessError('Can\'t set current dynamic root with name: ' . $rootName);
         }
 
         /** @var ControllerInterface $rootController */

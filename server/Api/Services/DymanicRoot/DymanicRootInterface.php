@@ -26,4 +26,9 @@ interface DymanicRootInterface
      * @return string[] all root names from the list
      */
     public function getRootNames(): array;
+
+    /**
+     * @return bool true on success / false on fail
+     */
+    public function setCurrentRoot(string $rootName): bool;
 }

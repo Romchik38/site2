@@ -11,6 +11,7 @@ use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
 class DymanicRoot implements DymanicRootInterface
 {
     protected readonly DymanicRootDTOInterface $defaultRoot;
+    protected DymanicRootDTOInterface|null $currentRoot;
 
     /**
      * @var DymanicRootDTOInterface[] $rootList
@@ -48,5 +49,16 @@ class DymanicRoot implements DymanicRootInterface
             $names[] = $root->getName();
         }
         return $names;
+    }
+
+    public function setCurrentRoot(string $rootName): bool
+    {
+        foreach ($this->rootList as $root) {
+            if ($root->getName() === $rootName) {
+                $this->currentRoot = $root;
+                return true;
+            }
+        }
+        return false;
     }
 }
