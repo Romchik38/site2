@@ -7,7 +7,9 @@ return function ($container) {
     // Root
     $container->add(
         \Romchik38\Site2\Controllers\Root\DefaultAction::class,
-        new \Romchik38\Site2\Controllers\Root\DefaultAction()
+        new \Romchik38\Site2\Controllers\Root\DefaultAction(
+            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class)
+        )
     );
 
     // ServerError

@@ -14,6 +14,6 @@ class DefaultAction extends DynamicRootAction implements DefaultActionInterface
     {
         $currentRoot = $this->dymanicRootService->getCurrentRoot();
 
-        return 'Hello from' . $currentRoot->getName() . ' root ';
+        return 'Hello from ' . $currentRoot->getName() . ' root ';
     }
 }
