@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Romchik38\Server\Services\Language\LanguageInterface;
+
 return [
-    'default_language' => 'en',
-    'languages' => ['en', 'uk']
+    LanguageInterface::DEFAULT_LANGUAGE_FIELD => 'en',
+    LanguageInterface::LANGUAGE_LIST_FIELD => ['en', 'uk']
 ];
