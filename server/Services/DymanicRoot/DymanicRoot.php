@@ -7,6 +7,7 @@ namespace Romchik38\Server\Services\DymanicRoot;
 use Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOFactoryInterface;
 use Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOInterface;
 use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
+use Romchik38\Server\Services\Errors\EarlyAccessToCurrentRootError;
 
 class DymanicRoot implements DymanicRootInterface
 {
@@ -49,6 +50,13 @@ class DymanicRoot implements DymanicRootInterface
             $names[] = $root->getName();
         }
         return $names;
+    }
+
+    public function getCurrentRoot(): DymanicRootDTOInterface {
+        if ($this->currentRoot === null) {
+            throw new EarlyAccessToCurrentRootError('Current dynamic root does\'t setted up');
+        }
+        return $this->currentRoot;
     }
 
     public function setCurrentRoot(string $rootName): bool
