@@ -12,6 +12,7 @@ use Romchik38\Server\Api\Router\Http\HttpRouterInterface;
 use Romchik38\Server\Api\Services\Redirect\Http\RedirectInterface;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
+use Romchik38\Server\Api\Services\Language\LanguageInterface;
 use Romchik38\Server\Api\Services\Request\Http\RequestInterface;
 
 class DymanicRootRouter implements HttpRouterInterface
@@ -21,9 +22,10 @@ class DymanicRootRouter implements HttpRouterInterface
     public function __construct(
         protected HttpRouterResultInterface $routerResult,
         protected RequestInterface $request,
+        protected LanguageInterface $languageService,
         protected array $actionListCallback,
-        protected string $defaultRoot,
-        protected array $rootsList = [],
+        // protected string $defaultRoot,
+        // protected array $rootsList = [],
         array $headers = [],
         protected ControllerInterface | null $notFoundController = null,
         protected RedirectInterface|null $redirectService = null

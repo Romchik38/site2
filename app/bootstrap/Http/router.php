@@ -15,10 +15,8 @@ return function ($container) {
         new \Romchik38\Server\Routers\Http\DymanicRootRouter(
             $container->get(\Romchik38\Server\Api\Results\Http\HttpRouterResultInterface::class),
             $container->get(\Romchik38\Server\Api\Services\Request\Http\RequestInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Language\LanguageInterface::class),
             [$actionList],
-            /** @todo move to config */
-            'en',
-            ['en', 'uk'],
             [],
             null,
             null

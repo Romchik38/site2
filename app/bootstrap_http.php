@@ -13,8 +13,11 @@ return function () {
     $http_no_dependence = require_once(__DIR__ . '/bootstrap/Http/no_dependence.php');
     $http_no_dependence($container);
 
-    $services = require_once(__DIR__ . '/bootstrap/Http/services.php');
+    $services = require_once(__DIR__ . '/bootstrap/services.php');
     $services($container);
+
+    $http_services = require_once(__DIR__ . '/bootstrap/Http/services.php');
+    $http_services($container);
 
     $actions = require_once(__DIR__  . '/bootstrap/actions.php');
     $actions($container);
