@@ -2,7 +2,6 @@
 
 [+] sql  
 [-] models  
-[-] virtual model  
 [-] Translate storage service  
 [-] Translate service  
 [-] technical debt  

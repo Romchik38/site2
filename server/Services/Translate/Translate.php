@@ -16,7 +16,7 @@ namespace Romchik38\Server\Services\Translate;
 // echo $__('login.index.h1');
 
 
-class Translate
+class Translate implements TranslateInterface
 {
     public function __construct(
         protected readonly array $hash,
