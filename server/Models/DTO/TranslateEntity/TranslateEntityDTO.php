@@ -14,8 +14,8 @@ class TranslateEntityDTO extends DTO implements TranslateEntityDTOInterface
         protected readonly string $key,
         array $data
     ) {
-        foreach ($data as $key => $val) {
-            $this->data[$key] = $val;
+        foreach ($data as $language => $phrase) {
+            $this->data[$language] = $phrase;
         }
     }
 
@@ -24,8 +24,8 @@ class TranslateEntityDTO extends DTO implements TranslateEntityDTOInterface
         return $this->key;
     }
 
-    public function getPhrase(string $language): string
+    public function getPhrase(string $language): string|null
     {
-        return $this->data[$language];
+        return $this->data[$language] ?? null;
     }
 }

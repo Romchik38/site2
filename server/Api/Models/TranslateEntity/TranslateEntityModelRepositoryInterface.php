@@ -10,10 +10,10 @@ interface TranslateEntityModelRepositoryInterface extends RepositoryInterface
 {
 
     /**
-     * Get a list of the translate entities by provided language
+     * Get a list of the translate entities by provided languages
      * 
-     * @param string $lang language
+     * @param string[] $languages a list of languages
      * @return TranslateEntityModelInterface[] 
      */
-    public function getListByLang(string $lang): array;
+    public function getListByLanguages(array $languages): array;
 }

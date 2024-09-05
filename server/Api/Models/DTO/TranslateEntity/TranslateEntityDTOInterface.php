@@ -10,7 +10,8 @@ interface TranslateEntityDTOInterface extends DTOInterface
     public function getKey(): string;
 
     /** 
-     * returns text phrase by provided language
+     * returns a text phrase by provided language
+     *   or null otherwise
      */
-    public function getPhrase(string $language): string;
+    public function getPhrase(string $language): string|null;
 }

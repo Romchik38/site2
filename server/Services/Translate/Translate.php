@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Services\Translate;
 
+use Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOInterface;
+
 // $hash = [
 //     'login.index.h1' => [
 //         'en' => 'Hello world',
@@ -18,18 +20,28 @@ namespace Romchik38\Server\Services\Translate;
 
 class Translate implements TranslateInterface
 {
+    protected array|null $hash = null;
+
     public function __construct(
-        protected readonly array $hash,
+        protected readonly TranslateStorageInterface $translateStorage,
         protected readonly string $defaultLang,
         protected readonly string $currentLang
     ) {}
 
     public function __invoke(string $str)
     {
-        $item = $this->hash[$str] ??
+
+        if ($this->hash === null) {
+            $this->hash = $this->translateStorage->getDataByLanguages(
+                [$this->defaultLang, $this->currentLang]
+            );
+        }
+
+        /** @var TranslateEntityDTOInterface $translateDTO*/
+        $translateDTO = $this->hash[$str] ??
             throw new \RuntimeException('invalid trans string');
-        $defaultVal = $item[$this->defaultLang] ??
+        $defaultVal = $translateDTO->getPhrase($this->defaultLang) ??
             throw new \RuntimeException('default value for lang ' . $this->defaultLang . ' isn\'t set');
-        return $item[$this->currentLang] ?? $defaultVal;
+        return $translateDTO->getPhrase($this->currentLang) ?? $defaultVal;
     }
 }
