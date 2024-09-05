@@ -1,13 +1,20 @@
 # Todo
 
-[-] sql  
+[+] sql  
 [-] models  
 [-] virtual model  
 [-] Translate storage service  
 [-] Translate service  
+[-] technical debt  
 
-## sql
+## models
 
-- translate_keys
-- translate_lang
-- translate_entities  
+[-] interfaces
+[-] models
+[-] repo
+
+## technical debt
+
+[-] model  
+    [-] translate_keys  
+    [-] translate_lang  
