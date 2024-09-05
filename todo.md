@@ -9,7 +9,7 @@
 
 ## models
 
-[-] interfaces
+[+] interfaces
 [-] models
 [-] repo
 
