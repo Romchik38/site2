@@ -31,12 +31,12 @@ class Translate implements TranslateInterface
         protected readonly TranslateStorageInterface $translateStorage,
         protected readonly DymanicRootInterface $dymanicRoot
     ) {
-        $this->defaultLang = $this->dymanicRoot->getDefaultRoot();
+        $this->defaultLang = $this->dymanicRoot->getDefaultRoot()->getName();
     }
 
     public function __invoke(string $str)
     {
-        $currentLang = $currentLang ?? $this->dymanicRoot->getCurrentRoot();
+        $currentLang = $currentLang ?? $this->dymanicRoot->getCurrentRoot()->getName();
 
         if ($this->hash === null) {
             $this->hash = $this->translateStorage->getDataByLanguages(
