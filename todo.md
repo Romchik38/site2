@@ -1,16 +1,12 @@
 # Todo
 
 [+] sql  
-[-] models  
-[-] Translate storage service  
-[-] Translate service  
+[+] models  
+[+] Translate storage service  
+[+] Translate service  
+[-] add to controller  
 [-] technical debt  
 
-## models
-
-[+] interfaces
-[+] models
-[-] repo
 
 ## technical debt
 
