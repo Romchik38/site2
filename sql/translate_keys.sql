@@ -4,5 +4,5 @@ CREATE table translate_keys
 );
 
 INSERT INTO translate_keys (key) VALUES
-    ('root.index')
+    ('root.page_name')
 ;

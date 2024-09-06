@@ -11,7 +11,7 @@ use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
 /** 
  * Must be extended by DefaultAction or DynamicAction
  */
-class DynamicRootAction extends Action implements ActionInterface
+abstract class DynamicRootAction extends Action implements ActionInterface
 {
     public  function __construct(
         protected readonly DymanicRootInterface $dymanicRootService

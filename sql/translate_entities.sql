@@ -9,6 +9,6 @@ CREATE table translate_entities
 
 --Examples
 INSERT INTO translate_entities (key, language, phrase) VALUES
-    ('root.index', 'en', 'Home page'), 
-    ('root.index', 'uk', 'Домашня сторінка')
+    ('root.page_name', 'en', 'Home page'), 
+    ('root.page_name', 'uk', 'Домашня сторінка')
 ;
