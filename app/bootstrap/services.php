@@ -44,7 +44,17 @@ return function (Container $container) {
     );
 
     // TRANSLATE
-    
+    $container->add(
+        \Romchik38\Server\Services\Translate\Translate::class,
+        new \Romchik38\Server\Services\Translate\Translate(
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateStorageInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Server\Api\Services\Translate\TranslateInterface::class,
+        $container->get(\Romchik38\Server\Services\Translate\Translate::class)
+    );
 
     return $container;
 };
