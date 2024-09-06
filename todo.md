@@ -1,12 +1,7 @@
 # Todo
 
-[+] sql  
-[+] models  
-[+] Translate storage service  
-[+] Translate service  
-[-] add to controller  
+[-] tests for translate system  
 [-] technical debt  
-
 
 ## technical debt
 
