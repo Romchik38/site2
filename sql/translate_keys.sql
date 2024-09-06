@@ -4,5 +4,7 @@ CREATE table translate_keys
 );
 
 INSERT INTO translate_keys (key) VALUES
-    ('root.page_name')
+    ('root.page_name'),
+    ('server-error.message')
 ;
+

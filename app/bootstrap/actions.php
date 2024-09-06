@@ -16,7 +16,10 @@ return function ($container) {
     // ServerError
     $container->add(
         \Romchik38\Site2\Controllers\ServerError\DefaultAction::class,
-        new \Romchik38\Site2\Controllers\ServerError\DefaultAction()
+        new \Romchik38\Site2\Controllers\ServerError\DefaultAction(
+            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
     );
 
     return $container;

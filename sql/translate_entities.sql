@@ -10,5 +10,7 @@ CREATE table translate_entities
 --Examples
 INSERT INTO translate_entities (key, language, phrase) VALUES
     ('root.page_name', 'en', 'Home page'), 
-    ('root.page_name', 'uk', 'Домашня сторінка')
+    ('root.page_name', 'uk', 'Домашня сторінка'),
+    ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 
+    ('server-error.message', 'uk', 'Вибачте, нажаль сталася помилка на стороні серверу. Спробуйте повторити запит пізніше')
 ;
