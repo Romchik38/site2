@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Romchik38\Server\Services\Translate;
 
 use Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateStorageInterface;
 
-// $hash = [
-//     'login.index.h1' => [
-//         'en' => 'Hello world',
-//         'uk' => 'Привіт світ'
-//     ]
-// ];
-
-// $__ = new A($hash, 'en', 'uk');
-
-// echo $__('login.index.h1');
-
-
+/**
+ * Translate a string by given key. Just pass the key 
+ * like in the example below:
+ *      $__ = new Translate($translateStorage, 'en', 'uk');
+ *      echo $__('login.index.h1');
+ * 
+ * Returns translated string for current language, 
+ *   otherwise returns the string for default language
+ *   otherwise throws an error (so the key must be in the translate storage)
+ * 
+ */
 class Translate implements TranslateInterface
 {
     protected array|null $hash = null;
@@ -30,7 +31,6 @@ class Translate implements TranslateInterface
 
     public function __invoke(string $str)
     {
-
         if ($this->hash === null) {
             $this->hash = $this->translateStorage->getDataByLanguages(
                 [$this->defaultLang, $this->currentLang]

@@ -30,5 +30,21 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\DymanicRoot\DymanicRoot::class)
     );
 
+    // TRANSLATESTORAGE
+    $container->add(
+        \Romchik38\Server\Services\Translate\TranslateStorage::class,
+        new \Romchik38\Server\Services\Translate\TranslateStorage(
+            $container->get(Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface::class),
+            $container->get(Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOFactoryInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Server\Api\Services\Translate\TranslateStorageInterface::class,
+        $container->get(\Romchik38\Server\Services\Translate\TranslateStorage::class)
+    );
+
+    // TRANSLATE
+    
+
     return $container;
 };

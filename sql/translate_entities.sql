@@ -7,8 +7,7 @@ CREATE table translate_entities
     CONSTRAINT uq_translate_entities UNIQUE ( key, language )
 );
 
-
-
+--Examples
 INSERT INTO translate_entities (key, language, phrase) VALUES
     ('root.index', 'en', 'Home page'), 
     ('root.index', 'uk', 'Домашня сторінка')

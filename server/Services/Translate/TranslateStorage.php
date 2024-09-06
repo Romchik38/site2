@@ -6,6 +6,7 @@ namespace Romchik38\Server\Services\Translate;
 
 use Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOFactoryInterface;
 use Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateStorageInterface;
 
 class TranslateStorage implements TranslateStorageInterface
 {
