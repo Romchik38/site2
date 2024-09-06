@@ -24,7 +24,7 @@ class TranslateEntityModelRepository extends Repository implements TranslateEnti
             $expression = ' WHERE ' . implode(' OR ', $fields);
         }
 
-        $list = $this->list($expression, $language);
+        $list = $this->list($expression, $languages);
         return $list;
     }
 }

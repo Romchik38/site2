@@ -12,8 +12,8 @@ use Romchik38\Server\Api\Services\Translate\TranslateStorageInterface;
 /**
  * Translate a string by given key. Just pass the key 
  * like in the example below:
- *      $__ = new Translate($translateStorage, $dymanicRoot);
- *      echo $__('login.index.h1');
+ *      $translate = new Translate($translateStorage, $dymanicRoot);
+ *      echo $translate->t('login.index.h1');
  * 
  * Returns translated string for current language, 
  *   otherwise returns the string for default language
@@ -34,9 +34,9 @@ class Translate implements TranslateInterface
         $this->defaultLang = $this->dymanicRoot->getDefaultRoot()->getName();
     }
 
-    public function __invoke(string $str)
+    public function t(string $str): string
     {
-        $currentLang = $currentLang ?? $this->dymanicRoot->getCurrentRoot()->getName();
+        $this->currentLang = $this->currentLang ?? $this->dymanicRoot->getCurrentRoot()->getName();
 
         if ($this->hash === null) {
             $this->hash = $this->translateStorage->getDataByLanguages(
