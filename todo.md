@@ -9,7 +9,7 @@
 ## models
 
 [+] interfaces
-[-] models
+[+] models
 [-] repo
 
 ## technical debt
