@@ -13,6 +13,12 @@ return function () {
     $http_no_dependence = require_once(__DIR__ . '/bootstrap/Http/no_dependence.php');
     $http_no_dependence($container);
 
+    $sql_no_dependence = require_once(__DIR__ . '/bootstrap/Sql/no_dependencies.php');
+    $sql_no_dependence($container);
+
+    $sql_models = require_once(__DIR__ . '/bootstrap/Sql/models.php');
+    $sql_models($container);
+
     $services = require_once(__DIR__ . '/bootstrap/services.php');
     $services($container);
 
