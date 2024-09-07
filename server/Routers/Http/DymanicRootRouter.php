@@ -23,7 +23,7 @@ class DymanicRootRouter implements HttpRouterInterface
     public function __construct(
         protected HttpRouterResultInterface $routerResult,
         protected RequestInterface $request,
-        protected DymanicRootInterface $dymanicRootService,
+        protected DymanicRootInterface $dynamicRootService,
         protected array $actionListCallback,
         array $headers = [],
         protected ControllerInterface | null $notFoundController = null,
@@ -41,8 +41,8 @@ class DymanicRootRouter implements HttpRouterInterface
         $path = $uri->getPath();
         [$url] = explode('?', $path);
 
-        $defaultRoot = $this->dymanicRootService->getDefaultRoot();
-        $rootList = $this->dymanicRootService->getRootNames();
+        $defaultRoot = $this->dynamicRootService->getDefaultRoot();
+        $rootList = $this->dynamicRootService->getRootNames();
 
         // 1. parse url
         $elements = explode('/', $url);
@@ -109,7 +109,7 @@ class DymanicRootRouter implements HttpRouterInterface
          * - but we can't set $rootName which is not in the list because of something ...
          * - so there is the check:
          */
-        $isSetCurrentRoot = $this->dymanicRootService->setCurrentRoot($rootName);
+        $isSetCurrentRoot = $this->dynamicRootService->setCurrentRoot($rootName);
         if ($isSetCurrentRoot === false) {
             throw new RouterProccessError('Can\'t set current dynamic root with name: ' . $rootName);
         }
