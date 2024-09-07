@@ -78,6 +78,7 @@ class DymanicRootRouter implements HttpRouterInterface
         }
 
         // 4. Create a dynamic root
+        /** @todo replace callback with class */
         $controllers = ($this->actionListCallback[0])($rootName);
 
         // 5. method check 
