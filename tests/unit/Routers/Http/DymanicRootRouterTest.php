@@ -11,6 +11,8 @@ use Romchik38\Server\Services\DymanicRoot\DymanicRoot;
 use Romchik38\Server\Controllers\Controller;
 use Romchik38\Server\Services\Request\Http\Uri;
 use Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTO;
+use Romchik38\Server\Models\DTO\RedirectResult\Http\RedirectResultDTO;
+use Romchik38\Server\Services\Redirect\Http\Redirect;
 
 class DymanicRootRouterTest extends TestCase
 {
@@ -19,6 +21,7 @@ class DymanicRootRouterTest extends TestCase
     protected $request;
     protected $dynamicRootService;
     protected $controller;
+    protected $redirectService;
 
     public function setUp(): void
     {
@@ -26,6 +29,7 @@ class DymanicRootRouterTest extends TestCase
         $this->request = $this->createMock(Request::class);
         $this->dynamicRootService = $this->createMock(DymanicRoot::class);
         $this->controller = $this->createMock(Controller::class);
+        $this->redirectService = $this->createMock(Redirect::class);
     }
 
     /**
@@ -126,6 +130,47 @@ class DymanicRootRouterTest extends TestCase
             [function () {
                 return ['GET' => $this->controller];
             }]
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * #6. redirect check
+     */
+
+    public function testExecuteRedirect()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+        $redirectResultDTO = new RedirectResultDTO('/en/newproducts', 301);
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->expects($this->once())->method('execute')
+            ->willReturn($redirectResultDTO);
+
+        $this->routerResult->expects($this->once())->method('setHeaders')
+            ->with([['Location: http://example.com/en/newproducts', true, 301]]);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }],
+            [],
+            null,
+            $this->redirectService
         );
 
         $router->execute();

@@ -90,11 +90,25 @@ class DymanicRootRouter implements HttpRouterInterface
         if ($this->redirectService !== null) {
             $redirectResult = $this->redirectService->execute($url, $method);
             if ($redirectResult !== null) {
-                return $this->redirect($redirectResult);
+                return $this->routerResult->setHeaders([
+                    [
+                        'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER
+                            . $host . $redirectResult->getRedirectLocation(),
+                        true,
+                        $redirectResult->getStatusCode()
+                    ]
+                ]);
             }
         }
 
-        // 7. set current root
+        /**
+         * 7. set current root
+         * 
+         * - the check may be ommited, because early we did check #3 with $rootList
+         *   and redirected all requests which starts with items not in the $rootList 
+         * - but we can't set $rootName which is not in the list because of something ...
+         * - so there is the check:
+         */
         $isSetCurrentRoot = $this->dymanicRootService->setCurrentRoot($rootName);
         if ($isSetCurrentRoot === false) {
             throw new RouterProccessError('Can\'t set current dynamic root with name: ' . $rootName);
@@ -103,7 +117,7 @@ class DymanicRootRouter implements HttpRouterInterface
         /** @var ControllerInterface $rootController */
         $rootController = $controllers[$method];
 
-        // 6. Exec
+        // 8. Exec
         try {
             $controllerResult = $rootController->execute($elements);
 
@@ -167,24 +181,6 @@ class DymanicRootRouter implements HttpRouterInterface
             /** @var RouterHeadersInterface $header */
             $header->setHeaders($this->routerResult, $path);
         }
-
-        return $this->routerResult;
-    }
-
-    /**
-     * Set a redirect to the same site with founded url and status code
-     */
-    protected function redirect(RedirectResultDTOInterface $redirectResult): HttpRouterResultInterface
-    {
-        $uri = $redirectResult->getRedirectLocation();
-        $statusCode = $redirectResult->getStatusCode();
-        $this->routerResult->setHeaders([
-            [
-                'Location: ' . $uri,
-                true,
-                $statusCode
-            ]
-        ]);
 
         return $this->routerResult;
     }
