@@ -47,7 +47,39 @@ class DymanicRootRouterTest extends TestCase
             ->willReturn($rootNames);
 
         $this->routerResult->expects($this->once())->method('setHeaders')
-            ->with([['Location: /en', true, 301]]);
+            ->with([['Location: http://example.com/en', true, 301]]);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            ['GET' => $this->controller]
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * #3 comment in the source code
+     *  Try to redirect from "/path" to "defaultRoot + path"
+     */
+    public function testExecuteRedirectToDefaultRootPlusPathFromSlashPath()
+    {
+        $uri = new Uri('http', 'example.com', '/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+
+        $this->request->expects($this->once())->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->expects($this->once())->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->expects($this->once())->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->routerResult->expects($this->once())->method('setHeaders')
+            ->with([['Location: http://example.com/en/products', true, 301]]);
 
         $router = new DymanicRootRouter(
             $this->routerResult,
