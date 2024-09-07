@@ -58,7 +58,7 @@ class DymanicRootRouter implements HttpRouterInterface
         // 2. for / redirect to default root
         if (count($elements) === 0) {
             return $this->routerResult->setHeaders([[
-                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER 
+                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER
                     . $host . '/' . $defaultRoot->getName(),
                 true,
                 301
@@ -70,7 +70,7 @@ class DymanicRootRouter implements HttpRouterInterface
         // 3. try to redirect to defaultRoot + path
         if (array_search($rootName, $rootList, true) === false) {
             return $this->routerResult->setHeaders([[
-                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER 
+                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER
                     . $host . '/' . $defaultRoot->getName() . $path,
                 true,
                 301
@@ -122,10 +122,13 @@ class DymanicRootRouter implements HttpRouterInterface
      */
     protected function methodNotAllowed(array $controllers): HttpRouterResultInterface
     {
-        $this->routerResult->setResponse('Method Not Allowed')
-            ->setStatusCode(405)
+        $this->routerResult->setResponse(HttpRouterResultInterface::METHOD_NOT_ALLOWED_RESPONSE)
             ->setHeaders([
-                ['Allow:' . implode(', ', array_keys($controllers))]
+                [
+                    'Allow:' . implode(', ', array_keys($controllers)),
+                    true,
+                    HttpRouterResultInterface::METHOD_NOT_ALLOWED_CODE
+                ]
             ]);
         return $this->routerResult;
     }

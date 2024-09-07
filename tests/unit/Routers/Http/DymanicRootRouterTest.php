@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Routers\Http\DymanicRootRouter;
 use Romchik38\Server\Results\Http\HttpRouterResult;
 use Romchik38\Server\Services\Request\Http\Request;
@@ -86,6 +87,45 @@ class DymanicRootRouterTest extends TestCase
             $this->request,
             $this->dynamicRootService,
             ['GET' => $this->controller]
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * #5 comment in the source code
+     * Method not Allowed
+     */
+
+    public function testExecuteMethodNotAllowed()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('PUT');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->routerResult->expects($this->once())->method('setResponse')
+            ->with(HttpRouterResultInterface::METHOD_NOT_ALLOWED_RESPONSE)
+            ->willReturn($this->routerResult);
+
+        $this->routerResult->expects($this->once())->method('setHeaders')
+            ->with([['Allow:GET', true, HttpRouterResultInterface::METHOD_NOT_ALLOWED_CODE]]);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }]
         );
 
         $router->execute();
