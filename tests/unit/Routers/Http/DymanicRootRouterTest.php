@@ -19,7 +19,7 @@ use Romchik38\Server\Results\Controller\ControllerResult;
 use Romchik38\Server\Routers\Errors\RouterProccessError;
 use Romchik38\Server\Services\Redirect\Http\Redirect;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
+use Romchik38\Server\Controllers\Errors\NotFoundException;
 
 class DymanicRootRouterTest extends TestCase
 {
@@ -258,9 +258,6 @@ class DymanicRootRouterTest extends TestCase
         $this->controller->expects($this->once())->method('execute')
             ->with(['en', 'products'])->willReturn($controllerResult);
 
-
-        // $header->setHeaders($this->routerResult, $path);
-
         $this->routerResult->expects($this->once())->method('setStatusCode')
             ->with(200)->willReturn($this->routerResult);
 
@@ -345,5 +342,64 @@ class DymanicRootRouterTest extends TestCase
         );
 
         $router->execute();
+    }
+
+    /**
+     * # 8. Exec
+     *   
+     * without notfoundController
+     * throws not found error
+     */
+    public function testExecuteControllerThrowsNotFoundErrorWithoutController(){
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->method('execute')->willReturn(null);
+
+        $this->dynamicRootService->method('setCurrentRoot')->willReturn(true);
+
+        $this->controller->method('execute')->willThrowException(new NotFoundException('not found'));
+
+
+        $this->routerResult->expects($this->once())->method('setStatusCode')
+            ->with(HttpRouterResultInterface::NOT_FOUND_STATUS_CODE)
+            ->willReturn($this->routerResult);
+
+        $this->routerResult->expects($this->once())->method('setResponse')
+            ->with(HttpRouterResultInterface::NOT_FOUND_RESPONSE)
+            ->willReturn($this->routerResult);
+            
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }]
+        );
+
+        $router->execute();
+    }
+
+        /**
+     * # 8. Exec
+     *   
+     * with notfoundController
+     * throws not found error
+     * 
+     * @todo implement this test
+     */
+    public function testExecuteControllerThrowsNotFoundErrorWithController(){
+
     }
 }

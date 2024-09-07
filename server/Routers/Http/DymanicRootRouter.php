@@ -152,11 +152,13 @@ class DymanicRootRouter implements HttpRouterInterface
      */
     protected function pageNotFound(): HttpRouterResultInterface
     {
-        $response = 'Error 404 from router - Page not found';
+        $response = HttpRouterResultInterface::NOT_FOUND_RESPONSE;
         if ($this->notFoundController !== null) {
-            $response = $this->notFoundController->execute(['404'])->getResponse();
+            $response = $this->notFoundController->execute(
+                [HttpRouterResultInterface::NOT_FOUND_STATUS_CODE]
+            )->getResponse();
         }
-        $this->routerResult->setStatusCode(404)
+        $this->routerResult->setStatusCode(HttpRouterResultInterface::NOT_FOUND_STATUS_CODE)
             ->setResponse($response);
         return $this->routerResult;
     }
