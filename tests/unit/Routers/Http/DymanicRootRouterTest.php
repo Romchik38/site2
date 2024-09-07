@@ -38,9 +38,6 @@ class DymanicRootRouterTest extends TestCase
         $this->dynamicRootService = $this->createMock(DymanicRoot::class);
         $this->controller = $this->createMock(Controller::class);
         $this->redirectService = $this->createMock(Redirect::class);
-        $this->header = $this->createMock((new class() implements RouterHeadersInterface {
-            public function setHeaders(HttpRouterResultInterface $result, array $path): void {}
-        })::class);
     }
 
     /**
@@ -287,21 +284,32 @@ class DymanicRootRouterTest extends TestCase
      *   
      * with action headers
      * return the result
+     * 
+     * @todo replace with new one when headers will be done
      */
     public function testExecuteControllerReturnResultWithHeaders()
     {
         $uri = new Uri('http', 'example.com', '/en/products');
         $defaultRootDTO = new DymanicRootDTO('en');
         $rootNames = ['en', 'uk'];
+        $path = ['en', 'products'];
         $controllerResult = new ControllerResult(
             'Product #1',
-            ['en', 'products'],
+            $path,
             ActionInterface::TYPE_ACTION
         );
 
+        $this->header = new class implements RouterHeadersInterface {
+            public function setHeaders(HttpRouterResultInterface $result, array $path): void {
+                $result->setHeaders([
+                    ['Cache-Control:no-cache']
+                ]);
+            }
+        };
+
         $headers = [
             HttpRouterInterface::REQUEST_METHOD_GET => [
-                SitemapInterface::ROOT_NAME . ControllerInterface::PATH_SEPARATOR . 'changepassword' => $this->header
+                'en' . ControllerInterface::PATH_SEPARATOR . 'products' => $this->header
             ]
         ];
 
@@ -320,12 +328,11 @@ class DymanicRootRouterTest extends TestCase
 
         $this->controller->method('execute')->willReturn($controllerResult);
 
-
-        // $header->setHeaders($this->routerResult, $path);
-
         $this->routerResult->method('setStatusCode')->willReturn($this->routerResult);
 
-
+        $this->routerResult->expects($this->once())->method('setHeaders')->with([
+            ['Cache-Control:no-cache']
+        ]);
 
         $router = new DymanicRootRouter(
             $this->routerResult,
@@ -334,6 +341,7 @@ class DymanicRootRouterTest extends TestCase
             [function () {
                 return ['GET' => $this->controller];
             }],
+            $headers
         );
 
         $router->execute();
