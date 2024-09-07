@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
+use Romchik38\Server\Api\Router\Http\HttpRouterInterface;
 use Romchik38\Server\Routers\Http\DymanicRootRouter;
 use Romchik38\Server\Results\Http\HttpRouterResult;
 use Romchik38\Server\Services\Request\Http\Request;
@@ -17,6 +18,8 @@ use Romchik38\Server\Models\DTO\RedirectResult\Http\RedirectResultDTO;
 use Romchik38\Server\Results\Controller\ControllerResult;
 use Romchik38\Server\Routers\Errors\RouterProccessError;
 use Romchik38\Server\Services\Redirect\Http\Redirect;
+use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
+use Romchik38\Server\Api\Services\SitemapInterface;
 
 class DymanicRootRouterTest extends TestCase
 {
@@ -26,6 +29,7 @@ class DymanicRootRouterTest extends TestCase
     protected $dynamicRootService;
     protected $controller;
     protected $redirectService;
+    protected $header;
 
     public function setUp(): void
     {
@@ -34,6 +38,9 @@ class DymanicRootRouterTest extends TestCase
         $this->dynamicRootService = $this->createMock(DymanicRoot::class);
         $this->controller = $this->createMock(Controller::class);
         $this->redirectService = $this->createMock(Redirect::class);
+        $this->header = $this->createMock((new class() implements RouterHeadersInterface {
+            public function setHeaders(HttpRouterResultInterface $result, array $path): void {}
+        })::class);
     }
 
     /**
@@ -226,7 +233,7 @@ class DymanicRootRouterTest extends TestCase
      * without set action headers
      * return the result
      */
-    public function testExecuteControllerReturnResult()
+    public function testExecuteControllerReturnResultWithoutHeaders()
     {
         $uri = new Uri('http', 'example.com', '/en/products');
         $defaultRootDTO = new DymanicRootDTO('en');
@@ -270,6 +277,63 @@ class DymanicRootRouterTest extends TestCase
             [function () {
                 return ['GET' => $this->controller];
             }]
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * # 8. Exec
+     *   
+     * with action headers
+     * return the result
+     */
+    public function testExecuteControllerReturnResultWithHeaders()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+        $controllerResult = new ControllerResult(
+            'Product #1',
+            ['en', 'products'],
+            ActionInterface::TYPE_ACTION
+        );
+
+        $headers = [
+            HttpRouterInterface::REQUEST_METHOD_GET => [
+                SitemapInterface::ROOT_NAME . ControllerInterface::PATH_SEPARATOR . 'changepassword' => $this->header
+            ]
+        ];
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->method('execute')->willReturn(null);
+
+        $this->dynamicRootService->method('setCurrentRoot')->willReturn(true);
+
+        $this->controller->method('execute')->willReturn($controllerResult);
+
+
+        // $header->setHeaders($this->routerResult, $path);
+
+        $this->routerResult->method('setStatusCode')->willReturn($this->routerResult);
+
+
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }],
         );
 
         $router->execute();
