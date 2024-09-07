@@ -67,10 +67,11 @@ class DymanicRootRouter implements HttpRouterInterface
 
         $rootName = $elements[0];
 
-        // 3. try redirect to defaultRoot + path
+        // 3. try to redirect to defaultRoot + path
         if (array_search($rootName, $rootList, true) === false) {
             return $this->routerResult->setHeaders([[
-                'Location: /' . $defaultRoot->getName() . $path,
+                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER 
+                    . $host . '/' . $defaultRoot->getName() . $path,
                 true,
                 301
             ]]);
