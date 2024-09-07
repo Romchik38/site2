@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
+use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Routers\Http\DymanicRootRouter;
 use Romchik38\Server\Results\Http\HttpRouterResult;
@@ -12,6 +14,7 @@ use Romchik38\Server\Controllers\Controller;
 use Romchik38\Server\Services\Request\Http\Uri;
 use Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTO;
 use Romchik38\Server\Models\DTO\RedirectResult\Http\RedirectResultDTO;
+use Romchik38\Server\Results\Controller\ControllerResult;
 use Romchik38\Server\Routers\Errors\RouterProccessError;
 use Romchik38\Server\Services\Redirect\Http\Redirect;
 
@@ -204,6 +207,61 @@ class DymanicRootRouterTest extends TestCase
 
         // $this->routerResult->expects($this->once())->method('setHeaders')
         //     ->with([['Location: http://example.com/en/newproducts', true, 301]]);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }]
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * # 8. Exec
+     *   
+     * without set action headers
+     * return the result
+     */
+    public function testExecuteControllerReturnResult()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+        $controllerResult = new ControllerResult(
+            'Product #1',
+            ['en', 'products'],
+            ActionInterface::TYPE_ACTION
+        );
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->method('execute')->willReturn(null);
+
+        $this->dynamicRootService->expects($this->once())->method('setCurrentRoot')
+            ->with('en')->willReturn(true);
+
+        $this->controller->expects($this->once())->method('execute')
+            ->with(['en', 'products'])->willReturn($controllerResult);
+
+
+        // $header->setHeaders($this->routerResult, $path);
+
+        $this->routerResult->expects($this->once())->method('setStatusCode')
+            ->with(200)->willReturn($this->routerResult);
+
+        $this->routerResult->expects($this->once())->method('setResponse')
+            ->with('Product #1');
 
         $router = new DymanicRootRouter(
             $this->routerResult,
