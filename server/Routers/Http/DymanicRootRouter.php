@@ -35,6 +35,8 @@ class DymanicRootRouter implements HttpRouterInterface
     {
         // 0. define
         $uri = $this->request->getUri();
+        $scheme = $uri->getScheme();
+        $host = $uri->getHost();
         $method = $this->request->getMethod();
         $path = $uri->getPath();
         [$url] = explode('?', $path);
@@ -56,7 +58,8 @@ class DymanicRootRouter implements HttpRouterInterface
         // 2. for / redirect to default root
         if (count($elements) === 0) {
             return $this->routerResult->setHeaders([[
-                'Location: /' . $defaultRoot->getName(),
+                'Location: ' . $scheme . RedirectInterface::SCHEME_HOST_DELIMITER 
+                    . $host . '/' . $defaultRoot->getName(),
                 true,
                 301
             ]]);
