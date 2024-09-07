@@ -12,6 +12,7 @@ use Romchik38\Server\Controllers\Controller;
 use Romchik38\Server\Services\Request\Http\Uri;
 use Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTO;
 use Romchik38\Server\Models\DTO\RedirectResult\Http\RedirectResultDTO;
+use Romchik38\Server\Routers\Errors\RouterProccessError;
 use Romchik38\Server\Services\Redirect\Http\Redirect;
 
 class DymanicRootRouterTest extends TestCase
@@ -171,6 +172,46 @@ class DymanicRootRouterTest extends TestCase
             [],
             null,
             $this->redirectService
+        );
+
+        $router->execute();
+    }
+
+    /**
+     * #7 set current root
+     */
+    public function testExecuteThrowsRouterProccessError()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->method('execute')->willReturn(null);
+
+        $this->dynamicRootService->expects($this->once())->method('setCurrentRoot')
+            ->with('en')->willReturn(false);
+
+        $this->expectException(RouterProccessError::class);
+
+        // $this->routerResult->expects($this->once())->method('setHeaders')
+        //     ->with([['Location: http://example.com/en/newproducts', true, 301]]);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }]
         );
 
         $router->execute();
