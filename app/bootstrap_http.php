@@ -25,6 +25,9 @@ return function () {
     $http_services = require_once(__DIR__ . '/bootstrap/Http/services.php');
     $http_services($container);
 
+    $http_headers = require_once(__DIR__ . '/bootstrap/Http/headers.php');
+    $http_headers($container);    
+
     $actions = require_once(__DIR__  . '/bootstrap/actions.php');
     $actions($container);
 
