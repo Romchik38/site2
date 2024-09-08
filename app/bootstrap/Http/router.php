@@ -7,7 +7,7 @@ return function ($container) {
     $actionList = $container->get('action_list_callback');
 
     // ROUTER HEADERS
-    // $headersFn = require_once(__DIR__ . '/router_headers.php');
+    $headersFn = require_once(__DIR__ . '/headers.php');
     // $headers = $headersFn($container);
 
     $container->add(
