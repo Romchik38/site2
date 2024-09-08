@@ -30,6 +30,7 @@ class DymanicRootRouterTest extends TestCase
     protected $controller;
     protected $redirectService;
     protected $header;
+    protected $notFoundController;
 
     public function setUp(): void
     {
@@ -38,6 +39,7 @@ class DymanicRootRouterTest extends TestCase
         $this->dynamicRootService = $this->createMock(DymanicRoot::class);
         $this->controller = $this->createMock(Controller::class);
         $this->redirectService = $this->createMock(Redirect::class);
+        $this->notFoundController = $this->createMock(Controller::class);
     }
 
     /**
@@ -297,7 +299,8 @@ class DymanicRootRouterTest extends TestCase
         );
 
         $this->header = new class implements RouterHeadersInterface {
-            public function setHeaders(HttpRouterResultInterface $result, array $path): void {
+            public function setHeaders(HttpRouterResultInterface $result, array $path): void
+            {
                 $result->setHeaders([
                     ['Cache-Control:no-cache']
                 ]);
@@ -350,7 +353,8 @@ class DymanicRootRouterTest extends TestCase
      * without notfoundController
      * throws not found error
      */
-    public function testExecuteControllerThrowsNotFoundErrorWithoutController(){
+    public function testExecuteControllerThrowsNotFoundErrorWithoutController()
+    {
         $uri = new Uri('http', 'example.com', '/en/products');
         $defaultRootDTO = new DymanicRootDTO('en');
         $rootNames = ['en', 'uk'];
@@ -378,7 +382,7 @@ class DymanicRootRouterTest extends TestCase
         $this->routerResult->expects($this->once())->method('setResponse')
             ->with(HttpRouterResultInterface::NOT_FOUND_RESPONSE)
             ->willReturn($this->routerResult);
-            
+
         $router = new DymanicRootRouter(
             $this->routerResult,
             $this->request,
@@ -391,15 +395,63 @@ class DymanicRootRouterTest extends TestCase
         $router->execute();
     }
 
-        /**
+    /**
      * # 8. Exec
      *   
      * with notfoundController
      * throws not found error
      * 
-     * @todo implement this test
      */
-    public function testExecuteControllerThrowsNotFoundErrorWithController(){
+    public function testExecuteControllerThrowsNotFoundErrorWithController()
+    {
+        $uri = new Uri('http', 'example.com', '/en/products');
+        $defaultRootDTO = new DymanicRootDTO('en');
+        $rootNames = ['en', 'uk'];
+        $notFoundResponse = '<h1>Page not found</h1>';
 
+        $controllerResult = new ControllerResult(
+            $notFoundResponse,
+            ['404'],
+            ActionInterface::TYPE_ACTION
+        );
+
+        $this->request->method('getUri')->willReturn($uri);
+        $this->request->method('getMethod')->willReturn('GET');
+
+        $this->dynamicRootService->method('getDefaultRoot')
+            ->willReturn($defaultRootDTO);
+
+        $this->dynamicRootService->method('getRootNames')
+            ->willReturn($rootNames);
+
+        $this->redirectService->method('execute')->willReturn(null);
+
+        $this->dynamicRootService->method('setCurrentRoot')->willReturn(true);
+
+        $this->controller->method('execute')->willThrowException(new NotFoundException('not found'));
+
+
+        $this->routerResult->method('setStatusCode')->willReturn($this->routerResult);
+
+        $this->routerResult->expects($this->once())->method('setResponse')
+            ->with($notFoundResponse)
+            ->willReturn($this->routerResult)
+        ;
+
+        $this->notFoundController->expects($this->once())->method('execute')
+            ->willReturn($controllerResult);
+
+        $router = new DymanicRootRouter(
+            $this->routerResult,
+            $this->request,
+            $this->dynamicRootService,
+            [function () {
+                return ['GET' => $this->controller];
+            }],
+            [],
+            $this->notFoundController
+        );
+
+        $router->execute();
     }
 }
