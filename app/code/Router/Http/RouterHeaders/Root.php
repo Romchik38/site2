@@ -10,7 +10,8 @@ use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 class Root implements RouterHeadersInterface {
     public function setHeaders(HttpRouterResultInterface $result, array $path): void
     {
-        $a = 1;
-        
+        $result->setHeaders([
+            ['Cache-Control:max-age=604800']
+        ]);
     }
 }

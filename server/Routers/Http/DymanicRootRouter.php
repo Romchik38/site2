@@ -17,19 +17,19 @@ use Romchik38\Server\Routers\Errors\RouterProccessError;
 
 class DymanicRootRouter implements HttpRouterInterface
 {
-    protected array $headers;
 
+    /**
+     * @param array $headers Is a function, that accepts the rootName and returns an instance of DynamicHeadersCollectionInterface
+     */
     public function __construct(
         protected HttpRouterResultInterface $routerResult,
         protected RequestInterface $request,
         protected DymanicRootInterface $dynamicRootService,
         protected array $actionListCallback,
-        array $headers = [],
+        protected array $headers = [],
         protected ControllerInterface | null $notFoundController = null,
         protected RedirectInterface|null $redirectService = null
-    ) {
-        $this->headers = $headers[$request->getMethod()] ?? [];
-    }
+    ) {}
     public function execute(): HttpRouterResultInterface
     {
         // 0. define
@@ -125,7 +125,21 @@ class DymanicRootRouter implements HttpRouterInterface
             $type = $controllerResult->getType();
 
             $this->routerResult->setStatusCode(200)->setResponse($response);
-            return $this->setHeaders($path, $type);
+
+            // 9. Set headers
+            if (count($this->headers) > 0) {
+                $callback = $this->headers[0];
+                /** @var DynamicHeadersCollectionInterface $headerService */
+                $headerService = $callback($rootName);
+                $headerPath = $this->getHeaderPath($path);
+                /** @var RouterHeadersInterface|null  $header */
+                $header = $headerService->getHeader($method, $headerPath, $type);
+                if($header !== null) {
+                    $header->setHeaders($this->routerResult, $path);
+                }
+            }
+            // 10. Exit
+            return $this->routerResult;
         } catch (NotFoundException $e) {
             return $this->pageNotFound();
         }
@@ -166,23 +180,8 @@ class DymanicRootRouter implements HttpRouterInterface
     /** 
      * set headers for actions
      */
-    protected function setHeaders(array $path, string $type): HttpRouterResultInterface
+    protected function getHeaderPath(array $path): string
     {
-        $pathString = implode(ControllerInterface::PATH_SEPARATOR, $path);
-        $header = $this->headers[$pathString] ?? null;
-
-        if ($header === null && $type === ActionInterface::TYPE_DYNAMIC_ACTION) {
-            $dynamicPath = array_slice($path, 0, count($path) - 1);
-            array_push($dynamicPath, ControllerInterface::PATH_DYNAMIC_ALL);
-            $dynamicPathString = implode(ControllerInterface::PATH_SEPARATOR, $dynamicPath);
-            $header = $this->headers[$dynamicPathString] ?? null;
-        }
-
-        if ($header !== null) {
-            /** @var RouterHeadersInterface $header */
-            $header->setHeaders($this->routerResult, $path);
-        }
-
-        return $this->routerResult;
+        return implode(ControllerInterface::PATH_SEPARATOR, $path);
     }
 }

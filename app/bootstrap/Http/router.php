@@ -7,8 +7,8 @@ return function ($container) {
     $actionList = $container->get('action_list_callback');
 
     // ROUTER HEADERS
-    $headersFn = require_once(__DIR__ . '/headers.php');
-    // $headers = $headersFn($container);
+    $headersFn = $container->get('headers');
+    $headers = [$headersFn];
 
     $container->add(
         \Romchik38\Server\Routers\Http\DymanicRootRouter::class,
@@ -17,7 +17,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\Request\Http\RequestInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class),
             [$actionList],
-            [],
+            $headers,
             null,
             null
         )

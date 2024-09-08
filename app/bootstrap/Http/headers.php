@@ -28,6 +28,7 @@ return function (Container $container) {
 
             // GET
             $arr[HttpRouterInterface::REQUEST_METHOD_GET] = [
+                /** en => header root instance */
                 $rootName => new Romchik38\Site2\Router\Http\RouterHeaders\Root()
             ];
 

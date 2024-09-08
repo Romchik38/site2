@@ -11,5 +11,5 @@ interface DynamicHeadersCollectionInterface
     /**
      * @return RouterHeadersInterface|null 
      */
-    public function getHeader(string $method, string $path): RouterHeadersInterface|null;
+    public function getHeader(string $method, string $path, string $actionType): RouterHeadersInterface|null;
 }

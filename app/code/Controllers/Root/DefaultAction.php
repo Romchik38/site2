@@ -24,5 +24,5 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
          */
         $message = 'root.page_name';
         return $this->translateService->t($message);
-    }
+    }   
 }
