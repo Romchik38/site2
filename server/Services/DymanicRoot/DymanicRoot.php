@@ -12,7 +12,7 @@ use Romchik38\Server\Services\Errors\EarlyAccessToCurrentRootError;
 class DymanicRoot implements DymanicRootInterface
 {
     protected readonly DymanicRootDTOInterface $defaultRoot;
-    protected DymanicRootDTOInterface|null $currentRoot;
+    protected DymanicRootDTOInterface|null $currentRoot = null;
 
     /**
      * @var DymanicRootDTOInterface[] $rootList
