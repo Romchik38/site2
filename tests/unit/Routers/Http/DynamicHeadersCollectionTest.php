@@ -16,6 +16,8 @@ class DynamicHeadersCollectionTest extends TestCase
      *   - the method
      *   - the path to a header instance
      *   - the header instance
+     * 
+     * Also tested getHeader, which returns the header instance
      */
     public function testConstruct()
     {
