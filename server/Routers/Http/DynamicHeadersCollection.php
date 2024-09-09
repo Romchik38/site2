@@ -47,13 +47,14 @@ class DynamicHeadersCollection implements DynamicHeadersCollectionInterface
 
     public function getHeader(string $method, string $path, string $actionType): RouterHeadersInterface|null
     {
+        /** 1. Method not found */
         $headers = $this->hash[$method] ?? null;
         if ($headers === null) {
             return null;
         }
 
         /** 
-         * Default action check 
+         * 2. Default action check 
          * 
          * @var RouterHeadersInterface|null $header
          * */
@@ -62,7 +63,7 @@ class DynamicHeadersCollection implements DynamicHeadersCollectionInterface
             return $header;
         }
 
-        /** Dynamic action check */
+        /** 3. Dynamic action check */
         if ($header === null && $actionType === ActionInterface::TYPE_DYNAMIC_ACTION) {
             $path = $path . ControllerInterface::PATH_SEPARATOR
                 . ControllerInterface::PATH_DYNAMIC_ALL;
