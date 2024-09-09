@@ -31,7 +31,11 @@ return function (Container $container) {
                 new Romchik38\Site2\Router\Http\RouterHeaders\Root(
                     $rootName,
                     HttpRouterInterface::REQUEST_METHOD_GET
-                )
+                ),
+                new Romchik38\Site2\Router\Http\RouterHeaders\Root(
+                    $rootName . $s . $a,
+                    HttpRouterInterface::REQUEST_METHOD_GET
+                ),
             ];
 
             return new DynamicHeadersCollection($arr);
