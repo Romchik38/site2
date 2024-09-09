@@ -21,6 +21,7 @@ use Romchik38\Server\Services\Redirect\Http\Redirect;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 use Romchik38\Server\Routers\Http\DynamicHeadersCollection;
+use Romchik38\Server\Routers\Http\RouterHeader;
 
 class DymanicRootRouterTest extends TestCase
 {
@@ -297,7 +298,7 @@ class DymanicRootRouterTest extends TestCase
             ActionInterface::TYPE_ACTION
         );
 
-        $this->header = new class implements RouterHeadersInterface {
+        $this->header = new class('en<>products', 'GET') extends RouterHeader {
             public function setHeaders(HttpRouterResultInterface $result, array $path): void
             {
                 $result->setHeaders([
@@ -306,11 +307,7 @@ class DymanicRootRouterTest extends TestCase
             }
         };
 
-        $data = [
-            HttpRouterInterface::REQUEST_METHOD_GET => [
-                'en' . ControllerInterface::PATH_SEPARATOR . 'products' => $this->header
-            ]
-        ];
+        $data = [$this->header];
 
         $headerService = new DynamicHeadersCollection($data);
 
