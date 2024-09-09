@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
+use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Results\Http\HttpRouterResult;
@@ -30,9 +32,10 @@ class DynamicHeadersCollectionTest extends TestCase
      *   - the path to a header instance
      *   - the header instance
      * 
-     * Also tested getHeader, which returns the header instance
+     * 2. Default action check 
+     *   Also tested getHeader, which returns the header instance
      */
-    public function testConstruct()
+    public function testConstructPlusDefaultActionCheck()
     {
         $routerResult = new HttpRouterResult();
 
@@ -44,7 +47,7 @@ class DynamicHeadersCollectionTest extends TestCase
         $data = [$header];
 
         $headerService = new DynamicHeadersCollection($data);
-        $result = $headerService->getHeader($method, $path, 'action');
+        $result = $headerService->getHeader($method, $path, ActionInterface::TYPE_ACTION);
         $result->setHeaders($routerResult, ['en', 'products']);
 
         $resultHeaders = $routerResult->getHeaders();
@@ -64,7 +67,28 @@ class DynamicHeadersCollectionTest extends TestCase
         $data = [$header];
 
         $headerService = new DynamicHeadersCollection($data);
-        $result = $headerService->getHeader('POST', $path, 'action');
+        $result = $headerService->getHeader('POST', $path, ActionInterface::TYPE_ACTION);
         $this->assertSame(null, $result);
+    }
+
+    /**
+     * 2. Dynamic action check 
+     */
+    public function testGetHeaderDynamicAction(){
+        $routerResult = new HttpRouterResult();
+
+        $path = 'en<>products<>*';
+        $method = 'GET';
+
+        $header = $this->createHeader($path, $method);
+
+        $data = [$header];
+
+        $headerService = new DynamicHeadersCollection($data);
+        $result = $headerService->getHeader($method, 'en<>products<>smartphone110', ActionInterface::TYPE_DYNAMIC_ACTION);
+        $result->setHeaders($routerResult, ['en', 'products', 'smartphone110']);
+
+        $resultHeaders = $routerResult->getHeaders();
+        $this->assertSame([['Cache-Control:no-cache']], $resultHeaders);
     }
 }

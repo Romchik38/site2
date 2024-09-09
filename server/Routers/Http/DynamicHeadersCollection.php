@@ -49,15 +49,17 @@ class DynamicHeadersCollection implements DynamicHeadersCollectionInterface
 
         /** 3. Dynamic action check */
         if ($header === null && $actionType === ActionInterface::TYPE_DYNAMIC_ACTION) {
-            $path = $path . ControllerInterface::PATH_SEPARATOR
-                . ControllerInterface::PATH_DYNAMIC_ALL;
+            $elements = explode(ControllerInterface::PATH_SEPARATOR, $path);
+            array_pop($elements);
+            array_push($elements, ControllerInterface::PATH_DYNAMIC_ALL);
+            $dynamicPath = implode(ControllerInterface::PATH_SEPARATOR, $elements);
             /** 
              * Example: en<>*
              * where en - root, <> - separator, * - dynamic marker
              * 
              * @var RouterHeadersInterface|null $header
              */
-            $header = $headers[$path] ?? null;
+            $header = $headers[$dynamicPath] ?? null;
         }
 
         return $header;
