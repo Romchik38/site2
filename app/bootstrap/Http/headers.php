@@ -29,11 +29,11 @@ return function (Container $container) {
             $arr = [
                 /** en => header root instance */
                 new Romchik38\Site2\Router\Http\RouterHeaders\Root(
-                    $rootName,
+                    $rootName, //   en
                     HttpRouterInterface::REQUEST_METHOD_GET
                 ),
                 new Romchik38\Site2\Router\Http\RouterHeaders\Root(
-                    $rootName . $s . $a,
+                    $rootName . $s . $a, // en<>*
                     HttpRouterInterface::REQUEST_METHOD_GET
                 ),
             ];
