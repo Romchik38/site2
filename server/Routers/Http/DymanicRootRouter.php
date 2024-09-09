@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Routers\Http;
 
-use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Api\Router\Http\HttpRouterInterface;
@@ -29,7 +28,14 @@ class DymanicRootRouter implements HttpRouterInterface
         protected array $headers = [],
         protected ControllerInterface | null $notFoundController = null,
         protected RedirectInterface|null $redirectService = null
-    ) {}
+    ) {
+        /** headers check */
+        if(count($headers) > 0) {
+            if(is_callable($headers[0]) === false) {
+                throw new RouterProccessError('1st item of headers array must be a callable');
+            }
+        }
+    }
     public function execute(): HttpRouterResultInterface
     {
         // 0. define
