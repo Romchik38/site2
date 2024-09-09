@@ -12,6 +12,13 @@ return function ($container) {
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
         )
     );
+    $container->add(
+        \Romchik38\Site2\Controllers\Root\DynamicAction::class,
+        new \Romchik38\Site2\Controllers\Root\DynamicAction(
+            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
 
     // ServerError
     $container->add(

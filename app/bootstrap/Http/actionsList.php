@@ -16,7 +16,7 @@ return function (Container $container) {
                 true,
                 $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
                 $container->get(\Romchik38\Site2\Controllers\Root\DefaultAction::class),
-                //$container->get(\Romchik38\Site2\Controllers\Root\DynamicAction::class),
+                $container->get(\Romchik38\Site2\Controllers\Root\DynamicAction::class),
             );
 
             return [
