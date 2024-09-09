@@ -10,6 +10,19 @@ use Romchik38\Server\Routers\Http\DynamicHeadersCollection;
 
 class DynamicHeadersCollectionTest extends TestCase
 {
+    protected $header;
+    public function setUp(): void
+    {
+        $this->header = new class implements RouterHeadersInterface {
+            public function setHeaders(HttpRouterResultInterface $result, array $path): void
+            {
+                $result->setHeaders([
+                    ['Cache-Control:no-cache']
+                ]);
+            }
+        };
+    }
+
     /**
      * Adding data to service and testing that it will be returned as expected
      * So, we pass correctly structure to __construct method:
@@ -23,21 +36,12 @@ class DynamicHeadersCollectionTest extends TestCase
     {
         $routerResult = new HttpRouterResult();
 
-        $header = new class implements RouterHeadersInterface {
-            public function setHeaders(HttpRouterResultInterface $result, array $path): void
-            {
-                $result->setHeaders([
-                    ['Cache-Control:no-cache']
-                ]);
-            }
-        };
-
         $path = 'en<>products';
         $method = 'GET';
 
         $data = [
             $method => [
-                $path => $header
+                $path => $this->header
             ]
         ];
 
@@ -47,5 +51,23 @@ class DynamicHeadersCollectionTest extends TestCase
 
         $resultHeaders = $routerResult->getHeaders();
         $this->assertSame([['Cache-Control:no-cache']], $resultHeaders);
+    }
+
+    /** 
+     * 1. Method not found
+     */
+    public function testGetHeaderMethodNotFound()
+    {
+        $path = 'en<>products';
+        $method = 'GET';
+        $data = [
+            $method => [
+                $path => $this->header
+            ]
+        ];
+
+        $headerService = new DynamicHeadersCollection($data);
+        $result = $headerService->getHeader('POST', $path, 'action');
+        $this->assertSame(null, $result);
     }
 }
