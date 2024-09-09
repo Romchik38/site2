@@ -29,12 +29,12 @@ return function (Container $container) {
 
     // DTO
     $container->add(
-        \Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory()
+        \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory()
     );
     $container->add(
-        \Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\DymanicRoot\DymanicRootDTOFactory::class)
+        \Romchik38\Server\Api\Models\DTO\DynamicRoot\DynamicRootDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class)
     );
 
     $container->add(

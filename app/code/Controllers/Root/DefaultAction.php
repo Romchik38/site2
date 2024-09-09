@@ -16,7 +16,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
          * this is for database requiest, when we want to get info 
          * for use inside this action
          * */
-        $currentRoot = $this->dymanicRootService->getCurrentRoot();
+        $currentRoot = $this->DynamicRootService->getCurrentRoot();
 
         /** 
          * for the views we do need use $currentRoot,

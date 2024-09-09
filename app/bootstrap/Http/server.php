@@ -6,7 +6,7 @@ return function ($container) {
     $container->add(
         \Romchik38\Server\Servers\Http\DefaultServer::class,
         new \Romchik38\Server\Servers\Http\DefaultServer(
-            $container->get(\Romchik38\Server\Api\Router\RouterInterface::class),
+            $container->get(\Romchik38\Server\Api\Routers\RouterInterface::class),
             new \Romchik38\Server\Controllers\Controller(
                 'server-error',
                 false,

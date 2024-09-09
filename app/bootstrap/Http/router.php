@@ -11,11 +11,11 @@ return function ($container) {
     $headers = [$headersFn];
 
     $container->add(
-        \Romchik38\Server\Routers\Http\DymanicRootRouter::class,
-        new \Romchik38\Server\Routers\Http\DymanicRootRouter(
+        \Romchik38\Server\Routers\Http\DynamicRootRouter::class,
+        new \Romchik38\Server\Routers\Http\DynamicRootRouter(
             $container->get(\Romchik38\Server\Api\Results\Http\HttpRouterResultInterface::class),
             $container->get(\Romchik38\Server\Api\Services\Request\Http\RequestInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             [$actionList],
             $headers,
             null,
@@ -24,8 +24,8 @@ return function ($container) {
     );
 
     $container->add(
-        \Romchik38\Server\Api\Router\RouterInterface::class,
-        $container->get(\Romchik38\Server\Routers\Http\DymanicRootRouter::class)
+        \Romchik38\Server\Api\Routers\RouterInterface::class,
+        $container->get(\Romchik38\Server\Routers\Http\DynamicRootRouter::class)
     );
 
     return $container;

@@ -3,31 +3,31 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
-use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 
 return function (Container $container) {
 
-    // DymanicRoot
-    $configDymanicRoot = require_once(__DIR__ . '/../config/shared/dymanic_root.php');
-    $defaultDymanicRoot = $configDymanicRoot[DymanicRootInterface::DEFAULT_ROOT_FIELD] ??
+    // DynamicRoot
+    $configDynamicRoot = require_once(__DIR__ . '/../config/shared/dynamic_root.php');
+    $defaultDynamicRoot = $configDynamicRoot[DynamicRootInterface::DEFAULT_ROOT_FIELD] ??
         throw new MissingRequiredParameterInFileError('Missing config field: '
-            . DymanicRootInterface::DEFAULT_ROOT_FIELD);
-    $dymanicRootList = $configDymanicRoot[DymanicRootInterface::ROOT_LIST_FIELD] ??
+            . DynamicRootInterface::DEFAULT_ROOT_FIELD);
+    $DynamicRootList = $configDynamicRoot[DynamicRootInterface::ROOT_LIST_FIELD] ??
         throw new MissingRequiredParameterInFileError('Missing config field: '
-            . DymanicRootInterface::ROOT_LIST_FIELD);
+            . DynamicRootInterface::ROOT_LIST_FIELD);
 
     $container->add(
-        \Romchik38\Server\Services\DymanicRoot\DymanicRoot::class,
-        new \Romchik38\Server\Services\DymanicRoot\DymanicRoot(
-            $defaultDymanicRoot,
-            $dymanicRootList,
-            $container->get(\Romchik38\Server\Api\Models\DTO\DymanicRoot\DymanicRootDTOFactoryInterface::class)
+        \Romchik38\Server\Services\DynamicRoot\DynamicRoot::class,
+        new \Romchik38\Server\Services\DynamicRoot\DynamicRoot(
+            $defaultDynamicRoot,
+            $DynamicRootList,
+            $container->get(\Romchik38\Server\Api\Models\DTO\DynamicRoot\DynamicRootDTOFactoryInterface::class)
         )
     );
     $container->add(
-        \Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class,
-        $container->get(\Romchik38\Server\Services\DymanicRoot\DymanicRoot::class)
+        \Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class,
+        $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRoot::class)
     );
 
     // TRANSLATESTORAGE
@@ -48,7 +48,7 @@ return function (Container $container) {
         \Romchik38\Server\Services\Translate\Translate::class,
         new \Romchik38\Server\Services\Translate\Translate(
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateStorageInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface::class)
+            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
     );
     $container->add(
