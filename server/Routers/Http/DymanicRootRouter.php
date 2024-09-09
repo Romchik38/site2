@@ -116,8 +116,8 @@ class DymanicRootRouter implements HttpRouterInterface
         /** @var ControllerInterface $rootController */
         $rootController = $controllers[$method];
 
-        // 8. Exec
         try {
+            // 8. Exec
             $controllerResult = $rootController->execute($elements);
 
             $path = $controllerResult->getPath();
@@ -141,6 +141,7 @@ class DymanicRootRouter implements HttpRouterInterface
             // 10. Exit
             return $this->routerResult;
         } catch (NotFoundException $e) {
+            // 11. Show page not found
             return $this->pageNotFound();
         }
     }

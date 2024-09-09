@@ -20,6 +20,7 @@ use Romchik38\Server\Routers\Errors\RouterProccessError;
 use Romchik38\Server\Services\Redirect\Http\Redirect;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
+use Romchik38\Server\Routers\Http\DynamicHeadersCollection;
 
 class DymanicRootRouterTest extends TestCase
 {
@@ -227,9 +228,9 @@ class DymanicRootRouterTest extends TestCase
     }
 
     /**
-     * # 8. Exec
+     * # 8, 10. Exec
      *   
-     * without set action headers
+     * without headers
      * return the result
      */
     public function testExecuteControllerReturnResultWithoutHeaders()
@@ -279,12 +280,10 @@ class DymanicRootRouterTest extends TestCase
     }
 
     /**
-     * # 8. Exec
+     * # 9. Set headers
      *   
-     * with action headers
+     * with headers
      * return the result
-     * 
-     * @todo replace with new one when headers will be done
      */
     public function testExecuteControllerReturnResultWithHeaders()
     {
@@ -307,11 +306,15 @@ class DymanicRootRouterTest extends TestCase
             }
         };
 
-        $headers = [
+        $data = [
             HttpRouterInterface::REQUEST_METHOD_GET => [
                 'en' . ControllerInterface::PATH_SEPARATOR . 'products' => $this->header
             ]
         ];
+
+        $headerService = new DynamicHeadersCollection($data);
+
+        $headers = [fn() => $headerService];
 
         $this->request->method('getUri')->willReturn($uri);
         $this->request->method('getMethod')->willReturn('GET');
@@ -347,11 +350,12 @@ class DymanicRootRouterTest extends TestCase
         $router->execute();
     }
 
+
     /**
-     * # 8. Exec
+     * # 11. Show page not found
      *   
-     * without notfoundController
      * throws not found error
+     * without notfoundController
      */
     public function testExecuteControllerThrowsNotFoundErrorWithoutController()
     {
@@ -396,11 +400,10 @@ class DymanicRootRouterTest extends TestCase
     }
 
     /**
-     * # 8. Exec
+     * # 11. Show page not found
      *   
-     * with notfoundController
      * throws not found error
-     * 
+     * with notfoundController
      */
     public function testExecuteControllerThrowsNotFoundErrorWithController()
     {
