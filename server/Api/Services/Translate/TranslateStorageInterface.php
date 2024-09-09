@@ -10,9 +10,9 @@ interface TranslateStorageInterface
 {
 
     /**
-     * get all dto entities by provided languages
+     * get all dto entities by provided 2 languages
      * 
-     * @param string[] $languages ['en', ...]
+     * @param string[] $languages [default_lang, current_lang]
      * @return TranslateEntityDTOInterface[] list of translate dto entities
      */
     public function getDataByLanguages(array $languages): array;

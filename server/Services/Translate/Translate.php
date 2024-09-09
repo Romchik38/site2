@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOInterface;
 use Romchik38\Server\Api\Services\DymanicRoot\DymanicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateStorageInterface;
+use Romchik38\Server\Services\Errors\TranslateException;
 
 /**
  * Translate a string by given key. Just pass the key 
@@ -44,11 +45,14 @@ class Translate implements TranslateInterface
             );
         }
 
+        /**
+         * Want that translate works - load all phrases in the default language before change it
+         */
         /** @var TranslateEntityDTOInterface $translateDTO*/
         $translateDTO = $this->hash[$str] ??
-            throw new \RuntimeException('invalid trans string');
+            throw new TranslateException('invalid trans string');
         $defaultVal = $translateDTO->getPhrase($this->defaultLang) ??
-            throw new \RuntimeException('default value for lang ' . $this->defaultLang . ' isn\'t set');
+            throw new TranslateException('default value for lang ' . $this->defaultLang . ' isn\'t set');
         return $translateDTO->getPhrase($this->currentLang) ?? $defaultVal;
     }
 }
