@@ -18,30 +18,14 @@ class DynamicHeadersCollection implements DynamicHeadersCollectionInterface
     protected array $hash = [];
 
     public function __construct(
-        array $data
+        array $headersList
     ) {
-        /** 
-         * @var array $data key is a method name, value is an array ( see below )
-         *  Example:
-         * [ 'GET' => [...], 'POST' => [...], ...]
-         */
-        foreach ($data as $method => $headerList) {
-            $headers = [];
-            /**
-             * @var string $path a path key to identify the header
-             * @var RouterHeadersInterface $header an instance of header class
-             * Example:
-             *  [ 
-             *     en<>products => header instance of products,
-             *     en           => header instance of root
-             *     ...
-             *  ]
-             * where <> is a separator
-             */
-            foreach ($headerList as $path => $header) {
-                $headers[$path] = $header;
-            }
-            $this->hash[$method] = $headers;
+        /** @var RouterHeadersInterface $header */
+        foreach ($headersList as $header) {
+            $method = $header->getMethod();
+            $methodList = $this->hash[$method] ?? [];
+            $methodList[$header->getPath()] = $header;
+            $this->hash[$method] =  $methodList;
         }
     }
 

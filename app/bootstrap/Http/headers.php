@@ -24,12 +24,14 @@ return function (Container $container) {
 
             $s = ControllerInterface::PATH_SEPARATOR;
             $a = ControllerInterface::PATH_DYNAMIC_ALL;
-            $arr = [];
 
             // GET
-            $arr[HttpRouterInterface::REQUEST_METHOD_GET] = [
+            $arr = [
                 /** en => header root instance */
-                $rootName => new Romchik38\Site2\Router\Http\RouterHeaders\Root()
+                new Romchik38\Site2\Router\Http\RouterHeaders\Root(
+                    $rootName,
+                    HttpRouterInterface::REQUEST_METHOD_GET
+                )
             ];
 
             return new DynamicHeadersCollection($arr);
