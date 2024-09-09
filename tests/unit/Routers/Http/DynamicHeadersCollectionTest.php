@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
-use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Api\Router\Http\RouterHeadersInterface;
 use Romchik38\Server\Results\Http\HttpRouterResult;
@@ -72,7 +71,7 @@ class DynamicHeadersCollectionTest extends TestCase
     }
 
     /**
-     * 2. Dynamic action check 
+     * 3. Dynamic action check 
      */
     public function testGetHeaderDynamicAction(){
         $routerResult = new HttpRouterResult();
