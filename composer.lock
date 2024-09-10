@@ -153,16 +153,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "2d9b181516ff1e49a342a7ea004ff00b7a6d07e7"
+                "reference": "f28e5e1807a17260e08d6f4fa828ae12a28a5a03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/2d9b181516ff1e49a342a7ea004ff00b7a6d07e7",
-                "reference": "2d9b181516ff1e49a342a7ea004ff00b7a6d07e7",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/f28e5e1807a17260e08d6f4fa828ae12a28a5a03",
+                "reference": "f28e5e1807a17260e08d6f4fa828ae12a28a5a03",
                 "shasum": ""
             },
             "require": {
@@ -188,10 +188,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.2.0",
+                "source": "https://github.com/Romchik38/server/tree/v1.2.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2024-09-09T19:25:57+00:00"
+            "time": "2024-09-10T16:27:07+00:00"
         }
     ],
     "packages-dev": [

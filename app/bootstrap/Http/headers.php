@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Romchik38\Container;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
-use Romchik38\Server\Api\Routers\Http\DynamicHeadersCollectionInterface;
-use Romchik38\Server\Routers\Http\DynamicHeadersCollection;
+use Romchik38\Server\Api\Routers\Http\HeadersCollectionInterface;
+use Romchik38\Server\Routers\Http\HeadersCollection;
 
 /** 
  * This is a runtime function.
@@ -20,7 +20,7 @@ return function (Container $container) {
     $container->add('headers', function ($container) {
 
         /** the function will be called from dynamic router at runtime */
-        return function (string $rootName) use ($container): DynamicHeadersCollectionInterface {
+        return function (string $rootName) use ($container): HeadersCollectionInterface {
 
             $s = ControllerInterface::PATH_SEPARATOR;
             $a = ControllerInterface::PATH_DYNAMIC_ALL;
@@ -38,7 +38,7 @@ return function (Container $container) {
                 ),
             ];
 
-            return new DynamicHeadersCollection($arr);
+            return new HeadersCollection($arr);
         };
     });
 
