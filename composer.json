@@ -31,7 +31,8 @@
     "require": {
         "romchik38/php-container": "1.1.*",
         "psr/log": "^3.0",
-        "romchik38/php-server": "1.2.*"
+        "romchik38/php-server": "1.2.*",
+        "twig/twig": "^3.14"
     },
     "require-dev": {
         "phpunit/phpunit": "^11"
