@@ -7,6 +7,7 @@ namespace Romchik38\Server\Views\Http;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
+use Twig\Environment;
 
 class TwigView implements HttpViewInterface
 {
@@ -15,7 +16,9 @@ class TwigView implements HttpViewInterface
     protected ControllerInterface|null $controller = null;
     protected string $action;
 
-    public function __construct() {}
+    public function __construct(
+        protected Environment $environment
+    ) {}
 
     public function setController(ControllerInterface $controller, string $action = ''): HttpViewInterface
     {

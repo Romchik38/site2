@@ -28,6 +28,9 @@ return function () {
     $http_headers = require_once(__DIR__ . '/bootstrap/Http/headers.php');
     $http_headers($container);    
 
+    $http_views = require_once(__DIR__ . '/bootstrap/Http/views.php');
+    $http_views($container);
+
     $actions = require_once(__DIR__  . '/bootstrap/actions.php');
     $actions($container);
 
