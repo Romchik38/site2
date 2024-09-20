@@ -38,9 +38,9 @@ class DynamicAction extends MultiLanguageAction implements DynamicActionInterfac
         $translatedMessage = $this->translateService->t($messageKey);
 
         $dto = $this->defaultViewDTOFactory->create(
-            $translatedMessage . ' Title',
-            $translatedMessage . ' Description',
-            $translatedMessage . ' Page content'
+            $translatedMessage,
+            $translatedMessage,
+            $translatedMessage
         );
 
         $result  = $this->view

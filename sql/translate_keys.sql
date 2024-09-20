@@ -7,6 +7,9 @@ INSERT INTO translate_keys (key) VALUES
     ('root.page_name'),
     ('server-error.message'),
     ('root.about'),
-    ('root.contacts')
+    ('root.contacts'),
+    --footer
+    ('footer.copyright'),
+    ('footer.by_romanenko')
 ;
 

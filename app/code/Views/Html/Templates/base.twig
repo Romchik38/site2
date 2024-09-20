@@ -6,6 +6,9 @@
     </head>
 
     <body>
+        <div id="header">
+            {% include 'layouts/header.twig' %}
+        </div>
 
         <div id="content">
             {% include content_template with {'data': data} only %}

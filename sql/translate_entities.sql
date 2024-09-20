@@ -16,5 +16,10 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('root.about', 'en', 'About Page'),
     ('root.about', 'uk', 'Сторінка про компанію'),
     ('root.contacts', 'en', 'Contacts Page'),
-    ('root.contacts', 'uk', 'Наші контакти')
+    ('root.contacts', 'uk', 'Наші контакти'),
+    ('footer.copyright', 'en', 'Copyright'),
+    ('footer.copyright', 'uk', 'Авторське право'),
+    ('footer.by_romanenko', 'en', 'by Romanenko Serhii'),
+    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію')
 ;
+

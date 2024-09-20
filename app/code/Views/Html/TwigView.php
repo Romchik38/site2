@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Twig\Environment;
@@ -21,10 +22,11 @@ class TwigView implements HttpViewInterface
     protected string $action;
 
     public function __construct(
-        protected Environment $environment,
-        protected DynamicRootInterface|null $dynamicRootService = null,
-        protected string $controllerPath = 'controllers',
-        protected string $layoutPath = 'base.twig'
+        protected readonly Environment $environment,
+        protected readonly DynamicRootInterface|null $dynamicRootService = null,
+        protected readonly TranslateInterface|null $translateService,
+        protected readonly string $controllerPath = 'controllers',
+        protected readonly string $layoutPath = 'base.twig',
     ) {}
 
     public function setController(ControllerInterface $controller, string $action = ''): HttpViewInterface
@@ -82,7 +84,8 @@ class TwigView implements HttpViewInterface
                 [
                     'data' => $this->controllerData,
                     'meta_data' => $this->metaData,
-                    'content_template' => $templateName
+                    'content_template' => $templateName,
+                    'translate' => $this->translateService
                 ]
             );
         } catch (LoaderError $e) {
