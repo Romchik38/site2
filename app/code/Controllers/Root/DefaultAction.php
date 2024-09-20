@@ -17,24 +17,12 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view
-    )
-    {
-        
-    }    
+    ) {}
 
     public function execute(): string
     {
-        /** 
-         * this is for database requiest, when we want to get info 
-         * for use inside this action
-         * */
-        $currentRoot = $this->DynamicRootService->getCurrentRoot();
+        
 
-        /** 
-         * for the views we do need use $currentRoot,
-         *  because it alredy defined in the translate service
-         */
-        $message = 'root.page_name';
-        return $this->translateService->t($message);
-    }   
+        return 'home';
+    }
 }
