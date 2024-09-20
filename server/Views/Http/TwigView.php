@@ -11,6 +11,7 @@ use Romchik38\Server\Api\Services\SitemapInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Twig\Environment;
+use Twig\Error\LoaderError;
 
 class TwigView implements HttpViewInterface
 {
@@ -70,7 +71,8 @@ class TwigView implements HttpViewInterface
 
         $templateName = $this->controller->getName();
         /**2. replace dynamic root with permanent */
-        if ($templateName === $this->dynamicRootService->getCurrentRoot()) {
+        $currentRoot = $this->dynamicRootService->getCurrentRoot()->getName();
+        if ($templateName === $currentRoot) {
             $templateName = SitemapInterface::ROOT_NAME;
         }
 
@@ -82,7 +84,12 @@ class TwigView implements HttpViewInterface
         }
 
         /** 4. render */
-        $html = $this->environment->render($templateName);
+        try {
+            $html = $this->environment->render($templateName);
+        } catch(LoaderError $e) {
+            /** @todo log errror */
+            throw new ViewBuildException('Template render error. View build aborted');
+        }
 
         return $html;
     }
