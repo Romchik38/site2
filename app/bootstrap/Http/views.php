@@ -30,7 +30,8 @@ return function(Container $container) {
     $container->add(
         \Romchik38\Server\Views\Http\TwigView::class,
         new \Romchik38\Server\Views\Http\TwigView(
-            $container->get(\Twig\Environment::class)
+            $container->get(\Twig\Environment::class),
+            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
     );
 
