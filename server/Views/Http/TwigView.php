@@ -7,6 +7,7 @@ namespace Romchik38\Server\Views\Http;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
+use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Twig\Environment;
 
 class TwigView implements HttpViewInterface
@@ -54,7 +55,14 @@ class TwigView implements HttpViewInterface
     /** @todo check */
     protected function build(): string
     {
-
+        if ($this->controller === null || $this->action === null) {
+            throw new ViewBuildException('Controller was not set. View build aborted');
+        }
+        $templateName = $this->controller->getName();
+        if (strlen($this->action) > 0) {
+            $templateName .= '/' . $this->action;
+        }
+        /** @todo test here */
         $html = '';
 
         return $html;
