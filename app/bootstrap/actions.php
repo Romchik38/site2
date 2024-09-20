@@ -9,7 +9,8 @@ return function ($container) {
         \Romchik38\Site2\Controllers\Root\DefaultAction::class,
         new \Romchik38\Site2\Controllers\Root\DefaultAction(
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Server\Views\Http\TwigView::class)
         )
     );
     $container->add(

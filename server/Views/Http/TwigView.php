@@ -17,9 +17,12 @@ class TwigView implements HttpViewInterface
     protected string $action;
 
     public function __construct(
-        protected Environment $environment
+        protected Environment $environment,
+        protected string $controllerPath = 'controllers',
+        protected string $layoutPath = 'layouts'
     ) {}
 
+    /** @todo check */
     public function setController(ControllerInterface $controller, string $action = ''): HttpViewInterface
     {
         $this->controller = $controller;
@@ -27,24 +30,28 @@ class TwigView implements HttpViewInterface
         return $this;
     }
 
+    /** @todo check */
     public function setControllerData(DefaultViewDTOInterface $data): HttpViewInterface
     {
         $this->controllerData = $data;
         return $this;
     }
 
+    /** @todo check */
     public function setMetadata(string $key, string $value): HttpViewInterface
     {
         $this->metaData[$key] = $value;
         return $this;
     }
 
+    /** @todo check */
     public function toString(): string
     {
         $this->prepareMetaData($this->controllerData);
         return $this->build();
     }
 
+    /** @todo check */
     protected function build(): string
     {
 
@@ -53,6 +60,7 @@ class TwigView implements HttpViewInterface
         return $html;
     }
 
+    /** @todo check */
     protected function prepareMetaData(DefaultViewDTOInterface $data): void
     {
         /** use this for add info to metaData */

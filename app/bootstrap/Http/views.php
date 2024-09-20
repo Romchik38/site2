@@ -26,5 +26,13 @@ return function(Container $container) {
         )
     );
 
+    // Twig Default View
+    $container->add(
+        \Romchik38\Server\Views\Http\TwigView::class,
+        new \Romchik38\Server\Views\Http\TwigView(
+            $container->get(\Twig\Environment::class)
+        )
+    );
+
     return $container;
 };
