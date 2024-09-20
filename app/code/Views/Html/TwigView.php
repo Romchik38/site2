@@ -24,6 +24,7 @@ class TwigView implements HttpViewInterface
         protected Environment $environment,
         protected DynamicRootInterface|null $dynamicRootService = null,
         protected string $controllerPath = 'controllers',
+        /** @todo ? */
         protected string $layoutPath = 'layouts'
     ) {}
 
@@ -79,7 +80,11 @@ class TwigView implements HttpViewInterface
 
         /** 4. render */
         try {
-            $html = $this->environment->render($templateName, ['data' => $this->controllerData]);
+            $html = $this->environment->render($templateName, [
+                'data' => $this->controllerData,
+                'meta_data' => $this->metaData
+                ]
+            );
         } catch (LoaderError $e) {
             throw new ViewBuildException('Template render error: ' . $e->getMessage() .  '. View build aborted');
         }

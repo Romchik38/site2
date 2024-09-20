@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'layouts/head.twig' %}
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div id="footer">
+            {% include 'layouts/footer.twig' %}
+        </div>   
+
+    </body>
+</html>
