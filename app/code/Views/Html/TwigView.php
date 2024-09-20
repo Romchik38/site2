@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Views\Http;
+namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
@@ -22,7 +22,7 @@ class TwigView implements HttpViewInterface
 
     public function __construct(
         protected Environment $environment,
-        protected DynamicRootInterface $dynamicRootService,
+        protected DynamicRootInterface|null $dynamicRootService = null,
         protected string $controllerPath = 'controllers',
         protected string $layoutPath = 'layouts'
     ) {}
@@ -61,7 +61,6 @@ class TwigView implements HttpViewInterface
         return $this->build();
     }
 
-    /** @todo check */
     protected function build(): string
     {
         /** 1. check view is ready to build */
@@ -69,12 +68,7 @@ class TwigView implements HttpViewInterface
             throw new ViewBuildException('Controller was not set. View build aborted');
         }
 
-        $templateName = $this->controller->getName();
-        /**2. replace dynamic root with permanent */
-        $currentRoot = $this->dynamicRootService->getCurrentRoot()->getName();
-        if ($templateName === $currentRoot) {
-            $templateName = SitemapInterface::ROOT_NAME;
-        }
+        $templateName = $this->controllerPath . '/' . $this->getControllerTemplatePrefix();
 
         /** 3. choose a template path by given action name */
         if (strlen($this->action) > 0) {
@@ -85,13 +79,30 @@ class TwigView implements HttpViewInterface
 
         /** 4. render */
         try {
-            $html = $this->environment->render($templateName);
-        } catch(LoaderError $e) {
-            /** @todo log errror */
-            throw new ViewBuildException('Template render error: ' . $templateName .  '. View build aborted');
+            $html = $this->environment->render($templateName, ['data' => $this->controllerData]);
+        } catch (LoaderError $e) {
+            throw new ViewBuildException('Template render error: ' . $e->getMessage() .  '. View build aborted');
         }
 
         return $html;
+    }
+
+    protected function getControllerTemplatePrefix(): string
+    {
+        $templateName = $this->controller->getName();
+
+        /** 1. Permanent root */
+        if ($this->dynamicRootService === null) {
+            return $templateName;
+        }
+
+        /**2. replace dynamic root with permanent */
+        $currentRoot = $this->dynamicRootService->getCurrentRoot()->getName();
+        if ($templateName === $currentRoot) {
+            $templateName = SitemapInterface::ROOT_NAME;
+        }
+
+        return $templateName;
     }
 
     /** @todo check */

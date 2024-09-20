@@ -30,7 +30,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         $dto = $this->defaultViewDTOFactory->create(
             $translatedMessage . ' Title',
             $translatedMessage . ' Description',
-            $translatedMessage . ' Page'
+            $translatedMessage . ' Page content'
         );
 
         $result  = $this->view
@@ -38,6 +38,6 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             ->setControllerData($dto)
             ->toString();
 
-        return 'home';
+        return $result;
     }
 }

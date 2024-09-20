@@ -28,8 +28,8 @@ return function(Container $container) {
 
     // Twig Default View
     $container->add(
-        \Romchik38\Server\Views\Http\TwigView::class,
-        new \Romchik38\Server\Views\Http\TwigView(
+        \Romchik38\Site2\Views\Html\TwigView::class,
+        new \Romchik38\Site2\Views\Html\TwigView(
             $container->get(\Twig\Environment::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
