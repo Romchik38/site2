@@ -46,5 +46,14 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\DTO\TranslateEntity\TranslateEntityDTOFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory()
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory::class)
+    );
+
     return $container;
 };

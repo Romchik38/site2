@@ -33,9 +33,10 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             $translatedMessage . ' Page'
         );
 
-        $this->view
+        $result  = $this->view
             ->setController($this->getController())
-            ->setControllerData($dto);
+            ->setControllerData($dto)
+            ->toString();
 
         return 'home';
     }

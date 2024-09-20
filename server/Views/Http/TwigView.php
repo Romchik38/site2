@@ -60,7 +60,9 @@ class TwigView implements HttpViewInterface
         }
         $templateName = $this->controller->getName();
         if (strlen($this->action) > 0) {
-            $templateName .= '/' . $this->action;
+            $templateName .= '/dynamic/' . $this->action;
+        } else {
+            $templateName .= '/default/' . $this->action;
         }
         /** @todo test here */
         $html = '';
