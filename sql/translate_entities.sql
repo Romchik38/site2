@@ -20,6 +20,15 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('footer.copyright', 'en', 'Copyright'),
     ('footer.copyright', 'uk', 'Авторське право'),
     ('footer.by_romanenko', 'en', 'by Romanenko Serhii'),
-    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію')
+    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію'),
+    --header
+    ('header.logo', 'en', 'Logo'),
+    ('header.logo', 'uk', 'Логотип'),
+    ('header.phone_number', 'en', 'Phone number'),
+    ('header.phone_number', 'uk', 'Контактний телефон'),
+    ('header.sing_in', 'en', 'Sing in'),
+    ('header.sing_in', 'uk', 'Увійти'),
+    ('header.register', 'en', 'Register'),
+    ('header.register', 'uk', 'Зареєструватися')
 ;
 

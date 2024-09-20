@@ -5,16 +5,16 @@
         {% include 'layouts/head.twig' %}
     </head>
 
-    <body>
-        <div id="header">
+    <body class="container-fluid">
+        <div id="header" class="row">
             {% include 'layouts/header.twig' %}
         </div>
 
-        <div id="content">
+        <div id="content" class="row">
             {% include content_template with {'data': data} only %}
         </div>
 
-        <div id="footer">
+        <div id="footer" class="row">
             {% include 'layouts/footer.twig' %}
         </div>   
 

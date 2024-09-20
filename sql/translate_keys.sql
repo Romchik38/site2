@@ -10,6 +10,11 @@ INSERT INTO translate_keys (key) VALUES
     ('root.contacts'),
     --footer
     ('footer.copyright'),
-    ('footer.by_romanenko')
+    ('footer.by_romanenko'),
+    --header
+    ('header.logo'),
+    ('header.phone_number'),
+    ('header.sing_in'),
+    ('header.register')
 ;
 

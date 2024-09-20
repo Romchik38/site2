@@ -1,18 +1,18 @@
 <div class="container-fluid bg-secondary text-light">
-    <div class="row">
+    <div class="row my-2">
         <div class="col">
             <div class="text-center">
-                Logo
+                {{ translate.t('header.logo') }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="text-center">
-                phone number
+                {{ translate.t('header.phone_number') }}
             </div>
         </div>
         <div class="col">
             <div class="text-center">
-                Sing in|Register
+                <span class="me-2">{{ translate.t('header.sing_in') }}</span>|<span class="ms-2">{{ translate.t('header.register') }}</span>
             </div>
         </div>
     </div>
