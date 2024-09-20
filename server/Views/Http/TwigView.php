@@ -88,7 +88,7 @@ class TwigView implements HttpViewInterface
             $html = $this->environment->render($templateName);
         } catch(LoaderError $e) {
             /** @todo log errror */
-            throw new ViewBuildException('Template render error. View build aborted');
+            throw new ViewBuildException('Template render error: ' . $templateName .  '. View build aborted');
         }
 
         return $html;
