@@ -24,11 +24,9 @@ class TwigView implements HttpViewInterface
         protected Environment $environment,
         protected DynamicRootInterface|null $dynamicRootService = null,
         protected string $controllerPath = 'controllers',
-        /** @todo ? */
-        protected string $layoutPath = 'layouts'
+        protected string $layoutPath = 'base.twig'
     ) {}
 
-    /** @todo check */
     public function setController(ControllerInterface $controller, string $action = ''): HttpViewInterface
     {
         $this->controller = $controller;
@@ -36,14 +34,13 @@ class TwigView implements HttpViewInterface
         return $this;
     }
 
-    /** @todo check */
     public function setControllerData(DefaultViewDTOInterface $data): HttpViewInterface
     {
         $this->controllerData = $data;
         return $this;
     }
 
-    /** @todo check */
+    /** @todo change on protected with update */
     public function setMetadata(string $key, string $value): HttpViewInterface
     {
         $this->metaData[$key] = $value;
@@ -73,16 +70,19 @@ class TwigView implements HttpViewInterface
 
         /** 3. choose a template path by given action name */
         if (strlen($this->action) > 0) {
-            $templateName .= '/dynamic/' . $this->action . '.twig';
+            $templateName .= '/dynamic\/' . $this->action . '.twig';
         } else {
             $templateName .= '/default/index.twig';
         }
 
         /** 4. render */
         try {
-            $html = $this->environment->render($templateName, [
-                'data' => $this->controllerData,
-                'meta_data' => $this->metaData
+            $html = $this->environment->render(
+                $this->layoutPath,
+                [
+                    'data' => $this->controllerData,
+                    'meta_data' => $this->metaData,
+                    'content_template' => $templateName
                 ]
             );
         } catch (LoaderError $e) {

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         {% include 'layouts/head.twig' %}
     </head>
+
     <body>
+
         <div id="content">
-            {% block content %}
-            {% endblock %}
+            {% include content_template with {'data': data} only %}
         </div>
 
         <div id="footer">

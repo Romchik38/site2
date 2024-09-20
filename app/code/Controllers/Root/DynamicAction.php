@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Controllers\Root;
 
 use Romchik38\Server\Api\Controllers\Actions\DynamicActionInterface;
+use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 
@@ -16,15 +20,35 @@ class DynamicAction extends MultiLanguageAction implements DynamicActionInterfac
         'contacts' => 'root.contacts'
     ];
 
+    public function __construct(
+        protected readonly DynamicRootInterface $DynamicRootService,
+        protected readonly TranslateInterface $translateService,
+        protected readonly ViewInterface $view,
+        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
+    ) {}
+
     public function execute(string $dynamicRoute): string
     {
-        $action = $this->actions[$dynamicRoute] ?? null;
+        $messageKey = $this->actions[$dynamicRoute] ?? null;
 
-        if ($action === null) {
+        if ($messageKey === null) {
             throw new NotFoundException('action ' . $dynamicRoute . ' not found');
         }
 
-        return $this->translateService->t($action);
+        $translatedMessage = $this->translateService->t($messageKey);
+
+        $dto = $this->defaultViewDTOFactory->create(
+            $translatedMessage . ' Title',
+            $translatedMessage . ' Description',
+            $translatedMessage . ' Page content'
+        );
+
+        $result  = $this->view
+            ->setController($this->getController(), $dynamicRoute)
+            ->setControllerData($dto)
+            ->toString();
+
+        return $result;
     }
 
     public function getRoutes(): array
