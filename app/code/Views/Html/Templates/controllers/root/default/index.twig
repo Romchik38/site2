@@ -1,2 +1,7 @@
-<h1>{{ data.getName() }}</h1>
-{{ data.getContent() }}
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ data.getName() }}</h1>
+    {{ data.getContent() }}
+{% endblock %}
+
