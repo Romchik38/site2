@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Views\Html;
 
-use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;

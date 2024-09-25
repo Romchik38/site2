@@ -29,7 +29,6 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
 
         $dto = $this->defaultViewDTOFactory->create(
             $translatedMessage,
-            $translatedMessage,
             $translatedMessage
         );
 

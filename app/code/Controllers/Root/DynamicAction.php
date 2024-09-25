@@ -39,7 +39,6 @@ class DynamicAction extends MultiLanguageAction implements DynamicActionInterfac
 
         $dto = $this->defaultViewDTOFactory->create(
             $translatedMessage,
-            $translatedMessage,
             $translatedMessage
         );
 
