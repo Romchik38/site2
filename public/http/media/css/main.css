@@ -1,0 +1,28 @@
+/* 1. COLORS */
+
+/* Main */
+.color-main {
+    color: #f6f7eb;
+}
+
+.baground-main {
+    background-color: #f6f7eb;
+}
+
+/* Primary */
+.color-primary {
+    color: #393e41;
+}
+
+.baground-primary {
+    background-color: #393e41;
+}
+
+/* Secondary */
+.color-secondary {
+    color: #e94f37;
+}
+
+.baground-secondary {
+    background-color: #e94f37;
+}
