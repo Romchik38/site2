@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc6440c4c00c2bbb17785321a1466c8a",
+    "content-hash": "8b55fc27a4c71c11252c074984c367f2",
     "packages": [
         {
             "name": "psr/container",
@@ -153,16 +153,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.2.3",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "af371403821529310cdf7a906cd423da798a1072"
+                "reference": "89d69ef5874ae700afc5e313b5a3ee817ed965d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/af371403821529310cdf7a906cd423da798a1072",
-                "reference": "af371403821529310cdf7a906cd423da798a1072",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/89d69ef5874ae700afc5e313b5a3ee817ed965d6",
+                "reference": "89d69ef5874ae700afc5e313b5a3ee817ed965d6",
                 "shasum": ""
             },
             "require": {
@@ -188,10 +188,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.2.3",
+                "source": "https://github.com/Romchik38/server/tree/v1.4.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2024-09-19T16:34:17+00:00"
+            "time": "2024-09-24T18:03:46+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

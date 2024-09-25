@@ -1,11 +1,4 @@
 # Todo
 
-[?] twig  
+[-] update server from v1.2.3 to v1.4.1  
 [-] middleware  
-[-] technical debt  
-
-## technical debt
-
-[-] model  
-    [-] translate_keys  
-    [-] translate_lang  
