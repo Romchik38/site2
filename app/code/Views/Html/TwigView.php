@@ -11,15 +11,13 @@ use Romchik38\Server\Api\Services\SitemapInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
+use Romchik38\Server\Views\View;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
-class TwigView implements HttpViewInterface
+class TwigView extends View implements HttpViewInterface
 {
-    protected DefaultViewDTOInterface $controllerData;
     protected array $metaData = [];
-    protected ControllerInterface|null $controller = null;
-    protected string $action;
 
     public function __construct(
         protected readonly Environment $environment,
@@ -29,26 +27,6 @@ class TwigView implements HttpViewInterface
         protected readonly string $layoutPath = 'base.twig',
     ) {}
 
-    public function setController(ControllerInterface $controller, string $action = ''): HttpViewInterface
-    {
-        $this->controller = $controller;
-        $this->action = $action;
-        return $this;
-    }
-
-    public function setControllerData(DefaultViewDTOInterface $data): HttpViewInterface
-    {
-        $this->controllerData = $data;
-        return $this;
-    }
-
-    /** @todo change on protected with update */
-    public function setMetadata(string $key, string $value): HttpViewInterface
-    {
-        $this->metaData[$key] = $value;
-        return $this;
-    }
-
     /** 
      *  Creates a view response
      * 
@@ -57,17 +35,24 @@ class TwigView implements HttpViewInterface
      */
     public function toString(): string
     {
-        $this->prepareMetaData($this->controllerData);
-        return $this->build();
-    }
-
-    protected function build(): string
-    {
         /** 1. check view is ready to build */
         if ($this->controller === null || $this->action === null) {
             throw new ViewBuildException('Controller was not set. View build aborted');
         }
 
+        if ($this->controllerData === null) {
+            throw new ViewBuildException('Controller data was not set. View build aborted');
+        }
+
+        /** 2. prepare metada if exist */
+        $this->prepareMetaData($this->controllerData);
+
+        /** 3. create a view */
+        return $this->build();
+    }
+
+    protected function build(): string
+    {
         $templateName = $this->controllerPath . '/' . $this->getControllerTemplatePrefix();
 
         /** 3. choose a template path by given action name */
@@ -79,14 +64,19 @@ class TwigView implements HttpViewInterface
 
         /** 4. render */
         try {
+            $context =                 [
+                'data' => $this->controllerData,
+                'meta_data' => $this->metaData,
+                'content_template' => $templateName
+            ];
+
+            if ($this->translateService !== null) {
+                $context['translate'] = $this->translateService;
+            }
+
             $html = $this->environment->render(
                 $this->layoutPath,
-                [
-                    'data' => $this->controllerData,
-                    'meta_data' => $this->metaData,
-                    'content_template' => $templateName,
-                    'translate' => $this->translateService
-                ]
+                $context
             );
         } catch (LoaderError $e) {
             throw new ViewBuildException('Template render error: ' . $e->getMessage() .  '. View build aborted');
@@ -113,9 +103,18 @@ class TwigView implements HttpViewInterface
         return $templateName;
     }
 
-    /** @todo check */
+    /** Use this to add custom logic */
     protected function prepareMetaData(DefaultViewDTOInterface $data): void
     {
-        /** use this for add info to metaData */
+        /** 
+         *   1. add to array $this->metaData key/value
+         *   2. meta_data will be avalible in a template
+         * */
+    }
+
+    protected function setMetadata(string $key, string $value): HttpViewInterface
+    {
+        $this->metaData[$key] = $value;
+        return $this;
     }
 }
