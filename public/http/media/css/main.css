@@ -26,3 +26,17 @@
 .baground-secondary {
     background-color: #e94f37;
 }
+
+/* REPLACE BOOTSTRAP  */
+/* Nav */
+.nav-link, .dropdown {
+    color: #212529;
+}
+
+.nav-link:hover {
+    color: #e94f37;
+}
+
+.nav-link:focus {
+    color: #e94f37;
+}
