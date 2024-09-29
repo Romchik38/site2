@@ -1,3 +1,23 @@
-.news-additional {
-    
+.link-none {
+    text-decoration: none;
+    color: #212529;
+}
+
+.link-none:hover {
+    color: #212529;
+}
+
+/* 2 col Images on home page */
+.medium-news div.img {
+    height: 400px;
+    overflow: hidden;
+}
+
+/* sm */
+@media screen and (max-width: 576px) {
+    /* 2 col Images on home page */
+    .medium-news div.img {
+        height: auto;
+    }
+
 }

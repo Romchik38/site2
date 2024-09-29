@@ -7,6 +7,7 @@
     <title>Home page</title>
     <link rel="stylesheet" href="/media/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/media/css/main.css" />
+    <link rel="stylesheet" href="/media/css/home.css" />
 </head>
 
 <!-- Body Start -->
@@ -20,13 +21,13 @@
         <div class="container-fluid background-secondary text-light">
             <div class="row py-1">
                 <div class="col">
-                    <div class="ms-5">
+                    <div class="ms-sm-5">
                         <span class="me-2">Link1</span>
                         <span class="me-2">Link2</span>
                         <span class="me-2">Link3</span>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 d-none d-sm-flex">
                     <div class="text-center">
                         <small>Hotline</small><span class="mx-2">8-800-500-00-xx</span><small>24/7</small>
                     </div>
@@ -38,7 +39,7 @@
         <!-- Logo start -->
         <div class="container">
             <div class="row py-2">
-                <div class="col-sm-2 text-center">
+                <div class="col-sm-2 text-center d-none d-sm-flex">
                     <p class="h1 mt-2">
                         Lawshield
                     </p>
@@ -49,13 +50,17 @@
                     </a>
                 </div>
                 <div class="col-sm-2 mx-auto">
-                    <div class="mt-2">
-                        <button class="btn background-primary text-white">
-                            Subscribe
-                        </button>
-                        <button class="btn border">
-                            Sign In
-                        </button>
+                    <div class="row mt-2">
+                        <div class="col-6 d-grid gap-2">
+                            <button class="btn background-primary text-white">
+                                Subscribe
+                            </button>
+                        </div>
+                        <div class="col-6 d-grid gap-2">
+                            <button class="btn border">
+                                Sign In
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,8 +68,9 @@
         <!-- Logo end -->
 
         <!-- Nav start -->
-        <nav class="navbar navbar-expand-sm">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white">
             <div class="container">
+                <a class="navbar-brand d-sm-none" href="#">Lawshield</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -171,24 +177,29 @@
     <!-- Header end -->
 
     <!-- Content start -->
-    <div id="content" class="row">
+    <div id="content" class="row mt-2">
         <div class="container-fluid p-0" style="max-height: 640px;overflow: hidden;">
             <img class="img-fluid" src="/media/img/banner/banner_1.png" alt="">
         </div>
         <div class="container">
 
             <h1 class="text-center my-4">Read the latest news today.</h1>
-            <div class="row mx-5">
-                
+            <div class="row mx-sm-5">
+
                 <!-- Main start -->
-                <div class="col-9">
+                <div class="col-sm-9">
                     <!-- News start -->
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-sm-4">
                                 <div>
-                                    <h5>News 1</h3>
-                                    <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit, amet consectetur.</p>
+                                    <a class="link-none" href="#">
+                                        <h5>News 1</h3>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit, amet
+                                            consectetur.</p>
+                                    </a>
                                     <footer class="row text-secondary">
                                         <div class="col-6">comments(2)</div>
                                         <div class="col-6">6 hours ago</div>
@@ -196,38 +207,79 @@
                                 </div>
                                 <hr>
                                 <div>
-                                    <h5>News 3</h3>
-                                    <p class="h6">Lorem, cumque nihil sint corrupti.</p>
+                                    <a class="link-none" href="#">
+                                        <h5>News 2</h3>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <p class="h6">Lorem, cumque nihil sint corrupti.</p>
+                                    </a>
                                     <footer class="row text-secondary">
-                                        <div class="col6"></div>
-                                        <div class="col6">yesterday</div>
+                                        <div class="col-6">yesterday</div>
                                     </footer>
                                 </div>
                                 <hr>
                                 <div>
-                                    <h5>News 3</h3>
-                                    <p class="h6">Comnim, cumque nihil sint corrupti. Repellendus amet adipisci doloremque.</p>
+                                    <a class="link-none" href="#">
+                                        <h5>News 3</h3>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <p class="h6">Comnim, cumque nihil sint corrupti. Repellendus amet adipisci
+                                            doloremque.</p>
+                                    </a>
                                     <footer class="row text-secondary">
                                         <div class="col-6">comments(1)</div>
                                         <div class="col-6">30 min ago</div>
                                     </footer>
                                 </div>
                                 <hr>
+                                <div>
+                                    <a class="link-none" href="#">
+                                        <h5>News 4</h3>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <p class="h6">Comnim, cumque nihil sint corrupti. Repellendus amet adipisci
+                                            doloremque.</p>
+                                    </a>
+                                    <footer class="row text-secondary">
+                                        <div class="col-6">2 hours ago</div>
+                                    </footer>
+                                </div>
+                                <hr class="d-sm-none">
                             </div>
-                            <div class="col-8">
-
+                            <div class="col-sm-8">
+                                <div class="medium-news">
+                                    <a class="link-none" href="#">
+                                        <div class="img">
+                                            <img class="img-fluid"
+                                                src="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv.jpg"
+                                                alt="">
+                                        </div>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <h4 class="mt-1">New 4</h4>
+                                    </a>
+                                    <a class="link-none" href="#">
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In laudantium
+                                            dolores temporibus quas inventore explicabo max. Lorem ipsum dolor sit, amet
+                                            consectetur adipisicing elit. In laudantium dolores temporibus quas
+                                            inventore explicabo max.</p>
+                                    </a>
+                                    <footer class="row text-secondary">
+                                        <div class="col-6">yesterday</div>
+                                    </footer>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- News end -->
+                    <hr>
 
 
-
-                </div> 
+                </div>
                 <!-- Main end -->
 
                 <!-- Aside start -->
-                <div class="col-3 border">
+                <div class="col-sm-3 border">
                     Aside Section
                 </div>
                 <!-- Aside end -->
