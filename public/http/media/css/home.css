@@ -13,7 +13,11 @@
     overflow: hidden;
 }
 
-/* sm */
+.comments {
+    font-size: 0.8rem;
+}
+
+/* RESPONSE */
 @media screen and (max-width: 576px) {
     /* 2 col Images on home page */
     .medium-news div.img {
