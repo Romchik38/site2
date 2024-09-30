@@ -21,7 +21,7 @@ class TwigView extends View implements HttpViewInterface
     public function __construct(
         protected readonly Environment $environment,
         protected readonly DynamicRootInterface|null $dynamicRootService = null,
-        protected readonly TranslateInterface|null $translateService,
+        protected readonly TranslateInterface|null $translateService = null,
         protected readonly string $controllerPath = 'controllers',
         protected readonly string $layoutPath = 'base.twig',
     ) {}
