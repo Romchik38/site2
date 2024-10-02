@@ -41,6 +41,15 @@
     width:auto;
 }
 
+/* Links */
+.link-none {
+    text-decoration: none;
+    color: #212529;
+}
+
+.link-none:hover {
+    color: #212529;
+}
 
 /* REPLACE BOOTSTRAP  */
 /* Nav */
