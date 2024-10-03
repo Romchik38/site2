@@ -56,5 +56,19 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\Translate\Translate::class)
     );
 
+    // Logger
+    $container->add(
+        \Romchik38\Server\Services\Logger\Loggers\FileLogger::class,
+        new \Romchik38\Server\Services\Logger\Loggers\FileLogger(
+            __DIR__ . '/../var/file.log',
+            7
+        )
+    );
+
+    $container->add(
+        \Romchik38\Server\Api\Services\LoggerServerInterface::class,
+        $container->get(\Romchik38\Server\Services\Logger\Loggers\FileLogger::class)
+    );
+
     return $container;
 };

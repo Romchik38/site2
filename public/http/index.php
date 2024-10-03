@@ -9,5 +9,5 @@ $container = (require_once(__DIR__ . './../../app/bootstrap_http.php'))();
 /** @var HttpServerInterface $server */
 $server = $container->get(\Romchik38\Server\Api\Servers\Http\HttpServerInterface::class);
 
-$server->run();
+$server->run()->log();
 

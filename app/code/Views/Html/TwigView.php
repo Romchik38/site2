@@ -13,6 +13,8 @@ use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Romchik38\Server\Views\View;
 use Twig\Environment;
 use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class TwigView extends View implements HttpViewInterface
 {
@@ -78,7 +80,11 @@ class TwigView extends View implements HttpViewInterface
                 $context
             );
         } catch (LoaderError $e) {
-            throw new ViewBuildException('Template render error: ' . $e->getMessage() .  '. View build aborted');
+            throw new ViewBuildException('Twig Loader error: ' . $e->getMessage() .  '. View build aborted');
+        } catch (RuntimeError $e) {
+            throw new ViewBuildException('Twig Runtime error: ' . $e->getMessage() .  '. View build aborted');
+        } catch (SyntaxError $e) {
+            throw new ViewBuildException('Twig Syntax error: ' . $e->getMessage() .  '. View build aborted');
         }
 
         return $html;

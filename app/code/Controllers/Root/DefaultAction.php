@@ -32,7 +32,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             $translatedMessage
         );
 
-        $result  = $this->view
+        $result = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)
             ->toString();
