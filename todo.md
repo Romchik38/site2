@@ -17,7 +17,7 @@ min-width
 |header                     |     |     |     |      |
 |   Infoline                |  +  |  +  |  +  |  +   |
 |   Logo                    |  +  |  +  |  +  |  +   |
-|   Nav                     |  -  |  -  |  -  |  -   |
+|   Nav                     |  +  |  +  |  +  |  +   |
 |Footer                     |     |     |     |      |
 |   Infoline                |  -  |  -  |  -  |  -   |
 |    Links                  |  -  |  -  |  -  |  -   |
