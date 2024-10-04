@@ -23,8 +23,8 @@ min-width
 |   Logo                    |  +  |  +  |  +  |  +   |
 |   Nav                     |  +  |  +  |  +  |  +   |
 |Footer                     |     |     |     |      |
-|   Infoline                |  -  |  -  |  -  |  -   |
-|    Links                  |  -  |  -  |  -  |  -   |
+|   Infoline                |  +  |  +  |  +  |  +   |
+|    Links                  |  +  |  +  |  +  |  +   |
 |    Social Links           |  -  |  -  |  -  |  -   |
 |    Policy                 |  -  |  -  |  -  |  -   |
 |    Copyright              |  -  |  -  |  -  |  -   |
