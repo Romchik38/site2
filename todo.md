@@ -25,7 +25,7 @@ min-width
 |Footer                     |     |     |     |      |
 |   Infoline                |  +  |  +  |  +  |  +   |
 |    Links                  |  +  |  +  |  +  |  +   |
-|    Social Links           |  -  |  -  |  -  |  -   |
+|    Social Links           |  +  |  +  |  +  |  +   |
 |    Policy                 |  -  |  -  |  -  |  -   |
 |    Copyright              |  -  |  -  |  -  |  -   |
 |Pages                      |  -  |  -  |  -  |  -   |
