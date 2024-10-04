@@ -26,7 +26,7 @@ min-width
 |   Infoline                |  +  |  +  |  +  |  +   |
 |    Links                  |  +  |  +  |  +  |  +   |
 |    Social Links           |  +  |  +  |  +  |  +   |
-|    Policy                 |  -  |  -  |  -  |  -   |
+|    Policy                 |  +  |  +  |  +  |  +   |
 |    Copyright              |  -  |  -  |  -  |  -   |
 |Pages                      |  -  |  -  |  -  |  -   |
 |    Home                   |  -  |  -  |  -  |  -   |
