@@ -7,10 +7,14 @@
     [-] About, etc  
 
 [-] Proto - check responsiveness
+    [-] Firefox  
+    [-] Chrome  
 
 ## Proto - check responsiveness
 
 min-width
+
+### Firefox
 
 |name                       |576px|768px|992px|1200px|
 |---------------------------|-----|-----|-----|------|
