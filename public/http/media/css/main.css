@@ -69,3 +69,13 @@
 .nav-link:focus {
     color: #e94f37;
 }
+
+
+
+/* RESPONSE */
+@media screen and (max-width: 576px) {
+    /* Font size */
+    h1 {
+    font-size: 1.3rem;
+}
+}

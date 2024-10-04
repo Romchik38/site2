@@ -8,11 +8,35 @@
     font-size: 0.8rem;
 }
 
+.courses {
+    background-color: #e9e9e9;
+}
+
 /* RESPONSE */
 @media screen and (max-width: 576px) {
     /* 2 col Images on home page */
     .medium-news div.img {
         height: auto;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    p.h6, p, ul {
+        font-size: 0.8rem;
+    }
+
+    .comments {
+        font-size: 0.6rem;
     }
 
 }

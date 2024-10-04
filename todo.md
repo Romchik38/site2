@@ -27,7 +27,7 @@ min-width
 |    Links                  |  +  |  +  |  +  |  +   |
 |    Social Links           |  +  |  +  |  +  |  +   |
 |    Policy                 |  +  |  +  |  +  |  +   |
-|    Copyright              |  -  |  -  |  -  |  -   |
-|Pages                      |  -  |  -  |  -  |  -   |
+|    Copyright              |  +  |  +  |  +  |  +   |
+|Pages                      |     |     |     |      |
 |    Home                   |  -  |  -  |  -  |  -   |
 |    Article with Img 1080  |  -  |  -  |  -  |  -   |
