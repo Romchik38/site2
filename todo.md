@@ -29,5 +29,10 @@ min-width
 |    Policy                 |  +  |  +  |  +  |  +   |
 |    Copyright              |  +  |  +  |  +  |  +   |
 |Pages                      |     |     |     |      |
-|    Home                   |  +  |  -  |  -  |  -   |
+|    Home                   |     |     |     |      |
+|       News                |  +  |  +  |  +  |  +   |
+|       Videos              |  -  |  -  |  -  |  -   |
+|       Courses             |  -  |  -  |  -  |  -   |
+|       teachers            |  -  |  -  |  -  |  -   |
+|       Podcasts            |  -  |  -  |  -  |  -   |
 |    Article with Img 1080  |  -  |  -  |  -  |  -   |
