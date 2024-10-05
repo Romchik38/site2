@@ -31,7 +31,7 @@ min-width
 |Pages                      |     |     |     |      |
 |    Home                   |     |     |     |      |
 |       News                |  +  |  +  |  +  |  +   |
-|       Videos              |  -  |  -  |  -  |  -   |
+|       Videos              |  +  |  +  |  +  |  +   |
 |       Courses             |  -  |  -  |  -  |  -   |
 |       teachers            |  -  |  -  |  -  |  -   |
 |       Podcasts            |  -  |  -  |  -  |  -   |
