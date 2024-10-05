@@ -32,9 +32,9 @@ min-width
 |    Copyright              |  +  |  +  |  +  |  +   |  -   |
 |Pages                      |     |     |     |      |  -   |
 |    Home                   |     |     |     |      |  -   |
-|       News                |  +  |  +  |  +  |  +   |  -   |
-|       Videos              |  +  |  +  |  +  |  +   |  -   |
-|       Courses             |  -  |  -  |  -  |  -   |  -   |
-|       teachers            |  -  |  -  |  -  |  -   |  -   |
+|       News                |  +  |  +  |  +  |  +   |  +   |
+|       Videos              |  +  |  +  |  +  |  +   |  +   |
+|       Courses             |  +  |  +  |  +  |  +   |  +   |
+|       teachers            |  +  |  +  |  +  |  +   |  +   |
 |       Podcasts            |  -  |  -  |  -  |  -   |  -   |
 |    Article with Img 1080  |  -  |  -  |  -  |  -   |  -   |
