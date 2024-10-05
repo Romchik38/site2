@@ -36,5 +36,5 @@ min-width
 |       Videos              |  +  |  +  |  +  |  +   |  +   |
 |       Courses             |  +  |  +  |  +  |  +   |  +   |
 |       teachers            |  +  |  +  |  +  |  +   |  +   |
-|       Podcasts            |  -  |  -  |  -  |  -   |  -   |
+|       Podcasts            |  +  |  +  |  +  |  +   |  +   |
 |    Article with Img 1080  |  -  |  -  |  -  |  -   |  -   |
