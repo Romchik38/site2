@@ -29,5 +29,5 @@ min-width
 |    Policy                 |  +  |  +  |  +  |  +   |
 |    Copyright              |  +  |  +  |  +  |  +   |
 |Pages                      |     |     |     |      |
-|    Home                   |  -  |  -  |  -  |  -   |
+|    Home                   |  +  |  -  |  -  |  -   |
 |    Article with Img 1080  |  -  |  -  |  -  |  -   |

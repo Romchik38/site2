@@ -19,20 +19,27 @@
         height: auto;
     }
 
-    h2 {
-        font-size: 1.2rem;
+    /* Font size */
+    h1 {
+        font-size: 1.4rem;
     }
 
+    h2 {
+        font-size: 1.35rem;
+    }
+
+    /* News */
     h4 {
         font-size: 1.1rem;
     }
 
+    /* aside */
     h5 {
         font-size: 1rem;
     }
 
     p.h6, p, ul {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 
     .comments {
