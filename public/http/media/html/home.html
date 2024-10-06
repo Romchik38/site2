@@ -1,4 +1,7 @@
-<head></head>
+<!DOCTYPE html>
+<html>
+
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home page</title>
@@ -23,21 +26,26 @@
 
         <!-- 1st row start Banner-->
         <div class="container-fluid p-0" style="max-height: 640px;overflow: hidden;">
-            <img 
+            <!-- <img 
                 class="img-fluid" 
                 src="/media/img/banner/banner_1.png" 
                 alt="Special offer from Silipower - discount on laptops of 20% until the end of the month" style="width: 100%;"
 
                 srcset="
-                /media/img/banner/banner_1-scaled-636.jpeg 636w, 
-                /media/img/banner/banner_1-scaled-844.jpeg 844w, 
-                /media/img/banner/banner_1-scaled-1200.jpeg 1200w"
+                    /media/img/banner/banner_1-scaled-636.jpeg 636w, 
+                    /media/img/banner/banner_1-scaled-844.jpeg 844w, 
+                    /media/img/banner/banner_1-scaled-1200.jpeg 1200w"
 
-                sizes="(max-width: 576px) 636px,
-                (max-width: 768px) 844px, 
-                1200px"
-            >
-            <!-- img/scaled-443.jpeg 443w, -->
+                sizes="(max-width: 636px) 636px,
+                    (max-width: 844px) 844px,
+                    (min-width: 844px) 1200px"
+            > -->
+            
+            <picture>
+                <source media="(max-width: 636px)" srcset="/media/img/banner/banner_1-scaled-636.jpeg">
+                <source media="(min-width: 636px)" srcset="/media/img/banner/banner_1-scaled-844.jpeg">
+                <img class="img-fluid" src="/media/img/banner/banner_1.png" alt="">
+            </picture>
         </div>
         <!-- 1st row end -->
 
