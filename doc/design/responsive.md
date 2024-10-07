@@ -26,3 +26,8 @@
 |       teachers            |  +  |  +  |  +  |  +   |  +   |
 |       Podcasts            |  +  |  +  |  +  |  +   |  +   |
 |    Article with Img 1080  |  +  |  +  |  +  |  +   |  +   |
+|    Category               |     |     |     |      |      |
+|       News                |  -  |  -  |  -  |  -   |  -   |
+|       Subcategory         |  -  |  -  |  -  |  -   |  -   |
+|       Video               |  -  |  -  |  -  |  -   |  -   |
+|       Subcategory         |  -  |  -  |  -  |  -   |  -   |

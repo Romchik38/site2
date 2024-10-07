@@ -6,6 +6,6 @@
     [+] Article with Img 1080  
     [-] About, etc  
 
-[-] Proto - check responsiveness
-    [+] Firefox  
-    [-] Chrome  
+[-] add  
+    [-] back to top  
+
