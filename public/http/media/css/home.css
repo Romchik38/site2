@@ -38,12 +38,12 @@
         font-size: 1rem;
     }
 
-    p.h6, p, ul {
+    /* p.h6, p, ul {
         font-size: 0.9rem;
-    }
+    } */
 
-    .comments {
+    /* .comments {
         font-size: 0.6rem;
-    }
+    } */
 
 }
