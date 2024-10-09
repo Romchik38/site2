@@ -1,19 +1,11 @@
-<div class="container-fluid bg-secondary text-light">
-    <div class="row my-2">
-        <div class="col">
-            <div class="text-center">
-                {{ translate.t('header.logo') }}
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="text-center">
-                {{ translate.t('header.phone_number') }}
-            </div>
-        </div>
-        <div class="col">
-            <div class="text-center">
-                <span class="me-2">{{ translate.t('header.sing_in') }}</span>|<span class="ms-2">{{ translate.t('header.register') }}</span>
-            </div>
-        </div>
-    </div>
+<div id="header" class="container-fluid p-0">
+
+    {% include 'layouts/header/infoline.twig' %}
+
+    {% include 'layouts/header/logo.twig' %}
+
+    {% include 'layouts/header/nav.twig' %}
+
+    {% include 'layouts/header/breadcrumbs.twig' %}
+
 </div>

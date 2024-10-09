@@ -31,7 +31,6 @@ class TwigView extends View implements HttpViewInterface
     /** 
      *  Creates a view response
      * 
-     * @todo move to interface
      * @throws ViewBuildException
      */
     public function toString(): string

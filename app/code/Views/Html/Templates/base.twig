@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 
+{# 
+    data - Controller DTO
+#}
+
 {% set language = 'en' %}
 
 <html lang="{{ language }}">
-    <head>
-        {% include 'layouts/head.twig' %}
-    </head>
+ 
+    {% include 'layouts/head.twig' %}
 
-    <body class="container-fluid">
-        <div id="header" class="row">
-            {% include 'layouts/header.twig' %}
-        </div>
+    <body class="container-fluid p-0">
+        
+        {% include 'layouts/header.twig' %}
 
-        <div id="content" class="row">
-            {% include content_template with {'data': data} only %}
-        </div>
+        <!-- Dynamic content start -->
+        {% include content_template with {'data': data} only %}
+        <!-- Dynamic content end -->
 
-        <div id="footer" class="row">
-            {% include 'layouts/footer.twig' %}
-        </div>   
+        {% include 'layouts/footer.twig' %} 
 
         {% include 'layouts/before-body-close-tag.twig' %}
+
     </body>
 </html>

@@ -1,5 +1,17 @@
-<div class="container-fluid">
-    <div class="text-center">   
-        &copy; {{ translate.t("footer.copyright") }} 2024 {{ translate.t("footer.by_romanenko") }}
+<div id="footer" class="container-fluid mt-3 p-0">
+
+    <div class="container-fluid">
+
+        {% include 'layouts/footer/infoline.twig' %}
+
+        {% include 'layouts/footer/links.twig' %}
+
+        {% include 'layouts/footer/social-links.twig' %}
+
+        {% include 'layouts/footer/policy.twig' %}
+
+        {% include 'layouts/footer/copyrights.twig' %}
+
     </div>
+
 </div>
