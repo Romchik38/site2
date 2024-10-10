@@ -20,6 +20,10 @@ class TwigView extends View implements HttpViewInterface
 {
     protected array $metaData = [];
 
+    /**
+     * @param string $controllerPath  a part between Loader and action name
+     * @param string $layoutPath Template to render
+     */
     public function __construct(
         protected readonly Environment $environment,
         protected readonly DynamicRootInterface|null $dynamicRootService = null,
