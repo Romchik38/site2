@@ -28,7 +28,6 @@ class TwigView extends View implements HttpViewInterface
         protected readonly Environment $environment,
         protected readonly DynamicRootInterface|null $dynamicRootService = null,
         protected readonly TranslateInterface|null $translateService = null,
-        protected readonly string $controllerPath = 'controllers',
         protected readonly string $layoutPath = 'base.twig',
     ) {}
 
@@ -57,13 +56,14 @@ class TwigView extends View implements HttpViewInterface
 
     protected function build(): string
     {
-        $templateName = $this->controllerPath . '/' . $this->getControllerTemplatePrefix();
+        $templateControllerName = $this->getControllerTemplatePrefix();
+        $templateActionName = '';
 
         /** 3. choose a template path by given action name */
         if (strlen($this->action) > 0) {
-            $templateName .= '/dynamic\/' . $this->action . '.twig';
+            $templateActionName = '/dynamic\/' . $this->action . '.twig';
         } else {
-            $templateName .= '/default/index.twig';
+            $templateActionName = '/default/index.twig';
         }
 
         /** 4. render */
@@ -71,7 +71,8 @@ class TwigView extends View implements HttpViewInterface
             $context =                 [
                 'data' => $this->controllerData,
                 'meta_data' => $this->metaData,
-                'content_template' => $templateName
+                'template_controller_name' => $templateControllerName,
+                'template_action_name' => $templateActionName,
             ];
 
             if ($this->translateService !== null) {

@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{ boostrapCssFile }}"/>
     <link rel="stylesheet" href="/media/css/main.css" />
     <script src="{{ fontAwesomeJsFile }}" crossorigin="anonymous"></script>
-    {#
-        How to add additional css
-    #}
+
+    {# Dynamic content start  #}
+    {% include head_template ignore missing %}
+    {# Dynamic content end  #}
+
 </head>
