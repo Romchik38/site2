@@ -70,7 +70,21 @@
     color: #e94f37;
 }
 
+/* Btn */
+.btn.background-primary {
+    color: #f6f7eb;
+}
 
+.btn.background-primary:hover {
+    background-color: #212529;
+}
+
+.btn.background-secondary {
+    color: #f6f7eb;
+}
+.btn.background-secondary:hover {
+    background-color: #f04329;
+}
 
 /* RESPONSE */
 @media screen and (max-width: 576px) {
