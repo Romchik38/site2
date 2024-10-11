@@ -41,7 +41,7 @@ class TwigView extends View implements HttpViewInterface
     public function toString(): string
     {
         /** 1. check view is ready to build */
-        if ($this->controller === null || $this->action === null) {
+        if ($this->controller === null || $this->action === '') {
             throw new ViewBuildException('Controller was not set. View build aborted');
         }
 
