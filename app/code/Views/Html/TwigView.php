@@ -18,10 +18,12 @@ use Twig\Error\SyntaxError;
 
 class TwigView extends View implements HttpViewInterface
 {
+    /**
+     * @var array<string,mixed> $metaData
+     */
     protected array $metaData = [];
 
     /**
-     * @param string $controllerPath  a part between Loader and action name
      * @param string $layoutPath Template to render
      */
     public function __construct(

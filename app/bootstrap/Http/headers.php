@@ -15,12 +15,12 @@ use Romchik38\Server\Routers\Http\HeadersCollection;
  *   All instances will be created at runtime, 
  *   so you must to check how all classes works
  */
-return function (Container $container) {
+return function (Container $container): Container {
 
-    $container->add('headers', function ($container) {
+    $container->add('headers', function () {
 
         /** the function will be called from dynamic router at runtime */
-        return function (string $rootName) use ($container): HeadersCollectionInterface {
+        return function (string $rootName): HeadersCollectionInterface {
 
             $s = ControllerInterface::PATH_SEPARATOR;
             $a = ControllerInterface::PATH_DYNAMIC_ALL;

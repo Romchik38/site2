@@ -8,6 +8,10 @@ use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Routers\Http\RouterHeader;
 
 class Root extends RouterHeader {
+
+    /**
+     * @param string[] $path
+     */
     public function setHeaders(HttpRouterResultInterface $result, array $path): void
     {
         $result->setHeaders([

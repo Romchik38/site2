@@ -15,6 +15,9 @@ use Romchik38\Server\Controllers\Errors\NotFoundException;
 class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
 
+    /**
+     * @var array<string,string> $actions
+     */
     protected array $actions = [
         'about' => 'root.about',
         'contacts' => 'root.contacts'
