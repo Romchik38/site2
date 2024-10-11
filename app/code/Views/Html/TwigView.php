@@ -46,8 +46,8 @@ class TwigView extends View implements HttpViewInterface
             throw new ViewBuildException('Controller data was not set. View build aborted');
         }
 
-        /** 2. prepare metada if exist */
-        $this->prepareMetaData($this->controllerData);
+        /** 2. prepare metada if needed */
+        $this->prepareMetaData();
 
         /** 3. create a view */
         return $this->build();
@@ -80,7 +80,7 @@ class TwigView extends View implements HttpViewInterface
                 $context['translate'] = $this->translateService;
             }
 
-            if (strlen( $templateActionName) > 0) {
+            if (strlen($templateActionName) > 0) {
                 $context['template_action_name'] = $templateActionName;
             }
 
@@ -122,10 +122,10 @@ class TwigView extends View implements HttpViewInterface
     }
 
     /** Use this to add custom logic */
-    protected function prepareMetaData(DefaultViewDTOInterface $data): void
+    protected function prepareMetaData(): void
     {
         /** 
-         *   1. add to array $this->metaData key/value
+         *   1. use $this->setMetadata(string $key, string $value)
          *   2. meta_data will be avalible in a template
          * */
     }
