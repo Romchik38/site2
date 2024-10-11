@@ -9,11 +9,13 @@ use Romchik38\Server\Services\Translate\Translate;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 
-class TwigViewTest extends TestCase {
-    public function testConstruct(){
+class TwigViewTest extends TestCase
+{
+    public function testConstruct(): void
+    {
         $loader = new FilesystemLoader();
         $twigEnv = new Environment($loader);
-        
+
         $translate = $this->createMock(Translate::class);
 
         $this->expectException(ViewBuildException::class);

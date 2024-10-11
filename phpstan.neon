@@ -2,3 +2,5 @@ parameters:
 	level: 6
 	paths:
 		- app
+		- server
+		- tests
