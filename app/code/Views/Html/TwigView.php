@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Views\Html;
 
+use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;
@@ -55,26 +56,32 @@ class TwigView extends View implements HttpViewInterface
     protected function build(): string
     {
         $templateControllerName = $this->getControllerTemplatePrefix();
+        $templateActionType = '';
         $templateActionName = '';
 
         /** 3. choose a template path by given action name */
         if (strlen($this->action) > 0) {
-            $templateActionName = '/dynamic\/' . $this->action . '.twig';
+            $templateActionType = ActionInterface::TYPE_DYNAMIC_ACTION;
+            $templateActionName = $this->action;
         } else {
-            $templateActionName = '/default/index.twig';
+            $templateActionType = ActionInterface::TYPE_ACTION;
         }
 
         /** 4. render */
         try {
-            $context =                 [
+            $context = [
                 'data' => $this->controllerData,
                 'meta_data' => $this->metaData,
                 'template_controller_name' => $templateControllerName,
-                'template_action_name' => $templateActionName,
+                'template_action_type' => $templateActionType
             ];
 
             if ($this->translateService !== null) {
                 $context['translate'] = $this->translateService;
+            }
+
+            if (strlen( $templateActionName) > 0) {
+                $context['template_action_name'] = $templateActionName;
             }
 
             $html = $this->environment->render(
@@ -97,7 +104,7 @@ class TwigView extends View implements HttpViewInterface
         if ($this->controller === null) {
             throw new ViewBuildException('Controller was not set. View build aborted');
         }
-        
+
         $templateName = $this->controller->getName();
 
         /** 1. Permanent root */

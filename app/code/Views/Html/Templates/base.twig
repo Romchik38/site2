@@ -7,11 +7,15 @@
     Object  translate               Translate service
 #}
 
-{% set language = 'en' %}
 {% set controllersDir = 'controllers' %}
 {% set headsDir = 'heads' %}
-{% set controller_template = controllersDir ~ '/' ~ template_controller_name ~ template_action_name %}
-{% set head_template = headsDir ~ '/' ~ template_controller_name ~ template_action_name %}
+
+{% set action_name = template_action_name ? template_action_name ~ '.twig' : 'index.twig' %}
+{% set template_tail = template_controller_name ~ '/' ~ template_action_type ~ '/' ~ action_name %}
+{% set controller_template = controllersDir ~ '/' ~ template_tail %}
+{% set head_template = headsDir ~ '/' ~ template_tail %}
+
+{% set language = 'en' %}
 
 <html lang="{{ language }}">
  
