@@ -1,67 +1,58 @@
 # Readme
 
-- Template folder parts
-- Path to base layout
-- Path to action layout
+1. Init
+2. Variables
+3. Include
 
-## Template folder parts
+## 1. Init
 
-Template folder consists of 3 parts:
+`TwigView` renders *base.twig* layout with given to `Loader` path.
 
-- **Main** part - */code/Views/Html/Templates*.
-- **Middle** part for base layout or controller. Something Like this *base.twig* and *controllers/root*.
-- **Last** part for default or dynamic routes. Looks like */default/index.twig*, */dynamic/about*, etc.
+So you must
 
-Examples:
+1. Create a folder and give it to `Loader()`
+2. Create a file *base.twig* in this folder and place html and twig code you like
 
-- /code/Views/Html/Templates/base.twig
-- /code/Views/Html/Templates/controllers/root/default/index.twig
+*base.twig* is a default value. You can change it by passing other value to `__construct` method `TwigView` class.
 
-## Path to base layout
+## 2. Variables
 
-1. When `TwigView` class is created, it receives `Twig\Environment` with `\Twig\Loader\FilesystemLoader` inside. The `Loader` has *main* part (#1) which was provided during it creation.
-2. `TwigView` has property `layoutPath` with default value *base.twig* (#2). You can change it by passing in the construct method.
-3. During `build` method execution template will be rendered with values #1 and #2.
+`TwigView` injects mandatory and optional variables.
 
-For example - /code/Views/Html/Templates/base.twig
+### mandatory variables
 
-Where:
+|   Variable                |   Description                     |
+|---------------------------|-----------------------------------|
+|data                       |   Controller DTO                  |
+|meta_data                  |   Meta data from TwigView         |
+|template_controller_name   |   controller name ( root for / )  |
+|template_action_type       |   dynamic_action / action         |
 
-| path                        |  description                                    |
-|-----------------------------|-------------------------------------------------|
-| /code/Views/Html/Templates  |  from `Loader`                                  |
-| /                           |  added by `TwigView`                            |
-| base.twig                   |  default value of the `TwigView->layoutPath`    |
+### optional variables
 
-## Path to action layout
+|   Variable                |   Description                     |
+|---------------------------|-----------------------------------|
+|template_action_name       |   dynamic action name             |
+|translate                  |   translate service               |
 
-1. `TwigView` has property `controllerPath` with default value *controllers*. You can change it by passing in the construct method.
-2. During `build` method execution *controllers* will be concatenated with *controller name part* and *action name part*
+## 3. Include
 
-*controller name part* - the name of the controller, given at creation. For root controller it will be *root*.
+Inside *base.twig* you can create a paths to the files using the provided variables.
 
-*action name part* - it will be */default/index.twig* for default action and */dynamic/action_name.twig* for dynamuc action. Where *action_name* is the dynamic action.
+Example:
 
-For example - controllers/root/default/index.twig
+- main path give to `Loader` is *app/view/templates*
+- template_controller_name is *posts*
+- template_action_type is *action*
 
-where:
+1. create *index.twig* inside *app/view/templates/posts/action/*
+2. use twig `include` to render it
 
-| path                        |  description                                    |
-|-----------------------------|-------------------------------------------------|
-| controllers                 |  default value of the `TwigView->controllerPath`|
-| /                           |  added by `TwigView`                            |
-| root                        |  controller name (*root* for root controller)   |
-| /default/index.twig         |  path to default action layout                  |
-
-How it works:
-
-1. Twig will render base template */code/Views/Html/Templates/base.twig*
-2. Inside it, you can include controller layout with `content_template` variable which will be controllers/root/default/index.twig
-
-    base.twig:
-
-    ```twig
-        {% include content_template %}
-    ```
-
-3. Twig can include it, because it has *main* part */code/Views/Html/Templates*
+```twig
+{# use this inside base.twig to create a controller_template variable
+    template_controller_name, 
+    template_action_type, 
+    'index.twig' 
+#}
+{% include controller_template %}
+````
