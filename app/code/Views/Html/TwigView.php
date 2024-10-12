@@ -130,7 +130,7 @@ class TwigView extends View implements HttpViewInterface
          * */
     }
 
-    protected function setMetadata(string $key, string $value): HttpViewInterface
+    protected function setMetadata(string $key, mixed $value): TwigView
     {
         $this->metaData[$key] = $value;
         return $this;

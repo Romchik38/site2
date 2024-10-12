@@ -4,6 +4,9 @@ CREATE table translate_keys
 );
 
 INSERT INTO translate_keys (key) VALUES
+    --global
+    ('global.language'),
+    --controller
     ('root.page_name'),
     ('server-error.message'),
     ('root.about'),

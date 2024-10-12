@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Romchik38\Container;
 
-
 return function (Container $container) {
 
     // RESULTS 
@@ -53,6 +52,19 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class,
         $container->get(\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory::class)
+    );
+
+    $container->add(
+        \Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory()
+    );
+
+    // Servises
+    $container->add(
+        \Romchik38\Server\Services\Sitemap\Sitemap::class,
+        new \Romchik38\Server\Services\Sitemap\Sitemap(
+            $container->get(\Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class)
+        )
     );
 
     return $container;

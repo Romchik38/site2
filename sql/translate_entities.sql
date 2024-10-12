@@ -9,6 +9,10 @@ CREATE table translate_entities
 
 --Examples
 INSERT INTO translate_entities (key, language, phrase) VALUES
+    --global
+    ('global.language', 'en', 'English'),
+    ('global.language', 'uk', 'Українська'),
+    --controller
     ('root.page_name', 'en', 'Home page'), 
     ('root.page_name', 'uk', 'Домашня сторінка'),
     ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 

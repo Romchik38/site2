@@ -9,8 +9,15 @@
         </div>
         <div class="col-md-2">
             <select class="language text-white background-secondary p-0" style="border: 0">
+
+                {% for language in meta_data.languages %}
+                    {% set selected = language == meta_data.language ? 'selected' : '' %}
+                    <option value="{{loop.index}}" {{selected}}>{{translate.t('global.language')}}</option>
+                {% endfor %}
+                <!-- 
                 <option value="1" selected>English</option>
-                <option value="2">Українська</option>
+                <option value="2">Українська</option> 
+                -->
             </select>
         </div>
     </div>
