@@ -64,7 +64,7 @@ class TwigView extends View implements HttpViewInterface
             $templateActionType = ActionInterface::TYPE_DYNAMIC_ACTION;
             $templateActionName = $this->action;
         } else {
-            $templateActionType = ActionInterface::TYPE_ACTION;
+            $templateActionType = ActionInterface::TYPE_DEFAULT_ACTION;
         }
 
         /** 4. render */
