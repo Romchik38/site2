@@ -1,7 +1,12 @@
 # Todo
 
-[-] lang in header Infoline  
-    [-] translate.t('global.language', $lang)
+## Current
+
+[-] footer lang  
+[-] delete unused translate keys from sql  
+[-] add translates for header and footer  
+
+## Next
 
 [-] tests  
     [-] TwigView  
