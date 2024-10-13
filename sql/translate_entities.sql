@@ -15,24 +15,23 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     --controller
     ('root.page_name', 'en', 'Home page'), 
     ('root.page_name', 'uk', 'Домашня сторінка'),
-    ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 
-    ('server-error.message', 'uk', 'Вибачте, нажаль сталася помилка на стороні серверу. Спробуйте повторити запит пізніше'),
     ('root.about', 'en', 'About Page'),
     ('root.about', 'uk', 'Сторінка про компанію'),
     ('root.contacts', 'en', 'Contacts Page'),
-    ('root.contacts', 'uk', 'Наші контакти'),
+    ('root.contacts', 'uk', 'Наші контакти'),    
+    ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 
+    ('server-error.message', 'uk', 'Вибачте, нажаль сталася помилка на стороні серверу. Спробуйте повторити запит пізніше'),
+    --header
+    ('header.logo', 'en', 'Lawshield'),
+    ('header.logo', 'uk', 'Правощит'),
+    ('header.sing_in', 'en', 'Sing in'),
+    ('header.sing_in', 'uk', 'Увійти'),
+    ('header.subscribe', 'en', 'Subscribe'),
+    ('header.subscribe', 'uk', 'Підписатися')
+    --footer
     ('footer.copyright', 'en', 'Copyright'),
     ('footer.copyright', 'uk', 'Авторське право'),
     ('footer.by_romanenko', 'en', 'by Romanenko Serhii'),
     ('footer.by_romanenko', 'uk', 'належить Романенко Сергію'),
-    --header
-    ('header.logo', 'en', 'Logo'),
-    ('header.logo', 'uk', 'Логотип'),
-    ('header.phone_number', 'en', 'Phone number'),
-    ('header.phone_number', 'uk', 'Контактний телефон'),
-    ('header.sing_in', 'en', 'Sing in'),
-    ('header.sing_in', 'uk', 'Увійти'),
-    ('header.register', 'en', 'Register'),
-    ('header.register', 'uk', 'Зареєструватися')
 ;
 

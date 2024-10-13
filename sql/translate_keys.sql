@@ -11,13 +11,12 @@ INSERT INTO translate_keys (key) VALUES
     ('server-error.message'),
     ('root.about'),
     ('root.contacts'),
+    --header
+    ('header.logo'),
+    ('header.sing_in'),
+    ('header.subscribe')
     --footer
     ('footer.copyright'),
     ('footer.by_romanenko'),
-    --header
-    ('header.logo'),
-    ('header.phone_number'),
-    ('header.sing_in'),
-    ('header.register')
 ;
 

@@ -14,10 +14,7 @@
                     {% set selected = language == meta_data.language ? 'selected' : '' %}
                     <option value="{{loop.index}}" {{selected}}>{{translate.translate('global.language', language)}}</option>
                 {% endfor %}
-                <!-- 
-                <option value="1" selected>English</option>
-                <option value="2">Українська</option> 
-                -->
+
             </select>
         </div>
     </div>
