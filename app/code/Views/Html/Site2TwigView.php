@@ -25,6 +25,11 @@ final class Site2TwigView extends TwigView
         $this->prepareLanguages();
     }
 
+    /**
+     * Add to metadata:
+     *   - current language
+     *   - a list of available languages
+     */
     protected function prepareLanguages(): void
     {
         $currentRoot = $this->dynamicRootService->getCurrentRoot();
