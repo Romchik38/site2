@@ -27,11 +27,11 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('header.sing_in', 'en', 'Sing in'),
     ('header.sing_in', 'uk', 'Увійти'),
     ('header.subscribe', 'en', 'Subscribe'),
-    ('header.subscribe', 'uk', 'Підписатися')
+    ('header.subscribe', 'uk', 'Підписатися'),
     --footer
     ('footer.copyright', 'en', 'Copyright'),
     ('footer.copyright', 'uk', 'Авторське право'),
     ('footer.by_romanenko', 'en', 'by Romanenko Serhii'),
-    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію'),
+    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію')
 ;
 

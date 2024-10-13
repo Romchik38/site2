@@ -14,9 +14,9 @@ INSERT INTO translate_keys (key) VALUES
     --header
     ('header.logo'),
     ('header.sing_in'),
-    ('header.subscribe')
+    ('header.subscribe'),
     --footer
     ('footer.copyright'),
-    ('footer.by_romanenko'),
+    ('footer.by_romanenko')
 ;
 
