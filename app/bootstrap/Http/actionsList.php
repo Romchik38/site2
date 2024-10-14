@@ -9,7 +9,7 @@ use Romchik38\Server\Controllers\Controller;
 
 return function (Container $container) {
 
-    /** @var ControllersCollectionInterface $collection*/
+    /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
     $collection = $container->get(Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class);
     
     $root = new Controller(
