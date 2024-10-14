@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Romchik38\Server\Views\View;
@@ -27,8 +26,6 @@ class TwigView extends View implements HttpViewInterface
      */
     public function __construct(
         protected readonly Environment $environment,
-        protected readonly DynamicRootInterface|null $dynamicRootService = null,
-        // protected readonly TranslateInterface|null $translateService = null,
         protected readonly string $layoutPath = 'base.twig',
     ) {}
 
@@ -53,7 +50,11 @@ class TwigView extends View implements HttpViewInterface
 
     protected function build(): string
     {
-        $templateControllerName = $this->getControllerTemplatePrefix();
+        if ($this->controller === null) {
+            throw new ViewBuildException('Controller was not set. View build aborted');
+        }
+
+        $templateControllerName = $this->controller->getName();
         $templateActionType = '';
         $templateActionName = '';
 
@@ -93,28 +94,6 @@ class TwigView extends View implements HttpViewInterface
         }
 
         return $html;
-    }
-
-    protected function getControllerTemplatePrefix(): string
-    {
-        if ($this->controller === null) {
-            throw new ViewBuildException('Controller was not set. View build aborted');
-        }
-
-        $templateName = $this->controller->getName();
-
-        /** 1. Permanent root */
-        if ($this->dynamicRootService === null) {
-            return $templateName;
-        }
-
-        /**2. replace dynamic root with permanent */
-        $currentRoot = $this->dynamicRootService->getCurrentRoot()->getName();
-        if ($templateName === $currentRoot) {
-            $templateName = SitemapInterface::ROOT_NAME;
-        }
-
-        return $templateName;
     }
 
     protected function setMetadata(string $key, mixed $value): TwigView

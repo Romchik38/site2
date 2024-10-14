@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Views\Errors\CantCreateViewException;
 use Twig\Environment;

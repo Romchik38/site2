@@ -59,12 +59,22 @@ return function (Container $container) {
         new \Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory()
     );
 
-    // Servises
+    // Services
     $container->add(
         \Romchik38\Server\Services\Sitemap\Sitemap::class,
         new \Romchik38\Server\Services\Sitemap\Sitemap(
             $container->get(\Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class)
         )
+    );
+
+    // Controller
+    $container->add(
+        \Romchik38\Server\Routers\Http\ControllersCollection::class,
+        new \Romchik38\Server\Routers\Http\ControllersCollection()
+    );
+    $container->add(
+        \Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class,
+        $container->get(\Romchik38\Server\Routers\Http\ControllersCollection::class)
     );
 
     return $container;
