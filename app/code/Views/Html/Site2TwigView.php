@@ -15,9 +15,9 @@ final class Site2TwigView extends TwigView
 
     public function __construct(
         protected readonly Environment $environment,
+        protected readonly TranslateInterface $translateService,
         /** Metadata Service here */
         protected readonly DynamicRootInterface|null $dynamicRootService,
-        protected readonly TranslateInterface|null $translateService,
         protected readonly string $layoutPath = 'base.twig',
     ) {}
 
@@ -46,5 +46,15 @@ final class Site2TwigView extends TwigView
 
         $this->setMetadata('language', $currentRoot->getName())
             ->setMetadata('languages', $languages);
+    }
+
+    /** 
+     * @param array<string,mixed> &$context Twig context
+     * @return array<string,mixed> Twig context
+     */
+    protected function beforeRender(array &$context): array
+    {
+        $context['translate'] = $this->translateService;
+        return $context;
     }
 }

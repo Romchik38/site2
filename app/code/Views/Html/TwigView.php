@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
-use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;
-use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Romchik38\Server\Views\View;
@@ -30,7 +28,7 @@ class TwigView extends View implements HttpViewInterface
     public function __construct(
         protected readonly Environment $environment,
         protected readonly DynamicRootInterface|null $dynamicRootService = null,
-        protected readonly TranslateInterface|null $translateService = null,
+        // protected readonly TranslateInterface|null $translateService = null,
         protected readonly string $layoutPath = 'base.twig',
     ) {}
 
@@ -76,13 +74,11 @@ class TwigView extends View implements HttpViewInterface
                 'template_action_type' => $templateActionType
             ];
 
-            if ($this->translateService !== null) {
-                $context['translate'] = $this->translateService;
-            }
-
             if (strlen($templateActionName) > 0) {
                 $context['template_action_name'] = $templateActionName;
             }
+
+            $this->beforeRender($context);
 
             $html = $this->environment->render(
                 $this->layoutPath,
@@ -121,6 +117,12 @@ class TwigView extends View implements HttpViewInterface
         return $templateName;
     }
 
+    protected function setMetadata(string $key, mixed $value): TwigView
+    {
+        $this->metaData[$key] = $value;
+        return $this;
+    }
+
     /** Use this to add custom logic */
     protected function prepareMetaData(): void
     {
@@ -130,9 +132,17 @@ class TwigView extends View implements HttpViewInterface
          * */
     }
 
-    protected function setMetadata(string $key, mixed $value): TwigView
+    /** 
+     * use this tho add specific data to context 
+     * 
+     * @param array<string,mixed> &$context Twig context
+     * @return array<string,mixed> Twig context
+     */
+    protected function beforeRender(array &$context): array
     {
-        $this->metaData[$key] = $value;
-        return $this;
+        /** 
+         * $context['key'] = 'value';
+         */
+        return $context;
     }
 }

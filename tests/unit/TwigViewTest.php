@@ -19,7 +19,7 @@ class TwigViewTest extends TestCase
         $translate = $this->createMock(Translate::class);
 
         $this->expectException(ViewBuildException::class);
-        $view = new TwigView($twigEnv, null, $translate);
+        $view = new TwigView($twigEnv);
         $view->toString();
     }
 }
