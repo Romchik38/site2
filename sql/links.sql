@@ -3,7 +3,7 @@ CREATE table
         -- link with id 0 is a default parent link and shouldn't be displayed
         -- so 0 can't be in menu_to_links.link_id
         link_id serial PRIMARY KEY,
-        url text[] UNIQUE
+        path text[] UNIQUE
     );
 
 CREATE table
@@ -15,10 +15,10 @@ CREATE table
         CONSTRAINT pk_links_translates PRIMARY KEY (link_id, language)
     );
 
-INSERT INTO links (link_id, url)
+INSERT INTO links (link_id, path)
     VALUES (0, '{}');
 
-INSERT INTO links (link_id, url)
+INSERT INTO links (link_id, path)
     VALUES 
         (1, '{"root"}')
 ;
@@ -30,7 +30,7 @@ INSERT INTO links_translates (link_id, language, name, description)
 ;
 
 --EXAMPLE
-SELECT links.url, links_translates.*
+SELECT links.path, links_translates.*
     FROM links, links_translates
         WHERE links.link_id = links_translates.link_id AND
             links_translates.language = 'en'

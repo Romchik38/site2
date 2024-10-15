@@ -15,6 +15,7 @@ final class Link extends Model implements LinkInterface
     {
         return $this->data[LinkInterface::LINK_ID_FIELD];
     }
+
     public function getName(): string
     {
         return $this->data[LinkInterface::NAME_FIELD];
@@ -24,9 +25,15 @@ final class Link extends Model implements LinkInterface
     {
         return $this->data[LinkInterface::DESCRIPTION_FIELD];
     }
-    public function getUrl(): array
+
+    public function getPath(): array
     {
-        return $this->data[LinkInterface::URL_FIELD];
+        return $this->data[LinkInterface::PATH_FIELD];
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->data[LinkInterface::LANGUAGE_FIELD];
     }
 
     /**
@@ -68,12 +75,24 @@ final class Link extends Model implements LinkInterface
     /**
      * @throws InvalidArgumentException when array length is 0
      */
-    public function setUrl(array $url): LinkInterface
+    public function setPath(array $path): LinkInterface
     {
-        if (count($url) === 0) {
-            throw new InvalidArgumentException('url length is 0');
+        if (count($path) === 0) {
+            throw new InvalidArgumentException('path length is 0');
         }
-        $this->data[LinkInterface::URL_FIELD] = $url;
+        $this->data[LinkInterface::PATH_FIELD] = $path;
+        return $this;
+    }
+
+    /**
+     * @throws InvalidArgumentException when string length is 0
+     */
+    public function setLanguage(string $language): LinkInterface
+    {
+        if (strlen($language) === 0) {
+            throw new InvalidArgumentException('language length is 0');
+        }
+        $this->data[LinkInterface::LANGUAGE_FIELD] = $language;
         return $this;
     }
 }

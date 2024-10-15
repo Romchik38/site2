@@ -10,7 +10,7 @@ use Romchik38\Server\Models\DTO;
 /**
  * LinkDTOFactoryInterface is responsible to create the entity
  */
-final class LinkDTO extends DTO implements LinkDTOInterface
+class LinkDTO extends DTO implements LinkDTOInterface
 {
     public function __construct(
         string $name,

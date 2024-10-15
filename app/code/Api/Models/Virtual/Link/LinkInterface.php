@@ -12,12 +12,14 @@ interface LinkInterface extends ModelInterface
     const LINK_ID_FIELD = 'link_id';
     const NAME_FIELD = 'name';
     const DESCRIPTION_FIELD = 'description';
-    const URL_FIELD = 'url';
+    const PATH_FIELD = 'path';
+    const LANGUAGE_FIELD = 'language';
 
     public function getId(): int;
     public function getName(): string;
     public function getDescription(): string;
-    public function getUrl(): array;
+    public function getPath(): array;
+    public function getLanguage(): string;
 
     /**
      * @throws InvalidArgumentException when id is 0
@@ -37,5 +39,12 @@ interface LinkInterface extends ModelInterface
     /**
      * @throws InvalidArgumentException when array length is 0
      */
-    public function setUrl(array $url): LinkInterface;
+    public function setPath(array $path): LinkInterface;
+
+    /**
+     * @todo add language check (DynamicRoot)
+     * 
+     * @throws InvalidArgumentException when string length is 0
+     */
+    public function setLanguage(string $language): LinkInterface;
 }

@@ -7,7 +7,7 @@ namespace Romchik38\Server\Api\Models\DTO\Html\Link;
 use Romchik38\Server\Api\Models\DTO\DTOInterface;
 
 /**
- * Represens a html link entity 
+ * Represents a html link entity 
  *   a href eq      url
  *   a innerText    name
  *   a title        description
