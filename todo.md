@@ -15,7 +15,7 @@
     [+] LinkDTO  
     [-] LinkDTOCollection  
     [-] LinkRepository  
-    [-] sql  
+    [+] sql  
 
 [-] create MenuLinks repository  
 [-] create Metadata service  
