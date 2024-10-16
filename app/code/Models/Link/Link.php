@@ -6,14 +6,14 @@ namespace Romchik38\Site2\Models\Link;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Model;
-use Romchik38\Site2\Api\Models\Link\LinkInterface;
+use Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface;
 
 final class Link extends Model implements LinkInterface
 {
 
     public function getId(): int
     {
-        return $this->data[LinkInterface::LINK_ID_FIELD];
+        return (int)$this->data[LinkInterface::LINK_ID_FIELD];
     }
 
     public function getName(): string

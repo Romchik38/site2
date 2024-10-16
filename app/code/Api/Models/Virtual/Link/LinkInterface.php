@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Api\Models\Link;
+namespace Romchik38\Site2\Api\Models\Virtual\Link;
 
 use Romchik38\Server\Api\Models\ModelInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
