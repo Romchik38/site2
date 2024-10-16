@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Views\Errors\CantCreateViewException;
 use Twig\Environment;
 
@@ -17,12 +18,14 @@ final class Site2TwigView extends TwigView
         protected readonly TranslateInterface $translateService,
         /** Metadata Service here */
         protected readonly DynamicRootInterface|null $dynamicRootService,
-        protected readonly string $layoutPath = 'base.twig',
+        protected Breadcrumb $breadcrumbService,
+        protected readonly string $layoutPath = 'base.twig'
     ) {}
 
     protected function prepareMetaData(): void
     {
         $this->prepareLanguages();
+        $this->prepareBreadcrumbs();
     }
 
     /**
@@ -45,6 +48,14 @@ final class Site2TwigView extends TwigView
 
         $this->setMetadata('language', $currentRoot->getName())
             ->setMetadata('languages', $languages);
+    }
+
+    protected function prepareBreadcrumbs(): void {
+        $breadcrumbDTO = $this->breadcrumbService->getBreadcrumbDTO(
+            $this->controller, 
+            $this->action
+        );
+        $this->setMetadata('breadrumb', $breadcrumbDTO);
     }
 
     /** 

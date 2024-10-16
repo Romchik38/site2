@@ -20,15 +20,18 @@ final class LinkRepository extends VirtualRepository implements LinkRepositoryIn
             foreach($paths as $path) {
                 $counter++;
                 $pathParts[] = sprintf('links.path = $%s', $counter);
+                // like {"root"}
                 $params[] = sprintf(
-                    '\'{%s}\'', 
+                    '{%s}', 
                     implode(',', array_map(fn($val)=> sprintf('"%s"', $val), $path))
                 );
             }
         }
+        // like "WHERE links_translates.language = $1 AND links.path = $2"
         $expresion = sprintf('WHERE links_translates.language = $1%s%s', $and, implode(' OR ', $pathParts));
 
         $list = $this->list($expresion, $params);
+
         return $list;
     }
 

@@ -37,6 +37,7 @@ class Breadcrumb
         /** 2. Get LinkDTOs */
         $paths = $this->getPathsFromControllerDTO($controllerDTO);
         $linkDTOs = $this->linkDTOCollection->getLinksByPaths($paths);
+        $linkHash = [];
         foreach ($linkDTOs as $linkDTO) {
             $linkHash[$linkDTO->getUrl()] = $linkDTO;
         }

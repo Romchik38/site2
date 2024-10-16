@@ -37,7 +37,7 @@ abstract class LinkDTOCollection implements LinkDTOCollectionInterface
         }
         if (count($fetch) > 0) {
             $fetched = $this->getFromRepository($fetch);
-            array_merge($dtos, $fetched);
+            $dtos = array_merge($dtos, $fetched);
         }
         return $dtos;
     }

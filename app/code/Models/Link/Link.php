@@ -28,7 +28,12 @@ final class Link extends Model implements LinkInterface
 
     public function getPath(): array
     {
-        return $this->data[LinkInterface::PATH_FIELD];
+        $data = $this->data[LinkInterface::PATH_FIELD];
+        if(gettype($data) === 'string') {
+            $data = json_decode($data);
+            $this->data[LinkInterface::PATH_FIELD] = $data;
+        }
+        return $data;
     }
 
     public function getLanguage(): string

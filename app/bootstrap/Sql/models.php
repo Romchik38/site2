@@ -26,7 +26,7 @@ return function (Container $container) {
         new \Romchik38\Site2\Models\Link\Sql\LinkRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\LinkFactoryInterface::class),
-            ['links.path', 'links_translates.*'],
+            ['array_to_json(links.path) as path', 'links_translates.*'],
             ['links', 'links_translates']
         )
     );

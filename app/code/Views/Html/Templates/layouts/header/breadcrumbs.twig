@@ -1,9 +1,15 @@
 <div class="container-sm my-2">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Category</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Post</li>
+          {% if (meta_data.breadrumb) %}
+            {% set currentDTO = meta_data.breadrumb %}
+            {% set stop = false %}
+            
+
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Category</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Post</li>
+          {% endif %}
         </ol>
       </nav>
       <i class="bi bi-0-square"></i>
