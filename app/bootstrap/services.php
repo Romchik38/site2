@@ -86,14 +86,14 @@ return function (Container $container) {
 
     // Breadcramb
     $container->add(
-        \Romchik38\Server\Models\Mappers\Breadcrumb::class,
-        new \Romchik38\Server\Models\Mappers\Breadcrumb(
+        \Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb::class,
+        new \Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb(
             $container->get(\Romchik38\Server\Api\Services\SitemapInterface::class),
             $container->get(\Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface::class),
             $container->get(\Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
-        );
+    );
 
     return $container;
 };

@@ -93,6 +93,10 @@ return function (Container $container) {
             $container->get(\Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class)
         )
     );
+    $container->add(
+        \Romchik38\Server\Api\Services\SitemapInterface::class,
+        $container->get(\Romchik38\Server\Services\Sitemap\Sitemap::class)
+    );
 
     // Controller
     $container->add(

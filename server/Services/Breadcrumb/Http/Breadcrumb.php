@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Models\Mappers;
+namespace Romchik38\Server\Services\Breadcrumb\Http;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
@@ -21,14 +21,16 @@ class Breadcrumb
         protected SitemapInterface $sitemapService,
         protected BreadcrumbDTOFactoryInterface $breadcrumbDTOFactory,
         protected LinkDTOCollectionInterface $linkDTOCollection,
-        DynamicRootInterface|null $dynamicRoot = null
+        protected DynamicRootInterface|null $dynamicRoot = null
     ) {
-        if($dynamicRoot !== null) {
-            $this->currentRoot = $dynamicRoot->getCurrentRoot()->getName();
-        }
     }
 
     public function getBreadcrumbDTO(ControllerInterface $controller, string $action): BreadcrumbDTOInterface {
+        /** 0 Set Dynamic root if exist */
+        if($this->dynamicRoot !== null) {
+            $this->currentRoot = $this->dynamicRoot->getCurrentRoot()->getName();
+        }
+
         /** 1. Get ControllerDTOInterface */
         $controllerDTO = $this->sitemapService->getOnlyLineRootControllerDTO($controller, $action);
         
