@@ -7,9 +7,9 @@ namespace Romchik38\Server\Api\Models\DTO\Html\Link;
 interface LinkDTOCollectionInterface
 {
     /**
-     * @param string $url Http url like /page
+     * @param string[] $path like ['root']
      */
-    public function getLinkByUrl(string $url): LinkDTOInterface|null;
+    public function getLinkByPath(array $path): LinkDTOInterface|null;
 
     /**
      * @return LinkDTOInterface[]

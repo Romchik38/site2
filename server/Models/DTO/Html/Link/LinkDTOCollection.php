@@ -22,13 +22,19 @@ abstract class LinkDTOCollection implements LinkDTOCollectionInterface
         protected LinkDTOFactoryInterface $linkDTOFactory
     ) {}
 
-    public function getLinkByUrl(string $url): LinkDTOInterface|null
+    public function getLinkByPath(array $path): LinkDTOInterface|null
     {
-        return $this->hash[$url] ?? null;
+        return $this->hash[$this->serialize($path)] ?? null;
     }
 
     public function getAllLinks(): array
     {
-        return $this->hash;
+        return array_values($this->hash);
+    }
+
+    /** You can replace this with own serializator */
+    protected function serialize(array $path): string
+    {
+        return serialize($path);
     }
 }
