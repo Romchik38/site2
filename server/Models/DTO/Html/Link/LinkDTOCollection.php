@@ -22,9 +22,24 @@ abstract class LinkDTOCollection implements LinkDTOCollectionInterface
         protected LinkDTOFactoryInterface $linkDTOFactory
     ) {}
 
-    public function getLinkByPath(array $path): LinkDTOInterface|null
+
+    public function getLinksByPaths(array $paths): array
     {
-        return $this->hash[$this->serialize($path)] ?? null;
+        $dtos = [];
+        $fetch = [];
+        foreach ($paths as $path) {
+            $dto = $this->hash[$this->serialize($path)] ?? null;
+            if ($dto !== null) {
+                $dtos[] = $dto;
+            } else {
+                $fetch[] = $path;
+            }
+        }
+        if (count($fetch) > 0) {
+            $fetched = $this->getFromRepository($fetch);
+            array_merge($dtos, $fetched);
+        }
+        return $dtos;
     }
 
     public function getAllLinks(): array
@@ -37,4 +52,16 @@ abstract class LinkDTOCollection implements LinkDTOCollectionInterface
     {
         return serialize($path);
     }
+
+    /** 
+     * Implement your logic to get an array of LinkDTOs by provided paths
+     * 
+     *  1. Get Models from a Repository
+     *  2. Create LinkDTOs
+     *  3. Add them the hash
+     *  4. Return an array with DTOs
+     * 
+     * @return LinkDTOInterface[]
+     */
+    abstract protected function getFromRepository(array $paths): array;
 }
