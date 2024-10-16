@@ -26,6 +26,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\TranslateEntity\TranslateEntityModelFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Models\Link\LinkFactory::class,
+        new \Romchik38\Site2\Models\Link\LinkFactory()
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\Virtual\Link\LinkFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\Link\LinkFactory::class)
+    );
+
     // DTO
     $container->add(
         \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class,
@@ -57,6 +66,24 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class,
         new \Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory()
+    );
+
+    $container->add(
+        \Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory()
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory::class)
+    );
+
+    $container->add(
+        \Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory()
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory::class)
     );
 
     // Services

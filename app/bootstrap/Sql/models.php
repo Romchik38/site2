@@ -21,5 +21,19 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Models\Link\Sql\LinkRepository::class,
+        new \Romchik38\Site2\Models\Link\Sql\LinkRepository(
+            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
+            $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\LinkFactoryInterface::class),
+            ['links.path', 'links_translates.*'],
+            ['links', 'links_translates']
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\Link\Sql\LinkRepository::class)
+    );
+
     return $container;
 };

@@ -9,9 +9,8 @@ use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface;
-use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;
-use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
 
 /** @todo create an Interface */
 class Breadcrumb
@@ -22,7 +21,7 @@ class Breadcrumb
         protected SitemapInterface $sitemapService,
         protected BreadcrumbDTOFactoryInterface $breadcrumbDTOFactory,
         protected LinkDTOCollectionInterface $linkDTOCollection,
-        DynamicRoot|null $dynamicRoot = null
+        DynamicRootInterface|null $dynamicRoot = null
     ) {
         if($dynamicRoot !== null) {
             $this->currentRoot = $dynamicRoot->getCurrentRoot()->getName();
