@@ -1,16 +1,25 @@
-<div class="container-sm my-2">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          {% if (meta_data.breadrumb) %}
-            {% set currentDTO = meta_data.breadrumb %}
-            {% set stop = false %}
-            
-
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Post</li>
-          {% endif %}
-        </ol>
-      </nav>
-      <i class="bi bi-0-square"></i>
-</div>
+{% if (meta_data.breadrumb) %}
+  <div class="container-sm my-2">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              {% set count = 0 %}
+              {% set length = meta_data.breadrumb|length %}
+              {% if length > 1 %}
+                {% for item in meta_data.breadrumb %}
+                  {% set count = count + 1 %}
+                  {% set name = item.getName() %}
+                  {% set description = item.getDescription() %}
+                  {% set url = item.getUrl() %}
+                  {% set active = '' %}
+                  {% if length == count %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+                  {% else %}
+                    <li class="breadcrumb-item"><a href="{{ url }}" title="{{ description }}">{{ name }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+          </ol>
+        </nav>
+        <i class="bi bi-0-square"></i>
+  </div>
+{% endif %}

@@ -55,7 +55,19 @@ final class Site2TwigView extends TwigView
             $this->controller, 
             $this->action
         );
-        $this->setMetadata('breadrumb', $breadcrumbDTO);
+        $items = [];
+        $stop = false;
+        $current = $breadcrumbDTO;
+        while($stop === false) {
+            $stop = true;
+            array_unshift($items, $current);
+            $next = $current->getPrev();
+            if($next !== null) {
+                $stop = false;
+                $current = $next;
+            }
+        }
+        $this->setMetadata('breadrumb', $items);
     }
 
     /** 

@@ -20,13 +20,16 @@ INSERT INTO links (link_id, path)
 
 INSERT INTO links (link_id, path)
     VALUES 
-        (1, '{"root"}')
+        (1, '{"root"}'),
+        (2, '{"root", "about"}')
 ;
 
 INSERT INTO links_translates (link_id, language, name, description)
     VALUES
         (1, 'en', 'Home', 'Home Page'),
-        (1, 'uk', 'Головна', 'Головна сторінка')
+        (1, 'uk', 'Головна', 'Головна сторінка'),
+        (2, 'en', 'About', 'About Page'),
+        (2, 'uk', 'Про компанію', 'Сторінка про компанію')        
 ;
 
 --EXAMPLE
