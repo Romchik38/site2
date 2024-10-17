@@ -12,19 +12,25 @@
 
                 {% for language in meta_data.languages %}
                     {% set selected = '' %}
+                    {% set disabled = '' %}
                     {% set value = '' %}
                     {% if language == meta_data.language %}
                         {% set selected = 'selected' %}
+                        {% set disabled = 'disabled' %}
                     {% else %}
-                        {{ language }}
                         {% if (meta_data.breadrumb) %}
                             {% set item = meta_data.breadrumb|last %}
                             {% set arr = item.getUrl()|split('/') %}
-                            
-                            {% set value = arr|join('/') %}
+                            {% for part in arr %}
+                                {% if loop.index == 2 %}
+                                    {% set value = '/' ~ language %}
+                                {% elseif loop.index > 2 %}
+                                    {% set value = value ~ '/' ~ part %}
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                     {% endif %}
-                    <option value="{{value}}" {{selected}}>{{translate.translate('global.language', language)}}</option>
+                    <option value="{{value}}" {{disabled }} {{selected}}>{{translate.translate('global.language', language)}}</option>
                 {% endfor %}
 
             </select>

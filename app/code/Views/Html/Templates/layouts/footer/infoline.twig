@@ -12,8 +12,26 @@
             <select class="form-select language background-line">
 
                 {% for language in meta_data.languages %}
-                    {% set selected = language == meta_data.language ? 'selected' : '' %}
-                    <option value="{{loop.index}}" {{selected}}>{{translate.translate('global.language', language)}}</option>
+                    {% set selected = '' %}
+                    {% set disabled = '' %}
+                    {% set value = '' %}
+                    {% if language == meta_data.language %}
+                        {% set selected = 'selected' %}
+                        {% set disabled = 'disabled' %}
+                    {% else %}
+                        {% if (meta_data.breadrumb) %}
+                            {% set item = meta_data.breadrumb|last %}
+                            {% set arr = item.getUrl()|split('/') %}
+                            {% for part in arr %}
+                                {% if loop.index == 2 %}
+                                    {% set value = '/' ~ language %}
+                                {% elseif loop.index > 2 %}
+                                    {% set value = value ~ '/' ~ part %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                    <option value="{{value}}" {{disabled }} {{selected}}>{{translate.translate('global.language', language)}}</option>
                 {% endfor %}
 
             </select>
