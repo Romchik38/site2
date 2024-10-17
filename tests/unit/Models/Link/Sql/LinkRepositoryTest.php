@@ -35,12 +35,12 @@ class LinkRepositoryTest extends TestCase
             'name' => $name,
             'description' => $description
         ];
-        // SELECT links.path, links_translates.* FROM links, links_translates WHERE links_translates.language = 'uk' AND links.path = '{"root"}' OR links.path = '{"root","about"}';
-        $expression = 'SELECT links.path, links_translates.* FROM links, links_translates WHERE links_translates.language = $1 AND links.path = $2 OR links.path = $3';
+
+        $expression = 'SELECT links.path, links_translates.* FROM links, links_translates WHERE links.link_id = links_translates.link_id AND links_translates.language = $1 AND (links.path = $2 OR links.path = $3)';
 
         $this->database->expects($this->once())->method('queryParams')->with(
             $expression,
-            ['uk', '\'{"root"}\'', '\'{"root","about"}\'']
+            ['uk', '{"root"}', '{"root","about"}']
         )->willReturn([$model1]);
 
         $this->factory->method('create')->willReturn(new Link());
