@@ -9,11 +9,12 @@ use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface;
+use Romchik38\Server\Api\Services\Breadcrumb\Http\BreadcrumbInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\SitemapInterface;
 
 /** @todo create an Interface */
-class Breadcrumb
+class Breadcrumb implements BreadcrumbInterface
 {
     protected string $currentRoot = SitemapInterface::ROOT_NAME;
 
