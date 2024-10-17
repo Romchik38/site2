@@ -11,8 +11,20 @@
             <select class="language text-white background-secondary p-0" style="border: 0">
 
                 {% for language in meta_data.languages %}
-                    {% set selected = language == meta_data.language ? 'selected' : '' %}
-                    <option value="{{loop.index}}" {{selected}}>{{translate.translate('global.language', language)}}</option>
+                    {% set selected = '' %}
+                    {% set value = '' %}
+                    {% if language == meta_data.language %}
+                        {% set selected = 'selected' %}
+                    {% else %}
+                        {{ language }}
+                        {% if (meta_data.breadrumb) %}
+                            {% set item = meta_data.breadrumb|last %}
+                            {% set arr = item.getUrl()|split('/') %}
+                            
+                            {% set value = arr|join('/') %}
+                        {% endif %}
+                    {% endif %}
+                    <option value="{{value}}" {{selected}}>{{translate.translate('global.language', language)}}</option>
                 {% endfor %}
 
             </select>
