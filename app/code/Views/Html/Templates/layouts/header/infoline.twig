@@ -15,7 +15,7 @@
                     {% set disabled = '' %}
                     {% set value = '' %}
                     {% if language == meta_data.language %}
-                        {% set selected = 'selected' %}
+                        {% set selected = 'selected="true"' %}
                         {% set disabled = 'disabled' %}
                     {% else %}
                         {% if (meta_data.breadrumb) %}
@@ -30,7 +30,8 @@
                             {% endfor %}
                         {% endif %}
                     {% endif %}
-                    <option value="{{value}}" {{disabled }} {{selected}}>{{translate.translate('global.language', language)}}</option>
+                    
+                    <option value="{{value}}" {{disabled}} {{selected}}>{{translate.translate('global.language', language)}}</option>
                 {% endfor %}
 
             </select>
