@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be1ae5ec94fe37a72d2283a9931cba76",
+    "content-hash": "0b3eb26fd176ceb3dba52e85f107bce4",
     "packages": [
         {
             "name": "psr/container",
@@ -153,16 +153,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.7.0",
+            "version": "v1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "65c43f3537c1cc8d3f8d248d1a7d8aaf4fc195d6"
+                "reference": "52b70ade66941f125d094e727e36b34f8bcbb746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/65c43f3537c1cc8d3f8d248d1a7d8aaf4fc195d6",
-                "reference": "65c43f3537c1cc8d3f8d248d1a7d8aaf4fc195d6",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/52b70ade66941f125d094e727e36b34f8bcbb746",
+                "reference": "52b70ade66941f125d094e727e36b34f8bcbb746",
                 "shasum": ""
             },
             "require": {
@@ -188,10 +188,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.7.0",
+                "source": "https://github.com/Romchik38/server/tree/v1.7.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2024-10-14T14:58:28+00:00"
+            "time": "2024-10-18T13:05:04+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -862,16 +862,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.6",
+            "version": "1.12.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae"
+                "reference": "dc2b9976bd8b0f84ec9b0e50cc35378551de7af0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc4d2f145a88ea7141ae698effd64d9df46527ae",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc2b9976bd8b0f84ec9b0e50cc35378551de7af0",
+                "reference": "dc2b9976bd8b0f84ec9b0e50cc35378551de7af0",
                 "shasum": ""
             },
             "require": {
@@ -916,7 +916,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-06T15:03:59+00:00"
+            "time": "2024-10-18T11:12:07+00:00"
         },
         {
             "name": "phpstan/phpstan-beberlei-assert",
@@ -2367,10 +2367,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
