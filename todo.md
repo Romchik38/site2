@@ -10,19 +10,10 @@
 
 ### Breadcrumbs  
 
-[+] move Breadcrumbs DTO to server  
-[p] create Mapper ControllerDTO to BreadcrumbsDTO  
-    [+] LinkDTO  
-    [-] LinkDTOCollection  
-    [-] LinkRepository  
-        [-] LinkRepositoryTest  
-    [+] sql  
+[-] test for breadcrumb service  
 
 [-] create MenuLinks repository  
 [-] create Metadata service  
-[-] implement logic in a breadcrumbs template  
-
-[-] ControllerDTO to BreadcrumbsDTO  
 
 ## Next
 
