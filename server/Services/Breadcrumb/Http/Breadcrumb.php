@@ -82,6 +82,11 @@ class Breadcrumb implements BreadcrumbInterface
 
         $path[0] = $this->currentRoot;
 
+        $firstPath = $path[0];
+        if ($firstPath === SitemapInterface::ROOT_NAME) {
+            $path = array_slice($path, 1);
+        }
+
         if ($name === SitemapInterface::ROOT_NAME) {
             $name = BreadcrumbInterface::HOME_PLACEHOLDER;
         }
