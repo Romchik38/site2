@@ -56,6 +56,15 @@
     color: #212529;
 }
 
+.link-none-white {
+    text-decoration: none;
+    color: #f8f9fa;
+}
+
+.link-none-white:hover {
+    color: #f8f9fa;
+}
+
 /* REPLACE BOOTSTRAP  */
 /* Nav */
 .nav-link, .dropdown {

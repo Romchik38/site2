@@ -12,6 +12,7 @@ return function (Container $container) {
     /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
     $collection = $container->get(Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class);
     
+    /** GET */
     $root = new Controller(
         SitemapInterface::ROOT_NAME,
         true,
@@ -20,6 +21,16 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Controllers\Root\DynamicAction::class),
     );
 
+    $sitemap = new Controller(
+        'sitemap',
+        true,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        $container->get(\Romchik38\Site2\Controllers\Sitemap\DefaultAction::class)
+    );
+
+    $root->setChild($sitemap);
+
+    /** collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);
 
     return $container;

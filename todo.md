@@ -7,8 +7,8 @@
 ## Current
 
 [-] Sitemap  
-    [-] create controller  
-    [-] create view template  
+    [+] create controller  
+    [+] create view template  
     [-] get RootControllerDTO from `Sitemap` service  
     [-] add new method to `LinkDTOCollectionUseVirtualRepository` to get all links by language  
     [-] compare RootControllerDTO and LinkDTOs for further display data in the template  
