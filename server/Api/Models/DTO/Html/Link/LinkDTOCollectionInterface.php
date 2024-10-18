@@ -11,9 +11,4 @@ interface LinkDTOCollectionInterface
      * @return LinkDTOInterface[]
      */
     public function getLinksByPaths(array $paths): array;
-
-    /**
-     * @return LinkDTOInterface[]
-     */
-    public function getAllLinks(): array;
 }
