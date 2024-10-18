@@ -52,7 +52,8 @@ class Breadcrumb implements BreadcrumbInterface
         return $breadcrumbDTO;
     }
 
-    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto)
+    /** @return array<int,string[]>*/
+    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto): array
     {
         $stop = false;
         $paths = [];
@@ -69,6 +70,7 @@ class Breadcrumb implements BreadcrumbInterface
         return $paths;
     }
 
+    /** @param array<string,\Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOInterface> $hash */
     protected function mapControllerDTOtoBreadcrumbDTO(
         ControllerDTOInterface $controllerDTO,
         BreadcrumbDTOInterface|null $prev,
@@ -93,7 +95,7 @@ class Breadcrumb implements BreadcrumbInterface
 
         $url = '/' . implode('/', $path);
 
-        /** @var Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOInterface $linkDTO */
+        /** @var \Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOInterface $linkDTO */
         $linkDTO = $hash[$url] ?? null;
         $description = '';
         if ($linkDTO !== null) {

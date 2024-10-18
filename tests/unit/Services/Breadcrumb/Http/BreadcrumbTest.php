@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
+use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
+use Romchik38\Server\Api\Models\DTO\DynamicRoot\DynamicRootDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Services\Breadcrumb\Http\BreadcrumbInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Api\Services\SitemapInterface;
 use Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Services\Sitemap\Sitemap;
 use Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory;
@@ -29,8 +34,8 @@ class BreadcrumbTest extends TestCase
     protected $dynamicRootForBreadcrumb;
     protected $controller;
     protected $dynamicRootDTO;
-    protected $rootControllerName = 'root';
-    protected $aboutControllerName = 'about';
+    protected string $rootControllerName = 'root';
+    protected string $aboutControllerName = 'about';
 
     public function setUp(): void
     {
@@ -46,7 +51,7 @@ class BreadcrumbTest extends TestCase
      * LinkDTOCollection returns 2 results
      * In this case the breadcrumb uses the results to create its DTOs
      */
-    public function testGetBreadcrumbDTOWithDynamicRootAndRepositoryModels()
+    public function testGetBreadcrumbDTOWithDynamicRootAndRepositoryModels(): void
     {
         $action = 'about';
 
@@ -114,7 +119,7 @@ class BreadcrumbTest extends TestCase
      * LinkDTOCollection returns 0 results
      * In this case the breadcrumb creates its DTOs with only controller and action names
      */
-    public function testGetBreadcrumbDTOWithDynamicRootWithoutRepositoryModels()
+    public function testGetBreadcrumbDTOWithDynamicRootWithoutRepositoryModels(): void
     {
         $action = 'about';
 

@@ -32,6 +32,7 @@ final class LinkRepository extends VirtualRepository implements LinkRepositoryIn
 
         $expresion = sprintf('WHERE links.link_id = links_translates.link_id AND links_translates.language = $1%s(%s)', $and, implode(' OR ', $pathParts));
 
+        /** @var \Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface[] $list */
         $list = $this->list($expresion, $params);
 
         return $list;

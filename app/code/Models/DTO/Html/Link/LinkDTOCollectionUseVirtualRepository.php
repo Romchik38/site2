@@ -29,7 +29,7 @@ final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionIn
         }
 
         // 2. Create LinkDTOs
-        /** @var Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface $model */
+        /** @var \Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface $model */
         foreach ($models as $model) {
             $modelPath = $model->getPath();
             $modelPath[0] = $language;

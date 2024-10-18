@@ -18,6 +18,8 @@ interface LinkInterface extends ModelInterface
     public function getId(): int;
     public function getName(): string;
     public function getDescription(): string;
+
+    /** @return string[] */
     public function getPath(): array;
     public function getLanguage(): string;
 
@@ -37,6 +39,7 @@ interface LinkInterface extends ModelInterface
     public function setDescription(string $description): LinkInterface;
 
     /**
+     * @param string[] $path
      * @throws InvalidArgumentException when array length is 0
      */
     public function setPath(array $path): LinkInterface;

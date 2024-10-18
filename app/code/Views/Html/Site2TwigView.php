@@ -51,6 +51,10 @@ final class Site2TwigView extends TwigView
     }
 
     protected function prepareBreadcrumbs(): void {
+        if($this->controller === null) {
+            throw new CantCreateViewException('Can\'t prepare breadcrums: controller was not set');
+        }
+        
         $breadcrumbDTO = $this->breadcrumbService->getBreadcrumbDTO(
             $this->controller, 
             $this->action
