@@ -6,15 +6,6 @@
 
 ## Current
 
-[-] Breadcrumbs  
-
-### Breadcrumbs  
-
-[-] test for breadcrumb service  
-
-[-] create MenuLinks repository  
-[-] create Metadata service  
-
 ## Next
 
 [-] Sitemap  
