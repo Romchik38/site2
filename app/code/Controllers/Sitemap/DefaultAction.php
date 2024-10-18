@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Romchik38\Site2\Controllers\Sitemap;
+
+use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Api\Services\SitemapInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Views\ViewInterface;
+use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+
+use Romchik38\Site1\Api\Models\MenuLinks\MenuLinksInterface;
+use Romchik38\Site1\Api\Models\MenuLinks\MenuLinksRepositoryInterface;
+use Romchik38\Site1\Api\Models\DTO\Sitemap\SitemapDTOFactoryInterface;
+
+/**
+ * Creates a sitemap tree of public actions
+ */
+class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
+{
+
+    public function __construct(
+        protected readonly DynamicRootInterface $DynamicRootService,
+        protected readonly TranslateInterface $translateService,
+        protected readonly ViewInterface $view,
+        protected readonly SitemapInterface $sitemapService,
+
+        /** ? */
+        protected readonly SitemapDTOFactoryInterface $sitemapDTOFactory,
+        /** ? */
+        protected readonly MenuLinksRepositoryInterface $menuLinksRepository
+    ) {}
+
+    public function execute(): string
+    {
+        $result = $this->sitemapService
+            ->getRootControllerDTO($this->getController());
+
+        /** @var MenuLinksInterface[] $menuLinks */
+        $menuLinks = $this->menuLinksRepository->list('', []);
+
+
+        $sitemapDTO = $this->sitemapDTOFactory->create(
+            'Sitemap',
+            'Sitemap Page',
+            $result,
+            $menuLinks
+        );
+        $this->view->setController($this->getController())
+            ->setControllerData($sitemapDTO);
+
+        return $this->view->toString();
+    }
+}

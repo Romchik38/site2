@@ -6,9 +6,10 @@
 
 ## Current
 
+[-] Sitemap  
+
 ## Next
 
-[-] Sitemap  
 [-] tests  
     [-] TwigView  
 [-] move TwigView to module  
