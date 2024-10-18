@@ -9,7 +9,7 @@ use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOFactoryInterface;
 use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
 use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
 
-class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionInterface
+final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionInterface
 {
     public function __construct(
         protected LinkDTOFactoryInterface $linkDTOFactory,

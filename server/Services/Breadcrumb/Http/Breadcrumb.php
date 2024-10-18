@@ -27,15 +27,15 @@ class Breadcrumb implements BreadcrumbInterface
     }
 
     public function getBreadcrumbDTO(ControllerInterface $controller, string $action): BreadcrumbDTOInterface {
-        /** 0 Set Dynamic root if exist */
+        /** 1 Set Dynamic root if exist */
         if($this->dynamicRoot !== null) {
             $this->currentRoot = $this->dynamicRoot->getCurrentRoot()->getName();
         }
 
-        /** 1. Get ControllerDTOInterface */
+        /** 2. Get ControllerDTOInterface */
         $controllerDTO = $this->sitemapService->getOnlyLineRootControllerDTO($controller, $action);
         
-        /** 2. Get LinkDTOs */
+        /** 3. Get LinkDTOs */
         $paths = $this->getPathsFromControllerDTO($controllerDTO);
         $linkDTOs = $this->linkDTOCollection->getLinksByPaths($paths);
         $linkHash = [];
@@ -43,7 +43,7 @@ class Breadcrumb implements BreadcrumbInterface
             $linkHash[$linkDTO->getUrl()] = $linkDTO;
         }
 
-        /** get breadcrumbDTO */
+        /** 4. get breadcrumbDTO */
         $breadcrumbDTO = $this->mapControllerDTOtoBreadcrumbDTO($controllerDTO, null, $linkHash);
 
         return $breadcrumbDTO;
