@@ -45,8 +45,6 @@ interface LinkInterface extends ModelInterface
     public function setPath(array $path): LinkInterface;
 
     /**
-     * @todo add language check (DynamicRoot)
-     * 
      * @throws InvalidArgumentException when string length is 0
      */
     public function setLanguage(string $language): LinkInterface;
