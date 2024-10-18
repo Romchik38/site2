@@ -23,18 +23,21 @@ class Breadcrumb implements BreadcrumbInterface
         protected BreadcrumbDTOFactoryInterface $breadcrumbDTOFactory,
         protected LinkDTOCollectionInterface $linkDTOCollection,
         protected DynamicRootInterface|null $dynamicRoot = null
-    ) {
-    }
+    ) {}
 
-    public function getBreadcrumbDTO(ControllerInterface $controller, string $action): BreadcrumbDTOInterface {
-        /** 1 Set Dynamic root if exist */
-        if($this->dynamicRoot !== null) {
+    public function getBreadcrumbDTO(ControllerInterface $controller, string $action): BreadcrumbDTOInterface
+    {
+        /** 
+         * 1 Set Dynamic root if exist 
+         * @todo test without dynamic root (needed same link collection)
+         */
+        if ($this->dynamicRoot !== null) {
             $this->currentRoot = $this->dynamicRoot->getCurrentRoot()->getName();
         }
 
         /** 2. Get ControllerDTOInterface */
         $controllerDTO = $this->sitemapService->getOnlyLineRootControllerDTO($controller, $action);
-        
+
         /** 3. Get LinkDTOs */
         $paths = $this->getPathsFromControllerDTO($controllerDTO);
         $linkDTOs = $this->linkDTOCollection->getLinksByPaths($paths);
@@ -49,11 +52,12 @@ class Breadcrumb implements BreadcrumbInterface
         return $breadcrumbDTO;
     }
 
-    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto) {
+    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto)
+    {
         $stop = false;
         $paths = [];
         $current = $dto;
-        while($stop === false) {
+        while ($stop === false) {
             $stop = true;
             $paths[] = array_merge($current->getPath(), [$current->getName()]);
             $children = $current->getChildren();
@@ -79,7 +83,7 @@ class Breadcrumb implements BreadcrumbInterface
         $path[0] = $this->currentRoot;
 
         if ($name === SitemapInterface::ROOT_NAME) {
-            $name = 'home';
+            $name = BreadcrumbInterface::HOME_PLACEHOLDER;
         }
 
         $url = '/' . implode('/', $path);

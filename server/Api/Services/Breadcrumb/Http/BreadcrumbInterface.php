@@ -9,7 +9,7 @@ use Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOInterface;
 
 interface BreadcrumbInterface
 {
-
+    const HOME_PLACEHOLDER = 'home';
     /**
      * Return a chain of breadcrumbs
      */
