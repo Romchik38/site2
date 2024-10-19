@@ -86,6 +86,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Server\Models\DTO\Http\LinkTree\LinkTreeDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Http\LinkTree\LinkTreeDTOFactory()
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\Http\LinkTree\LinkTreeDTOFactory::class)
+    );
+
     // Services
     $container->add(
         \Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class,

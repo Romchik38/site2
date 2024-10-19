@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Services\LinkTree\Http;
+namespace Romchik38\Server\Services\Mappers\LinkTree\Http;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
+use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface;
+use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 
@@ -15,7 +17,8 @@ use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
  * 
  * @todo create an interface
  */
-class LinkTreeHttp {
+class LinkTree
+{
     protected string $currentRoot = SitemapInterface::ROOT_NAME;
 
     public function __construct(
@@ -25,8 +28,12 @@ class LinkTreeHttp {
         protected DynamicRootInterface|null $dynamicRoot = null
     ) {}
 
-    public function getLinkTreeDTO(ControllerInterface $controller, string $action): LinkTreeDTOInterface {
-         /** 
+    /** 
+     * @todo add return type LinkTreeDTOInterface
+     */
+    public function getLinkTreeDTO(ControllerInterface $controller, string $action)
+    {
+        /** 
          * 1 Set Dynamic root if exist 
          */
         if ($this->dynamicRoot !== null) {
@@ -55,7 +62,8 @@ class LinkTreeHttp {
      *  
      * @return array<int,string[]>
      * */
-    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto): array {
+    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto): array
+    {
         return [];
     }
 
@@ -65,8 +73,5 @@ class LinkTreeHttp {
      * 
      * used in getLinkTreeDTO
      */
-    protected function createElement(ControllerDTOInterface $element, $parentName = '', $parrentPath = []) {
-
-    }
-
+    protected function createElement(ControllerDTOInterface $element, $parentName = '', $parrentPath = []) {}
 }
