@@ -72,8 +72,8 @@ return function (Container $container) {
 
     // LinkDTO Collection
     $container->add(
-        \Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository::class,
-        new \Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository(
+        \Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository::class,
+        new \Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository(
             $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class),
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
@@ -81,7 +81,7 @@ return function (Container $container) {
     );
     $container->add(
         \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class,
-        $container->get(\Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository::class)
+        $container->get(\Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository::class)
     );
 
     // Breadcramb

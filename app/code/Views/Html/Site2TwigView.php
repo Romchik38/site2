@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Views\Html;
 
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
-use Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb;
+use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Views\Errors\CantCreateViewException;
 use Twig\Environment;
 
