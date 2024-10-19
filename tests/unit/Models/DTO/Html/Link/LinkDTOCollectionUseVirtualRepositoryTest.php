@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository;
-use Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory;
+use Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository;
+use Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory;
 use Romchik38\Site2\Models\Link\Sql\LinkRepository;
 use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
 use Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTO;

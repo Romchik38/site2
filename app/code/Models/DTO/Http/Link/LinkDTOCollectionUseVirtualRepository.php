@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Html\Link;
+namespace Romchik38\Site2\Models\DTO\Http\Link;
 
-use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface;
-use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOFactoryInterface;
+use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
+use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface;
 use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
 use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
 

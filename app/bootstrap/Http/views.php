@@ -33,7 +33,7 @@ return function(Container $container) {
             $container->get(\Twig\Environment::class),
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb::class),
+            $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
             'base.twig'
         )
     );

@@ -74,23 +74,23 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository::class,
         new \Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository(
-            $container->get(\Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOFactoryInterface::class),
+            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class),
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
     );
     $container->add(
-        \Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface::class,
+        \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class,
         $container->get(\Romchik38\Site2\Models\DTO\Html\Link\LinkDTOCollectionUseVirtualRepository::class)
     );
 
     // Breadcramb
     $container->add(
-        \Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb::class,
-        new \Romchik38\Server\Services\Breadcrumb\Http\Breadcrumb(
-            $container->get(\Romchik38\Server\Api\Services\SitemapInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface::class),
+        \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class,
+        new \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb(
+            $container->get(\Romchik38\Server\Api\Services\Mappers\SitemapInterface::class),
+            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactoryInterface::class),
+            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
         )
     );

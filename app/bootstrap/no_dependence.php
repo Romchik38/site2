@@ -69,33 +69,33 @@ return function (Container $container) {
     );
 
     $container->add(
-        \Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory()
+        \Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory()
     );
     $container->add(
-        \Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\Html\Link\LinkDTOFactory::class)
+        \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory::class)
     );
 
     $container->add(
-        \Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory()
+        \Romchik38\Server\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactory::class,
+        new \Romchik38\Server\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactory()
     );
     $container->add(
-        \Romchik38\Server\Api\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\Html\Breadcrumb\BreadcrumbDTOFactory::class)
+        \Romchik38\Server\Api\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactoryInterface::class,
+        $container->get(\Romchik38\Server\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactory::class)
     );
 
     // Services
     $container->add(
-        \Romchik38\Server\Services\Sitemap\Sitemap::class,
-        new \Romchik38\Server\Services\Sitemap\Sitemap(
+        \Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class,
+        new \Romchik38\Server\Services\Mappers\Sitemap\Sitemap(
             $container->get(\Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory::class)
         )
     );
     $container->add(
-        \Romchik38\Server\Api\Services\SitemapInterface::class,
-        $container->get(\Romchik38\Server\Services\Sitemap\Sitemap::class)
+        \Romchik38\Server\Api\Services\Mappers\SitemapInterface::class,
+        $container->get(\Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class)
     );
 
     // Controller

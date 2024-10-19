@@ -5,8 +5,7 @@ declare(strict_types=1);
 use Romchik38\Container;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
-use Romchik38\Server\Api\Routers\Http\HeadersCollectionInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
+use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 use Romchik38\Server\Routers\Http\HeadersCollection;
 
 /** 
