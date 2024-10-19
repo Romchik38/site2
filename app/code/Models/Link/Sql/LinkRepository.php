@@ -16,6 +16,7 @@ final class LinkRepository extends VirtualRepository implements LinkRepositoryIn
 
         $pathParts = [];
         $and = '';
+        /** 1. Select by paths */
         if (count($paths) > 0) {
             $and = ' AND ';
             $counter = 1;
@@ -28,9 +29,11 @@ final class LinkRepository extends VirtualRepository implements LinkRepositoryIn
                     implode(',', array_map(fn($val) => sprintf('"%s"', $val), $path))
                 );
             }
+            $expresion = sprintf('WHERE links.link_id = links_translates.link_id AND links_translates.language = $1%s(%s)', $and, implode(' OR ', $pathParts));
+        } else {
+            /** Select all by language */
+            $expresion = 'WHERE links.link_id = links_translates.link_id AND links_translates.language = $1';
         }
-
-        $expresion = sprintf('WHERE links.link_id = links_translates.link_id AND links_translates.language = $1%s(%s)', $and, implode(' OR ', $pathParts));
 
         /** @var \Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface[] $list */
         $list = $this->list($expresion, $params);
