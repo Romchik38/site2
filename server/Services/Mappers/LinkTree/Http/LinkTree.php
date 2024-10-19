@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Services\Mappers\Http;
+namespace Romchik38\Server\Services\LinkTree\Http;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
-use Romchik38\Server\Api\Models\DTO\Html\Link\LinkDTOCollectionInterface;
+use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Api\Services\SitemapInterface;
+use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 
 /** 
  * Maps Root ControllerDTO LinkTreeDTO
  * 
  * @todo create an interface
  */
-class LinkTree {
+class LinkTreeHttp {
     protected string $currentRoot = SitemapInterface::ROOT_NAME;
 
     public function __construct(
@@ -65,9 +65,8 @@ class LinkTree {
      * 
      * used in getLinkTreeDTO
      */
-    protected function createElement(ControllerInterface $element, $parentName = '', $parrentPath = []) {
-        
-    }
+    protected function createElement(ControllerDTOInterface $element, $parentName = '', $parrentPath = []) {
 
+    }
 
 }
