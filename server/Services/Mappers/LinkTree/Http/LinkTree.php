@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Services\Mappers\LinkTree\Http;
 
-use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Controller\ControllerDTOInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface;
@@ -13,18 +12,18 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Mappers\Breadcrumb\Http\BreadcrumbInterface;
 use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOInterface;
+use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
 
 /** 
  * Maps Root ControllerDTO LinkTreeDTO
  * 
  * @todo create an interface
  */
-class LinkTree
+class LinkTree implements LinkTreeInterface
 {
     protected string $currentRoot = SitemapInterface::ROOT_NAME;
 
     public function __construct(
-        protected SitemapInterface $sitemapService,
         protected LinkTreeDTOFactoryInterface $linkTreeDTOFactory,
         protected LinkDTOCollectionInterface $linkDTOCollection,
         protected DynamicRootInterface|null $dynamicRoot = null
@@ -33,27 +32,22 @@ class LinkTree
     /** 
      * @return LinkTreeDTOInterface Root link with all children tree
      */
-    public function getLinkTreeDTO(ControllerInterface $controller, string $action): LinkTreeDTOInterface
+    public function getLinkTreeDTO(ControllerDTOInterface $rootControllerDTO): LinkTreeDTOInterface
     {
-        /** 
-         * 1 Set Dynamic root if exist 
-         */
+        /** 1 Set Dynamic root if exist */
         if ($this->dynamicRoot !== null) {
             $this->currentRoot = $this->dynamicRoot->getCurrentRoot()->getName();
         }
 
-        /** 2. Get ControllerDTOInterface */
-        $RootcontrollerDTO = $this->sitemapService->getRootControllerDTO($controller, $action);
-
-        /** 3. Get LinkDTOs */
+        /** 2. Get LinkDTOs */
         $linkDTOs = $this->linkDTOCollection->getLinksByPaths([]);
         $linkHash = [];
         foreach ($linkDTOs as $linkDTO) {
             $linkHash[$linkDTO->getUrl()] = $linkDTO;
         }
 
-        /** 4. Build controllerDTO hash */
-        $rootLinkTreeDTO = $this->buildLinkTreeDTOHash($RootcontrollerDTO, $linkHash);
+        /** 3. Build controllerDTO hash */
+        $rootLinkTreeDTO = $this->buildLinkTreeDTOHash($rootControllerDTO, $linkHash);
 
         return $rootLinkTreeDTO;
     }
@@ -101,5 +95,4 @@ class LinkTree
 
         return $dto;
     }
-
 }

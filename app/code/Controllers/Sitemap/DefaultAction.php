@@ -11,6 +11,7 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree;
+use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
 
 /**
  * Creates a sitemap tree of public actions
@@ -22,8 +23,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        /** @todo replace with an interface */
-        protected readonly LinkTree $linkTree,
+        protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
         /** ? */
         // protected readonly SitemapDTOFactoryInterface $sitemapDTOFactory,
@@ -33,8 +33,9 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
 
     public function execute(): string
     {
-        $linkTreeDTO = $this->linkTree
-            ->getLinkTreeDTO($this->getController(), '');
+        $output = $this
+            ->sitemapLinkTreeView
+            ->getSitemapLinkTree($this->getController(), '');
 
         /** @var MenuLinksInterface[] $menuLinks */
         // $menuLinks = $this->menuLinksRepository->list('', []);
