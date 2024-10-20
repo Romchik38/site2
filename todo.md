@@ -11,10 +11,9 @@
     [+] create view template  
     [+] get RootControllerDTO from `Sitemap` service  
     [+] LinkTreeDTO
-    [-] create Mapper ControllerDTO to Html
-    [-] add new method to `LinkDTOCollectionUseVirtualRepository` to get all links by language  
-    [-] compare RootControllerDTO and LinkDTOs for further display data in the template  
+    [-] create Mapper LinkTreeDTO to Html
     [-] display sitemap tree in the template  
+    [-] tests  
 
 ## Next
 
