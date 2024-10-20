@@ -13,7 +13,6 @@ interface LinkTreeDTOFactoryInterface
         string $name,
         string $description,
         string $url,
-        array $children,
-        array $parents
+        array $children
     );
 }

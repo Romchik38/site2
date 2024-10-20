@@ -50,10 +50,29 @@ class LinkTree
         foreach ($linkDTOs as $linkDTO) {
             $linkHash[$linkDTO->getUrl()] = $linkDTO;
         }
-
+        $hash = [];
         /** 4. Build controllerDTO hash */
-        $controllerDTOHash = $this->buildControllerDTOHash($RootcontrollerDTO);
+        $this->buildLinkTreeDTOHash($RootcontrollerDTO, $hash);
 
+    }
+
+    /**
+     * $hash = [
+     *  'key' => [
+     *      'parents' => &[],
+     *      'children' => &[]
+     *      ]
+     * ]
+     * 
+     * $hash = [key => dto]
+     */
+    /** 
+     * @todo implement
+     * @todo add return type 
+     * 
+     * Used in getLinkTreeDTO
+     */
+    protected function buildLinkTreeDTOHash(ControllerDTOInterface $element, &$hash) {       
 
     }
 
@@ -65,26 +84,5 @@ class LinkTree
     protected function getPathsFromControllerDTO(ControllerDTOInterface $dto): array
     {
         return [];
-    }
-
-    /**
-     * $hash = [
-     *  'key' => [
-     *      'parrents' => [],
-     *      'children' => []
-     *      ]
-     * ]
-     */
-    /** 
-     * @todo implement
-     * @todo add return type 
-     * 
-     * Used in getLinkTreeDTO
-     */
-    protected function buildControllerDTOHash(ControllerDTOInterface $element, $hash = []) {       
-        $key = get_class($element);
-        $children = $element->getChildren();
-        
-        $hash[$key] ?? 
     }
 }

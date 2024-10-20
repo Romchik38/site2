@@ -13,13 +13,7 @@ use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOInterface;
  */
 interface LinkTreeDTOInterface extends LinkDTOInterface
 {
-    const PARENTS_FIELD = 'parrents';
     const CHILDREN_FIELD = 'children';
-
-    /** 
-     * @return LinkTreeDTOInterface[]
-     */
-    public function getParents(): array;
 
     /** 
      * @return LinkTreeDTOInterface[]

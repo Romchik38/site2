@@ -13,8 +13,7 @@ class LinkTreeDTOFactory implements LinkTreeDTOFactoryInterface
         string $name,
         string $description,
         string $url,
-        array $children,
-        array $parents
+        array $children
     ) {
         /** 1. Length check */
         if (
@@ -26,6 +25,6 @@ class LinkTreeDTOFactory implements LinkTreeDTOFactoryInterface
         }
         /** 2. Extends this class to create more checks*/
 
-        return new LinkTreeDTO($name, $description, $url, $children, $parents);
+        return new LinkTreeDTO($name, $description, $url, $children);
     }
 }

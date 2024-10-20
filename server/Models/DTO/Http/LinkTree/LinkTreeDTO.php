@@ -13,17 +13,10 @@ class LinkTreeDTO extends LinkDTO implements LinkTreeDTOInterface
         string $name,
         string $description,
         string $url,
-        array $children,
-        array $parents
+        array $children
     ) {
         parent::__construct($name, $description, $url);
         $this->data[LinkTreeDTOInterface::CHILDREN_FIELD] = $children;
-        $this->data[LinkTreeDTOInterface::PARENTS_FIELD] = $parents;
-    }
-
-    public function getParents(): array
-    {
-        return $this->data[LinkTreeDTOInterface::PARENTS_FIELD];
     }
 
     public function getChildren(): array
