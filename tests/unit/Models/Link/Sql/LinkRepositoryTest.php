@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Models\Link\Sql\LinkRepository;
-use Romchik38\Server\Models\Sql\DatabasePostgresql;
+use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Site2\Models\Link\Link;
 use Romchik38\Site2\Models\Link\LinkFactory;
 
@@ -15,7 +15,7 @@ class LinkRepositoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->database = $this->createMock(DatabasePostgresql::class);
+        $this->database = $this->createMock(DatabaseInterface::class);
         $this->factory = $this->createMock(LinkFactory::class);
     }
 
