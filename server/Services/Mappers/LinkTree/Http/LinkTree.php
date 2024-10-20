@@ -10,7 +10,9 @@ use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Api\Services\Mappers\Breadcrumb\Http\BreadcrumbInterface;
 use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
+use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOInterface;
 
 /** 
  * Maps Root ControllerDTO LinkTreeDTO
@@ -29,9 +31,9 @@ class LinkTree
     ) {}
 
     /** 
-     * @todo add return type LinkTreeDTOInterface
+     * @return LinkTreeDTOInterface Root link with all children tree
      */
-    public function getLinkTreeDTO(ControllerInterface $controller, string $action)
+    public function getLinkTreeDTO(ControllerInterface $controller, string $action): LinkTreeDTOInterface
     {
         /** 
          * 1 Set Dynamic root if exist 
@@ -44,45 +46,60 @@ class LinkTree
         $RootcontrollerDTO = $this->sitemapService->getRootControllerDTO($controller, $action);
 
         /** 3. Get LinkDTOs */
-        $paths = $this->getPathsFromControllerDTO($RootcontrollerDTO);
-        $linkDTOs = $this->linkDTOCollection->getLinksByPaths($paths);
+        $linkDTOs = $this->linkDTOCollection->getLinksByPaths([]);
         $linkHash = [];
         foreach ($linkDTOs as $linkDTO) {
             $linkHash[$linkDTO->getUrl()] = $linkDTO;
         }
-        $hash = [];
+
         /** 4. Build controllerDTO hash */
-        $this->buildLinkTreeDTOHash($RootcontrollerDTO, $hash);
+        $rootLinkTreeDTO = $this->buildLinkTreeDTOHash($RootcontrollerDTO, $linkHash);
 
+        return $rootLinkTreeDTO;
     }
 
-    /**
-     * $hash = [
-     *  'key' => [
-     *      'parents' => &[],
-     *      'children' => &[]
-     *      ]
-     * ]
-     * 
-     * $hash = [key => dto]
-     */
-    /** 
-     * @todo implement
-     * @todo add return type 
-     * 
-     * Used in getLinkTreeDTO
-     */
-    protected function buildLinkTreeDTOHash(ControllerDTOInterface $element, &$hash) {       
-
-    }
-
-    /**
-     * @todo implement
-     *  
-     * @return array<int,string[]>
-     * */
-    protected function getPathsFromControllerDTO(ControllerDTOInterface $dto): array
+    protected function buildLinkTreeDTOHash(ControllerDTOInterface $element, $hash = []): LinkTreeDTOInterface
     {
-        return [];
+        $name = $element->getName();
+        $path = $element->getPath();
+
+        array_push($path, $name);
+
+        $path[0] = $this->currentRoot;
+
+        $firstPath = $path[0];
+        if ($firstPath === SitemapInterface::ROOT_NAME) {
+            $path = array_slice($path, 1);
+        }
+
+        if ($name === SitemapInterface::ROOT_NAME) {
+            $name = BreadcrumbInterface::HOME_PLACEHOLDER;
+        }
+
+        $url = '/' . implode('/', $path);
+
+        $children = $element->getChildren();
+        $dtoChildren = [];
+        foreach ($children as $child) {
+            // do something with children
+            $dtoChild = $this->buildLinkTreeDTOHash($child, $hash);
+            $dtoChildren[] = $dtoChild;
+        }
+        $description = $name;
+        /** @var LinkDTOInterface $linkDTO */
+        $linkDTO = $hash[$url] ?? null;
+        if ($linkDTO !== null) {
+            $name = $linkDTO->getName();
+            $description = $linkDTO->getDescription();
+        }
+        $dto = $this->linkTreeDTOFactory->create(
+            $name,
+            $description,
+            $url,
+            $dtoChildren
+        );
+
+        return $dto;
     }
+
 }
