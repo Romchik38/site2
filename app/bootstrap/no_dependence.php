@@ -95,6 +95,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\DTO\Http\LinkTree\LinkTreeDTOFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Models\DTO\Views\SitemapDTOFactory::class,
+        new \Romchik38\Site2\Models\DTO\Views\SitemapDTOFactory()
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\DTO\Views\SitemapDTOFactory::class)
+    );
+
     // Services
     $container->add(
         \Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class,

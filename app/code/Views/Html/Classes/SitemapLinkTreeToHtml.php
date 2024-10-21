@@ -11,6 +11,8 @@ use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
 
 /**
+ * @internal
+ * 
  * Maps ControllerDTO to Html throughth LinkTreeDTO
  */
 final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
@@ -30,6 +32,35 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 
     protected function buildHtml(LinkTreeDTOInterface $linkTreeDTO): string
     {
-        return 'from sitemap link tree mapper';
+        return '<ul>' . $this->createRow($linkTreeDTO) . '</ul>';
+    }
+
+    /** 
+     * Recursively creates html li and ul
+     * 
+     * @return string <li>html</li>
+     */
+    protected function createRow(LinkTreeDTOInterface $element): string
+    {
+        $children = $element->getChildren();
+        $name = $element->getName();
+        $description = $element->getDescription();
+        $url = $element->getUrl();
+
+        // 1. the element has not children
+        if (count($children) === 0) {
+            $elemNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($name) . '</a>';
+            $lastElementHtml = '<li>' . $elemNameHtml . '</li>';
+            return $lastElementHtml;
+        }
+
+        // 2. the element has children
+        $rowNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($name) . '</a>';
+        $rowElementsHtml = [];
+        foreach ($children as $child) {
+            $rowElemHtml = $this->createRow($child);
+            $rowElementsHtml[] = $rowElemHtml;
+        }
+        return '<li>' . $rowNameHtml . '<ul>' . implode('', $rowElementsHtml) . '</ul></li>';
     }
 }

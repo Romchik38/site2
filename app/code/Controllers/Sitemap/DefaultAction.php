@@ -12,6 +12,7 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree;
 use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
+use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface;
 
 /**
  * Creates a sitemap tree of public actions
@@ -24,11 +25,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
-        /** ? */
-        // protected readonly SitemapDTOFactoryInterface $sitemapDTOFactory,
-        /** ? */
-        // protected readonly MenuLinksRepositoryInterface $menuLinksRepository
+        protected readonly SitemapDTOFactoryInterface $sitemapDTOFactory,
     ) {}
 
     public function execute(): string
@@ -40,9 +37,10 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         /** @var MenuLinksInterface[] $menuLinks */
         // $menuLinks = $this->menuLinksRepository->list('', []);
 
-        $sitemapDTO = $this->defaultViewDTOFactory->create(
+        $sitemapDTO = $this->sitemapDTOFactory->create(
             'Sitemap',
-            'Sitemap Page'
+            'Sitemap Page',
+            $output
         );
 
 
