@@ -19,7 +19,7 @@
             [+] SitemapDTO + factory  
             [+] SitemapLinkTreeToHtml  
         [-] server  
-            [-] LinkTreeDTO + factory  
+            [+] LinkTreeDTO + factory  
             [-] LinkTree service  
     [-] phpstan  
     [-] move code from sitemap action to php-server  
