@@ -1,6 +1,6 @@
 {% set sitemapHtmlTree = data.output %}
 
 <div class="container">
-    <p>This is the Sitemap Page. You can find all link from our site here.</p>
+    <p>{{ data.getDescription() }}.</p>
     {{sitemapHtmlTree|raw}}
 </div>

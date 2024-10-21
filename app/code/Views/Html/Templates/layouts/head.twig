@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ data.getName() }}</title>
+    <meta name="description" content="{{ data.getDescription() }}">
     <link rel="stylesheet" href="{{ boostrapCssFile }}"/>
     <link rel="stylesheet" href="/media/css/main.css" />
     <script src="{{ fontAwesomeJsFile }}" crossorigin="anonymous"></script>
-
     {# Dynamic content start  #}
     {% include head_template ignore missing %}
     {# Dynamic content end  #}
