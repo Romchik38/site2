@@ -54,6 +54,9 @@ class LinkTree implements LinkTreeInterface
         return $rootLinkTreeDTO;
     }
 
+    /**
+     * @param LinkDTOInterface[] $hash
+     */
     protected function buildLinkTreeDTOHash(ControllerDTOInterface $element, $hash = []): LinkTreeDTOInterface
     {
         $name = $element->getName();

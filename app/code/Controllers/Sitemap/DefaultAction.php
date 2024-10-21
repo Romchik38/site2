@@ -49,9 +49,8 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             $description = $link->getDescription();
         }
 
-        $output = $this
-            ->sitemapLinkTreeView
-            ->getSitemapLinkTree($this->getController(), '');
+        $output = $this->sitemapLinkTreeView
+            ->getSitemapLinkTree($this->getController());
 
         $sitemapDTO = $this->sitemapDTOFactory->create(
             $name,
@@ -65,7 +64,11 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         return $this->view->toString();
     }
 
-    /** @todo move to action */
+    /** 
+     * @todo move to action 
+     * 
+     * @return string[]
+     * */
     protected function getPath(): array
     {
         $controller = $this->getController();

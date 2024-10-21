@@ -21,7 +21,7 @@
         [+] server  
             [+] LinkTreeDTO + factory  
             [+] LinkTree service  
-    [-] phpstan  
+    [+] phpstan  
     [-] move code from sitemap action to php-server  
 
 ## Next
