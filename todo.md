@@ -13,18 +13,18 @@
     [+] LinkTreeDTO
     [+] create Mapper LinkTreeDTO to Html
     [+] display sitemap tree in the template  
+    [+] refactor LinkDTOCollectionInterface
     [-] tests  
         [-] site2  
-            [-] SitemapDTO + factory  
+            [+] SitemapDTO + factory  
             [-] SitemapLinkTreeToHtml  
         [-] server  
             [-] LinkTreeDTO + factory  
             [-] LinkTree serivce
-    [-] refactor LinkDTOCollectionInterface
+    [-] move code from sitemap action to php-server  
 
 ## Next
 
-[-] move code from sitemap action to php-server  
 [-] tests  
     [-] TwigView  
 [-] move TwigView to module  
