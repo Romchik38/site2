@@ -6,7 +6,7 @@
 
 ## Current
 
-[-] Sitemap  
+[+] Sitemap  
     [+] create controller  
     [+] create view template  
     [+] get RootControllerDTO from `Sitemap` service  
@@ -22,7 +22,8 @@
             [+] LinkTreeDTO + factory  
             [+] LinkTree service  
     [+] phpstan  
-    [-] move code from sitemap action to php-server  
+    [+] move code from sitemap action to php-server  
+    [-] move new classes and tests to php-server  
 
 ## Next
 
