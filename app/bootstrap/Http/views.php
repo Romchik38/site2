@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Romchik38\Container;
 
-return function(Container $container) {
+return function (Container $container) {
 
     $twigConfig = require_once(__DIR__ . '/../../config/shared/twig.php');
 
@@ -36,6 +36,19 @@ return function(Container $container) {
             $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
             'base.twig'
         )
+    );
+
+    // Other classes
+    $container->add(
+        \Romchik38\Site2\Views\Html\Classes\SitemapLinkTreeToHtml::class,
+        new \Romchik38\Site2\Views\Html\Classes\SitemapLinkTreeToHtml(
+            $container->get(\Romchik38\Server\Api\Services\Mappers\SitemapInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Views\SitemapLinkTreeInterface::class,
+        $container->get(\Romchik38\Site2\Views\Html\Classes\SitemapLinkTreeToHtml::class)
     );
 
     return $container;

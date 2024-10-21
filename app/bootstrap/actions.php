@@ -40,7 +40,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
-            $container->get(\Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree::class),
+            $container->get(\Romchik38\Site2\Api\Views\SitemapLinkTreeInterface::class),
             $container->get(\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class)
         )
     );
