@@ -14,13 +14,13 @@
     [+] create Mapper LinkTreeDTO to Html
     [+] display sitemap tree in the template  
     [+] refactor LinkDTOCollectionInterface
-    [-] tests  
+    [+] tests  
         [+] site2  
             [+] SitemapDTO + factory  
             [+] SitemapLinkTreeToHtml  
-        [-] server  
+        [+] server  
             [+] LinkTreeDTO + factory  
-            [-] LinkTree service  
+            [+] LinkTree service  
     [-] phpstan  
     [-] move code from sitemap action to php-server  
 
