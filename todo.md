@@ -15,12 +15,12 @@
     [+] display sitemap tree in the template  
     [+] refactor LinkDTOCollectionInterface
     [-] tests  
-        [-] site2  
+        [+] site2  
             [+] SitemapDTO + factory  
-            [-] SitemapLinkTreeToHtml  
+            [+] SitemapLinkTreeToHtml  
         [-] server  
             [-] LinkTreeDTO + factory  
-            [-] LinkTree serivce
+            [-] LinkTree service
     [-] move code from sitemap action to php-server  
 
 ## Next

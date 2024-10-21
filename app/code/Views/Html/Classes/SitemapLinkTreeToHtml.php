@@ -31,8 +31,8 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
      * */
     public function getSitemapLinkTree(ControllerInterface $controller, string $action): mixed
     {
-        $rootcontrollerDTO = $this->sitemapService->getRootControllerDTO($controller, $action);
-        $linkTreeDTO = $this->linkTreeService->getLinkTreeDTO($rootcontrollerDTO);
+        $rootControllerDTO = $this->sitemapService->getRootControllerDTO($controller, $action);
+        $linkTreeDTO = $this->linkTreeService->getLinkTreeDTO($rootControllerDTO);
         return $this->buildHtml($linkTreeDTO);
     }
 
