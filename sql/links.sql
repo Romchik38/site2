@@ -21,7 +21,8 @@ INSERT INTO links (link_id, path)
 INSERT INTO links (link_id, path)
     VALUES 
         (1, '{"root"}'),
-        (2, '{"root", "about"}')
+        (2, '{"root", "about"}'),
+        (3, '{"root", "sitemap"}')
 ;
 
 INSERT INTO links_translates (link_id, language, name, description)
@@ -29,7 +30,9 @@ INSERT INTO links_translates (link_id, language, name, description)
         (1, 'en', 'Home', 'Home Page'),
         (1, 'uk', 'Головна', 'Головна сторінка'),
         (2, 'en', 'About', 'About Page'),
-        (2, 'uk', 'Про компанію', 'Сторінка про компанію')        
+        (2, 'uk', 'Про компанію', 'Сторінка про компанію'),
+        (3, 'en', 'Sitemap', 'Sitemap Page - all links on one page'),
+        (3, 'uk', 'Мапа сайту', 'Мапа сайту - усі посилання на одній сторінці')
 ;
 
 --EXAMPLE
