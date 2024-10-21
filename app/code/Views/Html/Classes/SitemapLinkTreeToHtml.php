@@ -11,9 +11,11 @@ use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
 
 /**
- * @internal
  * 
- * Maps ControllerDTO to Html throughth LinkTreeDTO
+ * Maps ControllerDTO to Html throughth LinkTreeDTO.
+ * Used in the Sitemap action only
+ * 
+ * @internal
  */
 final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 {
@@ -22,7 +24,11 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
         protected LinkTreeInterface $linkTreeService
     ) {}
 
-    /** @return string Html */
+    /** 
+     * Converts controller tree to HTML format
+     * 
+     * @return string valid Html 
+     * */
     public function getSitemapLinkTree(ControllerInterface $controller, string $action): mixed
     {
         $rootcontrollerDTO = $this->sitemapService->getRootControllerDTO($controller, $action);
@@ -36,9 +42,9 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
     }
 
     /** 
-     * Recursively creates html li and ul
+     * Recursively creates html <li> and <ul> tags
      * 
-     * @return string <li>html</li>
+     * @return string <li>inner html</li>
      */
     protected function createRow(LinkTreeDTOInterface $element): string
     {

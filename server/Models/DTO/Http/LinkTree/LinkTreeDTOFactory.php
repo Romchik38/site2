@@ -6,7 +6,12 @@ namespace Romchik38\Server\Models\DTO\Http\LinkTree;
 
 use InvalidArgumentException;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface;
+use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
 
+/**
+ * Use to create an LinkTreeDTO entity
+ * @api
+ */
 class LinkTreeDTOFactory implements LinkTreeDTOFactoryInterface
 {
     public function create(
@@ -14,7 +19,7 @@ class LinkTreeDTOFactory implements LinkTreeDTOFactoryInterface
         string $description,
         string $url,
         array $children
-    ) {
+    ): LinkTreeDTOInterface {
         /** 1. Length check */
         if (
             strlen($name) === 0 ||

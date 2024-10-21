@@ -17,7 +17,7 @@ final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionIn
         protected DynamicRoot $dynamicRoot
     ) {}
 
-    public function getLinksByPaths(array $paths): array
+    public function getLinksByPaths(array $paths = []): array
     {
         $language = $this->dynamicRoot->getCurrentRoot()->getName();
         $result = [];

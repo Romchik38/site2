@@ -7,7 +7,13 @@ namespace Romchik38\Site2\Models\DTO\Views;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
 
-class SitemapDTO extends DefaultViewDTO implements SitemapDTOInterface
+/** 
+ * Created in the Sitemap action. Used in a View template.
+ * Use SitemapDTOFactory to create an entity
+ * 
+ * @internal
+ */
+final class SitemapDTO extends DefaultViewDTO implements SitemapDTOInterface
 {
     public function __construct(
         string $name,

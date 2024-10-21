@@ -6,7 +6,10 @@ namespace Romchik38\Site2\Api\Views;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 
-/** convert controller tree to output format */
+/** 
+ * Converts controller tree to output format 
+ * @api
+*/
 interface SitemapLinkTreeInterface
 {
     public function getSitemapLinkTree(ControllerInterface $controller, string $action): mixed;

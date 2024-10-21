@@ -7,9 +7,10 @@ namespace Romchik38\Server\Api\Models\DTO\Http\LinkTree;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOInterface;
 
 /**
- * represents a controller's tree
- * 
+ * Represents a controller's tree
  * LinkTreeDTOFactoryInterface is responsable to create this entity
+ * 
+ * @api
  */
 interface LinkTreeDTOInterface extends LinkDTOInterface
 {

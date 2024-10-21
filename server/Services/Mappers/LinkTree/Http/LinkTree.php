@@ -15,9 +15,9 @@ use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOInterface;
 use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
 
 /** 
- * Maps Root ControllerDTO LinkTreeDTO
+ * Maps ControllerDTO to LinkTreeDTO
  * 
- * @todo create an interface
+ * @api
  */
 class LinkTree implements LinkTreeInterface
 {
@@ -25,7 +25,7 @@ class LinkTree implements LinkTreeInterface
 
     public function __construct(
         protected LinkTreeDTOFactoryInterface $linkTreeDTOFactory,
-        protected LinkDTOCollectionInterface $linkDTOCollection,
+        protected LinkDTOCollectionInterface|null $linkDTOCollection = null,
         protected DynamicRootInterface|null $dynamicRoot = null
     ) {}
 
@@ -39,11 +39,13 @@ class LinkTree implements LinkTreeInterface
             $this->currentRoot = $this->dynamicRoot->getCurrentRoot()->getName();
         }
 
-        /** 2. Get LinkDTOs */
-        $linkDTOs = $this->linkDTOCollection->getLinksByPaths([]);
         $linkHash = [];
-        foreach ($linkDTOs as $linkDTO) {
-            $linkHash[$linkDTO->getUrl()] = $linkDTO;
+        /** 2. Get all available LinkDTOs if linkDTOCollection was provided */
+        if ($this->linkDTOCollection !== null) {
+            $linkDTOs = $this->linkDTOCollection->getLinksByPaths();
+            foreach ($linkDTOs as $linkDTO) {
+                $linkHash[$linkDTO->getUrl()] = $linkDTO;
+            }
         }
 
         /** 3. Build controllerDTO hash */

@@ -8,7 +8,14 @@ use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
-class SitemapDTOFactory implements SitemapDTOFactoryInterface
+/**
+ * Creates a SitemapDTO. 
+ * Makes arguments checks. 
+ * Used in the Sitemap action only.
+ * 
+ * @internal
+ */
+final class SitemapDTOFactory implements SitemapDTOFactoryInterface
 {
     public function create(
         string $name,
