@@ -8,11 +8,12 @@ INSERT INTO translate_keys (key) VALUES
     ('global.language'),
     --controller
     ('root.page_name'),
+    ('server-error.header'),
     ('server-error.message'),
     ('root.about'),
     ('root.contacts'),
-    ('404.h1'),
-    ('404.p'),
+    ('404.header'),
+    ('404.message'),
     --header
     ('header.logo'),
     ('header.sing_in'),
