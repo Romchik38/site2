@@ -31,7 +31,8 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class)
+            $container->get(\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class),
+            __DIR__ . '/../../public/http/media/html/server-error.html'
         )
     );
 
@@ -64,7 +65,7 @@ return function ($container) {
         \Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction::class,
         new \Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction(
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
         )
     );
 
