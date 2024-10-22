@@ -6,6 +6,9 @@
 
 ## Current
 
+[-] 404 page  
+[-] server error page
+
 ## Next
 
 [-] tests  

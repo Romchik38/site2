@@ -2,7 +2,17 @@
 
 declare(strict_types=1);
 
+use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
+use Romchik38\Server\Controllers\Controller;
+
 return function ($container) {
+
+    $notFoundController = new Controller(
+        (string) HttpRouterResultInterface::NOT_FOUND_STATUS_CODE, 
+        true,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        $container->get(\Romchik38\Site2\Controllers\PageNotFound\DefaultAction::class)
+    );
 
     // ROUTER HEADERS
     $container->add(
@@ -13,7 +23,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class),
             $container->get(\Romchik38\Server\Api\Routers\Http\HeadersCollectionInterface::class),
-            null,
+            $notFoundController,
             null
         )
     );
