@@ -11,6 +11,8 @@ INSERT INTO translate_keys (key) VALUES
     ('server-error.message'),
     ('root.about'),
     ('root.contacts'),
+    ('404.h1'),
+    ('404.p'),
     --header
     ('header.logo'),
     ('header.sing_in'),

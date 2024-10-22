@@ -21,6 +21,10 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('root.contacts', 'uk', 'Наші контакти'),    
     ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 
     ('server-error.message', 'uk', 'Вибачте, нажаль сталася помилка на стороні серверу. Спробуйте повторити запит пізніше'),
+    ('404.h1', 'en', 'The requested page was not found on our server'),
+    ('404.h1', 'uk', 'Запрошена сторінка не знайдена на нашому сервері'),
+    ('404.p', 'en', 'Please check the request and try again'),
+    ('404.p', 'uk', 'Будь ласка, перевірте адресну строку та спробуйте знову'),
     --header
     ('header.logo', 'en', 'Lawshield'),
     ('header.logo', 'uk', 'Правощит'),

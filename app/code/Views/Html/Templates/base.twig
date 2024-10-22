@@ -28,7 +28,7 @@
         {% include 'layouts/header.twig' %}
 
         <!-- Dynamic content start -->
-        {% include controller_template with {'data': data} only %}
+        {% include controller_template with {'data': data, 'translate': translate} only %}
         <!-- Dynamic content end -->
 
         {% include 'layouts/footer.twig' %} 
