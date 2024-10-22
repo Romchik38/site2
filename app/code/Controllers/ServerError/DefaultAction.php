@@ -27,6 +27,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
 
     public function execute(): string
     {
+        /** try to show dynamic view */
         $dto = $this->defaultViewDTOFactory->create(
             $this::DEFAULT_VIEW_NAME,
             $this::DEFAULT_VIEW_DESCRIPTION
@@ -36,5 +37,10 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             ->setControllerData($dto)
             ->toString();
         return $result;
+        /** 
+         * show static output 
+         * @todo implement
+         * */
+
     }
 }

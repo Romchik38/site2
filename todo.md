@@ -6,8 +6,11 @@
 
 ## Current
 
-[-] 404 page  
+[+] 404 page  
 [-] server error page
+    [-] html output  
+    [-] nginx page  
+    [-] doc  
 
 ## Next
 
