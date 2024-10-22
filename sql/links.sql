@@ -22,7 +22,8 @@ INSERT INTO links (link_id, path)
     VALUES 
         (1, '{"root"}'),
         (2, '{"root", "about"}'),
-        (3, '{"root", "sitemap"}')
+        (3, '{"root", "sitemap"}'),
+        (4, '{"root", "server-error-example"}')
 ;
 
 INSERT INTO links_translates (link_id, language, name, description)
@@ -32,7 +33,9 @@ INSERT INTO links_translates (link_id, language, name, description)
         (2, 'en', 'About', 'About Page'),
         (2, 'uk', 'Про компанію', 'Сторінка про компанію'),
         (3, 'en', 'Sitemap', 'Sitemap Page - all links on one page'),
-        (3, 'uk', 'Мапа сайту', 'Мапа сайту - усі посилання на одній сторінці')
+        (3, 'uk', 'Мапа сайту', 'Мапа сайту - усі посилання на одній сторінці'),
+        (4, 'en', 'Server error example', 'Server error example page'),
+        (4, 'uk', 'Приклад помилки серверу', 'Приклад сторінки помилки серверу')
 ;
 
 --EXAMPLE

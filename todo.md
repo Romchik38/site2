@@ -8,7 +8,7 @@
 
 [+] 404 page  
 [-] server error page
-    [-] controller that produce server error to show how it look like  
+    [+] controller that produce server error to show how it look like  
     [-] html output  
     [-] nginx page  
     [-] doc  

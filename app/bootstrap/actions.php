@@ -59,6 +59,15 @@ return function ($container) {
         )
     );
 
+    // Server Error Example
+    $container->add(
+        \Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction::class,
+        new \Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction(
+            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+        )
+    );
+
 
     return $container;
 };

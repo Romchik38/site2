@@ -28,7 +28,14 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Controllers\Sitemap\DefaultAction::class)
     );
 
-    $root->setChild($sitemap);
+    $serverErrorExample = new Controller(
+        'server-error-example',
+        true,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        $container->get(\Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction::class)
+    );
+
+    $root->setChild($sitemap)->setChild($serverErrorExample);
 
     /** collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);
