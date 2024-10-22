@@ -48,7 +48,7 @@ return function ($container) {
         )
     );
 
-    // 404
+    // Not found
     $container->add(
         \Romchik38\Site2\Controllers\PageNotFound\DefaultAction::class,
         new \Romchik38\Site2\Controllers\PageNotFound\DefaultAction(
