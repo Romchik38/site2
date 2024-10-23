@@ -1,11 +1,18 @@
 # Readme for site2
 
-Site2 demonstrates implementing:
+Site2 is based on [php-server](https://github.com/Romchik38/server) and demonstrates:
 
-- language routing
-- twig view
+- [multilanguage system](./doc/language/01-readme.md)
+- [twig view](./doc/templates/01-readme.md)
 
-Based on [php-server](https://github.com/Romchik38/server).
+Additional:
+
+- Routing system
+- [Error handling](./doc/errors/errors.md)
+- [Design](./doc/design/01-readme.md)
+- Sitemap
+- Breadcrumbs
+- Loging
 
 The only dependency is *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
 
