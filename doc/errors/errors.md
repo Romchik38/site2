@@ -1,6 +1,6 @@
-# Errors 
+# Errors
 
 Working with errrors
 
-- [Server errors (50x)](./server-errors/server-errors.md)
-- Not Found (404)
+- [Not Found (404)](./not-found/00-readme.md)
+- [Server errors (50x)](./server-errors/00-readme.md)
