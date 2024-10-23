@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Router\Http\RouterHeaders;
 use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
 use Romchik38\Server\Routers\Http\RouterHeader;
 
-class Root extends RouterHeader {
+final class Root extends RouterHeader {
 
     /**
      * @param string[] $path

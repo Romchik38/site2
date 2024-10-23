@@ -8,7 +8,7 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 
 /** Tries to show nice answer */
-class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
+final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
     public function execute(): string
     {

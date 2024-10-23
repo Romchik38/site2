@@ -12,7 +12,7 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\NotFoundException;
 
-class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
+final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
 
     /**
