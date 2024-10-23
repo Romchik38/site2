@@ -11,7 +11,7 @@
     [+] controller that produce server error to show how it look like  
     [+] html output  
     [+] nginx page  
-    [-] add error pages to proto  
+    [+] add error pages to proto  
     [-] doc  
 
 ## Next
