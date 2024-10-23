@@ -10,5 +10,5 @@ return [
      * Path to html error page 
      * Used in ServerError Action to show static page
      * */
-    'server-error-page' => __DIR__ . '/../../../public/http/media/html/errors/server-error.html'
+    'server-error-page' => __DIR__ . '/../../../public/http/media/html/errors/server-error-500.html'
 ];
