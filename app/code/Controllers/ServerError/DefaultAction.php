@@ -59,7 +59,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         if (file_exists($this->outputFile) === false) {
             throw new \RuntimeException(
                 sprintf(
-                    'Output file %s to show nice server error response not exist',
+                    'Output file not exist %s to show nice server error response',
                     $this->outputFile
                 )
             );
@@ -85,7 +85,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         if (strlen(trim($file)) === 0) {
             throw new \RuntimeException(
                 sprintf(
-                    'Output file %s to show nice server error response is empty',
+                    'Output file is empty %s to show nice server error response',
                     $this->outputFile
                 )
             );

@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
+use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
+
 return function ($container) {
+
+    $errorConfig = include_once(__DIR__ . '/../config/shared/errors.php');
 
     // Root
     $container->add(
@@ -25,6 +29,9 @@ return function ($container) {
     );
 
     // ServerError
+    $serverErrorResponseFile = $errorConfig['server-error-page'] 
+        ?? throw new MissingRequiredParameterInFileError('Missing server-error-page config parameter');
+
     $container->add(
         \Romchik38\Site2\Controllers\ServerError\DefaultAction::class,
         new \Romchik38\Site2\Controllers\ServerError\DefaultAction(
@@ -32,7 +39,7 @@ return function ($container) {
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface::class),
-            __DIR__ . '/../../public/http/media/html/server-error.html'
+            $serverErrorResponseFile
         )
     );
 
