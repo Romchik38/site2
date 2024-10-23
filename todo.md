@@ -12,7 +12,8 @@
     [+] html output  
     [+] nginx page  
     [+] add error pages to proto  
-    [-] doc  
+    [+] doc  
+    [-] check all links are clickable after commit  
 
 ## Next
 
