@@ -1,6 +1,6 @@
 {
     "name": "romchik38/sites-site2",
-    "description": "App shows implementing of language routing",
+    "description": "App shows implementing of language routing, twig view and more",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -29,6 +29,7 @@
     },
 
     "require": {
+        "php": ">=8.3",
         "romchik38/php-container": "1.1.*",
         "psr/log": "^3.0",
         "romchik38/php-server": "1.9.2",
