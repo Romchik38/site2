@@ -1,12 +1,12 @@
 # How it works
 
-1. Nginx send a request to php-fpm service
-2. Php-fpm process index.php
+1. Nginx sends a request to php-fpm service
+2. Php-fpm processes index.php
 3. Index.php starts [Default server](https://github.com/Romchik38/server/blob/master/src/Servers/Http/DefaultServer.php)
-4. Default server process the request
-5. Executes [server error controller](./02-server-error-controller.md) ([controller](https://github.com/Romchik38/server/blob/master/src/Controllers/Controller.php)) on error
+4. Default server processes the request
+5. On error executes [server error controller](./02-server-error-controller.md) ([controller](https://github.com/Romchik38/server/blob/master/src/Controllers/Controller.php))
 6. Variant 1 - controller works
-7. Variant 2 - controller not works
+7. Variant 2 - controller doesn't work
 
 ## 4. Default server process the request
 
