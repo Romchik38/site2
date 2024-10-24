@@ -6,7 +6,7 @@ return function ($container) {
     //  ROUTER
     $container->add(
         \Romchik38\Server\Results\Http\HttpRouterResult::class,
-        new \Romchik38\Server\Results\Http\HttpRouterResult()
+        new \Romchik38\Server\Results\Http\HttpRouterResult
     );
     $container->add(
         \Romchik38\Server\Api\Results\Http\HttpRouterResultInterface::class,
@@ -16,7 +16,7 @@ return function ($container) {
     // SERVICES
     $container->add(
         \Romchik38\Server\Services\Request\Http\UriFactory::class,
-        new \Romchik38\Server\Services\Request\Http\UriFactory()
+        new \Romchik38\Server\Services\Request\Http\UriFactory
     );
     $container->add(
         \Romchik38\Server\Api\Services\Request\Http\UriFactoryInterface::class,
