@@ -18,7 +18,7 @@ interface ArticleInterface extends ModelInterface
     final const LANGUAGE_FIELD = 'language';
     final const NAME_FIELD = 'name';
     final const DESCRIPTION_FIELD = 'description';
-    final const CREATED_at_FIELD = 'created_at';
+    final const CREATED_AT_FIELD = 'created_at';
     final const UPDATED_AT_FIELD = 'updated_at';
     final const CATEGORY_ID_FIELD = 'category_id';
 
@@ -33,10 +33,18 @@ interface ArticleInterface extends ModelInterface
     /** @return string[] a list of categories ids*/
     public function getCategory_id(): array;
 
+    /** @throws InvalidArgumentException when string is empty */
     public function setId(string $id): ArticleInterface;
+
     public function setActive(bool $active): ArticleInterface;
+
+    /** @throws InvalidArgumentException when string is empty */
     public function setLanguage(string $language): ArticleInterface;
+
+    /** @throws InvalidArgumentException when string is empty */
     public function setName(string $name): ArticleInterface;
+
+    /** @throws InvalidArgumentException when string is empty */
     public function setDescription(string $description): ArticleInterface;
     public function setCreatedAt(\DateTime $date): ArticleInterface;
     public function setUpdatedAt(\Datetime $date): ArticleInterface;
