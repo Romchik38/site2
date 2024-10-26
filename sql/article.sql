@@ -22,26 +22,19 @@ CREATE table
         CONSTRAINT pk_article_category PRIMARY KEY (article_id, category_id)
     );
 
---INSERT
--- WITH rows AS (
---     INSERT INTO article (identifier) 
---         VALUES ('article-1') RETURNING article_id
--- )
 BEGIN;
 INSERT INTO article (identifier) 
-        VALUES ('article-1');
+    VALUES ('article-1'),
+        ('article-2')
 ;
 INSERT INTO article_translates (article_id, language, name, description)
     VALUES
-    (
-        'article-1',
-        'en',
-        'Article about something',
-        'Today we talk about something'
-    )
+    ('article-1', 'en', 'Article about something', 'Today we talk about something'),
+    ('article-2', 'en', 'Second article about that', 'Tomorrow we will talk about that')
 ;
 INSERT INTO article_category VALUES
-    ('article-1', 'category-1')
+    ('article-1', 'category-1'),
+    ('article-1', 'category-2')
 ;
 COMMIT;
 

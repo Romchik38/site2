@@ -14,7 +14,9 @@ CREATE table
 
 BEGIN;
 INSERT INTO category VALUES
-    ('category-1')
+    ('category-1'),
+    ('category-2'),
+    ('category-3')
 ;
 INSERT INTO category_translates VALUES
     (
@@ -22,6 +24,18 @@ INSERT INTO category_translates VALUES
         'en',
         'Some category 1',
         'Category 1 represents articles ...'
+    ),
+        (
+        'category-2', 
+        'en',
+        'Some category 2',
+        'Category 2 represents articles ...'
+    ),
+        (
+        'category-3', 
+        'en',
+        'Some category 3',
+        'Category 3 represents articles ...'
     )
 ;
 COMMIT;
