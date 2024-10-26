@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Api\Models\Virtual\Article;
 
-use DateTime;
 use Romchik38\Server\Api\Models\ModelInterface;
 
 /**
@@ -12,7 +11,8 @@ use Romchik38\Server\Api\Models\ModelInterface;
  * 
  * @api
  */
-interface ArticleInterface extends ModelInterface {
+interface ArticleInterface extends ModelInterface
+{
     final const ID_FIELD = 'identifier';
     final const ACTIVE_FIELD = 'active';
     final const LANGUAGE_FIELD = 'language';
@@ -27,10 +27,20 @@ interface ArticleInterface extends ModelInterface {
     public function getLanguage(): string;
     public function getName(): string;
     public function getDescription(): string;
-    public function getCreatedAt(): DateTime;
-    public function getUpdated_at(): DateTime;
+    public function getCreatedAt(): \DateTime;
+    public function getUpdatedAt(): \DateTime;
 
-    /** @return string[] */
+    /** @return string[] a list of categories ids*/
     public function getCategory_id(): array;
 
+    public function setId(string $id): ArticleInterface;
+    public function setActive(bool $active): ArticleInterface;
+    public function setLanguage(string $language): ArticleInterface;
+    public function setName(string $name): ArticleInterface;
+    public function setDescription(string $description): ArticleInterface;
+    public function setCreatedAt(\DateTime $date): ArticleInterface;
+    public function setUpdatedAt(\Datetime $date): ArticleInterface;
+
+    /** @param string[] $category a list of categories ids*/
+    public function setCategory_id(array $category): ArticleInterface;
 }
