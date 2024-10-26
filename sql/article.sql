@@ -44,3 +44,5 @@ INSERT INTO article_category VALUES
     ('article-1', 'category-1')
 ;
 COMMIT;
+
+--getById query - ./article/getById.sql

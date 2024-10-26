@@ -6,14 +6,10 @@
 
 ## Current
 
-[+] 404 page  
-[-] server error page
-    [+] controller that produce server error to show how it look like  
-    [+] html output  
-    [+] nginx page  
-    [+] add error pages to proto  
-    [+] doc  
-    [-] check all links are clickable after commit  
+[-] Article  
+    [-] sql query  
+    [-] Repository  
+        [-] getById  
 
 ## Next
 
