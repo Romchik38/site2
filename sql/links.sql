@@ -18,12 +18,12 @@ CREATE table
 INSERT INTO links (link_id, path)
     VALUES (0, '{}');
 
-INSERT INTO links (link_id, path)
-    VALUES 
+INSERT INTO links (link_id, path) VALUES 
         (1, '{"root"}'),
         (2, '{"root", "about"}'),
         (3, '{"root", "sitemap"}'),
-        (4, '{"root", "server-error-example"}')
+        (4, '{"root", "server-error-example"}'),
+        (5, '{"root", "article"}')
 ;
 
 INSERT INTO links_translates (link_id, language, name, description)
@@ -35,7 +35,9 @@ INSERT INTO links_translates (link_id, language, name, description)
         (3, 'en', 'Sitemap', 'Sitemap Page - all links on one page'),
         (3, 'uk', 'Мапа сайту', 'Мапа сайту - усі посилання на одній сторінці'),
         (4, 'en', 'Server error example', 'Server error example page'),
-        (4, 'uk', 'Приклад помилки серверу', 'Приклад сторінки помилки серверу')
+        (4, 'uk', 'Приклад помилки серверу', 'Приклад сторінки помилки серверу'),
+        (5, 'en', 'Article', 'Article page'),
+        (5, 'uk', 'Матеріли', 'Матеріли на тему адміністративного права')
 ;
 
 --EXAMPLE
