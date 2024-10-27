@@ -12,13 +12,15 @@ class ArticleFactory implements ArticleFactoryInterface
     public function create(
         string $articleId,
         bool $active,
-        array $translates
+        array $translates,
+        array $categories
         ): ArticleInterface
     {
         return new Article(
             $articleId,
             $active,
-            $translates
+            $translates,
+            $categories
         );
     }
 }

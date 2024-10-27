@@ -10,6 +10,7 @@ interface ArticleFactoryInterface
     public function create(
         string $articleId,
         bool $active,
-        array $translates
+        array $translates,
+        array $categories
         ): ArticleInterface;
 }

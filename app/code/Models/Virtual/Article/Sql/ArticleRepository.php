@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface;
+use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryInterface;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface;
@@ -86,19 +87,21 @@ final class ArticleRepository
     {
         // 1. create translates
         $translates = $this->createTranslatesFromRows($rows);
+        $categories = $this->createCategoriesFromRows($rows);
 
         // 2. create an entity
         $row = $rows[0];
         $entity = $this->articleFactory->create(
             $row[ArticleInterface::ID_FIELD],
-            (bool)$row[ArticleInterface::ACTIVE_FIELD],
-            $translates
+            $row[ArticleInterface::ACTIVE_FIELD] === 'f' ? false : true,
+            $translates,
+            $categories
         );
 
         return $entity;
     }
 
-    /** @return ArticleTranslatesInterface[] a hash [language => ArticleTranslatesInterface, ...] */
+    /** @return array<string,ArticleTranslatesInterface> a hash [language => ArticleTranslatesInterface, ...] */
     protected function createTranslatesFromRows(array $rows): array
     {
         $translates = [];
@@ -106,7 +109,7 @@ final class ArticleRepository
             $language = $row[ArticleTranslatesInterface::LANGUAGE_FIELD];
             $item = $translates[$language] ?? $this->articleTranslatesFactory->create(
                 $row[ArticleInterface::ID_FIELD],
-                $row[ArticleTranslatesInterface::LANGUAGE_FIELD],
+                $language,
                 $row[ArticleTranslatesInterface::NAME_FIELD],
                 $row[ArticleTranslatesInterface::DESCRIPTION_FIELD],
                 /** add DateTimeZone */
@@ -117,6 +120,20 @@ final class ArticleRepository
         }
 
         return $translates;
+    }
+
+    /** @return array<string,ArticleCategoryInterface> a hash [categoryId => ArticleCategoryInterface, ...] */
+    protected function createCategoriesFromRows(array $rows): array {
+        $categories = [];
+        foreach ($rows as $row) {
+            $categoryId = $row[ArticleCategoryInterface::CATEGORY_ID_FIELD];
+            $item = $categories[$categoryId] ?? $this->articleCategoryFactory->create(
+                $row[ArticleInterface::ID_FIELD],
+                $categoryId,
+            );
+            $categories[$categoryId] = $item;
+        }
+        return $categories;
     }
 
     /**
