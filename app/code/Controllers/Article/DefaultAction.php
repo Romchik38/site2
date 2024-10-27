@@ -10,6 +10,8 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -21,11 +23,19 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         /** @todo create Article DTO */
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
+        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
+        /** @todo replace with interface */
+        protected readonly ArticleRepository $articleRepository
     ) {}
 
     public function execute(): string
     {
+        try {
+            $result = $this->articleRepository->getById('article-1');
+        } catch (NoSuchEntityException $e) {
+            // do something
+        }
+
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 

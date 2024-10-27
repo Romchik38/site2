@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Api\Models\ModelFactoryInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Sql\Virtual\VirtualRepository;
@@ -26,9 +27,9 @@ final class ArticleRepository extends VirtualRepository
      */
     public function __construct(
         protected DatabaseInterface $database,
-        protected ArticleFactoryInterface $modelFactory,
-        protected readonly array $selectFields,
-        protected readonly array $tables,
+        protected ModelFactoryInterface $modelFactory,
+        protected array $selectFields,
+        protected array $tables,
         protected readonly array $primaryIds
     ) {
         /** this is a join table so minimum two field needed to make an equal */
