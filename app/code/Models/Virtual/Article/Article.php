@@ -22,31 +22,6 @@ final class Article extends Model implements ArticleInterface
         return (bool)$this->getData($this::ACTIVE_FIELD);
     }
 
-    public function getLanguage(): string
-    {
-        return (string)$this->getData($this::LANGUAGE_FIELD);
-    }
-
-    public function getName(): string
-    {
-        return (string)$this->getData($this::NAME_FIELD);
-    }
-
-    public function getDescription(): string
-    {
-        return (string)$this->getData($this::DESCRIPTION_FIELD);
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return new DateTime((string)$this->getData($this::CREATED_AT_FIELD));
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return new DateTime((string)$this->getData($this::UPDATED_AT_FIELD));
-    }
-
     /** @return string[] a list of categories ids*/
     public function getCategory_id(): array
     {
@@ -67,48 +42,6 @@ final class Article extends Model implements ArticleInterface
     public function setActive(bool $active): ArticleInterface
     {
         $this->setData($this::ACTIVE_FIELD, $active);
-        return $this;
-    }
-
-    public function setLanguage(string $language): ArticleInterface
-    {
-        if (strlen($language) === 0) {
-            throw new InvalidArgumentException('Article language field can\'t be empty');
-        }
-
-        $this->setData($this::LANGUAGE_FIELD, $language);
-        return $this;
-    }
-
-    public function setName(string $name): ArticleInterface
-    {
-        if (strlen($name) === 0) {
-            throw new InvalidArgumentException('Article name field can\'t be empty');
-        }
-
-        $this->setData($this::NAME_FIELD, $name);
-        return $this;
-    }
-
-    public function setDescription(string $description): ArticleInterface
-    {
-        if (strlen($description) === 0) {
-            throw new InvalidArgumentException('Article description field can\'t be empty');
-        }
-
-        $this->setData($this::DESCRIPTION_FIELD, $description);
-        return $this;
-    }
-
-    public function setCreatedAt(\DateTime $date): ArticleInterface
-    {
-        $this->setData($this::CREATED_AT_FIELD, $date);
-        return $this;
-    }
-
-    public function setUpdatedAt(\Datetime $date): ArticleInterface
-    {
-        $this->setData($this::UPDATED_AT_FIELD, $date);
         return $this;
     }
 
