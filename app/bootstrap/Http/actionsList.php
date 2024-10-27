@@ -35,7 +35,18 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction::class)
     );
 
-    $root->setChild($sitemap)->setChild($serverErrorExample);
+    $article = new Controller(
+        'article',
+        true,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        null,
+        $container->get(\Romchik38\Site2\Controllers\Article\DynamicAction::class)        
+    );
+
+    $root
+        ->setChild($sitemap)
+        ->setChild($serverErrorExample)
+        ->setChild($article);
 
     /** collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);

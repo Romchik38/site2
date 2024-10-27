@@ -70,4 +70,21 @@ final class ArticleRepository extends VirtualRepository
 
         return $models[0];
     }
+
+    /**
+     * Create an entity from provided row
+     * 
+     * @param array $row ['field' => 'value', ...]
+     * @return ModelInterface
+     */
+    protected function createFromRow(array $row): ArticleInterface
+    {
+        $entity = $this->create();
+
+        foreach ($row as $key => $value) {
+            $entity->setData($key, $value);
+        }
+
+        return $entity;
+    }
 }
