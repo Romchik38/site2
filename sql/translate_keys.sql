@@ -7,6 +7,8 @@ INSERT INTO translate_keys (key) VALUES
     --global
     ('global.language'),
     --controller
+    ('article.page_name'),
+    ('article.description'),
     ('root.page_name'),
     ('server-error.header'),
     ('server-error.message'),
