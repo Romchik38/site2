@@ -42,7 +42,8 @@ return function (Container $container) {
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface::class),
             ['article.*', 'article_translates.language', 'article_translates.name', 'article_translates.description', 'article_translates.created_at', 'article_translates.updated_at', 'article_category.category_id'],
             ['article', 'article_translates', 'article_category'],
-            ['article.identifier', 'article_translates.article_id', 'article_category.article_id']
+            ['article.identifier', 'article_translates.article_id', 'article_category.article_id'],
+            $container->get(\Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface::class)
         )
     );
 

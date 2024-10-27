@@ -37,13 +37,21 @@ return function (Container $container) {
 
     $container->add(
         \Romchik38\Site2\Models\Virtual\Article\ArticleFactory::class,
-        new \Romchik38\Site2\Models\Virtual\Article\ArticleFactory()
+        new \Romchik38\Site2\Models\Virtual\Article\ArticleFactory
     );
     $container->add(
         \Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface::class,
         $container->get(\Romchik38\Site2\Models\Virtual\Article\ArticleFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Models\ArticleTranslates\ArticleTranslatesFactory::class,
+        new \Romchik38\Site2\Models\ArticleTranslates\ArticleTranslatesFactory
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\ArticleTranslates\ArticleTranslatesFactory::class)
+    );
     // DTO
     $container->add(
         \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class,

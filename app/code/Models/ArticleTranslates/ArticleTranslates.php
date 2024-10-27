@@ -4,48 +4,58 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Models\ArticleTranslates;
 
-use InvalidArgumentException;
-use Romchik38\Server\Models\Model;
+use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 
-final class ArticleTranslates extends Model implements ArticleTranslatesInterface {
+final class ArticleTranslates implements ArticleTranslatesInterface
+{
 
-    public function getArticleId(): string {
-        return (string)$this->getData($this::ARTICLE_ID_FIELD);
+    public function __construct(
+        protected string $articleId,
+        protected string $language,
+        protected string $name,
+        protected string $description,
+        protected \DateTime $createdAt,
+        protected \DateTime $updatedAt
+    ) {}
+
+    public function getArticleId(): string
+    {
+        return $this->articleId;
     }
 
     public function getLanguage(): string
     {
-        return (string)$this->getData($this::LANGUAGE_FIELD);
+        return $this->language;
     }
 
     public function getName(): string
     {
-        return (string)$this->getData($this::NAME_FIELD);
+        return $this->name;
     }
 
     public function getDescription(): string
     {
-        return (string)$this->getData($this::DESCRIPTION_FIELD);
+        return $this->description;
     }
 
     public function getCreatedAt(): \DateTime
     {
-        return new \DateTime((string)$this->getData($this::CREATED_AT_FIELD));
+        return $this->createdAt;
     }
 
     public function getUpdatedAt(): \DateTime
     {
-        return new \DateTime((string)$this->getData($this::UPDATED_AT_FIELD));
+        return $this->updatedAt;
     }
 
 
-    public function setArticleId(string $id): ArticleTranslatesInterface {
+    public function setArticleId(string $id): ArticleTranslatesInterface
+    {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('Article id field can\'t be empty');
         }
-
-        $this->setData($this::ARTICLE_ID_FIELD, $id);
+        $this->articleId = $id;
         return $this;
     }
 
@@ -55,7 +65,7 @@ final class ArticleTranslates extends Model implements ArticleTranslatesInterfac
             throw new InvalidArgumentException('Article language field can\'t be empty');
         }
 
-        $this->setData($this::LANGUAGE_FIELD, $language);
+        $this->language = $language;
         return $this;
     }
 
@@ -65,7 +75,7 @@ final class ArticleTranslates extends Model implements ArticleTranslatesInterfac
             throw new InvalidArgumentException('Article name field can\'t be empty');
         }
 
-        $this->setData($this::NAME_FIELD, $name);
+        $this->name = $name;
         return $this;
     }
 
@@ -75,20 +85,19 @@ final class ArticleTranslates extends Model implements ArticleTranslatesInterfac
             throw new InvalidArgumentException('Article description field can\'t be empty');
         }
 
-        $this->setData($this::DESCRIPTION_FIELD, $description);
+        $this->description = $description;
         return $this;
     }
 
     public function setCreatedAt(\DateTime $date): ArticleTranslatesInterface
     {
-        $this->setData($this::CREATED_AT_FIELD, $date);
+        $this->createdAt = $date;
         return $this;
     }
 
     public function setUpdatedAt(\Datetime $date): ArticleTranslatesInterface
     {
-        $this->setData($this::UPDATED_AT_FIELD, $date);
+        $this->updatedAt = $date;
         return $this;
     }
-
 }

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Api\Models\Virtual\Article;
 
-use Romchik38\Server\Api\Models\ModelFactoryInterface;
-
-interface ArticleFactoryInterface extends ModelFactoryInterface
+interface ArticleFactoryInterface
 {
-    public function create(): ArticleInterface;
+    /** @param ArticleTranslatesInterface[] $translates */
+    public function create(
+        string $articleId,
+        bool $active,
+        array $translates
+        ): ArticleInterface;
 }

@@ -11,7 +11,7 @@ use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
  * Article entity 
  * @api
  */
-interface ArticleInterface extends ModelInterface
+interface ArticleInterface
 {
     final const ID_FIELD = 'identifier';
     final const ACTIVE_FIELD = 'active';

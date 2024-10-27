@@ -5,25 +5,26 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\Virtual\Article;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Server\Models\Model;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 
-final class Article extends Model implements ArticleInterface
+final class Article implements ArticleInterface
 {
     /** @param ArticleTranslatesInterface[] $translates */
     public function __construct(
+        protected string $articleId,
+        protected bool $active,
         protected readonly array $translates = []
     ) {}
 
     public function getId(): string
     {
-        return (string)$this->getData($this::ID_FIELD);
+        return $this->articleId;
     }
 
     public function getActive(): bool
     {
-        return (bool)$this->getData($this::ACTIVE_FIELD);
+        return $this->active;
     }
 
     public function getTranslate(string $language): ArticleTranslatesInterface|null
@@ -37,14 +38,13 @@ final class Article extends Model implements ArticleInterface
             throw new InvalidArgumentException('Article id field can\'t be empty');
         }
 
-        $this->setData($this::ID_FIELD, $id);
+        $this->articleId = $id;
         return $this;
     }
 
     public function setActive(bool $active): ArticleInterface
     {
-        $this->setData($this::ACTIVE_FIELD, $active);
+        $this->active = $active;
         return $this;
     }
-
 }

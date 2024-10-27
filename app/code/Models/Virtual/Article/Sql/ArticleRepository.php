@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Server\Api\Models\ModelFactoryInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Models\Sql\Virtual\VirtualRepository;
+use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface;
+use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 
@@ -19,7 +19,7 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
  * @todo create an interface
  * @api
  */
-final class ArticleRepository extends VirtualRepository
+final class ArticleRepository
 {
     /**
      * 
@@ -27,10 +27,11 @@ final class ArticleRepository extends VirtualRepository
      */
     public function __construct(
         protected DatabaseInterface $database,
-        protected ModelFactoryInterface $modelFactory,
+        protected ArticleFactoryInterface $articleFactory,
         protected array $selectFields,
         protected array $tables,
-        protected readonly array $primaryIds
+        protected readonly array $primaryIds,
+        protected readonly ArticleTranslatesFactoryInterface $articleTranslatesFactory
     ) {
         /** this is a join table so minimum two field needed to make an equal */
         if (count($primaryIds) < 2) {
@@ -62,30 +63,71 @@ final class ArticleRepository extends VirtualRepository
         );
 
         /** @var ArticleInterface[]  $models */
-        $models = $this->list($expression, [$id]);
-        if (count($models) === 0) {
+        $rows = $this->listRows($expression, [$id]);
+
+        if (count($rows) === 0) {
             throw new NoSuchEntityException(
                 sprintf('Article with id %s not exist', $id)
             );
         }
 
-        return $models[0];
+        // We know that there are only rows with the same article id
+        $model = $this->createSingleArticleFromRows($rows);
+
+        return $model;
     }
 
     /**
-     * Create an entity from provided row
-     * 
-     * @param array $row ['field' => 'value', ...]
-     * @return ModelInterface
+     * Create an Article entity from rows with the same article id
      */
-    protected function createFromRow(array $row): ArticleInterface
+    protected function createSingleArticleFromRows(array $rows): ArticleInterface
     {
-        $entity = $this->create();
+        // 1. create translates
+        $translates = $this->createTranslatesFromRows($rows);
 
-        foreach ($row as $key => $value) {
-            $entity->setData($key, $value);
-        }
+        // 2. create an entity
+        $row = $rows[0];
+        $entity = $this->articleFactory->create(
+            $row[ArticleInterface::ID_FIELD],
+            (bool)$row[ArticleInterface::ACTIVE_FIELD],
+            $translates
+        );
 
         return $entity;
+    }
+
+    /** @return ArticleTranslatesInterface[] a hash [language => ArticleTranslatesInterface, ...] */
+    protected function createTranslatesFromRows(array $rows): array
+    {
+        $translates = [];
+        foreach ($rows as $row) {
+            $language = $row[ArticleTranslatesInterface::LANGUAGE_FIELD];
+            $item = $translates[$language] ?? $this->articleTranslatesFactory->create(
+                $row[ArticleInterface::ID_FIELD],
+                $row[ArticleTranslatesInterface::LANGUAGE_FIELD],
+                $row[ArticleTranslatesInterface::NAME_FIELD],
+                $row[ArticleTranslatesInterface::DESCRIPTION_FIELD],
+                /** add DateTimeZone */
+                new \DateTime($row[ArticleTranslatesInterface::CREATED_AT_FIELD]),
+                new \DateTime($row[ArticleTranslatesInterface::UPDATED_AT_FIELD])
+            );
+            $translates[$language] = $item;
+        }
+
+        return $translates;
+    }
+
+    /**
+     * used to select rows from all tables by given expression
+     */
+    protected function listRows(string $expression, array $params): array
+    {
+
+        $query = 'SELECT ' . implode(', ', $this->selectFields)
+            . ' FROM ' . implode(', ', $this->tables) . ' ' . $expression;
+
+        $rows = $this->database->queryParams($query, $params);
+
+        return $rows;
     }
 }
