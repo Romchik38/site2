@@ -39,8 +39,8 @@ return function (Container $container) {
         'article',
         true,
         $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
-        null,
-        $container->get(\Romchik38\Site2\Controllers\Article\DynamicAction::class)        
+        $container->get(\Romchik38\Site2\Controllers\Article\DefaultAction::class),
+        $container->get(\Romchik38\Site2\Controllers\Article\DynamicAction::class)
     );
 
     $root
