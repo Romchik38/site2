@@ -52,6 +52,16 @@ return function (Container $container) {
         \Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface::class,
         $container->get(\Romchik38\Site2\Models\ArticleTranslates\ArticleTranslatesFactory::class)
     );
+
+    $container->add(
+        \Romchik38\Site2\Models\ArticleCategory\ArticleCategoryFactory::class,
+        new \Romchik38\Site2\Models\ArticleCategory\ArticleCategoryFactory
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\ArticleCategory\ArticleCategoryFactory::class)
+    );
+
     // DTO
     $container->add(
         \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class,

@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface;
@@ -31,7 +32,8 @@ final class ArticleRepository
         protected array $selectFields,
         protected array $tables,
         protected readonly array $primaryIds,
-        protected readonly ArticleTranslatesFactoryInterface $articleTranslatesFactory
+        protected readonly ArticleTranslatesFactoryInterface $articleTranslatesFactory,
+        protected readonly ArticleCategoryFactoryInterface $articleCategoryFactory
     ) {
         /** this is a join table so minimum two field needed to make an equal */
         if (count($primaryIds) < 2) {
