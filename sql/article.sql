@@ -23,9 +23,9 @@ CREATE table
     );
 
 BEGIN;
-INSERT INTO article (identifier) 
-    VALUES ('article-1'),
-        ('article-2')
+INSERT INTO article (identifier) VALUES 
+    ('article-1'),
+    ('article-2')
 ;
 INSERT INTO article_translates (article_id, language, name, description)
     VALUES
