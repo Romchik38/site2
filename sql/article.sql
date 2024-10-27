@@ -30,7 +30,8 @@ INSERT INTO article (identifier) VALUES
 INSERT INTO article_translates (article_id, language, name, description)
     VALUES
     ('article-1', 'en', 'Article about something', 'Today we talk about something'),
-    ('article-2', 'en', 'Second article about that', 'Tomorrow we will talk about that')
+    ('article-2', 'en', 'Second article about that', 'Tomorrow we will talk about that'),
+    ('article-1', 'uk', 'Матеріал про щось', 'Сьогодні ми поговоримо про щось')
 ;
 INSERT INTO article_category VALUES
     ('article-1', 'category-1'),
