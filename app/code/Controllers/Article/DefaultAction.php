@@ -30,11 +30,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
     public function execute(): string
     {
-        try {
-            $result = $this->articleRepository->getById('article-2');
-        } catch (NoSuchEntityException $e) {
-            // do something
-        }
+        /** @todo replace with a list of articles */
+        $result = $this->articleRepository->getById('article-2');
 
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
