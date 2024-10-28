@@ -31,7 +31,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     public function execute(): string
     {
         try {
-            $result = $this->articleRepository->getById('article-1');
+            $result = $this->articleRepository->getById('article-2');
         } catch (NoSuchEntityException $e) {
             // do something
         }

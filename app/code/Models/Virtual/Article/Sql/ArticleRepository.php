@@ -34,6 +34,7 @@ final class ArticleRepository
     protected const T_ARTICLE_TRANSLATES_C_CREATED_AT = 'article_translates.created_at';
     protected const T_ARTICLE_TRANSLATES_C_UPDATED_AT = 'article_translates.updated_at';
 
+    protected const T_ARTICLE_CATEGORY_C_ARTICLE_ID = 'article_category.article_id';
     protected const T_ARTICLE_CATEGORY_C_CATEGORY_ID = 'article_category.category_id';
 
     /** TABLES */
@@ -96,19 +97,16 @@ final class ArticleRepository
     protected function createSingleArticleFromRows(array $rows): ArticleInterface
     {
         // 1. create translates
-
-        /** @todo implement */
         $translates = $this->createTranslatesFromRows($rows);
-        //$categories = $this->createCategoriesFromRows($rows);
+        $categories = $this->createCategoriesFromRows($rows);
 
         // 2. create an entity
         $firstRow = $rows[0];
         $entity = $this->articleFactory->create(
             $firstRow[ArticleInterface::ID_FIELD],
             $firstRow[ArticleInterface::ACTIVE_FIELD] === 'f' ? false : true,
-            /** @todo replace when on ready */
             $translates,
-            [] // $categories
+            $categories
         );
 
         return $entity;
@@ -120,7 +118,8 @@ final class ArticleRepository
         $translates = [];
         if (count($articleRows) === 0) {
             return $translates;
-        }            
+        }  
+
         /** 1 make a select request */
         $firstRow = $articleRows[0];
         $articleId = $firstRow[ArticleInterface::ID_FIELD] ?? null;
@@ -165,13 +164,39 @@ final class ArticleRepository
     }
 
     /** @todo refactor like createTranslatesFromRows */
-    protected function createCategoriesFromRows(array $rows): array
+    protected function createCategoriesFromRows(array $articleRows): array
     {
         $categories = [];
+        if (count($articleRows) === 0) {
+            return $categories;
+        }            
+
+        /** 1 make a select request */
+        $firstRow = $articleRows[0];
+        $articleId = $firstRow[ArticleInterface::ID_FIELD] ?? null;
+        if ($articleId === null) {
+            return $categories;
+        }
+
+        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_CATEGORY_C_ARTICLE_ID);
+        $params = [$articleId];
+        $rows = $this->listRows(
+            [
+                $this::T_ARTICLE_CATEGORY_C_ARTICLE_ID,
+                $this::T_ARTICLE_CATEGORY_C_CATEGORY_ID,
+            ], 
+            [
+                $this::T_ARTICLE_CATEGORY
+            ], 
+            $expression, 
+            $params
+        );
+
+
         foreach ($rows as $row) {
             $categoryId = $row[ArticleCategoryInterface::CATEGORY_ID_FIELD];
             $item = $categories[$categoryId] ?? $this->articleCategoryFactory->create(
-                $row[ArticleInterface::ID_FIELD],
+                $row[ArticleCategoryInterface::ARTICLE_ID_FIELD],
                 $categoryId,
             );
             $categories[$categoryId] = $item;
