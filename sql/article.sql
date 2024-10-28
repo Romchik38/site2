@@ -8,8 +8,9 @@ CREATE table
     article_translates (
         article_id text NOT NULL REFERENCES article (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
         language text NOT NULL REFERENCES translate_lang (language) ON DELETE CASCADE ON UPDATE CASCADE,
-        name text UNIQUE,
-        description text,
+        name text NOT NULL UNIQUE,
+        short_description NOT NULL text,
+        description NOT NULL text,
         created_at timestamp NOT NULL DEFAULT current_timestamp,
         updated_at timestamp NOT NULL DEFAULT current_timestamp,
         CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language)
@@ -27,11 +28,11 @@ INSERT INTO article (identifier) VALUES
     ('article-1'),
     ('article-2')
 ;
-INSERT INTO article_translates (article_id, language, name, description)
+INSERT INTO article_translates (article_id, language, name, short_description, description)
     VALUES
-    ('article-1', 'en', 'Article about something', 'Today we talk about something'),
-    ('article-2', 'en', 'Second article about that', 'Tomorrow we will talk about that'),
-    ('article-1', 'uk', 'Матеріал про щось', 'Сьогодні ми поговоримо про щось')
+    ('article-1', 'en', 'Article about something', 'short description here - art 1', 'Today we talk about something'),
+    ('article-2', 'en', 'Second article about that', 'short description here - art 2', 'Tomorrow we will talk about that'),
+    ('article-1', 'uk', 'Короткий опись для матеріалу 1', 'Матеріал про щось', 'Сьогодні ми поговоримо про щось')
 ;
 INSERT INTO article_category VALUES
     ('article-1', 'category-1'),
