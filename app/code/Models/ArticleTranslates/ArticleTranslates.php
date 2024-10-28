@@ -14,6 +14,7 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         protected string $articleId,
         protected string $language,
         protected string $name,
+        protected string $shortDescription,
         protected string $description,
         protected \DateTime $createdAt,
         protected \DateTime $updatedAt
@@ -32,6 +33,11 @@ final class ArticleTranslates implements ArticleTranslatesInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
     }
 
     public function getDescription(): string
@@ -76,6 +82,16 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         }
 
         $this->name = $name;
+        return $this;
+    }
+
+    public function setShortDescription(string $shortDescription): ArticleTranslatesInterface
+    {
+        if (strlen($shortDescription) === 0) {
+            throw new InvalidArgumentException('Article short description field can\'t be empty');
+        }
+
+        $this->shortDescription = $shortDescription;
         return $this;
     }
 

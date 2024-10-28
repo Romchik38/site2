@@ -15,19 +15,26 @@ final class ArticleTranslatesFactory implements ArticleTranslatesFactoryInterfac
         string $articleId,
         string $language,
         string $name,
+        string $shortDescription,
         string $description,
         \DateTime $createdAt,
         \DateTime $updatedAt
     ): ArticleTranslatesInterface {
 
-        if (strlen($articleId) === 0 || strlen($language) === 0) {
-            throw new InvalidArgumentException('params articleId, language can\'t be empty');
+        if (strlen($articleId) === 0 || 
+            strlen($language) === 0 ||
+            strlen($name) === 0 ||
+            strlen($shortDescription) === 0 ||
+            strlen($description) === 0
+        ) {
+            throw new InvalidArgumentException('ArticleTranslates params can\'t be empty');
         }
 
         return new ArticleTranslates(
             $articleId,
             $language,
             $name,
+            $shortDescription,
             $description,
             $createdAt,
             $updatedAt

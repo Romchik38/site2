@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface;
 use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryInterface;
@@ -27,6 +26,7 @@ final class ArticleRepository
     protected const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
     protected const T_ARTICLE_C_ACTIVE = 'article.active';
 
+    protected const T_ARTICLE_TRANSLATES_C_ARTICLE_ID = 'article_translates.article_id';
     protected const T_ARTICLE_TRANSLATES_C_LANGUAGE = 'article_translates.language';
     protected const T_ARTICLE_TRANSLATES_C_NAME = 'article_translates.name';
     protected const T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'article_translates.short_description';
@@ -98,7 +98,7 @@ final class ArticleRepository
         // 1. create translates
 
         /** @todo implement */
-        //$translates = $this->createTranslatesFromRows($rows);
+        $translates = $this->createTranslatesFromRows($rows);
         //$categories = $this->createCategoriesFromRows($rows);
 
         // 2. create an entity
@@ -107,7 +107,7 @@ final class ArticleRepository
             $firstRow[ArticleInterface::ID_FIELD],
             $firstRow[ArticleInterface::ACTIVE_FIELD] === 'f' ? false : true,
             /** @todo replace when on ready */
-            [], //$translates,
+            $translates,
             [] // $categories
         );
 
@@ -115,25 +115,52 @@ final class ArticleRepository
     }
 
     /** @return array<string,ArticleTranslatesInterface> a hash [language => ArticleTranslatesInterface, ...] */
-    protected function createTranslatesFromRows(array $rows): array
+    protected function createTranslatesFromRows(array $articleRows): array
     {
-        /** @todo 1 make a select request */
-        /** @todo 2 create and entities */
-        /** @todo 3 return the result */
         $translates = [];
+        if (count($articleRows) === 0) {
+            return $translates;
+        }            
+        /** 1 make a select request */
+        $firstRow = $articleRows[0];
+        $articleId = $firstRow[ArticleInterface::ID_FIELD] ?? null;
+        if ($articleId === null) {
+            return $translates;
+        }
+        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_TRANSLATES_C_ARTICLE_ID);
+        $params = [$articleId];
+        $rows = $this->listRows(
+            [
+                $this::T_ARTICLE_TRANSLATES_C_ARTICLE_ID,
+                $this::T_ARTICLE_TRANSLATES_C_LANGUAGE,
+                $this::T_ARTICLE_TRANSLATES_C_NAME,
+                $this::T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION,
+                $this::T_ARTICLE_TRANSLATES_C_DESCRIPTION,
+                $this::T_ARTICLE_TRANSLATES_C_CREATED_AT,
+                $this::T_ARTICLE_TRANSLATES_C_UPDATED_AT
+            ], 
+            [
+                $this::T_ARTICLE_TRANSLATES
+            ], 
+            $expression, 
+            $params
+        );
+
+        /** 2 create and entities */
         foreach ($rows as $row) {
             $language = $row[ArticleTranslatesInterface::LANGUAGE_FIELD];
             $item = $translates[$language] ?? $this->articleTranslatesFactory->create(
-                $row[ArticleInterface::ID_FIELD],
+                $row[ArticleTranslatesInterface::ARTICLE_ID_FIELD],
                 $language,
                 $row[ArticleTranslatesInterface::NAME_FIELD],
+                $row[ArticleTranslatesInterface::SHORT_DESCRIPTION_FIELD],
                 $row[ArticleTranslatesInterface::DESCRIPTION_FIELD],
                 new \DateTime($row[ArticleTranslatesInterface::CREATED_AT_FIELD]),
                 new \DateTime($row[ArticleTranslatesInterface::UPDATED_AT_FIELD])
             );
             $translates[$language] = $item;
         }
-
+        
         return $translates;
     }
 
@@ -153,6 +180,7 @@ final class ArticleRepository
     }
 
     /**
+     * COMMON
      * used to select rows from all tables by given expression
      */
     protected function listRows(

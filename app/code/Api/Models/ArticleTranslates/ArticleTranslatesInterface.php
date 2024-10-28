@@ -8,6 +8,7 @@ interface ArticleTranslatesInterface {
     final const ARTICLE_ID_FIELD = 'article_id';
     final const LANGUAGE_FIELD = 'language';
     final const NAME_FIELD = 'name';
+    final const SHORT_DESCRIPTION_FIELD = 'short_description';
     final const DESCRIPTION_FIELD = 'description';
     final const CREATED_AT_FIELD = 'created_at';
     final const UPDATED_AT_FIELD = 'updated_at';
@@ -15,6 +16,7 @@ interface ArticleTranslatesInterface {
     public function getArticleId(): string;
     public function getLanguage(): string;
     public function getName(): string;
+    public function getShortDescription(): string;
     public function getDescription(): string;
     public function getCreatedAt(): \DateTime;
     public function getUpdatedAt(): \DateTime;
@@ -27,6 +29,9 @@ interface ArticleTranslatesInterface {
 
     /** @throws InvalidArgumentException when string is empty */
     public function setName(string $name): ArticleTranslatesInterface;
+
+    /** @throws InvalidArgumentException when string is empty */
+    public function setShortDescription(string $description): ArticleTranslatesInterface;
 
     /** @throws InvalidArgumentException when string is empty */
     public function setDescription(string $description): ArticleTranslatesInterface;

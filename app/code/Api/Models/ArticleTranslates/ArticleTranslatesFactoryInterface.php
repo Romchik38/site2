@@ -13,6 +13,7 @@ interface ArticleTranslatesFactoryInterface
         string $articleId,
         string $language,
         string $name,
+        string $shortDescription,
         string $description,
         \DateTime $createdAt,
         \DateTime $updatedAt
