@@ -23,6 +23,24 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
  */
 final class ArticleRepository
 {
+    /** SELECT FIELDS */
+    protected const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
+    protected const T_ARTICLE_C_ACTIVE = 'article.active';
+
+    protected const T_ARTICLE_TRANSLATES_C_LANGUAGE = 'article_translates.language';
+    protected const T_ARTICLE_TRANSLATES_C_NAME = 'article_translates.name';
+    protected const T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'article_translates.short_description';
+    protected const T_ARTICLE_TRANSLATES_C_DESCRIPTION = 'article_translates.description';
+    protected const T_ARTICLE_TRANSLATES_C_CREATED_AT = 'article_translates.created_at';
+    protected const T_ARTICLE_TRANSLATES_C_UPDATED_AT = 'article_translates.updated_at';
+
+    protected const T_ARTICLE_CATEGORY_C_CATEGORY_ID = 'article_category.category_id';
+
+    /** TABLES */
+    protected const T_ARTICLE = 'article';
+    protected const T_ARTICLE_TRANSLATES = 'article_translates';
+    protected const T_ARTICLE_CATEGORY = 'article_category';
+
     /**
      * 
      * @param string[] $primaryIds The Article's identifiers from all tables with tables names
@@ -35,17 +53,10 @@ final class ArticleRepository
         protected readonly array $primaryIds,
         protected readonly ArticleTranslatesFactoryInterface $articleTranslatesFactory,
         protected readonly ArticleCategoryFactoryInterface $articleCategoryFactory
-    ) {
-        /** this is a join table so minimum two field needed to make an equal */
-        if (count($primaryIds) < 2) {
-            throw new InvalidArgumentException(
-                'Expect at least two values in the array of $primaryIds param'
-            );
-        }
-    }
+    ) {}
 
     /** 
-     * @todo move to intyerface
+     * @todo move to interface
      * 
      * @param string $id An entity id. Will be compared with first value in the $primaryIds array
      * @throws NoSuchEntityException
@@ -53,20 +64,15 @@ final class ArticleRepository
      */
     public function getById(string $id): ArticleInterface
     {
-        $firstPrimaryId = $this->primaryIds[0];
-        $parts = [];
-        $count = count($this->primaryIds);
-        for ($i = 1; $i < $count; $i++) {
-            $parts[] = sprintf('%s = %s', $firstPrimaryId, $this->primaryIds[$i]);
-        }
-        $expression = sprintf(
-            'WHERE %s = $1 AND %s',
-            $firstPrimaryId,
-            implode(' AND ', $parts)
-        );
+        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_C_IDENTIFIER);
 
-        /** @var ArticleInterface[]  $models */
-        $rows = $this->listRows($expression, [$id]);
+        /** 1. Entity rows */
+        $rows = $this->listRows(
+            [$this::T_ARTICLE_C_IDENTIFIER, $this::T_ARTICLE_C_ACTIVE], 
+            [$this::T_ARTICLE], 
+            $expression, 
+            [$id]
+        );
 
         if (count($rows) === 0) {
             throw new NoSuchEntityException(
@@ -74,7 +80,7 @@ final class ArticleRepository
             );
         }
 
-        // We know that there are only rows with the same article id
+        /** 2. Create an Entity */
         $model = $this->createSingleArticleFromRows($rows);
 
         return $model;
@@ -82,20 +88,27 @@ final class ArticleRepository
 
     /**
      * Create an Article entity from rows with the same article id
+     * 
+     * @todo check param $rows has this structure 
+     *                  \/
+     * @param array<int,array<string,string>> $rows
      */
     protected function createSingleArticleFromRows(array $rows): ArticleInterface
     {
         // 1. create translates
-        $translates = $this->createTranslatesFromRows($rows);
-        $categories = $this->createCategoriesFromRows($rows);
+
+        /** @todo implement */
+        //$translates = $this->createTranslatesFromRows($rows);
+        //$categories = $this->createCategoriesFromRows($rows);
 
         // 2. create an entity
-        $row = $rows[0];
+        $firstRow = $rows[0];
         $entity = $this->articleFactory->create(
-            $row[ArticleInterface::ID_FIELD],
-            $row[ArticleInterface::ACTIVE_FIELD] === 'f' ? false : true,
-            $translates,
-            $categories
+            $firstRow[ArticleInterface::ID_FIELD],
+            $firstRow[ArticleInterface::ACTIVE_FIELD] === 'f' ? false : true,
+            /** @todo replace when on ready */
+            [], //$translates,
+            [] // $categories
         );
 
         return $entity;
@@ -104,6 +117,9 @@ final class ArticleRepository
     /** @return array<string,ArticleTranslatesInterface> a hash [language => ArticleTranslatesInterface, ...] */
     protected function createTranslatesFromRows(array $rows): array
     {
+        /** @todo 1 make a select request */
+        /** @todo 2 create and entities */
+        /** @todo 3 return the result */
         $translates = [];
         foreach ($rows as $row) {
             $language = $row[ArticleTranslatesInterface::LANGUAGE_FIELD];
@@ -112,7 +128,6 @@ final class ArticleRepository
                 $language,
                 $row[ArticleTranslatesInterface::NAME_FIELD],
                 $row[ArticleTranslatesInterface::DESCRIPTION_FIELD],
-                /** add DateTimeZone */
                 new \DateTime($row[ArticleTranslatesInterface::CREATED_AT_FIELD]),
                 new \DateTime($row[ArticleTranslatesInterface::UPDATED_AT_FIELD])
             );
@@ -122,8 +137,9 @@ final class ArticleRepository
         return $translates;
     }
 
-    /** @return array<string,ArticleCategoryInterface> a hash [categoryId => ArticleCategoryInterface, ...] */
-    protected function createCategoriesFromRows(array $rows): array {
+    /** @todo refactor like createTranslatesFromRows */
+    protected function createCategoriesFromRows(array $rows): array
+    {
         $categories = [];
         foreach ($rows as $row) {
             $categoryId = $row[ArticleCategoryInterface::CATEGORY_ID_FIELD];
@@ -139,11 +155,15 @@ final class ArticleRepository
     /**
      * used to select rows from all tables by given expression
      */
-    protected function listRows(string $expression, array $params): array
-    {
+    protected function listRows(
+        array $selectedFields,
+        array $selectedTables,
+        string $expression,
+        array $params
+    ): array {
 
-        $query = 'SELECT ' . implode(', ', $this->selectFields)
-            . ' FROM ' . implode(', ', $this->tables) . ' ' . $expression;
+        $query = 'SELECT ' . implode(', ', $selectedFields)
+            . ' FROM ' . implode(', ', $selectedTables) . ' ' . $expression;
 
         $rows = $this->database->queryParams($query, $params);
 

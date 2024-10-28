@@ -11,6 +11,9 @@
     [-] Repository  
         [-] getById  
 
+[-] bootstrap  
+    [-] timezone `Europe/Kyiv` check  
+
 ## Next
 
 [-] urlbuilder  
