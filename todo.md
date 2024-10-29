@@ -11,7 +11,8 @@
     [-] Repository  
         [+] getById  
         [+] SearchCriteria interface & abstract  
-        [+] SearchCriteria Article  
+        [-] SearchCriteria Article  
+        [-] Add to repo a new method `singleSearchCriteria`  
         [-] SearchCriteria ArticleTranslates  
         [-] SearchCriteria ArticleCategory  
 
