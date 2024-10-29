@@ -13,7 +13,7 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository;
+use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
@@ -24,8 +24,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         protected readonly ViewInterface $view,
         /** @todo create Article DTO */
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
-        /** @todo replace with interface */
-        protected readonly ArticleRepository $articleRepository
+        protected readonly ArticleRepositoryInterface $articleRepository
     ) {}
 
     public function execute(string $dynamicRoute): string

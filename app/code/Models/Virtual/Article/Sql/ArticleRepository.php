@@ -12,6 +12,7 @@ use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterfa
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
+use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 
 /**
  * Manage article entities.
@@ -20,7 +21,7 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
  * @todo create an interface
  * @api
  */
-final class ArticleRepository
+final class ArticleRepository implements ArticleRepositoryInterface
 {
     /** SELECT FIELDS */
     protected const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
@@ -56,13 +57,6 @@ final class ArticleRepository
         protected readonly ArticleCategoryFactoryInterface $articleCategoryFactory
     ) {}
 
-    /** 
-     * @todo move to interface
-     * 
-     * @param string $id An entity id. Will be compared with first value in the $primaryIds array
-     * @throws NoSuchEntityException
-     * @return ArticleInterface An article entity
-     */
     public function getById(string $id): ArticleInterface
     {
         $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_C_IDENTIFIER);
@@ -87,7 +81,9 @@ final class ArticleRepository
         return $model;
     }
 
+
     /**
+     * SELECT
      * Create an Article entity from rows with the same article id
      * 
      * @todo check param $rows has this structure 
@@ -112,7 +108,13 @@ final class ArticleRepository
         return $entity;
     }
 
-    /** @return array<string,ArticleTranslatesInterface> a hash [language => ArticleTranslatesInterface, ...] */
+    /**
+     * SELECT
+     * Create all translates for one Model
+     * 
+     * @param array<int,array<string,string>> $articleRows rows of a single model, all article ids must be the same
+     * @return array<string,ArticleTranslatesInterface> a hash [language => ArticleTranslatesInterface, ...] 
+     * */
     protected function createTranslatesFromRows(array $articleRows): array
     {
         $translates = [];
@@ -163,7 +165,13 @@ final class ArticleRepository
         return $translates;
     }
 
-    /** @todo refactor like createTranslatesFromRows */
+    /**
+     * SELECT
+     * Create all categories for one Model
+     * 
+     * @param array<int,array<string,string>> $articleRows rows of a single model, all article ids must be the same
+     * @return array<string,ArticleCategoryInterface> a hash [category_id => ArticleCategoryInterface, ...] 
+     * */
     protected function createCategoriesFromRows(array $articleRows): array
     {
         $categories = [];
@@ -205,7 +213,7 @@ final class ArticleRepository
     }
 
     /**
-     * COMMON
+     * SELECT
      * used to select rows from all tables by given expression
      */
     protected function listRows(

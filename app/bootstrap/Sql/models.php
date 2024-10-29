@@ -47,6 +47,10 @@ return function (Container $container) {
             $container->get(\Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface::class)
         )
     );
+    $container->add(
+        \Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository::class)
+    );
 
     return $container;
 };
