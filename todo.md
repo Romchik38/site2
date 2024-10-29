@@ -9,7 +9,11 @@
 [-] Article  
     [-] sql query  
     [-] Repository  
-        [-] getById  
+        [+] getById  
+        [+] SearchCriteria interface & abstract  
+        [-] SearchCriteria Article  
+        [-] SearchCriteria ArticleTranslates  
+        [-] SearchCriteria ArticleCategory  
 
 [-] bootstrap  
     [-] timezone `Europe/Kyiv` check  
