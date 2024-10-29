@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Models\SearchCriteria;
 
+use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
@@ -15,16 +16,30 @@ abstract class SearchCriteria implements SearchCriteriaInterface
     protected array $orderBy = [];
 
     public function __construct(
+        protected readonly string $entityIdFieldName,
+        protected readonly string $tableName,
         protected string $limit = 'all',
         protected string $offset = '0'
     ) {}
 
-    public function setOrderBy(string $field): self
+    public function getEntityIdFieldName(): string
     {
-        if (strlen($field) === 0) {
-            throw new InvalidArgumentException('field prop can\'t be empty');
-        }
-        $this->orderBy[] = $field;
+        return $this->entityIdFieldName;
+    }
+
+    public function getTableName(): string
+    {
+        return $this->tableName;
+    }
+
+    public function getAllOrderBy(): array
+    {
+        return $this->orderBy;
+    }
+
+    public function setOrderBy(OrderByInterface $orderBy): self
+    {
+        $this->orderBy[] = $orderBy;
         return $this;
     }
 

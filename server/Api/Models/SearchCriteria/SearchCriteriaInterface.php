@@ -6,10 +6,33 @@ namespace Romchik38\Server\Api\Models\SearchCriteria;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
-interface SearchCriteriaInterface 
+/**
+ * @api
+ */
+interface SearchCriteriaInterface
 {
-    /** @throws InvalidArgumentException on empty field */
-    public function setOrderBy(string $field): self;
+
+    /**
+     * REPOSITORY SECTION
+     */
+
+    /** a column name to select */
+    public function getEntityIdFieldName(): string;
+
+    /** from table name */
+    public function getTableName(): string;
+
+    /** @return OrderByInterface[] */
+    public function getAllOrderBy(): array;
+
+    /**
+    * DOMAIN SECTION
+    */
+
+    /** 
+     * @param OrderByInterface $orderBy A sorting rule
+     */
+    public function setOrderBy(OrderByInterface $orderBy): self;
 
     /**
      * @param string $limit can be 'all' or number greater or eq '0'
