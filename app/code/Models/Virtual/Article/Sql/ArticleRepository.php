@@ -69,9 +69,9 @@ final class ArticleRepository
 
         /** 1. Entity rows */
         $rows = $this->listRows(
-            [$this::T_ARTICLE_C_IDENTIFIER, $this::T_ARTICLE_C_ACTIVE], 
-            [$this::T_ARTICLE], 
-            $expression, 
+            [$this::T_ARTICLE_C_IDENTIFIER, $this::T_ARTICLE_C_ACTIVE],
+            [$this::T_ARTICLE],
+            $expression,
             [$id]
         );
 
@@ -118,7 +118,7 @@ final class ArticleRepository
         $translates = [];
         if (count($articleRows) === 0) {
             return $translates;
-        }  
+        }
 
         /** 1 make a select request */
         $firstRow = $articleRows[0];
@@ -137,11 +137,11 @@ final class ArticleRepository
                 $this::T_ARTICLE_TRANSLATES_C_DESCRIPTION,
                 $this::T_ARTICLE_TRANSLATES_C_CREATED_AT,
                 $this::T_ARTICLE_TRANSLATES_C_UPDATED_AT
-            ], 
+            ],
             [
                 $this::T_ARTICLE_TRANSLATES
-            ], 
-            $expression, 
+            ],
+            $expression,
             $params
         );
 
@@ -159,7 +159,7 @@ final class ArticleRepository
             );
             $translates[$language] = $item;
         }
-        
+
         return $translates;
     }
 
@@ -169,7 +169,7 @@ final class ArticleRepository
         $categories = [];
         if (count($articleRows) === 0) {
             return $categories;
-        }            
+        }
 
         /** 1 make a select request */
         $firstRow = $articleRows[0];
@@ -184,11 +184,11 @@ final class ArticleRepository
             [
                 $this::T_ARTICLE_CATEGORY_C_ARTICLE_ID,
                 $this::T_ARTICLE_CATEGORY_C_CATEGORY_ID,
-            ], 
+            ],
             [
                 $this::T_ARTICLE_CATEGORY
-            ], 
-            $expression, 
+            ],
+            $expression,
             $params
         );
 

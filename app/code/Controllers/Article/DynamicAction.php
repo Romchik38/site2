@@ -59,7 +59,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         );
 
         $result  = $this->view
-            ->setController($this->getController(), 'index')
+            ->setController($this->getController(), $dynamicRoute)
             ->setControllerData($dto)
             ->toString();
 
