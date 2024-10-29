@@ -11,7 +11,7 @@
     [-] Repository  
         [+] getById  
         [+] SearchCriteria interface & abstract  
-        [-] SearchCriteria Article  
+        [+] SearchCriteria Article  
         [-] SearchCriteria ArticleTranslates  
         [-] SearchCriteria ArticleCategory  
 
