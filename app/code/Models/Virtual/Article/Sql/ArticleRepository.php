@@ -85,9 +85,6 @@ final class ArticleRepository implements ArticleRepositoryInterface
     /**
      * SELECT
      * Create an Article entity from rows with the same article id
-     * 
-     * @todo check param $rows has this structure 
-     *                  \/
      * @param array<int,array<string,string>> $rows
      */
     protected function createSingleArticleFromRows(array $rows): ArticleInterface
