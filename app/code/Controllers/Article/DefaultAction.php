@@ -45,16 +45,13 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $articleList = $this->articleRepository->list($searchCriteria);
         $articleDTOList = $this->mapArticleToDTO($articleList);
 
-        /** @todo replace with a list of articles */
-        $result = $this->articleRepository->getById('article-2');
-
         /** prepare page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
         /** create a view dto */
 
-        // $dto = $this->defaultViewDTOFactory->create(
+        /** @todo replace with factory */
         $dto = new ArticleDefaultActionViewDTO(
             $translatedPageName,
             $translatedPageDescription,
