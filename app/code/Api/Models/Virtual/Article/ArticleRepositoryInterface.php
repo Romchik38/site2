@@ -24,6 +24,7 @@ interface ArticleRepositoryInterface
 
     /**
      * @todo add docs
+     * @return ArticleInterface[]
      */
     public function list(SearchCriteriaInterface $searchCriteria): array;
 }

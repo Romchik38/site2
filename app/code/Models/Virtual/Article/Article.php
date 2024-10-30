@@ -39,6 +39,10 @@ final class Article implements ArticleInterface
         return $this->categories[$categoryId] ?? null;
     }
 
+    public function getAllCategories(): array {
+        return array_values($this->categories);
+    }
+
     public function setId(string $id): ArticleInterface
     {
         if (strlen($id) === 0) {

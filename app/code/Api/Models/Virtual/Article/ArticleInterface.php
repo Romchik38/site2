@@ -27,4 +27,7 @@ interface ArticleInterface
 
     public function getTranslate(string $language): ArticleTranslatesInterface|null;
     public function getCategory(string $categoryId): ArticleCategoryInterface|null;
+    
+    /** @return ArticleCategoryInterface[] */
+    public function getAllCategories(): array;
 }

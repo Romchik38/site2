@@ -64,7 +64,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
 
         /** 1. Entity rows */
         $rows = $this->listRows(
-            [$this::T_ARTICLE_C_IDENTIFIER, $this::T_ARTICLE_C_ACTIVE],
+            [sprintf('%s.*', $this::T_ARTICLE)],
             [$this::T_ARTICLE],
             $expression,
             [$id]
@@ -82,44 +82,57 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $model;
     }
 
-    public function list(SearchCriteriaInterface $searchCriteria): array {
-        
+    public function list(SearchCriteriaInterface $searchCriteria): array
+    {
+        $entityIdFieldName = $searchCriteria->getEntityIdFieldName();
         $selectedFields = [
             sprintf(
-                '%s.%s', 
+                '%s.%s',
                 $searchCriteria->getTableName(),
-                $searchCriteria->getEntityIdFieldName()
+                $entityIdFieldName
             )
         ];
         $selectedTables = [$searchCriteria->getTableName()];
-        
+
         $expression = [];
         $params = [];
-        
+
+        /** WHERE */
+
+        /** ORDER BY */
         $orderBy = $searchCriteria->getAllOrderBy();
         $orders = [];
-        foreach($orderBy as $item) {
+        foreach ($orderBy as $item) {
             $orderLine = sprintf(
-                '%s %s %s', 
-                $item->getField(), 
+                '%s %s %s',
+                $item->getField(),
                 $item->getDirection(),
                 $item->getNulls()
             );
             $orders[] = $orderLine;
         }
-        if(count($orders) > 0) {
+        if (count($orders) > 0) {
             $expression[] = sprintf(
                 'ORDER BY %s',
                 implode(', ', $orders)
             );
         }
 
-
-
         /** get rows */
+        $rows = $this->listRows(
+            $selectedFields,
+            $selectedTables,
+            implode(' ', $expression),
+            $params
+        );
 
+        /** create entities */
+        $result = [];
+        foreach ($rows as $row) {
+            $result[] = $this->getById($row[$entityIdFieldName]);
+        }
 
-        return [];
+        return $result;
     }
 
     /**
