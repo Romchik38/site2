@@ -3,9 +3,151 @@
     data.getArticles()  - a list of ArticleDTO
 #}
 
-<div id="content" class="container-fluid mt-2">
-    <div class="container-lg">
-        <h1 class="text-center">{{ data.getName() }}</h1>
+<div id="content" class="container-fluid p-0 mt-2">
+    <div class="container-xxl p-0">
+        <!-- Banner -->
+        <div class="container-fluid border border-info">
+            Banner
+        </div>
+        <!-- Banner -->
+
+        <!-- H1 Start -->
+        <div class="container my-4">
+            <h1 class="text-center">{{ data.getName() }}</h1>
+        </div>
+        <!-- H1 end -->
+
+            <!-- Block Latest publication start -->
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Main start -->
+                    <div class="col-xxl-9">
+                        <div class="container-lg">
+                            <!-- Primary publication start -->
+                            <h2 class="h5">Latest publications</h2>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <picture>
+                                            <source media="(max-width: 636px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                                            <source media="(max-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                                            <source media="(min-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                                            <img class="img-fluid"
+                                                src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
+                                                alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h2>Primary publication Title</h2>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id natus nulla
+                                            iusto autem delectus! Nemo laborum at</p>
+                                        <footer class="row text-secondary">
+                                            <div class="col-6 font-monospace comments">30 min watch</div>
+                                            <div class="col-6 font-monospace comments">yesterday</div>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Primary publication end -->
+
+                            <!-- publication start -->
+                            <div class="col mt-3">
+                                <div class="row my-4">
+                                    <div class="col-sm-3">
+                                        <picture>
+                                            <source media="(max-width: 636px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                                            <source media="(max-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                                            <source media="(min-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                                            <img class="img-fluid"
+                                                src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
+                                                alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <h3>publication 1 Title</h3>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id natus nulla
+                                            iusto autem delectus! Nemo laborum at</p>
+                                        <footer class="row text-secondary">
+                                            <div class="col-6 font-monospace comments">30 min watch</div>
+                                            <div class="col-6 font-monospace comments">yesterday</div>
+                                        </footer>
+                                    </div>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-sm-3">
+                                        <picture>
+                                            <source media="(max-width: 636px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                                            <source media="(max-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                                            <source media="(min-width: 992px)"
+                                                srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                                            <img class="img-fluid"
+                                                src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
+                                                alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <h3>publication 1 Title</h3>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id natus nulla
+                                            iusto autem delectus! Nemo laborum at</p>
+                                        <footer class="row text-secondary">
+                                            <div class="col-6 font-monospace comments">30 min watch</div>
+                                            <div class="col-6 font-monospace comments">yesterday</div>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- publication end -->
+                        </div>
+                        <hr>
+                    </div>
+                    <!-- Main end -->
+                    <!-- Aside block start -->
+                    <div class="col-xxl-3">
+                        <h2 class="h4">Most Visited</h2>
+                        <div class="row my-3">
+                            <div class="col-9">
+                                <h5>Most visited title 1 lorem lore</h5>
+                                <footer class="container p-0 text-secondary d-flex">
+                                    <div class="font-monospace comments me-3">30 min watch</div>
+                                    <div class="font-monospace comments">yesterday</div>
+                                </footer>
+                            </div>
+                            <div class="col-3 text-center">
+                                <img class="img-fluid"
+                                    src="/media/img/articles/dokazi-po-spravi/dokazi-po-spravi-100.webp" alt=""
+                                    width="100px">
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-9">
+                                <h5>Most visited title 1 lorem lore</h5>
+                                <footer class="container p-0 text-secondary d-flex">
+                                    <div class="font-monospace comments me-3">30 min watch</div>
+                                    <div class="font-monospace comments">yesterday</div>
+                                </footer>
+                            </div>
+                            <div class="col-3 text-center">
+                                <img class="img-fluid"
+                                    src="/media/img/articles/dokazi-po-spravi/dokazi-po-spravi-100.webp" alt=""
+                                    width="100px">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <!-- Aside block end -->
+                </div>
+            </div>
+            <!-- Block Latest publication start -->
+
         <p class="lead my-3">{{ data.getDescription() }}</p>
         <h2 class="text-center">Last 5 articles</h2>
         <div>
@@ -13,5 +155,6 @@
                 <p>{{ article.getName() }}</p>
             {% endfor %}
         </div>
+
     </div>
 </div>
