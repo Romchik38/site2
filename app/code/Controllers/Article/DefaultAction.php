@@ -12,11 +12,11 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
+use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface;
 use Romchik38\Site2\Models\DTO\Article\ArticleDTO;
-use Romchik38\Site2\Models\DTO\Views\ArticleDefaultActionDTO\ArticleDefaultActionViewDTO;
 use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleOrderBy;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
@@ -28,15 +28,14 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        /** @todo create Article DTO */
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
+        protected readonly ViewDTOFactoryInterface $articleDefaultActionViewDTOFactory,
         protected readonly ArticleRepositoryInterface $articleRepository,
         protected readonly ArticleSearchCriteriaFactoryInterface $articleSearchCriteriaFactory
     ) {}
 
     public function execute(): string
     {
-        /** prepare databse query */
+        /** prepare a database query */
         $orderBy = ArticleOrderBy::byArtileId();
         $searchCriteria = $this->articleSearchCriteriaFactory->create();
         $searchCriteria->setOrderBy($orderBy);
@@ -50,9 +49,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
         /** create a view dto */
-
-        /** @todo replace with factory */
-        $dto = new ArticleDefaultActionViewDTO(
+        $dto = $this->articleDefaultActionViewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
             $articleDTOList
@@ -79,8 +76,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
                     sprintf('Translate for article %s is missing', $article->getId())
                 );
             }
-        } 
-        
+        }
+
         return $translate;
     }
 
@@ -89,8 +86,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
      *
      * @todo replace with an interface
      * @return ArticleDTO[]
-    */
-    protected function mapArticleToDTO(array $articleList): array {
+     */
+    protected function mapArticleToDTO(array $articleList): array
+    {
         $dtos = [];
         foreach ($articleList as $article) {
             $translate = $this->getTranslate($article);
@@ -103,11 +101,11 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
                 $translate->getDescription(),
                 $translate->getCreatedAt(),
                 $translate->getUpdatedAt(),
-                array_map(fn($c)=> $c->getCategoryId(), $categories)
+                array_map(fn($c) => $c->getCategoryId(), $categories)
             );
             $dtos[] = $articleDTO;
         }
-        
+
         return $dtos;
     }
 

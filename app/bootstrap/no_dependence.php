@@ -131,6 +131,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Models\DTO\Views\SitemapDTOFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Models\DTO\Views\Article\DefaultAction\ViewDTOFactory::class,
+        new \Romchik38\Site2\Models\DTO\Views\Article\DefaultAction\ViewDTOFactory
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Models\DTO\Views\Article\DefaultAction\ViewDTOFactory::class)
+    );
+
     // Services
     $container->add(
         \Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class,
