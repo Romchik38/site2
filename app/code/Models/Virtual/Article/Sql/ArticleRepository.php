@@ -24,24 +24,24 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 final class ArticleRepository implements ArticleRepositoryInterface
 {
     /** SELECT FIELDS */
-    protected const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
-    protected const T_ARTICLE_C_ACTIVE = 'article.active';
+    public const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
+    public const T_ARTICLE_C_ACTIVE = 'article.active';
 
-    protected const T_ARTICLE_TRANSLATES_C_ARTICLE_ID = 'article_translates.article_id';
-    protected const T_ARTICLE_TRANSLATES_C_LANGUAGE = 'article_translates.language';
-    protected const T_ARTICLE_TRANSLATES_C_NAME = 'article_translates.name';
-    protected const T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'article_translates.short_description';
-    protected const T_ARTICLE_TRANSLATES_C_DESCRIPTION = 'article_translates.description';
-    protected const T_ARTICLE_TRANSLATES_C_CREATED_AT = 'article_translates.created_at';
-    protected const T_ARTICLE_TRANSLATES_C_UPDATED_AT = 'article_translates.updated_at';
+    public const T_ARTICLE_TRANSLATES_C_ARTICLE_ID = 'article_translates.article_id';
+    public const T_ARTICLE_TRANSLATES_C_LANGUAGE = 'article_translates.language';
+    public const T_ARTICLE_TRANSLATES_C_NAME = 'article_translates.name';
+    public const T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'article_translates.short_description';
+    public const T_ARTICLE_TRANSLATES_C_DESCRIPTION = 'article_translates.description';
+    public const T_ARTICLE_TRANSLATES_C_CREATED_AT = 'article_translates.created_at';
+    public const T_ARTICLE_TRANSLATES_C_UPDATED_AT = 'article_translates.updated_at';
 
-    protected const T_ARTICLE_CATEGORY_C_ARTICLE_ID = 'article_category.article_id';
-    protected const T_ARTICLE_CATEGORY_C_CATEGORY_ID = 'article_category.category_id';
+    public const T_ARTICLE_CATEGORY_C_ARTICLE_ID = 'article_category.article_id';
+    public const T_ARTICLE_CATEGORY_C_CATEGORY_ID = 'article_category.category_id';
 
     /** TABLES */
-    protected const T_ARTICLE = 'article';
-    protected const T_ARTICLE_TRANSLATES = 'article_translates';
-    protected const T_ARTICLE_CATEGORY = 'article_category';
+    public const T_ARTICLE = 'article';
+    public const T_ARTICLE_TRANSLATES = 'article_translates';
+    public const T_ARTICLE_CATEGORY = 'article_category';
 
     /**
      * 

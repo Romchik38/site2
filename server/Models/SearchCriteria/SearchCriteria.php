@@ -9,18 +9,28 @@ use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 /** 
- * Must be extended by concrete criteria
+ * Must be extended by concrete criteria.
+ * Params $limit, offset and orderBy can be provided via __construct or setted latter
  */
 abstract class SearchCriteria implements SearchCriteriaInterface
 {
-    protected array $orderBy = [];
+    protected array $orderBy;
+    protected string $limit;
+    protected string $offset;
 
     public function __construct(
         protected readonly string $entityIdFieldName,
         protected readonly string $tableName,
-        protected string $limit = 'all',
-        protected string $offset = '0'
-    ) {}
+        string $limit = 'all',
+        string $offset = '0',
+        array $orderBy = []
+    ) {
+        $this->setLimit($limit);
+        $this->setOffset($offset);
+        foreach ($orderBy as $item) {
+            $this->setOrderBy($item);
+        }
+    }
 
     public function getEntityIdFieldName(): string
     {

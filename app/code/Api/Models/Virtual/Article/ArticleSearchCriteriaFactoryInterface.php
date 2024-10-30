@@ -9,6 +9,6 @@ interface ArticleSearchCriteriaFactoryInterface
     public function create(
         $limit = 'all',
         $offset = '0',
-        bool|null $active = null
+        array $orderBy = []
     );
 }
