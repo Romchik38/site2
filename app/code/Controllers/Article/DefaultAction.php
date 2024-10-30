@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Controllers\Article;
 
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
+use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
@@ -40,7 +40,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $searchCriteria = $this->articleSearchCriteriaFactory->create();
         $searchCriteria->setOrderBy($orderBy);
 
-        /** getting articles */
+        /** getting articles from database */
         $articleList = $this->articleRepository->list($searchCriteria);
         $articleDTOList = $this->mapArticleToDTO($articleList);
 
@@ -84,8 +84,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     /** 
      * @param ArticleInterface[] $articleList 
      *
-     * @todo replace with an interface
-     * @return ArticleDTO[]
+     * @return ArticleDTOInterface[]
      */
     protected function mapArticleToDTO(array $articleList): array
     {

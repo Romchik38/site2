@@ -13,7 +13,7 @@
         [+] SearchCriteria interface & abstract  
         [+] SearchCriteria Article  
         [+] Add to repo a new method `singleSearchCriteria`  
-        [-] ArticleDTO + factory interfaces  
+        [+] ArticleDTO + factory interfaces  
         [-] create a template to list articles  
         [-] SearchCriteria *WHERE*  
         [-] SearchCriteria ArticleTranslates  

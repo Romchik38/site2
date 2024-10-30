@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Models\DTO\Article;
 
-/** @todo implement an interface */
-final class ArticleDTO
+use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
+
+final class ArticleDTO implements ArticleDTOInterface
 {
     public function __construct(
         protected string $articleId,
