@@ -10,10 +10,9 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface;
+use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleOrderBy;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -32,7 +31,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
     public function execute(): string
     {
-        $orderBy = new OrderBy(ArticleInterface::ID_FIELD);
+        $orderBy = ArticleOrderBy::byArtileId();
         $searchCriteria = $this->articleSearchCriteriaFactory->create();
         $searchCriteria->setOrderBy($orderBy);
 

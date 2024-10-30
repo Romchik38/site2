@@ -22,5 +22,8 @@ interface ArticleRepositoryInterface
      */
     public function getById(string $id): ArticleInterface;
 
+    /**
+     * @todo add docs
+     */
     public function list(SearchCriteriaInterface $searchCriteria): array;
 }
