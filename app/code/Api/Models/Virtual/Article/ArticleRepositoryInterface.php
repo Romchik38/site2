@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Api\Models\Virtual\Article;
 
+use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
+
 /**
  * Manage Article entity
  * @api
@@ -19,4 +21,6 @@ interface ArticleRepositoryInterface
      * @return ArticleInterface An article entity
      */
     public function getById(string $id): ArticleInterface;
+
+    public function list(SearchCriteriaInterface $searchCriteria): array;
 }

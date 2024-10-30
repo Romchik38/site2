@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface;
 use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryInterface;
@@ -81,6 +82,45 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $model;
     }
 
+    public function list(SearchCriteriaInterface $searchCriteria): array {
+        
+        $selectedFields = [
+            sprintf(
+                '%s.%s', 
+                $searchCriteria->getTableName(),
+                $searchCriteria->getEntityIdFieldName()
+            )
+        ];
+        $selectedTables = [$searchCriteria->getTableName()];
+        
+        $expression = [];
+        $params = [];
+        
+        $orderBy = $searchCriteria->getAllOrderBy();
+        $orders = [];
+        foreach($orderBy as $item) {
+            $orderLine = sprintf(
+                '%s %s %s', 
+                $item->getField(), 
+                $item->getDirection(),
+                $item->getNulls()
+            );
+            $orders[] = $orderLine;
+        }
+        if(count($orders) > 0) {
+            $expression[] = sprintf(
+                'ORDER BY %s',
+                implode(', ', $orders)
+            );
+        }
+
+
+
+        /** get rows */
+
+
+        return [];
+    }
 
     /**
      * SELECT

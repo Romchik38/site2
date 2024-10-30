@@ -7,8 +7,8 @@ namespace Romchik38\Site2\Api\Models\Virtual\Article;
 interface ArticleSearchCriteriaFactoryInterface
 {
     public function create(
-        $limit = 'all',
-        $offset = '0',
+        string $limit = 'all',
+        string $offset = '0',
         array $orderBy = []
-    );
+    ): ArticleSearchCriteriaInterface;
 }

@@ -10,7 +10,10 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
+use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
+use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -23,11 +26,18 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         /** @todo create Article DTO */
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
-        protected readonly ArticleRepositoryInterface $articleRepository
+        protected readonly ArticleRepositoryInterface $articleRepository,
+        protected readonly ArticleSearchCriteriaFactoryInterface $articleSearchCriteriaFactory
     ) {}
 
     public function execute(): string
     {
+        $orderBy = new OrderBy(ArticleInterface::ID_FIELD);
+        $searchCriteria = $this->articleSearchCriteriaFactory->create();
+        $searchCriteria->setOrderBy($orderBy);
+
+        $articleList = $this->articleRepository->list($searchCriteria);
+
         /** @todo replace with a list of articles */
         $result = $this->articleRepository->getById('article-2');
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Models\SearchCriteria;
+namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
 use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;

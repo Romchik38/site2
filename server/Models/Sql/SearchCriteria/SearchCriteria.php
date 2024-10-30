@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Models\SearchCriteria;
+namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
 use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
@@ -74,9 +74,7 @@ abstract class SearchCriteria implements SearchCriteriaInterface
 
     public function setOffset(string $offset): self
     {
-        $offset = (int)$offset;
-
-        if ($offset >= 0) {
+        if ((int) $offset >= 0) {
             $this->offset = $offset;
             return $this;
         }

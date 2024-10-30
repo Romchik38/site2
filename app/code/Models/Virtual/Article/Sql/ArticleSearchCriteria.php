@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
-use Romchik38\Server\Models\SearchCriteria\SearchCriteria;
+use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaInterface;
 use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository;
 
@@ -28,6 +27,9 @@ final class ArticleSearchCriteria extends SearchCriteria implements ArticleSearc
         );
     }
 
+    /** WHERE SECTION 
+     * @todo implement
+    */
     public function setActive(bool $active): ArticleSearchCriteriaInterface
     {
         $this->active = $active;
