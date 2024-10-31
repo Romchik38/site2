@@ -12,10 +12,13 @@
 {% set controllersDir = 'controllers' %}
 {% set headsDir = 'heads' %}
 
+{# set template_tail = template_controller_name ~ '/' ~ template_action_type ~ '/' ~ action_name #}
+
+{% set template_folder = template_controller_name ~ '/' ~ template_action_type %}
 {% set action_name = 'index.twig' %}
-{% set template_tail = template_controller_name ~ '/' ~ template_action_type ~ '/' ~ action_name %}
-{% set controller_template = controllersDir ~ '/' ~ template_tail %}
-{% set head_template = headsDir ~ '/' ~ template_tail %}
+{% set controller_template_dir = controllersDir ~ '/' ~ template_folder %}
+{% set controller_template = controller_template_dir ~ '/' ~ action_name %}
+{% set head_template = headsDir ~ '/' ~ template_folder ~ '/' ~ action_name %}
 
 {% set language = meta_data.language %}
 
@@ -26,9 +29,8 @@
     <body class="container-fluid p-0">
         
         {% include 'layouts/header.twig' %}
-
         <!-- Dynamic content start -->
-        {% include controller_template with {'data': data, 'translate': translate} only %}
+        {% include controller_template with {'data': data, 'translate': translate, 'controller_template_dir': controller_template_dir} only %}
         <!-- Dynamic content end -->
 
         {% include 'layouts/footer.twig' %} 
