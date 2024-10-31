@@ -112,12 +112,4 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         return $dtos;
     }
 
-    /**
-     * @todo move to server 
-     * Use to get default language 
-     * */
-    protected function getDefaultLanguage(): string
-    {
-        return $this->DynamicRootService->getDefaultRoot()->getName();
-    }
 }

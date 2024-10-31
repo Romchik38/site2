@@ -71,12 +71,4 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         return [];
     }
 
-    /**
-     * @todo move to server 
-     * Use to get default language 
-     * */
-    protected function getDefaultLanguage(): string
-    {
-        return $this->DynamicRootService->getDefaultRoot()->getName();
-    }
 }
