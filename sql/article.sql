@@ -32,7 +32,8 @@ INSERT INTO article_translates (article_id, language, name, short_description, d
     VALUES
     ('article-1', 'en', 'Article about something', 'short description here - art 1', 'Today we talk about something'),
     ('article-2', 'en', 'Second article about that', 'short description here - art 2', 'Tomorrow we will talk about that'),
-    ('article-1', 'uk', 'Короткий опись для матеріалу 1', 'Матеріал про щось', 'Сьогодні ми поговоримо про щось')
+    ('article-1', 'uk', 'Короткий опись для матеріалу 1', 'Матеріал про щось', 'Сьогодні ми поговоримо про щось'),
+    ('article-2', 'uk', 'Друга стаття про це', 'короткий опис тут - ст.2', 'Завтра ми про це поговоримо')
 ;
 INSERT INTO article_category VALUES
     ('article-1', 'category-1'),
