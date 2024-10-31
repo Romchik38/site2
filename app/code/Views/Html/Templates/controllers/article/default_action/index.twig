@@ -27,6 +27,7 @@
                 <!-- Main start -->
                 <div class="col-xxl-9">
                     <div class="container-lg">
+                        <h2 class="h5">Publications</h2>
                         {% set articles = data.getArticles() %}
                         {% if articles|length == 0 %} 
                             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
