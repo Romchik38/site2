@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2542e6e4f97e4a06f9e817a787f6a238",
+    "content-hash": "3231cea17d320f002ae333303e1fa573",
     "packages": [
         {
             "name": "psr/container",
@@ -153,19 +153,20 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.9.2",
+            "version": "v1.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "4374637fbf84986ba75f93728d0b557acf4fa078"
+                "reference": "722892328639445e60b649aaf9878af2b19da8f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/4374637fbf84986ba75f93728d0b557acf4fa078",
-                "reference": "4374637fbf84986ba75f93728d0b557acf4fa078",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/722892328639445e60b649aaf9878af2b19da8f2",
+                "reference": "722892328639445e60b649aaf9878af2b19da8f2",
                 "shasum": ""
             },
             "require": {
+                "php": ">=8.3",
                 "psr/log": "^3.0"
             },
             "require-dev": {
@@ -188,10 +189,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.9.2",
+                "source": "https://github.com/Romchik38/server/tree/v1.9.3",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2024-10-22T15:32:01+00:00"
+            "time": "2024-10-31T17:08:20+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
