@@ -85,7 +85,8 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
             $container->get(Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface::class),
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface::class)
+            $container->get(\Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface::class),
+            $container->get(\Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface::class)
         )
     );
 

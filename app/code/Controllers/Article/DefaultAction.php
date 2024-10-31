@@ -11,12 +11,12 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
+use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface;
-use Romchik38\Site2\Models\DTO\Article\ArticleDTO;
 use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleOrderBy;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
@@ -30,7 +30,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactoryInterface $articleDefaultActionViewDTOFactory,
         protected readonly ArticleRepositoryInterface $articleRepository,
-        protected readonly ArticleSearchCriteriaFactoryInterface $articleSearchCriteriaFactory
+        protected readonly ArticleSearchCriteriaFactoryInterface $articleSearchCriteriaFactory,
+        protected readonly ArticleDTOFactoryInterface $articleDTOFactory,
     ) {}
 
     public function execute(): string
@@ -88,11 +89,14 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
      */
     protected function mapArticleToDTO(array $articleList): array
     {
+        /** $todo replace with cat mapper */
+        $f = fn($c) => $c->getCategoryId();
+
         $dtos = [];
         foreach ($articleList as $article) {
             $translate = $this->getTranslate($article);
             $categories = $article->getAllCategories();
-            $articleDTO = new ArticleDTO(
+            $articleDTO = $this->articleDTOFactory->create(
                 $article->getId(),
                 $article->getActive(),
                 $translate->getName(),
@@ -100,7 +104,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
                 $translate->getDescription(),
                 $translate->getCreatedAt(),
                 $translate->getUpdatedAt(),
-                array_map(fn($c) => $c->getCategoryId(), $categories)
+                array_map($f, $categories)
             );
             $dtos[] = $articleDTO;
         }

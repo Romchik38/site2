@@ -152,6 +152,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Services\DateFormatterUsesDateFormat::class,
+        new \Romchik38\Site2\Services\DateFormatterUsesDateFormat
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Services\DateFormatterInterface::class,
+        $container->get(\Romchik38\Site2\Services\DateFormatterUsesDateFormat::class)
+    );
+
     // Controller
     $container->add(
         \Romchik38\Server\Routers\Http\ControllersCollection::class,

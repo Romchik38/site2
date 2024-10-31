@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Models\DTO\Article;
 
 use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
+use Romchik38\Site2\Api\Services\DateFormatterInterface;
 
 final class ArticleDTO implements ArticleDTOInterface
 {
@@ -18,7 +19,8 @@ final class ArticleDTO implements ArticleDTOInterface
         protected string $description,
         protected \DateTime $createdAt,
         protected \DateTime $updatedAt,
-        protected array $categories
+        protected array $categories,
+        protected DateFormatterInterface $dateFormatter
     ) {}
         
     public function getId(): string
@@ -63,6 +65,9 @@ final class ArticleDTO implements ArticleDTOInterface
 
     /** additional functionality */
     public function getFormattedCreatedAt(): string {
-        return $this->createdAt->format($this::DATE_FORMAT_CATEGORY_PAGE);
+        return $this->dateFormatter->formatByString(
+            $this->createdAt, 
+            $this::DATE_FORMAT_CATEGORY_PAGE
+        );
     }
 }
