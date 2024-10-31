@@ -17,6 +17,8 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('article.page_name', 'uk', 'Матеріли на тему адміністративного права'),
     ('article.description', 'en', 'We offer the latest materials analyzing legislative acts, court decisions, or procedures that regulate the activities of public authorities and their interaction with citizens. Such articles explain legal norms, their application, and their impact on social relations.'),
     ('article.description', 'uk', 'Ми пропонуємо найсвіжіші матеріали, що аналізують законодавчі акти, судові рішення або процедури, які регулюють діяльність органів державної влади та взаємодію з громадянами. Такі статті пояснюють норми права, їх застосування та вплив на суспільні відносини.'),
+    ('article.h2.publications', 'en', 'Publications'),
+    ('article.h2.publications', 'uk', 'Публікації'),
     ('root.page_name', 'en', 'Home page'), 
     ('root.page_name', 'uk', 'Домашня сторінка'),
     ('root.about', 'en', 'About Page'),

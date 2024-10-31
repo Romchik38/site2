@@ -9,6 +9,7 @@ INSERT INTO translate_keys (key) VALUES
     --controller
     ('article.page_name'),
     ('article.description'),
+    ('article.h2.publications'),
     ('root.page_name'),
     ('server-error.header'),
     ('server-error.message'),
