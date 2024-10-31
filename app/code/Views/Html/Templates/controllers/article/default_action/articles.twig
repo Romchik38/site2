@@ -21,26 +21,52 @@
         </div>
         <div class="col-md-4">
             <h2>{{ firstArticle.getName() }}</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id natus nulla
-                iusto autem delectus! Nemo laborum at</p>
+            <p>{{ firstArticle.getshortDescription() }}</p>
             <footer class="row text-secondary">
                 <div class="col-6 font-monospace comments">30 min watch</div>
-                <div class="col-6 font-monospace comments">yesterday</div>
+                <div class="col-6 font-monospace comments">{{ firstArticle.getFormattedCreatedAt() }}</div>
             </footer>
         </div>
     </div>
 </div>
 <!-- Primary publication end -->
 
-<div>
-    {% for article in data.getArticles() %}
-        <p>{{ article.getName() }}</p>
+<div class="col mt-3">
+    {% set articleLength = articles|length %}
+    {% for article in articles|slice(1,articleLength) %}
+    
+    <!-- publication start -->     
+    <div class="row my-4">
+        <div class="col-sm-3">
+            <picture>
+                <source media="(max-width: 636px)"
+                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                <source media="(max-width: 992px)"
+                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                <source media="(min-width: 992px)"
+                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                <img class="img-fluid"
+                    src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
+                    alt="">
+            </picture>
+        </div>
+        <div class="col-sm-9">
+            <h3>{{ article.getName() }}</h3>
+            <p>{{ article.getShortDescription() }}</p>
+            <footer class="row text-secondary">
+                <div class="col-6 font-monospace comments">30 min watch</div>
+                <div class="col-6 font-monospace comments">{{ article.getFormattedCreatedAt() }}</div>
+            </footer>
+        </div>
+    </div>
+    <!-- publication end -->
+
     {% endfor %}
 </div>
 
 
 <!-- publication start -->
-<div class="col mt-3">
+<!-- <div class="col mt-3">
     <div class="row my-4">
         <div class="col-sm-3">
             <picture>
@@ -89,5 +115,5 @@
             </footer>
         </div>
     </div>
-</div>
+</div> -->
 <!-- publication end -->

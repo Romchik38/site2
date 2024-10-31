@@ -8,6 +8,8 @@ use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 
 final class ArticleDTO implements ArticleDTOInterface
 {
+    protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
+
     public function __construct(
         protected string $articleId,
         protected bool $active,
@@ -57,5 +59,10 @@ final class ArticleDTO implements ArticleDTOInterface
     public function getCategories(): array
     {
         return $this->categories;
+    }
+
+    /** additional functionality */
+    public function getFormattedCreatedAt(): string {
+        return $this->createdAt->format($this::DATE_FORMAT_CATEGORY_PAGE);
     }
 }
