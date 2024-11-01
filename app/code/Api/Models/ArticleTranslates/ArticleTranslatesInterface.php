@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Api\Models\ArticleTranslates;
 
 interface ArticleTranslatesInterface {
+    final const ENTITY_NAME = 'article_translates';
+
     final const ARTICLE_ID_FIELD = 'article_id';
     final const LANGUAGE_FIELD = 'language';
     final const NAME_FIELD = 'name';

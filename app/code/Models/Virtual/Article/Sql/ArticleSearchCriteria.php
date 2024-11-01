@@ -20,7 +20,7 @@ final class ArticleSearchCriteria extends SearchCriteria implements ArticleSearc
     ) {
         parent::__construct(
             ArticleInterface::ID_FIELD,
-            ArticleRepository::T_ARTICLE,
+            ArticleInterface::ENTITY_NAME,
             $limit,
             $offset,
             $orderBy

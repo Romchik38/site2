@@ -24,26 +24,6 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
  */
 final class ArticleRepository implements ArticleRepositoryInterface
 {
-    /** SELECT FIELDS */
-    public const T_ARTICLE_C_IDENTIFIER = 'article.identifier';
-    public const T_ARTICLE_C_ACTIVE = 'article.active';
-
-    public const T_ARTICLE_TRANSLATES_C_ARTICLE_ID = 'article_translates.article_id';
-    public const T_ARTICLE_TRANSLATES_C_LANGUAGE = 'article_translates.language';
-    public const T_ARTICLE_TRANSLATES_C_NAME = 'article_translates.name';
-    public const T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'article_translates.short_description';
-    public const T_ARTICLE_TRANSLATES_C_DESCRIPTION = 'article_translates.description';
-    public const T_ARTICLE_TRANSLATES_C_CREATED_AT = 'article_translates.created_at';
-    public const T_ARTICLE_TRANSLATES_C_UPDATED_AT = 'article_translates.updated_at';
-
-    public const T_ARTICLE_CATEGORY_C_ARTICLE_ID = 'article_category.article_id';
-    public const T_ARTICLE_CATEGORY_C_CATEGORY_ID = 'article_category.category_id';
-
-    /** TABLES */
-    public const T_ARTICLE = 'article';
-    public const T_ARTICLE_TRANSLATES = 'article_translates';
-    public const T_ARTICLE_CATEGORY = 'article_category';
-
     /**
      * 
      * @param string[] $primaryIds The Article's identifiers from all tables with tables names
@@ -51,6 +31,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
     public function __construct(
         protected DatabaseInterface $database,
         protected ArticleFactoryInterface $articleFactory,
+        /** @todo refactor this */
         protected array $selectFields,
         protected array $tables,
         protected readonly array $primaryIds,
@@ -60,12 +41,12 @@ final class ArticleRepository implements ArticleRepositoryInterface
 
     public function getById(string $id): ArticleInterface
     {
-        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_C_IDENTIFIER);
+        $expression = sprintf('WHERE %s = $1', ArticleInterface::ID_FIELD);
 
         /** 1. Entity rows */
         $rows = $this->listRows(
-            [sprintf('%s.*', $this::T_ARTICLE)],
-            [$this::T_ARTICLE],
+            [sprintf('%s.*', ArticleInterface::ENTITY_NAME)],
+            [ArticleInterface::ENTITY_NAME],
             $expression,
             [$id]
         );
@@ -178,20 +159,49 @@ final class ArticleRepository implements ArticleRepositoryInterface
         if ($articleId === null) {
             return $translates;
         }
-        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_TRANSLATES_C_ARTICLE_ID);
+        $articleTranslatesArticleId = sprintf(
+            '%s.%s',
+            ArticleTranslatesInterface::ENTITY_NAME,
+            ArticleTranslatesInterface::ARTICLE_ID_FIELD
+        );
+        $expression = sprintf('WHERE %s = $1', $articleTranslatesArticleId);
         $params = [$articleId];
         $rows = $this->listRows(
             [
-                $this::T_ARTICLE_TRANSLATES_C_ARTICLE_ID,
-                $this::T_ARTICLE_TRANSLATES_C_LANGUAGE,
-                $this::T_ARTICLE_TRANSLATES_C_NAME,
-                $this::T_ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION,
-                $this::T_ARTICLE_TRANSLATES_C_DESCRIPTION,
-                $this::T_ARTICLE_TRANSLATES_C_CREATED_AT,
-                $this::T_ARTICLE_TRANSLATES_C_UPDATED_AT
+                $articleTranslatesArticleId,
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::LANGUAGE_FIELD
+                ),
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::NAME_FIELD
+                ),
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::SHORT_DESCRIPTION_FIELD
+                ),
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::DESCRIPTION_FIELD
+                ),
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::CREATED_AT_FIELD
+                ),
+                sprintf(
+                    '%s.%s',
+                    ArticleTranslatesInterface::ENTITY_NAME,
+                    ArticleTranslatesInterface::UPDATED_AT_FIELD
+                )
             ],
             [
-                $this::T_ARTICLE_TRANSLATES
+                ArticleTranslatesInterface::ENTITY_NAME
             ],
             $expression,
             $params
@@ -236,15 +246,24 @@ final class ArticleRepository implements ArticleRepositoryInterface
             return $categories;
         }
 
-        $expression = sprintf('WHERE %s = $1', $this::T_ARTICLE_CATEGORY_C_ARTICLE_ID);
+        $articleCategoryArticleId = sprintf(
+            '%s.%s', 
+            ArticleCategoryInterface::ENTITY_NAME,
+            ArticleCategoryInterface::ARTICLE_ID_FIELD
+        );
+        $expression = sprintf('WHERE %s = $1', $articleCategoryArticleId);
         $params = [$articleId];
         $rows = $this->listRows(
             [
-                $this::T_ARTICLE_CATEGORY_C_ARTICLE_ID,
-                $this::T_ARTICLE_CATEGORY_C_CATEGORY_ID,
+                $articleCategoryArticleId,
+                sprintf(
+                    '%s.%s',
+                    ArticleCategoryInterface::ENTITY_NAME,
+                    ArticleCategoryInterface::CATEGORY_ID_FIELD
+                ),
             ],
             [
-                $this::T_ARTICLE_CATEGORY
+                ArticleCategoryInterface::ENTITY_NAME
             ],
             $expression,
             $params

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Api\Models\ArticleCategory;
 
 interface ArticleCategoryInterface {
+    final const ENTITY_NAME = 'article_category';
+
     final const ARTICLE_ID_FIELD = 'article_id';
     final const CATEGORY_ID_FIELD = 'category_id';
 
