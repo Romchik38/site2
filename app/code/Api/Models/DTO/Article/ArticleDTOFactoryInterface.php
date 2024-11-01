@@ -15,6 +15,7 @@ interface ArticleDTOFactoryInterface
         string $description,
         \DateTime $createdAt,
         \DateTime $updatedAt,
-        array $categories
+        array $categories,
+        int $minutesToRead
     ): ArticleDTOInterface;
 }

@@ -39,7 +39,8 @@ final class Article implements ArticleInterface
         return $this->categories[$categoryId] ?? null;
     }
 
-    public function getAllCategories(): array {
+    public function getAllCategories(): array
+    {
         return array_values($this->categories);
     }
 
@@ -58,4 +59,5 @@ final class Article implements ArticleInterface
         $this->active = $active;
         return $this;
     }
+
 }

@@ -11,9 +11,8 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory::class,
         new \Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory(
-            $container->get(
-                \Romchik38\Site2\Api\Services\DateFormatterInterface::class
-            )
+            $container->get(\Romchik38\Site2\Api\Services\DateFormatterInterface::class),
+            $container->get(\Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class)
         )
     );
     $container->add(

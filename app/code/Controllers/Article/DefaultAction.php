@@ -104,7 +104,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
                 $translate->getDescription(),
                 $translate->getCreatedAt(),
                 $translate->getUpdatedAt(),
-                array_map($f, $categories)
+                array_map($f, $categories),
+                $translate->getReadLength()
             );
             $dtos[] = $articleDTO;
         }

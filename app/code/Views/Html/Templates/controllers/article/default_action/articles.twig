@@ -22,7 +22,7 @@
             <h2>{{ firstArticle.getName() }}</h2>
             <p>{{ firstArticle.getshortDescription() }}</p>
             <footer class="row text-secondary">
-                <div class="col-6 font-monospace comments">30 min watch</div>
+                <div class="col-6 font-monospace comments">{{ firstArticle.readLength() }}</div>
                 <div class="col-6 font-monospace comments">{{ firstArticle.getFormattedCreatedAt() }}</div>
             </footer>
         </div>
@@ -53,7 +53,7 @@
             <h3>{{ article.getName() }}</h3>
             <p>{{ article.getShortDescription() }}</p>
             <footer class="row text-secondary">
-                <div class="col-6 font-monospace comments">30 min watch</div>
+                <div class="col-6 font-monospace comments">{{ article.readLength() }}</div>
                 <div class="col-6 font-monospace comments">{{ article.getFormattedCreatedAt() }}</div>
             </footer>
         </div>

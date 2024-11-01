@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Models\DTO\Article;
 
 use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
+use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
 
 final class ArticleDTO implements ArticleDTOInterface
 {
@@ -20,9 +21,11 @@ final class ArticleDTO implements ArticleDTOInterface
         protected \DateTime $createdAt,
         protected \DateTime $updatedAt,
         protected array $categories,
-        protected DateFormatterInterface $dateFormatter
+        protected readonly int $minutesToRead,
+        protected DateFormatterInterface $dateFormatter,
+        protected ReadLengthFormatterInterface $readLengthFormatter
     ) {}
-        
+
     public function getId(): string
     {
         return $this->articleId;
@@ -64,10 +67,16 @@ final class ArticleDTO implements ArticleDTOInterface
     }
 
     /** additional functionality */
-    public function getFormattedCreatedAt(): string {
+    public function getFormattedCreatedAt(): string
+    {
         return $this->dateFormatter->formatByString(
-            $this->createdAt, 
+            $this->createdAt,
             $this::DATE_FORMAT_CATEGORY_PAGE
         );
+    }
+
+    public function readLength(): string
+    {
+        return $this->readLengthFormatter->formatByMinutes($this->minutesToRead);
     }
 }

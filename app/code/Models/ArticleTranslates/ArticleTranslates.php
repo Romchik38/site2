@@ -116,4 +116,17 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         $this->updatedAt = $date;
         return $this;
     }
+
+    public function getReadLength(int $speed = 200): int {
+        if ($speed < 1) {
+            throw new InvalidArgumentException('param $speed must be greater than 0');
+        }
+
+        $description = $this->getDescription();
+
+        $words = count(explode(' ', $description));
+        $timeToRead = (int)round(($words / $speed));
+        return $timeToRead;   
+    }
+
 }

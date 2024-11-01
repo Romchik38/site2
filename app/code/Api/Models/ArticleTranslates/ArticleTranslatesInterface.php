@@ -40,4 +40,12 @@ interface ArticleTranslatesInterface {
 
     public function setUpdatedAt(\Datetime $date): ArticleTranslatesInterface;
 
+    /** Additional */
+
+    /**
+     * @throws InvalidArgumentException $speed must be greater than 0
+     * @param int $speed words/minute 
+     * @return int Minutes to read
+     */
+    public function getReadLength(int $speed = 200): int;
 }

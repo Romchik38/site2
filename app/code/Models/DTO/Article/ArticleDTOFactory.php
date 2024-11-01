@@ -8,12 +8,15 @@ use DateTime;
 use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
+use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
+use Romchik38\Site2\Services\ReadLengthFormatter;
 
 final class ArticleDTOFactory implements ArticleDTOFactoryInterface
 {
 
     public function __construct(
-        protected readonly DateFormatterInterface $dateFormatter
+        protected readonly DateFormatterInterface $dateFormatter,
+        protected readonly ReadLengthFormatterInterface $readLengthFormatter
     ) {}
 
     public function create(
@@ -24,7 +27,8 @@ final class ArticleDTOFactory implements ArticleDTOFactoryInterface
         string $description,
         DateTime $createdAt,
         DateTime $updatedAt,
-        array $categories
+        array $categories,
+        int $minutesToRead
     ): ArticleDTOInterface {
         return new ArticleDTO(
             $articleId,
@@ -35,7 +39,9 @@ final class ArticleDTOFactory implements ArticleDTOFactoryInterface
             $createdAt,
             $updatedAt,
             $categories,
-            $this->dateFormatter
+            $minutesToRead,
+            $this->dateFormatter,
+            $this->readLengthFormatter
         );
     }
 }

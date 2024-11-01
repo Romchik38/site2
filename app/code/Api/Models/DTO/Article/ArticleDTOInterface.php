@@ -16,4 +16,7 @@ interface ArticleDTOInterface
 
     /** @return string[] A list with categories ids */
     public function getCategories(): array;
+
+    /** time to read */
+    public function readLength(): string;
 }

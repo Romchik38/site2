@@ -15,7 +15,8 @@
         [+] Add to repo a new method `singleSearchCriteria`  
         [+] ArticleDTO + factory interfaces  
         [-] create a template to list articles  
-            [-] add to table read length 30 min watch
+            [+] add to table read length 30 min watch  
+            [-] create multilanguage read legth  
         [-] SearchCriteria *WHERE*  
         [-] SearchCriteria ArticleTranslates  
         [?] SearchCriteria ArticleCategory  
