@@ -19,6 +19,8 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('article.description', 'uk', 'Ми пропонуємо найсвіжіші матеріали, що аналізують законодавчі акти, судові рішення або процедури, які регулюють діяльність органів державної влади та взаємодію з громадянами. Такі статті пояснюють норми права, їх застосування та вплив на суспільні відносини.'),
     ('article.h2.publications', 'en', 'Publications'),
     ('article.h2.publications', 'uk', 'Публікації'),
+    ('article.read', 'en', 'read'),
+    ('article.read', 'uk', 'читати'),
     ('root.page_name', 'en', 'Home page'), 
     ('root.page_name', 'uk', 'Домашня сторінка'),
     ('root.about', 'en', 'About Page'),

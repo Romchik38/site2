@@ -10,6 +10,7 @@ INSERT INTO translate_keys (key) VALUES
     ('article.page_name'),
     ('article.description'),
     ('article.h2.publications'),
+    ('article.read'),
     ('root.page_name'),
     ('server-error.header'),
     ('server-error.message'),
