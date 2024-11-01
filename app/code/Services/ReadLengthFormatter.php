@@ -21,17 +21,29 @@ final class ReadLengthFormatter implements ReadLengthFormatterInterface
         }
 
         if ($minutes < 60) {
-            return sprintf('% min', $minutes);
+            return sprintf(
+                '%s %s',
+                $minutes,
+                $this->translate->t('read-length-formatter.min')
+            );
         }
 
         $hours = (int)($minutes / 60);
 
         if ($hours < 24) {
-            return sprintf('% hours', $hours);
+            return sprintf(
+                '%s %s',
+                $hours,
+                $this->translate->t('read-length-formatter.hour')
+            );
         }
 
         $days = (int)($hours / 24);
 
-        return sprintf('% days', $days);
+        return sprintf(
+            '%s %s',
+            $days,
+            $this->translate->t('read-length-formatter.day')
+        );
     }
 }
