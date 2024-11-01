@@ -19,12 +19,12 @@ return function () {
     $sql_models = require_once(__DIR__ . '/bootstrap/Sql/models.php');
     $sql_models($container);
 
-    $models = require_once(__DIR__ . '/bootstrap/models.php');
-    $models($container);
-
     $services = require_once(__DIR__ . '/bootstrap/services.php');
     $services($container);
 
+    $models = require_once(__DIR__ . '/bootstrap/models.php');
+    $models($container);
+    
     $http_services = require_once(__DIR__ . '/bootstrap/Http/services.php');
     $http_services($container);
 

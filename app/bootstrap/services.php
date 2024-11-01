@@ -105,5 +105,17 @@ return function (Container $container) {
         )
     );
 
+    $container->add(
+        \Romchik38\Site2\Services\ReadLengthFormatter::class,
+        new \Romchik38\Site2\Services\ReadLengthFormatter(
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class,
+        $container->get(\Romchik38\Site2\Services\ReadLengthFormatter::class)
+    );
+
+
     return $container;
 };

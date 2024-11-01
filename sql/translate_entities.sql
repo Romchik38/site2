@@ -44,5 +44,14 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('footer.copyright', 'en', 'Copyright'),
     ('footer.copyright', 'uk', 'Авторське право'),
     ('footer.by_romanenko', 'en', 'by Romanenko Serhii'),
-    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію')
+    ('footer.by_romanenko', 'uk', 'належить Романенко Сергію'),
+    --service
+    ('read-length-formatter.a-few-minutes', 'en', 'a few minutes'),
+    ('read-length-formatter.a-few-minutes', 'uk', 'декілька хвилин'),
+    ('read-length-formatter.min', 'en', 'min'),
+    ('read-length-formatter.min', 'uk', 'хв'),
+    ('read-length-formatter.hour', 'en', 'h'),
+    ('read-length-formatter.hour', 'uk', 'год'),
+    ('read-length-formatter.day', 'en', 'd'),
+    ('read-length-formatter.day', 'uk', 'доба')
 ;

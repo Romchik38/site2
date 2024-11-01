@@ -161,15 +161,6 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Services\DateFormatterUsesDateFormat::class)
     );
 
-    $container->add(
-        \Romchik38\Site2\Services\ReadLengthFormatter::class,
-        new \Romchik38\Site2\Services\ReadLengthFormatter
-    );
-    $container->add(
-        \Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class,
-        $container->get(\Romchik38\Site2\Services\ReadLengthFormatter::class)
-    );
-
     // Controller
     $container->add(
         \Romchik38\Server\Routers\Http\ControllersCollection::class,

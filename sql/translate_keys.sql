@@ -23,6 +23,11 @@ INSERT INTO translate_keys (key) VALUES
     ('header.subscribe'),
     --footer
     ('footer.copyright'),
-    ('footer.by_romanenko')
+    ('footer.by_romanenko'),
+    --service
+    ('read-length-formatter.a-few-minutes'),
+    ('read-length-formatter.min'),
+    ('read-length-formatter.hour'),
+    ('read-length-formatter.day')
 ;
 
