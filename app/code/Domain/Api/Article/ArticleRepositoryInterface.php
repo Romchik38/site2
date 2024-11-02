@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Api\Models\Virtual\Article;
+namespace Romchik38\Site2\Domain\Api\Article;
 
-use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
+use Romchik38\Site2\Domain\Article\Article;
+use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleSearchCriteria;
 
 /**
  * Manage Article entity
@@ -20,11 +21,10 @@ interface ArticleRepositoryInterface
      * @throws NoSuchEntityException
      * @return ArticleInterface An article entity
      */
-    public function getById(string $id): ArticleInterface;
+    public function getById(string $id): Article;
 
     /**
-     * @todo add docs
      * @return ArticleInterface[]
      */
-    public function list(SearchCriteriaInterface $searchCriteria): array;
+    public function list(ArticleSearchCriteria $searchCriteria): array;
 }

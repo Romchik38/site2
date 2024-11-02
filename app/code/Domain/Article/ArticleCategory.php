@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\ArticleCategory;
+namespace Romchik38\Site2\Domain\Article;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryInterface;
 
-final class ArticleCategory implements ArticleCategoryInterface
+final class ArticleCategory
 {
 
     public function __construct(
@@ -25,7 +24,7 @@ final class ArticleCategory implements ArticleCategoryInterface
     }
 
     /** @throws InvalidArgumentException when string is empty */
-    public function setArticleId(string $id): ArticleCategoryInterface
+    public function setArticleId(string $id): self
     {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('Article id field can\'t be empty');
@@ -35,7 +34,7 @@ final class ArticleCategory implements ArticleCategoryInterface
     }
 
     /** @throws InvalidArgumentException when string is empty */
-    public function setCategoryId(string $id): ArticleCategoryInterface
+    public function setCategoryId(string $id): self
     {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('Category id field can\'t be empty');

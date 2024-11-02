@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\ArticleTranslates;
+namespace Romchik38\Site2\Domain\Article;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
 
-final class ArticleTranslates implements ArticleTranslatesInterface
+final class ArticleTranslates
 {
 
     public function __construct(
@@ -55,8 +54,8 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this->updatedAt;
     }
 
-
-    public function setArticleId(string $id): ArticleTranslatesInterface
+    /** @throws InvalidArgumentException when string is empty */
+    public function setArticleId(string $id): self
     {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('Article id field can\'t be empty');
@@ -65,7 +64,8 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this;
     }
 
-    public function setLanguage(string $language): ArticleTranslatesInterface
+    /** @throws InvalidArgumentException when string is empty */
+    public function setLanguage(string $language): self
     {
         if (strlen($language) === 0) {
             throw new InvalidArgumentException('Article language field can\'t be empty');
@@ -75,7 +75,8 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this;
     }
 
-    public function setName(string $name): ArticleTranslatesInterface
+    /** @throws InvalidArgumentException when string is empty */
+    public function setName(string $name): self
     {
         if (strlen($name) === 0) {
             throw new InvalidArgumentException('Article name field can\'t be empty');
@@ -85,7 +86,8 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this;
     }
 
-    public function setShortDescription(string $shortDescription): ArticleTranslatesInterface
+    /** @throws InvalidArgumentException when string is empty */    
+    public function setShortDescription(string $shortDescription): self
     {
         if (strlen($shortDescription) === 0) {
             throw new InvalidArgumentException('Article short description field can\'t be empty');
@@ -95,7 +97,8 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this;
     }
 
-    public function setDescription(string $description): ArticleTranslatesInterface
+    /** @throws InvalidArgumentException when string is empty */    
+    public function setDescription(string $description): self
     {
         if (strlen($description) === 0) {
             throw new InvalidArgumentException('Article description field can\'t be empty');
@@ -105,18 +108,23 @@ final class ArticleTranslates implements ArticleTranslatesInterface
         return $this;
     }
 
-    public function setCreatedAt(\DateTime $date): ArticleTranslatesInterface
+    public function setCreatedAt(\DateTime $date): self
     {
         $this->createdAt = $date;
         return $this;
     }
 
-    public function setUpdatedAt(\Datetime $date): ArticleTranslatesInterface
+    public function setUpdatedAt(\Datetime $date): self
     {
         $this->updatedAt = $date;
         return $this;
     }
 
+     /**
+     * @throws InvalidArgumentException $speed must be greater than 0
+     * @param int $speed words/minute 
+     * @return int Minutes to read
+     */
     public function getReadLength(int $speed = 200): int {
         if ($speed < 1) {
             throw new InvalidArgumentException('param $speed must be greater than 0');

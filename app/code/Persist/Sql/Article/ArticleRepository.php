@@ -24,6 +24,26 @@ use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
  */
 final class ArticleRepository implements ArticleRepositoryInterface
 {
+    /** Article */
+    final const ARTICLE_T = 'article';
+    final const ARTICLE_C_IDENTIFIER = 'identifier';
+    final const ARTICLE_C_ACTIVE = 'active';
+
+    /** Category */
+    final const ARTICLE_CATEGORY_T = 'article_category';
+    final const ARTICLE_CATEGORY_C_ARTICLE_ID = 'article_id';
+    final const ARTICLE_CATEGORY_C_CATEGORY_ID = 'category_id';
+
+    /** Translates */
+    final const ARTICLE_TRANSLATES_T = 'article_translates';
+    final const ARTICLE_TRANSLATES_C_ARTICLE_ID = 'article_id';
+    final const ARTICLE_TRANSLATES_C_LANGUAGE = 'language';
+    final const ARTICLE_TRANSLATES_C_NAME = 'name';
+    final const ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'short_description';
+    final const ARTICLE_TRANSLATES_C_DESCRIPTION = 'description';
+    final const ARTICLE_TRANSLATES_C_CREATED_AT = 'created_at';
+    final const ARTICLE_TRANSLATES_C_UPDATED_AT = 'updated_at';
+
     /**
      * 
      * @param string[] $primaryIds The Article's identifiers from all tables with tables names

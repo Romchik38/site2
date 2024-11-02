@@ -2,16 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\Virtual\Article;
+namespace Romchik38\Site2\Domain\Article;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryInterface;
-use Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesInterface;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 
-final class Article implements ArticleInterface
+final class Article
 {
-    /** @param ArticleTranslatesInterface[] $translates */
     public function __construct(
         protected string $articleId,
         protected bool $active,
@@ -29,22 +25,24 @@ final class Article implements ArticleInterface
         return $this->active;
     }
 
-    public function getTranslate(string $language): ArticleTranslatesInterface|null
+    public function getTranslate(string $language): ArticleTranslates|null
     {
         return $this->translates[$language] ?? null;
     }
 
-    public function getCategory(string $categoryId): ArticleCategoryInterface|null
+    public function getCategory(string $categoryId): ArticleCategory|null
     {
         return $this->categories[$categoryId] ?? null;
     }
 
+    /** @return ArticleCategory[] */
     public function getAllCategories(): array
     {
         return array_values($this->categories);
     }
 
-    public function setId(string $id): ArticleInterface
+    /** @throws InvalidArgumentException when string is empty */    
+    public function setId(string $id): self
     {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('Article id field can\'t be empty');
@@ -54,13 +52,13 @@ final class Article implements ArticleInterface
         return $this;
     }
 
-    public function activate(): ArticleInterface
+    public function activate(): self
     {
         $this->active = true;
         return $this;
     }
 
-    public function dectivate(): ArticleInterface
+    public function dectivate(): self
     {
         $this->active = false;
         return $this;
