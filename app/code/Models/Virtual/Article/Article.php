@@ -54,10 +54,15 @@ final class Article implements ArticleInterface
         return $this;
     }
 
-    public function setActive(bool $active): ArticleInterface
+    public function activate(): ArticleInterface
     {
-        $this->active = $active;
+        $this->active = true;
         return $this;
     }
 
+    public function dectivate(): ArticleInterface
+    {
+        $this->active = false;
+        return $this;
+    }
 }

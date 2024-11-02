@@ -26,7 +26,8 @@ interface ArticleInterface
     /** @throws InvalidArgumentException when string is empty */
     public function setId(string $id): ArticleInterface;
 
-    public function setActive(bool $active): ArticleInterface;
+    public function activate(): ArticleInterface;
+    public function dectivate(): ArticleInterface;
 
     /** Models */
     public function getTranslate(string $language): ArticleTranslatesInterface|null;
