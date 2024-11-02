@@ -42,6 +42,8 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('header.sing_in', 'uk', 'Увійти'),
     ('header.subscribe', 'en', 'Subscribe'),
     ('header.subscribe', 'uk', 'Підписатися'),
+    ('header.link.sitemap', 'en', 'Sitemap'),
+    ('header.link.sitemap', 'uk', 'Мапа сайту'),
     --footer
     ('footer.copyright', 'en', 'Copyright'),
     ('footer.copyright', 'uk', 'Авторське право'),

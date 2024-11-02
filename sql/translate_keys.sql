@@ -22,6 +22,7 @@ INSERT INTO translate_keys (key) VALUES
     ('header.logo'),
     ('header.sing_in'),
     ('header.subscribe'),
+    ('header.link.sitemap'),
     --footer
     ('footer.copyright'),
     ('footer.by_romanenko'),
