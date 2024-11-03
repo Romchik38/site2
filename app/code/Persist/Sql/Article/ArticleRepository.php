@@ -126,6 +126,10 @@ final class ArticleRepository implements ArticleRepositoryInterface
             );
         }
 
+        /** LIMIT */
+        
+        /** OFFSET */
+
         /** get rows */
         $rows = $this->listRows(
             $selectedFields,

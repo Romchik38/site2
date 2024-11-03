@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
+use Romchik38\Server\Api\Models\SearchCriteria\LimitInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
@@ -14,14 +15,13 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
  */
 abstract class SearchCriteria implements SearchCriteriaInterface
 {
-    protected array $orderBy;
-    protected string $limit;
+    protected array $orderBy = [];
     protected string $offset;
 
     public function __construct(
         protected readonly string $entityIdFieldName,
         protected readonly string $tableName,
-        string $limit = 'all',
+        protected Limit $limit,
         string $offset = '0',
         array $orderBy = []
     ) {
@@ -53,23 +53,10 @@ abstract class SearchCriteria implements SearchCriteriaInterface
         return $this;
     }
 
-    public function setLimit(string $limit): self
+    public function setLimit(LimitInterface $limit): self
     {
-        if ($limit === 'all') {
-            $this->limit = $limit;
-            return $this;
-        }
-
-        $limit = (int)$limit;
-
-        if ($limit >= 0) {
-            $this->limit = $limit;
-            return $this;
-        }
-
-        throw new InvalidArgumentException(
-            sprintf('param limit is invalid: %s', $limit)
-        );
+        $this->limit = $limit;
+        return $this;
     }
 
     public function setOffset(string $offset): self

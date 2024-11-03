@@ -19,6 +19,9 @@ return function () {
     $sql_models = require_once(__DIR__ . '/bootstrap/Sql/models.php');
     $sql_models($container);
 
+    $domain_service = require_once(__DIR__ . '/bootstrap/domain_service.php');
+    $domain_service($container);
+
     $services = require_once(__DIR__ . '/bootstrap/services.php');
     $services($container);
 

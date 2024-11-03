@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Persist\Sql\Article;
 
+use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 
 final class ArticleSearchCriteria extends SearchCriteria
 {
 
-
     protected bool|null $active = null;
 
     public function __construct(
-        string $limit = 'all',
+        Limit $limit,
         string $offset = '0',
         array $orderBy = []
     ) {

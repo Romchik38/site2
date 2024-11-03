@@ -17,5 +17,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\Sql\DatabasePostgresql::class)
     );
 
+    // Article
+    $container->add(
+        \Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteriaFactory::class,
+        new \Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteriaFactory
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface::class,
+        $container->get(\Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteriaFactory::class)
+    );
+
     return $container;
 };

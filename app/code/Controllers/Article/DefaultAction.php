@@ -16,6 +16,8 @@ use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInt
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
+use Romchik38\Site2\Domain\Article\Services\ArticleListService;
+use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
 use Romchik38\Site2\Persist\Sql\Article\ArticleOrderBy;
 use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
 
@@ -29,19 +31,21 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactoryInterface $articleDefaultActionViewDTOFactory,
+        /** @todo move to app service */
         protected readonly ArticleRepositoryInterface $articleRepository,
+        /** @todo remove */
         protected readonly ArticleDTOFactoryInterface $articleDTOFactory,
+        protected readonly ArticleListService $articleListService
     ) {}
 
     public function execute(): string
     {
-        /** prepare a database query */
-        $orderBy = ArticleOrderBy::byArtileId();
-        $searchCriteria = new ArticleSearchCriteria();
-        $searchCriteria->setOrderBy($orderBy);
+        /** decide how which paginate to use */
+        $pagination = new Pagination();
 
-        /** getting articles from database */
-        $articleList = $this->articleRepository->list($searchCriteria);
+        /** do request to app service */
+        $articleList = $this->articleListService->listArticles($pagination);
+
         $articleDTOList = $this->mapArticleToDTO($articleList);
 
         /** prepare page view */
