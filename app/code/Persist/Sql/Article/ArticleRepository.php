@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleCategory;
@@ -77,7 +78,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $model;
     }
 
-    public function list(SearchCriteriaInterface $searchCriteria): array
+    public function list(SearchCriteria $searchCriteria): array
     {
         $entityIdFieldName = $searchCriteria->getEntityIdFieldName();
         $selectedFields = [

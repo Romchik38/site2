@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Models\Virtual\Article\Sql;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaInterface;
-use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository;
 
-final class ArticleSearchCriteria extends SearchCriteria implements ArticleSearchCriteriaInterface
+final class ArticleSearchCriteria extends SearchCriteria
 {
+
+
     protected bool|null $active = null;
 
     public function __construct(
@@ -19,8 +19,8 @@ final class ArticleSearchCriteria extends SearchCriteria implements ArticleSearc
         array $orderBy = []
     ) {
         parent::__construct(
-            ArticleInterface::ID_FIELD,
-            ArticleInterface::ENTITY_NAME,
+            ArticleRepository::ARTICLE_C_IDENTIFIER,
+            ArticleRepository::ARTICLE_T,
             $limit,
             $offset,
             $orderBy
@@ -30,7 +30,7 @@ final class ArticleSearchCriteria extends SearchCriteria implements ArticleSearc
     /** WHERE SECTION 
      * @todo implement
     */
-    public function setActive(bool $active): ArticleSearchCriteriaInterface
+    public function setActive(bool $active): self
     {
         $this->active = $active;
         return $this;
