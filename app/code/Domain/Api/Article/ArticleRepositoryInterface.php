@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Domain\Api\Article;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 use Romchik38\Site2\Domain\Article\Article;
-use Romchik38\Site2\Models\Virtual\Article\Sql\ArticleSearchCriteria;
 
 /**
  * Manage Article entity
@@ -20,12 +19,12 @@ interface ArticleRepositoryInterface
      * 
      * @param string $id An entity id.
      * @throws NoSuchEntityException
-     * @return ArticleInterface An article entity
+     * @return Article An article entity
      */
     public function getById(string $id): Article;
 
     /**
-     * @return ArticleInterface[]
+     * @return Article[]
      */
     public function list(SearchCriteria $searchCriteria): array;
 }

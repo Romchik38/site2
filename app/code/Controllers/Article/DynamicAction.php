@@ -13,7 +13,7 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface;
+use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
