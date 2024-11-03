@@ -18,7 +18,8 @@
             [+] add to table read length 30 min watch  
             [+] create multilanguage read legth  
         [-] App service  
-        [-] View Repository  
+            [-] ArticleListService  
+        [-] Detail Repository  
         [-] refactor default action  
         [-] SearchCriteria *WHERE*  
         [-] SearchCriteria ArticleTranslates  

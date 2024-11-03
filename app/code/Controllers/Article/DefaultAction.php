@@ -96,7 +96,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             $translate = $this->getTranslate($article);
             $categories = $article->getAllCategories();
             $articleDTO = $this->articleDTOFactory->create(
-                $article->getId(),
+                $article->getId()->toString(),
                 $article->getActive(),
                 $translate->getName(),
                 $translate->getShortDescription(),

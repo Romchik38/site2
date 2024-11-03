@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Article;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class Article
 {
     public function __construct(
-        protected string $articleId,
+        protected ArticleId $articleId,
         protected bool $active,
         protected readonly array $translates = [],
         protected readonly array $categories = []
     ) {}
 
-    public function getId(): string
+    public function getId(): ArticleId
     {
         return $this->articleId;
     }
@@ -41,13 +42,8 @@ final class Article
         return array_values($this->categories);
     }
 
-    /** @throws InvalidArgumentException when string is empty */    
-    public function setId(string $id): self
+    public function setId(ArticleId $id): self
     {
-        if (strlen($id) === 0) {
-            throw new InvalidArgumentException('Article id field can\'t be empty');
-        }
-
         $this->articleId = $id;
         return $this;
     }

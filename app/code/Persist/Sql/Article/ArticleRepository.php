@@ -11,6 +11,7 @@ use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleCategory;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 /**
  * Manage article entities.
@@ -41,6 +42,9 @@ final class ArticleRepository implements ArticleRepositoryInterface
     final const ARTICLE_TRANSLATES_C_CREATED_AT = 'created_at';
     final const ARTICLE_TRANSLATES_C_UPDATED_AT = 'updated_at';
 
+    /** @var array<string,Article> $hash */
+    protected $hash = [];
+
     /**
      * 
      * @param string[] $primaryIds The Article's identifiers from all tables with tables names
@@ -49,32 +53,41 @@ final class ArticleRepository implements ArticleRepositoryInterface
         protected DatabaseInterface $database
     ) {}
 
-    public function getById(string $id): Article
+    public function getById(ArticleId $id): Article
     {
+        /** 1 check the hash */
+        $hashed = $this->hash[$id->toString()] ?? null;
+        if ($hashed !== null) {
+            return $hashed;
+        }
+
         $expression = sprintf(
             'WHERE %s.%s = $1',
             $this::ARTICLE_T,
             $this::ARTICLE_C_IDENTIFIER
         );
 
-        /** 1. Entity rows */
+        /** 2. Entity rows */
         $rows = $this->listRows(
             [sprintf('%s.*', $this::ARTICLE_T)],
             [$this::ARTICLE_T],
             $expression,
-            [$id]
+            [$id->toString()]
         );
 
         if (count($rows) === 0) {
             throw new NoSuchEntityException(
-                sprintf('Article with id %s not exist', $id)
+                sprintf('Article with id %s not exist', $id->toString())
             );
         }
 
-        /** 2. Create an Entity */
-        $model = $this->createSingleArticleFromRows($rows);
+        /** 3. Create an Entity */
+        $article = $this->createSingleArticleFromRows($rows);
 
-        return $model;
+        /** 4. Add to hash */
+        $this->hash[$id->toString()] = $article;
+
+        return $article;
     }
 
     public function list(SearchCriteria $searchCriteria): array
@@ -124,7 +137,9 @@ final class ArticleRepository implements ArticleRepositoryInterface
         /** create entities */
         $result = [];
         foreach ($rows as $row) {
-            $result[] = $this->getById($row[$entityIdFieldName]);
+            $result[] = $this->getById(
+                new ArticleId($row[$entityIdFieldName])
+            );
         }
 
         return $result;
@@ -144,7 +159,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         // 2. create an entity
         $firstRow = $rows[0];
         $entity = new Article(
-            $firstRow[$this::ARTICLE_C_IDENTIFIER],
+            new ArticleId($firstRow[$this::ARTICLE_C_IDENTIFIER]),
             $firstRow[$this::ARTICLE_C_ACTIVE] === 'f' ? false : true,
             $translates,
             $categories
