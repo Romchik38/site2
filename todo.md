@@ -17,6 +17,9 @@
         [+] create a template to list articles  
             [+] add to table read length 30 min watch  
             [+] create multilanguage read legth  
+        [-] App service  
+        [-] View Repository  
+        [-] refactor default action  
         [-] SearchCriteria *WHERE*  
         [-] SearchCriteria ArticleTranslates  
         [?] SearchCriteria ArticleCategory  
