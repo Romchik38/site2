@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\Virtual\Article\Sql;
+namespace Romchik38\Site2\Persist\Sql\Article;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;

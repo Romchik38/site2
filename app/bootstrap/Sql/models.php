@@ -36,20 +36,14 @@ return function (Container $container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository::class,
-        new \Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\Virtual\Article\ArticleFactoryInterface::class),
-            ['article.*', 'article_translates.language', 'article_translates.name', 'article_translates.description', 'article_translates.created_at', 'article_translates.updated_at', 'article_category.category_id'],
-            ['article', 'article_translates', 'article_category'],
-            ['article.identifier', 'article_translates.article_id', 'article_category.article_id'],
-            $container->get(\Romchik38\Site2\Api\Models\ArticleTranslates\ArticleTranslatesFactoryInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\ArticleCategory\ArticleCategoryFactoryInterface::class)
+        \Romchik38\Site2\Persist\Sql\Article\ArticleRepository::class,
+        new \Romchik38\Site2\Persist\Sql\Article\ArticleRepository(
+            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
         )
     );
     $container->add(
-        \Romchik38\Site2\Api\Models\Virtual\Article\ArticleRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Models\Virtual\Article\Sql\ArticleRepository::class)
+        \Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Persist\Sql\Article\ArticleRepository::class)
     );
 
     return $container;

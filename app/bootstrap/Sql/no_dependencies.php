@@ -17,16 +17,5 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\Sql\DatabasePostgresql::class)
     );
 
-    // Factories
-    $container->add(
-        \Romchik38\Site2\Models\Virtual\Article\Sql\ArticleSearchCriteriaFactory::class,
-        new \Romchik38\Site2\Models\Virtual\Article\Sql\ArticleSearchCriteriaFactory
-    );
-    $container->add(
-        \Romchik38\Site2\Api\Models\Virtual\Article\ArticleSearchCriteriaFactoryInterface::class,
-        $container->get(\Romchik38\Site2\Models\Virtual\Article\Sql\ArticleSearchCriteriaFactory::class)
-    );
-
-
     return $container;
 };

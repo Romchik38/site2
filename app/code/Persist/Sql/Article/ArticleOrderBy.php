@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\Virtual\Article\Sql;
+namespace Romchik38\Site2\Persist\Sql\Article;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 
 final class ArticleOrderBy extends OrderBy
 {
@@ -14,7 +13,7 @@ final class ArticleOrderBy extends OrderBy
         string $nulls = self::NULLS_LAST_OPTION
     ): self {
         return new self(
-            ArticleInterface::ID_FIELD,
+            ArticleRepository::ARTICLE_C_IDENTIFIER,
             $direction,
             $nulls
         );

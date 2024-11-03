@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\Virtual\Article\Sql;
+namespace Romchik38\Site2\Persist\Sql\Article;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
-use Romchik38\Site2\Api\Models\Virtual\Article\ArticleInterface;
 
 final class ArticleSearchCriteria extends SearchCriteria
 {
