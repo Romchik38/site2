@@ -11,7 +11,6 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
  */
 interface SearchCriteriaInterface
 {
-
     /**
      * REPOSITORY SECTION
      */
@@ -34,11 +33,7 @@ interface SearchCriteriaInterface
      */
     public function setOrderBy(OrderByInterface $orderBy): self;
 
-    /**
-     * @throws InvalidArgumentException on limit < 0 
-     * */
     public function setLimit(LimitInterface $limit): self;
 
-    /** @throws InvalidArgumentException on offset < 0 */
-    public function setOffset(string $offset): self;
+    public function setOffset(OffsetInterface $offset): self;
 }

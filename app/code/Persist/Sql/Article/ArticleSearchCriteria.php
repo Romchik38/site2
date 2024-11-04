@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Persist\Sql\Article;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
+use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 
 final class ArticleSearchCriteria extends SearchCriteria
 {
-
-    protected bool|null $active = null;
-
     public function __construct(
         Limit $limit,
-        string $offset = '0',
+        Offset $offset,
         array $orderBy = []
     ) {
         parent::__construct(
@@ -29,9 +27,5 @@ final class ArticleSearchCriteria extends SearchCriteria
     /** WHERE SECTION 
      * @todo implement
     */
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
-        return $this;
-    }
+
 }
