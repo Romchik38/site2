@@ -9,15 +9,11 @@ return function (Container $container) {
     // Factories
 
     $container->add(
-        \Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory::class,
-        new \Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory(
+        \Romchik38\Domain\Article\Detail\ArticleDTOFactory::class,
+        new \Romchik38\Domain\Article\Detail\ArticleDTOFactory(
             $container->get(\Romchik38\Site2\Api\Services\DateFormatterInterface::class),
             $container->get(\Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class)
         )
-    );
-    $container->add(
-        \Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface::class,
-        $container->get(\Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory::class)
     );
 
     return $container;

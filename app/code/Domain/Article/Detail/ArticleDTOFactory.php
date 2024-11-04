@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Article;
+namespace Romchik38\Domain\Article\Detail;
 
 use DateTime;
-use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface;
-use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
 use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
 
@@ -28,7 +26,7 @@ final class ArticleDTOFactory
         DateTime $updatedAt,
         array $categories,
         int $minutesToRead
-    ): ArticleDTOInterface {
+    ): ArticleDTO {
         return new ArticleDTO(
             $articleId,
             $active,

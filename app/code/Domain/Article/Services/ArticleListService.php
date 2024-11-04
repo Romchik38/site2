@@ -19,6 +19,7 @@ final class ArticleListService
     ) {}
 
     /** Any sorting 
+     * @param Pagination $pagination A CO to create a Search criteria
      * @return ArticleId[]
      */
     public function listArticles(Pagination $pagination): array
@@ -32,8 +33,12 @@ final class ArticleListService
 
         /** getting articles from database */
         $articleList = $this->articleRepository->list($searchCriteria);
-        // $articleDTOList = $this->mapArticleToDTO($articleList);
         
-        return $articleList;
+        $articleIdList = [];
+        foreach($articleList as $article){
+            $articleIdList[] = $article->getId();
+        }
+
+        return $articleIdList;
     }
 }

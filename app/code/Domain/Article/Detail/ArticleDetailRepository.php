@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article\Detail;
 
+use Romchik38\Domain\Article\Detail\ArticleDTO;
+use Romchik38\Domain\Article\Detail\ArticleDTOFactory;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Models\DTO\Article\ArticleDTO;
-use Romchik38\Site2\Models\DTO\Article\ArticleDTOFactory;
 
 final class ArticleDetailRepository
 {

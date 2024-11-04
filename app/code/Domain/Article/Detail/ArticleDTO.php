@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Article;
+namespace Romchik38\Domain\Article\Detail;
 
-use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
 use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
 
-final class ArticleDTO implements ArticleDTOInterface
+final class ArticleDTO
 {
     protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
 
@@ -61,6 +60,7 @@ final class ArticleDTO implements ArticleDTOInterface
         return $this->updatedAt;
     }
 
+    /** @return string[] A list with categories ids */
     public function getCategories(): array
     {
         return $this->categories;
@@ -74,7 +74,8 @@ final class ArticleDTO implements ArticleDTOInterface
             $this::DATE_FORMAT_CATEGORY_PAGE
         );
     }
-
+    
+    /** time to read */
     public function readLength(): string
     {
         return $this->readLengthFormatter->formatByMinutes($this->minutesToRead);

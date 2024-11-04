@@ -9,18 +9,10 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\ActionProcessException;
-use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOFactoryInterface;
-use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface;
-use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
-use Romchik38\Site2\Domain\Article\Article;
-use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository;
 use Romchik38\Site2\Domain\Article\Services\ArticleListService;
 use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
-use Romchik38\Site2\Persist\Sql\Article\ArticleOrderBy;
-use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
