@@ -7,7 +7,6 @@ namespace Romchik38\Server\Models\Sql\SearchCriteria;
 use Romchik38\Server\Api\Models\SearchCriteria\LimitInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
-/** @todo implement this */
 class Limit implements LimitInterface
 {
     protected readonly string $limit;
