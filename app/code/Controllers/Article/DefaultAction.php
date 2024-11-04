@@ -38,10 +38,10 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         /** 2. do request to app service */
         try {
-            $articleIdList = $this->articleListService->listArticles($pagination);
-        } catch(InvalidArgumentException $e) {
+            $articleIdList = $this->articleListService->listActiveArticles($pagination);
+        } catch (InvalidArgumentException $e) {
             $pagination = new Pagination('15', '0');
-            $articleIdList = $this->articleListService->listArticles($pagination);
+            $articleIdList = $this->articleListService->listActiveArticles($pagination);
         }
 
         $articleDTOList = [];

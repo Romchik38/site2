@@ -107,6 +107,14 @@ final class ArticleRepository implements ArticleRepositoryInterface
         $paramCount = 0;
 
         /** WHERE */
+        $filter = $searchCriteria->getFilter();
+        if ($filter !== null){
+            $expression[] = sprintf(
+                'WHERE %s',
+                $filter->getExpression(++$paramCount)
+            );
+            $params[] = $filter->getParam();
+        }
 
         /** ORDER BY */
         $orderBy = $searchCriteria->getAllOrderBy();
