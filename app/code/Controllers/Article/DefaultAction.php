@@ -16,6 +16,7 @@ use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInt
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
+use Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository;
 use Romchik38\Site2\Domain\Article\Services\ArticleListService;
 use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
 use Romchik38\Site2\Persist\Sql\Article\ArticleOrderBy;
@@ -31,11 +32,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactoryInterface $articleDefaultActionViewDTOFactory,
-        /** @todo move to app service */
-        protected readonly ArticleRepositoryInterface $articleRepository,
-        /** @todo remove */
-        protected readonly ArticleDTOFactoryInterface $articleDTOFactory,
-        protected readonly ArticleListService $articleListService
+        protected readonly ArticleListService $articleListService,
+        protected readonly ArticleDetailRepository $articleDetailRepository
     ) {}
 
     public function execute(): string
@@ -44,9 +42,16 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $pagination = new Pagination();
 
         /** do request to app service */
-        $articleList = $this->articleListService->listArticles($pagination);
+        $articleIdList = $this->articleListService->listArticles($pagination);
 
-        $articleDTOList = $this->mapArticleToDTO($articleList);
+        $articleDTOList = [];
+        foreach ($articleIdList as $articleId) {
+            $articleDTOList[] = $this->articleDetailRepository
+                ->getByIdAndLanguages(
+                    $articleId,
+                    [$this->getLanguage(), $this->getDefaultLanguage()]
+                );
+        }
 
         /** prepare page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
@@ -67,53 +72,4 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         return $result;
     }
-
-    protected function getTranslate(Article $article): ArticleTranslates
-    {
-        $translate = $article->getTranslate($this->getLanguage());
-
-        if ($translate === null) {
-            /** translate is missig, try to show default language */
-            $translate = $article->getTranslate($this->getDefaultLanguage());
-            if ($translate === null) {
-                throw new ActionProcessException(
-                    sprintf('Translate for article %s is missing', $article->getId())
-                );
-            }
-        }
-
-        return $translate;
-    }
-
-    /** 
-     * @param Article[] $articleList 
-     *
-     * @return ArticleDTOInterface[]
-     */
-    protected function mapArticleToDTO(array $articleList): array
-    {
-        /** $todo replace with cat mapper */
-        $f = fn($c) => $c->getCategoryId();
-
-        $dtos = [];
-        foreach ($articleList as $article) {
-            $translate = $this->getTranslate($article);
-            $categories = $article->getAllCategories();
-            $articleDTO = $this->articleDTOFactory->create(
-                $article->getId()->toString(),
-                $article->getActive(),
-                $translate->getName(),
-                $translate->getShortDescription(),
-                $translate->getDescription(),
-                $translate->getCreatedAt(),
-                $translate->getUpdatedAt(),
-                array_map($f, $categories),
-                $translate->getReadLength()
-            );
-            $dtos[] = $articleDTO;
-        }
-
-        return $dtos;
-    }
-
 }

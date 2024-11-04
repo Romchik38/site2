@@ -10,7 +10,7 @@ use Romchik38\Site2\Api\Models\DTO\Article\ArticleDTOInterface;
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
 use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
 
-final class ArticleDTOFactory implements ArticleDTOFactoryInterface
+final class ArticleDTOFactory
 {
 
     public function __construct(
