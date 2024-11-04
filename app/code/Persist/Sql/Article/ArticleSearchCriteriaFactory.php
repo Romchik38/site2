@@ -25,7 +25,7 @@ class ArticleSearchCriteriaFactory implements SearchCriteriaFactoryInterface {
         }
 
         if ($offset === '') {
-            $limit = $this::DEFAULT_OFFSET;
+            $offset = $this::DEFAULT_OFFSET;
         }
 
         return new ArticleSearchCriteria(

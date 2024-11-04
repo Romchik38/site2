@@ -24,6 +24,10 @@ interface SearchCriteriaInterface
     /** @return OrderByInterface[] */
     public function getAllOrderBy(): array;
 
+    public function limit(): LimitInterface;
+
+    public function offset(): OffsetInterface;
+
     /**
     * DOMAIN SECTION
     */

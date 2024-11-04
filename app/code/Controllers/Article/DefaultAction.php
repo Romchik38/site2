@@ -32,7 +32,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     public function execute(): string
     {
         /** 1. decide which paginate to use */
-        $pagination = Pagination::fromRequest([]);
+        $pagination = Pagination::fromRequest([
+            // 'limit' => '3'
+        ]);
 
         /** 2. do request to app service */
         try {

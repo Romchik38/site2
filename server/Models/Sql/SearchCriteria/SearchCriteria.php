@@ -38,6 +38,14 @@ abstract class SearchCriteria implements SearchCriteriaInterface
         return $this->orderBy;
     }
 
+    public function limit(): Limit {
+        return $this->limit;
+    }
+
+    public function offset(): Offset {
+        return $this->offset;
+    }
+    
     public function setOrderBy(OrderByInterface $orderBy): self
     {
         $this->orderBy[] = $orderBy;

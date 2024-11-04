@@ -104,6 +104,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
 
         $expression = [];
         $params = [];
+        $paramCount = 0;
 
         /** WHERE */
 
@@ -127,8 +128,14 @@ final class ArticleRepository implements ArticleRepositoryInterface
         }
 
         /** LIMIT */
+        $limit = $searchCriteria->limit();
+        $expression[] = sprintf('LIMIT $%s', ++$paramCount);
+        $params[] = $limit->toString();
         
         /** OFFSET */
+        $offset = $searchCriteria->offset();
+        $expression[] = sprintf('OFFSET $%s', ++$paramCount);
+        $params[] = $offset->toString();
 
         /** get rows */
         $rows = $this->listRows(
