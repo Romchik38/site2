@@ -51,7 +51,7 @@ return function ($container) {
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Api\Views\SitemapLinkTreeInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface::class),
+            new \Romchik38\Site2\Controllers\Sitemap\DefaultAction\SitemapDTOFactory,
             $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class)
         )
     );
@@ -83,7 +83,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
-            $container->get(Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface::class),
+            new \Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory,
             $container->get(\Romchik38\Site2\Domain\Article\Services\ArticleListService::class),
             $container->get(\Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository::class)
         )

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Views;
+namespace Romchik38\Site2\Controllers\Sitemap\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
@@ -13,19 +13,24 @@ use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
  * 
  * @internal
  */
-final class SitemapDTO extends DefaultViewDTO implements SitemapDTOInterface
+final class SitemapDTO extends DefaultViewDTO
 {
+    const OUTPUT_FIELD = 'output';
+
     public function __construct(
         string $name,
         string $description,
         string $output
     ) {
         parent::__construct($name, $description);
-        $this->data[SitemapDTOInterface::OUTPUT_FIELD] = $output;
+        $this->data[$this::OUTPUT_FIELD] = $output;
     }
 
+    /**
+     * @return string html link tree
+     */
     public function getOutput(): string
     {
-        return $this->data[SitemapDTOInterface::OUTPUT_FIELD];
+        return $this->data[$this::OUTPUT_FIELD];
     }
 }

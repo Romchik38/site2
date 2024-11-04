@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Views;
+namespace Romchik38\Site2\Controllers\Sitemap\DefaultAction;
 
-use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
@@ -15,13 +14,17 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
  * 
  * @internal
  */
-final class SitemapDTOFactory implements SitemapDTOFactoryInterface
+final class SitemapDTOFactory
 {
+    /**
+    * @throws InvalidArgumentException name, description, output length equal 0
+    * @return SitemapDTOInterface Sitemap DTO View entity
+    */
     public function create(
         string $name,
         string $description,
         string $output
-    ): SitemapDTOInterface {
+    ): SitemapDTO {
         if (
             strlen($name) === 0 ||
             strlen($description) === 0 ||

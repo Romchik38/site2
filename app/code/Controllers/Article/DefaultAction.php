@@ -9,7 +9,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Site2\Api\Models\DTO\Views\Article\DefaultAction\ViewDTOFactoryInterface;
+use Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory;
 use Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository;
 use Romchik38\Site2\Domain\Article\Services\ArticleListService;
 use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
@@ -23,7 +23,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly ViewDTOFactoryInterface $articleDefaultActionViewDTOFactory,
+        protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListService $articleListService,
         protected readonly ArticleDetailRepository $articleDetailRepository
     ) {}
@@ -50,7 +50,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
         /** 4. create a view dto */
-        $dto = $this->articleDefaultActionViewDTOFactory->create(
+        $dto = $this->viewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
             $articleDTOList

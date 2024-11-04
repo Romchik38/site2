@@ -13,7 +13,7 @@ use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
 use Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface;
-
+use Romchik38\Site2\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
 
 /**
  * Creates a sitemap tree of public actions
@@ -28,7 +28,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        protected readonly SitemapDTOFactoryInterface $sitemapDTOFactory,
+        protected readonly SitemapDTOFactory $sitemapDTOFactory,
         protected readonly LinkRepositoryInterface $linkRepository
     ) {}
 
