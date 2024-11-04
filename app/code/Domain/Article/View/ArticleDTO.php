@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article\Detail;
+namespace Romchik38\Site2\Domain\Article\View;
 
 use Romchik38\Site2\Api\Services\DateFormatterInterface;
 use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;

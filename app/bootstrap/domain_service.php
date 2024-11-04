@@ -14,18 +14,18 @@ return function ($container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Domain\Article\Detail\ArticleDTOFactory::class,
-        new \Romchik38\Site2\Domain\Article\Detail\ArticleDTOFactory(
+        \Romchik38\Site2\Domain\Article\View\ArticleDTOFactory::class,
+        new \Romchik38\Site2\Domain\Article\View\ArticleDTOFactory(
             $container->get(\Romchik38\Site2\Api\Services\DateFormatterInterface::class),
             $container->get(\Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class)
         )
     );
 
     $container->add(
-        \Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository::class,
-        new \Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository(
+        \Romchik38\Site2\Domain\Article\View\ArticleViewRepository::class,
+        new \Romchik38\Site2\Domain\Article\View\ArticleViewRepository(
             $container->get(\Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface::class),
-            $container->get(\Romchik38\Site2\Domain\Article\Detail\ArticleDTOFactory::class)
+            $container->get(\Romchik38\Site2\Domain\Article\View\ArticleDTOFactory::class)
         )
     );
 

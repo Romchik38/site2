@@ -10,7 +10,7 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory;
-use Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository;
+use Romchik38\Site2\Domain\Article\View\ArticleViewRepository;
 use Romchik38\Site2\Domain\Article\Services\ArticleListService;
 use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
 
@@ -25,7 +25,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListService $articleListService,
-        protected readonly ArticleDetailRepository $articleDetailRepository
+        protected readonly ArticleViewRepository $articleViewRepository
     ) {}
 
     public function execute(): string
@@ -38,7 +38,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         $articleDTOList = [];
         foreach ($articleIdList as $articleId) {
-            $articleDTOList[] = $this->articleDetailRepository
+            $articleDTOList[] = $this->articleViewRepository
                 ->getByIdAndLanguages(
                     $articleId,
                     [$this->getLanguage(), $this->getDefaultLanguage()]

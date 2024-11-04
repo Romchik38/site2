@@ -85,7 +85,7 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Views\Html\Site2TwigView::class),
             new \Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory,
             $container->get(\Romchik38\Site2\Domain\Article\Services\ArticleListService::class),
-            $container->get(\Romchik38\Site2\Domain\Article\Detail\ArticleDetailRepository::class)
+            $container->get(\Romchik38\Site2\Domain\Article\View\ArticleViewRepository::class)
         )
     );
 

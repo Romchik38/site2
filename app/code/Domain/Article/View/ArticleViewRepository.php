@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article\Detail;
+namespace Romchik38\Site2\Domain\Article\View;
 
-use Romchik38\Site2\Domain\Article\Detail\ArticleDTO;
-use Romchik38\Site2\Domain\Article\Detail\ArticleDTOFactory;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
-final class ArticleDetailRepository
+final class ArticleViewRepository
 {
 
     public function __construct(
@@ -40,7 +38,7 @@ final class ArticleDetailRepository
             }
         }
 
-        throw new ArticleDetailProcessException(
+        throw new ArticleViewProcessException(
             sprintf(
                 'Translate for article %s is missing',
                 $article->getId()->toString()
