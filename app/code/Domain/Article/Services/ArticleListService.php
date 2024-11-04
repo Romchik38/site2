@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Domain\Article\Services;
 
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
-use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
+use Romchik38\Site2\Domain\Article\Services\DO\Pagination;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
 

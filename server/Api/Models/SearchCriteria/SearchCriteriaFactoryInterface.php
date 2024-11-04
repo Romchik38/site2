@@ -8,7 +8,7 @@ interface SearchCriteriaFactoryInterface
 {
     public function create(
         string $limit,
-        string $offset = '0',
+        string $offset,
         array $orderBy = []
     ): SearchCriteriaInterface;
 }

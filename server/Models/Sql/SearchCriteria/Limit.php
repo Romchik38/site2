@@ -10,19 +10,27 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 /** @todo implement this */
 class Limit implements LimitInterface
 {
-    public function __construct(
-        protected readonly string $limit = 'all',
-    ) {
-        $limit = (int)$limit;
+    protected readonly string $limit;
 
-        if ($limit < 0) {
-            throw new InvalidArgumentException(
-                sprintf('param limit is invalid: %s', $limit)
-            );
+    public function __construct(
+        string $limit
+    ) {
+        if (strtolower($limit) === 'all') {
+            $this->limit = $limit;
+        } else {
+            $intLimit = (int)$limit;
+
+            if ($intLimit < 0) {
+                throw new InvalidArgumentException(
+                    sprintf('param limit is invalid: %s', $limit)
+                );
+            }
+            $this->limit = (string)$intLimit;
         }
     }
 
-    public function toString(): string {
+    public function toString(): string
+    {
         return $this->limit;
     }
 }

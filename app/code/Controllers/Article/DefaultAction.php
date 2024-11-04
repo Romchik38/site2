@@ -9,10 +9,11 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory;
 use Romchik38\Site2\Domain\Article\View\ArticleViewRepository;
 use Romchik38\Site2\Domain\Article\Services\ArticleListService;
-use Romchik38\Site2\Domain\Article\Services\CO\Pagination;
+use Romchik38\Site2\Domain\Article\Services\DO\Pagination;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -31,10 +32,15 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     public function execute(): string
     {
         /** 1. decide which paginate to use */
-        $pagination = new Pagination();
+        $pagination = Pagination::fromRequest([]);
 
         /** 2. do request to app service */
-        $articleIdList = $this->articleListService->listArticles($pagination);
+        try {
+            $articleIdList = $this->articleListService->listArticles($pagination);
+        } catch(InvalidArgumentException $e) {
+            $pagination = new Pagination('15', '0');
+            $articleIdList = $this->articleListService->listArticles($pagination);
+        }
 
         $articleDTOList = [];
         foreach ($articleIdList as $articleId) {
