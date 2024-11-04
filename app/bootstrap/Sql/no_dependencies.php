@@ -27,5 +27,10 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteriaFactory::class)
     );
 
+    $container->add(
+        \Romchik38\Site2\Domain\Api\Article\ArticleFilterFactoryInterface::class,
+        new Romchik38\Site2\Persist\Sql\Article\Filters\ArticleFilterFactory
+    );
+
     return $container;
 };

@@ -111,7 +111,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         if ($filter !== null){
             $expression[] = sprintf(
                 'WHERE %s',
-                $filter->getExpression(++$paramCount)
+                $filter->getExpression((string)++$paramCount)
             );
             $params[] = $filter->getParam();
         }

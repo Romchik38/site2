@@ -26,6 +26,10 @@ interface SearchCriteriaInterface
 
     public function offset(): OffsetInterface;
 
+    public function addFilter(FilterInterface $filter): self;
+
+    public function getFilter(): FilterInterface|null;
+
     /**
     * DOMAIN SECTION
     */
@@ -38,4 +42,6 @@ interface SearchCriteriaInterface
     public function setLimit(LimitInterface $limit): self;
 
     public function setOffset(OffsetInterface $offset): self;
+
+
 }

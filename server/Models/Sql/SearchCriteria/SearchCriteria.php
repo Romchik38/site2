@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
+use Romchik38\Server\Api\Models\SearchCriteria\FilterInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\LimitInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\OffsetInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
@@ -15,6 +16,8 @@ use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
  */
 abstract class SearchCriteria implements SearchCriteriaInterface
 {
+    protected FilterInterface|null $filter = null;
+
     public function __construct(
         protected readonly string $entityIdFieldName,
         protected readonly string $tableName,
@@ -62,5 +65,15 @@ abstract class SearchCriteria implements SearchCriteriaInterface
     {
         $this->offset = $offset;
         return $this;
+    }
+
+    public function addFilter(FilterInterface $filter): self
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
+    public function getFilter(): FilterInterface|null {
+        return $this->filter;
     }
 }

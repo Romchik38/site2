@@ -10,16 +10,21 @@ use Romchik38\Site2\Domain\Article\Services\DO\Pagination;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
 use Romchik38\Site2\Persist\Sql\Article\Filters\ArticleFilter;
+use Romchik38\Site2\Domain\Api\Article\ArticleFilterFactoryInterface;
 
 final class ArticleListService
 {
 
     public function __construct(
         protected readonly ArticleRepositoryInterface $articleRepository,
-        protected readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
+        protected readonly SearchCriteriaFactoryInterface $searchCriteriaFactory,
+        protected readonly ArticleFilterFactoryInterface $articleFilterFactory
     ) {}
 
-    /** Any sorting 
+    /** 
+     *  Limit + offset
+     *  Any sorting 
+     *  Any filters
      * @param Pagination $pagination A CO to create a Search criteria
      * @return ArticleId[]
      */
@@ -43,7 +48,9 @@ final class ArticleListService
         return $articleIdList;
     }
 
-    /** Show only active articles
+    /**
+     * Limit + offset 
+     * Filter active articles
      * @param Pagination $pagination A CO to create a Search criteria
      * @return ArticleId[]
      */
@@ -57,9 +64,11 @@ final class ArticleListService
         );
 
         /** @var  ArticleSearchCriteria $searchCriteria */
-        $searchCriteria->addFilter(ArticleFilter::active());
+        $searchCriteria->addFilter(
+            $this->articleFilterFactory->active()
+        );
         
-        /** getting articles from database */
+        /** getting articles from the database */
         $articleList = $this->articleRepository->list($searchCriteria);
         
         $articleIdList = [];

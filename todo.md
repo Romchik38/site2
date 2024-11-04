@@ -22,7 +22,8 @@
         [+] Detail Repository  
         [+] refactor default action  
         [-] SearchCriteria *WHERE*  
-            [-] Filter  
+            [+] Single Filter  
+            [-] ?  
         [-] SearchCriteria ArticleTranslates  
         [?] SearchCriteria ArticleCategory  
 
