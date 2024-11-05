@@ -12,5 +12,6 @@ use Romchik38\Server\Api\Controllers\ControllerInterface;
 */
 interface SitemapLinkTreeInterface
 {
+    /** @return mixed Output for view */
     public function getSitemapLinkTree(ControllerInterface $controller): mixed;
 }

@@ -6,12 +6,14 @@ namespace Romchik38\Site2\Domain\Article\View;
 
 use Romchik38\Server\Models\Errors\EntityLogicException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Site2\Application\ArticleList\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
-final class ArticleViewRepository
+/** @todo Create and interface */
+final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
 
     public function __construct(
