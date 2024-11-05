@@ -22,28 +22,29 @@ return function (Container $container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Models\Link\Sql\LinkRepository::class,
-        new \Romchik38\Site2\Models\Link\Sql\LinkRepository(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\LinkFactoryInterface::class),
+            new \Romchik38\Server\Models\ModelFactory,
             ['array_to_json(links.path) as path', 'links_translates.*'],
             ['links', 'links_translates']
         )
     );
     $container->add(
-        \Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Models\Link\Sql\LinkRepository::class)
+        \Romchik38\Site2\Domain\Link\LinkRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository::class)
     );
 
     $container->add(
-        \Romchik38\Site2\Persist\Sql\Article\ArticleRepository::class,
-        new \Romchik38\Site2\Persist\Sql\Article\ArticleRepository(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
         )
     );
+
     $container->add(
-        \Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Persist\Sql\Article\ArticleRepository::class)
+        \Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class)
     );
 
     return $container;
