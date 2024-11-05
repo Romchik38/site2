@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article\View;
 
+use Romchik38\Server\Models\Errors\EntityLogicException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
@@ -18,32 +19,16 @@ final class ArticleViewRepository
         private readonly ArticleDTOFactory $articleDTOFactory
     ) {}
 
-    /** @throws NoSuchEntityException */
-    public function getByIdAndLanguages(ArticleId $id, array $languages): ArticleDTO
+    /** 
+     * @throws NoSuchEntityException on missing id
+     * @throws EntityLogicException on missing translate
+    */
+    public function getByIdAndLanguage(ArticleId $id, string $language): ArticleDTO
     {
         $article = $this->articleRepository->getById($id);
-        $translate = $this->getTranslate($article, $languages);
+        $translate = $article->getTranslate($language);
         $articleDTO = $this->mapArticleToDTO($article, $translate);
         return $articleDTO;
-    }
-
-    /** @param string[] $languages */
-    protected function getTranslate(Article $article, array $languages): ArticleTranslates
-    {
-
-        foreach ($languages as $language) {
-            $translate = $article->getTranslate($language);
-            if ($translate !== null) {
-                return $translate;
-            }
-        }
-
-        throw new ArticleViewProcessException(
-            sprintf(
-                'Translate for article %s is missing',
-                $article->getId()->toString()
-            )
-        );
     }
 
     /** 

@@ -23,7 +23,7 @@
         [+] refactor default action  
         [-] SearchCriteria *WHERE*  
             [+] Single Filter  
-            [-] ?  
+            [-] Article available languages  
         [-] SearchCriteria ArticleTranslates  
         [?] SearchCriteria ArticleCategory  
 

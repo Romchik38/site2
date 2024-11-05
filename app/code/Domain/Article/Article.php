@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article;
 
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Server\Models\Errors\EntityLogicException;
 
 final class Article
 {
@@ -26,9 +26,26 @@ final class Article
         return $this->active;
     }
 
-    public function getTranslate(string $language): ArticleTranslates|null
+    /** @throws EntityLogicException When translate is missing */
+    public function getTranslate(string $language): ArticleTranslates
     {
-        return $this->translates[$language] ?? null;
+        $translate = $this->translates[$language] ?? null;
+        if($translate === null) {
+            throw new EntityLogicException(
+                sprintf(
+                    'Translate %s for Article id %s is missing',
+                    $language,
+                    $this->getId()->toString(),
+                )
+            );
+        }
+
+        return $translate;
+    }
+
+    /** @return ArticleTranslates[] */
+    public function getAllTranslates(): array{
+        return array_values($this->translates);
     }
 
     public function getCategory(string $categoryId): ArticleCategory|null

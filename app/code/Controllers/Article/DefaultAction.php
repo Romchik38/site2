@@ -47,10 +47,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $articleDTOList = [];
         foreach ($articleIdList as $articleId) {
             $articleDTOList[] = $this->articleViewRepository
-                ->getByIdAndLanguages(
-                    $articleId,
-                    [$this->getLanguage(), $this->getDefaultLanguage()]
-                );
+                ->getByIdAndLanguage($articleId, $this->getLanguage());
         }
 
         /** 3. prepare a page view */
