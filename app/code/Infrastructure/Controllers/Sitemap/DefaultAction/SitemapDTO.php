@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
-use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
 
 /** 
  * Created in the Sitemap action. Used in a View template.

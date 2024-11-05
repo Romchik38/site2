@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\ArticleList;
 
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface;
-use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
-use Romchik38\Site2\Domain\Article\Services\DO\Pagination;
+use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
-use Romchik38\Site2\Persist\Sql\Article\Filters\ArticleFilter;
-use Romchik38\Site2\Domain\Api\Article\ArticleFilterFactoryInterface;
 
 final class ArticleListService
 {

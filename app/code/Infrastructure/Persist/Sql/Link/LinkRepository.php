@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Link;
 
 use Romchik38\Server\Models\Sql\Virtual\VirtualRepository;
-use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
+use Romchik38\Site2\Domain\Link\LinkInterface;
+use Romchik38\Site2\Domain\Link\LinkRepositoryInterface;
 
 final class LinkRepository extends VirtualRepository implements LinkRepositoryInterface
 {
@@ -35,7 +36,7 @@ final class LinkRepository extends VirtualRepository implements LinkRepositoryIn
             $expresion = 'WHERE links.link_id = links_translates.link_id AND links_translates.language = $1';
         }
 
-        /** @var \Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface[] $list */
+        /** @var LinkInterface $list */
         $list = $this->list($expresion, $params);
 
         return $list;

@@ -10,7 +10,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\NotFoundException;
+use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
@@ -35,7 +35,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         $messageKey = $this->actions[$dynamicRoute] ?? null;
 
         if ($messageKey === null) {
-            throw new NotFoundException('action ' . $dynamicRoute . ' not found');
+            throw new DynamicActionNotFoundException('action ' . $dynamicRoute . ' not found');
         }
 
         $translatedMessage = $this->translateService->t($messageKey);

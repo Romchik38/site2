@@ -8,7 +8,6 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 final class ArticleTranslates
 {
-
     public function __construct(
         protected string $articleId,
         protected string $language,
@@ -86,7 +85,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */    
+    /** @throws InvalidArgumentException when string is empty */
     public function setShortDescription(string $shortDescription): self
     {
         if (strlen($shortDescription) === 0) {
@@ -97,7 +96,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */    
+    /** @throws InvalidArgumentException when string is empty */
     public function setDescription(string $description): self
     {
         if (strlen($description) === 0) {
@@ -120,12 +119,13 @@ final class ArticleTranslates
         return $this;
     }
 
-     /**
+    /**
      * @throws InvalidArgumentException $speed must be greater than 0
      * @param int $speed words/minute 
      * @return int Minutes to read
      */
-    public function getReadLength(int $speed = 200): int {
+    public function getReadLength(int $speed = 200): int
+    {
         if ($speed < 1) {
             throw new InvalidArgumentException('param $speed must be greater than 0');
         }
@@ -134,7 +134,6 @@ final class ArticleTranslates
 
         $words = count(explode(' ', $description));
         $timeToRead = (int)round(($words / $speed));
-        return $timeToRead;   
+        return $timeToRead;
     }
-
 }

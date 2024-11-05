@@ -10,10 +10,10 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Controllers\Article\DefaultAction\ViewDTOFactory;
-use Romchik38\Site2\Domain\Article\View\ArticleViewRepository;
-use Romchik38\Site2\Domain\Article\Services\ArticleListService;
-use Romchik38\Site2\Domain\Article\Services\DO\Pagination;
+use Romchik38\Site2\Application\ArticleList\ArticleListService;
+use Romchik38\Site2\Application\ArticleList\Pagination;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
+use Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleViewRepository;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {

@@ -10,7 +10,6 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use RuntimeException;
 
 /** Tries to show nice answer */
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface

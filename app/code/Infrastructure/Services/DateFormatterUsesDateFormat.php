@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services;
 
-use Romchik38\Site2\Api\Services\DateFormatterInterface;
+use Romchik38\Site2\Application\ArticleList\View\DateFormatterInterface;
 
 final class DateFormatterUsesDateFormat implements DateFormatterInterface
 {

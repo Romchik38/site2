@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article;
 
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Server\Models\Errors\EntityLogicException;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class Article
 {

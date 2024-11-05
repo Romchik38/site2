@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
-use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Romchik38\Server\Views\View;

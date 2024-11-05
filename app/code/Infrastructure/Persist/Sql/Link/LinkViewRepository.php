@@ -6,15 +6,16 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Link;
 
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface;
-use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
-use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
+use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Domain\Link\LinkInterface;
+use Romchik38\Site2\Domain\Link\LinkRepositoryInterface;
 
 final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionInterface
 {
     public function __construct(
         protected LinkDTOFactoryInterface $linkDTOFactory,
         protected LinkRepositoryInterface $linkRepository,
-        protected DynamicRoot $dynamicRoot
+        protected DynamicRootInterface $dynamicRoot
     ) {}
 
     public function getLinksByPaths(array $paths = []): array
@@ -29,7 +30,7 @@ final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionIn
         }
 
         // 2. Create LinkDTOs
-        /** @var \Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface $model */
+        /** @var LinkInterface $model */
         foreach ($models as $model) {
             $modelPath = $model->getPath();
             $modelPath[0] = $language;

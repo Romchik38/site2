@@ -9,11 +9,8 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Site2\Api\Views\SitemapLinkTreeInterface;
-use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOFactoryInterface;
-use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;
-use Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface;
-use Romchik38\Site2\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Domain\Link\LinkRepositoryInterface;
+use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
 
 /**
  * Creates a sitemap tree of public actions
@@ -43,7 +40,6 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
             [$path]
         );
         if (count($links) === 1) {
-            /** @var LinkInterface $link */
             $link = $links[0];
             $name = $link->getName();
             $description = $link->getDescription();

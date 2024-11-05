@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article;
 
-use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
-use Romchik38\Site2\Domain\Article\Article;
+use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
+use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 /**
@@ -27,5 +27,5 @@ interface ArticleRepositoryInterface
     /**
      * @return Article[]
      */
-    public function list(SearchCriteria $searchCriteria): array;
+    public function list(SearchCriteriaInterface $searchCriteria): array;
 }

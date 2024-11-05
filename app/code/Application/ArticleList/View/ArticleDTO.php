@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ArticleList\View;
 
-use Romchik38\Site2\Api\Services\DateFormatterInterface;
-use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
-
 final class ArticleDTO
 {
     protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';

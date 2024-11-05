@@ -7,7 +7,6 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
-use Romchik38\Site2\Persist\Sql\Article\ArticleSearchCriteria;
 
 class ArticleSearchCriteriaFactory implements SearchCriteriaFactoryInterface {
 

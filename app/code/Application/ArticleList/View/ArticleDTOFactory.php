@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ArticleList\View;
 
-use DateTime;
-use Romchik38\Site2\Api\Services\DateFormatterInterface;
-use Romchik38\Site2\Api\Services\ReadLengthFormatterInterface;
-
 final class ArticleDTOFactory
 {
-
     public function __construct(
         protected readonly DateFormatterInterface $dateFormatter,
         protected readonly ReadLengthFormatterInterface $readLengthFormatter
@@ -22,8 +17,8 @@ final class ArticleDTOFactory
         string $name,
         string $shortDescription,
         string $description,
-        DateTime $createdAt,
-        DateTime $updatedAt,
+        \DateTime $createdAt,
+        \DateTime $updatedAt,
         array $categories,
         int $minutesToRead
     ): ArticleDTO {

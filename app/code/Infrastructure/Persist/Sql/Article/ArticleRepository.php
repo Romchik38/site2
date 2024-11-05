@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
-use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleCategory;
+use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
@@ -90,7 +90,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $article;
     }
 
-    public function list(SearchCriteria $searchCriteria): array
+    public function list(SearchCriteriaInterface $searchCriteria): array
     {
         $entityIdFieldName = $searchCriteria->getEntityIdFieldName();
         $selectedFields = [

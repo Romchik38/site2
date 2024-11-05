@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 
-use Romchik38\Server\Models\Errors\EntityLogicException;
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Site2\Application\ArticleList\View\ArticleDTO;
+use Romchik38\Site2\Application\ArticleList\View\ArticleDTOFactory;
 use Romchik38\Site2\Application\ArticleList\View\ArticleViewRepositoryInterface;
-use Romchik38\Site2\Domain\Api\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
+use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
-/** @todo Create and interface */
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
 
