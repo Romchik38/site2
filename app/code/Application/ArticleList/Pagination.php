@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article\Services\DO;
+namespace Romchik38\Site2\Application\ArticleList;
 
 final class Pagination
 {

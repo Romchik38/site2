@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Controllers\Article\DefaultAction;
+namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 

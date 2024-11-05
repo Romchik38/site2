@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article\View;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 
 use Romchik38\Server\Models\Errors\EntityLogicException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;

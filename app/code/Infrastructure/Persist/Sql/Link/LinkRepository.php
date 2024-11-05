@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\Link\Sql;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Link;
 
 use Romchik38\Server\Models\Sql\Virtual\VirtualRepository;
 use Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface;

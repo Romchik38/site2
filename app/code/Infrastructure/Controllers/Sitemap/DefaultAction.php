@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Controllers\Sitemap;
+namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap;
 
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;

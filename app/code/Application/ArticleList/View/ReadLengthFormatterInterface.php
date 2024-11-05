@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Api\Services;
+namespace Romchik38\Site2\Application\ArticleList\View;
 
 interface ReadLengthFormatterInterface
 {

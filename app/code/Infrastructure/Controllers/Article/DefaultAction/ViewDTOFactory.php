@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Controllers\Article\DefaultAction;
+namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 
 final class ViewDTOFactory
 {

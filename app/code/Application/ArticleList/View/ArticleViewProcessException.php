@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article\View;
+namespace Romchik38\Site2\Application\ArticleList\View;
 
 final class ArticleViewProcessException extends \RuntimeException {}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Persist\Sql\Article;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 

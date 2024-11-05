@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Controllers\Sitemap\DefaultAction;
+namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction;
 
 use Romchik38\Site2\Api\Models\DTO\Views\SitemapDTOInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;

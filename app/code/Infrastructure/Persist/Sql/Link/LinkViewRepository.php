@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Models\DTO\Http\Link;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Link;
 
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface;
