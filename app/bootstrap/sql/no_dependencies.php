@@ -28,8 +28,8 @@ return function (Container $container) {
         );
     
         $container->add(
-            \Romchik38\Site2\Application\ArticleList\ArticleFilterFactoryInterface::class,
-            new \Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface
+            Romchik38\Site2\Domain\Article\ArticleFilterFactoryInterface::class,
+            new Romchik38\Site2\Infrastructure\Persist\Sql\Article\Filters\ArticleFilterFactory
         );
     
     return $container;

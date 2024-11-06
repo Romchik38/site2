@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ArticleList;
+namespace Romchik38\Site2\Domain\Article;
 
 use Romchik38\Server\Api\Models\SearchCriteria\FilterInterface;
 
