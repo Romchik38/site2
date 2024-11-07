@@ -7,6 +7,11 @@ use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
 use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
 use Romchik38\Server\Controllers\Controller;
 
+/** @todo split controller entity and collection:
+ *  - entity - common
+ *  - collection - http
+ * 
+*/
 return function (Container $container) {
 
     /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
@@ -17,30 +22,30 @@ return function (Container $container) {
         SitemapInterface::ROOT_NAME,
         true,
         $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
-        $container->get(\Romchik38\Site2\Controllers\Root\DefaultAction::class),
-        $container->get(\Romchik38\Site2\Controllers\Root\DynamicAction::class),
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Root\DefaultAction::class),
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Root\DynamicAction::class),
     );
 
     $sitemap = new Controller(
         'sitemap',
         true,
         $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
-        $container->get(\Romchik38\Site2\Controllers\Sitemap\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction::class)
     );
 
     $serverErrorExample = new Controller(
         'server-error-example',
         true,
         $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
-        $container->get(\Romchik38\Site2\Controllers\ServerErrorExample\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\ServerErrorExample\DefaultAction::class)
     );
 
     $article = new Controller(
         'article',
         true,
         $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
-        $container->get(\Romchik38\Site2\Controllers\Article\DefaultAction::class),
-        $container->get(\Romchik38\Site2\Controllers\Article\DynamicAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction::class),
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction::class)
     );
 
     $root
