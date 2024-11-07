@@ -19,11 +19,11 @@ return function (Container $container): Container {
     // GET
     $arr = [
         /** root => header root instance */
-        new Romchik38\Site2\Router\Http\RouterHeaders\Root(
+        new Romchik38\Site2\Infrastructure\Router\Http\RouterHeaders\Root(
             SitemapInterface::ROOT_NAME, //   root
             HttpRouterInterface::REQUEST_METHOD_GET
         ),
-        new Romchik38\Site2\Router\Http\RouterHeaders\Root(
+        new Romchik38\Site2\Infrastructure\Router\Http\RouterHeaders\Root(
             SitemapInterface::ROOT_NAME . $s . $a, // root<>*
             HttpRouterInterface::REQUEST_METHOD_GET
         ),
