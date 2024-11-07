@@ -12,8 +12,8 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleList\ArticleListService;
 use Romchik38\Site2\Application\ArticleList\Pagination;
+use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
-use Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleViewRepository;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -26,7 +26,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListService $articleListService,
-        protected readonly ArticleViewRepository $articleViewRepository
+        protected readonly ArticleListViewService $articleListViewService
     ) {}
 
     public function execute(): string
@@ -46,7 +46,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         $articleDTOList = [];
         foreach ($articleIdList as $articleId) {
-            $articleDTOList[] = $this->articleViewRepository
+            $articleDTOList[] = $this->articleListViewService
                 ->getByIdAndLanguage($articleId, $this->getLanguage());
         }
 

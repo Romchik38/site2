@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Controllers\ControllerInterface;
 
 /** 
  * Converts controller tree to output format 
+ * Place right getSitemapLinkTree for concrete View
  * @api
 */
 interface SitemapLinkTreeInterface

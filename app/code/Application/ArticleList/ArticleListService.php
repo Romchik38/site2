@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleFilterFactoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleSearchCriteria;
 
 final class ArticleListService
 {
@@ -25,13 +26,13 @@ final class ArticleListService
      * @param Pagination $pagination A CO to create a Search criteria
      * @return ArticleId[]
      */
-    public function listArticles(Pagination $pagination): array
+    public function listArticles(Pagination $command): array
     {
         /** prepare a database query */
         // $orderBy = ArticleOrderBy::byArtileId();
         $searchCriteria = $this->searchCriteriaFactory->create(
-            $pagination->limit(),
-            $pagination->offset()
+            $command->limit(),
+            $command->offset()
         );
 
         /** getting articles from database */

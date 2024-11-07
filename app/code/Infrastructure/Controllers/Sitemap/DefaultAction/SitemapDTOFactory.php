@@ -17,7 +17,7 @@ final class SitemapDTOFactory
 {
     /**
     * @throws InvalidArgumentException name, description, output length equal 0
-    * @return SitemapDTOInterface Sitemap DTO View entity
+    * @return SitemapDTO Sitemap DTO View entity
     */
     public function create(
         string $name,

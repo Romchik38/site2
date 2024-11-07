@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Domain\Link;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Model;
-use Romchik38\Site2\Api\Models\Virtual\Link\LinkInterface;
 
 final class Link extends Model implements LinkInterface
 {

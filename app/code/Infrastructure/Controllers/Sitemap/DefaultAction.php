@@ -9,8 +9,8 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Site2\Domain\Link\LinkRepositoryInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService;
 
 /**
  * Creates a sitemap tree of public actions
@@ -26,7 +26,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly ViewInterface $view,
         protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
         protected readonly SitemapDTOFactory $sitemapDTOFactory,
-        protected readonly LinkRepositoryInterface $linkRepository
+        protected readonly LinkCollectionService $linkCollectionService
     ) {}
 
     public function execute(): string
@@ -35,10 +35,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         $description = $this::DEFAULT_VIEW_DESCRIPTION;
 
         $path = $this->getPath();
-        $links = $this->linkRepository->getLinksByLanguageAndPaths(
-            $this->getLanguage(),
-            [$path]
-        );
+        $links = $this->linkCollectionService->getLinksByPaths([$path]);
         if (count($links) === 1) {
             $link = $links[0];
             $name = $link->getName();
