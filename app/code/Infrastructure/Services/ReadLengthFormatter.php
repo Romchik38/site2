@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services;
 
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\ArticleList\View\ReadLengthFormatterInterface;
+use Romchik38\Site2\Application\ArticleListView\View\ReadLengthFormatterInterface;
 
 final class ReadLengthFormatter implements ReadLengthFormatterInterface
 {

@@ -17,21 +17,15 @@ return function ($container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Application\ArticleList\View\ArticleDTOFactory::class,
-        new \Romchik38\Site2\Application\ArticleList\View\ArticleDTOFactory(
-            $container->get(\Romchik38\Site2\Application\ArticleList\View\DateFormatterInterface::class),
-            $container->get(\Romchik38\Site2\Application\ArticleList\View\ReadLengthFormatterInterface::class)
-        )
-    );
-
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleViewRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleViewRepository(
+        \Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class,
+        new \Romchik38\Site2\Application\ArticleListView\ArticleListViewService(
             $container->get(\Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class),
-            $container->get(\Romchik38\Site2\Application\ArticleList\View\ArticleDTOFactory::class)
+            new Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory(
+                $container->get(\Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface::class),
+                $container->get(\Romchik38\Site2\Application\ArticleListView\View\ReadLengthFormatterInterface::class)
+            )
         )
     );
-
 
     return $container;
 };

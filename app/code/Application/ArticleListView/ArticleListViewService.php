@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
+namespace Romchik38\Site2\Application\ArticleListView;
 
-use Romchik38\Site2\Application\ArticleList\View\ArticleDTO;
-use Romchik38\Site2\Application\ArticleList\View\ArticleDTOFactory;
-use Romchik38\Site2\Application\ArticleList\View\ArticleViewRepositoryInterface;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
-final class ArticleViewRepository implements ArticleViewRepositoryInterface
+/** @todo refactor - create own repo and view model */
+final class ArticleListViewService
 {
 
     public function __construct(

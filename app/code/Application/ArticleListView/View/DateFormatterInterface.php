@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ArticleList\View;
+namespace Romchik38\Site2\Application\ArticleListView\View;
 
 interface DateFormatterInterface
 {
     /**
-     * makes a string presentation of the given date 
+     * formats given date and returns string representation
      */
     public function formatByString(\DateTime $date, string $format): string;
 }
