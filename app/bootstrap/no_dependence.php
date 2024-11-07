@@ -5,17 +5,7 @@ declare(strict_types=1);
 use Romchik38\Container;
 
 return function (Container $container) {
-
-    // RESULTS 
-    $container->add(
-        \Romchik38\Server\Results\Controller\ControllerResultFactory::class,
-        new \Romchik38\Server\Results\Controller\ControllerResultFactory
-    );
-    $container->add(
-        \Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class,
-        $container->get(\Romchik38\Server\Results\Controller\ControllerResultFactory::class)
-    );
-
+    
     // MODEL FACTORIES
     $container->add(
         \Romchik38\Server\Models\TranslateEntity\TranslateEntityModelFactory::class,
@@ -24,15 +14,6 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface::class,
         $container->get(\Romchik38\Server\Models\TranslateEntity\TranslateEntityModelFactory::class)
-    );
-
-    $container->add(
-        \Romchik38\Site2\Models\Link\LinkFactory::class,
-        new \Romchik38\Site2\Models\Link\LinkFactory
-    );
-    $container->add(
-        \Romchik38\Site2\Api\Models\Virtual\Link\LinkFactoryInterface::class,
-        $container->get(\Romchik38\Site2\Models\Link\LinkFactory::class)
     );
 
     // DTO
@@ -108,12 +89,12 @@ return function (Container $container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Services\DateFormatterUsesDateFormat::class,
-        new \Romchik38\Site2\Services\DateFormatterUsesDateFormat
+        \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class,
+        new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat
     );
     $container->add(
-        \Romchik38\Site2\Api\Services\DateFormatterInterface::class,
-        $container->get(\Romchik38\Site2\Services\DateFormatterUsesDateFormat::class)
+        \Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class)
     );
 
     // Controller
@@ -124,6 +105,15 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class,
         $container->get(\Romchik38\Server\Routers\Http\ControllersCollection::class)
+    );
+
+    $container->add(
+        \Romchik38\Server\Results\Controller\ControllerResultFactory::class,
+        new \Romchik38\Server\Results\Controller\ControllerResultFactory
+    );
+    $container->add(
+        \Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class,
+        $container->get(\Romchik38\Server\Results\Controller\ControllerResultFactory::class)
     );
 
     return $container;

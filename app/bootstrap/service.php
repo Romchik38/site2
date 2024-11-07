@@ -70,52 +70,5 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\Logger\Loggers\FileLogger::class)
     );
 
-    // LinkDTO Collection
-    $container->add(
-        \Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository::class,
-        new \Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository(
-            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class),
-            $container->get(\Romchik38\Site2\Api\Models\Virtual\Link\Sql\LinkRepositoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
-        )
-    );
-    $container->add(
-        \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class,
-        $container->get(\Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository::class)
-    );
-
-    // Breadcramb
-    $container->add(
-        \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class,
-        new \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb(
-            $container->get(\Romchik38\Server\Api\Services\Mappers\SitemapInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Breadcrumb\BreadcrumbDTOFactoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
-        )
-    );
-
-    // Link Tree
-    $container->add(
-        \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree::class,
-        new \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree(
-            $container->get(\Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOFactoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
-        )
-    );
-
-    $container->add(
-        \Romchik38\Site2\Services\ReadLengthFormatter::class,
-        new \Romchik38\Site2\Services\ReadLengthFormatter(
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
-        )
-    );
-    $container->add(
-        \Romchik38\Site2\Api\Services\ReadLengthFormatterInterface::class,
-        $container->get(\Romchik38\Site2\Services\ReadLengthFormatter::class)
-    );
-
-
     return $container;
 };

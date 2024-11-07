@@ -27,5 +27,20 @@ return function ($container) {
         )
     );
 
+    // Link
+    // LinkDTO Collection
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService(
+            $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class),
+            $container->get(\Romchik38\Site2\Domain\Link\LinkRepositoryInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService::class)
+    );
+    
     return $container;
 };

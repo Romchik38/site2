@@ -7,10 +7,9 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Link;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface;
 use Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Site2\Domain\Link\LinkInterface;
 use Romchik38\Site2\Domain\Link\LinkRepositoryInterface;
 
-final class LinkDTOCollectionUseVirtualRepository implements LinkDTOCollectionInterface
+final class LinkCollectionService implements LinkDTOCollectionInterface
 {
     public function __construct(
         protected LinkDTOFactoryInterface $linkDTOFactory,
