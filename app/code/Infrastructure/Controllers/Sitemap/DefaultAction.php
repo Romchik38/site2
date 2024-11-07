@@ -9,8 +9,8 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Site2\Application\LinkCollection\LinkCollectionService;
 use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
-use Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService;
 
 /**
  * Creates a sitemap tree of public actions

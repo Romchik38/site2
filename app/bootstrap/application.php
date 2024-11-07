@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 return function ($container) {
 
     // Article
@@ -28,10 +26,9 @@ return function ($container) {
     );
 
     // Link
-    // LinkDTO Collection
     $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService(
+        \Romchik38\Site2\Application\LinkCollection\LinkCollectionService::class,
+        new \Romchik38\Site2\Application\LinkCollection\LinkCollectionService(
             $container->get(\Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class),
             $container->get(\Romchik38\Site2\Domain\Link\LinkRepositoryInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
@@ -39,7 +36,7 @@ return function ($container) {
     );
     $container->add(
         \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOCollectionInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkCollectionService::class)
+        $container->get(\Romchik38\Site2\Application\LinkCollection\LinkCollectionService::class)
     );
     
     return $container;

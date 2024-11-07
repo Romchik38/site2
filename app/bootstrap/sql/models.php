@@ -25,7 +25,7 @@ return function (Container $container) {
         \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository::class,
         new \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            new \Romchik38\Server\Models\ModelFactory,
+            new \Romchik38\Site2\Domain\Link\LinkFactory,
             ['array_to_json(links.path) as path', 'links_translates.*'],
             ['links', 'links_translates']
         )
