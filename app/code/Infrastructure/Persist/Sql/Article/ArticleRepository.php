@@ -45,10 +45,6 @@ final class ArticleRepository implements ArticleRepositoryInterface
     /** @var array<string,Article> $hash */
     protected $hash = [];
 
-    /**
-     * 
-     * @param string[] $primaryIds The Article's identifiers from all tables with tables names
-     */
     public function __construct(
         protected DatabaseInterface $database
     ) {}

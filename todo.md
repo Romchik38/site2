@@ -8,13 +8,13 @@
 
 [+] bootstrap  
 [-] refactor classes  
-[-] deptrac  
-[-] Article  
-    [-] Repository  
-        [-] SearchCriteria *WHERE*  
-            [+] Single Filter  
-        [-] Article available languages  
+    [-] create repo for ArticleList  
+        [-] getById  
+        [-] searchCriteria  
+
 [-] Refactor Link  
+[-] deptrac  
+
 
 [-] bootstrap  
     [-] timezone `Europe/Kyiv` check  
