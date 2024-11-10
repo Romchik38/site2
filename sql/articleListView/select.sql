@@ -1,4 +1,12 @@
 --example 
+WITH categories AS
+(
+    SELECT category_translates.category_id,
+        category_translates.name
+    FROM category_translates
+    WHERE category_translates.language = 'en'
+)
+
 SELECT
     article.identifier,
     article.active,
@@ -11,17 +19,17 @@ SELECT
     array_to_json (
         array (
             select
-                category_id
+                categories.name
             from
-                article_category
+                categories, article_category
             where
-                article.identifier = article_category.article_id
+                article.identifier = article_category.article_id AND
+                categories.category_id = article_category.category_id
         )
-    ) as categories
+    ) as category
 FROM
     article,
     article_translates
-    --expression
 WHERE
     article.identifier = article_translates.article_id
     AND article.active = 'true'
