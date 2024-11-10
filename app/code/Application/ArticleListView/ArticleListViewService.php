@@ -8,6 +8,7 @@ use Romchik38\Server\Models\Errors\EntityLogicException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
@@ -19,7 +20,8 @@ final class ArticleListViewService
 
     public function __construct(
         private readonly ArticleRepositoryInterface $articleRepository,
-        private readonly ArticleDTOFactory $articleDTOFactory
+        private readonly ArticleDTOFactory $articleDTOFactory,
+        private readonly ArticleListViewRepositoryInterface $articleListViewRepository
     ) {}
 
     /** 
@@ -32,6 +34,10 @@ final class ArticleListViewService
         $translate = $article->getTranslate($language);
         $articleDTO = $this->mapArticleToDTO($article, $translate);
         return $articleDTO;
+    }
+
+    public function list(Pagination $command, string $language): array {
+        
     }
 
     /** 

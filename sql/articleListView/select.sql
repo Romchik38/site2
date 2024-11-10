@@ -33,4 +33,7 @@ FROM
 WHERE
     article.identifier = article_translates.article_id
     AND article.active = 'true'
-    AND article_translates.language = 'en';
+    AND article_translates.language = 'en'   
+
+    ORDER BY article_translates.created_at
+;
