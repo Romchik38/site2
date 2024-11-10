@@ -6,7 +6,8 @@
 
 ## Current
 
-[-] bootstrap  
+[+] bootstrap  
+[-] refactor classes  
 [-] deptrac  
 [-] Article  
     [-] Repository  
