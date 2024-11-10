@@ -20,23 +20,23 @@ final class SearchCriteria implements SearchCriteriaInterface
     ) {}
 
 
-    public function offset(): string
+    public function offset(): Offset
     {
-        return $this->offset();
+        return $this->offset;
     }
 
-    public function limit(): string
+    public function limit(): Limit
     {
-        return $this->limit();
+        return $this->limit;
     }
 
-    public function orderBy(): string
+    public function orderBy(): OrderBy
     {
-        return $this->orderBy();
+        return $this->orderBy;
     }
 
     public function language(): string
     {
-        return $this->language();
+        return $this->language;
     }
 }

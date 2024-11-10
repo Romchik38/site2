@@ -12,6 +12,7 @@ SELECT
     article.active,
     article_translates.language,
     article_translates.name,
+    article_translates.short_description,
     article_translates.description,
     article_translates.created_at,
     article_translates.updated_at,
@@ -34,6 +35,8 @@ WHERE
     article.identifier = article_translates.article_id
     AND article.active = 'true'
     AND article_translates.language = 'en'   
-
-    ORDER BY article_translates.created_at
+-- defaults:
+--   ORDER BY article_translates.created_at
+--   LIMIT 15
+--   OFFSET 0
 ;

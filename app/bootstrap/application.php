@@ -22,7 +22,8 @@ return function ($container) {
                 $container->get(\Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface::class),
                 $container->get(\Romchik38\Site2\Application\ArticleListView\View\ReadLengthFormatterInterface::class),
             ),
-            $container->get(\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class)
+            $container->get(\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class),
+            new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory
         )
     );
 

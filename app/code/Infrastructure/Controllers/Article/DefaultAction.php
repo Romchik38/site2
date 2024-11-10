@@ -13,6 +13,7 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleList\ArticleListService;
 use Romchik38\Site2\Application\ArticleList\Pagination;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
+use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
@@ -49,6 +50,12 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             $articleDTOList[] = $this->articleListViewService
                 ->getByIdAndLanguage($articleId, $this->getLanguage());
         }
+
+        /** new request */
+        $newList = $this->articleListViewService->list(
+            ArticleListViewPagination::fromRequest([]),
+            $this->getLanguage()
+        );
 
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);

@@ -13,6 +13,7 @@ use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
 use Romchik38\Site2\Domain\Article\ArticleTranslates;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaFactoryInterface;
 
 /** @todo refactor - create own repo and view model */
 final class ArticleListViewService
@@ -21,10 +22,12 @@ final class ArticleListViewService
     public function __construct(
         private readonly ArticleRepositoryInterface $articleRepository,
         private readonly ArticleDTOFactory $articleDTOFactory,
-        private readonly ArticleListViewRepositoryInterface $articleListViewRepository
+        private readonly ArticleListViewRepositoryInterface $articleListViewRepository,
+        private readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
     ) {}
 
     /** 
+     * @todo delete this when list method will be ready
      * @throws NoSuchEntityException on missing id
      * @throws EntityLogicException on missing translate
     */
@@ -37,7 +40,18 @@ final class ArticleListViewService
     }
 
     public function list(Pagination $command, string $language): array {
+
+        $searchCriteria = $this->searchCriteriaFactory->create(
+            $command->offset(),
+            $command->limit(),
+            $command->orderByField(),
+            $command->orderByDirection(),
+            $language
+        );
+
+        $models = $this->articleListViewRepository->list($searchCriteria);
         
+        return [];
     }
 
     /** 

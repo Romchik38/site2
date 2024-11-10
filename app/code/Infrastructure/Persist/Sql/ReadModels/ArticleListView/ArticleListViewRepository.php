@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface;
 use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
 
 final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
 {
 
+    protected const int READING_SPEED = 200;
+
     public function __construct(
-        protected DatabaseInterface $database
+        protected DatabaseInterface $database,
+        protected ArticleDTOFactory $articleDTOFactory
     ) {}
 
     public function list(SearchCriteriaInterface $searchCriteria): array
@@ -23,26 +28,34 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
         /** ORDER BY */
         $orderBy = $searchCriteria->orderBy();
-        if (strlen($orderBy) > 0) {
-            $expression[] = 'ORDER BY %s' . $orderBy;
-        }
+        $expression[] = sprintf(
+            'ORDER BY %s %s %s',
+            $orderBy->getField(),
+            $orderBy->getDirection(),
+            $orderBy->getNulls()
+        );
 
         /** LIMIT */
         $limit = $searchCriteria->limit();
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[] = $limit;
+        $params[] = $limit->toString();
 
         /** OFFSET */
         $offset = $searchCriteria->offset();
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
-        $params[] = $offset;
+        $params[] = $offset->toString();
 
         $rows = $this->listRows(
             implode(' ', $expression),
             $params
         );
 
-        return $rows;
+        $models = [];
+
+        foreach($rows as $row) {
+            $models[] = $this->createFromRow($row);
+        }
+        return $models;
     }
 
     /**
@@ -95,5 +108,30 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         $rows = $this->database->queryParams($query, $params);
 
         return $rows;
+    }
+
+    protected function createFromRow(array $row): ArticleDTO
+    {
+        $description =             $row['description'];
+        $articleDTO = $this->articleDTOFactory->create(
+            $row['identifier'],
+            $row['active'],
+            $row['name'],
+            $row['short_description'],
+            $description,
+            $row['created_at'],
+            $row['updated_at'],
+            json_decode($row['updated_at']),
+            $this->getReadLength($description)
+        );
+
+        return $articleDTO;
+    }
+
+    protected function getReadLength(string $description): int
+    {
+        $words = count(explode(' ', $description));
+        $timeToRead = (int)round(($words / $this::READING_SPEED));
+        return $timeToRead;
     }
 }

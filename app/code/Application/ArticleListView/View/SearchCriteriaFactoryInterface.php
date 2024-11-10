@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\ArticleListView\View;
 
 interface SearchCriteriaFactoryInterface
 {
-    public function __invoke(
+    public function create(
         string $offset,
         string $limit,
         string $orderByField,
