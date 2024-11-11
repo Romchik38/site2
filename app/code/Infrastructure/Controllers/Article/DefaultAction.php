@@ -33,29 +33,23 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     public function execute(): string
     {
         /** 1. decide which paginate to use */
-        $pagination = Pagination::fromRequest([
+        $pagination = ArticleListViewPagination::fromRequest([
             // 'limit' => '3'
         ]);
 
         /** 2. do request to app service */
         try {
-            $articleIdList = $this->articleListService->listActiveArticles($pagination);
+            $articleList = $this->articleListViewService->list(
+                $pagination,
+                $this->getLanguage()
+            );
         } catch (InvalidArgumentException $e) {
-            $pagination = new Pagination('15', '0');
-            $articleIdList = $this->articleListService->listActiveArticles($pagination);
+            $pagination = new ArticleListViewPagination();
+            $articleList = $this->articleListViewService->list(
+                $pagination,
+                $this->getLanguage()
+            );
         }
-
-        $articleDTOList = [];
-        foreach ($articleIdList as $articleId) {
-            $articleDTOList[] = $this->articleListViewService
-                ->getByIdAndLanguage($articleId, $this->getLanguage());
-        }
-
-        /** new request */
-        $newList = $this->articleListViewService->list(
-            ArticleListViewPagination::fromRequest([]),
-            $this->getLanguage()
-        );
 
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
@@ -65,7 +59,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $dto = $this->viewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
-            $articleDTOList
+            $articleList
         );
 
         /** 5. create a view */

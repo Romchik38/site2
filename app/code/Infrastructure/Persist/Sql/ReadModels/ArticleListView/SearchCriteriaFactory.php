@@ -36,6 +36,8 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 
         if ($orderByField === '') {
             $orderByField = $this::DEFAULT_ORDER_BY_FIELD;
+        } else {
+            $orderByField = 'article_translates.' . $orderByField;
         }
 
         if ($orderByDirection === '') {

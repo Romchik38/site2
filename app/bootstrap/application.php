@@ -17,13 +17,6 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class,
         new \Romchik38\Site2\Application\ArticleListView\ArticleListViewService(
-            $container->get(\Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class),
-            new \Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory(
-                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
-                new \Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter(
-                    $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
-                )
-            ),
             $container->get(\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class),
             new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory
         )

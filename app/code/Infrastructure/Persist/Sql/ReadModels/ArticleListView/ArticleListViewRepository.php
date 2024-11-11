@@ -29,7 +29,11 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         /** ORDER BY */
         $orderBy = $searchCriteria->orderBy();
         $expression[] = sprintf(
-            'ORDER BY %s %s %s',
+            'ORDER BY $%s',
+            ++$paramCount,
+        );
+        $params[] = sprintf(
+            '%s %s %s',
             $orderBy->getField(),
             $orderBy->getDirection(),
             $orderBy->getNulls()

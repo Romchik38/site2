@@ -8,14 +8,14 @@ final class Pagination
 {
     public const LIMIT_FIELD = 'limit';
     public const OFFSET_FIELD = 'offset';
-    public const ORDER_BY_FIELD = 'offset';
-    public const ORDER_BY_DIRECTION = 'offset';
+    public const ORDER_BY_FIELD = 'order_by';
+    public const ORDER_BY_DIRECTION = 'order_direction';
 
     public function __construct(
-        protected string $limit,
-        protected string $offset,
-        protected string $orderByField,
-        protected string $orderByDirection
+        protected string $limit = '15',
+        protected string $offset = '0',
+        protected string $orderByField = '',
+        protected string $orderByDirection = ''
     ) {}
 
     public static function fromRequest(array $hash): self
