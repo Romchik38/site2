@@ -30,11 +30,11 @@
 </div>
 <!-- Primary publication end -->
 
+<!-- publication start -->     
 <div class="col mt-3">
     {% set articleLength = articles|length %}
     {% for article in articles|slice(1,articleLength) %}
-    
-    <!-- publication start -->     
+
     <div class="row my-4">
         <div class="col-sm-3">
             <picture>
@@ -58,9 +58,17 @@
             </footer>
         </div>
     </div>
-    <!-- publication end -->
-
-    Total: {{ total }}
 
     {% endfor %}
+
+</div>
+<!-- publication end -->
+
+<!-- pagination -->
+<div>
+    {% set displayed = articles|length %}
+    {% set remainder = total - displayed %}
+    <div>Displayed: {{ displayed }} </div>
+    <div>Total: {{ total }}</div>
+    <div>Remainder: {{ remainder }} </div>
 </div>

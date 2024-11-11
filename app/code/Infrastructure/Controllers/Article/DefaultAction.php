@@ -31,7 +31,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     {
         /** 1. decide which paginate to use */
         $pagination = ArticleListViewPagination::fromRequest([
-            // 'limit' => '3'
+            'limit' => '1'
             // 'order_by' => 'identifier1',
             // 'order_direction' => 'desc'
         ]);
