@@ -16,7 +16,7 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
     public const DEFAULT_LIMIT = '15';
     public const DEFAULT_OFFSET = '0';
     public const DEFAULT_ORDER_BY_FIELD = 'article_translates.created_at';
-    public const DEFAULT_ORDER_BY_DIRECTION = 'ASC';
+    public const DEFAULT_ORDER_BY_DIRECTION = 'DESC';
 
     public function create(
         string $offset,

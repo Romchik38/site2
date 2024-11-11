@@ -13,8 +13,6 @@ use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
 final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
 {
 
-    protected const int READING_SPEED = 200;
-
     public function __construct(
         protected DatabaseInterface $database,
         protected ArticleDTOFactory $articleDTOFactory
@@ -79,15 +77,11 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
             FROM category_translates
             WHERE category_translates.language = $1
         )
-        SELECT
-        article.identifier,
-        article.active,
-        article_translates.language,
+        SELECT article.identifier,
         article_translates.name,
         article_translates.short_description,
         article_translates.description,
         article_translates.created_at,
-        article_translates.updated_at,
         array_to_json (
             array (
                 select
@@ -117,26 +111,15 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
     protected function createFromRow(array $row): ArticleDTO
     {
-        $description = $row['description'];
         $articleDTO = $this->articleDTOFactory->create(
             $row['identifier'],
-            ($row['active'] === 't') ? true : false ,
             $row['name'],
             $row['short_description'],
-            $description,
-            new \Datetime($row['created_at']),
-            new \Datetime($row['updated_at']),
+            $row['description'],
+            $row['created_at'],
             json_decode($row['category']),
-            $this->getReadLength($description)
         );
 
         return $articleDTO;
-    }
-
-    protected function getReadLength(string $description): int
-    {
-        $words = count(explode(' ', $description));
-        $timeToRead = (int)round(($words / $this::READING_SPEED));
-        return $timeToRead;
     }
 }

@@ -6,6 +6,9 @@ namespace Romchik38\Site2\Application\ArticleListView\View;
 
 final class ArticleDTOFactory
 {
+    protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
+    protected const int READING_SPEED = 200;
+
     public function __construct(
         protected readonly DateFormatterInterface $dateFormatter,
         protected readonly ReadLengthFormatterInterface $readLengthFormatter
@@ -13,27 +16,30 @@ final class ArticleDTOFactory
 
     public function create(
         string $articleId,
-        bool $active,
         string $name,
         string $shortDescription,
         string $description,
-        \DateTime $createdAt,
-        \DateTime $updatedAt,
-        array $categories,
-        int $minutesToRead
+        string $createdAt,
+        array $categories
     ): ArticleDTO {
+
+        $formattedCreatedAt = $this->dateFormatter->formatByString(
+            new \DateTime($createdAt),
+            $this::DATE_FORMAT_CATEGORY_PAGE
+        );
+
+        $words = count(explode(' ', $description));
+        $minutesToRead = (int)round(($words / $this::READING_SPEED));
+        $readLength = $this->readLengthFormatter->formatByMinutes($minutesToRead);
+
         return new ArticleDTO(
             $articleId,
-            $active,
             $name,
             $shortDescription,
             $description,
-            $createdAt,
-            $updatedAt,
             $categories,
-            $minutesToRead,
-            $this->dateFormatter,
-            $this->readLengthFormatter
+            $formattedCreatedAt,
+            $readLength
         );
     }
 }
