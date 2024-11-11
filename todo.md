@@ -6,6 +6,8 @@
 
 ## Current
 
+[-] Article pagination  
+[-] Single artcile page  
 [-] Refactor Link  
 [-] deptrac  
 
