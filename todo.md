@@ -7,6 +7,8 @@
 ## Current
 
 [-] Article pagination  
+    [+] get all artciles count  
+    [-] add tags  
 [-] Single artcile page  
 [-] Refactor Link  
 [-] deptrac  

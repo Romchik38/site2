@@ -84,7 +84,6 @@ return function ($container) {
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             new \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory,
-            $container->get(\Romchik38\Site2\Application\ArticleList\ArticleListService::class),
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class)
         )
     );

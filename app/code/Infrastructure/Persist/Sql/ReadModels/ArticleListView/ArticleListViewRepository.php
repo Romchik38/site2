@@ -45,6 +45,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         $params[] = $offset->toString();
 
         $rows = $this->listRows(
+            $this->defaultQuery(),
             implode(' ', $expression),
             $params
         );
@@ -57,16 +58,54 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         return $models;
     }
 
+    public function totalCount(): int {
+        $query = <<<QUERY
+        SELECT count(article.identifier) as count 
+        FROM article 
+        WHERE article.active = 'true'
+        QUERY;
+
+        $rows = $this->database->queryParams($query, []);
+
+        $firstElem = $rows[0];
+        $count = $firstElem['count'];
+
+        return (int)$count;
+    }
+
     /**
      * SELECT
      * used to select rows from all tables by given expression
      */
     protected function listRows(
+        string $queryBody,
         string $expression,
         array $params
     ): array {
 
-        $query = <<<QUERY
+        $query = sprintf('%s %s', $queryBody, $expression);
+
+        $rows = $this->database->queryParams($query, $params);
+
+        return $rows;
+    }
+
+    protected function createFromRow(array $row): ArticleDTO
+    {
+        $articleDTO = $this->articleDTOFactory->create(
+            $row['identifier'],
+            $row['name'],
+            $row['short_description'],
+            $row['description'],
+            $row['created_at'],
+            json_decode($row['category']),
+        );
+
+        return $articleDTO;
+    }
+
+    protected function defaultQuery(): string {
+        return <<<QUERY
         WITH categories AS
         (
             SELECT category_translates.category_id,
@@ -98,25 +137,5 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
             AND article.active = 'true'
             AND article_translates.language = $1
         QUERY;
-
-        $query = sprintf('%s %s', $query, $expression);
-
-        $rows = $this->database->queryParams($query, $params);
-
-        return $rows;
-    }
-
-    protected function createFromRow(array $row): ArticleDTO
-    {
-        $articleDTO = $this->articleDTOFactory->create(
-            $row['identifier'],
-            $row['name'],
-            $row['short_description'],
-            $row['description'],
-            $row['created_at'],
-            json_decode($row['category']),
-        );
-
-        return $articleDTO;
     }
 }

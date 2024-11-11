@@ -11,7 +11,8 @@ final class ViewDTO extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        protected array $articleList = []
+        public readonly int $totalCount,
+        protected array $articleList
     ) {
         parent::__construct($name, $description);
     }

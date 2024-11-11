@@ -32,7 +32,7 @@
                         {% if articles|length == 0 %} 
                             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
-                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate} only %}
+                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'total': data.totalCount} only %}
                         {% endif %}
                     </div>
                     <hr>

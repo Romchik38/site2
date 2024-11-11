@@ -10,8 +10,6 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Application\ArticleList\ArticleListService;
-use Romchik38\Site2\Application\ArticleList\Pagination;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
@@ -26,7 +24,6 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
-        protected readonly ArticleListService $articleListService,
         protected readonly ArticleListViewService $articleListViewService
     ) {}
 
@@ -53,6 +50,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             );
         }
 
+        $totalCount = $this->articleListViewService->listTotal();
+
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
@@ -61,6 +60,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $dto = $this->viewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
+            $totalCount,
             $articleList
         );
 

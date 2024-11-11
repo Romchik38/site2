@@ -30,4 +30,8 @@ final class ArticleListViewService
         return $models;
     }
 
+    /** count of all active article */
+    public function listTotal(): int {
+        return $this->articleListViewRepository->totalCount();
+    }
 }
