@@ -26,12 +26,9 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
         /** ORDER BY */
         $orderBy = $searchCriteria->orderBy();
+
         $expression[] = sprintf(
-            'ORDER BY $%s',
-            ++$paramCount,
-        );
-        $params[] = sprintf(
-            '%s %s %s',
+            'ORDER BY %s %s %s',
             $orderBy->getField(),
             $orderBy->getDirection(),
             $orderBy->getNulls()
@@ -76,7 +73,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
                 category_translates.name
             FROM category_translates
             WHERE category_translates.language = $1
-        )
+        ) 
         SELECT article.identifier,
         article_translates.name,
         article_translates.short_description,
@@ -92,11 +89,11 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
                     article.identifier = article_category.article_id AND
                     categories.category_id = article_category.category_id
             )
-        ) as category
+        ) as category 
         FROM
             article,
             article_translates
-        WHERE
+        WHERE 
             article.identifier = article_translates.article_id
             AND article.active = 'true'
             AND article_translates.language = $1

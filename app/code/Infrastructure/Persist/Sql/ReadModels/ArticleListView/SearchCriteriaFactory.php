@@ -15,8 +15,12 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 {
     public const DEFAULT_LIMIT = '15';
     public const DEFAULT_OFFSET = '0';
-    public const DEFAULT_ORDER_BY_FIELD = 'article_translates.created_at';
+    public const DEFAULT_ORDER_BY_FIELD = 'created_at';
     public const DEFAULT_ORDER_BY_DIRECTION = 'DESC';
+    public const array ACCEPTED_ORDER_BY_FIELDS = [
+        'created_at',
+        'identifier'
+    ];
 
     public function create(
         string $offset,
@@ -37,7 +41,11 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
         if ($orderByField === '') {
             $orderByField = $this::DEFAULT_ORDER_BY_FIELD;
         } else {
-            $orderByField = 'article_translates.' . $orderByField;
+            if (in_array($orderByField, $this::ACCEPTED_ORDER_BY_FIELDS) === false) {
+                throw new InvalidArgumentException(
+                    sprintf('param order by field %s is incorrect', $orderByField)
+                );
+            }
         }
 
         if ($orderByDirection === '') {
