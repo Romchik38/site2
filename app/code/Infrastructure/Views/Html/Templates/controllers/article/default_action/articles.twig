@@ -1,5 +1,6 @@
 {#    null|Object             translate                   Translate service #}
 {#    ArticleDTO[]            articles                    A list of article DOTs #}
+{#    PaginationDTO           pagination                  data to create page pagination #}
 
 {% set firstArticle = articles|first %}
 <!-- Primary publication start -->
@@ -65,10 +66,34 @@
 <!-- publication end -->
 
 <!-- pagination -->
-<div>
-    {% set displayed = articles|length %}
-    {% set remainder = total - displayed %}
-    <div>Displayed: {{ displayed }} </div>
-    <div>Total: {{ total }}</div>
+<div class="border">
+    {% set remainder = pagination.totalCount - pagination.displayed %}
+    <div>Displayed: {{ pagination.displayed }} </div>
+    <div>Total: {{ pagination.totalCount }}</div>
+    <div>Limit: {{ pagination.limit }}</div>
+    <div>Offset: {{ pagination.offset }}</div>
     <div>Remainder: {{ remainder }} </div>
+
+    {% if remainder > 0 %}
+        show pagination
+        {% if pagination.offset == 0 %}
+            {# first #}
+            <div>first</div>
+            {% set displayed_pages = pagination.totalCount/pagination.limit|round(0,'ceil')  %}
+            {% if displayed_pages > 5 %}
+                {% set displayed_pages = 5 %}
+            {% endif %}
+            <div>displayed pages: {{ displayed_pages }}</div>
+
+
+
+
+        {% elseif pagination.offset+1 >= pagination.totalCount/pagination.limit %}
+            {# last #}
+            last
+        {% else %}
+            {# between #}
+            between
+        {% endif %}
+    {% endif %}
 </div>

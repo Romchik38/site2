@@ -9,13 +9,13 @@ final class ViewDTOFactory
     public function create(
         string $name,
         string $description,
-        int $totalCount,
+        PaginationDTO $pagination,
         array $articleList = []
     ): ViewDTO {
         return new ViewDTO(
             $name,
             $description,
-            $totalCount,
+            $pagination,
             $articleList
         );
     }

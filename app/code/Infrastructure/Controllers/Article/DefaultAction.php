@@ -12,6 +12,7 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\PaginationDTO;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
@@ -31,7 +32,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     {
         /** 1. decide which paginate to use */
         $pagination = ArticleListViewPagination::fromRequest([
-            'limit' => '1'
+            'limit' => '1',
+            'offset' => '0'
             // 'order_by' => 'identifier1',
             // 'order_direction' => 'desc'
         ]);
@@ -50,7 +52,13 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             );
         }
 
-        $totalCount = $this->articleListViewService->listTotal();
+        $paginationDTO = new PaginationDTO(
+            (int)$pagination->limit(),
+            (int)$pagination->offset(),
+            count($articleList),
+            $this->articleListViewService->listTotal()
+        );
+        
 
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
@@ -60,7 +68,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $dto = $this->viewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
-            $totalCount,
+            $paginationDTO,
             $articleList
         );
 
