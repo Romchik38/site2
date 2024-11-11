@@ -88,14 +88,14 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\Mappers\Sitemap\Sitemap::class)
     );
 
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class,
-        new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat
-    );
-    $container->add(
-        \Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class)
-    );
+    // $container->add(
+    //     \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class,
+    //     new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat
+    // );
+    // $container->add(
+    //     \Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface::class,
+    //     $container->get(\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat::class)
+    // );
 
     // Controller
     $container->add(

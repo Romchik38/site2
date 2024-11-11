@@ -47,18 +47,5 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class)
     );
 
-    // ArticleListViewRepository
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            $container->get(Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory::class)
-        ),
-    );
-    $container->add(
-        \Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class)
-    );
-
     return $container;
 };
