@@ -52,7 +52,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
         $models = [];
 
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $models[] = $this->createFromRow($row);
         }
         return $models;
@@ -80,6 +80,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         article.active,
         article_translates.language,
         article_translates.name,
+        article_translates.short_description,
         article_translates.description,
         article_translates.created_at,
         article_translates.updated_at,
@@ -112,16 +113,16 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
     protected function createFromRow(array $row): ArticleDTO
     {
-        $description =             $row['description'];
+        $description = $row['description'];
         $articleDTO = $this->articleDTOFactory->create(
             $row['identifier'],
-            $row['active'],
+            ($row['active'] === 't') ? true : false ,
             $row['name'],
             $row['short_description'],
             $description,
-            $row['created_at'],
-            $row['updated_at'],
-            json_decode($row['updated_at']),
+            new \Datetime($row['created_at']),
+            new \Datetime($row['updated_at']),
+            json_decode($row['category']),
             $this->getReadLength($description)
         );
 
