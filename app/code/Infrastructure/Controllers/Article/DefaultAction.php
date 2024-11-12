@@ -36,9 +36,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $pagination = Pagination::fromRequest(
             [
                 'limit' => '5',
-                //'page' => '0'
-                // 'order_by' => 'identifier1',
-                // 'order_direction' => 'desc'
+                //'page' => '1',
+                'order_by' => 'identifier',
+                'order_direction' => 'asc'
             ],
             $this->articleListViewService->listTotal()
         );

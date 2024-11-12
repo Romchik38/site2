@@ -19,7 +19,7 @@ final class Pagination
     public const DEFAULT_PAGE = '1';
 
     public const DEFAULT_ORDER_BY = 'created_at';
-    public const ALLOWED_ORDER_BYS = ['created_at'];
+    public const ALLOWED_ORDER_BYS = ['created_at', 'identifier'];
 
     public const DEFAULT_ORDER_BY_DIRECTION = 'desc';
     public const ALLOWED_ORDER_BY_DIRECTIONS = ['asc', 'desc'];

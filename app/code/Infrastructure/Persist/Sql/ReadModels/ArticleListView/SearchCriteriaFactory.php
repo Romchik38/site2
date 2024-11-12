@@ -18,7 +18,7 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
     public const DEFAULT_ORDER_BY_DIRECTION = 'DESC';
     public const array ACCEPTED_ORDER_BY_FIELDS = [
         'created_at',
-        'identifier'
+        'identifier',
     ];
     
     public function create(
