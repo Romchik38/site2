@@ -35,7 +35,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         /** 1. decide which paginate to use */
         $pagination = Pagination::fromRequest(
             [
-                'limit' => '1',
+                // 'limit' => '15',
                 //'page' => '0'
                 // 'order_by' => 'identifier1',
                 // 'order_direction' => 'desc'
@@ -45,7 +45,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         /** 2. do request to app service */
         $limit = $pagination->limit();
-        $offset = (string)((int)$pagination->page() * (int)$limit);
+        $offset = (string)(((int)$pagination->page() - 1) * (int)$limit);
         $articleList = $this->articleListViewService->list(
             new ArticleListViewPagination(
                 $limit,

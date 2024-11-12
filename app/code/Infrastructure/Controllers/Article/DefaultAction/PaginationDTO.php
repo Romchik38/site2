@@ -15,4 +15,9 @@ final class PaginationDTO
         
         return $this->output;
     }
+
+    public function toString(): string {
+        return $this->output;
+    }
+
 }

@@ -42,7 +42,7 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 
         if ($offset !== '') {
             $offsetInt = (int)$offset;
-            if ($offsetInt <= 0) {
+            if ($offsetInt < 0) {
                 throw new InvalidArgumentException(
                     sprintf('param offset %s is incorrect', $offset)
                 );
