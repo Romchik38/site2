@@ -14,14 +14,13 @@ use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
 final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 {
     public const DEFAULT_LIMIT = '15';
-    public const DEFAULT_OFFSET = '0';
     public const DEFAULT_ORDER_BY_FIELD = 'created_at';
     public const DEFAULT_ORDER_BY_DIRECTION = 'DESC';
     public const array ACCEPTED_ORDER_BY_FIELDS = [
         'created_at',
         'identifier'
     ];
-
+    
     public function create(
         string $offset,
         string $limit,
@@ -32,10 +31,22 @@ final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 
         if ($limit === '') {
             $limit = $this::DEFAULT_LIMIT;
+        } else {
+            $limitInt = (int)$limit;
+            if ($limitInt <= 0) {
+                throw new InvalidArgumentException(
+                    sprintf('param limit %s is incorrect', $limit)
+                );
+            }
         }
 
-        if ($offset === '') {
-            $offset = $this::DEFAULT_OFFSET;
+        if ($offset !== '') {
+            $offsetInt = (int)$offset;
+            if ($offsetInt <= 0) {
+                throw new InvalidArgumentException(
+                    sprintf('param offset %s is incorrect', $offset)
+                );
+            }
         }
 
         if ($orderByField === '') {

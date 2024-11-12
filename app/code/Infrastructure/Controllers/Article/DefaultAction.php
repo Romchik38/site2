@@ -9,11 +9,12 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\PaginationDTO;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
+use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -25,40 +26,45 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
-        protected readonly ArticleListViewService $articleListViewService
+        protected readonly ArticleListViewService $articleListViewService,
+        protected readonly CreatePaginationInterface $createPagination
     ) {}
 
     public function execute(): string
     {
         /** 1. decide which paginate to use */
-        $pagination = ArticleListViewPagination::fromRequest([
-            'limit' => '1',
-            'offset' => '0'
-            // 'order_by' => 'identifier1',
-            // 'order_direction' => 'desc'
-        ]);
-
-        /** 2. do request to app service */
-        try {
-            $articleList = $this->articleListViewService->list(
-                $pagination,
-                $this->getLanguage()
-            );
-        } catch (InvalidArgumentException $e) {
-            $pagination = new ArticleListViewPagination();
-            $articleList = $this->articleListViewService->list(
-                $pagination,
-                $this->getLanguage()
-            );
-        }
-
-        $paginationDTO = new PaginationDTO(
-            (int)$pagination->limit(),
-            (int)$pagination->offset(),
-            count($articleList),
+        $pagination = Pagination::fromRequest(
+            [
+                'limit' => '1',
+                //'page' => '0'
+                // 'order_by' => 'identifier1',
+                // 'order_direction' => 'desc'
+            ],
             $this->articleListViewService->listTotal()
         );
-        
+
+        /** 2. do request to app service */
+        $limit = $pagination->limit();
+        $offset = (string)((int)$pagination->page() * (int)$limit);
+        $articleList = $this->articleListViewService->list(
+            new ArticleListViewPagination(
+                $limit,
+                $offset,
+                $pagination->orderByField(),
+                $pagination->orderByDirection()
+            ),
+            $this->getLanguage()
+        );
+
+        $paginationDTO = new PaginationDTO(
+            $this->createPagination::createHtml(
+                (int)$pagination->page(),
+                (int)$pagination->limit(),
+                $pagination->totalCount(),
+                count($articleList)
+            )
+        );
+
 
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
