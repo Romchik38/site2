@@ -35,7 +35,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         /** 1. decide which paginate to use */
         $pagination = Pagination::fromRequest(
             [
-                // 'limit' => '15',
+                'limit' => '5',
                 //'page' => '0'
                 // 'order_by' => 'identifier1',
                 // 'order_direction' => 'desc'
