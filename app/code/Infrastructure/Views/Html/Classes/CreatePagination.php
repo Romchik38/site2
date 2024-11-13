@@ -9,8 +9,13 @@ use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 /** It is responsable for creating HTML pagination block */
 final class CreatePagination implements CreatePaginationInterface
 {
-    
-    public static function createPagination(
+    public function __construct(
+        protected readonly int $maxPageToShow = 5
+    )
+    {
+        
+    }
+    public function createPagination(
         int $page,
         int $limit,
         int $totalCount,
@@ -21,19 +26,19 @@ final class CreatePagination implements CreatePaginationInterface
         if($displayed === $totalCount) return '';
         
         // Case 2: show pagination       
-        $firstElement = '';
+        $first = '';
         $middle = '';
         $last = '';
         $dots = '<div>...</div>';
         $remainder = $totalCount - $displayed;
-        $maxNextPage = 5;
+        $maxNextPage = $this->maxPageToShow;
         $totalPages = (int)ceil($totalCount / $limit);
 
-        // FIRST
+        // Case FIRST
         if($page === 1) {
-            $firstElement = '<div>1</div>';
+            $first = '<div>1</div>';
             if($remainder > 0) {
-                if($totalPages < $maxNextPage) {
+                if($totalPages < ($maxNextPage)) {
                     $maxNextPage = $totalPages;
                 }
                 for($i = 1; $i <= $maxNextPage; $i++) {
@@ -45,7 +50,7 @@ final class CreatePagination implements CreatePaginationInterface
                 }
             }
         } elseif($page === $totalPages) {
-            // LAST
+            // Case LAST
             $last = sprintf('<div>%s</div>', $page);
             if($totalPages < $maxNextPage) {
                 $maxNextPage = $totalPages;
@@ -55,19 +60,45 @@ final class CreatePagination implements CreatePaginationInterface
                 $middle = sprintf('<div>%s</div>%s', $totalPages-$i, $middle);
             }
             if($totalPages > $maxNextPage) {
-                $firstElement = sprintf('<div>1</div>%s', $dots);
+                $first = sprintf('<div>1</div>%s', $dots);
             }
         } else {
-            // MIDDLE
+            // Case MIDDLE
+            $first = '<div>1</div>';
+            $last = sprintf('<div>%s</div>', $totalPages);
+            $maxNextPage = (int)ceil($maxNextPage / 2);
+            // Fill left
+            $counter = 0;            
+            $currentPage = $page - 1;
+            while($currentPage > 1) {
+                $middle = sprintf('<div>%s</div>%s', $currentPage, $middle);
+                $counter++;
+                $currentPage--;
+                if($counter === $maxNextPage) {
+                    if($currentPage !== 1) {
+                        $middle = sprintf('%s%s', $dots, $middle);
+                    }
+                    break;
+                }
+            }
+            // Fill center 
+            $middle = sprintf('%s<div>%s</div>', $middle, $page);
+            // Fill right
+            $counter = 0;            
+            $currentPage = $page + 1;
+            while($currentPage < $totalPages) {
+                $middle = sprintf('%s<div>%s</div>', $middle, $currentPage);
+                $counter++;
+                $currentPage++;
+                if($counter === $maxNextPage) {
+                    if($currentPage !== $totalPages) {
+                        $middle = sprintf('%s%s', $middle, $dots);
+                    }
+                    break;
+                }
+            }            
         }
     
-
-        return sprintf('%s%s%s', $firstElement, $middle, $last);
-        // return <<<HTML
-        // <div>Displayed: {$displayed} </div>
-        // <div>Total: {$totalCount}</div>
-        // <div>Limit: {$limit}</div>
-        // <div>Remainder: {$remainder} </div>    
-        // HTML;
+        return sprintf('%s%s%s', $first, $middle, $last);
     }
 }

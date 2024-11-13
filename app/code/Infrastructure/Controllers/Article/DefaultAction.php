@@ -35,8 +35,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         /** 1. decide which paginate to use */
         $pagination = Pagination::fromRequest(
             [
-                'limit' => '5',
-                'page' => '5',
+                'limit' => '15',
+                'page' => '1',
                 'order_by' => 'identifier',
                 'order_direction' => 'asc'
             ],
@@ -57,7 +57,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         );
 
         $paginationDTO = new PaginationDTO(
-            $this->createPagination::createPagination(
+            $this->createPagination->createPagination(
                 (int)$pagination->page(),
                 (int)$pagination->limit(),
                 $pagination->totalCount(),
