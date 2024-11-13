@@ -44,31 +44,28 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         );
 
         /** 2. do request to app service */
-        $limit = $pagination->limit();
-        $offset = (string)(((int)$pagination->page() - 1) * (int)$limit);
         $articleList = $this->articleListViewService->list(
             new ArticleListViewPagination(
-                $limit,
-                $offset,
+                $pagination->limit(),
+                $pagination->offset,
                 $pagination->orderByField(),
                 $pagination->orderByDirection()
             ),
             $this->getLanguage()
         );
 
+        /** 3. prepare a page view */
+        $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
+        $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
+
         $paginationDTO = new PaginationDTO(
-            $this->createPagination->createPagination(
+            $this->createPagination->create(
                 (int)$pagination->page(),
                 (int)$pagination->limit(),
                 $pagination->totalCount(),
                 count($articleList)
             )
         );
-
-
-        /** 3. prepare a page view */
-        $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
-        $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
         /** 4. create a view dto */
         $dto = $this->viewDTOFactory->create(

@@ -14,7 +14,7 @@ final class CreatePagination implements CreatePaginationInterface
         protected readonly string $marker = '...'
     ) {}
 
-    public function createPagination(
+    public function create(
         int $page,
         int $limit,
         int $totalCount,
