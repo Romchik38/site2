@@ -10,14 +10,14 @@ use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Views\Errors\CantCreateViewException;
 use Twig\Environment;
 
-final class Site2TwigView extends TwigView
+class Site2TwigView extends TwigView
 {
 
     public function __construct(
         protected readonly Environment $environment,
         protected readonly TranslateInterface $translateService,
         /** Metadata Service here */
-        protected readonly DynamicRootInterface|null $dynamicRootService,
+        protected readonly DynamicRootInterface $dynamicRootService,
         protected Breadcrumb $breadcrumbService,
         protected readonly string $layoutPath = 'base.twig'
     ) {}
@@ -35,16 +35,11 @@ final class Site2TwigView extends TwigView
      */
     protected function prepareLanguages(): void
     {
-        /** 1. Check DynamicRoot */
-        if ($this->dynamicRootService === null) {
-            throw new CantCreateViewException(
-                sprintf('%s: Missing DynamicRootInterface', Site2TwigView::class)
-            );
-        }
-
-        /** 2. Set languages */
         $currentRoot = $this->dynamicRootService->getCurrentRoot();
-        $languages = array_map(fn($item) => $item->getName(), $this->dynamicRootService->getRootList());
+        $languages = array_map(
+            fn($item) => $item->getName(), 
+            $this->dynamicRootService->getRootList()
+        );
 
         $this->setMetadata('language', $currentRoot->getName())
             ->setMetadata('languages', $languages);

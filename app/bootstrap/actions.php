@@ -79,13 +79,14 @@ return function ($container) {
     // Article
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction(
+        new \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction
+        (
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             new \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory,
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class),
-            new Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination
+            new Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticlePagination
         )
     );
 

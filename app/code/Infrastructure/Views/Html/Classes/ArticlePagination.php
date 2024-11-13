@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 
+use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 
-/** It is responsable for creating HTML pagination block */
-final class CreatePagination implements CreatePaginationInterface
+/**
+ * @todo move to server 
+ * It is responsable for creating HTML pagination block 
+ * */
+final class ArticlePagination implements CreatePaginationInterface
 {
     public function __construct(
+        // protected readonly Urlbuilder $urlbuilder,
+        // protected readonly Pagination $pagination,
         protected readonly int $maxPageToShow = 5,
         protected readonly string $marker = '...'
     ) {}
