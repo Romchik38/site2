@@ -10,11 +10,10 @@ use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 final class CreatePagination implements CreatePaginationInterface
 {
     public function __construct(
-        protected readonly int $maxPageToShow = 5
-    )
-    {
-        
-    }
+        protected readonly int $maxPageToShow = 5,
+        protected readonly string $marker = '...'
+    ) {}
+
     public function createPagination(
         int $page,
         int $limit,
@@ -23,82 +22,105 @@ final class CreatePagination implements CreatePaginationInterface
     ): string {
 
         // Case 1: do not show pagination
-        if($displayed === $totalCount) return '';
-        
+        if ($displayed === $totalCount) return '';
+
         // Case 2: show pagination       
         $first = '';
         $middle = '';
         $last = '';
-        $dots = '<div>...</div>';
         $remainder = $totalCount - $displayed;
         $maxNextPage = $this->maxPageToShow;
         $totalPages = (int)ceil($totalCount / $limit);
 
         // Case FIRST
-        if($page === 1) {
-            $first = '<div>1</div>';
-            if($remainder > 0) {
-                if($totalPages < ($maxNextPage)) {
+        if ($page === 1) {
+            $first = $this->activeLink(1);
+            if ($remainder > 0) {
+                if ($totalPages < ($maxNextPage)) {
                     $maxNextPage = $totalPages;
                 }
-                for($i = 1; $i <= $maxNextPage; $i++) {
-                    if(($page + $i) > $totalPages) break;
-                    $middle = sprintf('%s<div>%s</div>', $middle, $page + $i);
+                for ($i = 1; $i <= $maxNextPage; $i++) {
+                    if (($page + $i) > $totalPages) break;
+                    $middle = sprintf('%s%s', $middle, $this->link($page + $i));
                 }
-                if($totalPages > $maxNextPage) {
-                    $last = sprintf('%s<div>%s</div>', $dots, $totalPages);
+                if ($totalPages > $maxNextPage) {
+                    $last = sprintf('%s%s', $this->chainBreak(), $this->link($totalPages));
                 }
             }
-        } elseif($page === $totalPages) {
+        } elseif ($page === $totalPages) {
             // Case LAST
-            $last = sprintf('<div>%s</div>', $page);
-            if($totalPages < $maxNextPage) {
+            $last = $this->activeLink($page);
+            if ($totalPages < $maxNextPage) {
                 $maxNextPage = $totalPages;
             }
-            for($i = 1; $i <= $maxNextPage; $i++) {
-                if(($totalPages-$i) === 0) break;
-                $middle = sprintf('<div>%s</div>%s', $totalPages-$i, $middle);
+            for ($i = 1; $i <= $maxNextPage; $i++) {
+                if (($totalPages - $i) === 0) break;
+                $middle = sprintf('%s%s', $this->link($totalPages - $i), $middle);
             }
-            if($totalPages > $maxNextPage) {
-                $first = sprintf('<div>1</div>%s', $dots);
+            if ($totalPages > $maxNextPage) {
+                $first = sprintf('%s%s', $this->link(1), $this->chainBreak());
             }
         } else {
             // Case MIDDLE
-            $first = '<div>1</div>';
-            $last = sprintf('<div>%s</div>', $totalPages);
+            $first = $this->link(1);
+            $last = $this->link($totalPages);
             $maxNextPage = (int)ceil($maxNextPage / 2);
             // Fill left
-            $counter = 0;            
+            $counter = 0;
             $currentPage = $page - 1;
-            while($currentPage > 1) {
-                $middle = sprintf('<div>%s</div>%s', $currentPage, $middle);
+            while ($currentPage > 1) {
+                $middle = $this->link($currentPage) . $middle;
                 $counter++;
                 $currentPage--;
-                if($counter === $maxNextPage) {
-                    if($currentPage !== 1) {
-                        $middle = sprintf('%s%s', $dots, $middle);
+                if ($counter === $maxNextPage) {
+                    if ($currentPage !== 1) {
+                        $middle = $this->chainBreak() . $middle;
                     }
                     break;
                 }
             }
             // Fill center 
-            $middle = sprintf('%s<div>%s</div>', $middle, $page);
+            $middle = $middle . $this->activeLink($page);
             // Fill right
-            $counter = 0;            
+            $counter = 0;
             $currentPage = $page + 1;
-            while($currentPage < $totalPages) {
-                $middle = sprintf('%s<div>%s</div>', $middle, $currentPage);
+            while ($currentPage < $totalPages) {
+                $middle = $middle . $this->link($currentPage);
                 $counter++;
                 $currentPage++;
-                if($counter === $maxNextPage) {
-                    if($currentPage !== $totalPages) {
-                        $middle = sprintf('%s%s', $middle, $dots);
+                if ($counter === $maxNextPage) {
+                    if ($currentPage !== $totalPages) {
+                        $middle = $middle . $this->chainBreak();
                     }
                     break;
                 }
-            }            
+            }
         }
-    
+
         return sprintf('%s%s%s', $first, $middle, $last);
+    }
+
+    protected function activeLink(int $pageNumber): string {
+        
+        return sprintf(
+            '<li class="page-item active"><a class="page-link" href="#">%s</a></li>',
+            $pageNumber
+        ); 
+    }
+
+    protected function link(int $pageNumber): string {
+        
+        return sprintf(
+            '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
+            $pageNumber
+        ); 
+    }
+
+    protected function chainBreak(): string {
+        
+        return sprintf(
+            '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
+            $this->marker
+        ); 
     }
 }
