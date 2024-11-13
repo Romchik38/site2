@@ -14,7 +14,7 @@ final class Pagination
     public const ORDER_BY_DIRECTION_FIELD = 'order_direction';
 
     public const DEFAULT_LIMIT = '15';
-    public const ALLOWED_LIMITS = ['2', '5', '15', '30'];
+    public const ALLOWED_LIMITS = ['15', '30'];
 
     public const DEFAULT_PAGE = '1';
 
