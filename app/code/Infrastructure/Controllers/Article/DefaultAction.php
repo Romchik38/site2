@@ -9,6 +9,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
@@ -57,6 +58,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         /** 3. prepare a page view */
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
+
+        /** replace with an interface */
+        $urlBuilder = new Urlbuilder($this->getPath(), $this->getLanguage());
 
         $paginationDTO = new PaginationDTO(
             $this->createPagination->create(
