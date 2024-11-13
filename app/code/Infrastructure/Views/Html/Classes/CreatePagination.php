@@ -10,7 +10,7 @@ use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 final class CreatePagination implements CreatePaginationInterface
 {
     
-    public static function createHtml(
+    public static function createPagination(
         int $page,
         int $limit,
         int $totalCount,
@@ -26,24 +26,41 @@ final class CreatePagination implements CreatePaginationInterface
         $last = '';
         $dots = '<div>...</div>';
         $remainder = $totalCount - $displayed;
-        $maxNextPage = 2;
+        $maxNextPage = 5;
+        $totalPages = (int)ceil($totalCount / $limit);
 
         // FIRST
         if($page === 1) {
             $firstElement = '<div>1</div>';
-        }
-        if($remainder > 0) {
-            $totalPages = (int)ceil($totalCount / $limit);
-            for($i = 2; $i <= $maxNextPage; $i++) {
-                $middle = sprintf('%s <div>%s</div>', $middle, $i);
+            if($remainder > 0) {
+                if($totalPages < $maxNextPage) {
+                    $maxNextPage = $totalPages;
+                }
+                for($i = 1; $i <= $maxNextPage; $i++) {
+                    if(($page + $i) > $totalPages) break;
+                    $middle = sprintf('%s<div>%s</div>', $middle, $page + $i);
+                }
+                if($totalPages > $maxNextPage) {
+                    $last = sprintf('%s<div>%s</div>', $dots, $totalPages);
+                }
+            }
+        } elseif($page === $totalPages) {
+            // LAST
+            $last = sprintf('<div>%s</div>', $page);
+            if($totalPages < $maxNextPage) {
+                $maxNextPage = $totalPages;
+            }
+            for($i = 1; $i <= $maxNextPage; $i++) {
+                if(($totalPages-$i) === 0) break;
+                $middle = sprintf('<div>%s</div>%s', $totalPages-$i, $middle);
             }
             if($totalPages > $maxNextPage) {
-                $last = sprintf('%s <div>%s</div>', $dots, $totalPages);
+                $firstElement = sprintf('<div>1</div>%s', $dots);
             }
+        } else {
+            // MIDDLE
         }
-
-        // MIDDLE
-        // LAST
+    
 
         return sprintf('%s%s%s', $firstElement, $middle, $last);
         // return <<<HTML
