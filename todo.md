@@ -6,8 +6,8 @@
 
 ## Current
 
-[-] Article list page 
-    [-] urlbuilder with delimiter  
+[-] Article list page  
+    [+] urlbuilder with delimiter  
     [-] create links for each article  
 [-] Single article page  
 [-] Refactor Link  

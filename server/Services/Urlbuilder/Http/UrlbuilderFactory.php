@@ -10,6 +10,10 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 class UrlbuilderFactory implements UrlbuilderFactoryInterface
 {
+    public function __construct(
+        protected readonly string $delimiter = '/'
+    ) {}
+    
     public function create(array $path, string $language): UrlbuilderInterface
     {
 
@@ -23,7 +27,8 @@ class UrlbuilderFactory implements UrlbuilderFactoryInterface
 
         return new Urlbuilder(
             $path,
-            $language
+            $language,
+            $this->delimiter
         );
     }
 }

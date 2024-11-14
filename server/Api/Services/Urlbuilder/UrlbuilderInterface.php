@@ -10,5 +10,8 @@ interface UrlbuilderInterface
     public function prefix(): string;
 
     /** @return string concatenate main part with given part */
-    public function add(string $part): string;
+    public function add(string $part, string $delimiter = ''): string;
+
+    /** @return string concatenate main part + default delimiter + given part */
+    public function addWithDelimiter(string $part): string;
 }

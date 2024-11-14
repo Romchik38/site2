@@ -12,13 +12,15 @@ class Urlbuilder implements UrlbuilderInterface
 
     public function __construct(
         protected readonly array $path,
-        protected readonly string $language
+        protected readonly string $language,
+        protected readonly string $delimiter
     ) {
         $url = [...$path];
         $url[0] = $language;
         $this->prefix = sprintf(
-            '/%s',
-            implode('/', $url)
+            '%s%s',
+            $this->delimiter,
+            implode($this->delimiter, $url)
         );
     }
 
@@ -27,8 +29,13 @@ class Urlbuilder implements UrlbuilderInterface
         return $this->prefix;
     }
 
-    public function add(string $part): string
+    public function add(string $part, string $delimiter = ''): string
     {
-        return sprintf('%s%s', $this->prefix, $part);
+        return sprintf('%s%s%s', $this->prefix, $delimiter, $part);
+    }
+
+    public function addWithDelimiter(string $part): string
+    {
+        return $this->add($part, $this->delimiter);
     }
 }
