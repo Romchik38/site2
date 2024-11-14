@@ -86,6 +86,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             article_translates
         WHERE 
             article.identifier = $2
+            AND article.identifier = article_translates.article_id
             AND article.active = 'true'
             AND article_translates.language = $1
         QUERY;
