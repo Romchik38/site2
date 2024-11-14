@@ -34,7 +34,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
     public function execute(): string
     {
-        $this->request->getParsedBody();
+        $requestData = $this->request->getParsedBody();
 
         /** 1. decide which paginate to use */
         $pagination = Pagination::fromRequest(

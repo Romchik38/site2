@@ -20,8 +20,12 @@ return function ($container) {
         \Romchik38\Server\Services\Request\Http\ServerRequest::class,
         new \Romchik38\Server\Services\Request\Http\ServerRequest(
             $container->get(\Romchik38\Server\Api\Services\Request\Http\UriFactoryInterface::class),
-            
+            new Romchik38\Server\Services\Request\Http\ServerRequestService
         )
+    );
+    $container->add(
+        \Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class,
+        $container->get(\Romchik38\Server\Services\Request\Http\ServerRequest::class)
     );
 
     // LINKTREE
