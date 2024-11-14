@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
@@ -29,25 +30,21 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListViewService $articleListViewService,
         protected readonly CreatePaginationFactoryInterface $createPaginationFactory,
-        protected readonly ServerRequestInterface $request
+        protected readonly ServerRequestInterface $request,
+        protected readonly UrlbuilderFactoryInterface $urlbuilderFactory
     ) {}
 
     public function execute(): string
     {
-        $requestData = $this->request->getParsedBody();
+        $requestData = $this->request->getQueryParams();
 
-        /** 1. decide which paginate to use */
+        /** 1. Create pagination DTO */
         $pagination = Pagination::fromRequest(
-            [
-                'limit' => '15',
-                'page' => '1',
-                'order_by' => 'identifier',
-                'order_direction' => 'asc'
-            ],
+            $requestData,
             $this->articleListViewService->listTotal()
         );
 
-        /** 2. do request to app service */
+        /** 2. Do request to app service */
         $articleList = $this->articleListViewService->list(
             new ArticleListViewPagination(
                 $pagination->limit(),
@@ -62,8 +59,10 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
-        /** replace with an interface */
-        $urlBuilder = new Urlbuilder($this->getPath(), $this->getLanguage());
+        $urlBuilder = $this->urlbuilderFactory->create(
+            $this->getPath(),
+            $this->getLanguage()
+        );
 
         $paginationView = $this->createPaginationFactory->create(
             $urlBuilder,
@@ -76,7 +75,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             $translatedPageName,
             $translatedPageDescription,
             $articleList,
-            $paginationView       
+            $paginationView
         );
 
         /** 5. create a view */

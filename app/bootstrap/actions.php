@@ -87,7 +87,8 @@ return function ($container) {
             new \Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory,
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class),
             new Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticlePaginationFactory,
-            $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class)
+            $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class),
+            new \Romchik38\Server\Services\Urlbuilder\Http\UrlbuilderFactory
         )
     );
 
