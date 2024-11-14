@@ -7,6 +7,8 @@
 ## Current
 
 [-] Single article page  
+[-] refactor tests  
+[-] merge branches  
 [-] Display categories on the listing page or delete them from selecting  
 [-] Refactor Link  
 [-] deptrac  
