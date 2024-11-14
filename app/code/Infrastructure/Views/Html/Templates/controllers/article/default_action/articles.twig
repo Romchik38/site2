@@ -1,5 +1,6 @@
 {#    null|Object             translate                   Translate service #}
 {#    ArticleDTO[]            articles                    A list of article DOTs #}
+{#    Object                  urlbuilder                  used to create urls #}
 
 {% set firstArticle = articles|first %}
 <!-- Primary publication start -->
@@ -57,6 +58,7 @@
                 <div class="col-6 font-monospace comments">{{ article.formattedCreatedAt }}</div>
             </footer>
         </div>
+        {{ urlbuilder.addWithDelimiter('hello') }}
     </div>
 
     {% endfor %}

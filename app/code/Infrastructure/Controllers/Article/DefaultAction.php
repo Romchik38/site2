@@ -75,7 +75,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             $translatedPageName,
             $translatedPageDescription,
             $articleList,
-            $paginationView
+            $paginationView,
+            $urlBuilder
         );
 
         /** 5. create a view */

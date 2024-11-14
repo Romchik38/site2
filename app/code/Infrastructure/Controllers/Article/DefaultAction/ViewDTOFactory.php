@@ -14,12 +14,14 @@ final class ViewDTOFactory
         string $description,
         array $articleList,
         CreatePaginationInterface $paginationView,
+        UrlbuilderInterface $urlbuilder
     ): ViewDTO {
         return new ViewDTO(
             $name,
             $description,
             $articleList,
-            $paginationView
+            $paginationView,
+            $urlbuilder
         );
     }
 }
