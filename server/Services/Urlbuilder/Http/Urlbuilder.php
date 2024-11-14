@@ -29,6 +29,6 @@ class Urlbuilder implements UrlbuilderInterface
 
     public function add(string $part): string
     {
-        return sprintf('%s/%s', $this->prefix, $part);
+        return sprintf('%s%s', $this->prefix, $part);
     }
 }

@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Article;
 
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
@@ -13,10 +14,8 @@ use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\PaginationDTO;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
-use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
@@ -29,11 +28,14 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListViewService $articleListViewService,
-        protected readonly CreatePaginationFactoryInterface $createPaginationFactory
+        protected readonly CreatePaginationFactoryInterface $createPaginationFactory,
+        protected readonly ServerRequestInterface $request
     ) {}
 
     public function execute(): string
     {
+        $this->request->getParsedBody();
+
         /** 1. decide which paginate to use */
         $pagination = Pagination::fromRequest(
             [
