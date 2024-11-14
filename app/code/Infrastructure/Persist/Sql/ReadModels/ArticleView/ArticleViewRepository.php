@@ -33,9 +33,9 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             ));
         }
 
-        $model = $rows[0];
+        $row = $rows[0];
 
-        return $model;
+        return $this->createFromRow($row);
     }
 
     protected function createFromRow(array $row): ArticleViewDTO

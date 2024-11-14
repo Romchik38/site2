@@ -26,5 +26,20 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class)
     );
 
+    // Article View Repository
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository(
+            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
+            new Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory(
+                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat
+            )
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository::class)
+    );
+
     return $container;
 };

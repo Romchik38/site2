@@ -10,10 +10,10 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\ActionProcessException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;
+use Romchik38\Site2\Application\ArticleView\ArticleViewService;
+use Romchik38\Site2\Application\ArticleView\Find;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
@@ -24,37 +24,28 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         protected readonly ViewInterface $view,
         /** @todo create Article DTO */
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
-        protected readonly ArticleRepositoryInterface $articleRepository
+        protected readonly ArticleViewService $articleViewService
     ) {}
 
     public function execute(string $dynamicRoute): string
     {
 
         try {
-            $result = $this->articleRepository->getById($dynamicRoute);
+            $article = $this->articleViewService->getArticle(new Find(
+                $dynamicRoute,
+                $this->getLanguage()
+            ));
         } catch (NoSuchEntityException $e) {
             throw new DynamicActionNotFoundException(
                 sprintf('Route %s not found. Error message: %s', $dynamicRoute, $e->getMessage())
             );
         }
 
-        $translate = $result->getTranslate($this->getLanguage());
-
-        if ($translate === null) {
-            /** translate is missig, try to show default language */
-            $translate = $result->getTranslate($this->getDefaultLanguage());
-            if($translate === null) {
-                throw new ActionProcessException(
-                    sprintf('Translate for article %s is missing', $dynamicRoute)
-                );
-            }
-        }
-
         /** we pass all checks and can send translate to view */
 
         $dto = $this->defaultViewDTOFactory->create(
-            $translate->getName(),
-            $translate->getShortDescription()
+            $article->name,
+            $article->shortDescription
         );
 
         $result  = $this->view
@@ -70,5 +61,4 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
     {
         return [];
     }
-
 }

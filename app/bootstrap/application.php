@@ -36,5 +36,13 @@ return function ($container) {
         $container->get(\Romchik38\Site2\Application\LinkCollection\LinkCollectionService::class)
     );
 
+    // Article View
+    $container->add(
+        \Romchik38\Site2\Application\ArticleView\ArticleViewService::class,
+        new \Romchik38\Site2\Application\ArticleView\ArticleViewService(
+            $container->get(\Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface::class)
+        )
+    );
+
     return $container;
 };
