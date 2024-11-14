@@ -20,8 +20,16 @@
             </picture>
         </div>
         <div class="col-md-4">
-            <h2>{{ firstArticle.name }}</h2>
-            <p>{{ firstArticle.shortDescription }}</p>
+            <h2>
+                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+                    {{ firstArticle.name }}
+                </a>
+            </h2>
+            <p>
+                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+                    {{ firstArticle.shortDescription }}
+                </a>
+            </p>
             <footer class="row text-secondary">
                 <div class="col-6 font-monospace comments">{{ firstArticle.readLength }} {{ translate.t('article.read') }}</div>
                 <div class="col-6 font-monospace comments">{{ firstArticle.formattedCreatedAt }}</div>
@@ -51,14 +59,21 @@
             </picture>
         </div>
         <div class="col-sm-9">
-            <h3>{{ article.name }}</h3>
-            <p>{{ article.shortDescription }}</p>
+            <h3>
+                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+                    {{ article.name }}
+                </a>
+            </h3>
+            <p>
+                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+                    {{ article.shortDescription }}
+                </a>
+            </p>
             <footer class="row text-secondary">
                 <div class="col-6 font-monospace comments">{{ article.readLength }} {{ translate.t('article.read') }}</div>
                 <div class="col-6 font-monospace comments">{{ article.formattedCreatedAt }}</div>
             </footer>
         </div>
-        {{ urlbuilder.addWithDelimiter('hello') }}
     </div>
 
     {% endfor %}
