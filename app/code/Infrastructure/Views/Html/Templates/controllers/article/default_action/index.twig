@@ -32,7 +32,7 @@
                         {% if articles|length == 0 %} 
                             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
-                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'pagination': data.pagination} only %}
+                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate } only %}
                         {% endif %}
                     </div>
                     <hr>
@@ -82,7 +82,7 @@
                 <div class="col-xxl-9">
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-sm justify-content-center">
-                            {{ data.pagination.toString()|raw }}
+                            {{ data.showPagination()|raw }}
                         </ul>
                     </nav>
                 </div>

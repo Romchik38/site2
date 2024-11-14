@@ -15,6 +15,7 @@ use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPag
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\PaginationDTO;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
+use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
@@ -28,7 +29,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly ViewInterface $view,
         protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListViewService $articleListViewService,
-        protected readonly CreatePaginationInterface $createPagination
+        protected readonly CreatePaginationFactoryInterface $createPaginationFactory
     ) {}
 
     public function execute(): string
@@ -62,21 +63,18 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         /** replace with an interface */
         $urlBuilder = new Urlbuilder($this->getPath(), $this->getLanguage());
 
-        $paginationDTO = new PaginationDTO(
-            $this->createPagination->create(
-                (int)$pagination->page(),
-                (int)$pagination->limit(),
-                $pagination->totalCount(),
-                count($articleList)
-            )
+        $paginationView = $this->createPaginationFactory->create(
+            $urlBuilder,
+            $pagination,
+            count($articleList)
         );
 
         /** 4. create a view dto */
         $dto = $this->viewDTOFactory->create(
             $translatedPageName,
             $translatedPageDescription,
-            $paginationDTO,
-            $articleList
+            $articleList,
+            $paginationView       
         );
 
         /** 5. create a view */

@@ -6,10 +6,5 @@ namespace Romchik38\Site2\Infrastructure\Views;
 
 /** @todo delete ? */
 interface CreatePaginationInterface {
-    public function create(
-        int $page,
-        int $limit,
-        int $totalCount,
-        int $displayed
-    ): string;
+    public function create(): string;
 }

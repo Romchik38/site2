@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Services\Urlbuilder\Http;
 
-/** move public to the interface */
-class Urlbuilder
+use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
+
+class Urlbuilder implements UrlbuilderInterface
 {
     protected readonly string $prefix;
 

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
+use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
 
-final class Pagination
+final class Pagination implements PaginationInterface
 {
     public const LIMIT_FIELD = 'limit';
     public const PAGE_FIELD = 'page';

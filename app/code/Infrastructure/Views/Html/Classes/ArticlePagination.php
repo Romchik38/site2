@@ -14,49 +14,54 @@ use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
  * */
 final class ArticlePagination implements CreatePaginationInterface
 {
+    protected readonly int $page;
+    protected readonly int $limit;
+    protected readonly int $totalCount;
+
     public function __construct(
-        // protected readonly Urlbuilder $urlbuilder,
-        // protected readonly Pagination $pagination,
+        protected readonly Urlbuilder $urlbuilder,
+        protected readonly Pagination $pagination,
+        protected readonly int $displayed,
         protected readonly int $maxPageToShow = 5,
         protected readonly string $marker = '...'
-    ) {}
+    ) {
+        $this->page = (int)$pagination->page();
+        $this->limit = (int)$pagination->limit();
+        $this->totalCount = $pagination->totalCount();
+    }
 
-    public function create(
-        int $page,
-        int $limit,
-        int $totalCount,
-        int $displayed
-    ): string {
+    public function create(): string
+    {
 
         // Case 1: do not show pagination
-        if ($displayed === $totalCount) return '';
+        if ($this->displayed === $this->totalCount) return '';
 
         // Case 2: show pagination       
         $first = '';
         $middle = '';
         $last = '';
-        $remainder = $totalCount - $displayed;
+        $remainder = $this->totalCount - $this->displayed;
         $maxNextPage = $this->maxPageToShow;
-        $totalPages = (int)ceil($totalCount / $limit);
+        $totalPages = (int)ceil($this->totalCount / $this->limit);
 
         // Case FIRST
-        if ($page === 1) {
+        if ($this->page === 1) {
             $first = $this->activeLink(1);
             if ($remainder > 0) {
                 if ($totalPages < ($maxNextPage)) {
                     $maxNextPage = $totalPages;
                 }
                 for ($i = 1; $i <= $maxNextPage; $i++) {
-                    if (($page + $i) > $totalPages) break;
-                    $middle = sprintf('%s%s', $middle, $this->link($page + $i));
+                    if (($this->page + $i) > $totalPages) break;
+                    $middle = sprintf('%s%s', $middle, $this->link($this->page + $i));
                 }
                 if ($totalPages > $maxNextPage) {
                     $last = sprintf('%s%s', $this->chainBreak(), $this->link($totalPages));
                 }
             }
-        } elseif ($page === $totalPages) {
+        } elseif ($this->page === $totalPages) {
             // Case LAST
-            $last = $this->activeLink($page);
+            $last = $this->activeLink($this->page);
             if ($totalPages < $maxNextPage) {
                 $maxNextPage = $totalPages;
             }
@@ -74,7 +79,7 @@ final class ArticlePagination implements CreatePaginationInterface
             $maxNextPage = (int)ceil($maxNextPage / 2);
             // Fill left
             $counter = 0;
-            $currentPage = $page - 1;
+            $currentPage = $this->page - 1;
             while ($currentPage > 1) {
                 $middle = $this->link($currentPage) . $middle;
                 $counter++;
@@ -87,10 +92,10 @@ final class ArticlePagination implements CreatePaginationInterface
                 }
             }
             // Fill center 
-            $middle = $middle . $this->activeLink($page);
+            $middle = $middle . $this->activeLink($this->page);
             // Fill right
             $counter = 0;
-            $currentPage = $page + 1;
+            $currentPage = $this->page + 1;
             while ($currentPage < $totalPages) {
                 $middle = $middle . $this->link($currentPage);
                 $counter++;
@@ -107,27 +112,30 @@ final class ArticlePagination implements CreatePaginationInterface
         return sprintf('%s%s%s', $first, $middle, $last);
     }
 
-    protected function activeLink(int $pageNumber): string {
-        
+    protected function activeLink(int $pageNumber): string
+    {
+
         return sprintf(
             '<li class="page-item active"><a class="page-link" href="#">%s</a></li>',
             $pageNumber
-        ); 
+        );
     }
 
-    protected function link(int $pageNumber): string {
-        
+    protected function link(int $pageNumber): string
+    {
+
         return sprintf(
             '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
             $pageNumber
-        ); 
+        );
     }
 
-    protected function chainBreak(): string {
-        
+    protected function chainBreak(): string
+    {
+
         return sprintf(
             '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
             $this->marker
-        ); 
+        );
     }
 }
