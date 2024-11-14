@@ -10,10 +10,8 @@ final class ArticleDTO
         public readonly string $articleId,
         public readonly string $name,
         public readonly string $shortDescription,
-        public readonly string $description,
         public readonly array $categories,
         public readonly string $formattedCreatedAt,
         public readonly string $readLength
     ) {}
-
 }

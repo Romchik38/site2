@@ -36,7 +36,6 @@ final class ArticleDTOFactory
             $articleId,
             $name,
             $shortDescription,
-            $description,
             $categories,
             $formattedCreatedAt,
             $readLength
