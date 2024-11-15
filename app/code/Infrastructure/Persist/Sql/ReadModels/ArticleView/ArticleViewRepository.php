@@ -44,6 +44,21 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         return $this->createFromRow($row);
     }
 
+    public function listIds(): array
+    {
+        $query = <<<QUERY
+        SELECT article.identifier FROM article 
+        WHERE article.active = 'true'
+        QUERY;
+
+        $rows = $this->database->queryParams($query, []);
+        $ids = [];
+        foreach($rows as $row) {
+            $ids[] = $row['identifier'];
+        }
+        return $ids;
+    }
+
     protected function createFromRow(array $row): ArticleViewDTO
     {
         $articleViewDTO = $this->factory->create(

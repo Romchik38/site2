@@ -11,4 +11,5 @@ interface ArticleListViewRepositoryInterface
 
     /** count of all active article */
     public function totalCount(): int;
+
 }

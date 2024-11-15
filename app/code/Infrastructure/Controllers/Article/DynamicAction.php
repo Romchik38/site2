@@ -61,6 +61,6 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
     /** @todo return routes */
     public function getRoutes(): array
     {
-        return [];
+        return $this->articleViewService->listIds();
     }
 }

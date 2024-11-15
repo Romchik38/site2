@@ -11,4 +11,7 @@ interface ArticleViewRepositoryInterface
 {
     /** @throws NoSuchEntityException */
     public function getByIdAndLanguage(ArticleId $id, string $language): ArticleViewDTO;
+
+    /** all active article ids */
+    public function listIds(): array;
 }

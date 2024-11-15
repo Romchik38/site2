@@ -23,4 +23,9 @@ final class ArticleViewService
             $command->language()
         );
     }
+
+    /** all active article ids */
+    public function listIds(): array {
+        return $this->articleViewRepository->listIds();
+    } 
 }
