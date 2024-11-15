@@ -14,6 +14,8 @@ INSERT INTO translate_keys (key) VALUES
     ('article.view.seeall'),
     ('article.view.photo-by'),
     ('article.view.by'),
+    ('article.view.similar'),
+    ('article.view.continue.reading'),
     ('article.view.month.January'),
     ('article.view.month.February'),
     ('article.view.month.March'),
