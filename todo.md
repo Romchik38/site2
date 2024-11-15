@@ -6,7 +6,6 @@
 
 ## Current
 
-[-] refactor tests  
 [-] merge branches  
 [-] Single article page  
     [-] breadcramb  
