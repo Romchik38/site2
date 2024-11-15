@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Models\Errors\RepositoryConsistencyException;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
@@ -29,6 +30,11 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         if (count($rows) === 0) {
             throw new NoSuchEntityException(sprintf(
                 'Article with id %s not found',
+                $articleId
+            ));
+        } elseif (count($rows) > 1) {
+            throw new RepositoryConsistencyException(sprintf(
+                'Article with id %s has duplicate',
                 $articleId
             ));
         }
