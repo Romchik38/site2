@@ -14,6 +14,7 @@ use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\ArticleView\Find;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction\ViewDTO;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
@@ -43,9 +44,10 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
 
         /** we pass all checks and can send translate to view */
 
-        $dto = $this->defaultViewDTOFactory->create(
+        $dto = new ViewDTO(
             $article->name,
-            $article->shortDescription
+            $article->shortDescription,
+            $article
         );
 
         $result  = $this->view

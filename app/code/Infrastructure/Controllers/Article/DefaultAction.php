@@ -15,6 +15,7 @@ use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
+use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
 
@@ -27,7 +28,6 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly ViewDTOFactory $viewDTOFactory,
         protected readonly ArticleListViewService $articleListViewService,
         protected readonly CreatePaginationFactoryInterface $createPaginationFactory,
         protected readonly ServerRequestInterface $request,
@@ -71,7 +71,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         );
 
         /** 4. create a view dto */
-        $dto = $this->viewDTOFactory->create(
+        $dto = new ViewDTO(
             $translatedPageName,
             $translatedPageDescription,
             $articleList,

@@ -1,8 +1,143 @@
 {# 
-    data - Controller DTO
+    data            - Controller DTO
+    data.article    - ArticleViewDTO
 #}
 
 <div id="content" class="container-fluid mt-2">
-    <h1 class="text-center">{{ data.getName() }}</h1>
-    {{ data.getDescription() }}
+    <!-- Header start -->
+    <div class="container-xxl">
+        <div class="row my-3">
+            <div class="col-sm-6 d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h1>{{ data.getName() }}</h1>
+                    <p class="lead">{{ data.article.shortDescription }}</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <picture>
+                    <source media="(max-width: 576px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-576-576.jpg">
+                    <source media="(max-width: 768px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-768-768.jpg">
+                    <source media="(min-width: 768px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-1024-1024.jpg">
+                    <img 
+                        class="card-img-top"
+                        src="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-1024-1024.jpg" 
+                        alt="Procedure for checking the documents of vehicle drivers"
+                    >
+                </picture>
+            </div>
+        </div>
+    </div>
+    <!-- Header end -->
+
+             <!-- Main start -->
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-lg-6 m-auto">
+
+                    <!-- Infoline start -->
+                    <div class="row mt-2 my-3">
+                        <div class="text-secondary infoline">
+                            <div class="p-0 d-flex">
+                                <div class="me-3">By Denisenko Iva <a href="">see all</a></div>
+                                <div class="me-3">Photo By AI</div>
+                            </div>
+                            <p>10 sep 24 15:00</p>
+                        </div>
+                    </div>
+                    <!-- Infoline end -->
+
+                    <!-- Audio start -->
+                    <div class="row">
+                        <div>
+                            <audio 
+                                src="/media/audio/articles/en-Changes-in-driver-document.mp3" 
+                                controls
+                                crossorigin="anonymous">Listen to this article
+                            </audio>
+                        </div>
+                    </div>
+                    <!-- Audio end -->
+
+                    <!-- Content body start -->
+                    <div class="row my-3 content">
+                        <div>{{ data.article.description }}</div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <!-- Content body end -->
+
+                    <!-- Similar articles start -->
+                    <div class="row my-3">
+                        <div>
+                            <h2 class="text-center mb-3 background-line">Similar articles</h2>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                    <h5><a class="link-none" href="#">News 1</a></h5>
+                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
+                                            Lorem ipsum
+                                            dolor sit, amet
+                                            consectetur.</a></p>
+                                    <footer class="row text-secondary">
+                                        <div class="col-12 font-monospace comments">comments(2)</div>
+                                        <div class="col-12 font-monospace comments">6 hours ago</div>
+                                    </footer>
+                                </div>
+                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                    <h5><a class="link-none" href="#">News 2</a></h5>
+                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
+                                            Lorem ipsum
+                                            dolor sit, amet
+                                            consectetur.</a></p>
+                                    <footer class="row text-secondary">
+                                        <div class="col-12 font-monospace comments">comments(5)</div>
+                                        <div class="col-12 font-monospace comments">yesterday</div>
+                                    </footer>
+                                </div>
+                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                    <h5><a class="link-none" href="#">News 3</a></h5>
+                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
+                                            Lorem ipsum
+                                            dolor sit, amet
+                                            consectetur.</a></p>
+                                    <footer class="row text-secondary">
+                                        <div class="col-12 font-monospace comments">comments(0)</div>
+                                        <div class="col-12 font-monospace comments">2 days ago</div>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Similar articles end -->
+
+                    <!-- Continue reading start -->
+                    <div class="row my-3">
+                        <div class="col">
+                            <h2 class="text-center mb-3 background-line">Continue reading</h2>
+                            <div class="row">
+                                <div class="col col-sm-4">
+                                    <a class="btn" href="#">
+                                        <img class="img-fluid rounded-start"
+                                            src="/media/img/articles/dokazi-po-spravi/dokazi-po-spravi-576.webp"
+                                            alt="">
+                                    </a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <h5 class="card-title"><a href="#" class="link-none">Evidence in an Administrative Offense Case</a></h5>
+                                    <p class="card-text"><a href="#" class="link-none">Correct Interpretation and Application of Article 251 "Evidence" of the Code of Administrative Offenses. Modern Judicial Practice.</a></p>
+                                    <div><a href="#">Read</a></div>
+                                </div>
+                                <footer class="col-12 text-secondary">
+                                    <div class="row">
+                                        <div class="col-12 font-monospace comments">+10 new comments(21)</div>
+                                        <div class="col-12 font-monospace comments">6 hours ago</div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Continue reading end -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Main start -->
 </div>
