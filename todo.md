@@ -6,7 +6,6 @@
 
 ## Current
 
-[-] merge branches  
 [-] Single article page  
     [-] breadcramb  
     [-] authors  
@@ -16,6 +15,7 @@
     [-] categories
 [-] Display categories on the listing page or delete them from selecting  
 [-] Refactor Link  
+[-] move files to server  
 [-] deptrac  
 
 [-] bootstrap  
