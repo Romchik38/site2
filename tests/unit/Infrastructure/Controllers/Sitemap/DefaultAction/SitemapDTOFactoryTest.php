@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Site2\Models\DTO\Views\SitemapDTOFactory;
+use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
 
 class SitemapDTOFactoryTest extends TestCase
 {
