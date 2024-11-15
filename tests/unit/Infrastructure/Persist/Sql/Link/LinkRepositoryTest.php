@@ -3,10 +3,9 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Models\Link\Sql\LinkRepository;
+use Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository;
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Site2\Models\Link\Link;
-use Romchik38\Site2\Models\Link\LinkFactory;
+use Romchik38\Site2\Domain\Link\LinkFactory;
 
 class LinkRepositoryTest extends TestCase
 {
@@ -16,7 +15,7 @@ class LinkRepositoryTest extends TestCase
     public function setUp(): void
     {
         $this->database = $this->createMock(DatabaseInterface::class);
-        $this->factory = $this->createMock(LinkFactory::class);
+        $this->factory = new LinkFactory;
     }
 
     public function testGetLinksByLanguageAndPaths()
@@ -42,8 +41,6 @@ class LinkRepositoryTest extends TestCase
             $expression,
             ['uk', '{"root"}', '{"root","about"}']
         )->willReturn([$model1]);
-
-        $this->factory->method('create')->willReturn(new Link());
 
         $repository = new LinkRepository(
             $this->database,
