@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Views\Html\Classes\SitemapLinkTreeToHtml;
 use Romchik38\Server\Controllers\Controller;
 use Romchik38\Server\Models\DTO\Controller\ControllerDTOFactory;
 use Romchik38\Server\Models\DTO\Http\LinkTree\LinkTreeDTOFactory;
 use Romchik38\Server\Services\Mappers\Sitemap\Sitemap;
 use Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml;
 
 class SitemapLinkTreeToHtmlTest extends TestCase
 {
