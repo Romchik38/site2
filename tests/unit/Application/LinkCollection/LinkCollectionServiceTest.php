@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Models\DTO\Http\Link\LinkDTOCollectionUseVirtualRepository;
 use Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory;
-use Romchik38\Site2\Models\Link\Sql\LinkRepository;
+use Romchik38\Site2\Application\LinkCollection\LinkCollectionService;
+use Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository;
 use Romchik38\Server\Services\DynamicRoot\DynamicRoot;
 use Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTO;
 use Romchik38\Server\Models\Sql\DatabasePostgresql;
-use Romchik38\Site2\Models\Link\Link;
-use Romchik38\Site2\Models\Link\LinkFactory;
+use \Romchik38\Site2\Domain\Link\LinkFactory;
 
-class LinkDTOCollectionUseVirtualRepositoryTest extends TestCase
+class LinkCollectionServiceTest extends TestCase
 {
     protected $factory;
     protected $repository;
@@ -27,7 +26,7 @@ class LinkDTOCollectionUseVirtualRepositoryTest extends TestCase
         $this->dynamicRoot = $this->createMock(DynamicRoot::class);
         $this->dynamicRootDTO = $this->createMock(DynamicRootDTO::class);
         $this->database = $this->createMock(DatabasePostgresql::class);
-        $this->linkFactory = $this->createMock(LinkFactory::class);
+        $this->linkFactory = new LinkFactory;
     }
 
     public function testGetLinksByPaths()
@@ -50,7 +49,6 @@ class LinkDTOCollectionUseVirtualRepositoryTest extends TestCase
         ];
 
         $this->database->method('queryParams')->willReturn([$model1]);
-        $this->linkFactory->method('create')->willReturn(new Link());
 
         $repository = $this->createRepository();
 
@@ -59,7 +57,7 @@ class LinkDTOCollectionUseVirtualRepositoryTest extends TestCase
         $this->dynamicRoot->expects($this->once())->method('getCurrentRoot')
             ->willReturn($this->dynamicRootDTO);
 
-        $collection =  new LinkDTOCollectionUseVirtualRepository(
+        $collection =  new LinkCollectionService(
             $this->factory,
             $repository,
             $this->dynamicRoot
