@@ -18,9 +18,6 @@
 [-] move files to server  
 [-] deptrac  
 
-[-] bootstrap  
-    [-] timezone `Europe/Kyiv` check  
-
 ## Next
 
 [-] urlbuilder  
