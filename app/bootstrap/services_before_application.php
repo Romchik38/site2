@@ -32,7 +32,8 @@ return function (Container $container) {
         new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
             new Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory(
-                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat
+                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
+                $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
             )
         )
     );
