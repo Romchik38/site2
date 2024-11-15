@@ -52,8 +52,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             $row['short_description'],
             $row['description'],
             json_decode($row['category']),
-            $row['created_at'],
-            $row['updated_at']
+            $row['created_at']
         );
 
         return $articleViewDTO;

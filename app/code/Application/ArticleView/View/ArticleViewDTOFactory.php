@@ -20,17 +20,11 @@ final class ArticleViewDTOFactory
         string $shortDescription,
         string $description,
         array $categories,
-        string $createdAt,
-        string $updatedAt
+        string $createdAt
     ): ArticleViewDTO {
 
         $formattedCreatedAt = $this->dateFormatter->formatByString(
             new \DateTime($createdAt),
-            $this::DATE_FORMAT_CATEGORY_PAGE
-        );
-
-        $formattedUpdatedAt = $this->dateFormatter->formatByString(
-            new \DateTime($updatedAt),
             $this::DATE_FORMAT_CATEGORY_PAGE
         );
 
@@ -40,8 +34,7 @@ final class ArticleViewDTOFactory
             $shortDescription,
             $description,
             $categories,
-            $formattedCreatedAt,
-            $formattedUpdatedAt
+            $formattedCreatedAt
         );
     }
 }
