@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
 use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
-use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
+use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Sitemap\SitemapLinkTreeInterface;
 
 /**
@@ -20,7 +20,7 @@ use Romchik38\Site2\Infrastructure\Controllers\Sitemap\SitemapLinkTreeInterface;
 final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 {
     public function __construct(
-        protected SitemapInterface $sitemapService,
+        protected ControllerTreeInterface $controllerTreeService,
         protected LinkTreeInterface $linkTreeService
     ) {}
 
@@ -31,7 +31,7 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
      * */
     public function getSitemapLinkTree(ControllerInterface $controller): mixed
     {
-        $rootControllerDTO = $this->sitemapService->getRootControllerDTO($controller);
+        $rootControllerDTO = $this->controllerTreeService->getRootControllerDTO($controller);
         $linkTreeDTO = $this->linkTreeService->getLinkTreeDTO($rootControllerDTO);
         return $this->buildHtml($linkTreeDTO);
     }

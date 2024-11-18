@@ -52,7 +52,6 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Infrastructure\Controllers\Sitemap\SitemapLinkTreeInterface::class),
             new Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory,
-            $container->get(\Romchik38\Site2\Application\LinkCollection\LinkCollectionService::class)
         )
     );
 

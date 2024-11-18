@@ -42,7 +42,7 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml::class,
         new \Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml(
-            $container->get(\Romchik38\Server\Api\Services\Mappers\SitemapInterface::class),
+            new \Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree,
             $container->get(\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface::class)
         )
     );

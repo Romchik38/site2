@@ -9,7 +9,6 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Site2\Application\LinkCollection\LinkCollectionService;
 use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
 
 /**
@@ -25,8 +24,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        protected readonly SitemapDTOFactory $sitemapDTOFactory,
-        protected readonly LinkCollectionService $linkCollectionService
+        protected readonly SitemapDTOFactory $sitemapDTOFactory
     ) {}
 
     public function execute(): string

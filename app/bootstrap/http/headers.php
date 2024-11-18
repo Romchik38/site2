@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Romchik38\Container;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
-use Romchik38\Server\Api\Services\Mappers\SitemapInterface;
+use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
 use Romchik38\Server\Routers\Http\HeadersCollection;
 
 /** 
@@ -20,11 +20,11 @@ return function (Container $container): Container {
     $arr = [
         /** root => header root instance */
         new Romchik38\Site2\Infrastructure\Router\Http\RouterHeaders\Root(
-            SitemapInterface::ROOT_NAME, //   root
+            ControllerTreeInterface::ROOT_NAME, //   root
             HttpRouterInterface::REQUEST_METHOD_GET
         ),
         new Romchik38\Site2\Infrastructure\Router\Http\RouterHeaders\Root(
-            SitemapInterface::ROOT_NAME . $s . $a, // root<>*
+            ControllerTreeInterface::ROOT_NAME . $s . $a, // root<>*
             HttpRouterInterface::REQUEST_METHOD_GET
         ),
     ];
