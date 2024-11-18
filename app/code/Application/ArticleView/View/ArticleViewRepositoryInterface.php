@@ -14,4 +14,7 @@ interface ArticleViewRepositoryInterface
 
     /** all active article ids */
     public function listIds(): array;
+
+    /** @return array<int,ArticleIdNameDTO> */
+    public function listIdName(string $language): array;
 }

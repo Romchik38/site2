@@ -11,6 +11,7 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
+use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\ArticleView\Find;
@@ -61,6 +62,11 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
     /** @todo implement */
     public function getDynamicRoutes(): array
     {
+        $articles = $this->articleViewService->listIdsNames($this->getLanguage());
+        $routes = [];
+        foreach($articles as $article) {
+            $routes[] = new DynamicRouteDTO($article->name, $article->getDescription);
+        }
         return [];
     }
 

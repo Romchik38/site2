@@ -25,7 +25,16 @@ final class ArticleViewService
     }
 
     /** all active article ids */
-    public function listIds(): array {
+    public function listIds(): array
+    {
         return $this->articleViewRepository->listIds();
-    } 
+    }
+
+    /** all active article ids and names 
+     * @return array<int,ArticleIdNameDTO>
+    */
+    public function listIdsNames(string $language): array
+    {
+        return $this->articleViewRepository->listIdName($language);
+    }
 }

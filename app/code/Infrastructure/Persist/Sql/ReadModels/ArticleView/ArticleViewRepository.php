@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView;
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Errors\RepositoryConsistencyException;
+use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
@@ -57,6 +58,28 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             $ids[] = $row['identifier'];
         }
         return $ids;
+    }
+
+    
+    public function listIdName(string $language): array
+    {
+        $query = <<<QUERY
+        SELECT article.identifier, article_translates.name 
+        FROM article, article_translates
+        WHERE article.active = 'true' 
+            AND article.identifier = article_translates.article_id
+            AND article_translates.language = $1
+        QUERY;
+
+        $rows = $this->database->queryParams($query, [$language]);
+        $dtos = [];
+        foreach($rows as $row) {
+            $dtos[] = new ArticleIdNameDTO(
+                $row['identifier'],
+                $row['name'],
+            );
+        }
+        return $dtos;
     }
 
     protected function createFromRow(array $row): ArticleViewDTO
