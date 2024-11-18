@@ -12,9 +12,9 @@
                   {% set url = item.getUrl() %}
                   {% set active = '' %}
                   {% if length == count %}
-                    <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ description }}</li>
                   {% else %}
-                    <li class="breadcrumb-item"><a href="{{ url }}" title="{{ description }}">{{ name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url }}" title="{{ description }}">{{ description }}</a></li>
                   {% endif %}
                 {% endfor %}
               {% endif %}
