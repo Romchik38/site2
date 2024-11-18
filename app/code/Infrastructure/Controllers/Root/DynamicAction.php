@@ -10,6 +10,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
@@ -53,8 +54,30 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         return $result;
     }
 
-    public function getRoutes(): array
+    /** @todo implement */
+    public function getDynamicRoutes(): array
     {
-        return array_keys($this->actions);
+        return [];
+    }
+
+    /** 
+     * @todo implement
+     * Description of concrete dynamic route 
+     * @throws DynamicActionLogicException When description was not found
+     */
+    public function getDescription(string $dynamicRoute): string
+    {
+        $messageKey = $this->actions[$dynamicRoute] ?? null;
+
+        if ($messageKey === null) {
+            throw new DynamicActionLogicException(
+                sprintf(
+                    'Description not found in action %s',
+                    $dynamicRoute
+                )
+            );
+        }
+
+        return $dynamicRoute . ' page';
     }
 }
