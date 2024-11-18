@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
+use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
 
 /**
  * @todo move to server abstract part
@@ -22,7 +23,7 @@ final class ArticlePagination implements CreatePaginationInterface
 
     public function __construct(
         protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly Pagination $pagination,
+        protected readonly PaginationInterface $pagination,
         protected readonly int $displayed,
         protected readonly int $maxPageToShow = 5,
         protected readonly string $marker = '...'

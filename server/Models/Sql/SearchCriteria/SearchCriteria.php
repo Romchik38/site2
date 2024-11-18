@@ -18,11 +18,12 @@ abstract class SearchCriteria implements SearchCriteriaInterface
 {
     protected FilterInterface|null $filter = null;
 
+    /** @param array<int,OrderByInterface> $orderBy */
     public function __construct(
         protected readonly string $entityIdFieldName,
         protected readonly string $tableName,
-        protected Limit $limit,
-        protected Offset $offset,
+        protected LimitInterface $limit,
+        protected OffsetInterface $offset,
         protected array $orderBy = []
     ) {}
 
@@ -41,11 +42,11 @@ abstract class SearchCriteria implements SearchCriteriaInterface
         return $this->orderBy;
     }
 
-    public function limit(): Limit {
+    public function limit(): LimitInterface {
         return $this->limit;
     }
 
-    public function offset(): Offset {
+    public function offset(): OffsetInterface {
         return $this->offset;
     }
     

@@ -8,7 +8,10 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 interface UrlbuilderFactoryInterface
 {
-    /** @throws InvalidArgumentException params can't be empty */
+    /**
+     * @param array<int,string> $path
+     * @throws InvalidArgumentException params can't be empty 
+     * */
     public function create(
         array $path,
         string $language

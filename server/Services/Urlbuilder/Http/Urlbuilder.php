@@ -10,6 +10,9 @@ class Urlbuilder implements UrlbuilderInterface
 {
     protected readonly string $prefix;
 
+    /** 
+     * @param array<int,string> $path 
+     * */
     public function __construct(
         protected readonly array $path,
         protected readonly string $language,

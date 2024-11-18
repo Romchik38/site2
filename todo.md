@@ -2,7 +2,6 @@
 
 ## Current
 
-- merge branches
 - move files to server
 - phpstan
 
