@@ -13,6 +13,7 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
+    const DEFAULT_VIEW_NAME = 'root.page_name';
 
     public function __construct(
         protected readonly DynamicRootInterface $DynamicRootService,
@@ -23,8 +24,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
     public function execute(): string
     {
-
-        $messageKey = 'root.page_name';
+        $messageKey = $this->translateService->t($this::DEFAULT_VIEW_NAME);
         $translatedMessage = $this->translateService->t($messageKey);
 
         $dto = $this->defaultViewDTOFactory->create(
@@ -38,5 +38,10 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             ->toString();
 
         return $result;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translateService->t($this::DEFAULT_VIEW_NAME);
     }
 }

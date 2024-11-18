@@ -87,4 +87,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
         return $result;
     }
+
+    public function getDescription(): string
+    {
+        return $this->translateService->t($this::PAGE_NAME_KEY);
+    }
 }

@@ -17,8 +17,8 @@ use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOF
  */
 class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME = 'Sitemap';
-    const DEFAULT_VIEW_DESCRIPTION = 'Public sitemap - visit all our resources';
+    const DEFAULT_VIEW_NAME = 'sitemap.page_name';
+    const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
 
     public function __construct(
         protected readonly DynamicRootInterface $DynamicRootService,
@@ -31,23 +31,13 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
 
     public function execute(): string
     {
-        $name = $this::DEFAULT_VIEW_NAME;
-        $description = $this::DEFAULT_VIEW_DESCRIPTION;
-
-        $path = $this->getPath();
-        $links = $this->linkCollectionService->getLinksByPaths([$path]);
-        if (count($links) === 1) {
-            $link = $links[0];
-            $name = $link->getName();
-            $description = $link->getDescription();
-        }
 
         $output = $this->sitemapLinkTreeView
             ->getSitemapLinkTree($this->getController());
 
         $sitemapDTO = $this->sitemapDTOFactory->create(
-            $name,
-            $description,
+            $this->translateService->t($this::DEFAULT_VIEW_NAME),
+            $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION),
             $output
         );
 
@@ -57,4 +47,8 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         return $this->view->toString();
     }
 
+    public function getDescription(): string
+    {
+        return $this->translateService->t($this::DEFAULT_VIEW_NAME);
+    }
 }

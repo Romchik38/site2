@@ -91,4 +91,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         }
         return $file;
     }
+
+    public function getDescription(): string
+    {
+        return $this->translateService->t($this::DEFAULT_VIEW_NAME);
+    }
 }

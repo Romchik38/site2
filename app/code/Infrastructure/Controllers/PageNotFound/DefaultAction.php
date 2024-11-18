@@ -13,8 +13,8 @@ use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface {
 
-    const DEFAULT_VIEW_NAME = 'Page not found (404)';
-    const DEFAULT_VIEW_DESCRIPTION = 'Requested page was not found on our server';
+    const DEFAULT_VIEW_NAME = '404.page_name';
+    const DEFAULT_VIEW_DESCRIPTION = '404.description';
 
     public function __construct(
         protected readonly DynamicRootInterface $DynamicRootService,
@@ -26,8 +26,8 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
     public function execute(): string
     {
         $dto = $this->defaultViewDTOFactory->create(
-            $this::DEFAULT_VIEW_NAME,
-            $this::DEFAULT_VIEW_DESCRIPTION
+            $this->translateService->t($this::DEFAULT_VIEW_NAME),
+            $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION)
         );
 
         $result = $this->view
@@ -36,5 +36,9 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             ->toString();
 
         return $result;
+    }
+
+    public function getDescription(): string {
+        return $this->translateService->t($this::DEFAULT_VIEW_NAME);
     }
 }
