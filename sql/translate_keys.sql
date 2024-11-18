@@ -33,6 +33,7 @@ INSERT INTO translate_keys (key) VALUES
     ('root.contacts'),
     ('server-error.header'),
     ('server-error.message'),
+    ('server-error-example.page_name'),
     ('404.header'),
     ('404.message'),
     ('404.page_name'),
