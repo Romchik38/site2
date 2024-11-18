@@ -12,6 +12,7 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
+use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 
 final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
 {
@@ -54,17 +55,15 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         return $result;
     }
 
-    /** @todo implement */
     public function getDynamicRoutes(): array
     {
-        return [];
+        $dtos = [];
+        foreach ($this->actions as $route => $translateKey) {
+            $dtos[] = new DynamicRouteDTO($route, $this->translateService->t($translateKey));
+        }
+        return $dtos;
     }
 
-    /** 
-     * @todo implement
-     * Description of concrete dynamic route 
-     * @throws DynamicActionLogicException When description was not found
-     */
     public function getDescription(string $dynamicRoute): string
     {
         $messageKey = $this->actions[$dynamicRoute] ?? null;
@@ -78,6 +77,6 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
             );
         }
 
-        return $dynamicRoute . ' page';
+        return $this->translateService->t($messageKey);
     }
 }
