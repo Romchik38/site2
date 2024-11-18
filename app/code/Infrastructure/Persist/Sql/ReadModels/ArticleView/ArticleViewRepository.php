@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView;
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Errors\RepositoryConsistencyException;
+use Romchik38\Site2\Application\ArticleView\Find;
 use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
@@ -21,22 +22,25 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         protected ArticleViewDTOFactory $factory
     ) {}
 
-    public function getByIdAndLanguage(ArticleId $id, string $language): ArticleViewDTO
+    public function getByIdAndLanguage(Find $command): ArticleViewDTO
     {
-        $articleId = $id->toString();
+        $articleId = $command->id();
+        $language = $command->language();
         $params = [$language, $articleId];
 
         $rows = $this->database->queryParams($this->getByIdQuery(), $params);
 
         if (count($rows) === 0) {
             throw new NoSuchEntityException(sprintf(
-                'Article with id %s not found',
-                $articleId
+                'Article with id %s and language %s not found',
+                $articleId,
+                $language
             ));
         } elseif (count($rows) > 1) {
             throw new RepositoryConsistencyException(sprintf(
-                'Article with id %s has duplicate',
-                $articleId
+                'Article with id %s and language %s has duplicate',
+                $articleId,
+                $language
             ));
         }
 
@@ -54,13 +58,13 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
 
         $rows = $this->database->queryParams($query, []);
         $ids = [];
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $ids[] = $row['identifier'];
         }
         return $ids;
     }
 
-    
+
     public function listIdName(string $language): array
     {
         $query = <<<QUERY
@@ -73,7 +77,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
 
         $rows = $this->database->queryParams($query, [$language]);
         $dtos = [];
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $dtos[] = new ArticleIdNameDTO(
                 $row['identifier'],
                 $row['name'],

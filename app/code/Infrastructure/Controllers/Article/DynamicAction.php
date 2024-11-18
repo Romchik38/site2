@@ -10,6 +10,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
@@ -24,8 +25,6 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         protected readonly DynamicRootInterface $DynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        /** @todo create Article DTO */
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
         protected readonly ArticleViewService $articleViewService
     ) {}
 
@@ -59,24 +58,31 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         return $result;
     }
 
-    /** @todo implement */
     public function getDynamicRoutes(): array
     {
         $articles = $this->articleViewService->listIdsNames($this->getLanguage());
         $routes = [];
-        foreach($articles as $article) {
-            $routes[] = new DynamicRouteDTO($article->name, $article->getDescription);
+        foreach ($articles as $article) {
+            $routes[] = new DynamicRouteDTO($article->articleId, $article->name);
         }
-        return [];
+        return $routes;
     }
 
-    /** 
-     * @todo implement
-     * Description of concrete dynamic route 
-     * @throws DynamicActionLogicException When description was not found
-     */
     public function getDescription(string $dynamicRoute): string
     {
-        return 'Article page ' . $dynamicRoute;
+        try {
+            return $this->articleViewService
+                ->getArticleName(new Find(
+                    $dynamicRoute,
+                    $this->getLanguage()
+                ));
+        } catch (NoSuchEntityException $e) {
+            throw new DynamicActionLogicException(
+                sprintf(
+                    'Description not found in action %s',
+                    $dynamicRoute
+                )
+            );
+        }
     }
 }
