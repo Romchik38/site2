@@ -1,9 +1,5 @@
 # Todo
 
-[p] - in progress  
-[-] - not ready  
-[+] - ready  
-
 ## Current
 
 - merge branches
