@@ -58,7 +58,8 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         return $models;
     }
 
-    public function totalCount(): int {
+    public function totalCount(): int
+    {
         $query = <<<QUERY
         SELECT count(article.identifier) as count 
         FROM article 
@@ -76,6 +77,8 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
     /**
      * SELECT
      * used to select rows from all tables by given expression
+     * @param array<int,string> $params
+     * @return array<int,array<string,string>>
      */
     protected function listRows(
         string $queryBody,
@@ -90,6 +93,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         return $rows;
     }
 
+    /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleDTO
     {
         $articleDTO = $this->articleDTOFactory->create(
@@ -104,7 +108,8 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         return $articleDTO;
     }
 
-    protected function defaultQuery(): string {
+    protected function defaultQuery(): string
+    {
         return <<<QUERY
         WITH categories AS
         (

@@ -14,6 +14,7 @@ final class Pagination
         protected string $offset,
     ) {}
 
+    /** @param array<string,string> $hash */
     public static function fromRequest(array $hash): self
     {
         return new self(

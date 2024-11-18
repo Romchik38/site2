@@ -6,10 +6,12 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
 
 final class ViewDTO extends DefaultViewDTO
 {
+    /** @param array<int,ArticleDTO> $articleList */
     public function __construct(
         string $name,
         string $description,
@@ -20,6 +22,7 @@ final class ViewDTO extends DefaultViewDTO
         parent::__construct($name, $description);
     }
 
+    /** @return array<int,ArticleDTO> */
     public function getArticles(): array
     {
         return $this->articleList;
@@ -36,7 +39,7 @@ final class ViewDTO extends DefaultViewDTO
             public function __construct(
                 protected readonly UrlbuilderInterface $urlbuilder
             ) {}
-            public function addWithDelimiter($lastPart)
+            public function addWithDelimiter(string $lastPart): string
             {
                 return $this->urlbuilder->addWithDelimiter($lastPart);
             }

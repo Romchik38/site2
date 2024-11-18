@@ -9,10 +9,6 @@ use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
 
 final class Pagination implements PaginationInterface
 {
-    public const LIMIT_FIELD = 'limit';
-    public const PAGE_FIELD = 'page';
-    public const ORDER_BY_FIELD = 'order_by';
-    public const ORDER_BY_DIRECTION_FIELD = 'order_direction';
 
     public const DEFAULT_LIMIT = '15';
     public const ALLOWED_LIMITS = ['2', '5', '15', '30'];
@@ -46,13 +42,13 @@ final class Pagination implements PaginationInterface
         }
 
         // Set page 
-        if($page === '') {
+        if ($page === '') {
             $this->page = $this::DEFAULT_PAGE;
         } else {
             $pageInt = (int)$page;
-            if(
-                $pageInt <= 0 
-                || ($pageInt-1)*(int)$this->limit > $totalCount
+            if (
+                $pageInt <= 0
+                || ($pageInt - 1) * (int)$this->limit > $totalCount
             ) {
                 throw new InvalidArgumentException(
                     sprintf('param page %s is invalid', $page)
@@ -61,7 +57,7 @@ final class Pagination implements PaginationInterface
         }
 
         // Order by
-        if($orderByField === '') {
+        if ($orderByField === '') {
             $this->orderByField = $this::DEFAULT_ORDER_BY;
         } else {
             if (in_array($orderByField, $this::ALLOWED_ORDER_BYS) === false) {
@@ -72,7 +68,7 @@ final class Pagination implements PaginationInterface
         }
 
         // Order by Direction
-        if($orderByDirection === '') {
+        if ($orderByDirection === '') {
             $this->orderByDirection = $this::DEFAULT_ORDER_BY_DIRECTION;
         } else {
             if (in_array($orderByDirection, $this::ALLOWED_ORDER_BY_DIRECTIONS) === false) {
@@ -86,6 +82,7 @@ final class Pagination implements PaginationInterface
         $this->offset = (string)(((int)$this->page() - 1) * (int)$this->limit);
     }
 
+    /** @param array<string,string> $hash */
     public static function fromRequest(array $hash, int $totalCount): self
     {
         return new self(
@@ -97,21 +94,26 @@ final class Pagination implements PaginationInterface
         );
     }
 
-    public function limit(): string {
+    public function limit(): string
+    {
         return $this->limit;
     }
 
-    public function page(): string {
+    public function page(): string
+    {
         return $this->page;
     }
 
-    public function orderByField(): string {
+    public function orderByField(): string
+    {
         return $this->orderByField;
     }
-    public function orderByDirection(): string {
+    public function orderByDirection(): string
+    {
         return $this->orderByDirection;
     }
-    public function totalCount(): int {
+    public function totalCount(): int
+    {
         return $this->totalCount;
     }
 }

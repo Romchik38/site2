@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\ArticleListView\View;
 
 final class ArticleDTO
 {
+    /** @param string[] $categories */
     public function __construct(
         public readonly string $articleId,
         public readonly string $name,

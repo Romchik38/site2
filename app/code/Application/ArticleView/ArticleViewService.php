@@ -23,7 +23,10 @@ final class ArticleViewService
         return $this->articleViewRepository->getByIdAndLanguage($command);
     }
 
-    /** all active article ids */
+    /** 
+     * all active article ids 
+     * @return string[]
+     */
     public function listIds(): array
     {
         return $this->articleViewRepository->listIds();

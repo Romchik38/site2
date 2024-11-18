@@ -12,7 +12,6 @@ use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
@@ -49,6 +48,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         return $this->createFromRow($row);
     }
 
+    /** @return array<int,string> */
     public function listIds(): array
     {
         $query = <<<QUERY
@@ -86,6 +86,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         return $dtos;
     }
 
+    /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleViewDTO
     {
         $articleViewDTO = $this->factory->create(

@@ -9,6 +9,10 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class Article
 {
+    /** 
+     * @param array<string|int,ArticleTranslates> $translates
+     * @param array<string|int,ArticleCategory> $categories
+     */
     public function __construct(
         protected ArticleId $articleId,
         protected bool $active,

@@ -18,6 +18,7 @@ final class ArticleViewDTOFactory
         protected readonly TranslateInterface $translate
     ) {}
 
+    /** @param string[] $categories */
     public function create(
         string $articleId,
         string $name,

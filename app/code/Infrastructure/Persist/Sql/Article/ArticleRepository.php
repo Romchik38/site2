@@ -104,7 +104,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
 
         /** WHERE */
         $filter = $searchCriteria->getFilter();
-        if ($filter !== null){
+        if ($filter !== null) {
             $expression[] = sprintf(
                 'WHERE %s',
                 $filter->getExpression((string)++$paramCount)
@@ -135,7 +135,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         $limit = $searchCriteria->limit();
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
         $params[] = $limit->toString();
-        
+
         /** OFFSET */
         $offset = $searchCriteria->offset();
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
@@ -188,7 +188,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
      * Create all translates for one Model
      * 
      * @param array<int,array<string,string>> $articleRows rows of a single model, all article ids must be the same
-     * @return array<string,ArticleTranslates> a hash [language => ArticleTranslates, ...] 
+     * @return array<string|int,ArticleTranslates> a hash [language => ArticleTranslates, ...] 
      * */
     protected function createTranslatesFromRows(array $articleRows): array
     {
@@ -274,7 +274,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
      * Create all categories for one Model
      * 
      * @param array<int,array<string,string>> $articleRows rows of a single model, all article ids must be the same
-     * @return array<string,ArticleCategoryInterface> a hash [category_id => ArticleCategoryInterface, ...] 
+     * @return array<string|int,ArticleCategory> a hash [category_id => ArticleCategory, ...] or empty array 
      * */
     protected function createCategoriesFromRows(array $articleRows): array
     {
@@ -327,6 +327,10 @@ final class ArticleRepository implements ArticleRepositoryInterface
     /**
      * SELECT
      * used to select rows from all tables by given expression
+     * @param string[] $params
+     * @param string[] $selectedFields
+     * @param string[] $selectedTables
+     * @return array<int,array<string,string>>
      */
     protected function listRows(
         array $selectedFields,

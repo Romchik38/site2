@@ -14,6 +14,7 @@ final class ArticleDTOFactory
         protected readonly ReadLengthFormatterInterface $readLengthFormatter
     ) {}
 
+    /** @param string[] $categories */
     public function create(
         string $articleId,
         string $name,

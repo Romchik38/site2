@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ArticleListView;
 
+use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface;
 use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaFactoryInterface;
 
@@ -15,6 +16,7 @@ final class ArticleListViewService
         private readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
     ) {}
 
+    /** @return array<int,ArticleDTO> */
     public function list(Pagination $command, string $language): array {
 
         $searchCriteria = $this->searchCriteriaFactory->create(

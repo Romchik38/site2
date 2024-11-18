@@ -23,7 +23,6 @@ final class ArticleListService
      *  Limit + offset
      *  Any sorting 
      *  Any filters
-     * @param Pagination $pagination A CO to create a Search criteria
      * @return ArticleId[]
      */
     public function listArticles(Pagination $command): array
@@ -37,9 +36,9 @@ final class ArticleListService
 
         /** getting articles from database */
         $articleList = $this->articleRepository->list($searchCriteria);
-        
+
         $articleIdList = [];
-        foreach($articleList as $article){
+        foreach ($articleList as $article) {
             $articleIdList[] = $article->getId();
         }
 
@@ -65,12 +64,12 @@ final class ArticleListService
         $searchCriteria->addFilter(
             $this->articleFilterFactory->active()
         );
-        
+
         /** getting articles from the database */
         $articleList = $this->articleRepository->list($searchCriteria);
-        
+
         $articleIdList = [];
-        foreach($articleList as $article){
+        foreach ($articleList as $article) {
             $articleIdList[] = $article->getId();
         }
 

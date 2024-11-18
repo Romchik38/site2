@@ -2,6 +2,7 @@
 
 ## Current
 
+- check categories selection for articleDTO
 - move files to server
 - phpstan
 
