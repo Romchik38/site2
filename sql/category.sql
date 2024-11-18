@@ -1,7 +1,5 @@
 CREATE table
-    category (
-        identifier text UNIQUE NOT NULL
-    );
+    category (identifier text UNIQUE NOT NULL);
 
 CREATE table
     category_translates (
@@ -13,29 +11,52 @@ CREATE table
     );
 
 BEGIN;
-INSERT INTO category VALUES
+
+INSERT INTO
+    category
+VALUES
     ('category-1'),
     ('category-2'),
-    ('category-3')
-;
-INSERT INTO category_translates VALUES
+    ('category-3');
+
+INSERT INTO
+    category_translates
+VALUES
     (
-        'category-1', 
+        'category-1',
         'en',
         'Some category 1',
         'Category 1 represents articles ...'
     ),
-        (
-        'category-2', 
+    (
+        'category-2',
         'en',
         'Some category 2',
         'Category 2 represents articles ...'
     ),
-        (
-        'category-3', 
+    (
+        'category-3',
         'en',
         'Some category 3',
         'Category 3 represents articles ...'
-    )
-;
+    ),
+    (
+        'category-1',
+        'uk',
+        'Якась категорія 1',
+        'Категорія 1 містить матеріали з ...'
+    ),
+    (
+        'category-2',
+        'uk',
+        'Якась категорія 2',
+        'Категорія 2 містить матеріали з ...'
+    ),
+    (
+        'category-3',
+        'uk',
+        'Якась категорія 3',
+        'Категорія 3 містить матеріали з ...'
+    );
+
 COMMIT;
