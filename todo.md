@@ -6,16 +6,19 @@
 
 ## Current
 
-[-] Single article page  
-    [-] breadcramb  
-    [-] authors  
-    [-] photo  
-    [-] audio  
-    [-] img  
-    [-] categories
+- merge branches
+- move files to server
+- phpstan
+
+- Single article page  
+  - [+] breadcramb  
+  - authors  
+  - photo  
+  - audio  
+  - img  
+  - categories
 [-] Display categories on the listing page or delete them from selecting  
 [-] Refactor Link  
-[-] move files to server  
 [-] deptrac  
 
 ## Next
