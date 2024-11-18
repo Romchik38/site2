@@ -34,6 +34,8 @@ INSERT INTO translate_keys (key) VALUES
     ('server-error.header'),
     ('server-error.message'),
     ('server-error-example.page_name'),
+    ('sitemap.page_name'),
+    ('sitemap.description'),
     ('404.header'),
     ('404.message'),
     ('404.page_name'),
