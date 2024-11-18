@@ -24,8 +24,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
 
     public function execute(): string
     {
-        $messageKey = $this->translateService->t($this::DEFAULT_VIEW_NAME);
-        $translatedMessage = $this->translateService->t($messageKey);
+        $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
         $dto = $this->defaultViewDTOFactory->create(
             $translatedMessage,
