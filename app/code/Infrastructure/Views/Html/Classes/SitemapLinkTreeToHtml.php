@@ -55,13 +55,13 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 
         // 1. the element has not children
         if (count($children) === 0) {
-            $elemNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($name) . '</a>';
+            $elemNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
             $lastElementHtml = '<li>' . $elemNameHtml . '</li>';
             return $lastElementHtml;
         }
 
         // 2. the element has children
-        $rowNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($name) . '</a>';
+        $rowNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
         $rowElementsHtml = [];
         foreach ($children as $child) {
             $rowElemHtml = $this->createRow($child);
