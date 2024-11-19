@@ -14,7 +14,8 @@ final class ArticleViewDTO
         public readonly string $shortDescription,
         public readonly string $description,
         public readonly array $categories,
-        public readonly string $createdAt
+        public readonly string $createdAt,
+        public readonly AuthorDTO $author
     ) {
         
     }

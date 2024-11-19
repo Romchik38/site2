@@ -4,7 +4,7 @@
 
 - Single article page  
   - [+] breadcramb  
-  - authors  
+  - [+] authors  
   - photo  
   - audio  
   - img  

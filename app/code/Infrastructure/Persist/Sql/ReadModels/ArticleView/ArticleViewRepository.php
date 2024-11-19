@@ -12,6 +12,7 @@ use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
+use Romchik38\Site2\Application\ArticleView\View\AuthorDTO;
 
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
@@ -95,7 +96,12 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             $row['short_description'],
             $row['description'],
             json_decode($row['category']),
-            $row['created_at']
+            $row['created_at'],
+            new AuthorDTO(
+                $row['person_id'],
+                $row['first_name'],
+                $row['last_name']
+            )
         );
 
         return $articleViewDTO;
@@ -128,15 +134,21 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                     article.identifier = article_category.article_id AND
                     categories.category_id = article_category.category_id
             )
-        ) as category 
+        ) as category,
+        person_translates.person_id,
+        person_translates.first_name,
+        person_translates.last_name
         FROM
             article,
-            article_translates
+            article_translates,
+            person_translates
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
             AND article.active = 'true'
             AND article_translates.language = $1
+            AND person_translates.person_id = article.author_id
+            AND person_translates.language = $1
         QUERY;
     }
 }

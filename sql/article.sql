@@ -2,7 +2,7 @@ CREATE table
     article (
         identifier text UNIQUE NOT NULL,
         active boolean DEFAULT false,
-        person_id int NOT NULL REFERENCES persons (identifier) ON DELETE CASCADE ON UPDATE CASCADE
+        author_id int NOT NULL REFERENCES persons (identifier) ON DELETE CASCADE ON UPDATE CASCADE
     );
 
 CREATE table
@@ -25,7 +25,7 @@ CREATE table
     );
 
 BEGIN;
-INSERT INTO article (identifier, person_id) VALUES 
+INSERT INTO article (identifier, author_id) VALUES 
     ('article-1', 1),
     ('article-2', 1),
     ('article-3', 1),
