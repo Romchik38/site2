@@ -9,7 +9,6 @@
   - audio  
   - img  
   - categories
-[-] Display categories on the listing page or delete them from selecting  
 [-] Refactor Link  
 [-] deptrac  
 

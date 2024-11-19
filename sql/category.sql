@@ -3,8 +3,8 @@ CREATE table
 
 CREATE table
     category_translates (
-        category_id text NOT NULL REFERENCES category (identifier) ON DELETE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON DELETE CASCADE,
+        category_id text NOT NULL REFERENCES category (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
+        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE ON DELETE CASCADE,
         name text NOT NULL UNIQUE,
         description text NOT NULL,
         CONSTRAINT pk_articles_translates PRIMARY KEY (category_id, language)
@@ -17,7 +17,7 @@ INSERT INTO
 VALUES
     ('category-1'),
     ('category-2'),
-    ('category-3');
+    ('traffic');
 
 INSERT INTO
     category_translates
@@ -35,10 +35,10 @@ VALUES
         'Category 2 represents articles ...'
     ),
     (
-        'category-3',
+        'traffic',
         'en',
-        'Some category 3',
-        'Category 3 represents articles ...'
+        'Traffic law',
+        'Traffic law refers to the regulations and rules established by authorities to ensure the safe and efficient movement of vehicles and pedestrians on roads'
     ),
     (
         'category-1',
@@ -53,10 +53,10 @@ VALUES
         'Категорія 2 містить матеріали з ...'
     ),
     (
-        'category-3',
+        'traffic',
         'uk',
-        'Якась категорія 3',
-        'Категорія 3 містить матеріали з ...'
+        'Законодавство про дорожній рух',
+        'Все про закони про дорожній рух які стосуються правил і норм, встановлених владою для забезпечення безпеки та ефективного руху транспортних засобів і пішоходів на дорогах'
     );
 
 COMMIT;
