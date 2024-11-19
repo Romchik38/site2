@@ -2,8 +2,6 @@
 
 ## Current
 
-- move files to server
-
 - Single article page  
   - [+] breadcramb  
   - authors  
