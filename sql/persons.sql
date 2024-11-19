@@ -1,11 +1,11 @@
-CREATE table persons
+CREATE table person
 (
     identifier serial NOT NULL PRIMARY KEY
 );
 
 CREATE table
     person_translates (
-        person_id int NOT NULL REFERENCES persons (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
+        person_id int NOT NULL REFERENCES person (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
         language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE ON DELETE CASCADE,
         first_name text NOT NULL,
         last_name text NOT NULL,
@@ -13,7 +13,7 @@ CREATE table
         CONSTRAINT pk_person_translates PRIMARY KEY (person_id, language)
     );
 
-INSERT INTO persons (identifier) VALUES
+INSERT INTO person (identifier) VALUES
     (1), (2), (3)
 ;
 
