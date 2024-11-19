@@ -98,7 +98,28 @@ INSERT INTO article_translates (article_id, language, name, short_description, d
 
 INSERT INTO article_category VALUES
     ('article-1', 'category-1'),
-    ('article-1', 'category-2')
+    ('article-1', 'category-2'),
+    ('simplification-of-the-drivers-license-examination-process', 'category-3'),
+    ('article-2', 'category-2'),
+    ('article-3','category-1'),
+    ('article-4','category-1'),
+    ('article-5','category-2'),
+    ('article-6','category-2'),
+    ('article-7','category-2'),
+    ('article-8','category-3'),
+    ('article-9','category-3'),
+    ('article-10','category-3'),
+    ('article-11','category-1'),
+    ('article-12','category-1'),
+    ('article-13','category-2'),
+    ('article-14','category-2'),
+    ('article-15','category-1'),
+    ('article-16','category-2'),
+    ('article-17','category-1'),
+    ('article-18','category-3'),
+    ('article-19','category-3'),
+    ('article-20','category-2'),
+    ('article-21','category-2')
 ;
 COMMIT;
 

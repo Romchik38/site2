@@ -2,7 +2,6 @@
 
 ## Current
 
-- test SitemapLinkTreeToHtmlTest
 - Single article page  
   - [+] breadcramb  
   - authors  
@@ -16,7 +15,6 @@
 
 ## Next
 
-[-] urlbuilder  
 [-] tests  
     [-] TwigView  
 [-] move TwigView to module  
