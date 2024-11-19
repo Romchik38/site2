@@ -28,6 +28,7 @@ INSERT INTO translate_keys (key) VALUES
     ('article.view.month.October'),
     ('article.view.month.November'),
     ('article.view.month.December'),
+    ('article.category'),
     ('root.page_name'),
     ('root.about'),
     ('root.contacts'),

@@ -55,6 +55,8 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('article.view.month.October', 'uk', 'Жовтня'),
     ('article.view.month.November', 'uk', 'Листопада'),
     ('article.view.month.December', 'uk', 'Грудня'),
+    ('article.category', 'en', 'Category'),
+    ('article.category', 'uk', 'Категорія'),
     ('root.page_name', 'en', 'Home page'), 
     ('root.page_name', 'uk', 'Домашня сторінка'),
     ('root.about', 'en', 'About Page'),

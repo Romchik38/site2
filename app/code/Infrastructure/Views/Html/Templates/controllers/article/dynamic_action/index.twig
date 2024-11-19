@@ -42,6 +42,16 @@
                                 <div class="me-3">{{ translate.t('article.view.photo-by') }} AI</div>
                             </div>
                             <p>{{ data.article.createdAt }}</p>
+
+                            {% set categories = data.article.categories %}
+                            {% if categories|length > 0 %}
+                                <ul class="list-inline">{{ translate.t('article.category') }}:
+                                {% for category in categories %}
+                                    <li class="list-inline-item"><span class="text-decoration-underline">{{ category }}</span></li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                            
                         </div>
                     </div>
                     <!-- Infoline end -->

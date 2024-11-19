@@ -8,9 +8,9 @@
   - photo  
   - audio  
   - img  
-  - categories
-[-] Refactor Link  
-[-] deptrac  
+  - [+] categories
+- Refactor Link  
+- deptrac  
 
 ## Next
 
