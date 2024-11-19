@@ -1,7 +1,8 @@
 CREATE table
     article (
         identifier text UNIQUE NOT NULL,
-        active boolean DEFAULT false
+        active boolean DEFAULT false,
+        person_id int NOT NULL REFERENCES persons (identifier) ON DELETE CASCADE ON UPDATE CASCADE
     );
 
 CREATE table
@@ -24,29 +25,29 @@ CREATE table
     );
 
 BEGIN;
-INSERT INTO article (identifier) VALUES 
-    ('article-1'),
-    ('article-2'),
-    ('article-3'),
-    ('article-4'),
-    ('article-5'),
-    ('article-6'),
-    ('article-7'),
-    ('article-8'),
-    ('article-9'),
-    ('article-10'),
-    ('article-11'),
-    ('article-12'),
-    ('article-13'),
-    ('article-14'),
-    ('article-15'),
-    ('article-16'),
-    ('article-17'),
-    ('article-18'),
-    ('article-19'),
-    ('article-20'),
-    ('article-21'),
-    ('simplification-of-the-drivers-license-examination-process')
+INSERT INTO article (identifier, person_id) VALUES 
+    ('article-1', 1),
+    ('article-2', 1),
+    ('article-3', 1),
+    ('article-4', 1),
+    ('article-5', 1),
+    ('article-6', 1),
+    ('article-7', 1),
+    ('article-8', 1),
+    ('article-9', 1),
+    ('article-10', 1),
+    ('article-11', 1),
+    ('article-12', 1),
+    ('article-13', 1),
+    ('article-14', 1),
+    ('article-15', 1),
+    ('article-16', 1),
+    ('article-17', 1),
+    ('article-18', 1),
+    ('article-19', 1),
+    ('article-20', 1),
+    ('article-21', 1),
+    ('simplification-of-the-drivers-license-examination-process', 1)
 ;
 INSERT INTO article_translates (article_id, language, name, short_description, description)
     VALUES
