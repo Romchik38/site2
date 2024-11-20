@@ -2,6 +2,11 @@
 
 ## Current
 
+- img
+  - controller
+  - app
+  - domain
+  - repository
 - Single article page  
   - [+] breadcramb  
   - [+] authors  
@@ -11,6 +16,7 @@
   - [+] categories
 - Refactor Link  
 - deptrac  
+- implement Bad request chain Action -> Router
 
 ## Next
 
