@@ -11,12 +11,12 @@ use Romchik38\Server\Controllers\Controller;
  *  - entity - common
  *  - collection - http
  * 
-*/
+ */
 return function (Container $container) {
 
     /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
     $collection = $container->get(Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class);
-    
+
     /** GET */
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
@@ -48,10 +48,18 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction::class)
     );
 
+    $img = new Controller(
+        'img',
+        false,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Img\DefaultAction::class)
+    );
+
     $root
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
-        ->setChild($article);
+        ->setChild($article)
+        ->setChild($img);
 
     /** collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);

@@ -11,12 +11,10 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
-use Romchik38\Server\Services\Urlbuilder\Http\Urlbuilder;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTOFactory;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
 
 final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
