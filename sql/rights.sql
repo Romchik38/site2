@@ -18,3 +18,5 @@ GRANT select, insert, update on table
 GRANT select, insert, update on table 
     persons, person_translates
     to "service";
+
+GRANT select, insert, update on table img, img_translates to "service";

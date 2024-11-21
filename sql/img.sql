@@ -2,7 +2,8 @@ CREATE table
     img (
         identifier serial NOT NULL PRIMARY KEY,
         name text not NULL,
-        author_id int NOT NULL REFERENCES person (identifier) ON DELETE CASCADE ON UPDATE CASCADE
+        author_id int NOT NULL REFERENCES person (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
+        path text NOT NULL
     );
 
 CREATE table

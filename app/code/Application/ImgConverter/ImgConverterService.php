@@ -26,7 +26,7 @@ final class ImgConverterService
             Size::fromString($command->size),
         );
 
-        $img = $this->imgViewRepository->getById(new Id($command->id));
+        $img = $this->imgViewRepository->getById(Id::fromString($command->id));
 
         return '';
     }
