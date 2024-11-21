@@ -46,7 +46,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
     protected $hash = [];
 
     public function __construct(
-        protected DatabaseInterface $database
+        protected readonly DatabaseInterface $database
     ) {}
 
     public function getById(ArticleId $id): Article

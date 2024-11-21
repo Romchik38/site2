@@ -18,8 +18,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
 
     public function __construct(
-        protected DatabaseInterface $database,
-        protected ArticleViewDTOFactory $factory
+        protected readonly DatabaseInterface $database,
+        protected readonly ArticleViewDTOFactory $factory
     ) {}
 
     public function getByIdAndLanguage(Find $command): ArticleViewDTO
