@@ -100,13 +100,5 @@ return function ($container) {
         )
     );
 
-    // Img
-    $container->add(
-        Romchik38\Site2\Infrastructure\Controllers\Img\DefaultAction::class,
-        new Romchik38\Site2\Infrastructure\Controllers\Img\DefaultAction(
-            $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class),
-        )
-    );
-
     return $container;
 };

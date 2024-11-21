@@ -2,23 +2,20 @@
 
 declare(strict_types=1);
 
-use Romchik38\Server\Services\Request\Http\Request;
+use Romchik38\Server\Services\Request\Http\ServerRequest;
+use Romchik38\Server\Services\Request\Http\ServerRequestService;
 use Romchik38\Server\Services\Request\Http\UriFactory;
+use Romchik38\Site2\Infrastructure\Controllers\Img\ImgData;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
-$request = new Request(new UriFactory);
-$uri = $request->getUri();
-$scheme = $uri->getScheme();
-$host = $uri->getHost();
-$path = urlencode($uri->getPath());
-$controllerName = '/img';
-$location = sprintf(
-    '%s://%s%s?url=%s',
-    $scheme,
-    $host,
-    $controllerName,
-    $path
-);
+$request = new ServerRequest(new UriFactory, new ServerRequestService);
 
-header(sprintf('Location: %s', $location));
+$data = $request->getQueryParams();
+
+$command = ImgData::fromRequest($data);
+
+echo json_encode($command);
+
+
+
