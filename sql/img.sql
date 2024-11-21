@@ -13,3 +13,7 @@ CREATE table
         description text NOT NULL,
         CONSTRAINT pk_img_translates PRIMARY KEY (img_id, language)
     );
+
+INSERT INTO img (identifier, name, author_id, path) VALUES
+    (1, 'simplification-of-the-drivers-license-examination-process', 1, 'articles/simplification-of-the-drivers-license-examination-process/1.webp')
+;

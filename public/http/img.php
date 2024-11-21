@@ -10,14 +10,12 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
 
 $request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
-
-$data = $request->getQueryParams();
-
-$command = ImgData::fromRequest($data);
-
 $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
 
-//       /img.php?id=126&type=webp&aspect_ratio=1&size=576
+$data = $request->getQueryParams();
+$command = ImgData::fromRequest($data);
+
+//       /img.php?id=1&type=webp&aspect_ratio=1&size=576
 
 try {
     $imgConverterService->createImg($command);
