@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ImgConverter\View;
+namespace Romchik38\Site2\Domain\Img\VO;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
