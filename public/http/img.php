@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Services\Errors\FileLoaderException;
 use Romchik38\Site2\Infrastructure\Controllers\Img\ImgData;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
@@ -18,8 +19,11 @@ $command = ImgData::fromRequest($data);
 //       /img.php?id=1&type=webp&aspect_ratio=1&size=576
 
 try {
-    $imgConverterService->createImg($command);
-    echo 'ok';
+    $result = $imgConverterService->createImg($command);
+    header(sprintf(
+        'Content-Type: image/webp'
+    ));
+    echo $result;
 } catch (InvalidArgumentException) {
     http_response_code(400);
     echo 'Request parameters are invalid. Please check and try again';
