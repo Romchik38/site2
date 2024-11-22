@@ -54,6 +54,13 @@ final class Image
         $this->originalWidth = $originalWidth;
         $this->originalHeight = $dimensions[1];
 
+        if (
+            $this->originalWidth < $this->copyWidth
+            || $this->originalHeight < $this->copyHeight
+        ) {
+            throw new \RuntimeException('Target img side is bigger than original');
+        }
+
         $mime = $dimensions['mime'];
         if (!in_array($mime, self::ALLOWED_MIME)) {
             throw new \RuntimeException(sprintf(
