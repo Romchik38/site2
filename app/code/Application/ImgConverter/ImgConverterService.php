@@ -38,7 +38,11 @@ final class ImgConverterService
         // );
 
         $img = $this->imgViewRepository->getById(Id::fromString($command->id));
-        $imgFullPath = $this->imgPathPrefix . ($img->path())();
+        $imgFullPath = sprintf(
+            '%s/%s',
+            $this->imgPathPrefix,
+            ($img->path())()
+        );
 
         $image = new Image(
             $imgFullPath,
@@ -47,9 +51,7 @@ final class ImgConverterService
             Type::fromString($command->type)
         );
 
-//        $fileData = $this->fileLoader->load($imgPath());
-
-//        $resultData = $this->imgConverter->create($fileData, 'webp', 576, 576);
+        $this->imgConverter->create($image);
 
         return '';
     }

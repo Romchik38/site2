@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ImgConverter;
 
+use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
+
 interface ImgConverterInterface
 {
-    public function create(
-        string $data,
-        string $type,
-        int $width,
-        int $height
-    ): string;
+    public function create(Image $img): string;
 }
