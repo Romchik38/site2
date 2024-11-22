@@ -34,18 +34,6 @@ return function () {
         $container->get(\Romchik38\Server\Services\Request\Http\ServerRequest::class)
     );
 
-    // FileLoader
-    $container->add(
-        \Romchik38\Server\Services\FileLoader\FileLoader::class,
-        new \Romchik38\Server\Services\FileLoader\FileLoader(
-            __DIR__ . '/../public/http/media/img'
-        )
-    );
-    $container->add(
-        \Romchik38\Server\Api\Services\FileLoaderInterface::class,
-        $container->get(\Romchik38\Server\Services\FileLoader\FileLoader::class)
-    );
-
     // ImgViewRepository
     $container->add(
         Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter\ImgViewRepository::class,
@@ -73,7 +61,7 @@ return function () {
         Romchik38\Site2\Application\ImgConverter\ImgConverterService::class,
         new Romchik38\Site2\Application\ImgConverter\ImgConverterService(
             $container->get(\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\FileLoaderInterface::class),
+            __DIR__ . '/../public/http/media/img',
             $container->get(\Romchik38\Site2\Application\ImgConverter\ImgConverterInterface::class)
         )
     );

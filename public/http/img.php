@@ -21,7 +21,7 @@ try {
     exit(1);
 }
 
-//       /img.php?id=1&type=webp&aspect_ratio=1&size=576
+//       /img.php?id=1&type=webp&width=576&height=384
 
 try {
     $result = $imgConverterService->createImg($command);

@@ -8,14 +8,14 @@ final class ImgData
 {
     public const ID_FIELD = 'id';
     public const TYPE_FIELD = 'type';
-    public const ASPECT_RATIO_FIELD = 'aspect_ratio';
-    public const SIZE_FIELD = 'size';
+    public const WIDTH_FIELD = 'width';
+    public const HEIGHT_FIELD = 'height';
 
     public function __construct(
         public readonly string $id,
         public readonly string $type,
-        public readonly string $aspectRatio,
-        public readonly string $size
+        public readonly string $width,
+        public readonly string $height
     ) {}
 
     public static function fromRequest(array $hash): self
@@ -23,8 +23,8 @@ final class ImgData
         return new ImgData(
             $hash[self::ID_FIELD] ?? '',
             $hash[self::TYPE_FIELD] ?? '',
-            $hash[self::ASPECT_RATIO_FIELD] ?? '',
-            $hash[self::SIZE_FIELD] ?? '',
+            $hash[self::WIDTH_FIELD] ?? '',
+            $hash[self::HEIGHT_FIELD] ?? '',
         );
     }
 }

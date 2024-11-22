@@ -6,23 +6,23 @@ namespace Romchik38\Site2\Application\ImgConverter\View;
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
-final class Size
+final class Height
 {
-    protected const ALLOWED_VALUES = [576, 720, 768, 1080];
+    protected const ALLOWED_VALUES = [384, 480, 576, 720, 768, 1080];
 
     protected function __construct(
-        protected readonly int $size
+        protected readonly int $height
     ) {}
 
-    public static function fromString(string $size): self
+    public static function fromString(string $height): self
     {
-        $value = (int)$size;
+        $value = (int)$height;
 
         if (
-            !is_numeric($size)
+            !is_numeric($height)
             || !in_array($value, self::ALLOWED_VALUES)
         ) {
-            throw new InvalidArgumentException('param size is invalid');
+            throw new InvalidArgumentException('param height is invalid');
         }
 
 
@@ -31,6 +31,6 @@ final class Size
 
     public function __invoke(): int
     {
-        return $this->size;
+        return $this->height;
     }
 }
