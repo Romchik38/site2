@@ -9,6 +9,7 @@ use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
 class ImgConverter implements ImgConverterInterface
 {
+    /** must be in sinc with $this->createFrom() */
     protected array $capabilities = [
         'webp' => 'WebP Support'
     ];
@@ -20,7 +21,8 @@ class ImgConverter implements ImgConverterInterface
         }
     }
 
-    public function create(Image $img): string {
+    public function create(Image $img): string
+    {
 
         if ($this->checkGDcapabilities($img->originalType) === false) {
             throw new \RuntimeException(sprintf(
@@ -36,7 +38,77 @@ class ImgConverter implements ImgConverterInterface
             ));
         };
 
+        $copy = imagecreatetruecolor($img->copyWidth, $img->copyHeight);
+        $original = $this->createFrom($img->filePath, $img->originalType);
+
+        imagecopyresampled(
+            $copy,
+            $original,
+            0,
+            0,
+            0,
+            0,
+            $img->copyWidth,
+            $img->copyHeight,
+            $img->originalWidth,
+            $img->originalHeight
+        );
+
+
+
         return '';
+    }
+
+    protected function createFrom(string $path, string $type): \GdImage
+    {
+        $result = false;
+        if ($type === 'webp') {
+            $result = imagecreatefromwebp($path);
+        } else {
+            throw new \RuntimeException(
+                sprintf(
+                    'Image creation for type %s not supported',
+                    $type
+                )
+            );
+        }
+
+        if ($result === false) {
+            throw new \RuntimeException(
+                sprintf(
+                    'failed attempt to create image %s',
+                    $path
+                )
+            );
+        } else {
+            return $result;
+        }
+    }
+
+    protected function createTo(\GdImage $image, string $type): void
+    {
+        $result = false;
+        if ($type === 'webp') {
+            $result = imagewebp($image);
+        } else {
+            throw new \RuntimeException(
+                sprintf(
+                    'Image creation for type %s not supported',
+                    $type
+                )
+            );
+        }
+
+        if ($result === false) {
+            throw new \RuntimeException(
+                sprintf(
+                    'failed attempt to create image %s',
+                    $path
+                )
+            );
+        } else {
+            return $result;
+        }
     }
 
     protected function checkGDcapabilities(string $type): bool

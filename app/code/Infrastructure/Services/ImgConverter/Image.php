@@ -21,7 +21,7 @@ final class Image
 
     /** @todo ? is $filePath needed as property */
     public function __construct(
-        protected readonly string $filePath,
+        public readonly string $filePath,
         Width $copyWidth,
         Height $copyHeight,
         Type $copyType,
