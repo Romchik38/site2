@@ -54,9 +54,9 @@ class ImgConverter implements ImgConverterInterface
             $img->originalHeight
         );
 
+        $imgAsString = $this->createTo($copy, $img->copyType);
 
-
-        return '';
+        return $imgAsString;
     }
 
     protected function createFrom(string $path, string $type): \GdImage
@@ -85,11 +85,12 @@ class ImgConverter implements ImgConverterInterface
         }
     }
 
-    protected function createTo(\GdImage $image, string $type): void
+    protected function createTo(\GdImage $image, string $type): string
     {
         $result = false;
         if ($type === 'webp') {
-            $result = imagewebp($image);
+            ob_start();
+            imagewebp($image);
         } else {
             throw new \RuntimeException(
                 sprintf(
@@ -99,16 +100,11 @@ class ImgConverter implements ImgConverterInterface
             );
         }
 
-        if ($result === false) {
-            throw new \RuntimeException(
-                sprintf(
-                    'failed attempt to create image %s',
-                    $path
-                )
-            );
-        } else {
-            return $result;
+        if($result === false) {
+            throw new \RuntimeException('failed attempt to create a copy of image');
         }
+
+        return ob_get_clean();
     }
 
     protected function checkGDcapabilities(string $type): bool
