@@ -58,12 +58,23 @@ return function () {
         $container->get(Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter\ImgViewRepository::class)
     );
 
+    // ImgConverter
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Services\ImgConverter::class,
+        new \Romchik38\Site2\Infrastructure\Services\ImgConverter
+    );
+    $container->add(
+        \Romchik38\Site2\Application\ImgConverter\ImgConverterInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Services\ImgConverter::class)
+    );
+
     // ImgConverterService
     $container->add(
         Romchik38\Site2\Application\ImgConverter\ImgConverterService::class,
         new Romchik38\Site2\Application\ImgConverter\ImgConverterService(
             $container->get(\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\FileLoaderInterface::class)
+            $container->get(\Romchik38\Server\Api\Services\FileLoaderInterface::class),
+            $container->get(\Romchik38\Site2\Application\ImgConverter\ImgConverterInterface::class)
         )
     );
 

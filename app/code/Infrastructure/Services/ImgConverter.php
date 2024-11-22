@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services;
 
-class ImgConverter
+use Romchik38\Site2\Application\ImgConverter\ImgConverterInterface;
+
+class ImgConverter implements ImgConverterInterface
 {
     protected array $catabilities = [
         'webp' => 'WebP Support'
@@ -20,8 +22,8 @@ class ImgConverter
     public function create(
         string $data,
         string $type,
-        float $aspect,
-        int $size
+        int $width,
+        int $height
     ): string {
 
         if ($this->checkGDcapabilities($type) === false) {

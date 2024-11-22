@@ -19,7 +19,8 @@ final class ImgConverterService
 
     public function __construct(
         protected readonly ImgViewRepositoryInterface $imgViewRepository,
-        protected readonly FileLoaderInterface $fileLoader
+        protected readonly FileLoaderInterface $fileLoader,
+        protected readonly ImgConverterInterface $imgConverter
     ) {}
 
     /** 
@@ -39,6 +40,8 @@ final class ImgConverterService
 
         $fileData = $this->fileLoader->load($imgPath());
 
-        return $fileData;
+        $resultData = $this->imgConverter->create($fileData, 'webp', 576, 576);
+
+        return $resultData;
     }
 }

@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Services\Errors\FileLoaderException;
 use Romchik38\Site2\Infrastructure\Controllers\Img\ImgData;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
-$container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
 
-$request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
-$imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
+try {
+    $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
+    $request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
+    $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
 
-$data = $request->getQueryParams();
-$command = ImgData::fromRequest($data);
+    $data = $request->getQueryParams();
+    $command = ImgData::fromRequest($data);
+}  catch(\Exception){
+    http_response_code(500);
+    echo 'Server error, pleaser try again later';
+    exit(1);
+}
 
 //       /img.php?id=1&type=webp&aspect_ratio=1&size=576
 
