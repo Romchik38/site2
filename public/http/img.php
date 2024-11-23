@@ -25,10 +25,11 @@ try {
 
 try {
     $result = $imgConverterService->createImg($command);
+    $img = file_get_contents(__DIR__ . '/../../app/var/1.webp');
     header(sprintf(
         'Content-Type: image/webp'
     ));
-    echo $result;
+    echo $img;
 } catch (InvalidArgumentException) {
     http_response_code(400);
     echo 'Request parameters are invalid. Please check and try again';

@@ -89,8 +89,8 @@ class ImgConverter implements ImgConverterInterface
     {
         $result = false;
         if ($type === 'webp') {
-            ob_start();
-            imagewebp($image);
+            imagewebp($image, __DIR__ . '/../../../var/1.webp');
+            return '';
         } else {
             throw new \RuntimeException(
                 sprintf(
