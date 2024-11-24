@@ -18,6 +18,7 @@ final class Image
     public readonly int $copyWidth;
     public readonly int $copyHeight;
     public readonly string $copyType;
+    public readonly string $copyMimeType;
 
     /** @todo ? is $filePath needed as property */
     public function __construct(
@@ -76,5 +77,6 @@ final class Image
             ));
         }
         $this->copyType = $copyType();
+        $this->copyMimeType = 'image/' . $this->copyType;
     }
 }

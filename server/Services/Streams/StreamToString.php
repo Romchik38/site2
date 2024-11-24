@@ -16,7 +16,7 @@ class StreamToString implements StreamToStringInterface
     public function __invoke(
         callable $fn,
         int $resourceIndex,
-        array ...$args
+        ...$args
     ): string {
         $fp = fopen($this->protocol, $this->mode);
         if ($fp === false) {

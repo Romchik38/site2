@@ -8,6 +8,7 @@ use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Services\Errors\FileLoaderException;
 use Romchik38\Site2\Application\ImgConverter\View\AspectRatio;
 use Romchik38\Site2\Application\ImgConverter\View\Height;
+use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface;
 use Romchik38\Site2\Application\ImgConverter\View\Size;
 use Romchik38\Site2\Application\ImgConverter\View\Type;
@@ -26,17 +27,12 @@ final class ImgConverterService
     ) {}
 
     /** 
+     * @todo check exceptions
      * @throws NoSuchEntityException
-     * @throws FileLoaderException
+     * @throws \RuntimeException
      */
-    public function createImg(ImgData $command): string
+    public function createImg(ImgData $command): ImgResult
     {
-        // $createCriteria = new CreateCriteria(
-        //     Type::fromString($command->type),
-        //     AspectRatio::fromString($command->aspectRatio),
-        //     Size::fromString($command->size),
-        // );
-
         $img = $this->imgViewRepository->getById(Id::fromString($command->id));
         $imgFullPath = sprintf(
             '%s/%s',
@@ -44,15 +40,13 @@ final class ImgConverterService
             ($img->path())()
         );
 
-        $image = new Image(
+        $imgResult = $this->imgConverter->create(
             $imgFullPath,
             Width::fromString($command->width),
             Height::fromString($command->height),
             Type::fromString($command->type)
         );
 
-        $this->imgConverter->create($image);
-
-        return '';
+        return $imgResult;
     }
 }

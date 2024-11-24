@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services;
 
+use Romchik38\Server\Services\Streams\StreamToString;
 use Romchik38\Site2\Application\ImgConverter\ImgConverterInterface;
+use Romchik38\Site2\Application\ImgConverter\View\Height;
+use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
+use Romchik38\Site2\Application\ImgConverter\View\Type;
+use Romchik38\Site2\Application\ImgConverter\View\Width;
 use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
 class ImgConverter implements ImgConverterInterface
@@ -21,25 +26,35 @@ class ImgConverter implements ImgConverterInterface
         }
     }
 
-    public function create(Image $img): string
-    {
+    public function create(
+        string $filePath,
+        Width $copyWidth,
+        Height $copyHeight,
+        Type $copyType
+    ): ImgResult {
+        $image = new Image(
+            $filePath,
+            $copyWidth,
+            $copyHeight,
+            $copyType
+        );
 
-        if ($this->checkGDcapabilities($img->originalType) === false) {
+        if ($this->checkGDcapabilities($image->originalType) === false) {
             throw new \RuntimeException(sprintf(
                 'GD library do not support type %',
-                $img->originalType
+                $image->originalType
             ));
         };
 
-        if ($this->checkGDcapabilities($img->copyType) === false) {
+        if ($this->checkGDcapabilities($image->copyType) === false) {
             throw new \RuntimeException(sprintf(
                 'GD library do not support type %',
-                $img->copyType
+                $image->copyType
             ));
         };
 
-        $copy = imagecreatetruecolor($img->copyWidth, $img->copyHeight);
-        $original = $this->createFrom($img->filePath, $img->originalType);
+        $copy = imagecreatetruecolor($image->copyWidth, $image->copyHeight);
+        $original = $this->createFrom($image->filePath, $image->originalType);
 
         imagecopyresampled(
             $copy,
@@ -48,15 +63,15 @@ class ImgConverter implements ImgConverterInterface
             0,
             0,
             0,
-            $img->copyWidth,
-            $img->copyHeight,
-            $img->originalWidth,
-            $img->originalHeight
+            $image->copyWidth,
+            $image->copyHeight,
+            $image->originalWidth,
+            $image->originalHeight
         );
 
-        $imgAsString = $this->createTo($copy, $img->copyType);
+        $imgAsString = $this->createTo($copy, $image->copyType);
 
-        return $imgAsString;
+        return new ImgResult($image->copyMimeType, $imgAsString);
     }
 
     protected function createFrom(string $path, string $type): \GdImage
@@ -87,10 +102,12 @@ class ImgConverter implements ImgConverterInterface
 
     protected function createTo(\GdImage $image, string $type): string
     {
-        $result = false;
+        $result = '';
         if ($type === 'webp') {
-            imagewebp($image, __DIR__ . '/../../../var/1.webp');
-            return '';
+            $stream = new StreamToString();
+
+            //imagewebp($image, __DIR__ . '/../../../var/1.webp');
+            $result = $stream('imagewebp', 1, $image);
         } else {
             throw new \RuntimeException(
                 sprintf(
@@ -100,11 +117,7 @@ class ImgConverter implements ImgConverterInterface
             );
         }
 
-        if($result === false) {
-            throw new \RuntimeException('failed attempt to create a copy of image');
-        }
-
-        return ob_get_clean();
+        return $result;
     }
 
     protected function checkGDcapabilities(string $type): bool

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Site2\Application\ImgConverter\ImgConverterService;
 use Romchik38\Site2\Infrastructure\Controllers\Img\ImgData;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
@@ -11,6 +12,7 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 try {
     $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
     $request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
+    /** @var ImgConverterService $imgConverterService */
     $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
 
     $data = $request->getQueryParams();
@@ -25,11 +27,10 @@ try {
 
 try {
     $result = $imgConverterService->createImg($command);
-    $img = file_get_contents(__DIR__ . '/../../app/var/1.webp');
     header(sprintf(
-        'Content-Type: image/webp'
+        'Content-Type: ' . $result->type
     ));
-    echo $img;
+    echo $result->data;
 } catch (InvalidArgumentException) {
     http_response_code(400);
     echo 'Request parameters are invalid. Please check and try again';

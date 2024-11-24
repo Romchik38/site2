@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Services\FileLoader;
+namespace Romchik38\Server\Services\Files;
 
 use Romchik38\Server\Api\Services\FileLoaderInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
