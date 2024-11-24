@@ -71,7 +71,7 @@ class ImgConverter implements ImgConverterInterface
 
         $imgAsString = $this->createTo($copy, $image->copyType);
 
-        return new ImgResult($image->copyMimeType, $imgAsString);
+        return new ImgResult($image->copyType, $imgAsString);
     }
 
     protected function createFrom(string $path, string $type): \GdImage
@@ -105,8 +105,6 @@ class ImgConverter implements ImgConverterInterface
         $result = '';
         if ($type === 'webp') {
             $stream = new StreamToString();
-
-            //imagewebp($image, __DIR__ . '/../../../var/1.webp');
             $result = $stream('imagewebp', 1, $image);
         } else {
             throw new \RuntimeException(

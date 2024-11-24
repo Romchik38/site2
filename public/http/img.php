@@ -17,7 +17,7 @@ try {
 
     $data = $request->getQueryParams();
     $command = ImgData::fromRequest($data);
-}  catch(\Exception){
+} catch (\Exception) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
     exit(1);
@@ -28,7 +28,7 @@ try {
 try {
     $result = $imgConverterService->createImg($command);
     header(sprintf(
-        'Content-Type: ' . $result->type
+        'Content-Type: image/' . $result->type
     ));
     echo $result->data;
 } catch (InvalidArgumentException) {
