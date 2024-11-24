@@ -14,13 +14,14 @@ use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
 class ImgConverter implements ImgConverterInterface
 {
-    /** must be in sinc with $this->createFrom() */
+    /** must be in sinc with $this->createFrom() & createTo()*/
     protected array $capabilities = [
         'webp' => 'WebP Support'
     ];
 
-    public function __construct()
-    {
+    public function __construct(
+        protected readonly int $quality = 90
+    ) {
         if (extension_loaded('gd') === false) {
             throw new \RuntimeException('GD extension not loaded');
         }
@@ -32,6 +33,8 @@ class ImgConverter implements ImgConverterInterface
         Height $copyHeight,
         Type $copyType
     ): ImgResult {
+
+        // 1. Create an image with all data
         $image = new Image(
             $filePath,
             $copyWidth,
@@ -39,6 +42,7 @@ class ImgConverter implements ImgConverterInterface
             $copyType
         );
 
+        // 2. Check capabilities
         if ($this->checkGDcapabilities($image->originalType) === false) {
             throw new \RuntimeException(sprintf(
                 'GD library do not support type %',
@@ -53,20 +57,71 @@ class ImgConverter implements ImgConverterInterface
             ));
         };
 
-        $copy = imagecreatetruecolor($image->copyWidth, $image->copyHeight);
-        $original = $this->createFrom($image->filePath, $image->originalType);
+        // 3 calculate $temporaryWidth / $temporaryHeight
+        if ($image->copyWidth > $image->copyHeight) {
+            $minCopy = $image->copyWidth;
+        } else {
+            $minCopy = $image->copyHeight;
+        }
+        if ($image->originalWidth > $image->originalHeight) {
+            $scaleRatio = $image->originalHeight / $minCopy;
+        } else {
+            $scaleRatio = $image->originalWidth / $minCopy;
+        }
+        $temporaryWidth = (int)($image->originalWidth / $scaleRatio);
+        $temporaryHeight = (int)($image->originalHeight / $scaleRatio);
 
-        imagecopyresampled(
-            $copy,
+        // 4. Load original image
+        $original = $this->createFrom($image->filePath, $image->originalType);
+        // 5. Create temporary copy
+        $temporary = imagecreatetruecolor($temporaryWidth, $temporaryHeight);
+        if ($temporary === false) {
+            throw new \RuntimeException(
+                sprintf('Cannot create temporary image for %s', $image->filePath)
+            );
+        }
+
+        // 6. Fill temporary
+        $resultFillTemporary = imagecopyresampled(
+            $temporary,
             $original,
             0,
             0,
             0,
             0,
-            $image->copyWidth,
-            $image->copyHeight,
+            $temporaryWidth,
+            $temporaryHeight,
             $image->originalWidth,
             $image->originalHeight
+        );
+        if ($resultFillTemporary === false) {
+            throw new \RuntimeException(
+                sprintf('Cannot fill temporary image for %s', $image->filePath)
+            );
+        }
+
+        $copy = imagecreatetruecolor($image->copyWidth, $image->copyHeight);
+        if ($copy === false) {
+            throw new \RuntimeException(
+                sprintf('Cannot create copy image for %s', $image->filePath)
+            );
+        }
+
+        // 8. Define indent
+        $srcX = (int)round(($temporaryWidth - $image->copyWidth) / 2, 0, PHP_ROUND_HALF_DOWN);
+        $srcY = (int)round(($temporaryHeight - $image->copyHeight) / 2, 0, PHP_ROUND_HALF_DOWN);
+
+        imagecopyresampled(
+            $copy,
+            $temporary,
+            0,
+            0,
+            $srcX,
+            $srcY,
+            $image->copyWidth,
+            $image->copyHeight,
+            $image->copyWidth,
+            $image->copyHeight,
         );
 
         $imgAsString = $this->createTo($copy, $image->copyType);
@@ -105,7 +160,7 @@ class ImgConverter implements ImgConverterInterface
         $result = '';
         if ($type === 'webp') {
             $stream = new StreamToString();
-            $result = $stream('imagewebp', 1, $image);
+            $result = $stream('imagewebp', 1, $image, null, $this->quality);
         } else {
             throw new \RuntimeException(
                 sprintf(

@@ -20,7 +20,6 @@ final class Image
     public readonly string $copyType;
     public readonly string $copyMimeType;
 
-    /** @todo ? is $filePath needed as property */
     public function __construct(
         public readonly string $filePath,
         Width $copyWidth,
@@ -59,7 +58,15 @@ final class Image
             $this->originalWidth < $this->copyWidth
             || $this->originalHeight < $this->copyHeight
         ) {
-            throw new \RuntimeException('Target img side is bigger than original');
+            throw new \RuntimeException(
+                sprintf(
+                    'Image too small to resize. Original width %s, height %s. Copy width %s, height %s',
+                    $this->originalWidth,
+                    $this->originalHeight,
+                    $this->copyWidth,
+                    $this->copyHeight
+                )
+            );
         }
 
         $mime = $dimensions['mime'];
