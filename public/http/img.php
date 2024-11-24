@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ImgConverter\ImgConverterService;
@@ -14,18 +15,18 @@ try {
     $request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
     /** @var ImgConverterService $imgConverterService */
     $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
-
-    $data = $request->getQueryParams();
-    $command = ImgData::fromRequest($data);
 } catch (\Exception) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
     exit(1);
 }
 
-//       /img.php?id=1&type=webp&width=576&height=384
+//  query example: id=1&type=webp&width=576&height=384
 
 try {
+    /** @var ServerRequestInterface $request */
+    $data = $request->getQueryParams();
+    $command = ImgData::fromRequest($data);
     $result = $imgConverterService->createImg($command);
     header(sprintf(
         'Content-Type: image/' . $result->type
@@ -40,4 +41,6 @@ try {
 } catch (\Exception) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
+} finally {
+    exit();
 }
