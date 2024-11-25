@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
+use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 use Romchik38\Server\Services\Request\Http\ServerRequestService;
 use Romchik38\Server\Services\Request\Http\UriFactory;
 
@@ -10,6 +11,10 @@ return function () {
     $container = new Container();
 
     $configDatabase = require_once(__DIR__ . '/config/private/database.php');
+
+    $configImg = require_once(__DIR__ . '/config/shared/images.php');
+    $configImgFolderBackend =  $configImg['img-folder-backend'] ??
+        throw new MissingRequiredParameterInFileError('Missing config field: img-folder-backend');
 
     // DATABASES
     $container->add(
@@ -61,7 +66,7 @@ return function () {
         Romchik38\Site2\Application\ImgConverter\ImgConverterService::class,
         new Romchik38\Site2\Application\ImgConverter\ImgConverterService(
             $container->get(\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface::class),
-            __DIR__ . '/../public/http/media/img',
+            $configImgFolderBackend,
             $container->get(\Romchik38\Site2\Application\ImgConverter\ImgConverterInterface::class)
         )
     );

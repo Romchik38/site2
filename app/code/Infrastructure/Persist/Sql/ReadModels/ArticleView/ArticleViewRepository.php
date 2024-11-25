@@ -13,13 +13,15 @@ use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Application\ArticleView\View\AuthorDTO;
+use Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory;
 
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
 
     public function __construct(
         protected readonly DatabaseInterface $database,
-        protected readonly ArticleViewDTOFactory $factory
+        protected readonly ArticleViewDTOFactory $factory,
+        protected readonly ImageDTOFactory $imageDTOFactory
     ) {}
 
     public function getByIdAndLanguage(Find $command): ArticleViewDTO
@@ -119,29 +121,34 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             WHERE category_translates.language = $1
         ) 
         SELECT article.identifier,
-        article_translates.name,
-        article_translates.short_description,
-        article_translates.description,
-        article_translates.created_at,
-        article_translates.updated_at,
-        array_to_json (
-            array (
-                select
-                    categories.name
-                from
-                    categories, article_category
-                where
-                    article.identifier = article_category.article_id AND
-                    categories.category_id = article_category.category_id
-            )
-        ) as category,
-        person_translates.person_id,
-        person_translates.first_name,
-        person_translates.last_name
+            article_translates.name,
+            article_translates.short_description,
+            article_translates.description,
+            article_translates.created_at,
+            article_translates.updated_at,
+            array_to_json (
+                array (
+                    select
+                        categories.name
+                    from
+                        categories, article_category
+                    where
+                        article.identifier = article_category.article_id AND
+                        categories.category_id = article_category.category_id
+                )
+            ) as category,
+            person_translates.person_id,
+            person_translates.first_name,
+            person_translates.last_name,
+            img.path,
+            img_translates.img_id,
+            img_translates.description as img_description
         FROM
             article,
             article_translates,
-            person_translates
+            person_translates,
+            img,
+            img_translates
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
@@ -149,6 +156,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND article_translates.language = $1
             AND person_translates.person_id = article.author_id
             AND person_translates.language = $1
+            AND img_translates.img_id = article.img_id
+            AND img_translates.language = $1
         QUERY;
     }
 }
