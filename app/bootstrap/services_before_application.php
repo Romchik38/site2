@@ -8,11 +8,11 @@ use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 return function (Container $container) {
 
     $configImg = require_once(__DIR__ . '/../config/shared/images.php');
-    $configImgFolderFrontend =  $configImg['img-folder-frontend'] ?? 
+    $configImgFolderFrontend =  $configImg['img-folder-frontend'] ??
         throw new MissingRequiredParameterInFileError('Missing config field: img-folder-frontend');
-        
+
     $configAudio = require_once(__DIR__ . '/../config/shared/audio.php');
-    $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ?? 
+    $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ??
         throw new MissingRequiredParameterInFileError('Missing config field: audio-folder-frontend');
 
     // ArticleListViewRepository

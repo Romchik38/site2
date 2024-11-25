@@ -20,7 +20,7 @@ try {
     $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
     /** @var ImageCacheService $imgCacheService */
     $imgCacheService = $container->get(\Romchik38\Site2\Application\ImageCache\ImageCacheService::class);
-} catch (\Exception) {
+} catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
     exit(1);

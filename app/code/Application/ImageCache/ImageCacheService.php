@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\ImageCache;
 
 use Romchik38\Site2\Domain\ImageCache\ImageCache;
+use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
 
 final class ImageCacheService
 {
+    public function __construct(
+        protected readonly ImageCacheRepositoryInterface $imageCacheRepository
+    ) {}
     public function save(Cache $command): void
     {
         $imgCache = new ImageCache(
@@ -19,6 +23,6 @@ final class ImageCacheService
             new Type($command->type),
         );
 
-        $a = 1;
+        $this->imageCacheRepository->add($imgCache);
     }
 }

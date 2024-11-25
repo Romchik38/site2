@@ -10,6 +10,8 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 final class CreatedAt
 {
+    protected const DEFAULT_FORMAT = 'Y-m-d H:i:s';
+
     public function __construct(
         protected readonly DateTime $createdAt
     ) {}
@@ -30,5 +32,10 @@ final class CreatedAt
     public function __invoke(): DateTimeImmutable
     {
         return DateTimeImmutable::createFromMutable($this->createdAt);
+    }
+
+    public function toString(): string
+    {
+        return $this->createdAt->format(self::DEFAULT_FORMAT);
     }
 }
