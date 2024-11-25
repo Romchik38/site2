@@ -6,7 +6,7 @@
   - [+] breadcramb  
   - [+] authors  
   - [+] photo  
-  - audio  
+  - [+] audio  
   - [+] img  
   - [+] categories
 - img

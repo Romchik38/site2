@@ -11,6 +11,10 @@ return function (Container $container) {
     $configImgFolderFrontend =  $configImg['img-folder-frontend'] ?? 
         throw new MissingRequiredParameterInFileError('Missing config field: img-folder-frontend');
         
+    $configAudio = require_once(__DIR__ . '/../config/shared/audio.php');
+    $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ?? 
+        throw new MissingRequiredParameterInFileError('Missing config field: audio-folder-frontend');
+
     // ArticleListViewRepository
     $container->add(
         \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class,
@@ -38,7 +42,10 @@ return function (Container $container) {
                 new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
                 $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             ),
-            new Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory($configImgFolderFrontend)
+            new Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory($configImgFolderFrontend),
+            new Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory(
+                $configAudioFolderFrontend
+            )
         )
     );
     $container->add(

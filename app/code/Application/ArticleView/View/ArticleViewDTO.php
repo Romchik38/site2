@@ -17,5 +17,6 @@ final class ArticleViewDTO
         public readonly string $createdAt,
         public readonly AuthorDTO $author,
         public readonly ImageDTO $image,
+        public readonly AudioDTO $audio
     ) {}
 }

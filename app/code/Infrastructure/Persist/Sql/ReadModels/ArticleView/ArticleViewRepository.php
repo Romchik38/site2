@@ -12,6 +12,7 @@ use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
+use Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\AuthorDTO;
 use Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory;
 
@@ -21,7 +22,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
     public function __construct(
         protected readonly DatabaseInterface $database,
         protected readonly ArticleViewDTOFactory $factory,
-        protected readonly ImageDTOFactory $imageDTOFactory
+        protected readonly ImageDTOFactory $imageDTOFactory,
+        protected readonly AudioDTOFactory $audioDTOFactory
     ) {}
 
     public function getByIdAndLanguage(Find $command): ArticleViewDTO
@@ -106,9 +108,13 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             ),
             $this->imageDTOFactory->create(
                 $row['img_id'],
-                $row['path'],
+                $row['img_path'],
                 $row['img_description'],
                 $row['img_author_full_name']
+            ),
+            $this->audioDTOFactory->create(
+                $row['audio_path'],
+                $row['audio_description'],
             )
         );
 
@@ -153,18 +159,21 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             person_translates.person_id,
             person_translates.first_name,
             person_translates.last_name,
-            img.path,
+            img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description,
             authors.person_id as img_author_id,
-            concat(authors.first_name,' ', authors.last_name) as img_author_full_name
+            concat(authors.first_name,' ', authors.last_name) as img_author_full_name,
+            article_audio_translates.description as audio_description,
+            article_audio_translates.path as audio_path
         FROM
             article,
             article_translates,
             person_translates,
             img,
             img_translates,
-            authors
+            authors,
+            article_audio_translates
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
@@ -175,6 +184,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
             AND authors.person_id = img.author_id
+            AND article_audio_translates.article_id = article.identifier
+            AND article_audio_translates.language = $1
         QUERY;
     }
 }

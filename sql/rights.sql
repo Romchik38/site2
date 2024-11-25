@@ -8,7 +8,10 @@ GRANT select, insert, update on table translate_lang to "apache";
 GRANT select, insert, update on table links, links_translates to "apache";
 
 GRANT select, insert, update on table 
-    article, article_translates, article_category 
+    article, 
+    article_translates, 
+    article_category, 
+    article_audio_translates
     to "apache";
 
 GRANT select, insert, update on table 

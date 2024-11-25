@@ -9,6 +9,7 @@ CREATE table
 CREATE table
     article_translates (
         article_id text NOT NULL REFERENCES article (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
+        -- remove on delete
         language text NOT NULL REFERENCES translate_lang (language) ON DELETE CASCADE ON UPDATE CASCADE,
         name text NOT NULL UNIQUE,
         short_description NOT NULL text,
@@ -16,6 +17,14 @@ CREATE table
         created_at timestamp NOT NULL DEFAULT current_timestamp,
         updated_at timestamp NOT NULL DEFAULT current_timestamp,
         CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language)
+    );
+
+CREATE table
+    article_audio_translates(
+        article_id text NOT NULL REFERENCES article (identifier) ON UPDATE CASCADE,
+        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE,
+        description text NOT NULL,
+        path text NOT NULL
     );
 
 CREATE table
@@ -128,4 +137,8 @@ INSERT INTO article_category VALUES
 ;
 COMMIT;
 
+INSERT INTO article_audio_translates (article_id, language, description, path) VALUES
+    ('simplification-of-the-drivers-license-examination-process', 'en', 'Simplification of the driver''s license examination process audio', 'articles/simplification-of-the-drivers-license-examination-process/en-simplification-of-the-driver''s-license-examination-process.mp3'),
+    ('simplification-of-the-drivers-license-examination-process', 'uk', 'Спрощення процесу складання іспитів на права аудіо', 'articles/simplification-of-the-drivers-license-examination-process/uk-sproshennya-procesu-skladannya-ispitiv-na-prava.mp3')
+;
 --getById query - ./article/getById.sql

@@ -27,7 +27,8 @@ final class ArticleViewDTOFactory
         array $categories,
         string $createdAt,
         AuthorDTO $author,
-        ImageDTO $image
+        ImageDTO $image,
+        AudioDTO $audio
     ): ArticleViewDTO {
 
         $date = new \DateTime($createdAt);
@@ -62,7 +63,8 @@ final class ArticleViewDTOFactory
             $categories,
             $formattedCreatedAt,
             $author,
-            $image
+            $image,
+            $audio
         );
     }
 }
