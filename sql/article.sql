@@ -21,7 +21,7 @@ CREATE table
 CREATE table
     article_category (
         article_id text NOT NULL REFERENCES article (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
-        category_id text NOT NULL REFERENCES category (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
+        category_id text NOT NULL REFERENCES category (identifier) ON UPDATE CASCADE,
         CONSTRAINT pk_article_category PRIMARY KEY (article_id, category_id)
     );
 
