@@ -71,5 +71,11 @@ return function () {
         )
     );
 
+    // Image Cache Service
+    $container->add(
+        \Romchik38\Site2\Application\ImageCache\ImageCacheService::class,
+        new \Romchik38\Site2\Application\ImageCache\ImageCacheService
+    );
+
     return $container;
 };

@@ -11,12 +11,14 @@ use Romchik38\Site2\Domain\ImageCache\VO\Type;
 
 final class ImageCacheService
 {
-    public function save(Cache $command)
+    public function save(Cache $command): void
     {
         $imgCache = new ImageCache(
             new Key($command->key),
             new Data($command->data),
             new Type($command->type),
         );
+
+        $a = 1;
     }
 }
