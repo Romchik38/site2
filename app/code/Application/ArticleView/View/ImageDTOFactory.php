@@ -21,7 +21,8 @@ final class ImageDTOFactory
     public function create(
         string $img_id,
         string $path,
-        string $description
+        string $description,
+        string $author
     ): ImageDTO {
         if (str_starts_with($path, '/')) {
             $fullPath = $this->pathPrefix . $path;
@@ -32,7 +33,8 @@ final class ImageDTOFactory
         return new ImageDTO(
             $img_id,
             $fullPath,
-            $description
+            $description,
+            $author
         );
     }
 }

@@ -9,6 +9,7 @@ final class ImageDTO
     public function __construct(
         public readonly string $imgId,
         public readonly string $path,
-        public readonly string $description
+        public readonly string $description,
+        public readonly string $author,
     ) {}
 }

@@ -107,7 +107,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             $this->imageDTOFactory->create(
                 $row['img_id'],
                 $row['path'],
-                $row['img_description']
+                $row['img_description'],
+                $row['img_author_full_name']
             )
         );
 
@@ -124,7 +125,14 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 category_translates.name
             FROM category_translates
             WHERE category_translates.language = $1
-        ) 
+        ), authors AS
+        (
+            SELECT person_translates.person_id,
+                person_translates.first_name,
+                person_translates.last_name
+            FROM person_translates
+            WHERE person_translates.language = $1
+        )    
         SELECT article.identifier,
             article_translates.name,
             article_translates.short_description,
@@ -147,13 +155,16 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             person_translates.last_name,
             img.path,
             img_translates.img_id,
-            img_translates.description as img_description
+            img_translates.description as img_description,
+            authors.person_id as img_author_id,
+            concat(authors.first_name,' ', authors.last_name) as img_author_full_name
         FROM
             article,
             article_translates,
             person_translates,
             img,
-            img_translates
+            img_translates,
+            authors
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
@@ -163,6 +174,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND person_translates.language = $1
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
+            AND authors.person_id = img.author_id
         QUERY;
     }
 }
