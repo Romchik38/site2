@@ -17,3 +17,8 @@ CREATE table
 INSERT INTO img (identifier, name, author_id, path) VALUES
     (1, 'simplification-of-the-drivers-license-examination-process', 1, 'articles/simplification-of-the-drivers-license-examination-process/1.webp')
 ;
+
+INSERT INTO img_translates (img_id, language, description) VALUES
+    ('1', 'en', 'Simplification of the drivers license examination process last year'),
+    ('1', 'uk', 'Минулого року спрощено процедуру іспиту на отримання водійських прав')
+;
