@@ -23,3 +23,5 @@ GRANT select, insert, update on table
     to "apache";
 
 GRANT select, insert, update on table img, img_translates to "apache";
+
+GRANT select, insert, update on table img_cache to "apache";
