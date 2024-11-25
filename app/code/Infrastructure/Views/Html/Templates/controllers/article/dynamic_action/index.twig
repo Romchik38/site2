@@ -15,13 +15,13 @@
             </div>
             <div class="col-sm-6">
                 <picture>
-                    <source media="(max-width: 576px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-576-576.jpg">
-                    <source media="(max-width: 768px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-768-768.jpg">
-                    <source media="(min-width: 768px)" srcset="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-1024-1024.jpg">
+                    <source media="(max-width: 576px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=576&height=576">
+                    <source media="(max-width: 768px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=768&height=768">
+                    <source media="(min-width: 768px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=1080&height=1080">
                     <img 
                         class="card-img-top"
-                        src="/media/img/articles/perevirka-documentiv/perevirka-dokumentiv-1024-1024.jpg" 
-                        alt="Procedure for checking the documents of vehicle drivers"
+                        src="{{ data.article.image.path }}" 
+                        alt="{{ data.article.image.description }}"
                     >
                 </picture>
             </div>

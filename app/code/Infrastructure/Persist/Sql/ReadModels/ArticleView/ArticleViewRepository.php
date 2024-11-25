@@ -103,6 +103,11 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $row['person_id'],
                 $row['first_name'],
                 $row['last_name']
+            ),
+            $this->imageDTOFactory->create(
+                $row['img_id'],
+                $row['path'],
+                $row['img_description']
             )
         );
 
