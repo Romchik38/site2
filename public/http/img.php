@@ -46,13 +46,13 @@ try {
             $command->width,
             $command->height
         ),
-        $result->data,
+        base64_encode($result->data),
         $result->type
     );
     try{
         $imgCacheService->save($cache);
-    } catch (\Exception) {
-        // log 
+    } catch (\Exception $e) {
+
     }
 } catch (InvalidArgumentException) {
     http_response_code(400);
