@@ -2,13 +2,6 @@
 
 ## Current
 
-- Single article page  
-  - [+] breadcramb  
-  - [+] authors  
-  - [+] photo  
-  - [+] audio  
-  - [+] img  
-  - [+] categories
 - img
   - cache
 - Refactor Link  
