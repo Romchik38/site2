@@ -47,9 +47,12 @@ INSERT INTO article (identifier, author_id) VALUES
     ('article-18', 1),
     ('article-19', 1),
     ('article-20', 1),
-    ('article-21', 1),
-    ('simplification-of-the-drivers-license-examination-process', 1)
+    ('article-21', 1)
 ;
+INSERT INTO article (identifier, author_id, img_id) VALUES  
+    ('simplification-of-the-drivers-license-examination-process', 1, 1)
+;
+
 INSERT INTO article_translates (article_id, language, name, short_description, description)
     VALUES
     ('article-1', 'en', 'Article about something', 'short description here - art 1', 'Today we talk about something'),
