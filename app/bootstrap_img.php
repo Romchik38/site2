@@ -63,6 +63,18 @@ return function () {
         $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\ImageCacheRepository::class)
     );
 
+    // Image Cache View Repository
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository(
+            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository::class)
+    );
+
     // ImgConverter
     $container->add(
         \Romchik38\Site2\Infrastructure\Services\ImgConverter::class,
@@ -88,6 +100,14 @@ return function () {
         \Romchik38\Site2\Application\ImageCache\ImageCacheService::class,
         new \Romchik38\Site2\Application\ImageCache\ImageCacheService(
             $container->get(\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface::class)
+        )
+    );
+
+    // Image Cache View Service
+    $container->add(
+        \Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService::class,
+        new \Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService(
+            $container->get(\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface::class)
         )
     );
 
