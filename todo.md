@@ -2,9 +2,6 @@
 
 ## Current
 
-- img
-  - cache
-- Refactor Link  
 - deptrac  
 - implement Bad request chain Action -> Router
 

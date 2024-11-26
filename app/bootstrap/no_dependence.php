@@ -44,15 +44,6 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory::class)
     );
 
-    $container->add(
-        \Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory
-    );
-    $container->add(
-        \Romchik38\Server\Api\Models\DTO\Http\Link\LinkDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\Http\Link\LinkDTOFactory::class)
-    );
-
     // Controller
     $container->add(
         \Romchik38\Server\Routers\Http\ControllersCollection::class,

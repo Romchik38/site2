@@ -22,20 +22,6 @@ return function (Container $container) {
     );
 
     $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            new \Romchik38\Site2\Domain\Link\LinkFactory,
-            ['array_to_json(links.path) as path', 'links_translates.*'],
-            ['links', 'links_translates']
-        )
-    );
-    $container->add(
-        \Romchik38\Site2\Domain\Link\LinkRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Link\LinkRepository::class)
-    );
-
-    $container->add(
         \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class,
         new \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
