@@ -2,8 +2,6 @@
 
 ## Current
 
-- implement Bad request chain Action -> Router
-
 ## Next
 
 [-] tests  
