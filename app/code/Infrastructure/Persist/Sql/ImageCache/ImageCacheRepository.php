@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Site2\Domain\ImageCache\ImageCache as ImageCacheImageCache;
+use Romchik38\Site2\Domain\ImageCache\ImageCache;
 use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;
 
 final class ImageCacheRepository implements ImageCacheRepositoryInterface
@@ -14,7 +14,7 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
         protected readonly DatabaseInterface $database
     ) {}
 
-    public function add(ImageCacheImageCache $model): void
+    public function add(ImageCache $model): void
     {
         $query = 'INSERT INTO img_cache (key, data, type, created_at) VALUES ($1, $2, $3, $4)';
         $params = [

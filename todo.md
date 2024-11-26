@@ -2,7 +2,6 @@
 
 ## Current
 
-- deptrac  
 - implement Bad request chain Action -> Router
 
 ## Next
