@@ -17,6 +17,9 @@ final class StubData
         public readonly string $height
     ) {}
 
+    /**
+     * @param array<string,string> $hash
+     */
     public static function fromRequest(array $hash, string $filePath): self
     {
         return new self(

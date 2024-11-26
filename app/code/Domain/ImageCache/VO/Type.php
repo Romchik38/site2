@@ -13,7 +13,7 @@ final class Type
     public function __construct(
         protected readonly string $type
     ) {
-        if (in_array($type, self::ALLOWED_TYPES) === 0) {
+        if (in_array($type, self::ALLOWED_TYPES) === false) {
             throw new InvalidArgumentException(
                 sprintf('param type has not allowed value %s', $type)
             );

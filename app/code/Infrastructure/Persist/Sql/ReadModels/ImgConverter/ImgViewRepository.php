@@ -44,7 +44,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
             );
         } else {
             throw new RepositoryConsistencyException(
-                sprintf('img with id %s has duplicates', $id)
+                sprintf('img with id %s has duplicates', $id())
             );
         }
     }

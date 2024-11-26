@@ -12,7 +12,7 @@ use Romchik38\Site2\Domain\Img\VO\Name;
 final class Img
 {
     protected bool $isLoaded = false;
-    protected readonly string $data;
+    protected string $data;
 
     public function __construct(
         protected readonly Id $id,

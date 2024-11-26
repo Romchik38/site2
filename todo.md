@@ -2,7 +2,6 @@
 
 ## Current
 
-- phpstan
 - phpunit
 - deptrac  
 - implement Bad request chain Action -> Router

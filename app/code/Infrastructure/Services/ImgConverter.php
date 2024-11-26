@@ -14,7 +14,11 @@ use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
 class ImgConverter implements ImgConverterInterface
 {
-    /** must be in sinc with $this->createFrom() & createTo()*/
+    /** 
+     * Must be in sinc with $this->createFrom() & createTo()
+     * @var array<string,string> $capabilities
+     * 
+    */
     protected array $capabilities = [
         'webp' => 'WebP Support'
     ];
@@ -45,14 +49,14 @@ class ImgConverter implements ImgConverterInterface
         // 2. Check capabilities
         if ($this->checkGDcapabilities($image->originalType) === false) {
             throw new \RuntimeException(sprintf(
-                'GD library do not support type %',
+                'GD library do not support type %s',
                 $image->originalType
             ));
         };
 
         if ($this->checkGDcapabilities($image->copyType) === false) {
             throw new \RuntimeException(sprintf(
-                'GD library do not support type %',
+                'GD library do not support type %s',
                 $image->copyType
             ));
         };
@@ -178,7 +182,7 @@ class ImgConverter implements ImgConverterInterface
         $info = gd_info();
         $key = $this->capabilities[$type] ?? null;
         if (is_null($key)) {
-            throw new \RuntimeException(sprintf('Type %s not supported by converter'));
+            throw new \RuntimeException(sprintf('Type %s not supported by converter', $type));
         }
         $capability = $info[$key] ?? null;
         if (is_null($capability)) {
