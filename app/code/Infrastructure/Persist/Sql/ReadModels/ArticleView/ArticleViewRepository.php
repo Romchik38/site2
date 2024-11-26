@@ -181,6 +181,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND article_translates.language = $1
             AND person_translates.person_id = article.author_id
             AND person_translates.language = $1
+            AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
             AND authors.person_id = img.author_id
