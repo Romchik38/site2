@@ -10,8 +10,8 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
-use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ArticleView\ArticleViewService;
@@ -37,7 +37,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
                 $this->getLanguage()
             ));
         } catch (NoSuchEntityException $e) {
-            throw new DynamicActionNotFoundException(
+            throw new ActionNotFoundException(
                 sprintf('Route %s not found. Error message: %s', $dynamicRoute, $e->getMessage())
             );
         }

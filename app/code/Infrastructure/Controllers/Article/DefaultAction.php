@@ -12,7 +12,6 @@ use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
-use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
