@@ -11,6 +11,9 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
+use Romchik38\Server\Controllers\Errors\DynamicActionNotFoundException;
+use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
@@ -37,10 +40,14 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         $requestData = $this->request->getQueryParams();
 
         /** 1. Create pagination DTO */
-        $pagination = Pagination::fromRequest(
-            $requestData,
-            $this->articleListViewService->listTotal()
-        );
+        try {
+            $pagination = Pagination::fromRequest(
+                $requestData,
+                $this->articleListViewService->listTotal()
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new ActionNotFoundException('Check requested parameters.' . $e->getMessage());
+        }
 
         /** 2. Do request to app service */
         $articleList = $this->articleListViewService->list(
