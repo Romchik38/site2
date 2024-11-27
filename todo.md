@@ -2,7 +2,7 @@
 
 ## Current
 
-- add more articles
+- replace img stubs on the article list page
 
 ## Next
 
