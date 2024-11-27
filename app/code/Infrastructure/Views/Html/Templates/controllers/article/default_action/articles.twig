@@ -7,17 +7,19 @@
 <div class="col">
     <div class="row">
         <div class="col-md-8">
-            <picture>
-                <source media="(max-width: 636px)"
-                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
-                <source media="(max-width: 992px)"
-                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480">
-                <source media="(min-width: 992px)"
-                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720">
-                <img class="img-fluid"
-                    src="{{ firstArticle.image.path }}" 
-                    alt="{{ firstArticle.image.description }}">
-            </picture>
+            <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+                <picture>
+                    <source media="(max-width: 636px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
+                    <source media="(max-width: 992px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480">
+                    <source media="(min-width: 992px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720">
+                    <img class="img-fluid"
+                        src="{{ firstArticle.image.path }}" 
+                        alt="{{ firstArticle.image.description }}">
+                </picture>
+            </a>
         </div>
         <div class="col-md-4">
             <h2>
@@ -56,18 +58,19 @@
 
     <div class="row my-4">
         <div class="col-sm-3">
-            <picture>
-            <picture>
-                <source media="(max-width: 636px)"
-                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
-                <source media="(max-width: 992px)"
-                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480">
-                <source media="(min-width: 992px)"
-                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720">
-                <img class="img-fluid"
-                    src="{{ article.image.path }}" 
-                    alt="{{ article.image.description }}">
-            </picture>
+            <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+                <picture>
+                    <source media="(max-width: 636px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
+                    <source media="(max-width: 992px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480">
+                    <source media="(min-width: 992px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720">
+                    <img class="img-fluid"
+                        src="{{ article.image.path }}" 
+                        alt="{{ article.image.description }}">
+                </picture>
+            </a>
         </div>
         <div class="col-sm-9">
             <h3>
