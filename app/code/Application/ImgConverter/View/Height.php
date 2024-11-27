@@ -8,7 +8,7 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 final class Height
 {
-    protected const ALLOWED_VALUES = [384, 480, 576, 720, 768, 1080];
+    protected const ALLOWED_VALUES = [100, 384, 480, 576, 720, 768, 1080];
 
     protected function __construct(
         protected readonly int $height

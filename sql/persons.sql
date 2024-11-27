@@ -25,3 +25,5 @@ INSERT INTO person_translates (person_id, language, first_name, last_name) VALUE
     (2, 'uk', 'Іван', 'Затяжний'), 
     (3, 'uk', 'Сергій', 'Kolenko')
 ;
+
+-----------

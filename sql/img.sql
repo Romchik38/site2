@@ -22,3 +22,7 @@ INSERT INTO img_translates (img_id, language, description) VALUES
     ('1', 'en', 'Simplification of the drivers license examination process last year'),
     ('1', 'uk', 'Минулого року спрощено процедуру іспиту на отримання водійських прав')
 ;
+
+INSERT INTO img (identifier, name, author_id, path) VALUES
+    (, '', , '')
+;
