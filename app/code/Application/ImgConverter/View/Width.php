@@ -8,7 +8,7 @@ use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 final class Width
 {
-    protected const ALLOWED_VALUES = [100, 576, 720, 768, 1080];
+    protected const ALLOWED_VALUES = [100, 200, 576, 720, 768, 1080];
 
     protected function __construct(
         protected readonly int $width
