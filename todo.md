@@ -6,7 +6,7 @@
   - add field to img
   - remove author_id
   - refactor code
-- ? activate img, person
+- activate img, person, categories
 
 ## Next
 
