@@ -21,7 +21,8 @@ final class ArticleDTOFactory
         string $shortDescription,
         string $description,
         string $createdAt,
-        array $categories
+        array $categories,
+        ImageDTO $image
     ): ArticleDTO {
 
         $formattedCreatedAt = $this->dateFormatter->formatByString(
@@ -39,7 +40,8 @@ final class ArticleDTOFactory
             $shortDescription,
             $categories,
             $formattedCreatedAt,
-            $readLength
+            $readLength,
+            $image
         );
     }
 }

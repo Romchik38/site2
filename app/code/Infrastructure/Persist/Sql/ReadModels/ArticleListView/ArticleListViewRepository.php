@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface;
+use Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory;
 use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
 
 final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
@@ -15,7 +16,8 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
     public function __construct(
         protected DatabaseInterface $database,
-        protected ArticleDTOFactory $articleDTOFactory
+        protected ArticleDTOFactory $articleDTOFactory,
+        protected ImageDTOFactory $imageDTOFactory
     ) {}
 
     public function list(SearchCriteriaInterface $searchCriteria): array
@@ -103,6 +105,11 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
             $row['description'],
             $row['created_at'],
             json_decode($row['category']),
+            $this->imageDTOFactory->create(
+                $row['img_id'],
+                $row['img_path'],
+                $row['img_description']
+            )
         );
 
         return $articleDTO;
@@ -117,7 +124,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
                 category_translates.name
             FROM category_translates
             WHERE category_translates.language = $1
-        ) 
+        )
         SELECT article.identifier,
         article_translates.name,
         article_translates.short_description,
@@ -133,14 +140,22 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
                     article.identifier = article_category.article_id AND
                     categories.category_id = article_category.category_id
             )
-        ) as category 
+        ) as category,
+        img.path as img_path,
+        img_translates.img_id,
+        img_translates.description as img_description
         FROM
             article,
-            article_translates
+            article_translates,
+            img,
+            img_translates
         WHERE 
             article.identifier = article_translates.article_id
             AND article.active = 'true'
             AND article_translates.language = $1
+            AND article.img_id = img.identifier
+            AND img_translates.img_id = article.img_id
+            AND img_translates.language = $1
         QUERY;
     }
 }

@@ -9,14 +9,14 @@
         <div class="col-md-8">
             <picture>
                 <source media="(max-width: 636px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
                 <source media="(max-width: 992px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480">
                 <source media="(min-width: 992px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                    srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720">
                 <img class="img-fluid"
-                    src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
-                    alt="">
+                    src="{{ firstArticle.image.path }}" 
+                    alt="{{ firstArticle.image.description }}">
             </picture>
         </div>
         <div class="col-md-4">
@@ -57,15 +57,16 @@
     <div class="row my-4">
         <div class="col-sm-3">
             <picture>
+            <picture>
                 <source media="(max-width: 636px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-576.webp">
+                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
                 <source media="(max-width: 992px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-720.webp">
+                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480">
                 <source media="(min-width: 992px)"
-                    srcset="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp">
+                    srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720">
                 <img class="img-fluid"
-                    src="/media/img/articles/dokazi-po-spravi/1-5/dokazi-po-spravi-1080.webp"
-                    alt="">
+                    src="{{ article.image.path }}" 
+                    alt="{{ article.image.description }}">
             </picture>
         </div>
         <div class="col-sm-9">

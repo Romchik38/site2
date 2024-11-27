@@ -25,6 +25,9 @@ return function (Container $container) {
                 new \Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter(
                     $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
                 )
+            ),
+            new Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory(
+                $configImgFolderFrontend
             )
         ),
     );

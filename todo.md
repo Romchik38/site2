@@ -2,7 +2,10 @@
 
 ## Current
 
-- replace img stubs on the article list page
+- stub image
+  - most popular on article list page
+  - Similar articles on article view page
+  - Continue reading on article view page
 
 ## Next
 
