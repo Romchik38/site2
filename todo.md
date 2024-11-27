@@ -4,7 +4,7 @@
 
 - refactor author
   - [+] create author, author_translates tables
-  - replace person id in the author_id field with img_author id
+  - [+] replace person id in the author_id field with img_author id
   - refactor code
     - DTO
     - Factory
@@ -20,6 +20,9 @@
 
 ## Next
 
-[-] tests  
-    [-] TwigView  
-[-] move TwigView to module  
+- middleware
+- auth
+- admin
+- tests  
+  - TwigView  
+- move TwigView to module  
