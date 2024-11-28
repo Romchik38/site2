@@ -4,7 +4,6 @@ CREATE table
         active boolean DEFAULT false,
         author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         img_id int REFERENCES img (identifier) ON UPDATE CASCADE,
-        --add
         audio_id int REFERENCES audio (identifier) ON UPDATE CASCADE
     );
 
@@ -18,15 +17,6 @@ CREATE table
         created_at timestamp NOT NULL DEFAULT current_timestamp,
         updated_at timestamp NOT NULL DEFAULT current_timestamp,
         CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language)
-    );
-
---drop when audio_translates will be ready
-CREATE table
-    article_audio_translates(
-        article_id text NOT NULL REFERENCES article (identifier) ON UPDATE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE,
-        description text NOT NULL,
-        path text NOT NULL
     );
 
 CREATE table
