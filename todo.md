@@ -11,15 +11,15 @@
   - [+] article
   - [+] audio
 - activate
-  - img
-  - person
-  - categories
+  - [+] img
+  - [+] person
+  - [+] categories
 - docs
-  - img
-  - person
-  - categories
+  - [+] img
+  - [+] person
+  - [+] categories
   - language
-  - [audio]
+  - [+] audio
 
 ## Next
 

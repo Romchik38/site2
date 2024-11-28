@@ -1,6 +1,7 @@
 CREATE table
     img (
         identifier serial NOT NULL PRIMARY KEY,
+        active boolean NOT NULL DEFAULT false,
         name text not NULL,
         author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         path text NOT NULL

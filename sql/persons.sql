@@ -1,6 +1,7 @@
 CREATE table person
 (
-    identifier serial NOT NULL PRIMARY KEY
+    identifier serial NOT NULL PRIMARY KEY,
+    active boolean NOT NULL DEFAULT false
 );
 
 CREATE table

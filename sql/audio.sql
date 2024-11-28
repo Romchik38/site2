@@ -1,7 +1,7 @@
 CREATE TABLE audio
 (
     identifier serial NOT NULL PRIMARY KEY,
-    active boolean DEFAULT false,
+    active boolean NOT NULL DEFAULT false,
     name text not NULL
 );
 
