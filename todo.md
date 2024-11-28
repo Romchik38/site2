@@ -7,7 +7,9 @@
   - [+] replace person id in the author_id field with img_author id
   - [+] refactor code
   - [+] docs
-- refactor article, audio - replace person with author
+- replace person with author
+  - article
+  - audio
 - activate
   - img
   - person
