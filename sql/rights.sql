@@ -25,3 +25,5 @@ GRANT select, insert, update on table
 GRANT select, insert, update on table img, img_translates to "apache";
 
 GRANT select, insert, update on table img_cache to "apache";
+
+GRANT select, insert, update on table author, author_translates to "apache";

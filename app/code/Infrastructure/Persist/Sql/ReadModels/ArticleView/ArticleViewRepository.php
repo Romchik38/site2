@@ -110,7 +110,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $row['img_id'],
                 $row['img_path'],
                 $row['img_description'],
-                $row['img_author_full_name']
+                $row['img_author_description']
             ),
             $this->audioDTOFactory->create(
                 $row['audio_path'],
@@ -131,14 +131,13 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 category_translates.name
             FROM category_translates
             WHERE category_translates.language = $1
-        ), authors AS
+        ), img_authors AS
         (
-            SELECT person_translates.person_id,
-                person_translates.first_name,
-                person_translates.last_name
-            FROM person_translates
-            WHERE person_translates.language = $1
-        )    
+            SELECT author_translates.author_id,
+                author_translates.description
+            FROM author_translates
+            WHERE author_translates.language = $1
+        )       
         SELECT article.identifier,
             article_translates.name,
             article_translates.short_description,
@@ -162,18 +161,19 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description,
-            authors.person_id as img_author_id,
-            concat(authors.first_name,' ', authors.last_name) as img_author_full_name,
             article_audio_translates.description as audio_description,
-            article_audio_translates.path as audio_path
+            article_audio_translates.path as audio_path,
+            --img author
+            img_authors.description as img_author_description
         FROM
             article,
             article_translates,
             person_translates,
             img,
             img_translates,
-            authors,
-            article_audio_translates
+            article_audio_translates,
+            --img author
+            img_authors
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
@@ -184,9 +184,10 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
-            AND authors.person_id = img.author_id
             AND article_audio_translates.article_id = article.identifier
             AND article_audio_translates.language = $1
+            --img author
+            AND img_authors.author_id = img.author_id
         QUERY;
     }
 }
