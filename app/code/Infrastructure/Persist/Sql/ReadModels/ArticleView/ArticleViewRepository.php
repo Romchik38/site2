@@ -159,9 +159,10 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description,
-            article_audio_translates.description as audio_description,
-            article_audio_translates.path as audio_path,
-            --img author
+
+            audio_translates.description as audio_description,
+            audio_translates.path as audio_path,
+
             img_authors.description as img_author_description
         FROM
             article,
@@ -169,7 +170,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             author_translates,
             img,
             img_translates,
-            article_audio_translates,
+            audio_translates,
             img_authors
         WHERE 
             article.identifier = $2
@@ -181,9 +182,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
-            AND article_audio_translates.article_id = article.identifier
-            AND article_audio_translates.language = $1
-            --img author
+            AND audio_translates.audio_id = article.audio_id
+            AND audio_translates.language = $1
             AND img_authors.author_id = img.author_id
         QUERY;
     }

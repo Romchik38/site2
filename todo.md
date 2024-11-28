@@ -9,7 +9,7 @@
   - [+] docs
 - replace person with author
   - [+] article
-  - audio
+  - [+] audio
 - activate
   - img
   - person
@@ -19,6 +19,7 @@
   - person
   - categories
   - language
+  - [audio]
 
 ## Next
 
