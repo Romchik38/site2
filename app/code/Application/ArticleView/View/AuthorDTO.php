@@ -8,7 +8,6 @@ final class AuthorDTO
 {
     public function __construct(
         public readonly string $author_id,
-        public readonly string $firstName,
-        public readonly string $lastName
+        public readonly string $description
     ) {}
 }

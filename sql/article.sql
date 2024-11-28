@@ -2,7 +2,7 @@ CREATE table
     article (
         identifier text UNIQUE NOT NULL,
         active boolean DEFAULT false,
-        author_id int NOT NULL REFERENCES person (identifier) ON UPDATE CASCADE,
+        author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         img_id int REFERENCES img (identifier) ON UPDATE CASCADE
     );
 

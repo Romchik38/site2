@@ -102,9 +102,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             json_decode($row['category']),
             $row['created_at'],
             new AuthorDTO(
-                $row['person_id'],
-                $row['first_name'],
-                $row['last_name']
+                $row['author_id'],
+                $row['author_description']
             ),
             $this->imageDTOFactory->create(
                 $row['img_id'],
@@ -155,9 +154,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                         categories.category_id = article_category.category_id
                 )
             ) as category,
-            person_translates.person_id,
-            person_translates.first_name,
-            person_translates.last_name,
+            author_translates.author_id,
+            author_translates.description as author_description,
             img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description,
@@ -168,19 +166,18 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         FROM
             article,
             article_translates,
-            person_translates,
+            author_translates,
             img,
             img_translates,
             article_audio_translates,
-            --img author
             img_authors
         WHERE 
             article.identifier = $2
             AND article.identifier = article_translates.article_id
             AND article.active = 'true'
             AND article_translates.language = $1
-            AND person_translates.person_id = article.author_id
-            AND person_translates.language = $1
+            AND author_translates.author_id = article.author_id
+            AND author_translates.language = $1
             AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1

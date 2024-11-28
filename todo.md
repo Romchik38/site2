@@ -8,7 +8,7 @@
   - [+] refactor code
   - [+] docs
 - replace person with author
-  - article
+  - [+] article
   - audio
 - activate
   - img
