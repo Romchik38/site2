@@ -11,6 +11,7 @@ class TempStream implements TempStreamInterface
     protected $fp;
     protected const PROTOCOL = 'php://temp';
     protected const MODE = 'rw';
+    protected bool $isClosed = false;
 
     public function __construct()
     {
@@ -20,11 +21,6 @@ class TempStream implements TempStreamInterface
         }
         $this->fp = $fp;
     }
-
-    // public function __destruct()
-    // {
-    //     fclose($this->fp);
-    // }
 
     public function write(string $data): void
     {
@@ -50,7 +46,13 @@ class TempStream implements TempStreamInterface
 
     public function __invoke(): string
     {
-        rewind($this->fp);
+        if ($this->isClosed === true) {
+            throw new StreamProcessException('Stream is already closed');
+        }
+
+        if (rewind($this->fp) === false) {
+            throw new StreamProcessException('Cannot rewind stream');
+        };
 
         $data = '';
         while (true) {
@@ -61,7 +63,11 @@ class TempStream implements TempStreamInterface
             $data .= $chunk;
         }
 
-        fclose($this->fp);
+        if (fclose($this->fp) === false) {
+            throw new StreamProcessException('Cannot close Stream');
+        };
+
+        $this->isClosed = true;
 
         return $data;
     }
