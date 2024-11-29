@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Api\Services;
 
-use Romchik38\Server\Services\Errors\FileLoaderException;
+use Romchik38\Server\Services\Files\FileLoaderException;
 
 interface FileLoaderInterface
 {

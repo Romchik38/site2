@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Server\Services\Files;
 
 use Romchik38\Server\Api\Services\FileLoaderInterface;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
-use Romchik38\Server\Services\Errors\FileLoaderException;
 
 class FileLoader implements FileLoaderInterface
 {
@@ -15,15 +13,13 @@ class FileLoader implements FileLoaderInterface
     /** 
      * @param string $prefix A path without trailing slash. Something like /some/path/to
      */
-    public function __construct(protected string $prefix = '')
+    public function __construct(protected string $prefix)
     {
-        if ($prefix !== '') {
-            if (!is_dir($prefix)) {
-                throw new InvalidArgumentException(sprintf(
-                    'File dir %s not exist',
-                    $prefix
-                ));
-            }
+        if (!is_dir($prefix)) {
+            throw new FileLoaderException(sprintf(
+                'Dir %s not exist',
+                $prefix
+            ));
         }
 
         if (str_ends_with($prefix, '/')) {
@@ -36,11 +32,7 @@ class FileLoader implements FileLoaderInterface
         if (str_starts_with($path, '/')) {
             $fullPath = $this->prefix . $path;
         } else {
-            if ($this->prefix !== '') {
-                $fullPath = sprintf('%s/%s', $this->prefix, $path);
-            } else {
-                $fullPath = $path;
-            }
+            $fullPath = sprintf('%s/%s', $this->prefix, $path);
         }
 
         if (!file_exists($fullPath)) {
@@ -71,12 +63,11 @@ class FileLoader implements FileLoaderInterface
             $chank = fread($fp, 1024);
         }
 
-        fclose($fp);
-
-        if (strlen(trim($file)) === 0) {
+        $isClosed = fclose($fp);
+        if ($isClosed === false) {
             throw new FileLoaderException(
                 sprintf(
-                    'File is empty %s',
+                    'Cannot close file %s',
                     $fullPath
                 )
             );

@@ -3,12 +3,13 @@
 ## Current
 
 - Fileloader
-  - test
+  - [+] test
   - move to server
+
+- middleware
 
 ## Next
 
-- middleware
 - auth
 - admin
 - tests  
