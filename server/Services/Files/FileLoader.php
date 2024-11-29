@@ -13,23 +13,21 @@ class FileLoader implements FileLoaderInterface
     protected string $data = '';
 
     /** 
-     * A path without trailing slash. Something like /some/path/to
+     * @param string $prefix A path without trailing slash. Something like /some/path/to
      */
-    protected readonly string $prefix;
-
-    public function __construct(string $prefix)
+    public function __construct(protected string $prefix = '')
     {
-        if (!is_dir($prefix)) {
-            throw new InvalidArgumentException(sprintf(
-                'File dir %s not exist',
-                $prefix
-            ));
+        if ($prefix !== '') {
+            if (!is_dir($prefix)) {
+                throw new InvalidArgumentException(sprintf(
+                    'File dir %s not exist',
+                    $prefix
+                ));
+            }
         }
 
         if (str_ends_with($prefix, '/')) {
             $this->prefix = substr($prefix, 0, strlen($prefix) - 1);
-        } else {
-            $this->prefix = $prefix;
         }
     }
 
@@ -38,7 +36,11 @@ class FileLoader implements FileLoaderInterface
         if (str_starts_with($path, '/')) {
             $fullPath = $this->prefix . $path;
         } else {
-            $fullPath = sprintf('%s/%s', $this->prefix, $path);
+            if ($this->prefix !== '') {
+                $fullPath = sprintf('%s/%s', $this->prefix, $path);
+            } else {
+                $fullPath = $path;
+            }
         }
 
         if (!file_exists($fullPath)) {
