@@ -100,5 +100,11 @@ return function ($container) {
         )
     );
 
+    // Admin
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Admin\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Admin\DefaultAction
+    );
+
     return $container;
 };

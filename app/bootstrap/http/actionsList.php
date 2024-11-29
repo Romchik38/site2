@@ -48,10 +48,18 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction::class)
     );
 
+    $admin = new Controller(
+        'admin',
+        false,
+        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Admin\DefaultAction::class)                
+    );
+
     $root
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
-        ->setChild($article);
+        ->setChild($article)
+        ->setChild($admin);
 
     /** collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);
