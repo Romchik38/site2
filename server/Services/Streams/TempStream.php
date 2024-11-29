@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Services\Streams;
 
-use Romchik38\Server\Api\Services\StreamToStringInterface;
-
-class StreamToString implements StreamToStringInterface
+class TempStream implements TempStreamInterface
 {
     public function __construct(
         protected readonly string $protocol = 'php://temp',

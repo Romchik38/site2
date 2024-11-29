@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services;
 
-use Romchik38\Server\Services\Streams\StreamToString;
+use Romchik38\Server\Services\Streams\TempStream;
 use Romchik38\Site2\Application\ImgConverter\ImgConverterInterface;
 use Romchik38\Site2\Application\ImgConverter\View\Height;
 use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
@@ -163,7 +163,7 @@ class ImgConverter implements ImgConverterInterface
     {
         $result = '';
         if ($type === 'webp') {
-            $stream = new StreamToString();
+            $stream = new TempStream();
             $result = $stream('imagewebp', 1, $image, null, $this->quality);
         } else {
             throw new \RuntimeException(

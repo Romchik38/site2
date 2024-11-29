@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Server\Api\Services;
+namespace Romchik38\Server\Services\Streams;
 
 /** Accepts data from function as a resource and converts it to a string */
-interface StreamToStringInterface
+interface TempStreamInterface
 {
     /**
      * @param callable $fn Function to call
