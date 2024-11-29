@@ -164,7 +164,9 @@ class ImgConverter implements ImgConverterInterface
         $result = '';
         if ($type === 'webp') {
             $stream = new TempStream();
-            $result = $stream('imagewebp', 1, $image, null, $this->quality);
+            $stream->writeFromCallable('imagewebp', 1, $image, null, $this->quality);
+            $result = $stream();
+
         } else {
             throw new \RuntimeException(
                 sprintf(

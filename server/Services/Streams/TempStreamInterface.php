@@ -13,5 +13,7 @@ interface TempStreamInterface
      * @param array<int,mixed> $args argements to pass into callback with index for recource
      * @throws \RuntimeException on errors while creating stream
      */
-    public function __invoke(callable $fn, int $resourceIndex, ...$args): string;
+//    public function __invoke(callable $fn, int $resourceIndex, ...$args): string;
+
+    public function write(string $data): void;
 }
