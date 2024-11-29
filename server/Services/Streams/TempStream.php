@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Services\Streams;
 
-/** @todo update interface */
 class TempStream implements TempStreamInterface
 {
     /** @var resource $fp */
@@ -37,10 +36,16 @@ class TempStream implements TempStreamInterface
     ): void {
         $args[$resourceIndex] = $this->fp;
 
-        $result = $fn(...$args);
+        try {
+            $result = $fn(...$args);
 
-        if ($result === false) {
-            throw new StreamProcessException('Error during callable execution');
+            if ($result === false) {
+                throw new StreamProcessException('Error during callable execution');
+            }
+        } catch (\Exception $e) {
+            throw new StreamProcessException(
+                sprintf('Error during callable execution: %s', $e->getMessage())
+            );
         }
     }
 
