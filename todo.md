@@ -2,10 +2,6 @@
 
 ## Current
 
-- StreamToString
-  - test
-  - move to server
-
 - middleware
 - auth
   - default action
