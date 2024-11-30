@@ -49,7 +49,6 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
     protected function createRow(LinkTreeDTOInterface $element): string
     {
         $children = $element->getChildren();
-        $name = $element->getName();
         $description = $element->getDescription();
         $url = $element->getUrl();
 
