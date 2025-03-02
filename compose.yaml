@@ -1,0 +1,40 @@
+name: site2
+
+services:
+  nginx:
+    image: nginx:stable-perl
+    volumes:
+      - ./public/http:/usr/share/nginx/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8000:80"
+    depends_on:
+     - php-fpm
+    networks:
+      - backend
+  
+  php-fpm: 
+    build: ./docker/php-fpm
+    volumes:
+      - ./app:/app
+      - ./public/http:/public/http
+      - ./vendor:/vendor
+      - ./docker/php-fpm/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  postgres:
+    build: ./docker/postgres
+    volumes: 
+      - ./docker/postgres/home:/home/postgres
+    environment:
+      POSTGRES_PASSWORD: Change_it/home/ser/Projects/Docker/site1/docker
+    ports:
+      - "9999:5432"
+    networks:
+      - backend
+  
+networks:
+  backend:
