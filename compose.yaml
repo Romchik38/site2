@@ -30,7 +30,7 @@ services:
     volumes: 
       - ./docker/postgres/home:/home/postgres
     environment:
-      POSTGRES_PASSWORD: Change_it/home/ser/Projects/Docker/site1/docker
+      POSTGRES_PASSWORD: Change_it
     ports:
       - "9999:5432"
     networks:

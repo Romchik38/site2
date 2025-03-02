@@ -4,3 +4,6 @@ ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/relea
 
 RUN install-php-extensions pgsql xdebug
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+ENV $PHP_INI_DIR=/usr/local/etc/php
+COPY php/conf.d/site2.ini $PHP_INI_DIR/conf.d/

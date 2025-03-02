@@ -16,38 +16,444 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Data for Name: audio; Type: TABLE DATA; Schema: public; Owner: postgres
---
+SET default_tablespace = '';
 
-COPY public.audio (identifier, active, name) FROM stdin;
-1	t	Audio for article - Simplification of the drivers license examination process
-2	t	Audio for article - Document verification for drivers
-3	t	Audio for article - Evidence in administrative offense cases key aspects
-\.
-
+SET default_table_access_method = heap;
 
 --
--- Data for Name: author; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: article; Type: TABLE; Schema: public; Owner: postgres
 --
 
-COPY public.author (identifier, name, active) FROM stdin;
-2	Depositphotos	t
-1	AI	t
-3	Freepik	t
-\.
+CREATE DATABASE site2
+WITH ENCODING 'UTF8' 
+    LC_COLLATE='en_US.UTF-8' 
+    LC_CTYPE='en_US.UTF-8' 
+    TEMPLATE=template0;
+
+CREATE TABLE public.article (
+    identifier text NOT NULL,
+    active boolean DEFAULT false,
+    author_id integer NOT NULL,
+    img_id integer,
+    audio_id integer
+);
+
+
+ALTER TABLE public.article OWNER TO postgres;
+
+--
+-- Name: article_category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.article_category (
+    article_id text NOT NULL,
+    category_id text NOT NULL
+);
+
+
+ALTER TABLE public.article_category OWNER TO postgres;
+
+--
+-- Name: article_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.article_translates (
+    article_id text NOT NULL,
+    language text NOT NULL,
+    name text NOT NULL,
+    description text NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    short_description text NOT NULL
+);
+
+
+ALTER TABLE public.article_translates OWNER TO postgres;
+
+--
+-- Name: audio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.audio (
+    identifier integer NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE public.audio OWNER TO postgres;
+
+--
+-- Name: audio_identifier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.audio_identifier_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.audio_identifier_seq OWNER TO postgres;
+
+--
+-- Name: audio_identifier_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.audio_identifier_seq OWNED BY public.audio.identifier;
 
 
 --
--- Data for Name: img; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: audio_translates; Type: TABLE; Schema: public; Owner: postgres
 --
 
-COPY public.img (identifier, name, author_id, path, active) FROM stdin;
-2	document-verification-for-drivers	1	articles/perevirka-documentiv/1.webp	t
-4	stub-coming-soon-article-list-view	1	common/coming-soon-2000-2000.webp	t
-1	simplification-of-the-drivers-license-examination-process	2	articles/simplification-of-the-drivers-license-examination-process/1.webp	t
-3	evidence-in-administrative-offense-cases-key-aspects	3	articles/dokazi-po-spravi/vidence-in-administrative-offense-cases-key-aspects.webp	t
-\.
+CREATE TABLE public.audio_translates (
+    audio_id integer NOT NULL,
+    language text NOT NULL,
+    description text NOT NULL,
+    path text NOT NULL
+);
+
+
+ALTER TABLE public.audio_translates OWNER TO postgres;
+
+--
+-- Name: author; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.author (
+    identifier integer NOT NULL,
+    name text NOT NULL,
+    active boolean DEFAULT false
+);
+
+
+ALTER TABLE public.author OWNER TO postgres;
+
+--
+-- Name: author_identifier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.author_identifier_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.author_identifier_seq OWNER TO postgres;
+
+--
+-- Name: author_identifier_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.author_identifier_seq OWNED BY public.author.identifier;
+
+
+--
+-- Name: author_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.author_translates (
+    author_id integer NOT NULL,
+    language text NOT NULL,
+    description text
+);
+
+
+ALTER TABLE public.author_translates OWNER TO postgres;
+
+--
+-- Name: category; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.category (
+    identifier text NOT NULL,
+    active boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.category OWNER TO postgres;
+
+--
+-- Name: category_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.category_translates (
+    category_id text NOT NULL,
+    language text NOT NULL,
+    name text NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.category_translates OWNER TO postgres;
+
+--
+-- Name: img; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.img (
+    identifier integer NOT NULL,
+    name text NOT NULL,
+    author_id integer NOT NULL,
+    path text NOT NULL,
+    active boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.img OWNER TO postgres;
+
+--
+-- Name: img_cache; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.img_cache (
+    key text NOT NULL,
+    data text NOT NULL,
+    type text NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT img_cache_type_check CHECK ((type = 'webp'::text))
+);
+
+
+ALTER TABLE public.img_cache OWNER TO postgres;
+
+--
+-- Name: img_identifier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.img_identifier_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.img_identifier_seq OWNER TO postgres;
+
+--
+-- Name: img_identifier_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.img_identifier_seq OWNED BY public.img.identifier;
+
+
+--
+-- Name: img_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.img_translates (
+    img_id integer NOT NULL,
+    language text NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.img_translates OWNER TO postgres;
+
+--
+-- Name: links; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.links (
+    link_id integer NOT NULL,
+    path text[]
+);
+
+
+ALTER TABLE public.links OWNER TO postgres;
+
+--
+-- Name: links_link_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.links_link_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.links_link_id_seq OWNER TO postgres;
+
+--
+-- Name: links_link_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.links_link_id_seq OWNED BY public.links.link_id;
+
+
+--
+-- Name: links_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.links_translates (
+    link_id integer NOT NULL,
+    language text NOT NULL,
+    name text NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.links_translates OWNER TO postgres;
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    identifier integer NOT NULL,
+    active boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- Name: person_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person_translates (
+    person_id integer NOT NULL,
+    language text NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    middle_name text
+);
+
+
+ALTER TABLE public.person_translates OWNER TO postgres;
+
+--
+-- Name: persons_identifier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.persons_identifier_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.persons_identifier_seq OWNER TO postgres;
+
+--
+-- Name: persons_identifier_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.persons_identifier_seq OWNED BY public.person.identifier;
+
+
+--
+-- Name: translate_entities; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.translate_entities (
+    entity_id integer NOT NULL,
+    key text,
+    language text,
+    phrase text NOT NULL
+);
+
+
+ALTER TABLE public.translate_entities OWNER TO postgres;
+
+--
+-- Name: translate_entities_entity_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.translate_entities_entity_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.translate_entities_entity_id_seq OWNER TO postgres;
+
+--
+-- Name: translate_entities_entity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.translate_entities_entity_id_seq OWNED BY public.translate_entities.entity_id;
+
+
+--
+-- Name: translate_keys; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.translate_keys (
+    key text NOT NULL
+);
+
+
+ALTER TABLE public.translate_keys OWNER TO postgres;
+
+--
+-- Name: translate_lang; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.translate_lang (
+    language text NOT NULL,
+    active boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.translate_lang OWNER TO postgres;
+
+--
+-- Name: audio identifier; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.audio ALTER COLUMN identifier SET DEFAULT nextval('public.audio_identifier_seq'::regclass);
+
+
+--
+-- Name: author identifier; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author ALTER COLUMN identifier SET DEFAULT nextval('public.author_identifier_seq'::regclass);
+
+
+--
+-- Name: img identifier; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img ALTER COLUMN identifier SET DEFAULT nextval('public.img_identifier_seq'::regclass);
+
+
+--
+-- Name: links link_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links ALTER COLUMN link_id SET DEFAULT nextval('public.links_link_id_seq'::regclass);
+
+
+--
+-- Name: person identifier; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN identifier SET DEFAULT nextval('public.persons_identifier_seq'::regclass);
+
+
+--
+-- Name: translate_entities entity_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_entities ALTER COLUMN entity_id SET DEFAULT nextval('public.translate_entities_entity_id_seq'::regclass);
 
 
 --
@@ -81,17 +487,6 @@ evidence-in-administrative-offense-cases-key-aspects	t	1	3	3
 
 
 --
--- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.category (identifier, active) FROM stdin;
-category-2	t
-traffic	t
-administrative-process	t
-\.
-
-
---
 -- Data for Name: article_category; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -119,16 +514,6 @@ article-12	administrative-process
 article-15	administrative-process
 article-17	administrative-process
 evidence-in-administrative-offense-cases-key-aspects	administrative-process
-\.
-
-
---
--- Data for Name: translate_lang; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.translate_lang (language, active) FROM stdin;
-en	t
-uk	t
 \.
 
 
@@ -185,6 +570,17 @@ evidence-in-administrative-offense-cases-key-aspects	en	Evidence in Administrati
 
 
 --
+-- Data for Name: audio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.audio (identifier, active, name) FROM stdin;
+1	t	Audio for article - Simplification of the drivers license examination process
+2	t	Audio for article - Document verification for drivers
+3	t	Audio for article - Evidence in administrative offense cases key aspects
+\.
+
+
+--
 -- Data for Name: audio_translates; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -195,6 +591,17 @@ COPY public.audio_translates (audio_id, language, description, path) FROM stdin;
 2	uk	Перевірка документів у водіїв працівниками поліції: оновлені вимоги та процедури	articles/document-verification-for-drivers/uk-perevirka-dokumentiv-u-vodiiv-transportnih-zasobiv.mp3
 3	en	Evidence in Administrative Offense Cases: Key Aspects	articles/evidence-in-administrative-offense-cases-key-aspects/en-evidence-in-administrative-offense-cases-key-aspects.mp3
 3	uk	Докази по справі про адміністративне правопорушення: ключові аспекти	articles/evidence-in-administrative-offense-cases-key-aspects/uk-evidence-in-administrative-offense-cases-key-aspects.mp3
+\.
+
+
+--
+-- Data for Name: author; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.author (identifier, name, active) FROM stdin;
+2	Depositphotos	t
+1	AI	t
+3	Freepik	t
 \.
 
 
@@ -213,6 +620,17 @@ COPY public.author_translates (author_id, language, description) FROM stdin;
 
 
 --
+-- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.category (identifier, active) FROM stdin;
+category-2	t
+traffic	t
+administrative-process	t
+\.
+
+
+--
 -- Data for Name: category_translates; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -223,6 +641,18 @@ traffic	en	Traffic law	Traffic law refers to the regulations and rules establish
 traffic	uk	Законодавство про дорожній рух	Все про закони про дорожній рух які стосуються правил і норм, встановлених владою для забезпечення безпеки та ефективного руху транспортних засобів і пішоходів на дорогах
 administrative-process	en	Administrative Process 	Adjudication of administrative cases in courts, refers to the procedures and practices employed to resolve disputes arising from the application of administrative law
 administrative-process	uk	Адміністративний процес	Адміністративно-процесуальними нормами врегульована діяльність публічної адміністрації, яка спрямована на застосування положень матеріального права під час розгляду та вирішення конкретних індивідуальних справ
+\.
+
+
+--
+-- Data for Name: img; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.img (identifier, name, author_id, path, active) FROM stdin;
+2	document-verification-for-drivers	1	articles/perevirka-documentiv/1.webp	t
+4	stub-coming-soon-article-list-view	1	common/coming-soon-2000-2000.webp	t
+1	simplification-of-the-drivers-license-examination-process	2	articles/simplification-of-the-drivers-license-examination-process/1.webp	t
+3	evidence-in-administrative-offense-cases-key-aspects	3	articles/dokazi-po-spravi/vidence-in-administrative-offense-cases-key-aspects.webp	t
 \.
 
 
@@ -302,59 +732,6 @@ COPY public.person_translates (person_id, language, first_name, last_name, middl
 1	uk	Дмитро	Снігірьов	\N
 2	uk	Іван	Затяжний	\N
 3	uk	Сергій	Kolenko	\N
-\.
-
-
---
--- Data for Name: translate_keys; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.translate_keys (key) FROM stdin;
-global.language
-root.page_name
-server-error.header
-server-error.message
-root.about
-root.contacts
-404.header
-404.message
-header.logo
-header.sing_in
-header.subscribe
-footer.copyright
-footer.by_romanenko
-article.page_name
-article.description
-article.h2.publications
-read-length-formatter.a-few-minutes
-read-length-formatter.min
-read-length-formatter.hour
-read-length-formatter.day
-article.read
-header.link.sitemap
-article.view.seeall
-article.view.photo-by
-article.view.by
-article.view.month.January
-article.view.month.February
-article.view.month.March
-article.view.month.April
-article.view.month.May
-article.view.month.June
-article.view.month.July
-article.view.month.August
-article.view.month.September
-article.view.month.October
-article.view.month.November
-article.view.month.December
-article.view.similar
-article.view.continue.reading
-404.page_name
-404.description
-server-error-example.page_name
-sitemap.page_name
-sitemap.description
-article.category
 \.
 
 
@@ -456,6 +833,69 @@ COPY public.translate_entities (entity_id, key, language, phrase) FROM stdin;
 
 
 --
+-- Data for Name: translate_keys; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.translate_keys (key) FROM stdin;
+global.language
+root.page_name
+server-error.header
+server-error.message
+root.about
+root.contacts
+404.header
+404.message
+header.logo
+header.sing_in
+header.subscribe
+footer.copyright
+footer.by_romanenko
+article.page_name
+article.description
+article.h2.publications
+read-length-formatter.a-few-minutes
+read-length-formatter.min
+read-length-formatter.hour
+read-length-formatter.day
+article.read
+header.link.sitemap
+article.view.seeall
+article.view.photo-by
+article.view.by
+article.view.month.January
+article.view.month.February
+article.view.month.March
+article.view.month.April
+article.view.month.May
+article.view.month.June
+article.view.month.July
+article.view.month.August
+article.view.month.September
+article.view.month.October
+article.view.month.November
+article.view.month.December
+article.view.similar
+article.view.continue.reading
+404.page_name
+404.description
+server-error-example.page_name
+sitemap.page_name
+sitemap.description
+article.category
+\.
+
+
+--
+-- Data for Name: translate_lang; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.translate_lang (language, active) FROM stdin;
+en	t
+uk	t
+\.
+
+
+--
 -- Name: audio_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -496,6 +936,370 @@ SELECT pg_catalog.setval('public.persons_identifier_seq', 1, false);
 
 SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 159, true);
 
+
+--
+-- Name: article article_identifier_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_identifier_key UNIQUE (identifier);
+
+
+--
+-- Name: article_translates article_translates_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_translates
+    ADD CONSTRAINT article_translates_name_key UNIQUE (name);
+
+
+--
+-- Name: audio audio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.audio
+    ADD CONSTRAINT audio_pkey PRIMARY KEY (identifier);
+
+
+--
+-- Name: author author_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author
+    ADD CONSTRAINT author_pkey PRIMARY KEY (identifier);
+
+
+--
+-- Name: category category_identifier_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category
+    ADD CONSTRAINT category_identifier_key UNIQUE (identifier);
+
+
+--
+-- Name: category_translates category_translates_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category_translates
+    ADD CONSTRAINT category_translates_name_key UNIQUE (name);
+
+
+--
+-- Name: img_cache img_cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img_cache
+    ADD CONSTRAINT img_cache_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: img img_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img
+    ADD CONSTRAINT img_pkey PRIMARY KEY (identifier);
+
+
+--
+-- Name: links links_path_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_path_key UNIQUE (path);
+
+
+--
+-- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_pkey PRIMARY KEY (link_id);
+
+
+--
+-- Name: links_translates links_translates_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links_translates
+    ADD CONSTRAINT links_translates_name_key UNIQUE (name);
+
+
+--
+-- Name: person persons_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT persons_pkey PRIMARY KEY (identifier);
+
+
+--
+-- Name: article_category pk_article_category; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_category
+    ADD CONSTRAINT pk_article_category PRIMARY KEY (article_id, category_id);
+
+
+--
+-- Name: article_translates pk_article_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_translates
+    ADD CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language);
+
+
+--
+-- Name: author_translates pk_author_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_translates
+    ADD CONSTRAINT pk_author_translates PRIMARY KEY (author_id, language);
+
+
+--
+-- Name: category_translates pk_category_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category_translates
+    ADD CONSTRAINT pk_category_translates PRIMARY KEY (category_id, language);
+
+
+--
+-- Name: img_translates pk_img_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img_translates
+    ADD CONSTRAINT pk_img_translates PRIMARY KEY (img_id, language);
+
+
+--
+-- Name: links_translates pk_links_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links_translates
+    ADD CONSTRAINT pk_links_translates PRIMARY KEY (link_id, language);
+
+
+--
+-- Name: person_translates pk_person_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_translates
+    ADD CONSTRAINT pk_person_translates PRIMARY KEY (person_id, language);
+
+
+--
+-- Name: translate_entities translate_entities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_entities
+    ADD CONSTRAINT translate_entities_pkey PRIMARY KEY (entity_id);
+
+
+--
+-- Name: translate_keys translate_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_keys
+    ADD CONSTRAINT translate_keys_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: translate_lang translate_lang_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_lang
+    ADD CONSTRAINT translate_lang_pkey PRIMARY KEY (language);
+
+
+--
+-- Name: translate_entities uq_translate_entities; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_entities
+    ADD CONSTRAINT uq_translate_entities UNIQUE (key, language);
+
+
+--
+-- Name: article article_audio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_audio_id_fkey FOREIGN KEY (audio_id) REFERENCES public.audio(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: article article_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.author(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: article_category article_category_article_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_category
+    ADD CONSTRAINT article_category_article_id_fkey FOREIGN KEY (article_id) REFERENCES public.article(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: article_category article_category_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_category
+    ADD CONSTRAINT article_category_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.category(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: article article_img_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_img_id_fkey FOREIGN KEY (img_id) REFERENCES public.img(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: article_translates article_translates_article_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_translates
+    ADD CONSTRAINT article_translates_article_id_fkey FOREIGN KEY (article_id) REFERENCES public.article(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: article_translates article_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.article_translates
+    ADD CONSTRAINT article_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE;
+
+
+--
+-- Name: audio_translates audio_translates_audio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.audio_translates
+    ADD CONSTRAINT audio_translates_audio_id_fkey FOREIGN KEY (audio_id) REFERENCES public.audio(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: audio_translates audio_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.audio_translates
+    ADD CONSTRAINT audio_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE;
+
+
+--
+-- Name: author_translates author_translates_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_translates
+    ADD CONSTRAINT author_translates_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.author(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: author_translates author_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_translates
+    ADD CONSTRAINT author_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE;
+
+
+--
+-- Name: category_translates category_translates_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category_translates
+    ADD CONSTRAINT category_translates_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.category(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: category_translates category_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.category_translates
+    ADD CONSTRAINT category_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE;
+
+
+--
+-- Name: img img_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img
+    ADD CONSTRAINT img_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.author(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: img_translates img_translates_img_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img_translates
+    ADD CONSTRAINT img_translates_img_id_fkey FOREIGN KEY (img_id) REFERENCES public.img(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: img_translates img_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img_translates
+    ADD CONSTRAINT img_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: links_translates links_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links_translates
+    ADD CONSTRAINT links_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON DELETE CASCADE;
+
+
+--
+-- Name: links_translates links_translates_link_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links_translates
+    ADD CONSTRAINT links_translates_link_id_fkey FOREIGN KEY (link_id) REFERENCES public.links(link_id) ON DELETE CASCADE;
+
+
+--
+-- Name: person_translates person_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_translates
+    ADD CONSTRAINT person_translates_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: person_translates person_translates_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_translates
+    ADD CONSTRAINT person_translates_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.person(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: translate_entities translate_entities_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_entities
+    ADD CONSTRAINT translate_entities_key_fkey FOREIGN KEY (key) REFERENCES public.translate_keys(key) ON DELETE CASCADE;
+
+
+--
+-- Name: translate_entities translate_entities_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translate_entities
+    ADD CONSTRAINT translate_entities_language_fkey FOREIGN KEY (language) REFERENCES public.translate_lang(language) ON DELETE CASCADE;
+
+
+--
+-- Name: TABLE article; Type: ACL; Schema: public; Owner: postgres
+--
 
 --
 -- PostgreSQL database dump complete
