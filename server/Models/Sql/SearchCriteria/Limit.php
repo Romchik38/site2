@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
+use InvalidArgumentException;
 use Romchik38\Server\Api\Models\SearchCriteria\LimitInterface;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 
 class Limit implements LimitInterface
 {

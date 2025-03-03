@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ImageCache\Cache;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService;

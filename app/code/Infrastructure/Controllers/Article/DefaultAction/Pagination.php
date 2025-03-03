@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
+use InvalidArgumentException;
 use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
 
 final class Pagination implements PaginationInterface

@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Models\Errors\RepositoryConsistencyException;
 use Romchik38\Site2\Application\ArticleView\Find;
 use Romchik38\Site2\Application\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;
@@ -15,6 +14,7 @@ use Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory;
 use Romchik38\Site2\Application\ArticleView\View\AuthorDTO;
 use Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory;
+use RuntimeException;
 
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
@@ -41,7 +41,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $language
             ));
         } elseif (count($rows) > 1) {
-            throw new RepositoryConsistencyException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Article with id %s and language %s has duplicate',
                 $articleId,
                 $language

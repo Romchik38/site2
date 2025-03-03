@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Article;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,7 +15,6 @@ use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;

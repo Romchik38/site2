@@ -7,7 +7,6 @@ namespace Romchik38\Site2\Infrastructure\Views\Html;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
-use Romchik38\Server\Views\Errors\CantCreateViewException;
 use Twig\Environment;
 
 class Site2TwigView extends TwigView
@@ -45,6 +44,9 @@ class Site2TwigView extends TwigView
             ->setMetadata('languages', $languages);
     }
 
+    /**
+     * @throws CantCreateViewException - If controller was not set
+     */
     protected function prepareBreadcrumbs(): void {
         if($this->controller === null) {
             throw new CantCreateViewException('Can\'t prepare breadcrums: controller was not set');

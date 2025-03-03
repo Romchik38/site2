@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Domain\ImageCache\VO;
 
 use DateTime;
 use DateTimeImmutable;
-use Romchik38\Server\Models\Errors\InvalidArgumentException;
+use InvalidArgumentException;
 
 final class CreatedAt
 {

@@ -6,12 +6,12 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Models\Errors\RepositoryConsistencyException;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
+use RuntimeException;
 
 final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterface
 {
@@ -44,7 +44,7 @@ final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterfac
                 sprintf('img with id %s not exist', $key())
             );
         } else {
-            throw new RepositoryConsistencyException(
+            throw new RuntimeException(
                 sprintf('img with id %s has duplicates', $key())
             );
         }
