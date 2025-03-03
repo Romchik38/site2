@@ -1,3 +1,4 @@
 FROM postgres:latest
 
-COPY site2.sql /docker-entrypoint-initdb.d/
+COPY scripts/site2.sql scripts/database.sql /dump/
+COPY scripts/database.sql /docker-entrypoint-initdb.d/
