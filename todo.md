@@ -2,17 +2,9 @@
 
 ## Current
 
-- update to server latest v.1.15.3
-  - [+] v1.12.0
-  - [+] v1.13.0
-  - [+] v1.14.0
-  - [+] v1.14.1
-  - [+] v1.15.0
-  - [pass] v1.15.1
-  - [+] v1.15.2
-  - [-] v1.15.3
-
-`$port = ':8000';`
+- replace Urlbuilder with new one
+- add admin login page
+- create a auth middleware to *admin* controller
 
 ## Next
 
