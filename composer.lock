@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2683b31711040d256855d493386a21f4",
+    "content-hash": "c10e8e17cc29b429a48588a98e561574",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -349,16 +349,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.14.0",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "1269c60b99957eb3f0c92e4da69c3c89d880d83c"
+                "reference": "2f2926d79983ab12e524df3ab6a1778ba6288f95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/1269c60b99957eb3f0c92e4da69c3c89d880d83c",
-                "reference": "1269c60b99957eb3f0c92e4da69c3c89d880d83c",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/2f2926d79983ab12e524df3ab6a1778ba6288f95",
+                "reference": "2f2926d79983ab12e524df3ab6a1778ba6288f95",
                 "shasum": ""
             },
             "require": {
@@ -369,6 +369,7 @@
             },
             "require-dev": {
                 "laminas/laminas-diactoros": "^3.5",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^11"
             },
             "type": "library",
@@ -388,10 +389,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.14.0",
+                "source": "https://github.com/Romchik38/server/tree/v1.14.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-02-19T14:42:03+00:00"
+            "time": "2025-02-21T17:29:58+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
