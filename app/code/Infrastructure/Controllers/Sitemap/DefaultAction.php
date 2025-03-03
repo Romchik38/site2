@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
@@ -27,7 +29,7 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
         protected readonly SitemapDTOFactory $sitemapDTOFactory
     ) {}
 
-    public function execute(): string
+    public function execute(): ResponseInterface
     {
 
         $output = $this->sitemapLinkTreeView
@@ -41,8 +43,8 @@ class DefaultAction extends MultiLanguageAction implements DefaultActionInterfac
 
         $this->view->setController($this->getController())
             ->setControllerData($sitemapDTO);
-
-        return $this->view->toString();
+        $html = $this->view->toString();
+        return new HtmlResponse($html);
     }
 
     public function getDescription(): string

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-use Romchik38\Server\Api\Results\Http\HttpRouterResultInterface;
+use Laminas\Diactoros\ResponseFactory;
 use Romchik38\Server\Controllers\Controller;
 
 return function ($container) {
 
     $notFoundController = new Controller(
-        HttpRouterResultInterface::NOT_FOUND_CONTROLLER_NAME, 
+        '404', 
         true,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\PageNotFound\DefaultAction::class)
     );
 
@@ -18,18 +17,17 @@ return function ($container) {
     $container->add(
         \Romchik38\Server\Routers\Http\DynamicRootRouter::class,
         new \Romchik38\Server\Routers\Http\DynamicRootRouter(
-            $container->get(\Romchik38\Server\Api\Results\Http\HttpRouterResultInterface::class),
+            new ResponseFactory,
             $container->get(\Psr\Http\Message\ServerRequestInterface::class),
             $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class),
-            $container->get(\Romchik38\Server\Api\Routers\Http\HeadersCollectionInterface::class),
             $notFoundController,
             null
         )
     );
 
     $container->add(
-        \Romchik38\Server\Api\Routers\RouterInterface::class,
+        \Romchik38\Server\Api\Routers\Http\HttpRouterInterface::class,
         $container->get(\Romchik38\Server\Routers\Http\DynamicRootRouter::class)
     );
 

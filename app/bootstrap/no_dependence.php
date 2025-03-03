@@ -54,14 +54,5 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Routers\Http\ControllersCollection::class)
     );
 
-    $container->add(
-        \Romchik38\Server\Results\Controller\ControllerResultFactory::class,
-        new \Romchik38\Server\Results\Controller\ControllerResultFactory
-    );
-    $container->add(
-        \Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class,
-        $container->get(\Romchik38\Server\Results\Controller\ControllerResultFactory::class)
-    );
-
     return $container;
 };

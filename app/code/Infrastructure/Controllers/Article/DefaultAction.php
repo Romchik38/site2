@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Article;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
@@ -34,7 +36,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly UrlbuilderFactoryInterface $urlbuilderFactory
     ) {}
 
-    public function execute(): string
+    public function execute(): ResponseInterface
     {
         $requestData = $this->request->getQueryParams();
 
@@ -89,7 +91,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             ->setControllerData($dto)
             ->toString();
 
-        return $result;
+        return new HtmlResponse($result);
     }
 
     public function getDescription(): string

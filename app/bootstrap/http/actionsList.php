@@ -21,7 +21,6 @@ return function (Container $container) {
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
         true,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Root\DefaultAction::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Root\DynamicAction::class),
     );
@@ -29,21 +28,18 @@ return function (Container $container) {
     $sitemap = new Controller(
         'sitemap',
         true,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction::class)
     );
 
     $serverErrorExample = new Controller(
         'server-error-example',
         true,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\ServerErrorExample\DefaultAction::class)
     );
 
     $article = new Controller(
         'article',
         true,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction::class)
     );
@@ -51,7 +47,6 @@ return function (Container $container) {
     $admin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Server\Api\Results\Controller\ControllerResultFactoryInterface::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Admin\DefaultAction::class)                
     );
 

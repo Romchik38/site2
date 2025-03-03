@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Article;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DynamicActionInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
@@ -28,7 +30,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
         protected readonly ArticleViewService $articleViewService
     ) {}
 
-    public function execute(string $dynamicRoute): string
+    public function execute(string $dynamicRoute): ResponseInterface
     {
 
         try {
@@ -55,7 +57,7 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
             ->setControllerData($dto)
             ->toString();
 
-        return $result;
+        return new HtmlResponse($result);
     }
 
     public function getDynamicRoutes(): array

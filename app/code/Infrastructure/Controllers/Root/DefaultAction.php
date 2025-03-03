@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Root;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
@@ -22,7 +24,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
     ) {}
 
-    public function execute(): string
+    public function execute(): ResponseInterface
     {
         $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
@@ -36,7 +38,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
             ->setControllerData($dto)
             ->toString();
 
-        return $result;
+        return new HtmlResponse($result);
     }
 
     public function getDescription(): string

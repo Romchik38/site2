@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\ServerError;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
@@ -26,7 +28,7 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
         protected readonly string $outputFile = ''
     ) {}
 
-    public function execute(): string
+    public function execute(): ResponseInterface
     {
         /** try to show dynamic view */
         try {
@@ -38,11 +40,11 @@ final class DefaultAction extends MultiLanguageAction implements DefaultActionIn
                 ->setController($this->getController())
                 ->setControllerData($dto)
                 ->toString();
-            return $result;
+            return new HtmlResponse($result);
         } catch (\Exception $e) {
             /** show static output  */
             if (strlen($this->outputFile) !== 0) {
-                return $this->getOutput();
+                return new HtmlResponse($this->getOutput());
             }
             /** nothing to show, forward the error */
             throw new \RuntimeException($e->getMessage());

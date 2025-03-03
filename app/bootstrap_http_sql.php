@@ -37,9 +37,6 @@ return function () {
     $http_services = require_once(__DIR__ . '/bootstrap/http/services.php');
     $http_services($container);
 
-    $http_headers = require_once(__DIR__ . '/bootstrap/http/headers.php');
-    $http_headers($container);    
-
     $http_views = require_once(__DIR__ . '/bootstrap/http/views.php');
     $http_views($container);
 

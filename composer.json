@@ -47,5 +47,10 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "tests": [
+            "vendor/bin/phpunit"
+        ]
     }
 }
