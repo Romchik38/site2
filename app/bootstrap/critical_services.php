@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 use Romchik38\Container;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 
 return function (Container $container) {
 
         // DynamicRoot
         $configDynamicRoot = require_once(__DIR__ . '/../config/shared/dynamic_root.php');
         $defaultDynamicRoot = $configDynamicRoot[DynamicRootInterface::DEFAULT_ROOT_FIELD] ??
-            throw new MissingRequiredParameterInFileError('Missing config field: '
+            throw new RuntimeException('Missing config field: '
                 . DynamicRootInterface::DEFAULT_ROOT_FIELD);
         $DynamicRootList = $configDynamicRoot[DynamicRootInterface::ROOT_LIST_FIELD] ??
-            throw new MissingRequiredParameterInFileError('Missing config field: '
+            throw new RuntimeException('Missing config field: '
                 . DynamicRootInterface::ROOT_LIST_FIELD);
     
         $container->add(

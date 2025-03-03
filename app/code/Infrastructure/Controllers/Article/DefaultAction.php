@@ -12,7 +12,7 @@ use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Models\Errors\InvalidArgumentException;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
@@ -21,13 +21,13 @@ use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
 
-final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     protected const PAGE_NAME_KEY = 'article.page_name';
     protected const PAGE_DESCRIPTION_KEY = 'article.description';
 
     public function __construct(
-        protected readonly DynamicRootInterface $DynamicRootService,
+        protected readonly DynamicRootInterface $dynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleListViewService $articleListViewService,

@@ -11,7 +11,7 @@ use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
@@ -20,11 +20,11 @@ use Romchik38\Site2\Application\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\ArticleView\Find;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction\ViewDTO;
 
-final class DynamicAction extends MultiLanguageAction implements DynamicActionInterface
+final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
 
     public function __construct(
-        protected readonly DynamicRootInterface $DynamicRootService,
+        protected readonly DynamicRootInterface $dynamicRootService,
         protected readonly TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleViewService $articleViewService
@@ -32,7 +32,6 @@ final class DynamicAction extends MultiLanguageAction implements DynamicActionIn
 
     public function execute(string $dynamicRoute): ResponseInterface
     {
-
         try {
             $article = $this->articleViewService->getArticle(new Find(
                 $dynamicRoute,

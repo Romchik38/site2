@@ -6,14 +6,14 @@ namespace Romchik38\Site2\Infrastructure\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
+use Romchik38\Server\Views\AbstractView;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
-use Romchik38\Server\Views\View;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class TwigView extends View implements HttpViewInterface
+class TwigView extends AbstractView implements HttpViewInterface
 {
     /**
      * @var array<string,mixed> $metaData

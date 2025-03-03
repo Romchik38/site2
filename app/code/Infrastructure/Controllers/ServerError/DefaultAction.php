@@ -11,10 +11,10 @@ use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Controllers\Actions\MultiLanguageAction;
+use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 
 /** Tries to show nice answer */
-final class DefaultAction extends MultiLanguageAction implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
 
     const DEFAULT_VIEW_NAME = 'Server Error';

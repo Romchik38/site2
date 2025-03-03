@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
-
 return function ($container) {
 
     $errorConfig = include_once(__DIR__ . '/../config/shared/errors.php');
@@ -30,7 +28,7 @@ return function ($container) {
 
     // ServerError
     $serverErrorResponseFile = $errorConfig['server-error-page']
-        ?? throw new MissingRequiredParameterInFileError('Missing server-error-page config parameter');
+        ?? throw new RuntimeException('Missing server-error-page config parameter');
 
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\ServerError\DefaultAction::class,

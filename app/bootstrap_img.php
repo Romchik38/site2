@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
-use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 
 return function () {
     $container = new Container();
@@ -12,7 +11,7 @@ return function () {
 
     $configImg = require_once(__DIR__ . '/config/shared/images.php');
     $configImgFolderBackend =  $configImg['img-folder-backend'] ??
-        throw new MissingRequiredParameterInFileError('Missing config field: img-folder-backend');
+        throw new RuntimeException('Missing config field: img-folder-backend');
 
     // DATABASES
     $container->add(

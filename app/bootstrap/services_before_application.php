@@ -3,17 +3,16 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
-use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
 
 return function (Container $container) {
 
     $configImg = require_once(__DIR__ . '/../config/shared/images.php');
     $configImgFolderFrontend =  $configImg['img-folder-frontend'] ??
-        throw new MissingRequiredParameterInFileError('Missing config field: img-folder-frontend');
+        throw new RuntimeException('Missing config field: img-folder-frontend');
 
     $configAudio = require_once(__DIR__ . '/../config/shared/audio.php');
     $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ??
-        throw new MissingRequiredParameterInFileError('Missing config field: audio-folder-frontend');
+        throw new RuntimeException('Missing config field: audio-folder-frontend');
 
     // ArticleListViewRepository
     $container->add(
