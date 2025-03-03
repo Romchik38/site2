@@ -8,7 +8,7 @@ Site2 is based on [php-server](https://github.com/Romchik38/server) and demonstr
 
 Additional:
 
-- Routing system
+- Routing system with PSR-7 Request/Response
 - [Error handling](./doc/errors/errors.md)
 - [Design](./doc/design/01-readme.md)
 - Sitemap system
