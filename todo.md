@@ -3,7 +3,7 @@
 ## Current
 
 - update to server latest v.1.15.3
-  - [-] v1.12.0
+  - [+] v1.12.0
   - [-] v1.13.0
   - [-] v1.14.0
   - [-] v1.14.1
