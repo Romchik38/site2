@@ -18,7 +18,7 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 
 try {
     $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
-    $request = $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class);
+    $request = $container->get(Psr\Http\Message\ServerRequestInterface::class);
     /** @var ImgConverterService $imgConverterService */
     $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
     /** @var ImageCacheService $imgCacheService */

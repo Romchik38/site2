@@ -85,7 +85,7 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class),
             new Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticlePaginationFactory,
-            $container->get(\Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class),
+            $container->get(Psr\Http\Message\ServerRequestInterface::class),
             new \Romchik38\Server\Services\Urlbuilder\Http\UrlbuilderFactory
         )
     );

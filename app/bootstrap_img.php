@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Romchik38\Container;
 use Romchik38\Server\Config\Errors\MissingRequiredParameterInFileError;
-use Romchik38\Server\Services\Request\Http\ServerRequestService;
-use Romchik38\Server\Services\Request\Http\UriFactory;
 
 return function () {
     $container = new Container();
@@ -26,17 +24,20 @@ return function () {
         $container->get(\Romchik38\Server\Models\Sql\DatabasePostgresql::class)
     );
 
-    // Request
+    // REQUEST
     $container->add(
-        \Romchik38\Server\Services\Request\Http\ServerRequest::class,
-        new \Romchik38\Server\Services\Request\Http\ServerRequest(
-            new UriFactory,
-            new ServerRequestService
+        Laminas\Diactoros\ServerRequest::class,
+        Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+            $_SERVER,
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES
         )
     );
     $container->add(
-        \Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface::class,
-        $container->get(\Romchik38\Server\Services\Request\Http\ServerRequest::class)
+        Psr\Http\Message\ServerRequestInterface::class,
+        $container->get(Laminas\Diactoros\ServerRequest::class)
     );
 
     // ImgViewRepository

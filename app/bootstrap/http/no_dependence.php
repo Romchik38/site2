@@ -13,14 +13,20 @@ return function ($container) {
         $container->get(\Romchik38\Server\Results\Http\HttpRouterResult::class)
     );
 
-    // SERVICES
+    // REQUEST  depends only on this file or on no_dependencies global
     $container->add(
-        \Romchik38\Server\Services\Request\Http\UriFactory::class,
-        new \Romchik38\Server\Services\Request\Http\UriFactory
+        Laminas\Diactoros\ServerRequest::class,
+        Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+            $_SERVER,
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES
+        )
     );
     $container->add(
-        \Romchik38\Server\Api\Services\Request\Http\UriFactoryInterface::class,
-        $container->get(\Romchik38\Server\Services\Request\Http\UriFactory::class)
+        Psr\Http\Message\ServerRequestInterface::class,
+        $container->get(Laminas\Diactoros\ServerRequest::class)
     );
 
     return $container;
