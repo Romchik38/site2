@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\ServerErrorExample;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\ServerErrorExample;
 
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;

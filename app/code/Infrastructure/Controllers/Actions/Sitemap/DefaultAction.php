@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Sitemap;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Sitemap\DefaultAction\SitemapDTOFactory;
 
 /**
  * Creates a sitemap tree of public actions

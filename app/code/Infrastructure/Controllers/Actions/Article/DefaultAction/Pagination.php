@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Article\DefaultAction;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;

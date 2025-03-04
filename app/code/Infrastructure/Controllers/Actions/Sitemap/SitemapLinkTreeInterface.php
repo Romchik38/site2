@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Sitemap;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Sitemap;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 

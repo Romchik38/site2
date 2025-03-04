@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Article;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Article;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -18,8 +18,8 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Article\DefaultAction\Pagination;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticleCreatePagination;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface

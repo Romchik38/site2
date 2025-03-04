@@ -12,7 +12,7 @@ return function ($container) {
             new \Romchik38\Server\Controllers\Controller(
                 ServerInterface::SERVER_ERROR_CONTROLLER_NAME,
                 false,
-                $container->get(\Romchik38\Site2\Infrastructure\Controllers\ServerError\DefaultAction::class)
+                $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\ServerError\DefaultAction::class)
             ),
             $container->get(\Romchik38\Server\Api\Services\LoggerServerInterface::class)
         )

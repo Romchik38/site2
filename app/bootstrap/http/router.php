@@ -10,7 +10,7 @@ return function ($container) {
     $notFoundController = new Controller(
         '404', 
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\PageNotFound\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\PageNotFound\DefaultAction::class)
     );
 
     // ROUTER HEADERS

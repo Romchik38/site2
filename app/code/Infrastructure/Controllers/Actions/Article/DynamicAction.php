@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Article;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Article;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -17,7 +17,7 @@ use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\ArticleView\Find;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Article\DynamicAction\ViewDTO;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {

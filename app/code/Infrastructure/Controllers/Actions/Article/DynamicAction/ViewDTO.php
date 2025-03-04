@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Article\DynamicAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\ArticleView\View\ArticleViewDTO;

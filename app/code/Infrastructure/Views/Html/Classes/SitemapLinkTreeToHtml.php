@@ -8,7 +8,7 @@ use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
 use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
 use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
-use Romchik38\Site2\Infrastructure\Controllers\Sitemap\SitemapLinkTreeInterface;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Sitemap\SitemapLinkTreeInterface;
 
 /**
  * 
