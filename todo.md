@@ -3,9 +3,11 @@
 ## Current
 
 - replace Urlbuilder with new one
-  - `app/bootstrap/actions.php`
+  - Bootstrap - `app/bootstrap/actions.php`
+  - actions:
   - `app/code/Infrastructure/Controllers/Article/DefaultAction.php`
   - `app/code/Infrastructure/Controllers/Article/DefaultAction/ViewDTO.php`
+  - views:
   - `app/code/Infrastructure/Views/CreatePaginationFactoryInterface.php`
   - `app/code/Infrastructure/Views/Html/Classes/ArticlePagination.php`
   - `app/code/Infrastructure/Views/Html/Classes/ArticlePaginationFactory.php`
