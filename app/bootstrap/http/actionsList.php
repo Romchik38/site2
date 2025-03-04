@@ -50,13 +50,24 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Admin\DefaultAction::class)                
     );
 
+    $adminLogin = new Controller(
+        'login',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Login\DefaultAction::class)
+    );
+
+    $admin->setChild($adminLogin);
+
     $root
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
         ->setChild($article)
         ->setChild($admin);
 
-    /** collection */
+    /** POST */
+    // Let's create one
+
+    /** Collection */
     $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);
 
     return $container;

@@ -103,5 +103,14 @@ return function ($container) {
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Admin\DefaultAction
     );
 
+    // Admin Login
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Login\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Login\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+
     return $container;
 };
