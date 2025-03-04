@@ -38,6 +38,18 @@ return function (Container $container) {
         )
     );
 
+    // Twig Admin View
+    $container->add(
+        'admin_view',
+        new \Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView(
+            $container->get(\Twig\Environment::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
+            'base_admin.twig'
+        )
+    );
+
     // Other classes
     $container->add(
         \Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml::class,

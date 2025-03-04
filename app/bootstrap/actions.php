@@ -100,7 +100,9 @@ return function ($container) {
     // Admin
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Admin\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Admin\DefaultAction
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Admin\DefaultAction(
+            $container->get('admin_view')
+        )
     );
 
     // Admin Login
