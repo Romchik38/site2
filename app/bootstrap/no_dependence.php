@@ -18,15 +18,6 @@ return function (Container $container) {
 
     // DTO
     $container->add(
-        \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class,
-        new \Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory
-    );
-    $container->add(
-        \Romchik38\Server\Api\Models\DTO\DynamicRoot\DynamicRootDTOFactoryInterface::class,
-        $container->get(\Romchik38\Server\Models\DTO\DynamicRoot\DynamicRootDTOFactory::class)
-    );
-
-    $container->add(
         \Romchik38\Server\Models\DTO\TranslateEntity\TranslateEntityDTOFactory::class,
         new \Romchik38\Server\Models\DTO\TranslateEntity\TranslateEntityDTOFactory
     );

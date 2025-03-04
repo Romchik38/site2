@@ -9,12 +9,12 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
+use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
@@ -27,8 +27,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     protected const PAGE_DESCRIPTION_KEY = 'article.description';
 
     public function __construct(
-        protected readonly DynamicRootInterface $dynamicRootService,
-        protected readonly TranslateInterface $translateService,
+        protected DynamicRootInterface $dynamicRootService,
+        protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleListViewService $articleListViewService,
         protected readonly CreatePaginationFactoryInterface $createPaginationFactory,

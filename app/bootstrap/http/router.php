@@ -19,7 +19,7 @@ return function ($container) {
         new \Romchik38\Server\Routers\Http\DynamicRootRouter(
             new ResponseFactory,
             $container->get(\Psr\Http\Message\ServerRequestInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class),
             $notFoundController,
             null

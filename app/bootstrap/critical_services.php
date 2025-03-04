@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
-use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
 return function (Container $container) {
 
@@ -20,12 +20,11 @@ return function (Container $container) {
             \Romchik38\Server\Services\DynamicRoot\DynamicRoot::class,
             new \Romchik38\Server\Services\DynamicRoot\DynamicRoot(
                 $defaultDynamicRoot,
-                $DynamicRootList,
-                $container->get(\Romchik38\Server\Api\Models\DTO\DynamicRoot\DynamicRootDTOFactoryInterface::class)
+                $DynamicRootList
             )
         );
         $container->add(
-            \Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class,
+            Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class,
             $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRoot::class)
         );
     
@@ -47,7 +46,7 @@ return function (Container $container) {
             \Romchik38\Server\Services\Translate\Translate::class,
             new \Romchik38\Server\Services\Translate\Translate(
                 $container->get(\Romchik38\Server\Api\Services\Translate\TranslateStorageInterface::class),
-                $container->get(\Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface::class)
+                $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
             )
         );
         $container->add(

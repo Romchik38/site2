@@ -7,8 +7,6 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Article;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DynamicActionInterface;
-use Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface;
-use Romchik38\Server\Api\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
@@ -16,6 +14,7 @@ use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\ArticleView\Find;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DynamicAction\ViewDTO;
@@ -24,8 +23,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 {
 
     public function __construct(
-        protected readonly DynamicRootInterface $dynamicRootService,
-        protected readonly TranslateInterface $translateService,
+        protected DynamicRootInterface $dynamicRootService,
+        protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleViewService $articleViewService
     ) {}
