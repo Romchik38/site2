@@ -29,6 +29,7 @@ services:
     build: ./docker/postgres
     volumes: 
       - ./docker/postgres/home:/home/postgres
+      - pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: Change_it
     ports:
@@ -38,3 +39,6 @@ services:
   
 networks:
   backend:
+
+volumes:
+  pg_data:
