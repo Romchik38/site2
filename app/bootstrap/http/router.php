@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 use Laminas\Diactoros\ResponseFactory;
+use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
 use Romchik38\Server\Controllers\Controller;
 
 return function ($container) {
 
     $notFoundController = new Controller(
-        '404', 
+        HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME, 
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\PageNotFound\DefaultAction::class)
     );

@@ -6,7 +6,6 @@
     string      template_controller_name    controller name
     string      template_action_type        dynamic_action or action
     null|Object translate                   Translate service
-    null|string template_action_name        dynamic action name
 #}
 
 {% set controllersDir = 'admin/controllers' %}
@@ -23,18 +22,15 @@
 {% set language = meta_data.language %}
 
 <html lang="{{ language }}">
- 
     {% include 'admin/layouts/head.twig' %}
-
-    <body class="container-fluid p-0">
-        
+    <body class="container-fluid p-0">     
         {% include 'admin/layouts/header.twig' %}
+
         <!-- Dynamic content start -->
         {% include controller_template with {'data': data, 'translate': translate, 'controller_template_dir': controller_template_dir} only %}
         <!-- Dynamic content end -->
 
         {% include 'admin/layouts/footer.twig' %} 
-
         {% include 'admin/layouts/before-body-close-tag.twig' %}
     </body>
 </html>
