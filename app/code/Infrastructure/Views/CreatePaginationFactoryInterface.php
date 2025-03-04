@@ -8,6 +8,7 @@ use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
 
 interface CreatePaginationFactoryInterface
 {
+    /** @todo refactor */
     public function create(
         UrlbuilderInterface $urlbuilder,
         PaginationInterface $pagination,

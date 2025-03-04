@@ -33,6 +33,7 @@ final class ViewDTO extends DefaultViewDTO
         return $this->paginationView->create();
     }
 
+    /** @todo refactor */
     public function urlbuilder(): object
     {
         return new class($this->urlbuilder) {

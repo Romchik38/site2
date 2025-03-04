@@ -65,6 +65,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
+        /** @todo replace with new one */
         $urlBuilder = $this->urlbuilderFactory->create(
             $this->getPath(),
             $this->getLanguage()

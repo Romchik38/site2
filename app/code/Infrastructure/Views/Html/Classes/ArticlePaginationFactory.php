@@ -10,6 +10,7 @@ use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
 
 class ArticlePaginationFactory implements CreatePaginationFactoryInterface
 {
+    /** @refactor */
     public function create(
         UrlbuilderInterface $urlbuilder,
         PaginationInterface $pagination,

@@ -32,6 +32,7 @@ final class ArticlePagination implements CreatePaginationInterface
         $this->limit = (int)$pagination->limit();
         $this->totalCount = $pagination->totalCount();
 
+        /** @todo refactor */
         $this->suffix = $this->urlbuilder->add(sprintf(
             '?%s=',
             $pagination::PAGE_FIELD
