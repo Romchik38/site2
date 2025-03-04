@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction;
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
-use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
+use Romchik38\Site2\Infrastructure\Views\Html\CreatePaginationInterface;
 
 final class ViewDTO extends DefaultViewDTO
 {

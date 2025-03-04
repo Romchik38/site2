@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Romchik38\Container;
+use Romchik38\Server\Services\Urlbuilder\DynamicTarget;
 
 return function (Container $container) {
 
@@ -20,5 +21,20 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Services\Logger\Loggers\FileLogger::class)
     );
 
+    //Urlbuilder
+    $container->add(
+        \Romchik38\Server\Services\Urlbuilder\Urlbuilder::class,
+        new \Romchik38\Server\Services\Urlbuilder\Urlbuilder(
+            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
+            new DynamicTarget(
+                $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
+            )
+        )
+    );
+    $container->add(
+        \Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class,
+        $container->get(\Romchik38\Server\Services\Urlbuilder\Urlbuilder::class)
+    );
+    
     return $container;
 };

@@ -15,11 +15,12 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Views\CreatePaginationFactoryInterface;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticleCreatePagination;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -27,14 +28,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     protected const PAGE_DESCRIPTION_KEY = 'article.description';
 
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleListViewService $articleListViewService,
-        protected readonly CreatePaginationFactoryInterface $createPaginationFactory,
         protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderFactoryInterface $urlbuilderFactory
-    ) {}
+        protected readonly UrlbuilderFactoryInterface $urlbuilderFactory,
+        protected readonly UrlbuilderInterface $urlbuilder,
+    ) {
+        parent::__construct($dynamicRootService, $translateService);
+    }
 
     public function execute(): ResponseInterface
     {
@@ -71,7 +74,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->getLanguage()
         );
 
-        $paginationView = $this->createPaginationFactory->create(
+        $paginationView = new ArticleCreatePagination(
             $urlBuilder,
             $pagination,
             count($articleList)

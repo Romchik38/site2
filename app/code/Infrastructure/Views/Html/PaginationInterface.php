@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Views;
+namespace Romchik38\Site2\Infrastructure\Views\Html;
 
 interface PaginationInterface
 {

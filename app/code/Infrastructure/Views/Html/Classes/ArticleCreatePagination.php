@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 
 use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Infrastructure\Controllers\Article\DefaultAction\Pagination;
-use Romchik38\Site2\Infrastructure\Views\CreatePaginationInterface;
-use Romchik38\Site2\Infrastructure\Views\PaginationInterface;
+use Romchik38\Site2\Infrastructure\Views\Html\CreatePaginationInterface;
+use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
 
 /**
  * @todo move to server abstract part
  * It is responsable for creating HTML pagination block 
  * */
-final class ArticlePagination implements CreatePaginationInterface
+final class ArticleCreatePagination implements CreatePaginationInterface
 {
     protected readonly int $page;
     protected readonly int $limit;
