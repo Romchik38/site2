@@ -5,14 +5,14 @@
 - replace Urlbuilder with new one
   - Bootstrap - `app/bootstrap/actions.php`
   - actions:
-  - `app/code/Infrastructure/Controllers/Article/DefaultAction.php`
-  - `app/code/Infrastructure/Controllers/Article/DefaultAction/ViewDTO.php`
+  - [+] `app/code/Infrastructure/Controllers/Article/DefaultAction.php`
+  - [+] `app/code/Infrastructure/Controllers/Article/DefaultAction/ViewDTO.php`
   - views:
-  - `app/code/Infrastructure/Views/CreatePaginationFactoryInterface.php`
-  - `app/code/Infrastructure/Views/Html/Classes/ArticlePagination.php`
-  - `app/code/Infrastructure/Views/Html/Classes/ArticlePaginationFactory.php`
-  - `app/code/Infrastructure/Views/Html/Templates/controllers/article/default_action/articles.twig`
-  - `app/code/Infrastructure/Views/Html/Templates/controllers/article/default_action/index.twig`
+  - [+] `app/code/Infrastructure/Views/CreatePaginationFactoryInterface.php`
+  - [+] `app/code/Infrastructure/Views/Html/Classes/ArticlePagination.php`
+  - [+] `app/code/Infrastructure/Views/Html/Classes/ArticlePaginationFactory.php`
+  - [+] `app/code/Infrastructure/Views/Html/Templates/controllers/article/default_action/articles.twig`
+  - [+] `app/code/Infrastructure/Views/Html/Templates/controllers/article/default_action/index.twig`
 
 ## Next
 

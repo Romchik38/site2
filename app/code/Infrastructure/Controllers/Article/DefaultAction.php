@@ -10,10 +10,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
-use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderFactoryInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
+use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
@@ -33,7 +33,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         protected readonly ViewInterface $view,
         protected readonly ArticleListViewService $articleListViewService,
         protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderFactoryInterface $urlbuilderFactory,
         protected readonly UrlbuilderInterface $urlbuilder,
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -68,14 +67,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
-        /** @todo replace with new one */
-        $urlBuilder = $this->urlbuilderFactory->create(
-            $this->getPath(),
-            $this->getLanguage()
-        );
-
+        $path = new Path($this->getPath());
         $paginationView = new ArticleCreatePagination(
-            $urlBuilder,
+            $path,
+            $this->urlbuilder,
             $pagination,
             count($articleList)
         );
@@ -86,7 +81,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $translatedPageDescription,
             $articleList,
             $paginationView,
-            $urlBuilder
+            $this->urlbuilder->fromPath($path)
         );
 
         /** 5. create a view */

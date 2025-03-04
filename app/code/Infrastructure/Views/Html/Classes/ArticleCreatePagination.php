@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 
-use Romchik38\Server\Api\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Controllers\PathInterface;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\CreatePaginationInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
 
@@ -17,11 +18,10 @@ final class ArticleCreatePagination implements CreatePaginationInterface
     protected readonly int $page;
     protected readonly int $limit;
     protected readonly int $totalCount;
-    protected readonly string $suffix;
-    protected readonly string $postfix;
 
     public function __construct(
-        protected readonly UrlbuilderInterface $urlbuilder,
+        protected readonly PathInterface $path,
+        protected readonly UrlbuilderInterface $urlBuilder,
         protected readonly PaginationInterface $pagination,
         protected readonly int $displayed,
         protected readonly int $maxPageToShow = 5,
@@ -30,26 +30,10 @@ final class ArticleCreatePagination implements CreatePaginationInterface
         $this->page = (int)$pagination->page();
         $this->limit = (int)$pagination->limit();
         $this->totalCount = $pagination->totalCount();
-
-        /** @todo refactor */
-        $this->suffix = $this->urlbuilder->add(sprintf(
-            '?%s=',
-            $pagination::PAGE_FIELD
-        ));
-
-        $this->postfix = sprintf('&%s=%s&%s=%s&%s=%s',
-            $pagination::LIMIT_FIELD,
-            $pagination->limit(),
-            $pagination::ORDER_BY_FIELD,
-            $pagination->orderByField(),
-            $pagination::ORDER_BY_DIRECTION_FIELD,
-            $pagination->orderByDirection()
-        );
     }
 
     public function create(): string
     {
-
         // Case 1: do not show pagination
         if ($this->displayed === $this->totalCount) return '';
 
@@ -131,7 +115,6 @@ final class ArticleCreatePagination implements CreatePaginationInterface
 
     protected function activeLink(int $pageNumber): string
     {
-        $link = $this->glueLink((string)$pageNumber);
         return sprintf(
             '<li class="page-item active disabled"><a class="page-link" href="#">%s</a></li>',
             $pageNumber
@@ -158,11 +141,14 @@ final class ArticleCreatePagination implements CreatePaginationInterface
     }
 
     protected function glueLink(string $part): string {
-        return sprintf(
-            '%s%s%s',
-            $this->suffix,
-            $part,
-            $this->postfix
+        return $this->urlBuilder->fromPath(
+            $this->path,
+            [
+                'page' => $part,
+                $this->pagination::LIMIT_FIELD => $this->pagination->limit(),
+                $this->pagination::ORDER_BY_FIELD => $this->pagination->orderByField(),
+                $this->pagination::ORDER_BY_DIRECTION_FIELD => $this->pagination->orderByDirection()
+            ]
         );
     }
 }

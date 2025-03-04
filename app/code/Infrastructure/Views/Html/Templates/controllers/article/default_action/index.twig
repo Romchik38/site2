@@ -33,7 +33,7 @@
                             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
                         <!-- refactor -->
-                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'urlbuilder': data.urlbuilder() } only %}
+                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'article_page_url': data.articlePageUrl } only %}
                         {% endif %}
                     </div>
                     <hr>

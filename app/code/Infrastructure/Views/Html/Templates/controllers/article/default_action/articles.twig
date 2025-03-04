@@ -1,14 +1,13 @@
 {#    null|Object             translate                   Translate service #}
 {#    ArticleDTO[]            articles                    A list of article DOTs #}
-{#    Object                  urlbuilder                  used to create urls #}
+{#    string                  article_page_url            used to create urls #}
 
 {% set firstArticle = articles|first %}
 <!-- Primary publication start -->
 <div class="col">
     <div class="row">
         <div class="col-md-8">
-            <!-- ! refactor Urlbuilder -->
-            <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+            <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
                 <picture>
                     <source media="(max-width: 636px)"
                         srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
@@ -24,12 +23,12 @@
         </div>
         <div class="col-md-4">
             <h2>
-                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
                     {{ firstArticle.name }}
                 </a>
             </h2>
             <p>
-                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(firstArticle.articleId) }}" target="_self">
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
                     {{ firstArticle.shortDescription }}
                 </a>
             </p>
@@ -59,7 +58,7 @@
 
     <div class="row my-4">
         <div class="col-sm-3">
-            <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+            <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
                 <picture>
                     <source media="(max-width: 636px)"
                         srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
@@ -75,12 +74,12 @@
         </div>
         <div class="col-sm-9">
             <h3>
-                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
                     {{ article.name }}
                 </a>
             </h3>
             <p>
-                <a class="link-none" href="{{ urlbuilder.addWithDelimiter(article.articleId) }}" target="_self">
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
                     {{ article.shortDescription }}
                 </a>
             </p>
