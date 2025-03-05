@@ -2,8 +2,13 @@
 
 ## Current
 
-- add admin login page
+- admin login page
+- admin register page
+- admin users page
 - create a auth middleware to *admin* controller
+- tables
+  - admin_users
+  - roles
 
 ## Next
 
