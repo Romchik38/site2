@@ -114,5 +114,32 @@ return function ($container) {
         )
     );
 
+    // Register
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class) 
+        )
+    );
+
+    // Register Admin
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\Admin\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\Admin\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+
+    // Register User
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\User\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Register\User\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+
     return $container;
 };

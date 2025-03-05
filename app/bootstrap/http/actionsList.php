@@ -58,11 +58,32 @@ return function (Container $container) {
 
     $admin->setChild($adminLogin);
 
+    $register = new Controller(
+        'register', 
+        true,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\DefaultAction::class)
+    );
+
+    $registerAdmin = new Controller(
+        'admin',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\Admin\DefaultAction::class)
+    );
+
+    $registerUser = new Controller(
+        'user',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\User\DefaultAction::class)
+    );
+
+    $register->setChild($registerAdmin)->setChild($registerUser);
+
     $root
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
         ->setChild($article)
-        ->setChild($admin);
+        ->setChild($admin)
+        ->setChild($register);
 
     /** POST */
     // Let's create one

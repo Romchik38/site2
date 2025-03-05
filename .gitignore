@@ -7,3 +7,4 @@ vendor/
 testsomecode/
 .phpunit.result.cache
 .deptrac.cache
+temp/
