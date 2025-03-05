@@ -53,7 +53,7 @@ class TwigView extends AbstractView implements HttpViewInterface
             throw new ViewBuildException('Controller was not set. View build aborted');
         }
 
-        $templateControllerName = $this->controller->getName();
+        $templateControllerName = $this->controller->getId();
         $templateActionType = '';
         $templateActionName = '';
 

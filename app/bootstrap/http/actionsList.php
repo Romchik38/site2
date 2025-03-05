@@ -67,7 +67,9 @@ return function (Container $container) {
     $registerAdmin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\Admin\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\Admin\DefaultAction::class),
+        null,
+        'register_admin'
     );
 
     $registerUser = new Controller(
