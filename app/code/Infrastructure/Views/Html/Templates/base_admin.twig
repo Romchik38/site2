@@ -24,10 +24,10 @@
 <html lang="{{ language }}">
     {% include 'admin/layouts/head.twig' %}
     <body class="container-fluid p-0">     
-        {% include 'admin/layouts/header.twig' %}
+        {% include 'admin/layouts/header.twig' with {'translate': translate, 'u': urlbuilder} only %}
 
         <!-- Dynamic content start -->
-        {% include controller_template with {'data': data, 'translate': translate, 'controller_template_dir': controller_template_dir} only %}
+        {% include controller_template with {'data': data, 'translate': translate, 'u': urlbuilder, 'controller_template_dir': controller_template_dir} only %}
         <!-- Dynamic content end -->
 
         {% include 'admin/layouts/footer.twig' %} 

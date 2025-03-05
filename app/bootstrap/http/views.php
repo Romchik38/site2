@@ -34,6 +34,7 @@ return function (Container $container) {
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
             'base.twig'
         )
     );
@@ -46,6 +47,7 @@ return function (Container $container) {
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
             'base_admin.twig'
         )
     );

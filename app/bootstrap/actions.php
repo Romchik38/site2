@@ -83,7 +83,7 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class),
             $container->get(Psr\Http\Message\ServerRequestInterface::class),
-            $container->get(\Romchik38\Server\Services\Urlbuilder\Urlbuilder::class)
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
 

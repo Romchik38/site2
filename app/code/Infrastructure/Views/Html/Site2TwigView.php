@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Views\Html;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Twig\Environment;
 
 class Site2TwigView extends TwigView
@@ -18,6 +19,7 @@ class Site2TwigView extends TwigView
         /** Metadata Service here */
         protected readonly DynamicRootInterface $dynamicRootService,
         protected Breadcrumb $breadcrumbService,
+        protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly string $layoutPath = 'base.twig'
     ) {}
 
@@ -78,6 +80,7 @@ class Site2TwigView extends TwigView
     protected function beforeRender(array &$context): array
     {
         $context['translate'] = $this->translateService;
+        $context['urlbuilder'] = $this->urlbuilder;
         return $context;
     }
 }
