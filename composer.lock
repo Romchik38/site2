@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "714560e57a89fe24a3b3337ac0ae0e50",
+    "content-hash": "26785aadf26b70a95f2f25cd2129f3db",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -349,16 +349,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.16.0",
+            "version": "v1.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "670a30411fe41eae92c09c975d5a0c8085234fa9"
+                "reference": "411c42d851a5f8a6116b579ad30e12bddc847729"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/670a30411fe41eae92c09c975d5a0c8085234fa9",
-                "reference": "670a30411fe41eae92c09c975d5a0c8085234fa9",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/411c42d851a5f8a6116b579ad30e12bddc847729",
+                "reference": "411c42d851a5f8a6116b579ad30e12bddc847729",
                 "shasum": ""
             },
             "require": {
@@ -404,10 +404,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.16.0",
+                "source": "https://github.com/Romchik38/server/tree/v1.16.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-03-04T11:46:35+00:00"
+            "time": "2025-03-05T11:22:19+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1433,16 +1433,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.10",
+            "version": "11.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "d5df2b32d729562ff8db634678d71085ee579006"
+                "reference": "3946ac38410be7440186c6e74584f31b15107fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d5df2b32d729562ff8db634678d71085ee579006",
-                "reference": "d5df2b32d729562ff8db634678d71085ee579006",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3946ac38410be7440186c6e74584f31b15107fc7",
+                "reference": "3946ac38410be7440186c6e74584f31b15107fc7",
                 "shasum": ""
             },
             "require": {
@@ -1456,7 +1456,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.2",
-                "phpunit/php-code-coverage": "^11.0.8",
+                "phpunit/php-code-coverage": "^11.0.9",
                 "phpunit/php-file-iterator": "^5.1.0",
                 "phpunit/php-invoker": "^5.0.1",
                 "phpunit/php-text-template": "^4.0.1",
@@ -1514,7 +1514,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.10"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.11"
             },
             "funding": [
                 {
@@ -1530,7 +1530,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-25T06:11:48+00:00"
+            "time": "2025-03-05T07:36:02+00:00"
         },
         {
             "name": "qossmic/deptrac",
