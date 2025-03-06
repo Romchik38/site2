@@ -565,6 +565,7 @@ COPY public.admin_roles (identifier, name, description) FROM stdin;
 
 COPY public.admin_users (identifier, user_name, password, active, email) FROM stdin;
 1	admin	$2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm	t	admin@localhost
+2	admin2	2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2	t	admin2@localhost
 \.
 
 
@@ -574,6 +575,7 @@ COPY public.admin_users (identifier, user_name, password, active, email) FROM st
 
 COPY public.admin_users_with_roles (user_id, role_id) FROM stdin;
 1	1
+2	2
 \.
 
 

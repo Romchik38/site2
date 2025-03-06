@@ -22,24 +22,32 @@ CREATE table admin_users_with_roles
     CONSTRAINT pk_admin_users_roles PRIMARY KEY (user_id, role_id)
 );
 
--- pass 123
--- hash $2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm
-
 INSERT INTO admin_users (identifier, user_name, password, active, email)
     VALUES 
     (
         1,
         'admin', 
+        --123
         '$2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm',
         't',
         'admin@localhost'
+    ),
+    (
+        2,
+        'admin2', 
+        --1234
+        '2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2',
+        't',
+        'admin2@localhost'
     )
 ;
 
 INSERT INTO admin_roles (identifier, name, description)
-    VALUES (1, 'ADMIN_ROOT', 'Can do anything'), (2, 'ADMIN_LOGIN', 'Can login into');
+    VALUES 
+    (1, 'ADMIN_ROOT', 'Can do anything'), 
+    (2, 'ADMIN_LOGIN', 'Can login into');
 ;
 
 INSERT INTO admin_users_with_roles (user_id, role_id)
-    VALUES (1, 1)
+    VALUES (1, 1), (2, 2)
 ;
