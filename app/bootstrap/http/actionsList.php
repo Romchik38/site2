@@ -47,7 +47,7 @@ return function (Container $container) {
     $admin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\DefaultAction::class)                
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\DefaultAction::class)
     );
 
     $register = new Controller(
@@ -61,6 +61,16 @@ return function (Container $container) {
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Login\DefaultAction::class)
     );
+
+    $loginAdmin = new Controller(
+        'admin',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Login\Admin\DefaultAction::class),
+        null,
+        'login_admin'
+    );
+
+    $login->setChild($loginAdmin);
 
     $root
         ->setChild($sitemap)

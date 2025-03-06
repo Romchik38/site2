@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Login\Admin;
+
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
+use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\SessionInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Views\ViewInterface;
+use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
+use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Login\Admin\DefaultAction\ViewDTO;
+
+/** @todo implement it */
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
+{
+    public function __construct(
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        protected readonly SessionInterface $session,
+        protected readonly ViewInterface $view
+    )
+    {
+        parent::__construct($dynamicRootService, $translateService);
+    }
+    
+    public function execute(): ResponseInterface
+    {
+        // 1 check if use already logged in
+        $user = $this->session->getData('user');
+        $html = $this->view
+            ->setController($this->controller)
+            ->setControllerData(
+                new ViewDTO('Admin user login', 'Admin user login page', $user)
+            )
+            ->toString();
+
+        return new HtmlResponse($html);
+    }
+
+    public function getDescription(): string
+    {
+        return 'Admin user login page';
+    }
+}
