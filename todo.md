@@ -3,6 +3,7 @@
 ## Current
 
 - admin login page
+- csrf
 - admin users page
 - create a auth middleware to *admin* controller
 - docker - email

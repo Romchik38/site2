@@ -112,7 +112,8 @@ return function ($container) {
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
+            $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
 
