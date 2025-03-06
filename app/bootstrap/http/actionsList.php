@@ -56,12 +56,19 @@ return function (Container $container) {
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Register\DefaultAction::class)
     );
 
+    $login = new Controller(
+        'login', 
+        true,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Login\DefaultAction::class)
+    );
+
     $root
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
         ->setChild($article)
         ->setChild($admin)
-        ->setChild($register);
+        ->setChild($register)
+        ->setChild($login);
 
     /** POST */
     // Let's create one

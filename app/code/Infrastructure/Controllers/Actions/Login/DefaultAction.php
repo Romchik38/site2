@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Register;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\Login;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -12,7 +12,7 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\Register\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\Login\DefaultAction\ViewDTO;
 
 /** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -30,11 +30,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         // 1 check if use already logged in
-        $adminUser = $this->session->getData('user');
+        $user = $this->session->getData('user');
         $html = $this->view
             ->setController($this->controller)
             ->setControllerData(
-                new ViewDTO('User register', 'User register page', $adminUser)
+                new ViewDTO('User login', 'User login page', $user)
             )
             ->toString();
 
@@ -43,6 +43,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Registration page';
+        return 'User login page';
     }
 }

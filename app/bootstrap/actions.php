@@ -115,6 +115,17 @@ return function ($container) {
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
         )
     );
+    
+    // Login
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Login\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Login\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
+        )
+    );
 
     return $container;
 };

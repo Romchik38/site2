@@ -1,0 +1,12 @@
+<div class="container-sm">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <div class="col-6 mx-auto"> 
+            {% if data.user is null %}
+                Show form
+            {% else %}
+                You already logged in.
+            {% endif %}
+        </div>
+    </div>
+</div>
