@@ -22,6 +22,41 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: admin_roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.admin_roles (
+    identifier integer NOT NULL,
+    name text NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.admin_roles OWNER TO postgres;
+
+--
+-- Name: admin_roles_identifier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.admin_roles_identifier_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.admin_roles_identifier_seq OWNER TO postgres;
+
+--
+-- Name: admin_roles_identifier_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.admin_roles_identifier_seq OWNED BY public.admin_roles.identifier;
+
+
+--
 -- Name: admin_users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -30,7 +65,6 @@ CREATE TABLE public.admin_users (
     user_name text NOT NULL,
     password text NOT NULL,
     active boolean DEFAULT false NOT NULL,
-    person_id integer,
     email text NOT NULL
 );
 
@@ -58,6 +92,18 @@ ALTER SEQUENCE public.admin_users_identifier_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.admin_users_identifier_seq OWNED BY public.admin_users.identifier;
 
+
+--
+-- Name: admin_users_with_roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.admin_users_with_roles (
+    user_id integer NOT NULL,
+    role_id integer NOT NULL
+);
+
+
+ALTER TABLE public.admin_users_with_roles OWNER TO postgres;
 
 --
 -- Name: article; Type: TABLE; Schema: public; Owner: postgres
@@ -448,6 +494,13 @@ CREATE TABLE public.translate_lang (
 ALTER TABLE public.translate_lang OWNER TO postgres;
 
 --
+-- Name: admin_roles identifier; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin_roles ALTER COLUMN identifier SET DEFAULT nextval('public.admin_roles_identifier_seq'::regclass);
+
+
+--
 -- Name: admin_users identifier; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -497,10 +550,30 @@ ALTER TABLE ONLY public.translate_entities ALTER COLUMN entity_id SET DEFAULT ne
 
 
 --
+-- Data for Name: admin_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.admin_roles (identifier, name, description) FROM stdin;
+1	ADMIN_ROOT	Can do anything
+2	ADMIN_LOGIN	Can login into
+\.
+
+
+--
 -- Data for Name: admin_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.admin_users (identifier, user_name, password, active, person_id, email) FROM stdin;
+COPY public.admin_users (identifier, user_name, password, active, email) FROM stdin;
+1	admin	$2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm	t	admin@localhost
+\.
+
+
+--
+-- Data for Name: admin_users_with_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.admin_users_with_roles (user_id, role_id) FROM stdin;
+1	1
 \.
 
 
@@ -952,6 +1025,13 @@ uk	t
 
 
 --
+-- Name: admin_roles_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.admin_roles_identifier_seq', 1, false);
+
+
+--
 -- Name: admin_users_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -998,6 +1078,22 @@ SELECT pg_catalog.setval('public.persons_identifier_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 159, true);
+
+
+--
+-- Name: admin_roles admin_roles_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin_roles
+    ADD CONSTRAINT admin_roles_name_key UNIQUE (name);
+
+
+--
+-- Name: admin_roles admin_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin_roles
+    ADD CONSTRAINT admin_roles_pkey PRIMARY KEY (identifier);
 
 
 --
@@ -1121,6 +1217,14 @@ ALTER TABLE ONLY public.person
 
 
 --
+-- Name: admin_users_with_roles pk_admin_users_roles; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin_users_with_roles
+    ADD CONSTRAINT pk_admin_users_roles PRIMARY KEY (user_id, role_id);
+
+
+--
 -- Name: article_category pk_article_category; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1209,11 +1313,19 @@ ALTER TABLE ONLY public.translate_entities
 
 
 --
--- Name: admin_users admin_users_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: admin_users_with_roles admin_users_with_roles_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.admin_users
-    ADD CONSTRAINT admin_users_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.person(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.admin_users_with_roles
+    ADD CONSTRAINT admin_users_with_roles_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.admin_roles(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: admin_users_with_roles admin_users_with_roles_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin_users_with_roles
+    ADD CONSTRAINT admin_users_with_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.admin_users(identifier) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
