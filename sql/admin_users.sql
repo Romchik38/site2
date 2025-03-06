@@ -1,8 +1,8 @@
 CREATE table admin_users
 (
     identifier serial NOT NULL PRIMARY KEY,
-    user_name text UNIQUE NOT NULL,
-    password text NOT NULL,
+    username text UNIQUE NOT NULL,
+    password_hash text NOT NULL,
     active boolean NOT NULL DEFAULT false,
     email text UNIQUE NOT NULL
 );
