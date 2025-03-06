@@ -3,6 +3,9 @@
 ## Current
 
 - admin login page
+- Admin user
+  - domain
+  - application
 - csrf
 - admin users page
 - create a auth middleware to *admin* controller
