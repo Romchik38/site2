@@ -4,6 +4,7 @@
 
 - admin login page
 - admin use auth
+- create own `SessionInterface` and refactor all actions and fields
 - csrf
 - admin users page
 - create a auth middleware to *admin* controller

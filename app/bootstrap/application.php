@@ -31,5 +31,13 @@ return function ($container) {
         )
     );
 
+    // Admin User Check Service 
+    $container->add(
+        \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class,
+        new \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService(
+            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
+        )
+    );
+
     return $container;
 };

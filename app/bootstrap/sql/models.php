@@ -32,6 +32,17 @@ return function (Container $container) {
         \Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class,
         $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class)
     );
-
+    
+    // AdminUserRepository
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository::class,
+        new \Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository(
+            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
+        )
+    );
+    $container->add(
+        \Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository::class)
+    );
     return $container;
 };

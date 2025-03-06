@@ -144,8 +144,12 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
+            $container->get(\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class),
+            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
 
