@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Site2\Domain\AdminRole\VO\Description;
+use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
+use Romchik38\Site2\Domain\AdminRole\VO\Name;
 use Romchik38\Site2\Domain\AdminUser\AdminUser;
 use Romchik38\Site2\Domain\AdminUser\AdminUserInterface;
 use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface;
@@ -13,6 +16,8 @@ use Romchik38\Site2\Domain\AdminUser\VO\Active;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
+use Romchik38\Site2\Domain\AdminUser\VO\Role;
+use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 final class AdminUserRepository implements AdminUserRepositoryInreface
@@ -25,8 +30,11 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
     final const ADMIN_USER_C_ACTIVE = 'active';
     final const ADMIN_USER_C_EMAIL = 'email';
 
-    /** @var array<string,AdminUserInterface> $hash */
-    protected $hash = [];
+    /** admin_users_with_roles */
+    final const ADMIN_ROLES_T = 'admin_roles';
+    final const ADMIN_ROLES_C_IDENTIFIER = 'identifier';
+    final const ADMIN_ROLES_C_NAME = 'name';
+    final const ADMIN_ROLES_C_DESCRIPTION = 'description';
     
     public function __construct(
         protected readonly DatabaseInterface $database
@@ -36,12 +44,6 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
     }
     public function findByUsername(Username $username): AdminUserInterface
     {
-        /** 1 check the hash */
-        $hashed = $this->hash[$username()] ?? null;
-        if ($hashed !== null) {
-            return $hashed;
-        }
-
         $expression = sprintf(
             'WHERE %s.%s = $1',
             $this::ADMIN_USER_T,
@@ -63,8 +65,7 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
         }
 
         /** 3. Create an Entity */
-        $admin_user = $this->createSingleAdminUserFromRows($rows);
-
+        return $this->createSingleAdminUserFromRows($rows);
     }
 
      /**
@@ -96,7 +97,7 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
      */
     protected function createSingleAdminUserFromRows(array $rows): AdminUserInterface
     {
-        // 1. create translates
+        // 1. create roles
         $roles = $this->createRolesFromRows($rows);
 
         // 2. create an entity
@@ -106,10 +107,50 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
             new Username($firstRow[$this::ADMIN_USER_C_USERNAME]),
             new PasswordHash($firstRow[$this::ADMIN_USER_C_PASSWORD_HASH]),
             new Active($firstRow[$this::ADMIN_USER_C_ACTIVE] === 'f' ? false : true),
-            new Email($firstRow[$this::ADMIN_USER_C_EMAIL])
-            $roles
+            new Email($firstRow[$this::ADMIN_USER_C_EMAIL]),
+            new Roles($roles)
         );
 
         return $entity;
+    }
+
+    /**
+     * Create all roles for AdminUser
+     * 
+     * @param array<int,array<string,string>> $AdminUser rows of a single model, all admin user ids must be the same
+     * @return array<int,Roles> - A list of Roles or empty array 
+     * */
+    protected function createRolesFromRows(array $adminUserRows): array
+    {
+        $roles = [];
+        if (count($adminUserRows) === 0) {
+            return $roles;
+        }
+
+        $firstRow = $adminUserRows[0];
+        $adminUserId = $firstRow[$this::ADMIN_USER_C_IDENTIFIER] ?? null;
+        if ($adminUserId === null) {
+            return $roles;
+        }
+
+        $expression = <<<SQL
+        SELECT admin_roles.identifier,
+            admin_roles.name,
+            admin_roles.description
+        FROM admin_roles, admin_users_with_roles
+        WHERE admin_roles.identifier = admin_users_with_roles.role_id
+            AND admin_users_with_roles.user_id = $1
+        SQL;
+
+        $rows = $this->database->queryParams($expression,[$adminUserId]);
+
+        foreach ($rows as $row) {
+            $name = new Name($row[$this::ADMIN_ROLES_C_NAME]);
+            $description = new Description($row[$this::ADMIN_ROLES_C_DESCRIPTION]);
+            $identifier = new VOIdentifier((int) $row[$this::ADMIN_ROLES_C_IDENTIFIER]);
+            $role = new Role($identifier, $name, $description);
+            $roles[] = $role;
+        }
+        return $roles;
     }
 }
