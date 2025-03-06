@@ -9,6 +9,7 @@
 - tables
   - admin_users
   - roles
+- docker - email
 
 ## Next
 
