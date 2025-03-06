@@ -81,10 +81,19 @@ return function (Container $container) {
         ->setChild($login);
 
     /** POST */
-    // Let's create one
+    $rootPost = new Controller(ControllerTreeInterface::ROOT_NAME);
+    $authPost = new Controller('auth');
+    $authAdminPost = new Controller(
+        'admin',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction::class)
+    );
+    $authPost->setChild($authAdminPost);
+    $rootPost->setChild($authPost);
 
     /** Collection */
-    $collection->setController($root, HttpRouterInterface::REQUEST_METHOD_GET);
-
+    $collection
+        ->setController($root, HttpRouterInterface::REQUEST_METHOD_GET)
+        ->setController($rootPost, HttpRouterInterface::REQUEST_METHOD_POST);
     return $container;
 };

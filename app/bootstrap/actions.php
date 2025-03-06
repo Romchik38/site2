@@ -139,5 +139,15 @@ return function ($container) {
         )
     );
 
+    // [POST]
+    // Auth Admin
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction(
+            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+
     return $container;
 };
