@@ -35,8 +35,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         // 1 check if use already logged in
-        $user = $this->session->getData('user');
+        $user = $this->session->getData('admin_user');
         $message = (string) $this->session->getData('message');
+        if ($message !== null) {
+            if ($message !== '') {
+                $this->session->setData('message', '');
+            }
+        }
         $authUrl = $this->urlbuilder->fromArray(['root', 'auth', 'admin']);
         $html = $this->view
             ->setController($this->controller)
