@@ -1,9 +1,25 @@
-<div class="container-fluid bg-secondary text-white">
+<header class="container-fluid bg-secondary text-white">
     <div class="row">
         <div class="col-sm">
             <span class="me-2">
                 <a class="link-none-white" href="{{ u.fromArray(['root']) }}" target="_blank">Frontend</a>
             </span>
         </div>
+        <div class="col-sm-3">
+            <div class="text-center">
+                <div class="header-user-loggedin justify-content-center">
+                    <div class="row">
+                        <div class="col-6 text-end">
+                            <span>Hello,&nbsp;</span><a href="/login/index"><span class="user-name-field me-3">User_name</span></a>
+                        </div>
+                        <div class="col-6 text-start">
+                            <form action="{{ u.fromArray(['root', 'admin', 'logout']) }}" method="post">
+                                <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</header>

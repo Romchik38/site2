@@ -29,7 +29,7 @@
     <body class="container-fluid p-0">
         {% include 'frontend/layouts/header.twig' %}
         <!-- Dynamic content start -->
-        {% include controller_template with {'data': data, 'translate': translate, 'controller_template_dir': controller_template_dir} only %}
+        {% include controller_template with {'data': data, 'translate': translate, 'u': urlbuilder, 'controller_template_dir': controller_template_dir} only %}
         <!-- Dynamic content end -->
 
         {% include 'frontend/layouts/footer.twig' %} 

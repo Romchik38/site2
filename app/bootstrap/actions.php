@@ -153,5 +153,27 @@ return function ($container) {
         )
     );
 
+    // Admin Logout
+    $container->add(
+        Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Logout\DefaultAction::class,
+        new Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Logout\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
+        )
+    );
+
+    // Admin Api
+    // Userinfo
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Api\Userinfo\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Api\Userinfo\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
+        )
+    );
+
     return $container;
 };

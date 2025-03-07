@@ -1,3 +1,7 @@
+{#
+    Object          u           Urlbuilder
+#}
+
 <div class="container-sm">
     <div class="row justify-content-center">
         <h1 class="text-center">{{ data.name }}</h1>
@@ -17,7 +21,7 @@
                     <br>
                 </div>
             {% else %}
-                You already logged in.
+                <p>You already logged in. Please visit <a href="{{ u.fromArray(['root', 'admin']) }}">Admin Page</a>.</p>
             {% endif %}
     </div>
 </div>

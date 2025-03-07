@@ -86,10 +86,32 @@ return function (Container $container) {
     $authAdminPost = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Auth\Admin\DefaultAction::class),
+        null,
+        'auth_admin'
     );
     $authPost->setChild($authAdminPost);
-    $rootPost->setChild($authPost);
+    
+    $adminPost = new Controller('admin');
+    $adminLogoutPost = new Controller(
+        'logout',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Logout\DefaultAction::class),
+        null,
+        'admin_logout'
+    );
+
+    $adminApiPost = new Controller('api');
+    $adminApiUserunfo = new Controller(
+        'userinfo',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\Admin\Api\Userinfo\DefaultAction::class)
+    );
+    $adminApiPost->setChild($adminApiUserunfo);
+
+    $adminPost->setChild($adminLogoutPost)->setChild($adminApiPost);
+
+    $rootPost->setChild($authPost)->setChild($adminPost);
 
     /** Collection */
     $collection
