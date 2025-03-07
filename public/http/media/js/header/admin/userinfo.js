@@ -24,7 +24,7 @@
             return;
         }
 
-        var url = window.location.origin + '/admin/api/userinfo1';
+        var url = window.location.origin + '/uk/admin/api/userinfo';
         const request = new Request(url, {
             method: "POST"
           });
