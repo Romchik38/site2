@@ -2,7 +2,6 @@
 
 ## Current
 
-- action folder structure based on methods `GET`, etc.
 - `GET` api language point
 - js module `dynamic_root`
 - js module `urlbuilder`

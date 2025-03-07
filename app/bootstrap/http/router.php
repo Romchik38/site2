@@ -11,7 +11,7 @@ return function ($container) {
     $notFoundController = new Controller(
         HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME, 
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\PageNotFound\DefaultAction::class)
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction::class)
     );
 
     // ROUTER HEADERS

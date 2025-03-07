@@ -61,7 +61,7 @@ return function (Container $container) {
         )
     );
     $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\Sitemap\SitemapLinkTreeInterface::class,
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface::class,
         $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml::class)
     );
 
