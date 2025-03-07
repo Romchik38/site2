@@ -62,8 +62,8 @@ ALTER SEQUENCE public.admin_roles_identifier_seq OWNED BY public.admin_roles.ide
 
 CREATE TABLE public.admin_users (
     identifier integer NOT NULL,
-    user_name text NOT NULL,
-    password text NOT NULL,
+    username text NOT NULL,
+    password_hash text NOT NULL,
     active boolean DEFAULT false NOT NULL,
     email text NOT NULL
 );
@@ -563,9 +563,9 @@ COPY public.admin_roles (identifier, name, description) FROM stdin;
 -- Data for Name: admin_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.admin_users (identifier, user_name, password, active, email) FROM stdin;
-1	admin	$2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm	t	admin@localhost
-2	admin2	2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2	t	admin2@localhost
+COPY public.admin_users (identifier, username, password_hash, active, email) FROM stdin;
+1	admin	$2y$10$wyrush/aig9nQd3DVZvjuudH/FOIA.II2k1y64ZlYlbodcM8jK5sC	t	admin@example.com
+2	admin2	2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2	t	admin2@example.com
 \.
 
 
@@ -960,6 +960,8 @@ COPY public.translate_entities (entity_id, key, language, phrase) FROM stdin;
 91	footer.by_romanenko	en	by Romanenko Serhii
 92	footer.by_romanenko	uk	належить Романенко Сергію
 159	article.category	uk	Категорія
+160	server-error.description	en	This page is now works as expected
+161	server-error.description	uk	Ця сторінка не працює як очікувалося, сталася помилка серверу
 \.
 
 
@@ -1013,6 +1015,7 @@ server-error-example.page_name
 sitemap.page_name
 sitemap.description
 article.category
+server-error.description
 \.
 
 
@@ -1079,7 +1082,7 @@ SELECT pg_catalog.setval('public.persons_identifier_seq', 1, false);
 -- Name: translate_entities_entity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 159, true);
+SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 161, true);
 
 
 --
@@ -1115,11 +1118,11 @@ ALTER TABLE ONLY public.admin_users
 
 
 --
--- Name: admin_users admin_users_user_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: admin_users admin_users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.admin_users
-    ADD CONSTRAINT admin_users_user_name_key UNIQUE (user_name);
+    ADD CONSTRAINT admin_users_username_key UNIQUE (username);
 
 
 --
