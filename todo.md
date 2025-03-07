@@ -2,8 +2,12 @@
 
 ## Current
 
+- action folder structure based on methods `GET`, etc.
+- `GET` api language point
+- js module `dynamic_root`
+- js module `urlbuilder`
+- admin login status in the top menu admin page
 - admin login page
-- admin use auth
 - create own `SessionInterface` and refactor all actions and fields
   - `admin_user`
   - `user`
