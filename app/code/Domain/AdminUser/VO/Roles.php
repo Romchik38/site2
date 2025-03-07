@@ -10,7 +10,7 @@ use Romchik38\Site2\Domain\AdminRole\VO\Name;
 final class Roles
 {
     /** @var array<string, Name> */
-    protected readonly array $hash;
+    protected array $hash;
 
     /** @param array<int,Role> $roles*/
     public function __construct(
@@ -21,7 +21,8 @@ final class Roles
             throw new InvalidArgumentException('Roles list is empty');
         }
         foreach($roles as $role) {
-            $this->hash[$role->name()] = $role;
+            $roleName = $role->name();
+            $this->hash[$roleName()] = $role;
         }
     }
 

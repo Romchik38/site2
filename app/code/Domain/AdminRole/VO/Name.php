@@ -15,4 +15,9 @@ final class Name
             throw new InvalidArgumentException('Role name is empty');
         }
     }
+
+    public function __invoke(): string
+    {
+        return $this->name;
+    }
 }

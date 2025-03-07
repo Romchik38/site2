@@ -22,23 +22,21 @@ CREATE table admin_users_with_roles
     CONSTRAINT pk_admin_users_roles PRIMARY KEY (user_id, role_id)
 );
 
-INSERT INTO admin_users (identifier, user_name, password, active, email)
+INSERT INTO admin_users (identifier, username, password_hash, active, email)
     VALUES 
     (
         1,
         'admin', 
-        --123
-        '$2y$10$HtXhkHrQmpd8Tq094NTOheWg5Idx74np2EkU7/SU32218zQZFhTPm',
+        '$2y$10$wyrush/aig9nQd3DVZvjuudH/FOIA.II2k1y64ZlYlbodcM8jK5sC',
         't',
-        'admin@localhost'
+        'admin@example.com'
     ),
     (
         2,
         'admin2', 
-        --1234
         '2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2',
         't',
-        'admin2@localhost'
+        'admin2@example.com'
     )
 ;
 

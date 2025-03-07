@@ -47,7 +47,7 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
         $expression = sprintf(
             'WHERE %s.%s = $1',
             $this::ADMIN_USER_T,
-            $this::ADMIN_USER_C_IDENTIFIER
+            $this::ADMIN_USER_C_USERNAME
         );
 
         /** 2. Entity rows */

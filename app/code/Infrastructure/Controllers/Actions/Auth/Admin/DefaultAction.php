@@ -44,7 +44,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function execute(): ResponseInterface
     {
         /** @todo replace with form csrf */
-        $requestData = $this->request->getQueryParams();
+        $requestData = $this->request->getParsedBody();
         $command = CheckPassword::fromHash($requestData);
         try {
             $adminUserId = $this->adminUserCheck->checkPassword($command);

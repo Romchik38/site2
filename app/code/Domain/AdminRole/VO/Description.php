@@ -15,4 +15,9 @@ final class Description
             throw new InvalidArgumentException('Role description is empty');
         }
     }
+
+    public function __invoke(): string
+    {
+        return $this->description;
+    }
 }

@@ -13,4 +13,9 @@ final class Active
         public readonly bool $active
     ){
     }
+
+    public function __invoke(): bool
+    {
+        return $this->active;
+    }
 }
