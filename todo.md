@@ -2,13 +2,11 @@
 
 ## Current
 
-- create own `SessionInterface` and refactor all actions and fields
-  - `admin_user`
-  - `user`
-  - `message`
-- csrf
 - admin users page
-- create a auth middleware to *admin* controller
+  - middleware super_user
+- admin page
+  - middleware admin_default
+- csrf
 - docker - email
 
 ## Next
