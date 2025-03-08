@@ -176,6 +176,15 @@ return function ($container) {
         )
     );
 
+    // Admin Users
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+
     // Api
     /** Let's add some */
 

@@ -49,6 +49,13 @@ return function (Container $container): ControllerInterface {
     );
     $admin->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\Middlewares\Admin\AdminLoginMiddleware::class));
 
+    $adminUsers = new Controller(
+        'users',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class)
+    );
+    $admin->setChild($adminUsers);
+    
     /** REGISTER */
     $register = new Controller(
         'register', 
