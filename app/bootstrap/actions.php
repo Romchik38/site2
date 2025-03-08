@@ -175,5 +175,8 @@ return function ($container) {
         )
     );
 
+    // Api
+    /** Let's add some */
+
     return $container;
 };

@@ -8,39 +8,54 @@ use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
 use Romchik38\Server\Controllers\Controller;
 
 return function (Container $container): ControllerInterface {
-    /** GET */
+    /** ROOT */
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction::class),
     );
+
+    /** API */
+    $api = new Controller('api');
+
+    /** SITEMAP */
     $sitemap = new Controller(
         'sitemap',
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction::class)
     );
+
+    /** SERVER-ERROR */
     $serverErrorExample = new Controller(
         'server-error-example',
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction::class)
     );
+
+    /** ARTICLE */
     $article = new Controller(
         'article',
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction::class),
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction::class)
     );
+
+    /** ADMIN */
     $admin = new Controller(
         'admin',
         false,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class)
     );
+
+    /** REGISTER */
     $register = new Controller(
         'register', 
         true,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction::class)
     );
+
+    /** LOGIN */
     $login = new Controller(
         'login', 
         true,
@@ -56,6 +71,7 @@ return function (Container $container): ControllerInterface {
     $login->setChild($loginAdmin);
     
     $root
+        ->setChild($api)
         ->setChild($sitemap)
         ->setChild($serverErrorExample)
         ->setChild($article)

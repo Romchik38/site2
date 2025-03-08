@@ -2,7 +2,7 @@
 
 ## Current
 
-- `GET` api language point
+- js global languages
 - js module `dynamic_root`
 - js module `urlbuilder`
 - admin login status in the top menu admin page
