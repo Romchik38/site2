@@ -14,9 +14,9 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService;
-use Romchik38\Site2\Application\AdminUserCheck\AdminUserNotActiveException;
 use Romchik38\Site2\Application\AdminUserCheck\CheckPassword;
 use Romchik38\Site2\Application\AdminUserCheck\InvalidPasswordException;
+use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 

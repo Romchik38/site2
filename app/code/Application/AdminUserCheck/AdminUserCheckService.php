@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Application\AdminUserCheck;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 

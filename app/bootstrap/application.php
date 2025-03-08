@@ -39,5 +39,13 @@ return function ($container) {
         )
     );
 
+    // Admin User Roles
+    $container->add(
+        \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService::class,
+        new \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService(
+            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
+        )
+    );
+
     return $container;
 };

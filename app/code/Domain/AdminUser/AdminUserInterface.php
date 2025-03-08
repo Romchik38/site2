@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Domain\AdminUser;
 
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
+use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 interface AdminUserInterface
@@ -17,4 +18,6 @@ interface AdminUserInterface
     public function identifier(): Identifier;
 
     public function username(): Username;
+
+    public function roles(): Roles;
 }

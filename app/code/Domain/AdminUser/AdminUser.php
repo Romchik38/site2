@@ -42,4 +42,9 @@ final class AdminUser implements AdminUserInterface
     {
         return $this->username;
     }
+
+    public function roles(): Roles
+    {
+        return $this->roles;
+    }
 }
