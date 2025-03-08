@@ -26,28 +26,25 @@ addEventListener("DOMContentLoaded", (event) => {
 
         if (response.status === 200) {
             response.json().then((data) => {
-                console.log({ data })
-                // var dataKeys = Object.keys(data);
-                // if (dataKeys.indexOf('status') > -1) {
-                //     if(data['status'] === 'success') {
-                //         var result = data['result'];
-                //         var resultKeys = Object.keys(result);
-                //         if (resultKeys.indexOf('username') > -1) {
-                //             var username = result['username'];
-                //             for (var elem of usernameElems) {
-                //                 elem.innerText = username;
-                //             }
-                //             for (var elem of notloggedinElems) {
-                //                 elem.style.display = 'none';
-                //             }
-                //             for (var elem of loggedinElems) {
-                //                 elem.style.display = 'flex';
-                //             }
-                //         }
-                //     }
-                // } else {
-                //     // Unauthorized reques
-                // }   
+                var dataKeys = Object.keys(data);
+                if (dataKeys.indexOf('status') > -1) {
+                    if(data['status'] === 'success') {
+                        var result = data['result'];
+                        if (result !== undefined && result !== '') {
+
+                            for (var elem of usernameElems) {
+                                elem.innerText = result;
+                            }
+
+                            for (var elem of loggedinElems) {
+                                elem.style.display = 'flex';
+                            }
+                        }
+
+                    }
+                } else {
+                    // Unauthorized reques
+                }   
             }, (err) => {
                 console.log(err);
             })
