@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\AdminUserCheck;
 
-use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use InvalidArgumentException;
@@ -24,7 +23,7 @@ final class AdminUserCheckService
      * @throws InvalidArgumentException
      * @throws NoSuchAdminUserException
      */
-    public function checkPassword(CheckPassword $command): Identifier
+    public function checkPassword(CheckPassword $command): Username
     {
         $username = new Username($command->username);
         $password = new Password($command->password);
@@ -37,7 +36,7 @@ final class AdminUserCheckService
                     sprintf('Admin use with username %s not active', $username())
                 );
             }
-            return $user->identifier();
+            return $user->username();
         }
         throw new InvalidPasswordException(
             sprintf('Password for username %s is incorrect', $username())

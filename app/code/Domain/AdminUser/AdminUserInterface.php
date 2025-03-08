@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\AdminUser;
 
-use Romchik38\Site2\Domain\AdminUser\VO\Active;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
+use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 interface AdminUserInterface
 {
@@ -15,4 +15,6 @@ interface AdminUserInterface
     public function isActive(): bool;
 
     public function identifier(): Identifier;
+
+    public function username(): Username;
 }

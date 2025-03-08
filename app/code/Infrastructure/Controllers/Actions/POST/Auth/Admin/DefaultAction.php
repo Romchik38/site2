@@ -47,7 +47,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $requestData = $this->request->getParsedBody();
         $command = CheckPassword::fromHash($requestData);
         try {
-            $adminUserId = $this->adminUserCheck->checkPassword($command);
+            $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch(AdminUserNotActiveException) {
             $this->session->setData('message', $this::NOT_ACTIVE_MESSAGE_KEY);
             return new TextResponse($this::NOT_ACTIVE_MESSAGE_KEY);
@@ -66,7 +66,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
             $this->session->setData('message', $this::WRONG_USERNAME_MESSAGE_KEY);
             return new TextResponse($this::WRONG_USERNAME_MESSAGE_KEY);
         }
-        $this->session->setData('admin_user', (string) $adminUserId());
+        $this->session->setData('admin_user', (string) $adminUsername());
         $url = $this->urlbuilder->fromArray(['root', 'admin']);
         return new RedirectResponse($url);
     }

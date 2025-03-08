@@ -37,4 +37,9 @@ final class AdminUser implements AdminUserInterface
     public function isActive(): bool {
         return ($this->active)();
     }
+
+    public function username(): Username
+    {
+        return $this->username;
+    }
 }

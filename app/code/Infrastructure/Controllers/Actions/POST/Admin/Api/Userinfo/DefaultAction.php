@@ -26,6 +26,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
+        $adminUser = $this->session->getData('admin_user');
         return new JsonResponse('api user info');
     }
 
