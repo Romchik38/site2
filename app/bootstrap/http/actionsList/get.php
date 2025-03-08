@@ -54,6 +54,8 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class)
     );
+    $adminUsers->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\Middlewares\Admin\AdminRolesMiddleware::class));
+    
     $admin->setChild($adminUsers);
     
     /** REGISTER */

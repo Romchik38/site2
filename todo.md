@@ -2,8 +2,6 @@
 
 ## Current
 
-- admin users page
-  - middleware super_user
 - csrf
 - docker - email
 

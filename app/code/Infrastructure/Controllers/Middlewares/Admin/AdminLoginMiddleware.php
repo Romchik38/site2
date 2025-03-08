@@ -14,7 +14,6 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
 {
     protected const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'admin.logout.you-must-login-first';
 
-    /** @param array<int,string> $allowedRoles*/
     public function __construct(
         protected readonly Site2SessionInterface $session,
         protected readonly UrlbuilderInterface $urlbuilder
