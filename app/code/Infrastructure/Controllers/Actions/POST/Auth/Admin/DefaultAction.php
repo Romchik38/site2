@@ -42,23 +42,20 @@ final class DefaultAction extends AbstractMultiLanguageAction
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** 
-     * @todo check all exrrors
-     * @todo do redirect to login page with message on error
-     */
     public function execute(): ResponseInterface
     {
         /** @todo replace with form csrf */
         $requestData = $this->request->getParsedBody();
         $command = CheckPassword::fromHash($requestData);
+        $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
         try {
             $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch(AdminUserNotActiveException) {
             $this->session->setData('message', $this::NOT_ACTIVE_MESSAGE_KEY);
-            return new TextResponse($this::NOT_ACTIVE_MESSAGE_KEY);
+            return new RedirectResponse($urlLogin);
         } catch(InvalidPasswordException) {
             $this->session->setData('message', $this::WRONG_PASSWORD_MESSAGE_KEY);
-            return new TextResponse($this::WRONG_PASSWORD_MESSAGE_KEY);
+            return new RedirectResponse($urlLogin);
         } catch(InvalidArgumentException $e) {
             /** @todo translate */
             $message = sprintf(
@@ -66,10 +63,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 $e->getMessage()
             );
             $this->session->setData('message', $message);
-            return new TextResponse($message);
+            return new RedirectResponse($urlLogin);
         } catch(NoSuchAdminUserException) {
             $this->session->setData('message', $this::WRONG_USERNAME_MESSAGE_KEY);
-            return new TextResponse($this::WRONG_USERNAME_MESSAGE_KEY);
+            return new RedirectResponse($urlLogin);
         }
         $this->session->setData('message', $this::SUCCESS_LOGGED_IN);
         $this->session->setData('admin_user', (string) $adminUsername());

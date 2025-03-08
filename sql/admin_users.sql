@@ -34,7 +34,7 @@ INSERT INTO admin_users (identifier, username, password_hash, active, email)
     (
         2,
         'admin2', 
-        '2y$10$4DkPGEKbUgpVRPoTIOjNve8hlRCW3/FXbg1x.Lh.QwLFYowlbQML2',
+        '$2y$10$imdQM8v2LJ.G2la8xIcSSuyypMX8UWf63JncAgIAdJzI2Ioe/Wk2K',
         't',
         'admin2@example.com'
     )

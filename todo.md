@@ -2,11 +2,6 @@
 
 ## Current
 
-- js global languages
-- js module `dynamic_root`
-- js module `urlbuilder`
-- admin login status in the top menu admin page
-- admin login page
 - create own `SessionInterface` and refactor all actions and fields
   - `admin_user`
   - `user`
