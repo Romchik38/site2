@@ -28,6 +28,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public const string NOT_ACTIVE_MESSAGE_KEY = 'auth.admin.not-active';
     public const string WRONG_PASSWORD_MESSAGE_KEY = 'auth.admin.wrong-password';
     public const string WRONG_USERNAME_MESSAGE_KEY = 'auth.admin.wrong-username';
+    public const string SUCCESS_LOGGED_IN = 'auth.admin.success-logged-in';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -41,6 +42,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /** 
+     * @todo check all exrrors
+     * @todo do redirect to login page with message on error
+     */
     public function execute(): ResponseInterface
     {
         /** @todo replace with form csrf */
@@ -66,6 +71,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
             $this->session->setData('message', $this::WRONG_USERNAME_MESSAGE_KEY);
             return new TextResponse($this::WRONG_USERNAME_MESSAGE_KEY);
         }
+        $this->session->setData('message', $this::SUCCESS_LOGGED_IN);
         $this->session->setData('admin_user', (string) $adminUsername());
         $url = $this->urlbuilder->fromArray(['root', 'admin']);
         return new RedirectResponse($url);

@@ -101,7 +101,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction(
-            $container->get('admin_view')
+            $container->get('admin_view'),
+            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
         )
     );
     

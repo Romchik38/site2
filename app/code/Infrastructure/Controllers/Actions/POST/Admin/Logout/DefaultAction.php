@@ -17,6 +17,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
     protected const LOGIN_MESSAGE_KEY = 'admin.logout.you-must-login-first';
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
