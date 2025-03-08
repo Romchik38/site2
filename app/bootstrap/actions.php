@@ -102,7 +102,7 @@ return function ($container) {
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction(
             $container->get('admin_view'),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
         )
     );
     
@@ -112,7 +112,7 @@ return function ($container) {
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction(
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
@@ -124,7 +124,7 @@ return function ($container) {
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction(
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
         )
     );
@@ -135,7 +135,7 @@ return function ($container) {
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction(
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
         )
     );
@@ -149,7 +149,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Psr\Http\Message\ServerRequestInterface::class),
             $container->get(\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
@@ -161,7 +161,7 @@ return function ($container) {
             $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
         )
     );
 
@@ -172,7 +172,7 @@ return function ($container) {
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction(
             $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\SessionInterface::class)
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
         )
     );
 

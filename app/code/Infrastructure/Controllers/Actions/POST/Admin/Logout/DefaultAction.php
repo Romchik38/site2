@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Services\SessionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -22,20 +22,23 @@ final class DefaultAction extends AbstractMultiLanguageAction
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly SessionInterface $session
+        protected readonly Site2SessionInterface $session
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     /** @todo csrf */
     public function execute(): ResponseInterface {
-        $user = $this->session->getData('admin_user');
+        $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
         if ($user !== null) {
             $this->session->logout();
             $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
             return new RedirectResponse($url);
         }
-        $this->session->setData('message', $this::LOGIN_MESSAGE_KEY);
+        $this->session->setData(
+            Site2SessionInterface::MESSAGE_FIELD, 
+            $this::LOGIN_MESSAGE_KEY
+        );
         $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
         return new RedirectResponse($url);
     }

@@ -21,12 +21,12 @@ return function ($container) {
 
     // SESSION
     $container->add(
-        \Romchik38\Server\Services\Session\Http\Session::class,
-        new \Romchik38\Server\Services\Session\Http\Session()
+        \Romchik38\Site2\Infrastructure\Services\Session\Site2Session::class,
+        new \Romchik38\Site2\Infrastructure\Services\Session\Site2Session()
     );
     $container->add(
-        \Romchik38\Server\Api\Services\SessionInterface::class,
-        $container->get(\Romchik38\Server\Services\Session\Http\Session::class)
+        Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2Session::class)
     );
 
     return $container;

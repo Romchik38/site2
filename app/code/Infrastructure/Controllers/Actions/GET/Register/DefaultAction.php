@@ -7,12 +7,12 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Services\SessionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 /** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -20,7 +20,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly SessionInterface $session,
+        protected readonly Site2SessionInterface $session,
         protected readonly ViewInterface $view
     )
     {
@@ -30,7 +30,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         // 1 check if use already logged in
-        $adminUser = $this->session->getData('user');
+        $adminUser = $this->session->getData(Site2SessionInterface::USER_FIELD);
         $html = $this->view
             ->setController($this->controller)
             ->setControllerData(

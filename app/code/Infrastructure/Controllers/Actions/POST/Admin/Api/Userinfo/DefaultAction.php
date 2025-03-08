@@ -8,11 +8,11 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Models\DTO\Api\ApiDTOInterface;
-use Romchik38\Server\Api\Services\SessionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\Api\ApiDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction 
     implements DefaultActionInterface
@@ -24,7 +24,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly SessionInterface $session
+        protected readonly Site2SessionInterface $session
     )
     {
         parent::__construct($dynamicRootService, $translateService);
@@ -32,7 +32,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-        $adminUser = $this->session->getData('admin_user');
+        $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
         if ($adminUser === null || $adminUser === '') {
             $dto = new ApiDTO(
                 $this::API_NAME,

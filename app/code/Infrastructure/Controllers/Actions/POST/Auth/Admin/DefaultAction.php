@@ -6,11 +6,9 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Services\SessionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
@@ -20,6 +18,7 @@ use Romchik38\Site2\Application\AdminUserCheck\AdminUserNotActiveException;
 use Romchik38\Site2\Application\AdminUserCheck\CheckPassword;
 use Romchik38\Site2\Application\AdminUserCheck\InvalidPasswordException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -35,7 +34,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         TranslateInterface $translateService,
         protected readonly ServerRequestInterface $request,
         protected readonly AdminUserCheckService $adminUserCheck,
-        protected readonly SessionInterface $session,
+        protected readonly Site2SessionInterface $session,
         protected readonly UrlbuilderInterface $urlbuilder
     )
     {
@@ -51,10 +50,16 @@ final class DefaultAction extends AbstractMultiLanguageAction
         try {
             $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch(AdminUserNotActiveException) {
-            $this->session->setData('message', $this::NOT_ACTIVE_MESSAGE_KEY);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD, 
+                $this::NOT_ACTIVE_MESSAGE_KEY
+            );
             return new RedirectResponse($urlLogin);
         } catch(InvalidPasswordException) {
-            $this->session->setData('message', $this::WRONG_PASSWORD_MESSAGE_KEY);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD, 
+                $this::WRONG_PASSWORD_MESSAGE_KEY
+            );
             return new RedirectResponse($urlLogin);
         } catch(InvalidArgumentException $e) {
             /** @todo translate */
@@ -62,14 +67,26 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 'Error during check: %s. Please fix it and try again',
                 $e->getMessage()
             );
-            $this->session->setData('message', $message);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD, 
+                $message
+            );
             return new RedirectResponse($urlLogin);
         } catch(NoSuchAdminUserException) {
-            $this->session->setData('message', $this::WRONG_USERNAME_MESSAGE_KEY);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD, 
+                $this::WRONG_USERNAME_MESSAGE_KEY
+            );
             return new RedirectResponse($urlLogin);
         }
-        $this->session->setData('message', $this::SUCCESS_LOGGED_IN);
-        $this->session->setData('admin_user', (string) $adminUsername());
+        $this->session->setData(
+            Site2SessionInterface::MESSAGE_FIELD, 
+            $this::SUCCESS_LOGGED_IN
+        );
+        $this->session->setData(
+            Site2SessionInterface::ADMIN_USER_FIELD, 
+            (string) $adminUsername()
+        );
         $url = $this->urlbuilder->fromArray(['root', 'admin']);
         return new RedirectResponse($url);
     }
