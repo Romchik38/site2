@@ -11,4 +11,5 @@ interface Site2SessionInterface extends SessionInterface
     public const ADMIN_USER_FIELD = 'admin_user';
     public const USER_FIELD = 'user';
     public const MESSAGE_FIELD = 'message';
+    public const CSRF_TOKEN_FIELD = 'csrf_token';
 }
