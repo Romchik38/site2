@@ -7,6 +7,7 @@
   - create logout action
 - docker - email
 - @todo
+- frontend block subscrube/login
 
 ## Next
 

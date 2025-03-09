@@ -11,6 +11,8 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Domain\User\VO\Email;
+use Romchik38\Site2\Domain\User\VO\Password;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
@@ -41,7 +43,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     'User login', 
                     'User login page', 
                     $user,
-                    $message
+                    $message,
+                    Email::FIELD,
+                    Password::FIELD
                 )
             )
             ->toString();

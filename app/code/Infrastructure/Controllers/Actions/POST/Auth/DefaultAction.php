@@ -26,6 +26,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public const string NOT_ACTIVE_MESSAGE_KEY = 'auth.not-active';
     public const string WRONG_PASSWORD_MESSAGE_KEY = 'auth.wrong-password';
     public const string WRONG_USERNAME_MESSAGE_KEY = 'auth.wrong-username';
+    public const string SUCCESS_LOGGED_IN = 'auth.success-logged-in';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -43,7 +44,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function execute(): ResponseInterface
     {
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
-        $urlRoot = $this->urlbuilder->fromArray(['root']);
         // check if user already logged in
         $userField = $this->session->getData(Site2SessionInterface::USER_FIELD);
         if ($userField !== null) {
@@ -86,7 +86,11 @@ final class DefaultAction extends AbstractMultiLanguageAction
             Site2SessionInterface::USER_FIELD, 
             (string) $email
         );
-        return new RedirectResponse($urlRoot);
+        $this->session->setData(
+            Site2SessionInterface::MESSAGE_FIELD, 
+            $this::SUCCESS_LOGGED_IN
+        );
+        return new RedirectResponse($urlLogin);
     }
 
     public function getDescription(): string

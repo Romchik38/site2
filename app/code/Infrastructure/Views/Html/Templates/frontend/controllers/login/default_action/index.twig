@@ -3,22 +3,24 @@
 #}
 
 {% set urlRegister = u.fromArray(['root', 'register']) %}
-{% set urlArticles = u.fromArray(['root', 'articles']) %}
+{% set urlArticles = u.fromArray(['root', 'article']) %}
 {% set urlAuth = u.fromArray(['root', 'auth']) %}
+{% set urlLogout = u.fromArray(['root', 'logout']) %}
 
 <div class="container-sm">
     <div class="row justify-content-center">
         <h1 class="text-center">{{ data.name }}</h1>
+            <div class="text-center">
+                <span class="error_message text-center bg-secondary text-white">{{ data.message }}</span>
+            </div>
             {% if data.user is null %}
                 <p class="lead">On this page you can provide your login credentials. Please, contact <a href="#">support</a> on any issue. Visit <a href="#" alt="Recovery password page">Recovery password page</a> if your forgot a password. We will send a special link via email.</p>
                 <p>Do not registered yet? Visit <a href="{{ urlRegister }}" alt="Register page">Register page</a>. Just a few minutes and you is a registered user.</p>
                 <div class="col-sm-4">
                     <h2 class="text-center">Provide Login Credentials</h2>
-                    <p class="error_message text-center bg-secondary text-white">{{ data.message }}<p>
-                    <!-- @todo refactor url -->
-                    <form class="border rounded-3 p-4" action="{{ data.authUrl }}" method="post">
+                    <form class="border rounded-3 p-4" action="{{ urlAuth }}" method="post">
                         <label for="{{ data.userNameField }}">Enter your user name: </label>
-                        <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required /><br>
+                        <input class="form-control" type="text" name="{{ data.emailField }}" id="{{ data.userNameField }}" required /><br>
                         <label for="{{ data.passwordField }}">Enter password: </label>
                         <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
                         <input class="btn btn-secondary" type="submit" value="Log In" />
@@ -29,6 +31,10 @@
                 </div>
             {% else %}
                 <p>You already logged in. Let's start with <a href="{{ urlArticles }}">Articles Page</a>.</p>
+                <p class="m-2">Do not want to be logged in?</p>
+                <form class="d-inline" action="{{ urlLogout }}" method="post">
+                    <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
+                </form>
             {% endif %}
     </div>
 </div>
