@@ -47,5 +47,11 @@ return function ($container) {
         )
     );
 
+    // User Check
+    $container->add(
+        \Romchik38\Site2\Application\User\UserCheck\UserCheckService::class,
+        new \Romchik38\Site2\Application\User\UserCheck\UserCheckService()
+    );
+
     return $container;
 };

@@ -118,6 +118,15 @@ return function ($container) {
         )
     );
 
+    // Admin Users
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+        )
+    );
+    
     // GET\Register
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction::class,
@@ -154,6 +163,19 @@ return function ($container) {
         )
     );
 
+    // Auth
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(Psr\Http\Message\ServerRequestInterface::class),
+            $container->get(\Romchik38\Site2\Application\User\UserCheck\UserCheckService::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+        )
+    );
+
     // Admin Logout
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction::class,
@@ -173,15 +195,6 @@ return function ($container) {
             $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
             $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
-        )
-    );
-
-    // Admin Users
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
         )
     );
 

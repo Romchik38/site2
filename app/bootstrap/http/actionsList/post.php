@@ -12,7 +12,11 @@ return function (Container $container): ControllerInterface {
     $root = new Controller(ControllerTreeInterface::ROOT_NAME);
 
     // Auth
-    $auth = new Controller('auth');
+    $auth = new Controller(
+        'auth', 
+        false,
+        $container->get(Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class)
+    );
     $authAdmin = new Controller(
         'admin',
         false,
