@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -16,7 +16,7 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
-    protected const LOGOUT_MESSAGE_KEY = 'admin.logout.you-must-login-first';
+    protected const LOGOUT_MESSAGE_KEY = 'logout.you-must-login-first';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -28,23 +28,24 @@ final class DefaultAction extends AbstractMultiLanguageAction
     }
 
     /** @todo csrf */
-    public function execute(): ResponseInterface {
-        $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
+    public function execute(): ResponseInterface
+    {
+        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
         if ($user !== null) {
             $this->session->logout();
-            $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
-            return new RedirectResponse($url);
+            return new RedirectResponse($urlLogin);
         }
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD, 
             $this::LOGOUT_MESSAGE_KEY
         );
-        $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
-        return new RedirectResponse($url);
+    
+        return new RedirectResponse($urlLogin);
     }
 
     public function getDescription(): string
     {
-        return 'Admin logout action';
+        return 'Logout action point';
     }
 }

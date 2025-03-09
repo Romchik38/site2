@@ -26,6 +26,13 @@ return function (Container $container): ControllerInterface {
     );
     $auth->setChild($authAdmin);
 
+    // Logout
+    $logout = new Controller(
+        'logout',
+        false,
+        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction::class)
+    );
+
     // Admin
     $admin = new Controller('admin');
     $adminLogout = new Controller(
@@ -46,6 +53,9 @@ return function (Container $container): ControllerInterface {
 
     $admin->setChild($adminLogout)->setChild($adminApi);
 
-    $root->setChild($auth)->setChild($admin);
+    $root->setChild($auth)
+    ->setChild($admin)
+    ->setChild($logout);
+
     return $root;
 };

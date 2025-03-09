@@ -175,6 +175,17 @@ return function ($container) {
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
         )
     );
+    
+    // Logout
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+        )
+    );
 
     // Admin Logout
     $container->add(
