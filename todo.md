@@ -3,6 +3,8 @@
 ## Current
 
 - csrf
+  - check auth action
+  - create logout action
 - docker - email
 - @todo
 

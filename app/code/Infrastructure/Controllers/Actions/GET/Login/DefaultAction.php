@@ -29,12 +29,20 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     
     public function execute(): ResponseInterface
     {
-        // 1 check if use already logged in
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
+        if ($message !== '') {
+            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
+        }
         $html = $this->view
             ->setController($this->controller)
             ->setControllerData(
-                new ViewDTO('User login', 'User login page', $user)
+                new ViewDTO(
+                    'User login', 
+                    'User login page', 
+                    $user,
+                    $message
+                )
             )
             ->toString();
 
