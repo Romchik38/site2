@@ -3,8 +3,10 @@
 ## Current
 
 - csrf
-  - check auth action
-  - create logout action
+  - test on login action
+  - create csrf middleware
+  - impement on other action when done
+  - all action with `<form>` csrf must not be cashed
 - docker - email
 - @todo
 - frontend block subscrube/login
