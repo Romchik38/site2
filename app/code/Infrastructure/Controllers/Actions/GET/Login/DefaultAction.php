@@ -34,7 +34,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
-        
+
         $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
         if ($message !== '') {
             $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');

@@ -33,5 +33,17 @@ return function (Container $container): void {
                 $container->get(\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService::class)
             );
         }
-    ); 
+    );
+
+    // Csrf
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware::class,
+        function($container) {
+            return new \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware(
+            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
+            );
+        }
+    );
 };

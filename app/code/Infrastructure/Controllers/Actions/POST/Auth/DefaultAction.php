@@ -40,7 +40,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo replace with form csrf */
     public function execute(): ResponseInterface
     {
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
@@ -55,25 +54,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
         }
         // do password check
         $requestData = $this->request->getParsedBody();
-
-
-        // temp - do csrf check
-        $token = $requestData['csrf_token'] ?? null;
-        if ($token === null) {
-            $this->session->logout();
-            return new RedirectResponse($urlLogin);
-        }
-        $sessionToken = $this->session->getData(Site2SessionInterface::CSRF_TOKEN_FIELD);
-        if ($sessionToken === '' || $token === '') {
-            $this->session->logout();
-            return new RedirectResponse($urlLogin);
-        }
-        if ($sessionToken !== $token) {
-            $this->session->logout();
-            return new RedirectResponse($urlLogin);
-        }
-        //
-
         $command = CheckPassword::fromHash($requestData);
         try {
             $email = $this->adminUserCheck->checkPassword($command);

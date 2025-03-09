@@ -17,6 +17,8 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get(Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class)
     );
+    $auth->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware::class));
+    
     $authAdmin = new Controller(
         'admin',
         false,

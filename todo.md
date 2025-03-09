@@ -3,7 +3,6 @@
 ## Current
 
 - csrf
-  - create csrf middleware
   - impement on other action when done
   - all action with `<form>` csrf must not be cashed
 - docker - email
