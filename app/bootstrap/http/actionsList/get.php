@@ -47,14 +47,14 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class)
     );
-    $admin->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\Middlewares\Admin\AdminLoginMiddleware::class));
+    $admin->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware::class));
 
     $adminUsers = new Controller(
         'users',
         false,
         $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class)
     );
-    $adminUsers->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\Middlewares\Admin\AdminRolesMiddleware::class));
+    $adminUsers->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware::class));
     
     $admin->setChild($adminUsers);
     

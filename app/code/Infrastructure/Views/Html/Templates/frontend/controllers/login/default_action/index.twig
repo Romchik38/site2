@@ -1,5 +1,6 @@
 {#
     Object          u           Urlbuilder
+    Object          data        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction\ViewDTO
 #}
 
 {% set urlRegister = u.fromArray(['root', 'register']) %}
@@ -24,6 +25,7 @@
                         <label for="{{ data.passwordField }}">Enter password: </label>
                         <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
                         <input class="btn btn-secondary" type="submit" value="Log In" />
+                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                     </form>
                     <br>
                     <p>Forgot a password? Use <a href="#">Password recovery Page</a>.</p>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Middlewares\Admin;
+namespace Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;

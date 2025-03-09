@@ -3,7 +3,6 @@
 ## Current
 
 - csrf
-  - test on login action
   - create csrf middleware
   - impement on other action when done
   - all action with `<form>` csrf must not be cashed

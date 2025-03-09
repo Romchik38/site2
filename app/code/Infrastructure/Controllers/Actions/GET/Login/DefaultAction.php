@@ -15,6 +15,7 @@ use Romchik38\Site2\Domain\User\VO\Email;
 use Romchik38\Site2\Domain\User\VO\Password;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 /** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -23,7 +24,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly Site2SessionInterface $session,
-        protected readonly ViewInterface $view
+        protected readonly ViewInterface $view,
+        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     )
     {
         parent::__construct($dynamicRootService, $translateService);
@@ -32,10 +34,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        
         $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
         if ($message !== '') {
             $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
         }
+
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+
         $html = $this->view
             ->setController($this->controller)
             ->setControllerData(
@@ -45,7 +52,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     $user,
                     $message,
                     Email::FIELD,
-                    Password::FIELD
+                    Password::FIELD,
+                    $this->session::CSRF_TOKEN_FIELD,
+                    $csrfToken
                 )
             )
             ->toString();
