@@ -45,5 +45,15 @@ return function (Container $container) {
         $container->get(\Romchik38\Server\Routers\Http\ControllersCollection::class)
     );
 
+    // Services
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorUseRandomBytes::class,
+        new \Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorUseRandomBytes(32)
+    );
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface::class,
+        $container->get(\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorUseRandomBytes::class)
+    );
+
     return $container;
 };
