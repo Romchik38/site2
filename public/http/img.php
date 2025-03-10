@@ -9,6 +9,7 @@ use Romchik38\Site2\Application\ImageCache\ImageCacheService;
 use Romchik38\Site2\Application\ImageCacheView\Find;
 use Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService;
 use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\ImgConverter\ImgConverterService;
 use Romchik38\Site2\Application\ImgConverter\ImgData;
 use Romchik38\Site2\Application\ImgConverter\StubData;
@@ -100,6 +101,9 @@ try {
         http_response_code(500);
         echo 'Server error, pleaser try again later';
     }
+} catch(CouldNotCreateImageException $e){
+    http_response_code(500);
+    echo $e->getMessage();
 } catch (\Exception) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';

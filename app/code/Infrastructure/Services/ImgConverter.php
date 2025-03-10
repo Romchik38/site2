@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services;
 
 use Romchik38\Server\Services\Streams\TempStream;
+use Romchik38\Site2\Application\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\ImgConverter\ImgConverterInterface;
 use Romchik38\Site2\Application\ImgConverter\View\Height;
 use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
@@ -27,7 +28,7 @@ class ImgConverter implements ImgConverterInterface
         protected readonly int $quality = 90
     ) {
         if (extension_loaded('gd') === false) {
-            throw new \RuntimeException('GD extension not loaded');
+            throw new CouldNotCreateImageException('GD extension not loaded');
         }
     }
 
@@ -48,14 +49,14 @@ class ImgConverter implements ImgConverterInterface
 
         // 2. Check capabilities
         if ($this->checkGDcapabilities($image->originalType) === false) {
-            throw new \RuntimeException(sprintf(
+            throw new CouldNotCreateImageException(sprintf(
                 'GD library do not support type %s',
                 $image->originalType
             ));
         };
 
         if ($this->checkGDcapabilities($image->copyType) === false) {
-            throw new \RuntimeException(sprintf(
+            throw new CouldNotCreateImageException(sprintf(
                 'GD library do not support type %s',
                 $image->copyType
             ));
@@ -80,7 +81,7 @@ class ImgConverter implements ImgConverterInterface
         // 5. Create temporary copy
         $temporary = imagecreatetruecolor($temporaryWidth, $temporaryHeight);
         if ($temporary === false) {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf('Cannot create temporary image for %s', $image->filePath)
             );
         }
@@ -99,14 +100,14 @@ class ImgConverter implements ImgConverterInterface
             $image->originalHeight
         );
         if ($resultFillTemporary === false) {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf('Cannot fill temporary image for %s', $image->filePath)
             );
         }
 
         $copy = imagecreatetruecolor($image->copyWidth, $image->copyHeight);
         if ($copy === false) {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf('Cannot create copy image for %s', $image->filePath)
             );
         }
@@ -139,7 +140,7 @@ class ImgConverter implements ImgConverterInterface
         if ($type === 'webp') {
             $result = imagecreatefromwebp($path);
         } else {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf(
                     'Image creation for type %s not supported',
                     $type
@@ -148,7 +149,7 @@ class ImgConverter implements ImgConverterInterface
         }
 
         if ($result === false) {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf(
                     'failed attempt to create image %s',
                     $path
@@ -168,7 +169,7 @@ class ImgConverter implements ImgConverterInterface
             $result = $stream();
 
         } else {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf(
                     'Image creation for type %s not supported',
                     $type
@@ -184,11 +185,11 @@ class ImgConverter implements ImgConverterInterface
         $info = gd_info();
         $key = $this->capabilities[$type] ?? null;
         if (is_null($key)) {
-            throw new \RuntimeException(sprintf('Type %s not supported by converter', $type));
+            throw new CouldNotCreateImageException(sprintf('Type %s not supported by converter', $type));
         }
         $capability = $info[$key] ?? null;
         if (is_null($capability)) {
-            throw new \RuntimeException(
+            throw new CouldNotCreateImageException(
                 sprintf(
                     'ImgConverter internal error. Capability %s is expected, but not found',
                     $key

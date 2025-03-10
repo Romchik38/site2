@@ -22,9 +22,8 @@ final class ImgConverterService
     ) {}
 
     /** 
-     * @todo check exceptions
      * @throws NoSuchEntityException
-     * @throws \RuntimeException
+     * @throws CouldNotCreateImageException
      */
     public function createImg(ImgData $command): ImgResult
     {

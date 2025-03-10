@@ -27,12 +27,10 @@ final class AdminUserRolesService
         $username = new Username($command->username);
         $user = $this->adminUserRepository->findByUsername($username);
         if ($user->isActive() === false) {
-            /** @todo test on ot active */
             throw new AdminUserNotActiveException(
                 sprintf('Admin use with username %s not active', $username())
             );
         }
-        /** @todo test data */
         return $user->roles();
     }
 }

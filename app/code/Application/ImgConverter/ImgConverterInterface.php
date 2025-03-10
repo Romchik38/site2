@@ -11,6 +11,7 @@ use Romchik38\Site2\Application\ImgConverter\View\Width;
 
 interface ImgConverterInterface 
 {
+    /** @throws CouldNotCreateImageException */
     public function create(
         string $filePath,
         Width $copyWidth,
