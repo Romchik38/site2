@@ -1,3 +1,5 @@
+{% set urlRoot = urlbuilder.fromArray(['root']) %}
+
 <div class="container-xxl">
     <div class="row py-2">
         <div class="col-md-3">
@@ -8,12 +10,13 @@
             </div>
         </div>
         <div class="col-sm text-center">
-           <a href="/{{ language }}" target="_self">
+           <a href="{{ urlRoot }}" target="_self">
                 <img src="/media/logo.png" class="img" height="100px" alt="Logo">
             </a>
         </div>
         <div class="col-md-3 mx-auto">
-            <div class="row mt-2">
+
+            <div class="row mt-2 header-user-notloggedin">
                 <div class="col-xl-6 col-sm mb-2 mb-sm-0 mb-md-2 mb-lg-0 d-grid gap-2">
                     <button class="btn background-primary ">
                         {{translate.t('header.subscribe')}}
@@ -25,6 +28,20 @@
                     </button>
                 </div>
             </div>
+
+
+            <div class="row mt-2 d-none header-user-loggedin">
+                <div class="col-xl-6 col-sm mb-2 mb-sm-0 mb-md-2 mb-lg-0 d-grid gap-2">
+                    <span class="user-name-field">Hello,user</span>
+                </div>
+                <div class="col-xl-6 col-sm d-grid gap-2">
+                    <form action="/auth/logout" method="post">
+                        <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
+                    </form>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
