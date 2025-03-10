@@ -10,6 +10,7 @@ use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService;
 use Romchik38\Site2\Application\AdminUserRoles\ListRoles;
+use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
@@ -57,10 +58,18 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
             );
             return new RedirectResponse($urlAdmin);
         } catch(NoSuchAdminUserException) {
+            // user is logged in, but it username was changed or deleted
+            $this->session->logout();
+            return new RedirectResponse($urlLogin);
+        } catch(AdminUserNotActiveException) {
+            // user is logged in, but was deactivated
             $this->session->logout();
             return new RedirectResponse($urlLogin);
         }
-        // InvalidArgumentException must be catched later and logged to file
-        // There is nothing to show the admin user. It will see common server error page
+        /**
+         * InvalidArgumentException must be catched later and logged to file
+         * There is nothing to show the admin user. It will see common server error page
+         */
+        return null;
     }
 }

@@ -20,11 +20,11 @@ final class AdminUserRolesService
     /**
      * @throws InvalidArgumentException - On wrong username format
      * @throws NoSuchAdminUserException
+     * @throws AdminUserNotActiveException
      */
     public function listRolesByUsername(ListRoles $command): Roles
     {
         $username = new Username($command->username);
-        /** @todo test on not found*/
         $user = $this->adminUserRepository->findByUsername($username);
         if ($user->isActive() === false) {
             /** @todo test on ot active */
