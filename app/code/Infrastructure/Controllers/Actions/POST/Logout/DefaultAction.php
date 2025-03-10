@@ -27,7 +27,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo csrf */
     public function execute(): ResponseInterface
     {
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
@@ -38,7 +37,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         }
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD, 
-            $this::LOGOUT_MESSAGE_KEY
+            $this->translateService->t($this::LOGOUT_MESSAGE_KEY)
         );
     
         return new RedirectResponse($urlLogin);

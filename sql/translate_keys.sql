@@ -7,6 +7,7 @@ INSERT INTO translate_keys (key) VALUES
     --global
     ('global.language'),
     --controller
+    ('admin.roles.you-do-not-have-enough-permissions'),
     ('article.page_name'),
     ('article.description'),
     ('article.h2.publications'),
@@ -34,6 +35,9 @@ INSERT INTO translate_keys (key) VALUES
     ('auth.success-logged-in'),
     ('article.category'),
     ('error.during-check-fix-and-try'),
+    ('logout.you-must-login-first'),
+    ('middleware.form-data-is-outdated'),
+    ('middleware.form-error'),
     ('root.page_name'),
     ('root.about'),
     ('root.contacts'),
