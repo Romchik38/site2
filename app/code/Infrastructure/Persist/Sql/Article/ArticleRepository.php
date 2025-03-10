@@ -17,7 +17,6 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
  * Manage article entities.
  * Makes join.
  * 
- * @todo create an interface
  * @api
  */
 final class ArticleRepository implements ArticleRepositoryInterface
@@ -42,21 +41,12 @@ final class ArticleRepository implements ArticleRepositoryInterface
     final const ARTICLE_TRANSLATES_C_CREATED_AT = 'created_at';
     final const ARTICLE_TRANSLATES_C_UPDATED_AT = 'updated_at';
 
-    /** @var array<string,Article> $hash */
-    protected $hash = [];
-
     public function __construct(
         protected readonly DatabaseInterface $database
     ) {}
 
     public function getById(ArticleId $id): Article
     {
-        /** 1 check the hash */
-        $hashed = $this->hash[$id->toString()] ?? null;
-        if ($hashed !== null) {
-            return $hashed;
-        }
-
         $expression = sprintf(
             'WHERE %s.%s = $1',
             $this::ARTICLE_T,
@@ -79,9 +69,6 @@ final class ArticleRepository implements ArticleRepositoryInterface
 
         /** 3. Create an Entity */
         $article = $this->createSingleArticleFromRows($rows);
-
-        /** 4. Add to hash */
-        $this->hash[$id->toString()] = $article;
 
         return $article;
     }
