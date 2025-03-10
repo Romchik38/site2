@@ -19,8 +19,8 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction\Pagination;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\ArticleCreatePagination;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -68,7 +68,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
         $path = new Path($this->getPath());
-        $paginationView = new ArticleCreatePagination(
+        $paginationView = new CreatePagination(
             $path,
             $this->urlbuilder,
             $pagination,

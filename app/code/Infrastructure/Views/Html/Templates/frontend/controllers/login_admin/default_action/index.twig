@@ -13,7 +13,6 @@
                 <p class="lead">On this page you can provide your admin login credentials. Yor account must be active. Please, contact <a href="#">support</a> on any issue.</p>
                 <div class="col-sm-4">
                     <h2 class="text-center">Provide Login Credentials</h2>
-                    <!-- @todo refactor url -->
                     <form class="border rounded-3 p-4" action="{{ data.authUrl }}" method="post">
                         <label for="{{ data.userNameField }}">Enter your user name: </label>
                         <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required /><br>

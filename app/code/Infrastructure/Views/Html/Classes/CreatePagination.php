@@ -10,10 +10,9 @@ use Romchik38\Site2\Infrastructure\Views\Html\CreatePaginationInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
 
 /**
- * @todo move to server abstract part
  * It is responsable for creating HTML pagination block 
  * */
-final class ArticleCreatePagination implements CreatePaginationInterface
+final class CreatePagination implements CreatePaginationInterface
 {
     protected readonly int $page;
     protected readonly int $limit;
@@ -133,7 +132,6 @@ final class ArticleCreatePagination implements CreatePaginationInterface
 
     protected function chainBreak(): string
     {
-
         return sprintf(
             '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
             $this->marker

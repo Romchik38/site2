@@ -24,9 +24,4 @@ final class ArticleSearchCriteria extends SearchCriteria
             $orderBy
         );
     }
-
-    /** WHERE SECTION 
-     * @todo implement
-     */
-
 }
