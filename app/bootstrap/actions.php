@@ -97,6 +97,17 @@ return function ($container) {
         )
     );
 
+    // Api
+    // Userinfo
+    $container->add(
+        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction::class,
+        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction(
+            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
+            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+        )
+    );
+
     // Admin
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class,

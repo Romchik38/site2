@@ -1,4 +1,6 @@
 {% set urlRoot = urlbuilder.fromArray(['root']) %}
+{% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
+{% set urlLogin = urlbuilder.fromArray(['root', 'login']) %}
 
 <div class="container-xxl">
     <div class="row py-2">
@@ -23,19 +25,21 @@
                     </button>
                 </div>
                 <div class="col-xl-6 col-sm d-grid gap-2">
-                    <button class="btn border">
-                        {{translate.t('header.sing_in')}}
-                    </button>
+                    <a class="link-none" href="{{ urlLogin }}">
+                        <button class="btn border w-100">
+                            {{translate.t('header.sing_in')}}
+                        </button>
+                    </a>
                 </div>
             </div>
 
 
-            <div class="row mt-2 d-none header-user-loggedin">
+            <div class="row mt-2 header-user-loggedin">
                 <div class="col-xl-6 col-sm mb-2 mb-sm-0 mb-md-2 mb-lg-0 d-grid gap-2">
                     <span class="user-name-field">Hello,user</span>
                 </div>
                 <div class="col-xl-6 col-sm d-grid gap-2">
-                    <form action="/auth/logout" method="post">
+                    <form action="{{ urlLogout }}" method="post">
                         <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
                     </form>
                 </div>

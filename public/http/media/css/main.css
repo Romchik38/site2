@@ -95,6 +95,15 @@
     background-color: #f04329;
 }
 
+/* Header*/
+div.header-user-loggedin {
+    display: none;
+}
+
+div.header-user-notloggedin {
+    display: none;
+}
+
 /* RESPONSE */
 @media screen and (max-width: 576px) {
 

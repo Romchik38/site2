@@ -28,6 +28,7 @@ addEventListener("DOMContentLoaded", (event) => {
                 var dataKeys = Object.keys(data);
                 if (dataKeys.indexOf('status') > -1) {
                     if(data['status'] === 'success') {
+                        // 
                         var result = data['result'];
                         if (result !== undefined && result !== '') {
 
@@ -35,16 +36,22 @@ addEventListener("DOMContentLoaded", (event) => {
                                 elem.innerText = result;
                             }
 
-                            for (var elem of notloggedinElems) {
-                                elem.style.display = 'none';
-                            }
-                            
                             for (var elem of loggedinElems) {
                                 elem.style.display = 'flex';
                             }
                         }
 
+                        // show not loggen in
+                        for (var elem of notloggedinElems) {
+                            elem.style.display = 'flex';
+                        }
+                    } else {
+                        // show not loggen in
+                        for (var elem of notloggedinElems) {
+                            elem.style.display = 'flex';
+                        }
                     }
+
                 } else {
                     // Unauthorized reques
                 }   

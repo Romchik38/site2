@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -18,8 +18,8 @@ final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
     const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';
-    const API_NAME = 'Admin api username point';
-    const API_DESCRIPTION = 'Information about auth admin user';
+    const API_NAME = 'Api username point';
+    const API_DESCRIPTION = 'Information about auth user';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -32,8 +32,8 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-        $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        if ($adminUser === null || $adminUser === '') {
+        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        if ($user === null || $user === '') {
             $dto = new ApiDTO(
                 $this::API_NAME,
                 $this::API_DESCRIPTION,
@@ -45,7 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 $this::API_NAME,
                 $this::API_DESCRIPTION,
                 ApiDTOInterface::STATUS_SUCCESS,
-                $adminUser
+                $user
             );
         }
 
@@ -54,6 +54,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function getDescription(): string
     {
-        return 'Admin api point - Userinfo';
+        return 'Api point - Userinfo';
     }
 }

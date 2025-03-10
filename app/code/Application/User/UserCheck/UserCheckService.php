@@ -14,6 +14,6 @@ final class UserCheckService
      * */
     public function checkPassword(CheckPassword $command): string
     {
-        return 'password is correct';
+        return 'the best user';
     }
 }
