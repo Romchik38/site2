@@ -17,7 +17,6 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction\V
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
-/** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(

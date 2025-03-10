@@ -22,11 +22,11 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
-    /** @todo translate */
     public const string NOT_ACTIVE_MESSAGE_KEY = 'auth.not-active';
     public const string WRONG_PASSWORD_MESSAGE_KEY = 'auth.wrong-password';
     public const string WRONG_USERNAME_MESSAGE_KEY = 'auth.wrong-username';
     public const string SUCCESS_LOGGED_IN = 'auth.success-logged-in';
+    public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -60,13 +60,12 @@ final class DefaultAction extends AbstractMultiLanguageAction
         } catch(InvalidPasswordException) {
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD, 
-                $this::WRONG_PASSWORD_MESSAGE_KEY
+                $this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY)
             );
             return new RedirectResponse($urlLogin);
         } catch(InvalidArgumentException $e) {
-            /** @todo translate */
             $message = sprintf(
-                'Error during check: %s. Please fix it and try again',
+                $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
             $this->session->setData(
@@ -77,17 +76,18 @@ final class DefaultAction extends AbstractMultiLanguageAction
         } catch(NoSuchUserException) {
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD, 
-                $this::WRONG_USERNAME_MESSAGE_KEY
+                $this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY)
             );
             return new RedirectResponse($urlLogin);
         }
+
         $this->session->setData(
             Site2SessionInterface::USER_FIELD, 
             (string) $email
         );
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD, 
-            $this::SUCCESS_LOGGED_IN
+            $this->translateService->t($this::SUCCESS_LOGGED_IN)
         );
         return new RedirectResponse($urlLogin);
     }

@@ -27,7 +27,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo csrf */
     public function execute(): ResponseInterface {
         $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
         if ($user !== null) {
