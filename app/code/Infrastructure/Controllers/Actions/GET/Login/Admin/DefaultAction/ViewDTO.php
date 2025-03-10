@@ -16,6 +16,8 @@ final class ViewDTO extends DefaultViewDTO
         public readonly string $userNameField,
         public readonly string $passwordField,
         public readonly string $authUrl,
+        public readonly string $csrfTokenField,
+        public readonly string $csrfToken
     )
     {
         parent::__construct($name, $description);

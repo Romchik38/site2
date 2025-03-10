@@ -10,13 +10,13 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 /** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -26,7 +26,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         protected readonly Site2SessionInterface $session,
         protected readonly ViewInterface $view,
-        protected readonly UrlbuilderInterface $urlbuilder
+        protected readonly UrlbuilderInterface $urlbuilder,
+        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     )
     {
         parent::__construct($dynamicRootService, $translateService);
@@ -40,6 +41,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         if ($message !== '') {
             $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
         }
+
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+
         $authUrl = $this->urlbuilder->fromArray(['root', 'auth', 'admin']);
         $html = $this->view
             ->setController($this->controller)
@@ -51,7 +56,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     $message,
                     Username::FIELD,
                     Password::FIELD,
-                    $authUrl
+                    $authUrl,
+                    $this->session::CSRF_TOKEN_FIELD,
+                    $csrfToken
                 )
             )
             ->toString();

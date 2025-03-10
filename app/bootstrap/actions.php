@@ -114,7 +114,8 @@ return function ($container) {
             $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
-            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
+            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+            $container->get(\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface::class)
         )
     );
 
