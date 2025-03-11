@@ -15,6 +15,7 @@ Additional:
 - Breadcrumbs on every page
 - Logging
 - [CSRF](./doc/security/csrf.md)
+- [Mailer](./doc/mail/docker.md)
 
 The only dependency is *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
 
