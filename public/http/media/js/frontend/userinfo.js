@@ -39,11 +39,11 @@ addEventListener("DOMContentLoaded", (event) => {
                             for (var elem of loggedinElems) {
                                 elem.style.display = 'flex';
                             }
-                        }
-
-                        // show not loggen in
-                        for (var elem of notloggedinElems) {
-                            elem.style.display = 'flex';
+                        } else {
+                            // show not loggen in
+                            for (var elem of notloggedinElems) {
+                                elem.style.display = 'flex';
+                            }
                         }
                     } else {
                         // show not loggen in

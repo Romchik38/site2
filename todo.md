@@ -3,7 +3,6 @@
 ## Current
 
 - docker - email
-- frontend block subscrube/login
 
 ## Next
 

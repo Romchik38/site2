@@ -1,3 +1,5 @@
+{% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
+
 <div class="container-fluid background-secondary text-light">
     <div class="row py-1">
         <div class="col">
@@ -35,6 +37,18 @@
                 {% endfor %}
 
             </select>
+        </div>
+        <div class="col-md-2">
+            <div class="row header-user-loggedin">
+                <div class="col-xl-7 col-md pe-0">
+                    <span class="user-name-field"></span>
+                </div>
+                <div class="col-xl-5 col-md px-0">
+                    <form action="{{ urlLogout }}" method="post">
+                        <button class="btn align-top pt-0" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
