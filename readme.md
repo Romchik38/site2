@@ -16,6 +16,7 @@ Additional:
 - Logging
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/docker.md)
+- [Docker](./doc/docker/00_readme.md) package for developing only
 
 The only dependency is *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
 
