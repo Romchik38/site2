@@ -2,8 +2,6 @@
 
 ## Current
 
-- docker - email
-
 ## Next
 
 - tests  
