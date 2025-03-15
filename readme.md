@@ -18,6 +18,7 @@ Additional:
 - [Mailer](./doc/mail/docker.md)
 - [Docker](./doc/docker/00_readme.md) package for developing only
 - User and admin user login (authentication and authorization)
+- [DI Container](./doc/bootstrap/Container.md)
 
 The only dependency is *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
 
