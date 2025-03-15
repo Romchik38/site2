@@ -11,7 +11,7 @@ return function (Container $container) {
         \Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository::class,
         new \Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository(
             $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            $container->get(\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface::class),
+            $container->get('\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface'),
             'translate_entities',
             'entity_id'
         )

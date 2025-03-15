@@ -21,7 +21,7 @@ return function ($container) {
             new ResponseFactory,
             $container->get(\Psr\Http\Message\ServerRequestInterface::class),
             $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class),
+            $container->get('\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface'),
             $notFoundController,
             null
         )
