@@ -10,7 +10,7 @@ return function (Container $container): void {
         \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware::class,
         new \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware(
                 $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-                $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+                $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
                 $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
         )
     );
@@ -21,8 +21,8 @@ return function (Container $container): void {
         new \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware(
             ['ADMIN_ROOT'],
             $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
-            $container->get(\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService::class),
+            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            $container->get('\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService'),
             $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
         )
     );
@@ -31,9 +31,9 @@ return function (Container $container): void {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware::class,
         new \Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware(
-        $container->get('\Psr\Http\Message\ServerRequestInterface::class'),
+        $container->get('\Psr\Http\Message\ServerRequestInterface'),
         $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-        $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+        $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
         $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
         )
     );

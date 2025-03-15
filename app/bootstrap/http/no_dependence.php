@@ -7,7 +7,7 @@ use Romchik38\Container\Container;
 return function (Container $container) {
     // REQUEST
     $container->add(
-        '\Psr\Http\Message\ServerRequestInterface::class',
+        '\Psr\Http\Message\ServerRequestInterface',
         Laminas\Diactoros\ServerRequestFactory::fromGlobals(
             $_SERVER,
             $_GET,

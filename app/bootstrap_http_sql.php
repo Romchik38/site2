@@ -16,23 +16,10 @@ return function () {
     (require_once(__DIR__ . '/bootstrap/sql/no_dependencies.php'))($container);
     (require_once(__DIR__ . '/bootstrap/sql/models.php'))($container);
     (require_once(__DIR__ . '/bootstrap/critical_services.php'))($container);
-
-    /** @todo refactor */
     (require_once(__DIR__ . '/bootstrap/services_before_application.php'))($container);
-
-    /** @todo refactor */
     (require_once(__DIR__ . '/bootstrap/application.php'))($container);
-
-    /** @todo refactor */
     (require_once(__DIR__ . '/bootstrap/services_after_application.php'))($container);
-
-    /** @todo refactor */
     (require_once(__DIR__ . '/bootstrap/services.php'))($container);
-
-    /** @todo refactor */
-    (require_once(__DIR__ . '/bootstrap/http/services.php'))($container);
-
-    /** @todo refactor */
     (require_once(__DIR__ . '/bootstrap/http/views.php'))($container);
 
     /** @todo refactor */

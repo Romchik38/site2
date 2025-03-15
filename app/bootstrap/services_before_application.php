@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
@@ -15,45 +16,57 @@ return function (Container $container) {
         throw new RuntimeException('Missing config field: audio-folder-frontend');
 
     // ArticleListViewRepository
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository(
-            $container->get('\Romchik38\Server\Api\Models\DatabaseInterface'),
-            new \Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory(
-                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
-                new \Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter(
-                    $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
-                )
-            ),
-            new Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory(
-                $configImgFolderFrontend
-            )
-        ),
-    );
-    $container->add(
-        \Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class)
+    /** @todo move to sql */
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository',
+        '\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface'),
+            new Promise('\Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory')
+        ]
     );
 
+    /** @todo move to application */
+    $container->shared(
+        '\Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory',
+        [
+            new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter')
+        ]
+    );
+    $container->shared('\Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory', [$configImgFolderFrontend]);
+
+    /** @todo move to service */
+    $container->shared('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat', []);
+    $container->shared('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter', [
+        new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+    ]);
+
+
     // Article View Repository
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository(
-            $container->get('\Romchik38\Server\Api\Models\DatabaseInterface'),
-            new Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory(
-                new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
-                $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            ),
-            new Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory($configImgFolderFrontend),
-            new Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory(
-                $configAudioFolderFrontend
-            )
-        )
+    /** @todo move to sql */
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository',
+        '\Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface'),
+            new Promise('\Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory')
+        ]
     );
-    $container->add(
-        \Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository::class)
-    );
+
+    /** @todo move to application */
+    $container->shared('\Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory', [
+        new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
+        new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+    ]);
+    
+    $container->shared('\Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory', [$configImgFolderFrontend]);
+    $container->shared('\Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory', [$configAudioFolderFrontend]);
 
     return $container;
 };

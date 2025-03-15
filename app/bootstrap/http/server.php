@@ -14,7 +14,7 @@ return function ($container) {
                 false,
                 $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction::class)
             ),
-            $container->get(\Romchik38\Server\Api\Services\LoggerServerInterface::class)
+            $container->get('\Romchik38\Server\Api\Services\LoggerServerInterface')
         )
     );
 

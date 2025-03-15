@@ -3,24 +3,31 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
     // Breadcramb
-    $container->add(
-        \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class,
-        new \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb(
-            new Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree,
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
-        )
+    /** @todo move to service */
+    $container->shared(
+        '\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb',
+        [
+            new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
+            new promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+        ]
     );
 
+    $container->shared('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree');
+
+    /** @todo move to service */
     // Link Tree
-    $container->add(
-        \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree::class,
-        new \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
-        )
+    $container->multi(
+        '\Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree',
+        '\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+        ]
     );
 
     return $container;
