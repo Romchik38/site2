@@ -7,7 +7,7 @@ return function ($container) {
     $container->add(
         \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree::class,
         new \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
         )
     );
     $container->add(

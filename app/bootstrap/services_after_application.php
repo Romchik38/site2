@@ -11,7 +11,7 @@ return function (Container $container) {
         \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class,
         new \Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb(
             new Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree,
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
         )
     );
 
@@ -19,7 +19,7 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree::class,
         new \Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
         )
     );
 

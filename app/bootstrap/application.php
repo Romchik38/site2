@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return function ($container) {
 
+    /** @todo waiting to refactor */
     // // ArticleListService
     // $container->add(
     //     \Romchik38\Site2\Application\ArticleList\ArticleListService::class,
@@ -35,7 +36,7 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class,
         new \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService(
-            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
+            $container->get('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
         )
     );
 
@@ -43,7 +44,7 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService::class,
         new \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService(
-            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
+            $container->get('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
         )
     );
 

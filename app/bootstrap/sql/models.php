@@ -3,46 +3,30 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
-    //REPOSITORIES
-    $container->add(
-        \Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository::class,
-        new \Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
-            $container->get('\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface'),
+    $container->multi(
+        '\Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository',
+        '\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface'),
+            new Promise('\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface'),
             'translate_entities',
             'entity_id'
-        )
-    );
-    $container->add(
-        \Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface::class,
-        $container->get(\Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository::class)
+        ]
     );
 
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
-        )
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository',
+        '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
     );
 
-    $container->add(
-        \Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository::class)
-    );
-    
-    // AdminUserRepository
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository::class,
-        new \Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class)
-        )
-    );
-    $container->add(
-        \Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository::class)
-    );
     return $container;
 };

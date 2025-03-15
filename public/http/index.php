@@ -22,3 +22,6 @@ $container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))();
 /** run app */
 $server = $container->get(\Romchik38\Server\Api\Servers\Http\HttpServerInterface::class);
 $server->run()->log();
+
+/** @todo #4 */
+

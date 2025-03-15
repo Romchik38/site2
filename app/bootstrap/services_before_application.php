@@ -18,11 +18,11 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository::class,
         new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
+            $container->get('\Romchik38\Server\Api\Models\DatabaseInterface'),
             new \Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory(
                 new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
                 new \Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter(
-                    $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+                    $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
                 )
             ),
             new Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory(
@@ -39,10 +39,10 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository::class,
         new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository(
-            $container->get(\Romchik38\Server\Api\Models\DatabaseInterface::class),
+            $container->get('\Romchik38\Server\Api\Models\DatabaseInterface'),
             new Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory(
                 new \Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat,
-                $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+                $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             ),
             new Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory($configImgFolderFrontend),
             new Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory(

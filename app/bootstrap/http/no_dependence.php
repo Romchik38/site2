@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-return function ($container) {
-    // REQUEST  depends only on this file or on no_dependencies global
+use Romchik38\Container\Container;
+
+return function (Container $container) {
+    // REQUEST
     $container->add(
-        Laminas\Diactoros\ServerRequest::class,
+        '\Psr\Http\Message\ServerRequestInterface::class',
         Laminas\Diactoros\ServerRequestFactory::fromGlobals(
             $_SERVER,
             $_GET,
@@ -14,19 +16,12 @@ return function ($container) {
             $_FILES
         )
     );
-    $container->add(
-        Psr\Http\Message\ServerRequestInterface::class,
-        $container->get(Laminas\Diactoros\ServerRequest::class)
-    );
 
-    // SESSION
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Services\Session\Site2Session::class,
-        new \Romchik38\Site2\Infrastructure\Services\Session\Site2Session()
-    );
-    $container->add(
-        Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2Session::class)
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Services\Session\Site2Session',
+        '\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface',
+        true,
+        []
     );
 
     return $container;

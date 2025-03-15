@@ -25,9 +25,9 @@ return function (Container $container) {
     $container->add(
         \Romchik38\Server\Services\Urlbuilder\Urlbuilder::class,
         new \Romchik38\Server\Services\Urlbuilder\Urlbuilder(
-            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
+            $container->get('\Psr\Http\Message\ServerRequestInterface::class'),
             new DynamicTarget(
-                $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class)
+                $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
             )
         )
     );

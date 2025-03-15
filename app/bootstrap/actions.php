@@ -10,8 +10,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         )
@@ -19,8 +19,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         )
@@ -33,8 +33,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
             $serverErrorResponseFile
@@ -45,8 +45,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface::class),
             new Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory,
@@ -57,8 +57,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         )
@@ -68,8 +68,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
         )
     );
 
@@ -78,11 +78,11 @@ return function ($container) {
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction
         (
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class),
-            $container->get(Psr\Http\Message\ServerRequestInterface::class),
+            $container->get('\Psr\Http\Message\ServerRequestInterface::class'),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
@@ -90,8 +90,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Site2\Application\ArticleView\ArticleViewService::class),
         )
@@ -102,9 +102,9 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         )
     );
 
@@ -113,7 +113,7 @@ return function ($container) {
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction(
             $container->get('admin_view'),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         )
     );
     
@@ -121,9 +121,9 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
             $container->get('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
@@ -134,8 +134,8 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
         )
     );
     
@@ -143,9 +143,9 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class)
         )
     );
@@ -154,9 +154,9 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction(
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class),
             $container->get('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
         )
@@ -167,11 +167,11 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Psr\Http\Message\ServerRequestInterface::class'),
             $container->get(\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class)
         )
     );
@@ -180,11 +180,11 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(Psr\Http\Message\ServerRequestInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Psr\Http\Message\ServerRequestInterface::class'),
             $container->get(\Romchik38\Site2\Application\User\UserCheck\UserCheckService::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
         )
     );
@@ -193,10 +193,10 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         )
     );
 
@@ -204,10 +204,10 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction::class,
         new Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         )
     );
 
@@ -216,9 +216,9 @@ return function ($container) {
     $container->add(
         \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction::class,
         new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction(
-            $container->get(\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface::class)
+            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         )
     );
 
