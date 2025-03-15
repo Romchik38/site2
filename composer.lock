@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc6b19baa68bd13625743049bc54a133",
+    "content-hash": "ba2aacad665e852001a9c4e8df1466a1",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -307,29 +307,50 @@
         },
         {
             "name": "romchik38/php-container",
-            "version": "v1.1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/php-container.git",
-                "reference": "571135975c3c24ec770d5249084d797c830e60af"
+                "reference": "4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/php-container/zipball/571135975c3c24ec770d5249084d797c830e60af",
-                "reference": "571135975c3c24ec770d5249084d797c830e60af",
+                "url": "https://api.github.com/repos/Romchik38/php-container/zipball/4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4",
+                "reference": "4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4",
                 "shasum": ""
             },
             "require": {
+                "php": ">=8.3",
                 "psr/container": "^2.0"
             },
             "require-dev": {
+                "laminas/laminas-coding-standard": "^3.0",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^11.1"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Romchik38\\": "src/"
+                    "Romchik38\\Container\\": "src/"
                 }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Romchik38\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "cs-check": [
+                    "phpcs"
+                ],
+                "cs-fix": [
+                    "phpcbf"
+                ],
+                "tests": [
+                    "vendor/bin/phpunit",
+                    "composer cs-check",
+                    "vendor/bin/phpstan"
+                ]
             },
             "license": [
                 "MIT"
@@ -342,10 +363,10 @@
             ],
             "description": "PSR-11: Container interface",
             "support": {
-                "source": "https://github.com/Romchik38/php-container/tree/v1.1.0",
+                "source": "https://github.com/Romchik38/php-container/tree/v2.0.0",
                 "issues": "https://github.com/Romchik38/php-container/issues"
             },
-            "time": "2024-05-30T16:09:44+00:00"
+            "time": "2025-03-15T08:49:27+00:00"
         },
         {
             "name": "romchik38/php-server",
@@ -1002,16 +1023,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.20",
+            "version": "1.12.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "3240b1972042c7f73cf1045e879ea5bd5f761bb7"
+                "reference": "14276fdef70575106a3392a4ed553c06a984df28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/3240b1972042c7f73cf1045e879ea5bd5f761bb7",
-                "reference": "3240b1972042c7f73cf1045e879ea5bd5f761bb7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/14276fdef70575106a3392a4ed553c06a984df28",
+                "reference": "14276fdef70575106a3392a4ed553c06a984df28",
                 "shasum": ""
             },
             "require": {
@@ -1056,7 +1077,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-05T13:37:43+00:00"
+            "time": "2025-03-09T09:24:50+00:00"
         },
         {
             "name": "phpstan/phpstan-beberlei-assert",
