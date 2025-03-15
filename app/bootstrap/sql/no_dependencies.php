@@ -8,29 +8,12 @@ return function (Container $container) {
     $configDatabase = require_once(__DIR__ . '/../../config/private/database.php');
 
     // DATABASES
-    $container->add(
-        \Romchik38\Server\Models\Sql\DatabasePostgresql::class,
-        new \Romchik38\Server\Models\Sql\DatabasePostgresql($configDatabase)
-    );
-    $container->add(
-        \Romchik38\Server\Api\Models\DatabaseInterface::class,
-        $container->get(\Romchik38\Server\Models\Sql\DatabasePostgresql::class)
+    $container->multi(
+        '\Romchik38\Server\Models\Sql\DatabasePostgresql',
+        '\Romchik38\Server\Api\Models\DatabaseInterface',
+        true,
+        [$configDatabase]
     );
 
-        // Article
-        $container->add(
-            \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleSearchCriteriaFactory::class,
-            new \Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleSearchCriteriaFactory
-        );
-        $container->add(
-            \Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface::class,
-            $container->get(\Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleSearchCriteriaFactory::class)
-        );
-    
-        $container->add(
-            Romchik38\Site2\Domain\Article\ArticleFilterFactoryInterface::class,
-            new Romchik38\Site2\Infrastructure\Persist\Sql\Article\Filters\ArticleFilterFactory
-        );
-    
     return $container;
 };

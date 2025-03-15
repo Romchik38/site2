@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use Romchik38\Container\Promise;
+
 return function ($container) {
 
+    /** @todo waiting to refactor */
     // // ArticleListService
     // $container->add(
     //     \Romchik38\Site2\Application\ArticleList\ArticleListService::class,
@@ -15,43 +18,42 @@ return function ($container) {
     // );
 
     // ArticleListViewService
-    $container->add(
-        \Romchik38\Site2\Application\ArticleListView\ArticleListViewService::class,
-        new \Romchik38\Site2\Application\ArticleListView\ArticleListViewService(
-            $container->get(\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface::class),
-            new \Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory
-        )
+    $container->shared(
+        '\Romchik38\Site2\Application\ArticleListView\ArticleListViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory')
+        ]
     );
 
+    $container->shared('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory', []);
+
     // Article View
-    $container->add(
-        \Romchik38\Site2\Application\ArticleView\ArticleViewService::class,
-        new \Romchik38\Site2\Application\ArticleView\ArticleViewService(
-            $container->get(\Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface::class)
-        )
+    $container->shared(
+        '\Romchik38\Site2\Application\ArticleView\ArticleViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface')
+        ]
     );
 
     // Admin User Check Service 
-    $container->add(
-        \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService::class,
-        new \Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService(
-            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
-        )
+    $container->shared(
+        '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',
+        [
+            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
+        ]
     );
 
     // Admin User Roles
-    $container->add(
-        \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService::class,
-        new \Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService(
-            $container->get(\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface::class)
-        )
+    $container->shared(
+        '\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService',
+        [
+            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
+        ]
     );
 
     // User Check
-    $container->add(
-        \Romchik38\Site2\Application\User\UserCheck\UserCheckService::class,
-        new \Romchik38\Site2\Application\User\UserCheck\UserCheckService()
-    );
+    $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
     return $container;
 };

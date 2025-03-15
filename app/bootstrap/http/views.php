@@ -3,66 +3,54 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
     $twigConfig = require_once(__DIR__ . '/../../config/shared/twig.php');
 
-    // Loader
+    // Twig
     $loaderConfig = $twigConfig[\Twig\Loader\FilesystemLoader::class];
-    $container->add(
-        \Twig\Loader\FilesystemLoader::class,
-        new \Twig\Loader\FilesystemLoader(
-            $loaderConfig['path']
-        )
-    );
-
-    // Environment
-    $container->add(
-        \Twig\Environment::class,
-        new \Twig\Environment(
-            $container->get(\Twig\Loader\FilesystemLoader::class)
-            // ? cache
-        )
-    );
+    $container->shared('\Twig\Loader\FilesystemLoader', [$loaderConfig['path']]);
+    $container->shared('\Twig\Environment', [new Promise('\Twig\Loader\FilesystemLoader')]);
 
     // Twig Default View
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView::class,
-        new \Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView(
-            $container->get(\Twig\Environment::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
-            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
+        [
+            new Promise('\Twig\Environment'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             'base.twig'
-        )
+        ]
     );
 
     // Twig Admin View
-    $container->add(
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
         'admin_view',
-        new \Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView(
-            $container->get(\Twig\Environment::class),
-            $container->get(\Romchik38\Server\Api\Services\Translate\TranslateInterface::class),
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb::class),
-            $container->get(\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface::class),
+        true,
+        [
+            new Promise('\Twig\Environment'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             'base_admin.twig'
-        )
+        ]
     );
 
     // Other classes
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml::class,
-        new \Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml(
-            new \Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree,
-            $container->get(\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface::class)
-        )
-    );
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface::class,
-        $container->get(\Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml::class)
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
+            new Promise('\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface')
+        ]
     );
 
     return $container;

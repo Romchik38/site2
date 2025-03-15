@@ -2,34 +2,40 @@
 
 declare(strict_types=1);
 
-use Laminas\Diactoros\ResponseFactory;
+use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
-use Romchik38\Server\Controllers\Controller;
 
-return function ($container) {
+return function (Container $container) {
 
-    $notFoundController = new Controller(
-        HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME, 
+    // Router not found controller
+    $container->multi(
+        '\Romchik38\Server\Controllers\Controller',
+        HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME,
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction::class)
+        [
+            HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME,
+            true,
+            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction')
+        ]
     );
 
-    // ROUTER HEADERS
-    $container->add(
-        \Romchik38\Server\Routers\Http\DynamicRootRouter::class,
-        new \Romchik38\Server\Routers\Http\DynamicRootRouter(
-            new ResponseFactory,
-            $container->get(\Psr\Http\Message\ServerRequestInterface::class),
-            $container->get(Romchik38\Server\Services\DynamicRoot\DynamicRootInterface::class),
-            $container->get(\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class),
-            $notFoundController,
+    // Router response factory
+    $container->shared('\Laminas\Diactoros\ResponseFactory');
+
+    // Router
+    $container->multi(
+        '\Romchik38\Server\Routers\Http\DynamicRootRouter',
+        '\Romchik38\Server\Api\Routers\Http\HttpRouterInterface',
+        true,
+        [
+            new Promise('\Laminas\Diactoros\ResponseFactory'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface'),
+            new Promise(HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME),
             null
-        )
-    );
-
-    $container->add(
-        \Romchik38\Server\Api\Routers\Http\HttpRouterInterface::class,
-        $container->get(\Romchik38\Server\Routers\Http\DynamicRootRouter::class)
+        ]
     );
 
     return $container;

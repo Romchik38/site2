@@ -7,7 +7,7 @@ use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
 
 return function (Container $container) {
     /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
-    $collection = $container->get(Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface::class);
+    $collection = $container->get('\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface');
 
     (include_once(__DIR__ . '/actionsList/request_middlewares.php'))($container);
     $rootGet = (include_once(__DIR__ . '/actionsList/get.php'))($container);

@@ -12,8 +12,8 @@ return function (Container $container): ControllerInterface {
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction::class),
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction::class),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction'),
     );
 
     /** API */
@@ -23,38 +23,38 @@ return function (Container $container): ControllerInterface {
     $sitemap = new Controller(
         'sitemap',
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction')
     );
 
-    /** SERVER-ERROR */
+    /** SERVER-ERROR example */
     $serverErrorExample = new Controller(
         'server-error-example',
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction')
     );
 
     /** ARTICLE */
     $article = new Controller(
         'article',
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction::class),
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction')
     );
 
     /** ADMIN */
     $admin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction')
     );
-    $admin->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware::class));
+    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
     $adminUsers = new Controller(
         'users',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction')
     );
-    $adminUsers->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware::class));
+    $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware'));
     
     $admin->setChild($adminUsers);
     
@@ -62,19 +62,19 @@ return function (Container $container): ControllerInterface {
     $register = new Controller(
         'register', 
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction')
     );
 
     /** LOGIN */
     $login = new Controller(
         'login', 
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction')
     );
     $loginAdmin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction::class),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction'),
         null,
         'login_admin'
     );
