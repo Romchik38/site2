@@ -2,25 +2,31 @@
 
 declare(strict_types=1);
 
+use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 use Romchik38\Server\Api\Servers\ServerInterface;
 
-return function ($container) {
-    $container->add(
-        \Romchik38\Server\Servers\Http\DefaultServer::class,
-        new \Romchik38\Server\Servers\Http\DefaultServer(
-            $container->get(\Romchik38\Server\Api\Routers\Http\HttpRouterInterface::class),
-            new \Romchik38\Server\Controllers\Controller(
-                ServerInterface::SERVER_ERROR_CONTROLLER_NAME,
-                false,
-                $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction::class)
-            ),
-            $container->get('\Romchik38\Server\Api\Services\LoggerServerInterface')
-        )
+return function (Container $container) {
+    $container->multi(
+        '\Romchik38\Server\Controllers\Controller',
+        ServerInterface::SERVER_ERROR_CONTROLLER_NAME,
+        true,
+        [
+            ServerInterface::SERVER_ERROR_CONTROLLER_NAME,
+            false,
+            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction')
+        ]
     );
 
-    $container->add(
-        \Romchik38\Server\Api\Servers\Http\HttpServerInterface::class,
-        $container->get(\Romchik38\Server\Servers\Http\DefaultServer::class)
+    $container->multi(
+        '\Romchik38\Server\Servers\Http\DefaultServer',
+        '\Romchik38\Server\Api\Servers\Http\HttpServerInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Routers\Http\HttpRouterInterface'),
+            new Promise(ServerInterface::SERVER_ERROR_CONTROLLER_NAME),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
     );
 
     return $container;

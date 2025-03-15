@@ -31,203 +31,200 @@ return function (Container $container) {
     );
 
     // ServerError
-    $serverErrorResponseFile = $errorConfig['server-error-page']
-        ?? throw new RuntimeException('Missing server-error-page config parameter');
+    $serverErrorResponseFile = $errorConfig['server-error-page'] ?? 
+        throw new RuntimeException('Missing server-error-page config parameter');
 
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
             $serverErrorResponseFile
-        )
+        ]
     );
 
     // Sitemap
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
-            new Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory,
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
+            new Promise ('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory')
+        ]
     );
+    $container->shared('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory');
 
     // Not found
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
+        ]
     );
 
     // Server Error Example
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+        ]
     );
 
     // Article
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction
-        (
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Site2\Application\ArticleListView\ArticleListViewService'),
-            $container->get('\Psr\Http\Message\ServerRequestInterface'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Site2\Application\ArticleListView\ArticleListViewService'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
     );
 
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Site2\Application\ArticleView\ArticleViewService'),
-        )
-    );
-
-    // Api
-    // Userinfo
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Site2\Application\ArticleView\ArticleViewService'),
+        ]
     );
 
     // Admin
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction(
-            $container->get('admin_view'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction',
+        [
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
     );
     
      // Admin Login
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
+        ]
     );
 
     // Admin Users
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+        ]
     );
     
-    // GET\Register
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView')
-        )
+    // Register
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView')
+        ]
     );
     
     // Login
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
+        ]
     );
 
     // [POST]
+    // Api
+    // Userinfo
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
+    );
+
     // Auth Admin
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Psr\Http\Message\ServerRequestInterface'),
-            $container->get('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
     );
 
     // Auth
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Psr\Http\Message\ServerRequestInterface'),
-            $container->get('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+        ]
     );
     
     // Logout
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
     );
 
     // Admin Logout
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction::class,
-        new Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
     );
 
     // Admin Api
     // Userinfo
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
     );
-
-    // Api
-    /** Let's add some */
 
     return $container;
 };

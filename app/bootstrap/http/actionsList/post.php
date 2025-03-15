@@ -15,14 +15,14 @@ return function (Container $container): ControllerInterface {
     $auth = new Controller(
         'auth', 
         false,
-        $container->get(Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction')
     );
-    $auth->addRequestMiddleware($container->get(\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware::class));
+    $auth->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware'));
     
     $authAdmin = new Controller(
         'admin',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction::class),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction'),
         null,
         'auth_admin'
     );
@@ -32,7 +32,7 @@ return function (Container $container): ControllerInterface {
     $logout = new Controller(
         'logout',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction')
     );
 
     // Api
@@ -40,7 +40,7 @@ return function (Container $container): ControllerInterface {
     $apiUserinfo = new Controller(
         'userinfo',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction')
     );
     $api->setChild($apiUserinfo);
 
@@ -49,7 +49,7 @@ return function (Container $container): ControllerInterface {
     $adminLogout = new Controller(
         'logout',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction::class),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction'),
         null,
         'admin_logout'
     );
@@ -58,7 +58,7 @@ return function (Container $container): ControllerInterface {
     $adminApiUserunfo = new Controller(
         'userinfo',
         false,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction::class)
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction')
     );
     $adminApi->setChild($adminApiUserunfo);
 

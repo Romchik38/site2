@@ -18,10 +18,6 @@ if ($expectedTimezone !== ini_get('date.timezone')) {
 /** init app */
 $container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))();
 
-
 /** run app */
-$server = $container->get(\Romchik38\Server\Api\Servers\Http\HttpServerInterface::class);
+$server = $container->get('\Romchik38\Server\Api\Servers\Http\HttpServerInterface');
 $server->run()->log();
-
-/** @todo #4 */
-
