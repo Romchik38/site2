@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Romchik38\Container\Container;
+
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
 /** Checks */
@@ -16,7 +18,7 @@ if ($expectedTimezone !== ini_get('date.timezone')) {
 /** ? more checks */
 
 /** init app */
-$container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))();
+$container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))(new Container);
 
 /** run app */
 $server = $container->get('\Romchik38\Server\Api\Servers\Http\HttpServerInterface');
