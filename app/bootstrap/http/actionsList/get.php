@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Romchik38\Container;
+use Romchik38\Container\Container;
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
 use Romchik38\Server\Controllers\Controller;

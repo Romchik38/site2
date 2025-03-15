@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Romchik38\Container;
+use Romchik38\Container\Container;
 use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
 
 return function (Container $container) {
