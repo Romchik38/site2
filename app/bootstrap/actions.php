@@ -2,28 +2,32 @@
 
 declare(strict_types=1);
 
-return function ($container) {
+use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
+
+return function (Container $container) {
 
     $errorConfig = include_once(__DIR__ . '/../config/shared/errors.php');
 
     // Root
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
-        )
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
+        ]
     );
-    $container->add(
-        \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction::class,
-        new \Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction(
-            $container->get('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            $container->get('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
-            $container->get('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            $container->get('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
-        )
+
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
+            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
+        ]
     );
 
     // ServerError

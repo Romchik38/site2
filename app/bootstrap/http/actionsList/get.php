@@ -12,8 +12,8 @@ return function (Container $container): ControllerInterface {
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
         true,
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction::class),
-        $container->get(\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction::class),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction'),
     );
 
     /** API */
