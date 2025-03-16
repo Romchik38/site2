@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ArticleView\View;
+namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
 final class ImageDTO
 {

@@ -51,19 +51,19 @@ return function (Container $container) {
 
     // ARTICLE VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\ArticleView\ArticleViewService',
+        '\Romchik38\Site2\Application\Article\ArticleView\ArticleViewService',
         [
-            new Promise('\Romchik38\Site2\Application\ArticleView\View\ArticleViewRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface')
         ]
     );
 
-    $container->shared('\Romchik38\Site2\Application\ArticleView\View\ArticleViewDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory', [
         new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
         new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
     ]);
     
-    $container->shared('\Romchik38\Site2\Application\ArticleView\View\ImageDTOFactory', [$configImgFolderFrontend]);
-    $container->shared('\Romchik38\Site2\Application\ArticleView\View\AudioDTOFactory', [$configAudioFolderFrontend]);
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [$configImgFolderFrontend]);
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory', [$configAudioFolderFrontend]);
 
     // ADMIN USER CHECK
     $container->shared(

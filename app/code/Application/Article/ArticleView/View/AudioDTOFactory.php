@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ArticleView\View;
+namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
-final class ImageDTOFactory
+final class AudioDTOFactory
 {
     protected readonly string $pathPrefix;
 
@@ -19,22 +19,18 @@ final class ImageDTOFactory
     }
 
     public function create(
-        string $img_id,
         string $path,
-        string $description,
-        string $author
-    ): ImageDTO {
+        string $description
+    ): AudioDTO {
         if (str_starts_with($path, '/')) {
             $fullPath = $this->pathPrefix . $path;
         } else {
             $fullPath = sprintf('%s/%s', $this->pathPrefix, $path);
         }
 
-        return new ImageDTO(
-            $img_id,
+        return new AudioDTO(
             $fullPath,
-            $description,
-            $author
+            $description
         );
     }
 }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ArticleView\View;
+namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Application\ArticleView\Find;
+use Romchik38\Site2\Application\Article\ArticleView\Find;
 
 interface ArticleViewRepositoryInterface
 {

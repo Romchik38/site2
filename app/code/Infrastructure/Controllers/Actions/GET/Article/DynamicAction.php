@@ -15,8 +15,8 @@ use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Site2\Application\ArticleView\ArticleViewService;
-use Romchik38\Site2\Application\ArticleView\Find;
+use Romchik38\Site2\Application\Article\ArticleView\ArticleViewService;
+use Romchik38\Site2\Application\Article\ArticleView\Find;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction\ViewDTO;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface

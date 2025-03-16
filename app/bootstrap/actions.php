@@ -97,7 +97,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Site2\Application\ArticleView\ArticleViewService'),
+            new Promise('\Romchik38\Site2\Application\Article\ArticleView\ArticleViewService'),
         ]
     );
 
