@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Site2\Application\ArticleListView\View\ArticleDTO;
-use Romchik38\Site2\Application\ArticleListView\View\ArticleDTOFactory;
-use Romchik38\Site2\Application\ArticleListView\View\ArticleListViewRepositoryInterface;
-use Romchik38\Site2\Application\ArticleListView\View\ImageDTOFactory;
-use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTOFactory;
+use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface;
+use Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory;
+use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaInterface;
 
 final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
 {

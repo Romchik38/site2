@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaFactoryInterface;
-use Romchik38\Site2\Application\ArticleListView\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaFactoryInterface;
+use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaInterface;
 
 final class SearchCriteriaFactory implements SearchCriteriaFactoryInterface
 {

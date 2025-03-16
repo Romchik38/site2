@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\ArticleView\View;
 
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\ArticleListView\View\DateFormatterInterface;
+use Romchik38\Site2\Application\Article\ArticleListView\View\DateFormatterInterface;
 
 final class ArticleViewDTOFactory
 {
