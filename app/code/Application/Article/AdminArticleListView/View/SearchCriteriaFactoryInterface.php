@@ -7,8 +7,8 @@ namespace Romchik38\Site2\Application\Article\AdminArticleListView\View;
 interface SearchCriteriaFactoryInterface
 {
     public function create(
-        string $offset,
-        string $limit,
+        int $offset,
+        int $limit,
         string $orderByField,
         string $orderByDirection
     ): SearchCriteriaInterface;
