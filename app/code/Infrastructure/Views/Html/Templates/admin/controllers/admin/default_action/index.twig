@@ -1,9 +1,12 @@
 {#
-    Object      u               urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    Object      u                       urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir path to this folder
+
 #}
 <div class="text-center">
     <span class="bg-secondary text-white">{{ data.message }}</span>
 </div>
-<div>
-    Wellcome to admin panel
+<div class="container-sm">
+    {% include controller_template_dir ~ '/blocks/' ~ 'users.twig' %}
+    {% include controller_template_dir ~ '/blocks/' ~ 'articles.twig' %}
 </div>
