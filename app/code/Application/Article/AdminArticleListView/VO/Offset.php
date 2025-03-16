@@ -22,4 +22,9 @@ final class Offset
     {
         return $this->offset;
     }
+
+    public function toString(): string
+    {
+        return (string) $this->offset;
+    }
 }

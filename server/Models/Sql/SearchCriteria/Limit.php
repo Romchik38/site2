@@ -9,7 +9,7 @@ use Romchik38\Server\Api\Models\SearchCriteria\LimitInterface;
 
 class Limit implements LimitInterface
 {
-    protected readonly string $limit;
+    public readonly string $limit;
 
     public function __construct(
         string $limit
@@ -28,7 +28,13 @@ class Limit implements LimitInterface
         }
     }
 
+    /** @todo remove */
     public function toString(): string
+    {
+        return $this->limit;
+    }
+
+    public function __invoke(): string
     {
         return $this->limit;
     }

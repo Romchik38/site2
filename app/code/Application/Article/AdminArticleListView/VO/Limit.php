@@ -43,4 +43,9 @@ final class Limit
 
         return new self($intLimit);
     }
+
+    public function toString(): string
+    {
+        return (string) $this->limit;
+    }
 }
