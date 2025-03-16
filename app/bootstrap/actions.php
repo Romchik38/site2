@@ -128,7 +128,8 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('admin_view')
         ]
     );
     
