@@ -8,7 +8,15 @@ use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
 
 return function (Container $container) {
 
-    // Router not found controller
+    // CONTROLLERS COLLECTION
+    $container->multi(
+        '\Romchik38\Server\Routers\Http\ControllersCollection',
+        '\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface',
+        true,
+        []
+    );
+
+    // ROUTER NOT FOUND CONTROLLER
     $container->multi(
         '\Romchik38\Server\Controllers\Controller',
         HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME,
@@ -20,10 +28,10 @@ return function (Container $container) {
         ]
     );
 
-    // Router response factory
+    // ROUTER RESPONSE FACTORY
     $container->shared('\Laminas\Diactoros\ResponseFactory');
 
-    // Router
+    // ROUTER
     $container->multi(
         '\Romchik38\Server\Routers\Http\DynamicRootRouter',
         '\Romchik38\Server\Api\Routers\Http\HttpRouterInterface',

@@ -28,19 +28,5 @@ return function (Container $container) {
         []
     );
 
-    $container->multi(
-        '\Romchik38\Server\Routers\Http\ControllersCollection',
-        '\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface',
-        true,
-        []
-    );
-
-    $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',
-        '\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface',
-        true,
-        [32]
-    );
-
     return $container;
 };
