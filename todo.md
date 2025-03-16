@@ -3,8 +3,6 @@
 ## Current
 
 - admin article list
-  - action
-  - template
   - application service
 - phpstan
 - code standart

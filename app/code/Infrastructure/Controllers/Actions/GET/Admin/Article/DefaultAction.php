@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -26,7 +26,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     
     public function execute(): ResponseInterface
     {
-        $dto = new DefaultViewDTO('Admin users', 'Admin users page');
+        $dto = new DefaultViewDTO('Admin article', 'Admin article page');
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)
@@ -36,6 +36,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function getDescription(): string
     {
-        return 'Admin users page';
+        return 'Admin article';
     }
 }

@@ -55,8 +55,16 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction')
     );
     $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware'));
+
+    $adminArticle = new Controller(
+        'article',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction')
+    );
     
-    $admin->setChild($adminUsers);
+    $admin
+    ->setChild($adminUsers)
+    ->setChild($adminArticle);
     
     /** REGISTER */
     $register = new Controller(
