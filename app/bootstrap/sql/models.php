@@ -95,5 +95,15 @@ return function (Container $container) {
         ]
     );
 
+    // Admin Article List View Repository
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminArticleListView\Repository',
+        '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
     return $container;
 };

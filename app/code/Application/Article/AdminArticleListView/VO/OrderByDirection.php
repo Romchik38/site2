@@ -11,8 +11,10 @@ final class OrderByDirection
     public const DEFAULT_ORDER_BY_DIRECTION = 'desc';
     public const ALLOWED_ORDER_BY_DIRECTIONS = ['asc', 'desc'];
 
+    public readonly string $orderByDirection;
+
     public function __construct(
-        public readonly string $orderByDirection
+        string $orderByDirection
     ) {
         if ($orderByDirection === '') {
             $this->orderByDirection = self::DEFAULT_ORDER_BY_DIRECTION;

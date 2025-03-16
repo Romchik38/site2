@@ -6,12 +6,15 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService;
+use Romchik38\Site2\Application\Article\AdminArticleListView\Filter;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -20,12 +23,18 @@ final class DefaultAction extends AbstractMultiLanguageAction
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly ViewInterface $view,
+        protected readonly AdminArticleListViewService $articleService,
+        protected readonly ServerRequestInterface $request
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
     
     public function execute(): ResponseInterface
     {
+        $requestData = $this->request->getQueryParams();
+        $command = Filter::fromRequest($requestData);
+        $list = $this->articleService->list($command);
+
         $dto = new DefaultViewDTO('Admin article', 'Admin article page');
         $html = $this->view
             ->setController($this->getController())

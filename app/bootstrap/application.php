@@ -81,7 +81,7 @@ return function (Container $container) {
         ]
     );
 
-    // User Check
+    // USER CHECK
     $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
     // IMG CONVERTER
@@ -94,7 +94,7 @@ return function (Container $container) {
         ]
     );
 
-    // IMAGE CACHE SERVICE
+    // IMAGE CACHE
     $container->shared(
         '\Romchik38\Site2\Application\ImageCache\ImageCacheService',
         [
@@ -102,7 +102,7 @@ return function (Container $container) {
         ]
     );
 
-    // IMAGE CACHE VIEW SERVICE
+    // IMAGE CACHE VIEW
     $container->shared(
         '\Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService',
         [
@@ -110,5 +110,13 @@ return function (Container $container) {
         ]
     );
  
+    // ADMIN ARTICLE LIST VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };
