@@ -65,5 +65,35 @@ return function (Container $container) {
         ]
     );
 
+    // IMG VIEW REPOSITORY
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter\ImgViewRepository',
+        '\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
+    // IMAGE CACHE REPOSITORY
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\ImageCacheRepository',
+        '\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
+    // Image Cache View Repository
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository',
+        '\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
     return $container;
 };

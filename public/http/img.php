@@ -18,13 +18,13 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 
 try {
     $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
-    $request = $container->get(Psr\Http\Message\ServerRequestInterface::class);
+    $request = $container->get('\Psr\Http\Message\ServerRequestInterface');
     /** @var ImgConverterService $imgConverterService */
-    $imgConverterService = $container->get(Romchik38\Site2\Application\ImgConverter\ImgConverterService::class);
+    $imgConverterService = $container->get('\Romchik38\Site2\Application\ImgConverter\ImgConverterService');
     /** @var ImageCacheService $imgCacheService */
-    $imgCacheService = $container->get(\Romchik38\Site2\Application\ImageCache\ImageCacheService::class);
+    $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService');
     /** @var ImageCacheViewService $imgCacheViewService */
-    $imgCacheViewService = $container->get(\Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService::class);
+    $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
