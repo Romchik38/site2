@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\AdminArticleListView;
 
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\RepositoryInterface;
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\SearchCriteriaFactoryInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
 use Romchik38\Site2\Application\Article\AdminArticleListView\VO\Limit;
 use Romchik38\Site2\Application\Article\AdminArticleListView\VO\Offset;
@@ -17,7 +15,6 @@ final class AdminArticleListViewService
 {
     public function __construct(
         protected readonly RepositoryInterface $repository,
-        private readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
     ) {
     }
 
@@ -29,11 +26,11 @@ final class AdminArticleListViewService
         $orderByDirection = new OrderByDirection($command->orderByDirection);
         $offset = new Offset(($page() -1) * $limit());
 
-        $searchCriteria = $this->searchCriteriaFactory->create(
-            $offset(),
-            $limit(),
-            $orderByField(),
-            $orderByDirection()
+        $searchCriteria = new SearchCriteria(
+            $offset,
+            $limit,
+            $orderByField,
+            $orderByDirection
         );
         
         return $this->repository->list($searchCriteria);
