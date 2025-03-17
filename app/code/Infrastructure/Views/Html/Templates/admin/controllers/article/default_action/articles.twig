@@ -4,9 +4,47 @@
 
 #}
 
-<div class="text-end">
+<div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="#" role="button">New</a>
 </div>
+<div class="col-12 mb-2">
+    <form action="" method="get">
+
+        <!-- @todo implement -->
+        <label for="limit">Limit</label>
+        <select class="form-select form-select-sm" name="limit" aria-label="select limit">
+            <option selected>15</option>
+            <option value="2">2</option>
+            <option value="5">5</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+        </select>
+
+        <!-- @todo implement -->    
+        <label for="order_by">Order By</label>
+        <select class="form-select form-select-sm" name="order_by" aria-label="select order_by">
+            <option selected>identifier</option>
+        </select>
+
+        <!-- @todo implement -->
+        <label for="orderorder_direction_by">Direction</label>
+        <select class="form-select form-select-sm" name="order_direction" aria-label="select order_direction">
+            <option selected>desc</option>
+            <option>asc</option>
+        </select>
+
+        <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">filter</button>
+    </form>
+</div>
+<!-- Pagination -->
+<div class="col-12 mb-2">
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-sm justify-content-center">
+            {{ paginationHtml|raw }}
+        </ul>
+    </nav>
+</div>
+
 <table class="table table-bordered">
     <thead>
           <tr>
@@ -90,7 +128,7 @@
 </div>
 
 <!-- Pagination -->
-<div class="col">
+<div class="col-12">
     <nav aria-label="Page navigation">
         <ul class="pagination pagination-sm justify-content-center">
             {{ paginationHtml|raw }}
