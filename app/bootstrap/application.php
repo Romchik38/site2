@@ -18,17 +18,6 @@ return function (Container $container) {
     $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ??
         throw new RuntimeException('Missing config field: audio-folder-frontend');
 
-    /** @todo waiting to refactor */
-    // // ArticleListService
-    // $container->add(
-    //     \Romchik38\Site2\Application\ArticleList\ArticleListService::class,
-    //     new \Romchik38\Site2\Application\ArticleList\ArticleListService(
-    //         $container->get(\Romchik38\Site2\Domain\Article\ArticleRepositoryInterface::class),
-    //         $container->get(\Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface::class),
-    //         $container->get(\Romchik38\Site2\Domain\Article\ArticleFilterFactoryInterface::class)
-    //     )
-    // );
-
     // ARTICLE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService',

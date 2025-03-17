@@ -27,7 +27,7 @@ final class ImgConverterService
      */
     public function createImg(ImgData $command): ImgResult
     {
-        $img = $this->imgViewRepository->getById(Id::fromString($command->id));
+        $img = $this->imgViewRepository->getById( new Id($command->id));
         $imgFullPath = sprintf(
             '%s/%s',
             $this->imgPathPrefix,

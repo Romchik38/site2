@@ -35,7 +35,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
         if ($count === 1) {
             $row = $rows[0];
             return new ImgView(
-                Id::fromString($row['identifier']),
+                new Id($row['identifier']),
                 new Path($row['path'])
             );
         } elseif ($count === 0) {
