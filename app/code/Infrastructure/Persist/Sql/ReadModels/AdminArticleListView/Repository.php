@@ -8,9 +8,11 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
+use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class Repository implements RepositoryInterface
 {
@@ -40,7 +42,7 @@ final class Repository implements RepositoryInterface
 
         /** LIMIT */
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[] = $searchCriteria->limit->toString();
+        $params[] = ($searchCriteria->limit)();
 
         /** OFFSET */
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
@@ -62,12 +64,56 @@ final class Repository implements RepositoryInterface
     protected function createFromRow(array $row): ArticleDto
     {
         /** @todo */
+
+        $rawIdentifier = $row['identifier'] ?? null;
+        if($rawIdentifier === null) {
+            throw new RepositoryException('Article id is ivalid');
+        }
+
+        $rawActive = $row['active']  ?? null;
+        if($rawActive === null) {
+            throw new RepositoryException('Article active is ivalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        $rawImgActive = $row['img_active']  ?? null;
+        if ($rawImgActive === null) {
+            $imageActive = null;
+        } else {
+            if ($rawImgActive === 't') {
+                $imageActive = true;
+            } else {
+                $imageActive = false;
+            }
+        }
+
+        $rawAudioActive = $row['audio_active']  ?? null;
+        if ($rawAudioActive === null) {
+            $audioActive = null;
+        } else {
+            if ($rawAudioActive === 't') {
+                $audioActive = true;
+            } else {
+                $audioActive = false;
+            }
+        }
+
+        $rawAuthorName = $row['author_name']  ?? null;
+        if ($rawAuthorName === null) {
+            throw new RepositoryException('Article author name is ivalid');
+        }
+
         $articleDTO = new ArticleDto(
-            $row['identifier'] ?? '',
-            $row['active']  ?? '',
-            $row['author_id']  ?? '',
-            $row['img_id']  ?? '',
-            $row['audio_id']  ?? ''
+            $rawIdentifier,
+            $active,
+            $imageActive,
+            $row['img_path']  ?? null,
+            $audioActive,
+            $rawAuthorName
         );
 
         return $articleDTO;
@@ -78,10 +124,19 @@ final class Repository implements RepositoryInterface
         return <<<QUERY
         SELECT article.identifier,
             article.active,
-            article.author_id,
-            article.img_id,
-            article.audio_id,
-        FROM article
+            (SELECT img.active 
+                FROM img WHERE img.identifier = article.img_id
+            ) as img_active,
+            (SELECT img.path 
+                FROM img WHERE img.identifier = article.img_id
+            ) as img_path,
+            (SELECT audio.active 
+                FROM audio WHERE audio.identifier = article.audio_id
+            ) as audio_active,
+            (SELECT author.name 
+                FROM author WHERE author.identifier = article.author_id
+            ) as author_name
+        FROM article 
         QUERY;
     }
 }

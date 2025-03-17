@@ -8,6 +8,9 @@ use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
 
 interface RepositoryInterface
 {
-    /** @return array<int,ArticleDto> */
+    /** 
+     * @throws RepositoryException - On invalid database data
+     * @return array<int,ArticleDto> 
+     * */
     public function list(SearchCriteria $searchCriteria): array;
 }

@@ -33,7 +33,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     {
         $requestData = $this->request->getQueryParams();
         $command = Filter::fromRequest($requestData);
-        $list = $this->articleService->list($command);
+        $filterResult = $this->articleService->list($command);
 
         $dto = new DefaultViewDTO('Admin article', 'Admin article page');
         $html = $this->view

@@ -19,7 +19,7 @@ final class AdminArticleListViewService
     }
 
     /** @return array<int,ArticleDto> */
-    public function list(Filter $command): array {
+    public function list(Filter $command): FilterResult {
         $limit = Limit::fromString($command->limit);
         $page = Page::fromString($command->page);
         $orderByField = new OrderByField($command->orderByField);
@@ -33,6 +33,9 @@ final class AdminArticleListViewService
             $orderByDirection
         );
         
-        return $this->repository->list($searchCriteria);
+        return new FilterResult(
+            $searchCriteria,
+            $this->repository->list($searchCriteria)
+        );
     }
 }

@@ -26,4 +26,9 @@ final class OrderByDirection
             }
         }
     }
+
+    public function __invoke(): string
+    {
+        return $this->orderByDirection;
+    }
 }

@@ -7,8 +7,8 @@ use InvalidArgumentException;
 
 final class OrderByField
 {
-    public const DEFAULT_ORDER_BY = 'created_at';
-    public const ALLOWED_ORDER_BY = ['created_at', 'identifier'];
+    public const DEFAULT_ORDER_BY = 'identifier';
+    public const ALLOWED_ORDER_BY = ['identifier'];
 
     public readonly string $orderByField;
 
@@ -24,5 +24,10 @@ final class OrderByField
                 );
             }
         }   
+    }
+
+    public function __invoke(): string
+    {
+        return $this->orderByField;
     }
 }

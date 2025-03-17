@@ -36,7 +36,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
             $row = $rows[0];
             return new ImgView(
                 Id::fromString($row['identifier']),
-                Path::fromString($row['path'])
+                new Path($row['path'])
             );
         } elseif ($count === 0) {
             throw new NoSuchEntityException(

@@ -8,16 +8,12 @@ use InvalidArgumentException;
 
 final class Path
 {
-    protected function __construct(
+    public function __construct(
         protected readonly string $path
-    ) {}
-
-    public static function fromString(string $path): self
-    {
+    ) {
         if (strlen($path) === 0) {
             throw new InvalidArgumentException('param path is empty');
         }
-        return new self($path);
     }
 
     public function __invoke(): string
