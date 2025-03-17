@@ -39,7 +39,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         /** LIMIT */
         $limit = $searchCriteria->limit();
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[] = $limit->toString();
+        $params[] = $limit();
 
         /** OFFSET */
         $offset = $searchCriteria->offset();

@@ -2,7 +2,6 @@
 
 ## Current
 
-- @todos
 - admin article list
   - pagination form
 - admin images

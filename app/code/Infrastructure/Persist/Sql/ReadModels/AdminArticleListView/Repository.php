@@ -60,8 +60,6 @@ final class Repository implements RepositoryInterface
     /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleDto
     {
-        /** @todo */
-
         $rawIdentifier = $row['identifier'] ?? null;
         if($rawIdentifier === null) {
             throw new RepositoryException('Article id is ivalid');

@@ -28,12 +28,6 @@ class Limit implements LimitInterface
         }
     }
 
-    /** @todo remove */
-    public function toString(): string
-    {
-        return $this->limit;
-    }
-
     public function __invoke(): string
     {
         return $this->limit;
