@@ -24,6 +24,7 @@ final class OrderByDirection
                     sprintf('param order by direction %s is invalid', $orderByDirection)
                 );
             }
+            $this->orderByDirection = $orderByDirection;
         }
     }
 

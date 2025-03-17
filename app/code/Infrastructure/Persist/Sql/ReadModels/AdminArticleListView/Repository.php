@@ -108,7 +108,7 @@ final class Repository implements RepositoryInterface
             $rawIdentifier,
             $active,
             $imageActive,
-            $row['img_path']  ?? null,
+            $row['img_id']  ?? null,
             $audioActive,
             $rawAuthorName
         );
@@ -121,12 +121,10 @@ final class Repository implements RepositoryInterface
         return <<<QUERY
         SELECT article.identifier,
             article.active,
+            article.img_id,
             (SELECT img.active 
                 FROM img WHERE img.identifier = article.img_id
             ) as img_active,
-            (SELECT img.path 
-                FROM img WHERE img.identifier = article.img_id
-            ) as img_path,
             (SELECT audio.active 
                 FROM audio WHERE audio.identifier = article.audio_id
             ) as audio_active,

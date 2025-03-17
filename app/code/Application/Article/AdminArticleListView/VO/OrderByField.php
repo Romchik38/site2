@@ -23,6 +23,7 @@ final class OrderByField
                     sprintf('param order by field %s is invalid', $orderByField)
                 );
             }
+            $this->orderByField = $orderByField;
         }   
     }
 

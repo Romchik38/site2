@@ -2,5 +2,13 @@
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
         <p>{{ data.description }}</p>
+
+        {% if data.articleList|length == 0 %} 
+            {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
+        {% else %}
+            <!-- refactor -->
+            {% include controller_template_dir ~ '/articles.twig' with {'articleList': data.articleList, 'translate': translate, 'paginationHtml': data.paginationHtml } only %}
+        {% endif %}
+
     </div>
 </div>

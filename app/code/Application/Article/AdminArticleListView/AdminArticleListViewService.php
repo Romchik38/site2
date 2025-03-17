@@ -21,7 +21,7 @@ final class AdminArticleListViewService
     /**
      * @throws InvalidArgumentException
      * @throws RepositoryException - On database structure error
-     * @return array<int,ArticleDto> 
+     * @return FilterResult 
      * */
     public function list(Filter $command): FilterResult {
         $limit = Limit::fromString($command->limit);
@@ -39,6 +39,7 @@ final class AdminArticleListViewService
         
         return new FilterResult(
             $searchCriteria,
+            $page,
             $this->repository->list($searchCriteria)
         );
     }

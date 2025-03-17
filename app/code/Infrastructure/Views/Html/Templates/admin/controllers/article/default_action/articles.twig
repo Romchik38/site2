@@ -1,0 +1,99 @@
+{#
+    string              paginationHtml              html to display
+    ArticleDto[]        articleList                 Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto
+
+#}
+
+<div class="text-end">
+      <a class="btn btn-primary" href="#" role="button">New</a>
+</div>
+<table class="table table-bordered">
+    <thead>
+          <tr>
+                <th scope="col">Identifier</th>
+                <th scope="col">Active</th>
+                <th scope="col">Image Active</th>
+                <th scope="col">Image</th>
+                <th scope="col">Audio Active</th>
+                <th scope="col">Author Name</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+          </tr>
+    </thead>
+    <tbody>
+        {% for article in articleList %}
+            {% set activeColor = '' %}
+            {% if article.active == false %}
+                {% set activeColor = 'text-warning bg-secondary' %}
+                {% set active = 'not active' %}
+            {% elseif article.active == true %}
+                {% set activeColor = 'text-success' %}
+                {% set active = 'active' %}
+            {% endif %}
+            <tr>
+                <th scope="row">{{ article.identifierAsString() }}</th>
+                
+                <td class="{{ activeColor }}">{{ active }}</td>
+
+                <!-- Show image activity -->
+                {% if article.imgActive == null %}
+                    {% set imgActive = 'not active' %}
+                    {% set activeColorImage = 'text-warning bg-secondary' %}
+                {% elseif article.imgActive == true %}
+                    {% set imgActive = 'active' %}
+                    {% set activeColorImage = 'text-success' %}
+                {% elseif article.imgActive == false %}
+                    {% set imgActive = 'not active' %}
+                    {% set activeColorImage = 'text-warning bg-secondary' %}
+                {% endif %}
+                <td class="{{ activeColorImage }}">{{ imgActive }}</td>
+
+                <!-- Display image -->
+                {% if article.imgIdentifier == null %}
+                    <td class="{{ activeColorImage }}">no image</td>
+                {% else %}
+                    <td>
+                        <img class="img-fluid" 
+                            src="/img.php?id={{article.imageIdentifierAsString()}}&type=webp&width=200&height=100" 
+                            alt=""
+                        >
+                    </td>
+                {% endif %}
+
+                <!-- Show audio activity -->
+                {% if article.audioActive == null %}
+                    {% set audioActive = 'no audio' %}
+                    {% set activeColorAudio = 'text-warning bg-secondary' %}
+                {% elseif article.audioActive == true %}
+                    {% set audioActive = 'active' %}
+                    {% set activeColorAudio = 'text-success' %}
+                {% elseif article.audioActive == false %}
+                    {% set audioActive = 'not active' %}
+                    {% set activeColorAudio = 'text-warning bg-secondary' %}
+                {% endif %}
+                <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
+
+                <td>{{ article.authorNameAsString() }}</td>
+
+                <td><a href="#">edit</a></td>
+                <td>
+                    <form action="#" method="post">
+                        <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-end">
+      <a class="btn btn-primary" href="#" role="button">New</a>
+</div>
+
+<!-- Pagination -->
+<div class="col">
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-sm justify-content-center">
+            {{ paginationHtml|raw }}
+        </ul>
+    </nav>
+</div>

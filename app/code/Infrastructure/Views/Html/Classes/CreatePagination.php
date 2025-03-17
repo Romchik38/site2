@@ -142,6 +142,7 @@ final class CreatePagination implements CreatePaginationInterface
         return $this->urlBuilder->fromPath(
             $this->path,
             [
+                /** @todo replace with functions */
                 'page' => $part,
                 $this->pagination::LIMIT_FIELD => $this->pagination->limit(),
                 $this->pagination::ORDER_BY_FIELD => $this->pagination->orderByField(),
