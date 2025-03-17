@@ -5,6 +5,13 @@
 - @todos
 - admin article list
   - pagination form
+- admin images
+  - controller
+  - template
+- admin image cache
+  - controller
+  - template
+  - clear cache
 - phpstan
 - code standart
 - move to server
