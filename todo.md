@@ -2,9 +2,9 @@
 
 ## Current
 
+- @todos
 - admin article list
-  - pagination
-  - template
+  - pagination form
 - phpstan
 - code standart
 - move to server
