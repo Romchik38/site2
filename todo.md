@@ -4,6 +4,7 @@
 
 - admin article list
   - pagination
+  - template
 - phpstan
 - code standart
 - move to server
