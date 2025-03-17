@@ -8,32 +8,39 @@
       <a class="btn btn-primary" href="#" role="button">New</a>
 </div>
 <div class="col-12 mb-2">
-    <form action="" method="get">
+    <form class="d-sm-flex" action="" method="get">
+    <!-- <form class="row" action="" method="get"> -->
 
-        <!-- @todo implement -->
-        <label for="limit">Limit</label>
-        <select class="form-select form-select-sm" name="limit" aria-label="select limit">
-            <option selected>15</option>
-            <option value="2">2</option>
-            <option value="5">5</option>
-            <option value="15">15</option>
-            <option value="30">30</option>
-        </select>
+        <label class="me-2" for="limit">Limit</label>
+        <div class="me-2">
+            <!-- @todo implement -->
+            <select class="form-select form-select-sm" name="limit" aria-label="select limit">
+                <option selected>15</option>
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+            </select>
+        </div>
+        
+        <label class="me-2" for="order_by">Order By</label>
+        <div class="me-2">
+            <!-- @todo implement -->    
 
-        <!-- @todo implement -->    
-        <label for="order_by">Order By</label>
-        <select class="form-select form-select-sm" name="order_by" aria-label="select order_by">
-            <option selected>identifier</option>
-        </select>
+            <select class="form-select form-select-sm" name="order_by" aria-label="select order_by">
+                <option selected>identifier</option>
+            </select>
+        </div>
 
-        <!-- @todo implement -->
-        <label for="orderorder_direction_by">Direction</label>
-        <select class="form-select form-select-sm" name="order_direction" aria-label="select order_direction">
-            <option selected>desc</option>
-            <option>asc</option>
-        </select>
-
-        <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">filter</button>
+        <label class="me-2" for="orderorder_direction_by">Direction</label>
+        <div class="me-2">
+            <!-- @todo implement -->
+            <select class="form-select form-select-sm" name="order_direction" aria-label="select order_direction">
+                <option selected>desc</option>
+                <option>asc</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-sm py-0">filter</button>
     </form>
 </div>
 <!-- Pagination -->

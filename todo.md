@@ -4,7 +4,6 @@
 
 - admin article list
   - pagination form
-    - on one line
     - load data to template
 - admin images
   - controller
