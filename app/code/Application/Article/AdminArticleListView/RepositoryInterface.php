@@ -13,4 +13,6 @@ interface RepositoryInterface
      * @return array<int,ArticleDto> 
      * */
     public function list(SearchCriteria $searchCriteria): array;
+
+    public function totalCount(): int;
 }

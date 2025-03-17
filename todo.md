@@ -3,7 +3,7 @@
 ## Current
 
 - admin article list
-  - application service
+  - pagination
 - phpstan
 - code standart
 - move to server

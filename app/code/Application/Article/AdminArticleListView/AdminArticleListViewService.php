@@ -18,7 +18,11 @@ final class AdminArticleListViewService
     ) {
     }
 
-    /** @return array<int,ArticleDto> */
+    /**
+     * @throws InvalidArgumentException
+     * @throws RepositoryException - On database structure error
+     * @return array<int,ArticleDto> 
+     * */
     public function list(Filter $command): FilterResult {
         $limit = Limit::fromString($command->limit);
         $page = Page::fromString($command->page);
@@ -37,5 +41,10 @@ final class AdminArticleListViewService
             $searchCriteria,
             $this->repository->list($searchCriteria)
         );
+    }
+
+    public function totalCount(): int
+    {
+        return $this->repository->totalCount();
     }
 }

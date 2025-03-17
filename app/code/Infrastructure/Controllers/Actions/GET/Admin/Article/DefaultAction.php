@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,8 +14,11 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService;
 use Romchik38\Site2\Application\Article\AdminArticleListView\Filter;
+use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -33,7 +37,9 @@ final class DefaultAction extends AbstractMultiLanguageAction
     {
         $requestData = $this->request->getQueryParams();
         $command = Filter::fromRequest($requestData);
+
         $filterResult = $this->articleService->list($command);
+        $totalCount = $this->articleService->totalCount();
 
         $dto = new DefaultViewDTO('Admin article', 'Admin article page');
         $html = $this->view

@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminArticleListView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
-use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
-use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 final class Repository implements RepositoryInterface
 {
@@ -138,5 +135,17 @@ final class Repository implements RepositoryInterface
             ) as author_name
         FROM article 
         QUERY;
+    }
+
+    public function totalCount(): int
+    {
+        $query = 'SELECT count(article.identifier) as count FROM article';
+
+        $rows = $this->database->queryParams($query, []);
+
+        $firstElem = $rows[0];
+        $count = $firstElem['count'];
+
+        return (int)$count;
     }
 }
