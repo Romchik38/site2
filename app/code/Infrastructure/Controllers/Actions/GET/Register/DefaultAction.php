@@ -14,7 +14,6 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
-/** @todo implement it */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
