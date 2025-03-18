@@ -56,4 +56,11 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
         
         return $result;
     }
+
+    public function deleteAll(): void
+    {
+        $query = 'DELETE FROM img_cache';
+
+        $this->database->queryParams($query, []);
+    }
 }

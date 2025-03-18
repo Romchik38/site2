@@ -19,4 +19,7 @@ interface ImageCacheRepositoryInterface
 
     /** total storage size in kB, MB, GB, or TB */
     public function totalPrettySize(): string;
+
+    /** Delete all data */
+    public function deleteAll(): void;
 }

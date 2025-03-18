@@ -54,6 +54,7 @@ return function (Container $container): ControllerInterface {
         'admin_logout'
     );
 
+    // Admin Api
     $adminApi = new Controller('api');
     $adminApiUserunfo = new Controller(
         'userinfo',
@@ -62,7 +63,18 @@ return function (Container $container): ControllerInterface {
     );
     $adminApi->setChild($adminApiUserunfo);
 
-    $admin->setChild($adminLogout)->setChild($adminApi);
+    // Admin Image Cache
+    $adminImagecache = new Controller('imagecache', false);
+    $adminImagecacheClear = new Controller(
+        'clear',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction')
+    );
+    $adminImagecache->setChild($adminImagecacheClear);
+
+    $admin->setChild($adminLogout)
+    ->setChild($adminApi)
+    ->setChild($adminImagecache);
 
     $root->setChild($auth)
     ->setChild($admin)

@@ -240,6 +240,18 @@ return function (Container $container) {
         ]
     );
 
+    // Admin Image Cache Clear
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
+    );
+
     // Admin Api
     // Userinfo
     $container->shared(

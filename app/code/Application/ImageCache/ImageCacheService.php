@@ -41,4 +41,9 @@ final class ImageCacheService
     {
         return $this->imageCacheRepository->totalPrettySize();
     }
+
+    public function clear(): void
+    {
+        $this->imageCacheRepository->deleteAll();
+    }
 }

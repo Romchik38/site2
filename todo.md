@@ -2,10 +2,6 @@
 
 ## Current
 
-- admin image cache
-  - total images in the cache
-  - memory usage
-  - clear cache
 - message as global tamplate var
 - admin images
   - controller
