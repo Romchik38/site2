@@ -2,13 +2,13 @@
 
 ## Current
 
-- admin images
-  - controller
-  - template
 - admin image cache
   - controller
   - template
   - clear cache
+- admin images
+  - controller
+  - template
 - phpstan
 - code standart
 - move to server
