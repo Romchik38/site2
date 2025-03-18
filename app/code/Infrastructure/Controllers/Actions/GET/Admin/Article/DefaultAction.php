@@ -17,6 +17,7 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService;
 use Romchik38\Site2\Application\Article\AdminArticleListView\Filter;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
@@ -68,7 +69,12 @@ final class DefaultAction extends AbstractMultiLanguageAction
             'Admin article', 
             'Admin article page',
             $articleList,
-            $paginationHtml
+            $paginationHtml,
+            new PaginationForm(
+                $searchCriteria->limit,
+                $searchCriteria->orderByField,
+                $searchCriteria->orderByDirection
+            )
         );
         $html = $this->view
             ->setController($this->getController())
