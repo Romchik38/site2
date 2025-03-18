@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
@@ -21,16 +23,21 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         protected readonly ServerRequestInterface $request,
         protected readonly Site2SessionInterface $session,
         protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly TranslateInterface $translate
+        protected readonly TranslateInterface $translate,
+        protected readonly Path $redirectPath,
+        protected readonly string $tokenFieldName
     ) {
+        if($tokenFieldName === '') {
+            throw new InvalidArgumentException('csrf tocken field is empty');
+        }
     }
 
     public function __invoke(): ?ResponseInterface
     {
-        $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
+        $urlLogin = $this->urlbuilder->fromPath($this->redirectPath);
 
         $requestData = $this->request->getParsedBody();
-        $token = $requestData['csrf_token'] ?? null;
+        $token = $requestData[$this->tokenFieldName] ?? null;
 
         if ($token === null) {
             $this->session->setData(
@@ -40,7 +47,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
             return new RedirectResponse($urlLogin);
         }
        
-        $sessionToken = $this->session->getData(Site2SessionInterface::CSRF_TOKEN_FIELD);
+        $sessionToken = $this->session->getData($this->tokenFieldName);
         if ($sessionToken === '' || $token === '') {
             $this->session->setData(
                 $this->session::MESSAGE_FIELD,

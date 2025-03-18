@@ -5,6 +5,7 @@
 ## Protected
 
 - `Auth` POST action recieves login form data from `Login` and `Login Admin` actions
+- `Admin Imagecache Clear`
 
 ## Not protected
 
@@ -21,3 +22,5 @@ To make a request successfull, action, which resposable to generate a `<fomr>`, 
 - generate a `csrf_token` with `CsrfTokenGeneratorUseRandomBytes` or somthing else
 - place token inside `<form>` as `<input type="hidden">` tag.
 - add token to `Session` with `csrf_token` key
+
+[!] for admin use `admin_csrf_token`

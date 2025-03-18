@@ -35,14 +35,14 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $totalPrettySize = $this->imageCacheService->totalPrettySize();
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDto(
             'Image cache', 
             'Image cache page',
             $this->imageCacheService->totalCount(),
             $totalPrettySize,
-            $this->session::CSRF_TOKEN_FIELD,
+            $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken
         );
 

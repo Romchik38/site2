@@ -70,7 +70,7 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction')
     );
-    $adminImagecacheClear->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware'));
+    $adminImagecacheClear->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminImagecache->setChild($adminImagecacheClear);
 
     $admin->setChild($adminLogout)
