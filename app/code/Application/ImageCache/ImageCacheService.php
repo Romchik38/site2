@@ -15,6 +15,7 @@ final class ImageCacheService
     public function __construct(
         protected readonly ImageCacheRepositoryInterface $imageCacheRepository
     ) {}
+
     public function save(Cache $command): void
     {
         $imgCache = new ImageCache(
@@ -24,5 +25,10 @@ final class ImageCacheService
         );
 
         $this->imageCacheRepository->add($imgCache);
+    }
+
+    public function totalCount(): int
+    {
+        return $this->imageCacheRepository->totalCount();
     }
 }

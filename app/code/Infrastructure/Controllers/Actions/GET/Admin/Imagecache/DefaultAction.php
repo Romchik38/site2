@@ -12,6 +12,7 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -20,6 +21,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly ViewInterface $view,
+        protected readonly ImageCacheService $imageCacheService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

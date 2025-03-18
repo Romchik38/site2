@@ -10,4 +10,7 @@ interface ImageCacheRepositoryInterface
 {
     /** @throws CouldNotAddException */
     public function add(ImageCache $model): void;
+
+    /** Returns count of images in a storage*/
+    public function totalCount(): int;
 }
