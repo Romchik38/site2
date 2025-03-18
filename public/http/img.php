@@ -9,10 +9,10 @@ use Romchik38\Site2\Application\ImageCache\ImageCacheService;
 use Romchik38\Site2\Application\ImageCacheView\Find;
 use Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService;
 use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
-use Romchik38\Site2\Application\ImgConverter\CouldNotCreateImageException;
-use Romchik38\Site2\Application\ImgConverter\ImgConverterService;
-use Romchik38\Site2\Application\ImgConverter\ImgData;
-use Romchik38\Site2\Application\ImgConverter\StubData;
+use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
+use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService;
+use Romchik38\Site2\Application\Image\ImgConverter\ImgData;
+use Romchik38\Site2\Application\Image\ImgConverter\StubData;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
@@ -20,7 +20,7 @@ try {
     $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
     $request = $container->get('\Psr\Http\Message\ServerRequestInterface');
     /** @var ImgConverterService $imgConverterService */
-    $imgConverterService = $container->get('\Romchik38\Site2\Application\ImgConverter\ImgConverterService');
+    $imgConverterService = $container->get('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService');
     /** @var ImageCacheService $imgCacheService */
     $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService');
     /** @var ImageCacheViewService $imgCacheViewService */

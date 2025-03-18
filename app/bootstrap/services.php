@@ -135,7 +135,7 @@ return function (Container $container) {
     // IMG CONVERTER
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Services\ImgConverter',
-        '\Romchik38\Site2\Application\ImgConverter\ImgConverterInterface'
+        '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface'
     );
 
     return $container;

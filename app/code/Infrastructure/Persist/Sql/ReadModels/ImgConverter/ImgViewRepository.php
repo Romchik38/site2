@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Application\ImgConverter\View\ImgView;
-use Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface;
+use Romchik38\Site2\Application\Image\ImgConverter\View\ImgView;
+use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use RuntimeException;

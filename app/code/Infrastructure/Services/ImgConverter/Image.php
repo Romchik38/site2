@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
 
-use Romchik38\Site2\Application\ImgConverter\View\Height;
-use Romchik38\Site2\Application\ImgConverter\View\Type;
-use Romchik38\Site2\Application\ImgConverter\View\Width;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 
 final class Image
 {

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services;
 
 use Romchik38\Server\Services\Streams\TempStream;
-use Romchik38\Site2\Application\ImgConverter\CouldNotCreateImageException;
-use Romchik38\Site2\Application\ImgConverter\ImgConverterInterface;
-use Romchik38\Site2\Application\ImgConverter\View\Height;
-use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
-use Romchik38\Site2\Application\ImgConverter\View\Type;
-use Romchik38\Site2\Application\ImgConverter\View\Width;
+use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
+use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
+use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
+use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
 class ImgConverter implements ImgConverterInterface

@@ -68,7 +68,7 @@ return function (Container $container) {
     // IMG VIEW REPOSITORY
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter\ImgViewRepository',
-        '\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface',
+        '\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')

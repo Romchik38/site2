@@ -75,11 +75,11 @@ return function (Container $container) {
 
     // IMG CONVERTER
     $container->shared(
-        '\Romchik38\Site2\Application\ImgConverter\ImgConverterService',
+        '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService',
         [
-            new Promise('\Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface'),
             $configImgFolderBackend,
-            new Promise('\Romchik38\Site2\Application\ImgConverter\ImgConverterInterface')
+            new Promise('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface')
         ]
     );
 
