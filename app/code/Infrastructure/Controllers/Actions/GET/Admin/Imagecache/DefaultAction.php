@@ -13,6 +13,8 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -21,7 +23,9 @@ final class DefaultAction extends AbstractMultiLanguageAction
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly ImageCacheService $imageCacheService
+        protected readonly ImageCacheService $imageCacheService,
+        protected readonly Site2SessionInterface $session,
+        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -29,11 +33,17 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function execute(): ResponseInterface
     {
         $totalPrettySize = $this->imageCacheService->totalPrettySize();
+
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+
         $dto = new ViewDto(
             'Image cache', 
             'Image cache page',
             $this->imageCacheService->totalCount(),
-            $totalPrettySize
+            $totalPrettySize,
+            $this->session::CSRF_TOKEN_FIELD,
+            $csrfToken
         );
 
         $html = $this->view

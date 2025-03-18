@@ -8,6 +8,7 @@
     string      template_action_name        dynamic action route name
     Object      translate                   Translate service
     Object      urlbuilder                  Urlbuilder class
+    string      message                     a message to display to user
 #}
 
 {% set controllersDir = 'frontend/controllers' %}
@@ -29,6 +30,14 @@
 
     <body class="container-fluid p-0">
         {% include 'frontend/layouts/header.twig' %}
+
+        <!-- Display a message -->
+        {% if message != null %}
+            <div class="message text-center">
+                {{ message }}
+            </div>
+        {% endif %}
+
         <!-- Dynamic content start -->
         {% include controller_template with {'data': data, 'translate': translate, 'u': urlbuilder, 'controller_template_dir': controller_template_dir, 'template_action_name': template_action_name} only %}
         <!-- Dynamic content end -->

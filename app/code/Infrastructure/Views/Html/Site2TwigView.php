@@ -8,25 +8,31 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Twig\Environment;
 
 class Site2TwigView extends TwigView
 {
+    protected string|null $message = null;
 
     public function __construct(
-        protected readonly Environment $environment,
+        Environment $environment,
         protected readonly TranslateInterface $translateService,
         /** Metadata Service here */
         protected readonly DynamicRootInterface $dynamicRootService,
         protected Breadcrumb $breadcrumbService,
         protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly string $layoutPath = 'base.twig'
-    ) {}
+        protected readonly Site2SessionInterface $session,
+        string $layoutPath = 'base.twig'
+    ) {
+        parent::__construct($environment, $layoutPath);
+    }
 
     protected function prepareMetaData(): void
     {
         $this->prepareLanguages();
         $this->prepareBreadcrumbs();
+        $this->prepareMessage();
     }
 
     /**
@@ -73,6 +79,15 @@ class Site2TwigView extends TwigView
         $this->setMetadata('breadrumb', $items);
     }
 
+    protected function prepareMessage(): void
+    {
+        $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
+        if ($message !== '') {
+            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
+        }
+        $this->message = $message;
+    }
+
     /** 
      * @param array<string,mixed> &$context Twig context
      * @return array<string,mixed> Twig context
@@ -81,6 +96,7 @@ class Site2TwigView extends TwigView
     {
         $context['translate'] = $this->translateService;
         $context['urlbuilder'] = $this->urlbuilder;
+        $context['message'] = $this->message;
         return $context;
     }
 }

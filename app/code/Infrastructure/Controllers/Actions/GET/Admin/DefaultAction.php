@@ -22,11 +22,7 @@ final class DefaultAction extends AbstractAction implements DefaultActionInterfa
 
     public function execute(): ResponseInterface
     {
-        $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
-        if ($message !== '') {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
-        }
-        $dto = new ViewDTO('Admin', 'Admin page', $message);
+        $dto = new ViewDTO('Admin', 'Admin page');
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)

@@ -2,7 +2,6 @@
 
 ## Current
 
-- message as global tamplate var
 - admin images
   - controller
   - template

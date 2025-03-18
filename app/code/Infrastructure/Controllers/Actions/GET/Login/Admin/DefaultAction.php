@@ -36,10 +36,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         // 1 check if use already logged in
         $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
-        if ($message !== '') {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
-        }
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
@@ -52,7 +48,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     'Admin user login', 
                     'Admin user login page', 
                     $user,
-                    $message,
                     Username::FIELD,
                     Password::FIELD,
                     $authUrl,

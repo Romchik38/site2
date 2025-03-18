@@ -10,8 +10,7 @@ final class ViewDTO extends DefaultViewDTO
 {
     public function __construct(
         string $name, 
-        string $description,
-        public readonly string $message
+        string $description
     ) {
         parent::__construct($name, $description);
     }

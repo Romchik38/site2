@@ -12,7 +12,6 @@ final class ViewDTO extends DefaultViewDTO
         string $name, 
         string $description,
         public readonly ?string $adminUser,
-        public readonly string $message,
         public readonly string $userNameField,
         public readonly string $passwordField,
         public readonly string $authUrl,

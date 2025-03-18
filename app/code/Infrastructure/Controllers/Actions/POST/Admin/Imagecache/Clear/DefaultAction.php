@@ -17,6 +17,7 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
+    /** @todo translate */
     public const SUCCESS_MESSAGE_KEY = 'admin.image-cache.cache-cleared';
 
     public function __construct(
@@ -32,10 +33,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-        /** @todo */
-        // csrf
-
-        // clear
         $this->imageCacheService->clear();
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD,

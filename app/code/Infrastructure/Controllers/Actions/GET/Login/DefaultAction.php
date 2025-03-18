@@ -34,11 +34,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
 
-        $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
-        if ($message !== '') {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
-        }
-
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
 
@@ -49,7 +44,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     'User login', 
                     'User login page', 
                     $user,
-                    $message,
                     Email::FIELD,
                     Password::FIELD,
                     $this->session::CSRF_TOKEN_FIELD,
