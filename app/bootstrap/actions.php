@@ -145,6 +145,16 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
         ]
     );
+
+    // Admin Image cache
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('admin_view')
+        ]
+    );
     
     // Register
     $container->shared(
