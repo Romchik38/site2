@@ -7,7 +7,7 @@
             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
         {% else %}
             <!-- refactor -->
-            {% include controller_template_dir ~ '/articles.twig' with {'articleList': data.articleList, 'translate': translate, 'paginationHtml': data.paginationHtml } only %}
+            {% include controller_template_dir ~ '/articles.twig' with {'articleList': data.articleList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm } only %}
         {% endif %}
 
     </div>

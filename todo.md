@@ -2,9 +2,6 @@
 
 ## Current
 
-- admin article list
-  - pagination form
-    - load data to template
 - admin images
   - controller
   - template
