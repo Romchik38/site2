@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Img\VO;
+namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 

@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\Article\AdminArticleListView\View;
 
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\VO\Name;
-use Romchik38\Site2\Domain\Img\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Id;
 
 final class ArticleDto
 {

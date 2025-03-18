@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ImgConverter\View;
 
-use Romchik38\Site2\Domain\Img\VO\Id;
-use Romchik38\Site2\Domain\Img\VO\Path;
+use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class ImgView
 {

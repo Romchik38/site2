@@ -8,8 +8,8 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ImgConverter\View\ImgView;
 use Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface;
-use Romchik38\Site2\Domain\Img\VO\Id;
-use Romchik38\Site2\Domain\Img\VO\Path;
+use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Path;
 use RuntimeException;
 
 final class ImgViewRepository implements ImgViewRepositoryInterface

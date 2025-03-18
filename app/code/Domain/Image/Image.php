@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Img;
+namespace Romchik38\Site2\Domain\Image;
 
-use Romchik38\Site2\Domain\Img\VO\AuthorId;
-use Romchik38\Site2\Domain\Img\VO\Description;
-use Romchik38\Site2\Domain\Img\VO\Id;
-use Romchik38\Site2\Domain\Img\VO\Name;
+use Romchik38\Site2\Domain\Image\VO\AuthorId;
+use Romchik38\Site2\Domain\Image\VO\Description;
+use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Name;
 
-final class Img
+final class Image
 {
     protected bool $isLoaded = false;
     protected string $data;

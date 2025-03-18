@@ -10,7 +10,7 @@ use Romchik38\Site2\Application\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\ImgConverter\View\ImgViewRepositoryInterface;
 use Romchik38\Site2\Application\ImgConverter\View\Type;
 use Romchik38\Site2\Application\ImgConverter\View\Width;
-use Romchik38\Site2\Domain\Img\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Id;
 
 final class ImgConverterService
 {
@@ -27,7 +27,7 @@ final class ImgConverterService
      */
     public function createImg(ImgData $command): ImgResult
     {
-        $img = $this->imgViewRepository->getById( new Id($command->id));
+        $img = $this->imgViewRepository->getById(new Id($command->id));
         $imgFullPath = sprintf(
             '%s/%s',
             $this->imgPathPrefix,
