@@ -6,6 +6,7 @@
   - controller
   - template
   - clear cache
+- message as global tamplate var
 - admin images
   - controller
   - template
