@@ -31,4 +31,14 @@ final class ImageCacheService
     {
         return $this->imageCacheRepository->totalCount();
     }
+
+    public function totalSize(): int
+    {
+        return $this->imageCacheRepository->totalSize();
+    }
+
+    public function totalPrettySize(): string
+    {
+        return $this->imageCacheRepository->totalPrettySize();
+    }
 }

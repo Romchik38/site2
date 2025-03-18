@@ -1,6 +1,11 @@
-<div class="container-md">
+<div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
         <p>{{ data.description }}</p>
     </div>
+    <p>Total images in storage: {{ data.totalCount }}</p>
+    <p>Memory usage: {{ data.totalPrettySize }}</p>
+    <form action="{{ u.fromArray(['root', 'admin', 'imagecache', 'clear']) }}" method="post">
+        <button class="btn btn-secondary py-0 align-top px-1" type="submit">Clear</button>
+    </form>
 </div>

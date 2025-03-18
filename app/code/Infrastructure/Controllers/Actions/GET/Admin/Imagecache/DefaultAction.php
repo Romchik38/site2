@@ -10,9 +10,9 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction\ViewDto;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -28,7 +28,14 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-        $dto = new DefaultViewDTO('Image cache', 'Image cache page');
+        $totalPrettySize = $this->imageCacheService->totalPrettySize();
+        $dto = new ViewDto(
+            'Image cache', 
+            'Image cache page',
+            $this->imageCacheService->totalCount(),
+            $totalPrettySize
+        );
+
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)

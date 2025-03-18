@@ -10,7 +10,9 @@ final class ViewDto extends DefaultViewDTO
 {
     public function __construct(
         string $name, 
-        string $description
+        string $description,
+        public int $totalCount,
+        public string $totalPrettySize
     ) {
         parent::__construct($name, $description);
     }

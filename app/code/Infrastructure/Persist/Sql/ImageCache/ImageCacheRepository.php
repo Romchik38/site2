@@ -26,4 +26,34 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
 
         $this->database->queryParams($query, $params);
     }
+
+    public function totalCount(): int
+    {
+        $query = 'SELECT count(key) FROM img_cache';
+
+        $rows = $this->database->queryParams($query, []);
+        $result = $rows[0]['count'];
+        
+        return (int) $result;
+    }
+
+    public function totalSize(): int
+    {
+        $query = 'SELECT pg_total_relation_size (\'img_cache\')';
+
+        $rows = $this->database->queryParams($query, []);
+        $result = $rows[0]['pg_total_relation_size'];
+        
+        return (int) $result;
+    }
+
+    public function totalPrettySize(): string
+    {
+        $query = 'SELECT pg_size_pretty (pg_total_relation_size(\'img_cache\'))';
+
+        $rows = $this->database->queryParams($query, []);
+        $result = $rows[0]['pg_size_pretty'];
+        
+        return $result;
+    }
 }

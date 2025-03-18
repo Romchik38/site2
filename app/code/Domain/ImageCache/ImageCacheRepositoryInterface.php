@@ -13,4 +13,10 @@ interface ImageCacheRepositoryInterface
 
     /** Returns count of images in a storage*/
     public function totalCount(): int;
+
+    /** total storage size in bytes */
+    public function totalSize(): int;
+
+    /** total storage size in kB, MB, GB, or TB */
+    public function totalPrettySize(): string;
 }
