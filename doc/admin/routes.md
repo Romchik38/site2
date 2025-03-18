@@ -5,6 +5,7 @@
 - root login admin          admin login page
 - root admin                admin panel
 - root admin users          users page
+- root admin images         images page
 - root admin imagecache     image cache
 
 ## POST

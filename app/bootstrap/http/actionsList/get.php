@@ -67,11 +67,18 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction')
     );
+
+    $adminImages = new Controller(
+        'images',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction')
+    );
     
     $admin
     ->setChild($adminUsers)
     ->setChild($adminArticle)
-    ->setChild($adminImagecache);
+    ->setChild($adminImagecache)
+    ->setChild($adminImages);
     
     /** REGISTER */
     $register = new Controller(
