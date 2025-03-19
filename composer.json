@@ -41,16 +41,21 @@
         "phpstan/phpstan": "^1.12",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-beberlei-assert": "^1.1",
-        "qossmic/deptrac": "^2.0"
+        "qossmic/deptrac": "^2.0",
+        "laminas/laminas-coding-standard": "^3.0"
     },
     "config": {
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "scripts": {
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
         "tests": [
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit",
+            "composer cs-check"
         ]
     }
 }

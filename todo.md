@@ -2,9 +2,6 @@
 
 ## Current
 
-- admin images
-  - controller
-  - template
 - phpstan
 - code standart
 - move to server
