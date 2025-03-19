@@ -8,7 +8,7 @@ use InvalidArgumentException;
 final class OrderByField
 {
     public const DEFAULT_ORDER_BY = 'identifier';
-    public const ALLOWED_ORDER_BY = ['identifier', 'active', 'name'];
+    public const ALLOWED_ORDER_BY = ['identifier', 'active', 'name', 'author_name'];
 
     public readonly string $orderByField;
 

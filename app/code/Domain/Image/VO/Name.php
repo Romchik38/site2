@@ -8,10 +8,15 @@ use InvalidArgumentException;
 
 final class Name
 {
-    protected function __construct(
+    public function __construct(
         protected readonly string $name
-    ) {}
+    ) {
+        if (strlen($name) === 0) {
+            throw new InvalidArgumentException('param name is empty');
+        }
+    }
 
+    /** @todo remove as duplicate of __construct */
     public static function fromString(string $name): self
     {
         if (strlen($name) === 0) {

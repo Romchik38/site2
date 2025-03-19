@@ -59,6 +59,7 @@
                 <th scope="col">Image</th>
                 <th scope="col">Identifier</th>
                 <th scope="col">Active</th>
+                <th scope="col">Name</th>
                 <th scope="col">Author Name</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
@@ -83,13 +84,14 @@
                         alt=""
                     >
                 </td>
-                {% endif %}
                 <!-- 2. Id -->
                 <th scope="row">{{ image.identifierAsString() }}</th>
                 <!-- 3. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
-                <!-- 4. Author Name -->
-                <td>{{ article.authorNameAsString() }}</td>
+                <!-- 4. Name -->
+                <td>{{ image.nameAsString() }}</td> 
+                <!-- 5. Author Name -->
+                <td>{{ image.authorNameAsString() }}</td>
 
                 <td><a href="#">edit</a></td>
                 <td>
