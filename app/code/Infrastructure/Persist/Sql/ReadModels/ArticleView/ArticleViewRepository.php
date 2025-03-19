@@ -13,8 +13,8 @@ use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\ArticleView\View\AuthorDTO;
+use Romchik38\Site2\Application\Article\ArticleView\View\DuplicateArticleException;
 use Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory;
-use RuntimeException;
 
 use function count;
 use function json_decode;
@@ -45,7 +45,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $language
             ));
         } elseif (count($rows) > 1) {
-            throw new RuntimeException(sprintf(
+            throw new DuplicateArticleException(sprintf(
                 'Article with id %s and language %s has duplicate',
                 $articleId,
                 $language

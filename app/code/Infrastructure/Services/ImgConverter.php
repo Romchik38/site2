@@ -57,6 +57,12 @@ class ImgConverter implements ImgConverterInterface
             $copyType
         );
 
+        if ($image->copyWidth <= 0 || $image->copyHeight <= 0) {
+            throw new CouldNotCreateImageException(
+                sprintf('Image width/height must be greater than 0 in %s', $image->filePath)
+            );
+        }
+
         // 2. Check capabilities
         if ($this->checkGDcapabilities($image->originalType) === false) {
             throw new CouldNotCreateImageException(sprintf(
@@ -85,6 +91,11 @@ class ImgConverter implements ImgConverterInterface
         }
         $temporaryWidth  = (int) ($image->originalWidth / $scaleRatio);
         $temporaryHeight = (int) ($image->originalHeight / $scaleRatio);
+        if ($temporaryWidth <= 0 || $temporaryHeight <= 0) {
+            throw new CouldNotCreateImageException(
+                sprintf('Image width/height must be greater than 0 in %s', $image->filePath)
+            );
+        }
 
         // 4. Load original image
         $original = $this->createFrom($image->filePath, $image->originalType);

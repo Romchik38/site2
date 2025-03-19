@@ -1,5 +1,9 @@
 # Readme for site2
 
+![status](https://placehold.co/15x15/f03c15/f03c15.png) `status: development`
+![phpstan](https://placehold.co/15x15/1589F0/1589F0.png) `phpstan: level 8`
+![phpunit](https://placehold.co/15x15/c5f015/c5f015.png) `phpunit: very low`
+
 Site2 is based on [php-server](https://github.com/Romchik38/server) and demonstrates:
 
 - [multilanguage system](./doc/language/01-readme.md)
@@ -30,3 +34,13 @@ Programming:
 - Only PHP with minimum JS on frontend
 
 See docs in [doc folder](./doc/)
+
+## Code quality
+
+- phpstan level 8
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`[OK] No errors`  
+- phpunit
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (6 tests, 8 assertions)`
+  - tested partially
+- laminas-coding-standard
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`65 / 65 (100%)`

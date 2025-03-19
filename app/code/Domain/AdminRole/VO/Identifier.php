@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 final class Identifier
 {
-    /** @throws InvalidArgumentExceptions */
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly int $identifier
     ) {

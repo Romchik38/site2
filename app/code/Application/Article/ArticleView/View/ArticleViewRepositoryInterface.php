@@ -11,7 +11,7 @@ interface ArticleViewRepositoryInterface
 {
     /**
      * @throws NoSuchEntityException
-     * @throws RuntimeException - On duplicates.
+     * @throws DuplicateArticleException - On duplicates.
      */
     public function getByIdAndLanguage(Find $command): ArticleViewDTO;
 

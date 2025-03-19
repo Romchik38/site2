@@ -36,9 +36,14 @@ final class ArticleDto
         $this->authorName = new Name($authorName);
     }
 
-    public function imageIdentifierAsString(): string
+    /** @todo refactor */
+    public function imageIdentifierAsString(): ?string
     {
-        return ($this->imgIdentifier)();
+        if ($this->imgIdentifier === null) {
+            return $this->imgIdentifier;
+        } else {
+            return ($this->imgIdentifier)();
+        }
     }
 
     public function authorNameAsString(): string

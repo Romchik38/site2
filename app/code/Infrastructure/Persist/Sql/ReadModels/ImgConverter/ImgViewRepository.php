@@ -8,9 +8,9 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgView;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
+use Romchik38\Site2\Domain\Image\DuplicateIdException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Path;
-use RuntimeException;
 
 use function count;
 use function sprintf;
@@ -47,7 +47,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
                 sprintf('img with id %s not exist', $id())
             );
         } else {
-            throw new RuntimeException(
+            throw new DuplicateIdException(
                 sprintf('img with id %s has duplicates', $id())
             );
         }

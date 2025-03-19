@@ -17,7 +17,7 @@ final class Email
         . ', numbers and a dot. Domain can contain latin characters and a dot, '
         . 'must end minimun with 2 characters after a dot';
 
-    /** @throws InvalidArgumentExceptions */
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly string $email
     ) {

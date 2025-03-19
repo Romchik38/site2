@@ -17,7 +17,7 @@ final class Username
         . ', can contain lowercase, uppercase letter, number and underscore. '
         . 'Case-Sensitive';
 
-    /** @throws InvalidArgumentExceptions */
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly string $username
     ) {

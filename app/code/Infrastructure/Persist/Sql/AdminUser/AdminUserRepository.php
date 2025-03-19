@@ -117,8 +117,9 @@ final class AdminUserRepository implements AdminUserRepositoryInterface
     /**
      * Create all roles for AdminUser
      *
-     * @param array<int,array<string,string>> $AdminUser rows of a single model, all admin user ids must be the same
-     * @return array<int,Roles> - A list of Roles or empty array
+     * @param array<int,array<string,string>> $adminUserRows
+     *  - Rows of a single model, all admin user ids must be the same
+     * @return array<int,Role> - A list of Roles or empty array.
      * */
     protected function createRolesFromRows(array $adminUserRows): array
     {

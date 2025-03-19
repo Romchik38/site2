@@ -84,14 +84,26 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 )
             );
         }
-        $file  = '';
+        $file = '';
+
         $chank = fread($fp, 1024);
-        while ($chank !== false && $chank !== '') {
-            if ($chank !== false) {
-                $file .= $chank;
-            }
-            $chank = fread($fp, 1024);
+        if ($chank === false) {
+            fclose($fp);
+            throw new RuntimeException(
+                sprintf('Cannot read file %s', $this->outputFile)
+            );
         }
+        while ($chank !== '') {
+            $file .= $chank;
+            $chank = fread($fp, 1024);
+            if ($chank === false) {
+                fclose($fp);
+                throw new RuntimeException(
+                    sprintf('Cannot close file %s', $this->outputFile)
+                );
+            }
+        }
+
         fclose($fp);
         if (strlen(trim($file)) === 0) {
             throw new RuntimeException(

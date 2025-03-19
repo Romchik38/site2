@@ -8,6 +8,6 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 
 interface ImageRepositoryInterface
 {
-    /** @throws NoSuchEntityException */
+    /** @throws NoSuchImageException */
     public function getById(Id $id): Image;
 }

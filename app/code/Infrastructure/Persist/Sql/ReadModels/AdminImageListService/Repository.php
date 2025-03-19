@@ -79,7 +79,7 @@ final class Repository implements RepositoryInterface
         }
 
         $rawName = $row['name'] ?? null;
-        if ($rawIdentifier === null) {
+        if ($rawName === null) {
             throw new RepositoryException('Image name is ivalid');
         }
 

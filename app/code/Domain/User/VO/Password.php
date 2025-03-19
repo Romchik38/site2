@@ -17,7 +17,7 @@ final class Password
         . ', contain at least one lowercase, uppercase letter, number and a '
         . 'specal character from _`$%^*\'';
 
-    /** @throws InvalidArgumentExceptions */
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly string $password
     ) {

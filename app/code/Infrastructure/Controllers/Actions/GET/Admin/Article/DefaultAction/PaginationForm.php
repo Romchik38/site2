@@ -10,9 +10,6 @@ use Romchik38\Site2\Application\Article\AdminArticleListView\VO\OrderByField;
 
 final class PaginationForm
 {
-    /** @param array<int,int> $limits */
-    /** @param array<int,string> $orderBys */
-    /** @param array<int,string> $directions */
     public function __construct(
         public readonly Limit $limit,
         public readonly OrderByField $orderBy,

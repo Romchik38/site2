@@ -8,10 +8,10 @@ use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
+use Romchik38\Site2\Domain\ImageCache\DuplicateKeyException;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
-use RuntimeException;
 
 use function count;
 use function sprintf;
@@ -48,7 +48,7 @@ final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterfac
                 sprintf('img with id %s not exist', $key())
             );
         } else {
-            throw new RuntimeException(
+            throw new DuplicateKeyException(
                 sprintf('img with id %s has duplicates', $key())
             );
         }

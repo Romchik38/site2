@@ -23,6 +23,10 @@ class CsrfTokenGeneratorUseRandomBytes implements CsrfTokenGeneratorInterface
 
     public function asBase64(): string
     {
+        if ($this->length <= 0) {
+            throw new InvalidArgumentException('Length must be greater than 0');
+        }
+
         try {
             return base64_encode(random_bytes($this->length));
         } catch (RandomException $e) {

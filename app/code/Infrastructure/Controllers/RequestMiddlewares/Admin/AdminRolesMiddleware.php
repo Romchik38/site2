@@ -61,6 +61,5 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
          * InvalidArgumentException must be catched later and logged to file
          * There is nothing to show the admin user. It will see common server error page
          */
-        return null;
     }
 }

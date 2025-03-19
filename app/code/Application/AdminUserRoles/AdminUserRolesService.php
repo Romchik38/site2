@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Application\AdminUserRoles;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
+use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 

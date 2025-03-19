@@ -8,7 +8,6 @@ final class Active
 {
     public const FIELD = 'active';
 
-    /** @throws InvalidArgumentExceptions */
     public function __construct(
         public readonly bool $active
     ) {

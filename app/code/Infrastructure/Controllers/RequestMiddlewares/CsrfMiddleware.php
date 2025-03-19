@@ -13,6 +13,9 @@ use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use RuntimeException;
+
+use function gettype;
 
 final class CsrfMiddleware implements RequestMiddlewareInterface
 {
@@ -37,7 +40,11 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         $urlLogin = $this->urlbuilder->fromPath($this->redirectPath);
 
         $requestData = $this->request->getParsedBody();
-        $token       = $requestData[$this->tokenFieldName] ?? null;
+        if (gettype($requestData) !== 'array') {
+            throw new RuntimeException('Incoming data is invalid');
+        }
+
+        $token = $requestData[$this->tokenFieldName] ?? null;
 
         if ($token === null) {
             $this->session->setData(

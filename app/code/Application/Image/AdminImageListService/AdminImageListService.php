@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Image\AdminImageListService;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Limit;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Offset;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByDirection;

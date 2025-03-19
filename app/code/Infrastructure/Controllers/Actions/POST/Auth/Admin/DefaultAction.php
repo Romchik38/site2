@@ -19,7 +19,9 @@ use Romchik38\Site2\Application\AdminUserCheck\InvalidPasswordException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use RuntimeException;
 
+use function gettype;
 use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -45,8 +47,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         // check password
         $requestData = $this->request->getParsedBody();
-        $command     = CheckPassword::fromHash($requestData);
-        $urlLogin    = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+        if (gettype($requestData) !== 'array') {
+            throw new RuntimeException('Incoming data is invalid');
+        }
+
+        $command  = CheckPassword::fromHash($requestData);
+        $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
         try {
             $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch (AdminUserNotActiveException) {

@@ -2,7 +2,6 @@
 
 ## Current
 
-- phpstan
 - move to server
   - `Romchik38\Server\Models\Sql\SearchCriteria\Limit`
   - `Romchik38\Server\Models\Sql\SearchCriteria\Offset`

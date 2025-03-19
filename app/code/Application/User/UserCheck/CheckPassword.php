@@ -15,6 +15,7 @@ final class CheckPassword
     ) {
     }
 
+    /** @param array<string,string> $hash */
     public static function fromHash(array $hash): self
     {
         return new self(

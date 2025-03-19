@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\AdminUser\VO;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\AdminRole\VO\Name;
 
 use function count;
 
 final class Roles
 {
-    /** @var array<string, Name> */
+    /** @var array<string, Role> */
     protected array $hash;
 
     /** @param array<int,Role> $roles*/

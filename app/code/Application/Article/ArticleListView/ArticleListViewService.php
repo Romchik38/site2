@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\ArticleListView;
 
+use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;
 use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface;
 use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaFactoryInterface;
 

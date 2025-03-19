@@ -18,7 +18,9 @@ use Romchik38\Site2\Application\User\UserCheck\InvalidPasswordException;
 use Romchik38\Site2\Application\User\UserCheck\UserCheckService;
 use Romchik38\Site2\Domain\User\NoSuchUserException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use RuntimeException;
 
+use function gettype;
 use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -54,7 +56,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         }
         // do password check
         $requestData = $this->request->getParsedBody();
-        $command     = CheckPassword::fromHash($requestData);
+        if (gettype($requestData) !== 'array') {
+            throw new RuntimeException('Incoming data is invalid');
+        }
+
+        $command = CheckPassword::fromHash($requestData);
         try {
             $email = $this->adminUserCheck->checkPassword($command);
         } catch (InvalidPasswordException) {
