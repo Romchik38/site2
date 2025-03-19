@@ -1,6 +1,17 @@
+{#
+    object          data            Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\ViewDto
+#}
+
 <div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
         <p>{{ data.description }}</p>
+
+        {% if data.imagesList|length == 0 %} 
+            {% include controller_template_dir ~ '/zero_images.twig' with {'translate': translate} only %}
+        {% else %}
+            {% include controller_template_dir ~ '/images.twig' with {'imagesList': data.imagesList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm } only %}
+        {% endif %}
+
     </div>
 </div>

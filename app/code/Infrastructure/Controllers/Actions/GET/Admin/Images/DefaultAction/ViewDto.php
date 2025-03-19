@@ -10,7 +10,10 @@ final class ViewDto extends DefaultViewDTO
 {
     public function __construct(
         string $name, 
-        string $description
+        string $description,
+        public readonly array $imagesList,
+        public readonly string $paginationHtml,
+        public readonly PaginationForm $paginationForm
     ) {
         parent::__construct($name, $description);
     }

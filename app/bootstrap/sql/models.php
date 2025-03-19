@@ -75,6 +75,16 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN IMAGE LIST REPOSITORY
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminImageListService\Repository',
+        '\Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
     // IMAGE CACHE REPOSITORY
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\ImageCacheRepository',

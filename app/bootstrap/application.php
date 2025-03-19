@@ -73,13 +73,21 @@ return function (Container $container) {
     // USER CHECK
     $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
-    // IMG CONVERTER
+    // IMAGE CONVERTER
     $container->shared(
         '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService',
         [
             new Promise('\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface'),
             $configImgFolderBackend,
             new Promise('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface')
+        ]
+    );
+
+    // ADMIN IMAGE LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService',
+        [
+            new Promise('\Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface')
         ]
     );
 
