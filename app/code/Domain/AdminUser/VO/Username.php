@@ -6,10 +6,13 @@ namespace Romchik38\Site2\Domain\AdminUser\VO;
 
 use InvalidArgumentException;
 
+use function preg_match;
+use function strlen;
+
 final class Username
 {
-    public const FIELD = 'user_name';
-    public const PATTERN = '[A-Za-z0-9_]{3,20}$';
+    public const FIELD         = 'user_name';
+    public const PATTERN       = '[A-Za-z0-9_]{3,20}$';
     public const ERROR_MESSAGE = 'Username must be 3-20 characters long, can contain lowercase, uppercase letter, number and underscore. Case-Sensitive';
 
     /** @throws InvalidArgumentExceptions */

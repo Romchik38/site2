@@ -14,7 +14,7 @@ final class Role
         protected readonly Identifier $identifier,
         protected readonly Name $name,
         protected readonly Description $description
-    ) {   
+    ) {
     }
 
     public function name(): Name

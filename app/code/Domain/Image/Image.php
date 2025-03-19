@@ -19,11 +19,12 @@ final class Image
         protected readonly Name $name,
         protected readonly AuthorId $authorId,
         protected readonly Description $description
-    ) {}
+    ) {
+    }
 
     public function load(string $data): void
     {
-        $this->data = $data;
+        $this->data     = $data;
         $this->isLoaded = true;
     }
 

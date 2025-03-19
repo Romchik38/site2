@@ -8,7 +8,8 @@ final class Find
 {
     public function __construct(
         protected readonly string $key
-    ) {}
+    ) {
+    }
 
     public function key(): string
     {

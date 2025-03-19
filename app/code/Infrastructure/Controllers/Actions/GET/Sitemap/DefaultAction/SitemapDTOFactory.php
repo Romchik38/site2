@@ -6,19 +6,21 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\Default
 
 use InvalidArgumentException;
 
+use function strlen;
+
 /**
- * Creates a SitemapDTO. 
- * Makes arguments checks. 
+ * Creates a SitemapDTO.
+ * Makes arguments checks.
  * Used in the Sitemap action only.
- * 
+ *
  * @internal
  */
 final class SitemapDTOFactory
 {
     /**
-    * @throws InvalidArgumentException name, description, output length equal 0
-    * @return SitemapDTO Sitemap DTO View entity
-    */
+     * @throws InvalidArgumentException name, description, output length equal 0
+     * @return SitemapDTO Sitemap DTO View entity
+     */
     public function create(
         string $name,
         string $description,

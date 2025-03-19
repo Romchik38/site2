@@ -6,7 +6,10 @@ namespace Romchik38\Site2\Domain\ImageCache\VO;
 
 use DateTime;
 use DateTimeImmutable;
+use Exception;
 use InvalidArgumentException;
+
+use function strlen;
 
 final class CreatedAt
 {
@@ -14,7 +17,8 @@ final class CreatedAt
 
     public function __construct(
         protected readonly DateTime $createdAt
-    ) {}
+    ) {
+    }
 
     public static function fromString(string $datetime): self
     {
@@ -23,7 +27,7 @@ final class CreatedAt
         }
         try {
             $date = new DateTime($datetime);
-        } catch (\Exception) {
+        } catch (Exception) {
             throw new InvalidArgumentException('param createdAt is invalid');
         }
         return new self($date);

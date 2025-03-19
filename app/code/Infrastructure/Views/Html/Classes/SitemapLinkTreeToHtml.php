@@ -6,15 +6,18 @@ namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
 
 use Romchik38\Server\Api\Controllers\ControllerInterface;
 use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
-use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
 use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
+use Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface;
 
+use function count;
+use function htmlspecialchars;
+use function implode;
+
 /**
- * 
  * Maps ControllerDTO to Html throughth LinkTreeDTO.
  * Used in the Sitemap action only
- * 
+ *
  * @internal
  */
 final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
@@ -22,17 +25,18 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
     public function __construct(
         protected ControllerTreeInterface $controllerTreeService,
         protected LinkTreeInterface $linkTreeService
-    ) {}
+    ) {
+    }
 
-    /** 
+    /**
      * Converts controller tree to HTML format
-     * 
-     * @return string valid Html 
+     *
+     * @return string valid Html
      * */
     public function getSitemapLinkTree(ControllerInterface $controller): mixed
     {
         $rootControllerDTO = $this->controllerTreeService->getRootControllerDTO($controller);
-        $linkTreeDTO = $this->linkTreeService->getLinkTreeDTO($rootControllerDTO);
+        $linkTreeDTO       = $this->linkTreeService->getLinkTreeDTO($rootControllerDTO);
         return $this->buildHtml($linkTreeDTO);
     }
 
@@ -41,29 +45,28 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
         return '<ul>' . $this->createRow($linkTreeDTO) . '</ul>';
     }
 
-    /** 
+    /**
      * Recursively creates html <li> and <ul> tags
-     * 
+     *
      * @return string <li>inner html</li>
      */
     protected function createRow(LinkTreeDTOInterface $element): string
     {
-        $children = $element->getChildren();
+        $children    = $element->getChildren();
         $description = $element->getDescription();
-        $url = $element->getUrl();
+        $url         = $element->getUrl();
 
         // 1. the element has not children
         if (count($children) === 0) {
             $elemNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
-            $lastElementHtml = '<li>' . $elemNameHtml . '</li>';
-            return $lastElementHtml;
+            return '<li>' . $elemNameHtml . '</li>';
         }
 
         // 2. the element has children
-        $rowNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
+        $rowNameHtml     = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
         $rowElementsHtml = [];
         foreach ($children as $child) {
-            $rowElemHtml = $this->createRow($child);
+            $rowElemHtml       = $this->createRow($child);
             $rowElementsHtml[] = $rowElemHtml;
         }
         return '<li>' . $rowNameHtml . '<ul>' . implode('', $rowElementsHtml) . '</ul></li>';

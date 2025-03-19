@@ -9,8 +9,8 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 
 interface ImgViewRepositoryInterface
 {
-    /** 
-     * @throws NoSuchEntityException 
+    /**
+     * @throws NoSuchEntityException
      * @throws RuntimeException - On duplicates
      * */
     public function getById(Id $id): ImgView;

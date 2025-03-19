@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article;
 
+use DateTime;
 use InvalidArgumentException;
+
+use function count;
+use function explode;
+use function round;
+use function strlen;
 
 final class ArticleTranslates
 {
@@ -14,9 +20,10 @@ final class ArticleTranslates
         protected string $name,
         protected string $shortDescription,
         protected string $description,
-        protected \DateTime $createdAt,
-        protected \DateTime $updatedAt
-    ) {}
+        protected DateTime $createdAt,
+        protected DateTime $updatedAt
+    ) {
+    }
 
     public function getArticleId(): string
     {
@@ -43,12 +50,12 @@ final class ArticleTranslates
         return $this->description;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
@@ -107,13 +114,13 @@ final class ArticleTranslates
         return $this;
     }
 
-    public function setCreatedAt(\DateTime $date): self
+    public function setCreatedAt(DateTime $date): self
     {
         $this->createdAt = $date;
         return $this;
     }
 
-    public function setUpdatedAt(\Datetime $date): self
+    public function setUpdatedAt(DateTime $date): self
     {
         $this->updatedAt = $date;
         return $this;
@@ -121,7 +128,7 @@ final class ArticleTranslates
 
     /**
      * @throws InvalidArgumentException $speed must be greater than 0
-     * @param int $speed words/minute 
+     * @param int $speed words/minute
      * @return int Minutes to read
      */
     public function getReadLength(int $speed = 200): int
@@ -133,7 +140,6 @@ final class ArticleTranslates
         $description = $this->getDescription();
 
         $words = count(explode(' ', $description));
-        $timeToRead = (int)round(($words / $speed));
-        return $timeToRead;
+        return (int) round($words / $speed);
     }
 }

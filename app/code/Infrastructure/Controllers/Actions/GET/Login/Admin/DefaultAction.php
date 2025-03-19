@@ -27,11 +27,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         protected readonly ViewInterface $view,
         protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
-    )
-    {
+    ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-    
+
     public function execute(): ResponseInterface
     {
         // 1 check if use already logged in
@@ -41,12 +40,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
 
         $authUrl = $this->urlbuilder->fromArray(['root', 'auth', 'admin']);
-        $html = $this->view
+        $html    = $this->view
             ->setController($this->controller)
             ->setControllerData(
                 new ViewDTO(
-                    'Admin user login', 
-                    'Admin user login page', 
+                    'Admin user login',
+                    'Admin user login page',
                     $user,
                     Username::FIELD,
                     Password::FIELD,

@@ -9,7 +9,7 @@ use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 final class ViewDto extends DefaultViewDTO
 {
     public function __construct(
-        string $name, 
+        string $name,
         string $description,
         public readonly array $imagesList,
         public readonly string $paginationHtml,

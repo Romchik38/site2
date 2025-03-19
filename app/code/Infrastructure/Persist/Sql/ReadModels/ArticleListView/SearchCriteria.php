@@ -11,14 +11,13 @@ use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaInter
 
 final class SearchCriteria implements SearchCriteriaInterface
 {
-
     public function __construct(
         protected Offset $offset,
         protected Limit $limit,
         protected OrderBy $orderBy,
         protected string $language
-    ) {}
-
+    ) {
+    }
 
     public function offset(): Offset
     {

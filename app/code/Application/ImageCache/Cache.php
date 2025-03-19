@@ -10,5 +10,6 @@ final class Cache
         public readonly string $key,
         public readonly string $data,
         public readonly string $type
-    ) {}
+    ) {
+    }
 }

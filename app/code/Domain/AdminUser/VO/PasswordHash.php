@@ -10,8 +10,7 @@ final class PasswordHash
 {
     public function __construct(
         protected readonly string $hash
-    )
-    {
+    ) {
         if ($hash === '') {
             throw new InvalidArgumentException('Password hash is empty');
         }

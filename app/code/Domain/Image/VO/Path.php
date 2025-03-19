@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class Path
 {
     public function __construct(

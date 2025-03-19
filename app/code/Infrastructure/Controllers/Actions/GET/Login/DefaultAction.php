@@ -25,11 +25,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         protected readonly Site2SessionInterface $session,
         protected readonly ViewInterface $view,
         protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
-    )
-    {
+    ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-    
+
     public function execute(): ResponseInterface
     {
         $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
@@ -41,8 +40,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ->setController($this->controller)
             ->setControllerData(
                 new ViewDTO(
-                    'User login', 
-                    'User login page', 
+                    'User login',
+                    'User login page',
                     $user,
                     Email::FIELD,
                     Password::FIELD,

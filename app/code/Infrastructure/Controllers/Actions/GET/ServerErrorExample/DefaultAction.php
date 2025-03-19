@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
@@ -15,7 +16,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function execute(): ResponseInterface
     {
-        throw new \Exception('Example server error occurred');
+        throw new Exception('Example server error occurred');
     }
 
     public function getDescription(): string

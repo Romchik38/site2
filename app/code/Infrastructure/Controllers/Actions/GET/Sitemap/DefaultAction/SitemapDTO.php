@@ -6,10 +6,10 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\Default
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 
-/** 
+/**
  * Created in the Sitemap action. Used in a View template.
  * Use SitemapDTOFactory to create an entity
- * 
+ *
  * @internal
  */
 final class SitemapDTO extends DefaultViewDTO

@@ -18,7 +18,7 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction
  */
 class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME = 'sitemap.page_name';
+    const DEFAULT_VIEW_NAME        = 'sitemap.page_name';
     const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
 
     public function __construct(

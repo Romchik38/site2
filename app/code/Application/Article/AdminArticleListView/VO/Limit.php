@@ -6,9 +6,12 @@ namespace Romchik38\Site2\Application\Article\AdminArticleListView\VO;
 
 use InvalidArgumentException;
 
+use function in_array;
+use function sprintf;
+
 final class Limit
 {
-    public const DEFAULT_LIMIT = 15;
+    public const DEFAULT_LIMIT  = 15;
     public const ALLOWED_LIMITS = [2, 5, 15, 30];
 
     protected function __construct(
@@ -25,11 +28,11 @@ final class Limit
     {
         if ($limit === '') {
             return new self(self::DEFAULT_LIMIT);
-        } 
-        
+        }
+
         $intLimit = (int) $limit;
         $strLimit = (string) $intLimit;
-        if($strLimit !== $limit) {
+        if ($strLimit !== $limit) {
             throw new InvalidArgumentException(
                 sprintf('param limit %s is invalid', $limit)
             );

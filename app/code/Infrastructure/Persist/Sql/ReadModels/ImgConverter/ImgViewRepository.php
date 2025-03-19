@@ -12,11 +12,15 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use RuntimeException;
 
+use function count;
+use function sprintf;
+
 final class ImgViewRepository implements ImgViewRepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseInterface $database,
-    ) {}
+    ) {
+    }
 
     public function getById(Id $id): ImgView
     {

@@ -13,8 +13,7 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -23,10 +22,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-    
+
     public function execute(): ResponseInterface
     {
-        $dto = new DefaultViewDTO('Admin users', 'Admin users page');
+        $dto  = new DefaultViewDTO('Admin users', 'Admin users page');
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)

@@ -16,14 +16,14 @@ use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
+use function sprintf;
+
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
-    /**
-     * @var array<string,string> $actions
-     */
+    /** @var array<string,string> $actions */
     protected array $actions = [
-        'about' => 'root.about',
-        'contacts' => 'root.contacts'
+        'about'    => 'root.about',
+        'contacts' => 'root.contacts',
     ];
 
     public function __construct(
@@ -49,7 +49,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $translatedMessage
         );
 
-        $result  = $this->view
+        $result = $this->view
             ->setController($this->getController(), $dynamicRoute)
             ->setControllerData($dto)
             ->toString();

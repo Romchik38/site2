@@ -9,11 +9,10 @@ use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 final class ViewDTO extends DefaultViewDTO
 {
     public function __construct(
-        string $name, 
+        string $name,
         string $description,
         protected readonly ?string $adminUser
-    )
-    {
+    ) {
         parent::__construct($name, $description);
     }
 }

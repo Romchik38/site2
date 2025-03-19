@@ -1,9 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Image\AdminImageListService\VO;
 
 use InvalidArgumentException;
+
+use function in_array;
+use function sprintf;
 
 final class OrderByField
 {
@@ -24,7 +28,7 @@ final class OrderByField
                 );
             }
             $this->orderByField = $orderByField;
-        }   
+        }
     }
 
     public function __invoke(): string

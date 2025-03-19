@@ -16,7 +16,7 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class CsrfMiddleware implements RequestMiddlewareInterface
 {
-    protected const OUTDATED_MESSAGE_KEY = 'middleware.form-data-is-outdated';
+    protected const OUTDATED_MESSAGE_KEY   = 'middleware.form-data-is-outdated';
     protected const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
 
     public function __construct(
@@ -27,7 +27,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         protected readonly Path $redirectPath,
         protected readonly string $tokenFieldName
     ) {
-        if($tokenFieldName === '') {
+        if ($tokenFieldName === '') {
             throw new InvalidArgumentException('csrf tocken field is empty');
         }
     }
@@ -37,7 +37,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         $urlLogin = $this->urlbuilder->fromPath($this->redirectPath);
 
         $requestData = $this->request->getParsedBody();
-        $token = $requestData[$this->tokenFieldName] ?? null;
+        $token       = $requestData[$this->tokenFieldName] ?? null;
 
         if ($token === null) {
             $this->session->setData(
@@ -46,7 +46,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
             );
             return new RedirectResponse($urlLogin);
         }
-       
+
         $sessionToken = $this->session->getData($this->tokenFieldName);
         if ($sessionToken === '' || $token === '') {
             $this->session->setData(

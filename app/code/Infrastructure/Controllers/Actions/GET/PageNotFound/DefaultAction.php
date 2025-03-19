@@ -13,9 +13,9 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
-final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface {
-
-    const DEFAULT_VIEW_NAME = '404.page_name';
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
+{
+    const DEFAULT_VIEW_NAME        = '404.page_name';
     const DEFAULT_VIEW_DESCRIPTION = '404.description';
 
     public function __construct(
@@ -23,8 +23,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
-    ) {}
-    
+    ) {
+    }
+
     public function execute(): ResponseInterface
     {
         $dto = $this->defaultViewDTOFactory->create(
@@ -40,7 +41,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         return new HtmlResponse($result);
     }
 
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->translateService->t($this::DEFAULT_VIEW_NAME);
     }
 }

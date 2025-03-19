@@ -16,8 +16,7 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\Defa
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -38,7 +37,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDto(
-            'Image cache', 
+            'Image cache',
             'Image cache page',
             $this->imageCacheService->totalCount(),
             $totalPrettySize,

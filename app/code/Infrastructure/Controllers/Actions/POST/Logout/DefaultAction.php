@@ -13,8 +13,7 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     protected const LOGOUT_MESSAGE_KEY = 'logout.you-must-login-first';
 
@@ -29,17 +28,17 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $user     = $this->session->getData(Site2SessionInterface::USER_FIELD);
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
         if ($user !== null) {
             $this->session->logout();
             return new RedirectResponse($urlLogin);
         }
         $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD, 
+            Site2SessionInterface::MESSAGE_FIELD,
             $this->translateService->t($this::LOGOUT_MESSAGE_KEY)
         );
-    
+
         return new RedirectResponse($urlLogin);
     }
 

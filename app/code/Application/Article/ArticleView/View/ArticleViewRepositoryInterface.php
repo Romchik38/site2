@@ -9,14 +9,15 @@ use Romchik38\Site2\Application\Article\ArticleView\Find;
 
 interface ArticleViewRepositoryInterface
 {
-    /** 
-     * @throws NoSuchEntityException 
+    /**
+     * @throws NoSuchEntityException
      * @throws RuntimeException - On duplicates.
-    */
+     */
     public function getByIdAndLanguage(Find $command): ArticleViewDTO;
 
-    /** 
-     * all active article ids 
+    /**
+     * all active article ids
+     *
      * @return string[]
      */
     public function listIds(): array;

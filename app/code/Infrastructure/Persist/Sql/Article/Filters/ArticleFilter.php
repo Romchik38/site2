@@ -7,11 +7,14 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article\Filters;
 use Romchik38\Server\Models\Sql\SearchCriteria\Filter;
 use Romchik38\Site2\Infrastructure\Persist\Sql\Article\ArticleRepository;
 
+use function sprintf;
+
 final class ArticleFilter extends Filter
 {
-    public static function active(): self {
+    public static function active(): self
+    {
         $expression = sprintf(
-            '%s.%s = $', 
+            '%s.%s = $',
             ArticleRepository::ARTICLE_T,
             ArticleRepository::ARTICLE_C_ACTIVE
         );

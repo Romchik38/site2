@@ -12,7 +12,8 @@ final class ImageCacheViewDTO
     public function __construct(
         public readonly Type $type,
         public readonly Data $data
-    ) {}
+    ) {
+    }
 
     public function type(): string
     {

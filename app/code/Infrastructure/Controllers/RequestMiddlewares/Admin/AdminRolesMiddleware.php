@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
 use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
@@ -33,14 +32,14 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
     public function __invoke(): ?ResponseInterface
     {
         $adminUser = (string) $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
-        $urlAdmin = $this->urlbuilder->fromArray(['root', 'admin']);
-        
+        $urlLogin  = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+        $urlAdmin  = $this->urlbuilder->fromArray(['root', 'admin']);
+
         $command = new ListRoles($adminUser);
         try {
             $adminRoles = $this->adminUserRoles->listRolesByUsername($command);
-            foreach($this->allowedRoles as $role) {
-                if($adminRoles->hasRole($role)) {
+            foreach ($this->allowedRoles as $role) {
+                if ($adminRoles->hasRole($role)) {
                     return null;
                 }
             }
@@ -49,11 +48,11 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
                 $this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY)
             );
             return new RedirectResponse($urlAdmin);
-        } catch(NoSuchAdminUserException) {
+        } catch (NoSuchAdminUserException) {
             // user is logged in, but it username was changed or deleted
             $this->session->logout();
             return new RedirectResponse($urlLogin);
-        } catch(AdminUserNotActiveException) {
+        } catch (AdminUserNotActiveException) {
             // user is logged in, but was deactivated
             $this->session->logout();
             return new RedirectResponse($urlLogin);

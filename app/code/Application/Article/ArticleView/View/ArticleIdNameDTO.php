@@ -9,5 +9,6 @@ final class ArticleIdNameDTO
     public function __construct(
         public readonly string $articleId,
         public readonly string $name
-    ) {}
+    ) {
+    }
 }

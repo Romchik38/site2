@@ -22,9 +22,11 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 
+use function count;
+
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    protected const PAGE_NAME_KEY = 'article.page_name';
+    protected const PAGE_NAME_KEY        = 'article.page_name';
     protected const PAGE_DESCRIPTION_KEY = 'article.description';
 
     public function __construct(
@@ -64,10 +66,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         );
 
         /** 3. prepare a page view */
-        $translatedPageName = $this->translateService->t($this::PAGE_NAME_KEY);
+        $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
-        $path = new Path($this->getPath());
+        $path           = new Path($this->getPath());
         $paginationView = new CreatePagination(
             $path,
             $this->urlbuilder,

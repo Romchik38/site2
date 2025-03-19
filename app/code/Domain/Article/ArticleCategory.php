@@ -6,18 +6,21 @@ namespace Romchik38\Site2\Domain\Article;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class ArticleCategory
 {
-
     public function __construct(
         protected string $articleId,
         protected string $categoryId,
-    ) {}
+    ) {
+    }
 
     public function getArticleId(): string
     {
         return $this->articleId;
     }
+
     public function getCategoryId(): string
     {
         return $this->categoryId;

@@ -6,6 +6,9 @@ namespace Romchik38\Site2\Domain\ImageCache\VO;
 
 use InvalidArgumentException;
 
+use function in_array;
+use function sprintf;
+
 final class Type
 {
     protected const ALLOWED_TYPES = ['webp'];

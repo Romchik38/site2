@@ -13,11 +13,15 @@ use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
 use RuntimeException;
 
+use function count;
+use function sprintf;
+
 final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseInterface $database,
-    ) {}
+    ) {
+    }
 
     public function getByKey(Key $key): ImageCacheViewDTO
     {

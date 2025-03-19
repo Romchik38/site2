@@ -11,6 +11,9 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Twig\Environment;
 
+use function array_map;
+use function array_unshift;
+
 class Site2TwigView extends TwigView
 {
     protected string|null $message = null;
@@ -43,8 +46,8 @@ class Site2TwigView extends TwigView
     protected function prepareLanguages(): void
     {
         $currentRoot = $this->dynamicRootService->getCurrentRoot();
-        $languages = array_map(
-            fn($item) => $item->getName(), 
+        $languages   = array_map(
+            fn($item) => $item->getName(),
             $this->dynamicRootService->getRootList()
         );
 
@@ -55,24 +58,25 @@ class Site2TwigView extends TwigView
     /**
      * @throws CantCreateViewException - If controller was not set
      */
-    protected function prepareBreadcrumbs(): void {
-        if($this->controller === null) {
+    protected function prepareBreadcrumbs(): void
+    {
+        if ($this->controller === null) {
             throw new CantCreateViewException('Can\'t prepare breadcrums: controller was not set');
         }
-        
+
         $breadcrumbDTO = $this->breadcrumbService->getBreadcrumbDTO(
-            $this->controller, 
+            $this->controller,
             $this->action
         );
-        $items = [];
-        $stop = false;
-        $current = $breadcrumbDTO;
-        while($stop === false) {
+        $items         = [];
+        $stop          = false;
+        $current       = $breadcrumbDTO;
+        while ($stop === false) {
             $stop = true;
             array_unshift($items, $current);
             $next = $current->getPrev();
-            if($next !== null) {
-                $stop = false;
+            if ($next !== null) {
+                $stop    = false;
                 $current = $next;
             }
         }
@@ -81,22 +85,22 @@ class Site2TwigView extends TwigView
 
     protected function prepareMessage(): void
     {
-        $message = (string )$this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
+        $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
         if ($message !== '') {
             $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
         }
         $this->message = $message;
     }
 
-    /** 
+    /**
      * @param array<string,mixed> &$context Twig context
      * @return array<string,mixed> Twig context
      */
     protected function beforeRender(array &$context): array
     {
-        $context['translate'] = $this->translateService;
+        $context['translate']  = $this->translateService;
         $context['urlbuilder'] = $this->urlbuilder;
-        $context['message'] = $this->message;
+        $context['message']    = $this->message;
         return $context;
     }
 }

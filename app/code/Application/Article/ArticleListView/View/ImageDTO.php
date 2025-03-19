@@ -10,5 +10,6 @@ final class ImageDTO
         public readonly string $imgId,
         public readonly string $path,
         public readonly string $description
-    ) {}
+    ) {
+    }
 }

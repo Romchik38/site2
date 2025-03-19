@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
+use function sprintf;
+use function str_ends_with;
+use function str_starts_with;
+use function strlen;
+use function substr;
+
 final class ImageDTOFactory
 {
     protected readonly string $pathPrefix;

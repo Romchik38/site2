@@ -19,15 +19,17 @@ use Romchik38\Site2\Application\Article\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\Article\ArticleView\Find;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction\ViewDTO;
 
+use function sprintf;
+
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
-
     public function __construct(
         protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly ArticleViewService $articleViewService
-    ) {}
+    ) {
+    }
 
     public function execute(string $dynamicRoute): ResponseInterface
     {
@@ -42,7 +44,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             );
         }
 
-        /** we pass all checks and can send translate to view */
+    /** we pass all checks and can send translate to view */
 
         $dto = new ViewDTO(
             $article->name,
@@ -50,10 +52,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $article
         );
 
-        $result  = $this->view
-            ->setController($this->getController(), $dynamicRoute)
-            ->setControllerData($dto)
-            ->toString();
+        $result = $this->view
+        ->setController($this->getController(), $dynamicRoute)
+        ->setControllerData($dto)
+        ->toString();
 
         return new HtmlResponse($result);
     }
@@ -61,7 +63,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     public function getDynamicRoutes(): array
     {
         $articles = $this->articleViewService->listIdsNames($this->getLanguage());
-        $routes = [];
+        $routes   = [];
         foreach ($articles as $article) {
             $routes[] = new DynamicRouteDTO($article->articleId, $article->name);
         }
@@ -72,10 +74,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     {
         try {
             return $this->articleViewService
-                ->getArticleName(new Find(
-                    $dynamicRoute,
-                    $this->getLanguage()
-                ));
+            ->getArticleName(new Find(
+                $dynamicRoute,
+                $this->getLanguage()
+            ));
         } catch (NoSuchEntityException $e) {
             throw new DynamicActionLogicException(
                 sprintf(

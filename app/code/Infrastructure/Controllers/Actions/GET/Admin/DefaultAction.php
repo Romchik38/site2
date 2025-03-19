@@ -22,7 +22,7 @@ final class DefaultAction extends AbstractAction implements DefaultActionInterfa
 
     public function execute(): ResponseInterface
     {
-        $dto = new ViewDTO('Admin', 'Admin page');
+        $dto  = new ViewDTO('Admin', 'Admin page');
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)

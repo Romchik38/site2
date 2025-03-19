@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class Id
 {
     public function __construct(
@@ -13,7 +15,7 @@ final class Id
     ) {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('param id is empty');
-        }        
+        }
     }
 
     public function __invoke(): string

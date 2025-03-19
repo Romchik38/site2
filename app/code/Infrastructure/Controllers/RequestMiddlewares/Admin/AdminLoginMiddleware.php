@@ -25,7 +25,7 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
     public function __invoke(): ?ResponseInterface
     {
         $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+        $urlLogin  = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
 
         if ($adminUser === null) {
             $this->session->setData(
@@ -34,7 +34,7 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
             );
             return new RedirectResponse($urlLogin);
         }
-        
+
         if ($adminUser === '') {
             $this->session->logout();
             return new RedirectResponse($urlLogin);

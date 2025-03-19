@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Application\Image\AdminImageListService\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Page
 {
     public const DEFAULT_PAGE = 1;
@@ -13,7 +15,7 @@ final class Page
     public function __construct(
         public readonly int $page
     ) {
-        if($page <= 0) {
+        if ($page <= 0) {
             throw new InvalidArgumentException(
                 sprintf('param page %s is invalid', $page)
             );
@@ -25,15 +27,15 @@ final class Page
         if ($page === '') {
             return new self(self::DEFAULT_PAGE);
         } else {
-            $intPage = (int)$page;
+            $intPage = (int) $page;
             $strPage = (string) $intPage;
-            if($page !== $strPage) {
+            if ($page !== $strPage) {
                 throw new InvalidArgumentException(
                     sprintf('param page %s is invalid', $page)
                 );
             }
             return new self($intPage);
-        }  
+        }
     }
 
     public function __invoke(): int

@@ -14,8 +14,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     /** @todo translate */
     public const SUCCESS_MESSAGE_KEY = 'admin.image-cache.cache-cleared';
@@ -26,8 +25,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         protected readonly Site2SessionInterface $session,
         protected readonly ImageCacheService $imageCacheService,
         protected readonly UrlbuilderInterface $urlbuilder
-    )
-    {
+    ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
@@ -46,5 +44,4 @@ final class DefaultAction extends AbstractMultiLanguageAction
     {
         return 'Admin Image Cache clear point';
     }
-    
 }

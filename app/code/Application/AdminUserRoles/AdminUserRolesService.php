@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\AdminUserRoles;
 
+use InvalidArgumentException;
+use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface;
 use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
-use InvalidArgumentException;
-use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
+
+use function sprintf;
 
 final class AdminUserRolesService
 {
     public function __construct(
         protected readonly AdminUserRepositoryInreface $adminUserRepository
-    ) {   
+    ) {
     }
 
     /**
@@ -25,7 +27,7 @@ final class AdminUserRolesService
     public function listRolesByUsername(ListRoles $command): Roles
     {
         $username = new Username($command->username);
-        $user = $this->adminUserRepository->findByUsername($username);
+        $user     = $this->adminUserRepository->findByUsername($username);
         if ($user->isActive() === false) {
             throw new AdminUserNotActiveException(
                 sprintf('Admin use with username %s not active', $username())

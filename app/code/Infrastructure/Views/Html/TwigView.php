@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
-use \Romchik38\Server\Api\Views\Http\HttpViewInterface;
+use Romchik38\Server\Api\Views\Http\HttpViewInterface;
 use Romchik38\Server\Views\AbstractView;
 use Romchik38\Server\Views\Http\Errors\ViewBuildException;
 use Twig\Environment;
@@ -13,11 +13,11 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+use function strlen;
+
 class TwigView extends AbstractView implements HttpViewInterface
 {
-    /**
-     * @var array<string,mixed> $metaData
-     */
+    /** @var array<string,mixed> $metaData */
     protected array $metaData = [];
 
     /**
@@ -26,11 +26,12 @@ class TwigView extends AbstractView implements HttpViewInterface
     public function __construct(
         protected readonly Environment $environment,
         protected readonly string $layoutPath = 'base.twig',
-    ) {}
+    ) {
+    }
 
-    /** 
+    /**
      *  Creates a view response
-     * 
+     *
      * @throws ViewBuildException
      */
     public function toString(): string
@@ -54,8 +55,8 @@ class TwigView extends AbstractView implements HttpViewInterface
         }
 
         $templateControllerName = $this->controller->getId();
-        $templateActionType = '';
-        $templateActionName = '';
+        $templateActionType     = '';
+        $templateActionName     = '';
 
         /** 3. choose a template path by given action name */
         if (strlen($this->action) > 0) {
@@ -68,10 +69,10 @@ class TwigView extends AbstractView implements HttpViewInterface
         /** 4. render */
         try {
             $context = [
-                'data' => $this->controllerData,
-                'meta_data' => $this->metaData,
+                'data'                     => $this->controllerData,
+                'meta_data'                => $this->metaData,
                 'template_controller_name' => $templateControllerName,
-                'template_action_type' => $templateActionType
+                'template_action_type'     => $templateActionType,
             ];
 
             if (strlen($templateActionName) > 0) {
@@ -85,11 +86,11 @@ class TwigView extends AbstractView implements HttpViewInterface
                 $context
             );
         } catch (LoaderError $e) {
-            throw new ViewBuildException('Twig Loader error: ' . $e->getMessage() .  '. View build aborted');
+            throw new ViewBuildException('Twig Loader error: ' . $e->getMessage() . '. View build aborted');
         } catch (RuntimeError $e) {
-            throw new ViewBuildException('Twig Runtime error: ' . $e->getMessage() .  '. View build aborted');
+            throw new ViewBuildException('Twig Runtime error: ' . $e->getMessage() . '. View build aborted');
         } catch (SyntaxError $e) {
-            throw new ViewBuildException('Twig Syntax error: ' . $e->getMessage() .  '. View build aborted');
+            throw new ViewBuildException('Twig Syntax error: ' . $e->getMessage() . '. View build aborted');
         }
 
         return $html;
@@ -104,21 +105,21 @@ class TwigView extends AbstractView implements HttpViewInterface
     /** Use this to add custom logic */
     protected function prepareMetaData(): void
     {
-        /** 
+        /**
          *   1. use $this->setMetadata(string $key, string $value)
          *   2. meta_data will be avalible in a template
          * */
     }
 
-    /** 
-     * use this tho add specific data to context 
-     * 
+    /**
+     * use this tho add specific data to context
+     *
      * @param array<string,mixed> &$context Twig context
      * @return array<string,mixed> Twig context
      */
     protected function beforeRender(array &$context): array
     {
-        /** 
+        /**
          * $context['key'] = 'value';
          */
         return $context;

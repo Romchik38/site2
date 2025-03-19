@@ -11,22 +11,26 @@ use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepo
 use Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory;
 use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaInterface;
 
+use function implode;
+use function json_decode;
+use function sprintf;
+
 final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
 {
-
     public function __construct(
         protected DatabaseInterface $database,
         protected ArticleDTOFactory $articleDTOFactory,
         protected ImageDTOFactory $imageDTOFactory
-    ) {}
+    ) {
+    }
 
     public function list(SearchCriteriaInterface $searchCriteria): array
     {
         $expression = [];
-        $params = [$searchCriteria->language()];
+        $params     = [$searchCriteria->language()];
         $paramCount = 1;
 
-        /** ORDER BY */
+    /** ORDER BY */
         $orderBy = $searchCriteria->orderBy();
 
         $expression[] = sprintf(
@@ -36,15 +40,15 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
             $orderBy->getNulls()
         );
 
-        /** LIMIT */
-        $limit = $searchCriteria->limit();
+    /** LIMIT */
+        $limit        = $searchCriteria->limit();
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[] = $limit();
+        $params[]     = $limit();
 
-        /** OFFSET */
-        $offset = $searchCriteria->offset();
+    /** OFFSET */
+        $offset       = $searchCriteria->offset();
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
-        $params[] = $offset->toString();
+        $params[]     = $offset->toString();
 
         $rows = $this->listRows(
             $this->defaultQuery(),
@@ -71,14 +75,15 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         $rows = $this->database->queryParams($query, []);
 
         $firstElem = $rows[0];
-        $count = $firstElem['count'];
+        $count     = $firstElem['count'];
 
-        return (int)$count;
+        return (int) $count;
     }
 
     /**
      * SELECT
      * used to select rows from all tables by given expression
+     *
      * @param array<int,string> $params
      * @return array<int,array<string,string>>
      */
@@ -87,18 +92,15 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
         string $expression,
         array $params
     ): array {
-
         $query = sprintf('%s %s', $queryBody, $expression);
 
-        $rows = $this->database->queryParams($query, $params);
-
-        return $rows;
+        return $this->database->queryParams($query, $params);
     }
 
     /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleDTO
     {
-        $articleDTO = $this->articleDTOFactory->create(
+        return $this->articleDTOFactory->create(
             $row['identifier'],
             $row['name'],
             $row['short_description'],
@@ -111,8 +113,6 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
                 $row['img_description']
             )
         );
-
-        return $articleDTO;
     }
 
     protected function defaultQuery(): string

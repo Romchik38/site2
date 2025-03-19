@@ -16,7 +16,7 @@ final class CheckPassword
     }
 
     public static function fromHash(array $hash): self
-    {   
+    {
         return new self(
             $hash[Email::FIELD] ?? '',
             $hash[Password::FIELD] ?? '',

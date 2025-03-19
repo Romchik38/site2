@@ -10,7 +10,6 @@ use Romchik38\Server\Models\Sql\SearchCriteria\SearchCriteria;
 
 final class ArticleSearchCriteria extends SearchCriteria
 {
-
     public function __construct(
         Limit $limit,
         Offset $offset,

@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\ArticleListView\View;
 
+use DateTime;
+
+use function count;
+use function explode;
+use function round;
+
 final class ArticleDTOFactory
 {
     protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
-    protected const int READING_SPEED = 200;
+    protected const int READING_SPEED         = 200;
 
     public function __construct(
         protected readonly DateFormatterInterface $dateFormatter,
         protected readonly ReadLengthFormatterInterface $readLengthFormatter
-    ) {}
+    ) {
+    }
 
     /** @param string[] $categories */
     public function create(
@@ -24,15 +31,14 @@ final class ArticleDTOFactory
         array $categories,
         ImageDTO $image
     ): ArticleDTO {
-
         $formattedCreatedAt = $this->dateFormatter->formatByString(
-            new \DateTime($createdAt),
+            new DateTime($createdAt),
             $this::DATE_FORMAT_CATEGORY_PAGE
         );
 
-        $words = count(explode(' ', $description));
-        $minutesToRead = (int)round(($words / $this::READING_SPEED));
-        $readLength = $this->readLengthFormatter->formatByMinutes($minutesToRead);
+        $words         = count(explode(' ', $description));
+        $minutesToRead = (int) round($words / $this::READING_SPEED);
+        $readLength    = $this->readLengthFormatter->formatByMinutes($minutesToRead);
 
         return new ArticleDTO(
             $articleId,

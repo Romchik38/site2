@@ -12,11 +12,12 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseInterface $database
-    ) {}
+    ) {
+    }
 
     public function add(ImageCache $model): void
     {
-        $query = 'INSERT INTO img_cache (key, data, type, created_at) VALUES ($1, $2, $3, $4)';
+        $query  = 'INSERT INTO img_cache (key, data, type, created_at) VALUES ($1, $2, $3, $4)';
         $params = [
             ($model->key())(),
             ($model->data())(),
@@ -31,9 +32,9 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
     {
         $query = 'SELECT count(key) FROM img_cache';
 
-        $rows = $this->database->queryParams($query, []);
+        $rows   = $this->database->queryParams($query, []);
         $result = $rows[0]['count'];
-        
+
         return (int) $result;
     }
 
@@ -41,9 +42,9 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
     {
         $query = 'SELECT pg_total_relation_size (\'img_cache\')';
 
-        $rows = $this->database->queryParams($query, []);
+        $rows   = $this->database->queryParams($query, []);
         $result = $rows[0]['pg_total_relation_size'];
-        
+
         return (int) $result;
     }
 
@@ -52,9 +53,7 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
         $query = 'SELECT pg_size_pretty (pg_total_relation_size(\'img_cache\'))';
 
         $rows = $this->database->queryParams($query, []);
-        $result = $rows[0]['pg_size_pretty'];
-        
-        return $result;
+        return $rows[0]['pg_size_pretty'];
     }
 
     public function deleteAll(): void

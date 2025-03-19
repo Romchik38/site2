@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\ImageCache\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class Key
 {
     public function __construct(

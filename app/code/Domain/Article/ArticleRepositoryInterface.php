@@ -10,14 +10,12 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 /**
  * Manage Article entity
- * @api
  */
 interface ArticleRepositoryInterface
 {
-
-    /** 
+    /**
      * Retrives an article entity from database
-     * 
+     *
      * @param ArticleId $id entity id.
      * @throws NoSuchEntityException
      * @return Article An article entity

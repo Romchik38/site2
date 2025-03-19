@@ -6,13 +6,13 @@ namespace Romchik38\Site2\Application\Article\ArticleListView;
 
 final class Pagination
 {
-
     public function __construct(
         protected string $limit,
         protected string $offset,
         protected string $orderByField,
         protected string $orderByDirection
-    ) {}
+    ) {
+    }
 
     public function limit(): string
     {

@@ -7,6 +7,8 @@ namespace Romchik38\Site2\Domain\AdminUser\VO;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 
+use function count;
+
 final class Roles
 {
     /** @var array<string, Name> */
@@ -15,13 +17,12 @@ final class Roles
     /** @param array<int,Role> $roles*/
     public function __construct(
         array $roles
-    )
-    {
+    ) {
         if (count($roles) === 0) {
             throw new InvalidArgumentException('Roles list is empty');
         }
-        foreach($roles as $role) {
-            $roleName = $role->name();
+        foreach ($roles as $role) {
+            $roleName                = $role->name();
             $this->hash[$roleName()] = $role;
         }
     }

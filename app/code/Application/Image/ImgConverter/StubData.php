@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Application\Image\ImgConverter;
 
 final class StubData
 {
-    public const TYPE_FIELD = 'type';
-    public const WIDTH_FIELD = 'width';
+    public const TYPE_FIELD   = 'type';
+    public const WIDTH_FIELD  = 'width';
     public const HEIGHT_FIELD = 'height';
 
     public function __construct(
@@ -15,7 +15,8 @@ final class StubData
         public readonly string $type,
         public readonly string $width,
         public readonly string $height
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<string,string> $hash

@@ -9,7 +9,7 @@ use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 final class ViewDTO extends DefaultViewDTO
 {
     public function __construct(
-        string $name, 
+        string $name,
         string $description
     ) {
         parent::__construct($name, $description);

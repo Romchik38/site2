@@ -14,25 +14,31 @@ final class Pagination implements PaginationInterface
         protected string $orderByField,
         protected string $orderByDirection,
         protected int $totalCount
-    ) {   
+    ) {
     }
-    public function limit(): string {
+
+    public function limit(): string
+    {
         return $this->limit;
     }
 
-    public function page(): string {
+    public function page(): string
+    {
         return $this->page;
     }
 
-    public function orderByField(): string {
+    public function orderByField(): string
+    {
         return $this->orderByField;
     }
 
-    public function orderByDirection(): string {
+    public function orderByDirection(): string
+    {
         return $this->orderByDirection;
     }
 
-    public function totalCount(): int {
+    public function totalCount(): int
+    {
         return $this->totalCount;
     }
 }

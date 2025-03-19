@@ -21,16 +21,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         protected readonly Site2SessionInterface $session,
         protected readonly ViewInterface $view
-    )
-    {
+    ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-    
+
     public function execute(): ResponseInterface
     {
         // 1 check if use already logged in
         $adminUser = $this->session->getData(Site2SessionInterface::USER_FIELD);
-        $html = $this->view
+        $html      = $this->view
             ->setController($this->controller)
             ->setControllerData(
                 new ViewDTO('User register', 'User register page', $adminUser)

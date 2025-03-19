@@ -7,9 +7,12 @@ namespace Romchik38\Site2\Domain\Article;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
+use function array_values;
+use function sprintf;
+
 final class Article
 {
-    /** 
+    /**
      * @param array<string|int,ArticleTranslates> $translates
      * @param array<string|int,ArticleCategory> $categories
      */
@@ -18,7 +21,8 @@ final class Article
         protected bool $active,
         protected readonly array $translates = [],
         protected readonly array $categories = []
-    ) {}
+    ) {
+    }
 
     public function getId(): ArticleId
     {
@@ -34,7 +38,7 @@ final class Article
     public function getTranslate(string $language): ArticleTranslates
     {
         $translate = $this->translates[$language] ?? null;
-        if($translate === null) {
+        if ($translate === null) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Translate %s for Article id %s is missing',
@@ -48,7 +52,8 @@ final class Article
     }
 
     /** @return ArticleTranslates[] */
-    public function getAllTranslates(): array{
+    public function getAllTranslates(): array
+    {
         return array_values($this->translates);
     }
 

@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Application\Image\AdminImageListService;
 
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Limit;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Offset;
-use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByDirection;
+use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
 
 final class SearchCriteria
 {

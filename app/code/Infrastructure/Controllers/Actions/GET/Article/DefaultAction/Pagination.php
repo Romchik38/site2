@@ -7,18 +7,20 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\Default
 use InvalidArgumentException;
 use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
 
+use function in_array;
+use function sprintf;
+
 final class Pagination implements PaginationInterface
 {
-
-    public const DEFAULT_LIMIT = '15';
+    public const DEFAULT_LIMIT  = '15';
     public const ALLOWED_LIMITS = ['2', '5', '15', '30'];
 
     public const DEFAULT_PAGE = '1';
 
-    public const DEFAULT_ORDER_BY = 'created_at';
+    public const DEFAULT_ORDER_BY  = 'created_at';
     public const ALLOWED_ORDER_BYS = ['created_at', 'identifier'];
 
-    public const DEFAULT_ORDER_BY_DIRECTION = 'desc';
+    public const DEFAULT_ORDER_BY_DIRECTION  = 'desc';
     public const ALLOWED_ORDER_BY_DIRECTIONS = ['asc', 'desc'];
 
     public readonly string $offset;
@@ -41,14 +43,14 @@ final class Pagination implements PaginationInterface
             }
         }
 
-        // Set page 
+        // Set page
         if ($page === '') {
             $this->page = $this::DEFAULT_PAGE;
         } else {
-            $pageInt = (int)$page;
+            $pageInt = (int) $page;
             if (
                 $pageInt <= 0
-                || ($pageInt - 1) * (int)$this->limit > $totalCount
+                || ($pageInt - 1) * (int) $this->limit > $totalCount
             ) {
                 throw new InvalidArgumentException(
                     sprintf('param page %s is invalid', $page)
@@ -79,7 +81,7 @@ final class Pagination implements PaginationInterface
         }
 
         // Offset
-        $this->offset = (string)(((int)$this->page() - 1) * (int)$this->limit);
+        $this->offset = (string) (((int) $this->page() - 1) * (int) $this->limit);
     }
 
     /** @param array<string,string> $hash */
@@ -108,10 +110,12 @@ final class Pagination implements PaginationInterface
     {
         return $this->orderByField;
     }
+
     public function orderByDirection(): string
     {
         return $this->orderByDirection;
     }
+
     public function totalCount(): int
     {
         return $this->totalCount;

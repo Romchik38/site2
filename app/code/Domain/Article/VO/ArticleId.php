@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Article\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class ArticleId
 {
     /** @throws InvalidArgumentException when string is empty */
@@ -17,7 +19,8 @@ final class ArticleId
         }
     }
 
-    public function toString(): string {
+    public function toString(): string
+    {
         return $this->id;
     }
 

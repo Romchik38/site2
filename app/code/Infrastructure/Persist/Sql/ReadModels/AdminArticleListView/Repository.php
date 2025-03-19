@@ -11,17 +11,20 @@ use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface
 use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
 
+use function implode;
+use function sprintf;
+
 final class Repository implements RepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseInterface $database
-    ) {  
+    ) {
     }
 
     public function list(SearchCriteria $searchCriteria): array
     {
         $expression = [];
-        $params = [];
+        $params     = [];
         $paramCount = 0;
 
         /** ORDER BY */
@@ -39,11 +42,11 @@ final class Repository implements RepositoryInterface
 
         /** LIMIT */
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[] = ($searchCriteria->limit)();
+        $params[]     = ($searchCriteria->limit)();
 
         /** OFFSET */
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
-        $params[] = $searchCriteria->offset->toString();
+        $params[]     = $searchCriteria->offset->toString();
 
         $query = sprintf('%s %s', $this->defaultQuery(), implode(' ', $expression));
 
@@ -61,12 +64,12 @@ final class Repository implements RepositoryInterface
     protected function createFromRow(array $row): ArticleDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
-        if($rawIdentifier === null) {
+        if ($rawIdentifier === null) {
             throw new RepositoryException('Article id is ivalid');
         }
 
-        $rawActive = $row['active']  ?? null;
-        if($rawActive === null) {
+        $rawActive = $row['active'] ?? null;
+        if ($rawActive === null) {
             throw new RepositoryException('Article active is ivalid');
         }
         if ($rawActive === 't') {
@@ -75,7 +78,7 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
-        $rawImgActive = $row['img_active']  ?? null;
+        $rawImgActive = $row['img_active'] ?? null;
         if ($rawImgActive === null) {
             $imageActive = null;
         } else {
@@ -86,7 +89,7 @@ final class Repository implements RepositoryInterface
             }
         }
 
-        $rawAudioActive = $row['audio_active']  ?? null;
+        $rawAudioActive = $row['audio_active'] ?? null;
         if ($rawAudioActive === null) {
             $audioActive = null;
         } else {
@@ -97,23 +100,21 @@ final class Repository implements RepositoryInterface
             }
         }
 
-        $rawAuthorName = $row['author_name']  ?? null;
+        $rawAuthorName = $row['author_name'] ?? null;
         if ($rawAuthorName === null) {
             throw new RepositoryException('Article author name is ivalid');
         }
 
-        $articleDTO = new ArticleDto(
+        return new ArticleDto(
             $rawIdentifier,
             $active,
             $imageActive,
-            $row['img_id']  ?? null,
+            $row['img_id'] ?? null,
             $audioActive,
             $rawAuthorName
         );
-
-        return $articleDTO;
     }
-    
+
     protected function defaultQuery(): string
     {
         return <<<QUERY
@@ -140,8 +141,8 @@ final class Repository implements RepositoryInterface
         $rows = $this->database->queryParams($query, []);
 
         $firstElem = $rows[0];
-        $count = $firstElem['count'];
+        $count     = $firstElem['count'];
 
-        return (int)$count;
+        return (int) $count;
     }
 }

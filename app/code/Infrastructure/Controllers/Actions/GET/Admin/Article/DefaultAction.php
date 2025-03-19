@@ -21,8 +21,9 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\Default
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+use function count;
+
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -34,19 +35,19 @@ final class DefaultAction extends AbstractMultiLanguageAction
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-    
+
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getQueryParams();
-        $command = Filter::fromRequest($requestData);
+        $command     = Filter::fromRequest($requestData);
 
-        $filterResult = $this->articleService->list($command);
+        $filterResult   = $this->articleService->list($command);
         $searchCriteria = $filterResult->searchCriteria;
-        $articleList = $filterResult->list;
-        $page = $filterResult->page;
-        $totalCount = $this->articleService->totalCount();
+        $articleList    = $filterResult->list;
+        $page           = $filterResult->page;
+        $totalCount     = $this->articleService->totalCount();
 
-        $path = new Path($this->getPath());
+        $path       = new Path($this->getPath());
         $pagination = new Pagination(
             (string) ($searchCriteria->limit)(),
             (string) ($page)(),
@@ -61,11 +62,11 @@ final class DefaultAction extends AbstractMultiLanguageAction
             $pagination,
             count($articleList)
         );
-        
+
         $paginationHtml = $paginationView->create();
 
-        $dto = new ViewDto(
-            'Admin article', 
+        $dto  = new ViewDto(
+            'Admin article',
             'Admin article page',
             $articleList,
             $paginationHtml,

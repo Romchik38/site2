@@ -8,9 +8,9 @@ use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaFactoryInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 
-class ArticleSearchCriteriaFactory implements SearchCriteriaFactoryInterface {
-
-    public const DEFAULT_LIMIT = '15';
+class ArticleSearchCriteriaFactory implements SearchCriteriaFactoryInterface
+{
+    public const DEFAULT_LIMIT  = '15';
     public const DEFAULT_OFFSET = '0';
 
     public function create(
@@ -18,7 +18,6 @@ class ArticleSearchCriteriaFactory implements SearchCriteriaFactoryInterface {
         string $offset,
         array $orderBy = []
     ): ArticleSearchCriteria {
-
         if ($limit === '') {
             $limit = $this::DEFAULT_LIMIT;
         }

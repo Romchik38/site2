@@ -18,5 +18,6 @@ final class ArticleViewDTO
         public readonly AuthorDTO $author,
         public readonly ImageDTO $image,
         public readonly AudioDTO $audio
-    ) {}
+    ) {
+    }
 }

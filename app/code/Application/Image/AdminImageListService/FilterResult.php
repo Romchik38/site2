@@ -12,6 +12,6 @@ final class FilterResult
         public readonly SearchCriteria $searchCriteria,
         public readonly Page $page,
         public readonly array $list
-    ) {  
+    ) {
     }
 }

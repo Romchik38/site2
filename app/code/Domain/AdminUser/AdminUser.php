@@ -12,6 +12,8 @@ use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
 use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
+use function password_verify;
+
 final class AdminUser implements AdminUserInterface
 {
     public function __construct(
@@ -21,7 +23,7 @@ final class AdminUser implements AdminUserInterface
         protected Active $active,
         protected Email $email,
         protected Roles $roles
-    ){
+    ) {
     }
 
     public function checkPassword(Password $password): bool
@@ -34,7 +36,8 @@ final class AdminUser implements AdminUserInterface
         return $this->identifier;
     }
 
-    public function isActive(): bool {
+    public function isActive(): bool
+    {
         return ($this->active)();
     }
 

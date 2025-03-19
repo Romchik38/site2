@@ -9,15 +9,15 @@ use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaFacto
 
 final class ArticleListViewService
 {
-
     public function __construct(
         private readonly ArticleListViewRepositoryInterface $articleListViewRepository,
         private readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
-    ) {}
+    ) {
+    }
 
     /** @return array<int,ArticleDTO> */
-    public function list(Pagination $command, string $language): array {
-
+    public function list(Pagination $command, string $language): array
+    {
         $searchCriteria = $this->searchCriteriaFactory->create(
             $command->offset(),
             $command->limit(),
@@ -26,13 +26,12 @@ final class ArticleListViewService
             $language
         );
 
-        $models = $this->articleListViewRepository->list($searchCriteria);
-        
-        return $models;
+        return $this->articleListViewRepository->list($searchCriteria);
     }
 
     /** count of all active article */
-    public function listTotal(): int {
+    public function listTotal(): int
+    {
         return $this->articleListViewRepository->totalCount();
     }
 }

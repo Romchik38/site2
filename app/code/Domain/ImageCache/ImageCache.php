@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\ImageCache;
 
+use DateTime;
 use Romchik38\Site2\Domain\ImageCache\VO\CreatedAt;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
@@ -18,7 +19,7 @@ final class ImageCache
         protected Data $data,
         protected Type $type
     ) {
-        $this->createdAt = new CreatedAt(new \DateTime());
+        $this->createdAt = new CreatedAt(new DateTime());
     }
 
     public function key(): Key

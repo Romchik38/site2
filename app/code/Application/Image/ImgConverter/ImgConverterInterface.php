@@ -9,7 +9,7 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 
-interface ImgConverterInterface 
+interface ImgConverterInterface
 {
     /** @throws CouldNotCreateImageException */
     public function create(

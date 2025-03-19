@@ -14,7 +14,8 @@ final class ImageCacheService
 {
     public function __construct(
         protected readonly ImageCacheRepositoryInterface $imageCacheRepository
-    ) {}
+    ) {
+    }
 
     public function save(Cache $command): void
     {

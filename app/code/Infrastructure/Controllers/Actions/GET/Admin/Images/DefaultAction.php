@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images;
 
-use Romchik38\Server\Controllers\Path;
-use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Server\Api\Services\Translate\TranslateInterface;
-use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
-use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
+use Romchik38\Server\Controllers\Path;
+use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\ViewDto;
+use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\PaginationForm;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+use function count;
+
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -38,15 +39,15 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getQueryParams();
-        $command = Filter::fromRequest($requestData);
+        $command     = Filter::fromRequest($requestData);
 
-        $filterResult = $this->adminImageListService->list($command);
+        $filterResult   = $this->adminImageListService->list($command);
         $searchCriteria = $filterResult->searchCriteria;
-        $imagesList = $filterResult->list;
-        $page = $filterResult->page;
-        $totalCount = $this->adminImageListService->totalCount();
+        $imagesList     = $filterResult->list;
+        $page           = $filterResult->page;
+        $totalCount     = $this->adminImageListService->totalCount();
 
-        $path = new Path($this->getPath());
+        $path       = new Path($this->getPath());
         $pagination = new Pagination(
             (string) ($searchCriteria->limit)(),
             (string) ($page)(),
@@ -65,7 +66,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $paginationHtml = $paginationView->create();
 
         $dto = new ViewDto(
-            'Images', 
+            'Images',
             'Images page',
             $imagesList,
             $paginationHtml,
@@ -80,7 +81,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
             ->setController($this->getController())
             ->setControllerData($dto)
             ->toString();
-            
+
         return new HtmlResponse($html);
     }
 

@@ -7,12 +7,14 @@ namespace Romchik38\Site2\Infrastructure\Services;
 use Romchik38\Server\Api\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleListView\View\ReadLengthFormatterInterface;
 
+use function sprintf;
+
 final class ReadLengthFormatter implements ReadLengthFormatterInterface
 {
-
     public function __construct(
         protected readonly TranslateInterface $translate
-    ) {}
+    ) {
+    }
 
     public function formatByMinutes(int $minutes): string
     {
@@ -28,7 +30,7 @@ final class ReadLengthFormatter implements ReadLengthFormatterInterface
             );
         }
 
-        $hours = (int)($minutes / 60);
+        $hours = (int) ($minutes / 60);
 
         if ($hours < 24) {
             return sprintf(
@@ -38,7 +40,7 @@ final class ReadLengthFormatter implements ReadLengthFormatterInterface
             );
         }
 
-        $days = (int)($hours / 24);
+        $days = (int) ($hours / 24);
 
         return sprintf(
             '%s %s',

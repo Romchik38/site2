@@ -6,9 +6,9 @@ namespace Romchik38\Site2\Application\Image\ImgConverter;
 
 final class ImgData
 {
-    public const ID_FIELD = 'id';
-    public const TYPE_FIELD = 'type';
-    public const WIDTH_FIELD = 'width';
+    public const ID_FIELD     = 'id';
+    public const TYPE_FIELD   = 'type';
+    public const WIDTH_FIELD  = 'width';
     public const HEIGHT_FIELD = 'height';
 
     public function __construct(
@@ -16,7 +16,8 @@ final class ImgData
         public readonly string $type,
         public readonly string $width,
         public readonly string $height
-    ) {}
+    ) {
+    }
 
     /** @param array<string,string> $hash */
     public static function fromRequest(array $hash): self

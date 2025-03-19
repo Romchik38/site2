@@ -12,7 +12,8 @@ final class ImgView
     public function __construct(
         protected readonly Id $id,
         protected readonly Path $path
-    ) {}
+    ) {
+    }
 
     public function id(): Id
     {

@@ -6,11 +6,14 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class Description
 {
     protected function __construct(
         protected readonly string $description
-    ) {}
+    ) {
+    }
 
     public static function fromString(string $description): self
     {

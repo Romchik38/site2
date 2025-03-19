@@ -9,7 +9,8 @@ final class Find
     public function __construct(
         protected readonly string $articleId,
         protected readonly string $language
-    ) {}
+    ) {
+    }
 
     public function id(): string
     {

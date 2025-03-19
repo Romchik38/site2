@@ -15,5 +15,6 @@ final class ArticleDTO
         public readonly string $formattedCreatedAt,
         public readonly string $readLength,
         public readonly ImageDTO $image
-    ) {}
+    ) {
+    }
 }

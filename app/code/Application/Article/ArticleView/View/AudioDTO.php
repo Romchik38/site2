@@ -9,5 +9,6 @@ final class AudioDTO
     public function __construct(
         public readonly string $path,
         public readonly string $description
-    ) {}
+    ) {
+    }
 }

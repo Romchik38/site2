@@ -22,14 +22,13 @@ final class ImageDto
         string $name,
         string $authorName,
         string $path
-    )
-    {
+    ) {
         $this->identifier = new Id($identifier);
-        $this->name = new ImageName($name);
+        $this->name       = new ImageName($name);
         $this->authorName = new AuthorName($authorName);
-        $this->path = new Path($path);
+        $this->path       = new Path($path);
     }
-    
+
     public function nameAsString(): string
     {
         return ($this->name)();

@@ -16,21 +16,25 @@ use Romchik38\Site2\Application\Article\ArticleView\View\AuthorDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory;
 use RuntimeException;
 
+use function count;
+use function json_decode;
+use function sprintf;
+
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
-
     public function __construct(
         protected readonly DatabaseInterface $database,
         protected readonly ArticleViewDTOFactory $factory,
         protected readonly ImageDTOFactory $imageDTOFactory,
         protected readonly AudioDTOFactory $audioDTOFactory
-    ) {}
+    ) {
+    }
 
     public function getByIdAndLanguage(Find $command): ArticleViewDTO
     {
         $articleId = $command->id();
-        $language = $command->language();
-        $params = [$language, $articleId];
+        $language  = $command->language();
+        $params    = [$language, $articleId];
 
         $rows = $this->database->queryParams($this->getByIdQuery(), $params);
 
@@ -62,13 +66,12 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         QUERY;
 
         $rows = $this->database->queryParams($query, []);
-        $ids = [];
+        $ids  = [];
         foreach ($rows as $row) {
             $ids[] = $row['identifier'];
         }
         return $ids;
     }
-
 
     public function listIdName(string $language): array
     {
@@ -94,7 +97,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
     /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleViewDTO
     {
-        $articleViewDTO = $this->factory->create(
+        return $this->factory->create(
             $row['identifier'],
             $row['name'],
             $row['short_description'],
@@ -116,10 +119,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $row['audio_description'],
             )
         );
-
-        return $articleViewDTO;
     }
-
 
     protected function getByIdQuery(): string
     {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction;
 
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Limit;
-use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByDirection;
+use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
 
 final class PaginationForm
 {
@@ -28,10 +28,10 @@ final class PaginationForm
     /** @return array<int,int> */
     public function limits(): array
     {
-        $limits = [];
+        $limits       = [];
         $currentLimit = ($this->limit)();
-        foreach ($this->limit::ALLOWED_LIMITS as $limit) {
-            if($limit !== $currentLimit) {
+        foreach ($this->Limit::ALLOWED_LIMITS as $limit) {
+            if ($limit !== $currentLimit) {
                 $limits[] = $limit;
             }
         }
@@ -46,10 +46,10 @@ final class PaginationForm
     /** @return array<int,string> */
     public function orderBys(): array
     {
-        $orderBys = [];
+        $orderBys       = [];
         $currentOrderBy = ($this->orderBy)();
         foreach ($this->orderBy::ALLOWED_ORDER_BY as $orderBy) {
-            if($orderBy !== $currentOrderBy) {
+            if ($orderBy !== $currentOrderBy) {
                 $orderBys[] = $orderBy;
             }
         }
@@ -64,10 +64,10 @@ final class PaginationForm
     /** @return array<int,string> */
     public function orderByDirections(): array
     {
-        $orderByDirections = [];
+        $orderByDirections       = [];
         $currentOrderByDirection = ($this->orderByDirection)();
-        foreach ($this->orderByDirection::ALLOWED_ORDER_BY_DIRECTIONS as $orderByDirection) {
-            if($orderByDirection !== $currentOrderByDirection) {
+        foreach ($this->OrderByDirection::ALLOWED_ORDER_BY_DIRECTIONS as $orderByDirection) {
+            if ($orderByDirection !== $currentOrderByDirection) {
                 $orderByDirections[] = $orderByDirection;
             }
         }

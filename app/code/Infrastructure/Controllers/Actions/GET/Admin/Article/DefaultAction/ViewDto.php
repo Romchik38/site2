@@ -9,12 +9,12 @@ use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 final class ViewDto extends DefaultViewDTO
 {
     public function __construct(
-        string $name, 
+        string $name,
         string $description,
         public readonly array $articleList,
         public readonly string $paginationHtml,
         public readonly PaginationForm $paginationForm
     ) {
         parent::__construct($name, $description);
-    }    
+    }
 }

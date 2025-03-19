@@ -7,6 +7,14 @@ namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
+use RuntimeException;
+
+use function explode;
+use function file_exists;
+use function getimagesize;
+use function in_array;
+use function is_readable;
+use function sprintf;
 
 final class Image
 {
@@ -26,11 +34,11 @@ final class Image
         Height $copyHeight,
         Type $copyType,
     ) {
-        $this->copyWidth = $copyWidth();
+        $this->copyWidth  = $copyWidth();
         $this->copyHeight = $copyHeight();
 
-        if (!file_exists($filePath) || (!is_readable($filePath))) {
-            throw new \RuntimeException(sprintf(
+        if (! file_exists($filePath) || (! is_readable($filePath))) {
+            throw new RuntimeException(sprintf(
                 'Image file %s not exist',
                 $filePath
             ));
@@ -38,7 +46,7 @@ final class Image
 
         $dimensions = getimagesize($filePath);
         if ($dimensions === false) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'File %s is not an image',
                 $filePath
             ));
@@ -46,19 +54,19 @@ final class Image
 
         $originalWidth = $dimensions[0];
         if ($originalWidth === 0) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Cannot determine image width size of %s',
                 $filePath
             ));
         }
-        $this->originalWidth = $originalWidth;
+        $this->originalWidth  = $originalWidth;
         $this->originalHeight = $dimensions[1];
 
         if (
             $this->originalWidth < $this->copyWidth
             || $this->originalHeight < $this->copyHeight
         ) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'Image too small to resize. Original width %s, height %s. Copy width %s, height %s',
                     $this->originalWidth,
@@ -70,20 +78,20 @@ final class Image
         }
 
         $mime = $dimensions['mime'];
-        if (!in_array($mime, self::ALLOWED_MIME)) {
-            throw new \RuntimeException(sprintf(
+        if (! in_array($mime, self::ALLOWED_MIME)) {
+            throw new RuntimeException(sprintf(
                 'Original image type %s not allowed',
                 $mime
             ));
         }
         $this->originalType = (explode('/', $mime))[1];
-        if (!in_array('image/' . $copyType(), self::ALLOWED_MIME)) {
-            throw new \RuntimeException(sprintf(
+        if (! in_array('image/' . $copyType(), self::ALLOWED_MIME)) {
+            throw new RuntimeException(sprintf(
                 'Original image type %s not allowed',
                 $mime
             ));
         }
-        $this->copyType = $copyType();
+        $this->copyType     = $copyType();
         $this->copyMimeType = 'image/' . $this->copyType;
     }
 }

@@ -6,12 +6,14 @@ namespace Romchik38\Site2\Application\Article\AdminArticleListView\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Offset
 {
     public function __construct(
         public readonly int $offset
     ) {
-        if($offset < 0) {
+        if ($offset < 0) {
             throw new InvalidArgumentException(
                 sprintf('param offset %s is invalid', $offset)
             );

@@ -6,11 +6,14 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function strlen;
+
 final class AuthorId
 {
     protected function __construct(
         protected readonly string $authorId
-    ) {}
+    ) {
+    }
 
     public static function fromString(string $authorId): self
     {

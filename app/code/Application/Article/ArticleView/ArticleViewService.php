@@ -10,10 +10,10 @@ use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryIn
 
 final class ArticleViewService
 {
-
     public function __construct(
         protected readonly ArticleViewRepositoryInterface $articleViewRepository
-    ) {}
+    ) {
+    }
 
     /** @return ArticleViewDTO Active article by provided language */
     public function getArticle(Find $command): ArticleViewDTO
@@ -21,8 +21,9 @@ final class ArticleViewService
         return $this->articleViewRepository->getByIdAndLanguage($command);
     }
 
-    /** 
-     * all active article ids 
+    /**
+     * all active article ids
+     *
      * @return string[]
      */
     public function listIds(): array
@@ -30,7 +31,7 @@ final class ArticleViewService
         return $this->articleViewRepository->listIds();
     }
 
-    /** 
+    /**
      * @return array<int,ArticleIdNameDTO> all active article ids and names
      */
     public function listIdsNames(string $language): array
@@ -38,7 +39,7 @@ final class ArticleViewService
         return $this->articleViewRepository->listIdName($language);
     }
 
-    /** 
+    /**
      * @throws NoSuchEntityException
      * @return string Article name
      */

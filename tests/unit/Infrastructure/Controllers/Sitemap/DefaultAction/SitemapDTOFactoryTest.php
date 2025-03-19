@@ -3,18 +3,18 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Infrastructure\Controllers\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory;
 
 class SitemapDTOFactoryTest extends TestCase
 {
     public function testCreate()
     {
-        $name = 'Home';
+        $name        = 'Home';
         $description = 'Home Page';
-        $output = 'Hello world';
+        $output      = 'Hello world';
 
         $factory = new SitemapDTOFactory();
-        $dto = $factory->create($name, $description, $output);
+        $dto     = $factory->create($name, $description, $output);
 
         $this->assertSame($name, $dto->getName());
         $this->assertSame($description, $dto->getDescription());
@@ -23,9 +23,9 @@ class SitemapDTOFactoryTest extends TestCase
 
     public function testCreateThrowsErrorEmptyName()
     {
-        $name = '';
+        $name        = '';
         $description = 'Home Page';
-        $output = 'Hello world';
+        $output      = 'Hello world';
 
         $this->expectException(InvalidArgumentException::class);
         $factory = new SitemapDTOFactory();
@@ -35,9 +35,9 @@ class SitemapDTOFactoryTest extends TestCase
 
     public function testCreateThrowsErrorEmptyDescription()
     {
-        $name = 'Home';
+        $name        = 'Home';
         $description = '';
-        $output = 'Hello world';
+        $output      = 'Hello world';
 
         $this->expectException(InvalidArgumentException::class);
         $factory = new SitemapDTOFactory();
@@ -47,9 +47,9 @@ class SitemapDTOFactoryTest extends TestCase
 
     public function testCreateThrowsErrorEmptyoutput()
     {
-        $name = 'Home';
+        $name        = 'Home';
         $description = 'Home Page';
-        $output = '';
+        $output      = '';
 
         $this->expectException(InvalidArgumentException::class);
         $factory = new SitemapDTOFactory();

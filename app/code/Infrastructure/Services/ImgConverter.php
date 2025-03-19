@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services;
 
+use GdImage;
 use Romchik38\Server\Services\Streams\TempStream;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
@@ -13,15 +14,26 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
+use function extension_loaded;
+use function gd_info;
+use function imagecopyresampled;
+use function imagecreatefromwebp;
+use function imagecreatetruecolor;
+use function is_null;
+use function round;
+use function sprintf;
+
+use const PHP_ROUND_HALF_DOWN;
+
 class ImgConverter implements ImgConverterInterface
 {
-    /** 
+    /**
      * Must be in sinc with $this->createFrom() & createTo()
+     *
      * @var array<string,string> $capabilities
-     * 
-    */
+     */
     protected array $capabilities = [
-        'webp' => 'WebP Support'
+        'webp' => 'WebP Support',
     ];
 
     public function __construct(
@@ -38,7 +50,6 @@ class ImgConverter implements ImgConverterInterface
         Height $copyHeight,
         Type $copyType
     ): ImgResult {
-
         // 1. Create an image with all data
         $image = new Image(
             $filePath,
@@ -53,14 +64,14 @@ class ImgConverter implements ImgConverterInterface
                 'GD library do not support type %s',
                 $image->originalType
             ));
-        };
+        }
 
         if ($this->checkGDcapabilities($image->copyType) === false) {
             throw new CouldNotCreateImageException(sprintf(
                 'GD library do not support type %s',
                 $image->copyType
             ));
-        };
+        }
 
         // 3 calculate $temporaryWidth / $temporaryHeight
         if ($image->copyWidth > $image->copyHeight) {
@@ -73,8 +84,8 @@ class ImgConverter implements ImgConverterInterface
         } else {
             $scaleRatio = $image->originalWidth / $minCopy;
         }
-        $temporaryWidth = (int)($image->originalWidth / $scaleRatio);
-        $temporaryHeight = (int)($image->originalHeight / $scaleRatio);
+        $temporaryWidth  = (int) ($image->originalWidth / $scaleRatio);
+        $temporaryHeight = (int) ($image->originalHeight / $scaleRatio);
 
         // 4. Load original image
         $original = $this->createFrom($image->filePath, $image->originalType);
@@ -113,8 +124,8 @@ class ImgConverter implements ImgConverterInterface
         }
 
         // 8. Define indent
-        $srcX = (int)round(($temporaryWidth - $image->copyWidth) / 2, 0, PHP_ROUND_HALF_DOWN);
-        $srcY = (int)round(($temporaryHeight - $image->copyHeight) / 2, 0, PHP_ROUND_HALF_DOWN);
+        $srcX = (int) round(($temporaryWidth - $image->copyWidth) / 2, 0, PHP_ROUND_HALF_DOWN);
+        $srcY = (int) round(($temporaryHeight - $image->copyHeight) / 2, 0, PHP_ROUND_HALF_DOWN);
 
         imagecopyresampled(
             $copy,
@@ -134,7 +145,7 @@ class ImgConverter implements ImgConverterInterface
         return new ImgResult($image->copyType, $imgAsString);
     }
 
-    protected function createFrom(string $path, string $type): \GdImage
+    protected function createFrom(string $path, string $type): GdImage
     {
         $result = false;
         if ($type === 'webp') {
@@ -160,14 +171,13 @@ class ImgConverter implements ImgConverterInterface
         }
     }
 
-    protected function createTo(\GdImage $image, string $type): string
+    protected function createTo(GdImage $image, string $type): string
     {
         $result = '';
         if ($type === 'webp') {
             $stream = new TempStream();
             $stream->writeFromCallable('imagewebp', 1, $image, null, $this->quality);
             $result = $stream();
-
         } else {
             throw new CouldNotCreateImageException(
                 sprintf(
@@ -183,7 +193,7 @@ class ImgConverter implements ImgConverterInterface
     protected function checkGDcapabilities(string $type): bool
     {
         $info = gd_info();
-        $key = $this->capabilities[$type] ?? null;
+        $key  = $this->capabilities[$type] ?? null;
         if (is_null($key)) {
             throw new CouldNotCreateImageException(sprintf('Type %s not supported by converter', $type));
         }
