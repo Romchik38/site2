@@ -13,6 +13,7 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTr
 use function count;
 use function htmlspecialchars;
 use function implode;
+use function sprintf;
 
 /**
  * Maps ControllerDTO to Html throughth LinkTreeDTO.
@@ -35,14 +36,14 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
      * */
     public function getSitemapLinkTree(ControllerInterface $controller): mixed
     {
-        $rootControllerDTO = $this->controllerTreeService->getRootControllerDTO($controller);
-        $linkTreeDTO       = $this->linkTreeService->getLinkTreeDTO($rootControllerDTO);
-        return $this->buildHtml($linkTreeDTO);
+        $rootControllerDto = $this->controllerTreeService->getRootControllerDto($controller);
+        $linkTreeDto       = $this->linkTreeService->getLinkTreeDTO($rootControllerDto);
+        return $this->buildHtml($linkTreeDto);
     }
 
-    protected function buildHtml(LinkTreeDTOInterface $linkTreeDTO): string
+    protected function buildHtml(LinkTreeDTOInterface $linkTreeDto): string
     {
-        return '<ul>' . $this->createRow($linkTreeDTO) . '</ul>';
+        return '<ul>' . $this->createRow($linkTreeDto) . '</ul>';
     }
 
     /**
@@ -58,12 +59,22 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 
         // 1. the element has not children
         if (count($children) === 0) {
-            $elemNameHtml = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
+            $elemNameHtml = sprintf(
+                '<a href="%s" title="%s">%s</a>',
+                htmlspecialchars($url),
+                htmlspecialchars($description),
+                htmlspecialchars($description)
+            );
             return '<li>' . $elemNameHtml . '</li>';
         }
 
         // 2. the element has children
-        $rowNameHtml     = '<a href="' . htmlspecialchars($url) . '" title="' . htmlspecialchars($description) . '">' . htmlspecialchars($description) . '</a>';
+        $rowNameHtml     = sprintf(
+            '<a href="%s" title="%s">%s</a>',
+            htmlspecialchars($url),
+            htmlspecialchars($description),
+            htmlspecialchars($description)
+        );
         $rowElementsHtml = [];
         foreach ($children as $child) {
             $rowElemHtml       = $this->createRow($child);

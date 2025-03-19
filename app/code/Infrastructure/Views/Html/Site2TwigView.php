@@ -56,7 +56,7 @@ class Site2TwigView extends TwigView
     }
 
     /**
-     * @throws CantCreateViewException - If controller was not set
+     * @throws CantCreateViewException - If controller was not set.
      */
     protected function prepareBreadcrumbs(): void
     {
@@ -64,13 +64,13 @@ class Site2TwigView extends TwigView
             throw new CantCreateViewException('Can\'t prepare breadcrums: controller was not set');
         }
 
-        $breadcrumbDTO = $this->breadcrumbService->getBreadcrumbDTO(
+        $breadcrumbDto = $this->breadcrumbService->getBreadcrumbDTO(
             $this->controller,
             $this->action
         );
         $items         = [];
         $stop          = false;
-        $current       = $breadcrumbDTO;
+        $current       = $breadcrumbDto;
         while ($stop === false) {
             $stop = true;
             array_unshift($items, $current);
