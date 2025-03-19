@@ -57,7 +57,8 @@
         "cs-fix": "phpcbf",
         "tests": [
             "vendor/bin/phpunit",
-            "composer cs-check"
+            "composer cs-check",
+            "vendor/bin/phpstan"
         ]
     }
 }
