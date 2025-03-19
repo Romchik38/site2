@@ -10,7 +10,7 @@ use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 use Romchik38\Site2\Domain\AdminUser\AdminUser;
 use Romchik38\Site2\Domain\AdminUser\AdminUserInterface;
-use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface;
+use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Domain\AdminUser\VO\Active;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
@@ -24,21 +24,21 @@ use function count;
 use function implode;
 use function sprintf;
 
-final class AdminUserRepository implements AdminUserRepositoryInreface
+final class AdminUserRepository implements AdminUserRepositoryInterface
 {
     /** admin_users */
-    final const ADMIN_USER_T               = 'admin_users';
-    final const ADMIN_USER_C_IDENTIFIER    = 'identifier';
-    final const ADMIN_USER_C_USERNAME      = 'username';
-    final const ADMIN_USER_C_PASSWORD_HASH = 'password_hash';
-    final const ADMIN_USER_C_ACTIVE        = 'active';
-    final const ADMIN_USER_C_EMAIL         = 'email';
+    public const ADMIN_USER_T               = 'admin_users';
+    public const ADMIN_USER_C_IDENTIFIER    = 'identifier';
+    public const ADMIN_USER_C_USERNAME      = 'username';
+    public const ADMIN_USER_C_PASSWORD_HASH = 'password_hash';
+    public const ADMIN_USER_C_ACTIVE        = 'active';
+    public const ADMIN_USER_C_EMAIL         = 'email';
 
     /** admin_users_with_roles */
-    final const ADMIN_ROLES_T             = 'admin_roles';
-    final const ADMIN_ROLES_C_IDENTIFIER  = 'identifier';
-    final const ADMIN_ROLES_C_NAME        = 'name';
-    final const ADMIN_ROLES_C_DESCRIPTION = 'description';
+    public const ADMIN_ROLES_T             = 'admin_roles';
+    public const ADMIN_ROLES_C_IDENTIFIER  = 'identifier';
+    public const ADMIN_ROLES_C_NAME        = 'name';
+    public const ADMIN_ROLES_C_DESCRIPTION = 'description';
 
     public function __construct(
         protected readonly DatabaseInterface $database
@@ -133,7 +133,7 @@ final class AdminUserRepository implements AdminUserRepositoryInreface
             return $roles;
         }
 
-        $expression = <<<SQL
+        $expression = <<<'SQL'
         SELECT admin_roles.identifier,
             admin_roles.name,
             admin_roles.description

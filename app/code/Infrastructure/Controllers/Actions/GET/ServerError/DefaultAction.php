@@ -26,14 +26,14 @@ use function trim;
 /** Tries to show nice answer */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME_KEY        = 'server-error.header';
-    const DEFAULT_VIEW_DESCRIPTION_KEY = 'server-error.description';
+    public const DEFAULT_VIEW_NAME_KEY        = 'server-error.header';
+    public const DEFAULT_VIEW_DESCRIPTION_KEY = 'server-error.description';
 
     public function __construct(
-        protected DynamicRootInterface $DynamicRootService,
+        protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory,
+        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory,
         protected readonly string $outputFile = ''
     ) {
     }
@@ -42,7 +42,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         /** try to show dynamic view */
         try {
-            $dto    = $this->defaultViewDTOFactory->create(
+            $dto    = $this->defaultViewDtoFactory->create(
                 $this->translateService->t($this::DEFAULT_VIEW_NAME_KEY),
                 $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION_KEY)
             );
@@ -62,7 +62,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     }
 
     /**
-     * @throws RuntimeException Problem to read the file
+     * @throws RuntimeException - Problem to read the file.
      * @return string content of the server error file
      */
     protected function getOutput(): string

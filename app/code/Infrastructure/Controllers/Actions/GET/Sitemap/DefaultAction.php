@@ -18,15 +18,15 @@ use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction
  */
 class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME        = 'sitemap.page_name';
-    const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
+    public const DEFAULT_VIEW_NAME        = 'sitemap.page_name';
+    public const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
 
     public function __construct(
         protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
         protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        protected readonly SitemapDTOFactory $sitemapDTOFactory
+        protected readonly SitemapDTOFactory $sitemapDtoFactory
     ) {
     }
 
@@ -35,14 +35,14 @@ class DefaultAction extends AbstractMultiLanguageAction implements DefaultAction
         $output = $this->sitemapLinkTreeView
             ->getSitemapLinkTree($this->getController());
 
-        $sitemapDTO = $this->sitemapDTOFactory->create(
+        $sitemapDto = $this->sitemapDtoFactory->create(
             $this->translateService->t($this::DEFAULT_VIEW_NAME),
             $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION),
             $output
         );
 
         $this->view->setController($this->getController())
-            ->setControllerData($sitemapDTO);
+            ->setControllerData($sitemapDto);
         $html = $this->view->toString();
         return new HtmlResponse($html);
     }

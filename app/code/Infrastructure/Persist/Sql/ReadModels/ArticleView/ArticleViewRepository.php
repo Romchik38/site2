@@ -25,8 +25,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
     public function __construct(
         protected readonly DatabaseInterface $database,
         protected readonly ArticleViewDTOFactory $factory,
-        protected readonly ImageDTOFactory $imageDTOFactory,
-        protected readonly AudioDTOFactory $audioDTOFactory
+        protected readonly ImageDTOFactory $imageDtoFactory,
+        protected readonly AudioDTOFactory $audioDtoFactory
     ) {
     }
 
@@ -60,7 +60,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
     /** @return array<int,string> */
     public function listIds(): array
     {
-        $query = <<<QUERY
+        $query = <<<'QUERY'
         SELECT article.identifier FROM article 
         WHERE article.active = 'true'
         QUERY;
@@ -75,7 +75,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
 
     public function listIdName(string $language): array
     {
-        $query = <<<QUERY
+        $query = <<<'QUERY'
         SELECT article.identifier, article_translates.name 
         FROM article, article_translates
         WHERE article.active = 'true' 
@@ -108,13 +108,13 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
                 $row['author_id'],
                 $row['author_description']
             ),
-            $this->imageDTOFactory->create(
+            $this->imageDtoFactory->create(
                 $row['img_id'],
                 $row['img_path'],
                 $row['img_description'],
                 $row['img_author_description']
             ),
-            $this->audioDTOFactory->create(
+            $this->audioDtoFactory->create(
                 $row['audio_path'],
                 $row['audio_description'],
             )
@@ -123,7 +123,7 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
 
     protected function getByIdQuery(): string
     {
-        return <<<QUERY
+        return <<<'QUERY'
         WITH categories AS
         (
             SELECT category_translates.category_id,

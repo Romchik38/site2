@@ -9,7 +9,7 @@ use Romchik38\Site2\Application\Image\AdminImageListService\View\ImageDto;
 interface RepositoryInterface
 {
     /**
-     * @throws RepositoryException - On invalid database data
+     * @throws RepositoryException - On invalid database data.
      * @return array<int,ImageDto>
      * */
     public function list(SearchCriteria $searchCriteria): array;

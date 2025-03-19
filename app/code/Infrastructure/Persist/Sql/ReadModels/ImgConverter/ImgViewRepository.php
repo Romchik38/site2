@@ -24,7 +24,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
 
     public function getById(Id $id): ImgView
     {
-        $query = <<<QUERY
+        $query = <<<'QUERY'
         SELECT img.identifier,
             img.path
         FROM img 

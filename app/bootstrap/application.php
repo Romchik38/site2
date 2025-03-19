@@ -58,7 +58,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',
         [
-            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
+            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface')
         ]
     );
 
@@ -66,7 +66,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService',
         [
-            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface')
+            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface')
         ]
     );
 

@@ -19,7 +19,7 @@ final class AdminArticleListViewService
 
     /**
      * @throws InvalidArgumentException
-     * @throws RepositoryException - On database structure error
+     * @throws RepositoryException - On database structure error.
      * */
     public function list(Filter $command): FilterResult
     {

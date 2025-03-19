@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Domain\Image;
 
 use Romchik38\Site2\Domain\Image\VO\Id;
 
-interface ImgRepositoryInterface
+interface ImageRepositoryInterface
 {
     /** @throws NoSuchEntityException */
     public function getById(Id $id): Image;

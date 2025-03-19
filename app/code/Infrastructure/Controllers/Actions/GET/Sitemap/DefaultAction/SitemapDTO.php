@@ -14,7 +14,7 @@ use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
  */
 final class SitemapDTO extends DefaultViewDTO
 {
-    const OUTPUT_FIELD = 'output';
+    public const OUTPUT_FIELD = 'output';
 
     public function __construct(
         string $name,

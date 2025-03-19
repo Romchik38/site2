@@ -33,7 +33,7 @@ return function (Container $container) {
     // ADMIN USER REPOSITORY
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository',
-        '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface',
+        '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')

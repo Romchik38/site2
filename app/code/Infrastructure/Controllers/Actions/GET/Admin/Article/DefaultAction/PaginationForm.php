@@ -30,7 +30,7 @@ final class PaginationForm
     {
         $limits       = [];
         $currentLimit = ($this->limit)();
-        foreach ($this->limit::ALLOWED_LIMITS as $limit) {
+        foreach (Limit::ALLOWED_LIMITS as $limit) {
             if ($limit !== $currentLimit) {
                 $limits[] = $limit;
             }
@@ -66,7 +66,7 @@ final class PaginationForm
     {
         $orderByDirections       = [];
         $currentOrderByDirection = ($this->orderByDirection)();
-        foreach ($this->orderByDirection::ALLOWED_ORDER_BY_DIRECTIONS as $orderByDirection) {
+        foreach (OrderByDirection::ALLOWED_ORDER_BY_DIRECTIONS as $orderByDirection) {
             if ($orderByDirection !== $currentOrderByDirection) {
                 $orderByDirections[] = $orderByDirection;
             }

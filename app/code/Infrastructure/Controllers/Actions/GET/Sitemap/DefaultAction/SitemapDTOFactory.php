@@ -18,7 +18,7 @@ use function strlen;
 final class SitemapDTOFactory
 {
     /**
-     * @throws InvalidArgumentException name, description, output length equal 0
+     * @throws InvalidArgumentException - Name, description, output length equal 0.
      * @return SitemapDTO Sitemap DTO View entity
      */
     public function create(

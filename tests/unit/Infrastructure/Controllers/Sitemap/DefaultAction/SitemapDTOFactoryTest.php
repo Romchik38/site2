@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+namespace Romchik38\Tests\unit\Infrastructure\Controllers\Sitemap\DefaultAction;
+
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory;
 

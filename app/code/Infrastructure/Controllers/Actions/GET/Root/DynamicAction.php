@@ -30,7 +30,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
+        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
     ) {
     }
 
@@ -44,7 +44,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $translatedMessage = $this->translateService->t($messageKey);
 
-        $dto = $this->defaultViewDTOFactory->create(
+        $dto = $this->defaultViewDtoFactory->create(
             $translatedMessage,
             $translatedMessage
         );

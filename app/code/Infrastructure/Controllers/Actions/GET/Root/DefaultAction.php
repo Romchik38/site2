@@ -15,13 +15,13 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME = 'root.page_name';
+    public const DEFAULT_VIEW_NAME = 'root.page_name';
 
     public function __construct(
         protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDTOFactory
+        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
     ) {
     }
 
@@ -29,7 +29,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
-        $dto = $this->defaultViewDTOFactory->create(
+        $dto = $this->defaultViewDtoFactory->create(
             $translatedMessage,
             $translatedMessage
         );

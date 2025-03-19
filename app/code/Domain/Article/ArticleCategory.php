@@ -26,7 +26,7 @@ final class ArticleCategory
         return $this->categoryId;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setArticleId(string $id): self
     {
         if (strlen($id) === 0) {
@@ -36,7 +36,7 @@ final class ArticleCategory
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setCategoryId(string $id): self
     {
         if (strlen($id) === 0) {

@@ -16,9 +16,9 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';
-    const API_NAME                = 'Api username point';
-    const API_DESCRIPTION         = 'Information about auth user';
+    public const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';
+    public const API_NAME                = 'Api username point';
+    public const API_DESCRIPTION         = 'Information about auth user';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,

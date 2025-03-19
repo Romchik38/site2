@@ -12,7 +12,7 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 /** Tries to show nice answer */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    const DEFAULT_VIEW_NAME = 'server-error-example.page_name';
+    public const DEFAULT_VIEW_NAME = 'server-error-example.page_name';
 
     public function execute(): ResponseInterface
     {

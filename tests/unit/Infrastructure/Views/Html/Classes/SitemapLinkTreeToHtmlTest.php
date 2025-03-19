@@ -2,16 +2,20 @@
 
 declare(strict_types=1);
 
+namespace Romchik38\Tests\unit\Infrastructure\Views\Html\Classes;
+
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Controllers\Controller;
 use Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree;
 use Romchik38\Server\Services\Mappers\LinkTree\Http\LinkTree;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml;
 
+use function sprintf;
+
 class SitemapLinkTreeToHtmlTest extends TestCase
 {
-    protected $sitemap;
-    protected $linkTreeMapper;
+    protected ControllerTree $sitemap;
+    protected LinkTree $linkTreeMapper;
 
     public function setUp(): void
     {

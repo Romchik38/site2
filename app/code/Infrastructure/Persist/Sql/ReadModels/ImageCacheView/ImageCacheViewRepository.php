@@ -25,11 +25,11 @@ final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterfac
 
     public function getByKey(Key $key): ImageCacheViewDTO
     {
-        $query = <<<QUERY
-        SELECT img_cache.data,
-            img_cache.type
-        FROM img_cache 
-        WHERE img_cache.key = $1
+        $query = <<<'QUERY'
+            SELECT img_cache.data,
+                img_cache.type
+            FROM img_cache 
+            WHERE img_cache.key = $1
         QUERY;
 
         $params = [$key()];

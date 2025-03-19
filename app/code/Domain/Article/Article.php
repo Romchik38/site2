@@ -34,7 +34,7 @@ final class Article
         return $this->active;
     }
 
-    /** @throws InvalidArgumentException When translate is missing */
+    /** @throws InvalidArgumentException - When translate is missing. */
     public function getTranslate(string $language): ArticleTranslates
     {
         $translate = $this->translates[$language] ?? null;

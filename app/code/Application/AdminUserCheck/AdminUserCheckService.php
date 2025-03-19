@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\AdminUserCheck;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
-use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInreface;
+use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
@@ -16,7 +16,7 @@ use function sprintf;
 final class AdminUserCheckService
 {
     public function __construct(
-        protected readonly AdminUserRepositoryInreface $adminUserRepository
+        protected readonly AdminUserRepositoryInterface $adminUserRepository
     ) {
     }
 

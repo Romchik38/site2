@@ -19,7 +19,6 @@ use function gd_info;
 use function imagecopyresampled;
 use function imagecreatefromwebp;
 use function imagecreatetruecolor;
-use function is_null;
 use function round;
 use function sprintf;
 
@@ -194,11 +193,11 @@ class ImgConverter implements ImgConverterInterface
     {
         $info = gd_info();
         $key  = $this->capabilities[$type] ?? null;
-        if (is_null($key)) {
+        if ($key === null) {
             throw new CouldNotCreateImageException(sprintf('Type %s not supported by converter', $type));
         }
         $capability = $info[$key] ?? null;
-        if (is_null($capability)) {
+        if ($capability === null) {
             throw new CouldNotCreateImageException(
                 sprintf(
                     'ImgConverter internal error. Capability %s is expected, but not found',

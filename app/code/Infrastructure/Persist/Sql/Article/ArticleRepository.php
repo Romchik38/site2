@@ -25,24 +25,24 @@ use function sprintf;
 final class ArticleRepository implements ArticleRepositoryInterface
 {
     /** Article */
-    final const ARTICLE_T            = 'article';
-    final const ARTICLE_C_IDENTIFIER = 'identifier';
-    final const ARTICLE_C_ACTIVE     = 'active';
+    public const ARTICLE_T            = 'article';
+    public const ARTICLE_C_IDENTIFIER = 'identifier';
+    public const ARTICLE_C_ACTIVE     = 'active';
 
     /** Category */
-    final const ARTICLE_CATEGORY_T             = 'article_category';
-    final const ARTICLE_CATEGORY_C_ARTICLE_ID  = 'article_id';
-    final const ARTICLE_CATEGORY_C_CATEGORY_ID = 'category_id';
+    public const ARTICLE_CATEGORY_T             = 'article_category';
+    public const ARTICLE_CATEGORY_C_ARTICLE_ID  = 'article_id';
+    public const ARTICLE_CATEGORY_C_CATEGORY_ID = 'category_id';
 
     /** Translates */
-    final const ARTICLE_TRANSLATES_T                   = 'article_translates';
-    final const ARTICLE_TRANSLATES_C_ARTICLE_ID        = 'article_id';
-    final const ARTICLE_TRANSLATES_C_LANGUAGE          = 'language';
-    final const ARTICLE_TRANSLATES_C_NAME              = 'name';
-    final const ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'short_description';
-    final const ARTICLE_TRANSLATES_C_DESCRIPTION       = 'description';
-    final const ARTICLE_TRANSLATES_C_CREATED_AT        = 'created_at';
-    final const ARTICLE_TRANSLATES_C_UPDATED_AT        = 'updated_at';
+    public const ARTICLE_TRANSLATES_T                   = 'article_translates';
+    public const ARTICLE_TRANSLATES_C_ARTICLE_ID        = 'article_id';
+    public const ARTICLE_TRANSLATES_C_LANGUAGE          = 'language';
+    public const ARTICLE_TRANSLATES_C_NAME              = 'name';
+    public const ARTICLE_TRANSLATES_C_SHORT_DESCRIPTION = 'short_description';
+    public const ARTICLE_TRANSLATES_C_DESCRIPTION       = 'description';
+    public const ARTICLE_TRANSLATES_C_CREATED_AT        = 'created_at';
+    public const ARTICLE_TRANSLATES_C_UPDATED_AT        = 'updated_at';
 
     public function __construct(
         protected readonly DatabaseInterface $database
@@ -123,7 +123,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         /** LIMIT */
         $limit        = $searchCriteria->limit();
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[]     = $limit->toString();
+        $params[]     = $limit();
 
         /** OFFSET */
         $offset       = $searchCriteria->offset();

@@ -11,7 +11,7 @@ interface ImgViewRepositoryInterface
 {
     /**
      * @throws NoSuchEntityException
-     * @throws RuntimeException - On duplicates
+     * @throws RuntimeException - On duplicates.
      * */
     public function getById(Id $id): ImgView;
 }

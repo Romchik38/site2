@@ -27,7 +27,9 @@
             "Romchik38\\Site2\\": "app/code/"
         }
     },
-
+    "autoload-dev": {
+        "psr-4": { "Romchik38\\Tests\\": "tests/" }
+    },
     "require": {
         "php": ">=8.3",
         "romchik38/php-container": "2.0.*",

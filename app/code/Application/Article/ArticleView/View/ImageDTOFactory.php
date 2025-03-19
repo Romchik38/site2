@@ -25,7 +25,7 @@ final class ImageDTOFactory
     }
 
     public function create(
-        string $img_id,
+        string $imgId,
         string $path,
         string $description,
         string $author
@@ -37,7 +37,7 @@ final class ImageDTOFactory
         }
 
         return new ImageDTO(
-            $img_id,
+            $imgId,
             $fullPath,
             $description,
             $author

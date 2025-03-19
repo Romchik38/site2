@@ -60,7 +60,7 @@ final class ArticleTranslates
         return $this->updatedAt;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setArticleId(string $id): self
     {
         if (strlen($id) === 0) {
@@ -70,7 +70,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setLanguage(string $language): self
     {
         if (strlen($language) === 0) {
@@ -81,7 +81,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setName(string $name): self
     {
         if (strlen($name) === 0) {
@@ -92,7 +92,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setShortDescription(string $shortDescription): self
     {
         if (strlen($shortDescription) === 0) {
@@ -103,7 +103,7 @@ final class ArticleTranslates
         return $this;
     }
 
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function setDescription(string $description): self
     {
         if (strlen($description) === 0) {
@@ -127,7 +127,7 @@ final class ArticleTranslates
     }
 
     /**
-     * @throws InvalidArgumentException $speed must be greater than 0
+     * @throws InvalidArgumentException $speed - Must be greater than 0.
      * @param int $speed words/minute
      * @return int Minutes to read
      */

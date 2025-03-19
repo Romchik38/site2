@@ -8,7 +8,7 @@ use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 
 final class ArticleOrderBy extends OrderBy
 {
-    final public static function byArtileId(
+    public static function byArtileId(
         string $direction = self::ASC_DIRECTION,
         string $nulls = self::NULLS_LAST_OPTION
     ): self {

@@ -10,7 +10,7 @@ use function strlen;
 
 final class ArticleId
 {
-    /** @throws InvalidArgumentException when string is empty */
+    /** @throws InvalidArgumentException - When string is empty. */
     public function __construct(
         private string $id
     ) {

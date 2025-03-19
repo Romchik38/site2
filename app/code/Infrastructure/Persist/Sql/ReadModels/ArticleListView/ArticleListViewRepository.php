@@ -19,8 +19,8 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 {
     public function __construct(
         protected DatabaseInterface $database,
-        protected ArticleDTOFactory $articleDTOFactory,
-        protected ImageDTOFactory $imageDTOFactory
+        protected ArticleDTOFactory $articleDtoFactory,
+        protected ImageDTOFactory $imageDtoFactory
     ) {
     }
 
@@ -100,14 +100,14 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
     /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleDTO
     {
-        return $this->articleDTOFactory->create(
+        return $this->articleDtoFactory->create(
             $row['identifier'],
             $row['name'],
             $row['short_description'],
             $row['description'],
             $row['created_at'],
             json_decode($row['category']),
-            $this->imageDTOFactory->create(
+            $this->imageDtoFactory->create(
                 $row['img_id'],
                 $row['img_path'],
                 $row['img_description']
@@ -117,7 +117,7 @@ final class ArticleListViewRepository implements ArticleListViewRepositoryInterf
 
     protected function defaultQuery(): string
     {
-        return <<<QUERY
+        return <<<'QUERY'
         WITH categories AS
         (
             SELECT category_translates.category_id,
