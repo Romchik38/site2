@@ -11,8 +11,58 @@
     <div class="row">
         <h1 class="text-center">Author view page</h1>
         <p>On this page you can view and edit information about author.</p>
-        <div>Id - {{ author.identifier }}<div>
-        <div>Name - {{ author.name }}<div>
+
+        <form action="" method="post">
+            <div class="mb-3">
+                <!-- @todo Refactor field name as var -->
+                <label class="form-label" for="id">Id: {{ author.identifier }}</label>
+                <input type="text" class="form-control" name="id" value="{{ author.identifier }}" hidden>
+            </div>
+
+            <div class="mb-3">
+                <!-- @todo Refactor field name as var -->
+                <label class="form-label" for="name">Name</label>
+                <input type="text" class="form-control" name="name" required value="{{ author.name }}">
+            </div>
+
+            <div class="mb-3">                
+                <p>Activity</p>
+                {% if author.active == true %} 
+                    <div class="text-success">is active</div>
+                {% else %}
+                    <div class="text-danger">not active</div>
+                {% endif %}
+            </div>
+            <div class="mb-3 form-check">
+                <!-- @todo Refactor field name as var -->
+                <input class="form-check-input" type="checkbox" name="change_activity" value="no" id="checkbox_active">
+                <label class="form-check-label" for="flexCheckDefault">
+                {% if author.active == false %}
+                    Activate
+                {% elseif author.active == true %}
+                    Deactivate
+                {% endif %}
+                </label>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary my-2">Save</button>
+        </form>
+            <script>
+                activeCheckbox = document.getElementById('checkbox_active');
+                if(activeCheckbox !== null) {
+                    activeCheckbox.addEventListener("change", function (e) {
+                        checked = e.target.checked;
+                        if(checked === true) {
+                            e.target.value = 'yes';
+                        } else {
+                            e.target.value = 'no';
+                        }
+                    });
+                } else {
+                    console.error('Active checkbox input field not found'); 
+                }
+            </script>
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
     </div>
 </div>
