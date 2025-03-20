@@ -3,8 +3,6 @@
 ## Current
 
 - author
-  - controller
-  - template
   - app service
   - repository
 

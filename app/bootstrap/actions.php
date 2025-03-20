@@ -159,7 +159,7 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Images
+    // Admin Image
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction',
         [
@@ -172,6 +172,18 @@ return function (Container $container) {
         ]
     );
     
+    // Admin Author
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
+    );
+
     // Register
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',
