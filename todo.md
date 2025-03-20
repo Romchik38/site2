@@ -2,10 +2,11 @@
 
 ## Current
 
-- author
+- author view
+  - controller
+  - template
   - app service
   - repository
-- offsets - remove to string()
 
 ## Next
 

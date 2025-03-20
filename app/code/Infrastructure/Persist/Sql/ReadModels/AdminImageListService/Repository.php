@@ -46,7 +46,7 @@ final class Repository implements RepositoryInterface
 
         /** OFFSET */
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
-        $params[]     = $searchCriteria->offset->toString();
+        $params[]     = (string) $searchCriteria->offset;
 
         $query = sprintf('%s %s', $this->defaultQuery(), implode(' ', $expression));
 
