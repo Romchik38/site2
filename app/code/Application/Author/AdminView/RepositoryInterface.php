@@ -8,16 +8,8 @@ use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
-final class AdminViewService
+interface RepositoryInterface
 {
-    public function __construct(
-        private readonly RepositoryInterface $repository
-    ) {   
-    }
-
     /** @throws NoSuchAuthorException */
-    public function find(AuthorId $id): AuthorDto
-    {
-        return $this->repository->getById($id);
-    }
+    public function getById(AuthorId $id): AuthorDto;
 }
