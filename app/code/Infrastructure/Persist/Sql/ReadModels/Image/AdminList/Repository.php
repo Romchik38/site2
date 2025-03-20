@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminArticleListView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException;
-use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
-use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
+use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryException;
+use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface;
+use Romchik38\Site2\Application\Image\AdminImageListService\SearchCriteria;
+use Romchik38\Site2\Application\Image\AdminImageListService\View\ImageDto;
 
 use function implode;
 use function sprintf;
@@ -61,16 +61,16 @@ final class Repository implements RepositoryInterface
     }
 
     /** @param array<string,string> $row */
-    protected function createFromRow(array $row): ArticleDto
+    protected function createFromRow(array $row): ImageDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Article id is ivalid');
+            throw new RepositoryException('Image id is ivalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Article active is ivalid');
+            throw new RepositoryException('Image active is ivalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -78,65 +78,47 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
-        $rawImgActive = $row['img_active'] ?? null;
-        if ($rawImgActive === null) {
-            $imageActive = null;
-        } else {
-            if ($rawImgActive === 't') {
-                $imageActive = true;
-            } else {
-                $imageActive = false;
-            }
-        }
-
-        $rawAudioActive = $row['audio_active'] ?? null;
-        if ($rawAudioActive === null) {
-            $audioActive = null;
-        } else {
-            if ($rawAudioActive === 't') {
-                $audioActive = true;
-            } else {
-                $audioActive = false;
-            }
+        $rawName = $row['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Image name is ivalid');
         }
 
         $rawAuthorName = $row['author_name'] ?? null;
         if ($rawAuthorName === null) {
-            throw new RepositoryException('Article author name is ivalid');
+            throw new RepositoryException('Image author name is ivalid');
         }
 
-        return new ArticleDto(
+        $rawPath = $row['path'] ?? null;
+        if ($rawPath === null) {
+            throw new RepositoryException('Image author name is ivalid');
+        }
+
+        return new ImageDto(
             $rawIdentifier,
             $active,
-            $imageActive,
-            $row['img_id'] ?? null,
-            $audioActive,
-            $rawAuthorName
+            $rawName,
+            $rawAuthorName,
+            $rawPath
         );
     }
 
     protected function defaultQuery(): string
     {
         return <<<QUERY
-        SELECT article.identifier,
-            article.active,
-            article.img_id,
-            (SELECT img.active 
-                FROM img WHERE img.identifier = article.img_id
-            ) as img_active,
-            (SELECT audio.active 
-                FROM audio WHERE audio.identifier = article.audio_id
-            ) as audio_active,
+        SELECT img.identifier,
+            img.active,
+            img.name,
             (SELECT author.name 
-                FROM author WHERE author.identifier = article.author_id
-            ) as author_name
-        FROM article 
+                FROM author WHERE author.identifier = img.author_id
+            ) as author_name,
+            img.path
+        FROM img 
         QUERY;
     }
 
     public function totalCount(): int
     {
-        $query = 'SELECT count(article.identifier) as count FROM article';
+        $query = 'SELECT count(img.identifier) as count FROM img';
 
         $rows = $this->database->queryParams($query, []);
 

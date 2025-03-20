@@ -23,11 +23,11 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService',
         [
             new Promise('\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory')
+            new Promise('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory')
         ]
     );
 
-    $container->shared('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\SearchCriteriaFactory', []);
+    $container->shared('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory', []);
 
     $container->shared(
         '\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTOFactory',

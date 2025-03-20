@@ -42,7 +42,7 @@ return function (Container $container) {
 
     // ARTICLE LIST VIEW REPOSITORY
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView\ArticleListViewRepository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\ArticleListViewRepository',
         '\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface',
         true,
         [
@@ -54,7 +54,7 @@ return function (Container $container) {
 
     // ARTICLE VIEW REPOSITORY
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleView\ArticleViewRepository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View\ArticleViewRepository',
         '\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface',
         true,
         [
@@ -67,7 +67,7 @@ return function (Container $container) {
 
     // IMG VIEW REPOSITORY
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImgConverter\ImgViewRepository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\Converter\ImgViewRepository',
         '\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface',
         true,
         [
@@ -77,7 +77,7 @@ return function (Container $container) {
 
     // ADMIN IMAGE LIST REPOSITORY
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminImageListService\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList\Repository',
         '\Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface',
         true,
         [
@@ -107,7 +107,7 @@ return function (Container $container) {
 
     // ADMIN ARTICLE LIST VIEW REPOSITORY
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminArticleListView\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView\Repository',
         '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
         true,
         [

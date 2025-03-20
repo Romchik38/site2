@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;

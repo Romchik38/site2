@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ArticleListView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView;
 
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
