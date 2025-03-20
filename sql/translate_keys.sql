@@ -8,6 +8,7 @@ INSERT INTO translate_keys (key) VALUES
     ('global.language'),
     --controller
     ('admin.roles.you-do-not-have-enough-permissions'),
+    ('admin.image-cache.cache-cleared'),
     ('article.page_name'),
     ('article.description'),
     ('article.h2.publications'),

@@ -15,6 +15,8 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     --controller
     ('admin.roles.you-do-not-have-enough-permissions', 'en', 'You do not have enough permissions'),
     ('admin.roles.you-do-not-have-enough-permissions', 'uk', 'У вас недостатньо прав доступу'),
+    ('admin.image-cache.cache-cleared', 'en', 'Image cache was cleared'),
+    ('admin.image-cache.cache-cleared', 'uk', 'Кеш зображень очищено'),
     ('article.page_name', 'en', 'Materials on administrative law'),
     ('article.page_name', 'uk', 'Матеріли на тему адміністративного права'),
     ('article.description', 'en', 'We offer the latest materials analyzing legislative acts, court decisions, or procedures that regulate the activities of public authorities and their interaction with citizens. Such articles explain legal norms, their application, and their impact on social relations.'),
