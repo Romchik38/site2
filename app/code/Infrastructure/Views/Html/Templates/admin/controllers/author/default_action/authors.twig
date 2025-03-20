@@ -85,7 +85,8 @@
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 3. Author Name -->
                 <td>{{ author.name }}</td>
-                <td><a href="#">edit</a></td>
+                {% set authorUrl = u.fromArray(['root', 'admin', 'author']) ~ '/' ~ author.identifier %}
+                <td><a href="{{ authorUrl }} ">edit</a></td>
                 <td>
                     <form action="#" method="post">
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
