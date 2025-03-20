@@ -2,7 +2,7 @@ CREATE table author
 (
     identifier serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
-    active boolean DEFAULT false
+    active boolean NOT NULL DEFAULT false
 );
 
 CREATE table
