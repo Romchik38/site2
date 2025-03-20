@@ -69,9 +69,9 @@ return function (Container $container): ControllerInterface {
     );
 
     $adminImages = new Controller(
-        'images',
+        'image',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction')
     );
     
     $admin

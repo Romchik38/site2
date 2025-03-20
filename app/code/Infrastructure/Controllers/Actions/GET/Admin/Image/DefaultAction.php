@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -16,8 +16,8 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\PaginationForm;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\PaginationForm;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 

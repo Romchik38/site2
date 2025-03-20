@@ -161,7 +161,7 @@ return function (Container $container) {
 
     // Admin Images
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Images\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
