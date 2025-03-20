@@ -123,5 +123,13 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN AUTHOR VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Author\AdminView\AdminViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Author\AdminView\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };

@@ -185,6 +185,16 @@ return function (Container $container) {
         ]
     );
 
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Application\Author\AdminView\AdminViewService')
+        ]
+    );
+
     // Register
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',
