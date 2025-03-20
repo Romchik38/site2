@@ -3,10 +3,10 @@
 ## Current
 
 - author view
-  - controller
-  - template
-  - check how it works
   - create complete view
+- author save
+  - controller
+  - csrf
 
 ## Next
 

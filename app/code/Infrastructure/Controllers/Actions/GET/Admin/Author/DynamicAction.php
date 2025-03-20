@@ -17,6 +17,8 @@ use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -27,7 +29,9 @@ final class DynamicAction extends AbstractMultiLanguageAction
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly AdminViewService $adminViewService
+        private readonly AdminViewService $adminViewService,
+        protected readonly Site2SessionInterface $session,
+        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -49,10 +53,15 @@ final class DynamicAction extends AbstractMultiLanguageAction
             ));
         }
 
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+
         $dto = new ViewDto(
             sprintf('Author view id %s', $authorId()),
             sprintf('Authors view page with id %s', $authorId()),
-            $authorDto
+            $authorDto,
+            $this->session::ADMIN_CSRF_TOKEN_FIELD,
+            $csrfToken
         );
 
         $html = $this->view
