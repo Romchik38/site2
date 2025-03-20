@@ -118,7 +118,7 @@ return function (Container $container) {
     // ADMIN AUTHOR LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminAuthorList\Repository',
-        '\Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryInterface',
+        '\Romchik38\Site2\Application\Author\AdminList\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')

@@ -181,7 +181,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\Author\AdminAuthorList\AdminAuthorList')
+            new Promise('\Romchik38\Site2\Application\Author\AdminList\AdminAuthorList')
         ]
     );
 

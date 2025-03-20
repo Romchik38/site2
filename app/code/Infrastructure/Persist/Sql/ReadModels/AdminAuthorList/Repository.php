@@ -6,10 +6,10 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminAuthorList;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryException;
-use Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryInterface;
-use Romchik38\Site2\Application\Author\AdminAuthorList\SearchCriteria;
-use Romchik38\Site2\Application\Author\AdminAuthorList\View\AuthorDto;
+use Romchik38\Site2\Application\Author\AdminList\RepositoryException;
+use Romchik38\Site2\Application\Author\AdminList\RepositoryInterface;
+use Romchik38\Site2\Application\Author\AdminList\SearchCriteria;
+use Romchik38\Site2\Application\Author\AdminList\View\AuthorDto;
 
 use function implode;
 use function sprintf;

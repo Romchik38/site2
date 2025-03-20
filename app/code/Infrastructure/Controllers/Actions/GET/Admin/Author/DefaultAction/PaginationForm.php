@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction;
 
-use Romchik38\Site2\Application\Author\AdminAuthorList\VO\Limit;
-use Romchik38\Site2\Application\Author\AdminAuthorList\VO\OrderByDirection;
-use Romchik38\Site2\Application\Author\AdminAuthorList\VO\OrderByField;
+use Romchik38\Site2\Application\Author\AdminList\VO\Limit;
+use Romchik38\Site2\Application\Author\AdminList\VO\OrderByDirection;
+use Romchik38\Site2\Application\Author\AdminList\VO\OrderByField;
 
 final class PaginationForm
 {

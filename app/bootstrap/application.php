@@ -117,9 +117,9 @@ return function (Container $container) {
 
     // ADMIN AUTHOR LIST
     $container->shared(
-        '\Romchik38\Site2\Application\Author\AdminAuthorList\AdminAuthorList',
+        '\Romchik38\Site2\Application\Author\AdminList\AdminAuthorList',
         [
-            new Promise('\Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Author\AdminList\RepositoryInterface')
         ]
     );
 
