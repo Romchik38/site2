@@ -5,6 +5,7 @@
 - author
   - app service
   - repository
+- offsets - remove to string()
 
 ## Next
 

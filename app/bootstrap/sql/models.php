@@ -105,10 +105,20 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Article List View Repository
+    // ADMIN ARTICLE LIST VIEW REPOSITORY
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminArticleListView\Repository',
         '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
+    // ADMIN AUTHOR LIST
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\AdminAuthorList\Repository',
+        '\Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')

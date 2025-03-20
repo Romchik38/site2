@@ -115,5 +115,13 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN AUTHOR LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Author\AdminAuthorList\AdminAuthorList',
+        [
+            new Promise('\Romchik38\Site2\Application\Author\AdminAuthorList\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };

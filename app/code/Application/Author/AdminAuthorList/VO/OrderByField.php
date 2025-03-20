@@ -12,7 +12,7 @@ use function sprintf;
 final class OrderByField
 {
     public const DEFAULT_ORDER_BY = 'identifier';
-    public const ALLOWED_ORDER_BY = ['identifier'];
+    public const ALLOWED_ORDER_BY = ['identifier', 'name', 'active'];
 
     public readonly string $orderByField;
 

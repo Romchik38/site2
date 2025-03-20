@@ -34,7 +34,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $this->imageCacheService->clear();
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD,
-            $this::SUCCESS_MESSAGE_KEY
+            $this->translateService->t($this::SUCCESS_MESSAGE_KEY)
         );
         $uri = $this->urlbuilder->fromArray(['root', 'admin', 'imagecache']);
         return new RedirectResponse($uri);
