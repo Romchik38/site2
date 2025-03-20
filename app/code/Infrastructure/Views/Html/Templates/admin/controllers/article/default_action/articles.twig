@@ -77,7 +77,7 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                <th scope="row">{{ article.identifierAsString() }}</th>
+                <th scope="row">{{ article.identifier }}</th>
                 
                 <td class="{{ activeColor }}">{{ active }}</td>
 
@@ -95,12 +95,13 @@
                 <td class="{{ activeColorImage }}">{{ imgActive }}</td>
 
                 <!-- Display image -->
-                {% if article.imgIdentifier == null %}
+                {% set imageIdentifier = article.imgIdentifier %}
+                {% if imageIdentifier == null %}
                     <td class="{{ activeColorImage }}">no image</td>
                 {% else %}
-                    <td>
+                    <td>          
                         <img class="img-fluid" 
-                            src="/img.php?id={{article.imageIdentifierAsString()}}&type=webp&width=200&height=100" 
+                            src="/img.php?id={{ imageIdentifier }}&type=webp&width=200&height=100" 
                             alt=""
                         >
                     </td>
@@ -119,7 +120,7 @@
                 {% endif %}
                 <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
 
-                <td>{{ article.authorNameAsString() }}</td>
+                <td>{{ article.authorName }}</td>
 
                 <td><a href="#">edit</a></td>
                 <td>

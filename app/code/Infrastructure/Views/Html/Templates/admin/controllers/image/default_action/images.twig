@@ -85,18 +85,18 @@
                 <!-- 1. Display image -->
                 <td>
                     <img class="img-fluid" 
-                        src="/img.php?id={{image.identifierAsString()}}&type=webp&width=200&height=100" 
+                        src="/img.php?id={{image.identifier}}&type=webp&width=200&height=100" 
                         alt=""
                     >
                 </td>
                 <!-- 2. Id -->
-                <th scope="row">{{ image.identifierAsString() }}</th>
+                <th scope="row">{{ image.identifier }}</th>
                 <!-- 3. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 4. Name -->
-                <td>{{ image.nameAsString() }}</td> 
+                <td>{{ image.name }}</td> 
                 <!-- 5. Author Name -->
-                <td>{{ image.authorNameAsString() }}</td>
+                <td>{{ image.authorName }}</td>
 
                 <td><a href="#">edit</a></td>
                 <td>

@@ -22,37 +22,14 @@ final class ArticleDto
         public readonly bool|null $audioActive,
         string $authorName
     ) {
-        // Id
         $this->identifier = new ArticleId($identifier);
 
-        // Img imgIdentifier
         if ($imgIdentifier === null) {
             $this->imgIdentifier = $imgIdentifier;
         } else {
             $this->imgIdentifier = new Id($imgIdentifier);
         }
 
-        // Author name
         $this->authorName = new Name($authorName);
-    }
-
-    /** @todo refactor */
-    public function imageIdentifierAsString(): ?string
-    {
-        if ($this->imgIdentifier === null) {
-            return $this->imgIdentifier;
-        } else {
-            return ($this->imgIdentifier)();
-        }
-    }
-
-    public function authorNameAsString(): string
-    {
-        return ($this->authorName)();
-    }
-
-    public function identifierAsString(): string
-    {
-        return ($this->identifier)();
     }
 }

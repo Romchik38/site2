@@ -19,12 +19,18 @@ final class ArticleId
         }
     }
 
+    /** @todo remove */
     public function toString(): string
     {
         return $this->id;
     }
 
     public function __invoke(): string
+    {
+        return $this->id;
+    }
+
+    public function __toString(): string
     {
         return $this->id;
     }

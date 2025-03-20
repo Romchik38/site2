@@ -28,24 +28,4 @@ final class ImageDto
         $this->authorName = new AuthorName($authorName);
         $this->path       = new Path($path);
     }
-
-    public function nameAsString(): string
-    {
-        return ($this->name)();
-    }
-
-    public function authorNameAsString(): string
-    {
-        return ($this->authorName)();
-    }
-
-    public function identifierAsString(): string
-    {
-        return ($this->identifier)();
-    }
-
-    public function pathAsString(): string
-    {
-        return ($this->path)();
-    }
 }
