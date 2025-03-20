@@ -43,7 +43,7 @@ final class Article
                 sprintf(
                     'Translate %s for Article id %s is missing',
                     $language,
-                    $this->getId()->toString(),
+                    ($this->articleId)(),
                 )
             );
         }

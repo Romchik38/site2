@@ -18,15 +18,6 @@ final class Name
         }
     }
 
-    /** @todo remove as duplicate of __construct */
-    public static function fromString(string $name): self
-    {
-        if (strlen($name) === 0) {
-            throw new InvalidArgumentException('param name is empty');
-        }
-        return new self($name);
-    }
-
     public function __invoke(): string
     {
         return $this->name;

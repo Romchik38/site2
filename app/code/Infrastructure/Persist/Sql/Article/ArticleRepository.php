@@ -62,12 +62,12 @@ final class ArticleRepository implements ArticleRepositoryInterface
             [sprintf('%s.*', $this::ARTICLE_T)],
             [$this::ARTICLE_T],
             $expression,
-            [$id->toString()]
+            [$id()]
         );
 
         if (count($rows) === 0) {
             throw new NoSuchEntityException(
-                sprintf('Article with id %s not exist', $id->toString())
+                sprintf('Article with id %s not exist', $id())
             );
         }
 
