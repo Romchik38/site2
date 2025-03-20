@@ -5,8 +5,8 @@
 - author view
   - controller
   - template
-  - app service
-  - repository
+  - check how it works
+  - create complete view
 
 ## Next
 
