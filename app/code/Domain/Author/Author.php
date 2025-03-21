@@ -14,19 +14,17 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class Author
 {
-    private array $translates = [];
-
-    /** @var array<int,ActionTranslate> */
-    private array $actionsTranslate = [];
+    /** @var array<string,Translate> */
+    private array $translatesHash = [];
 
     /**
-     * @param array<int,ArticleId> - R 
-     * @param array<int,ImageId> - R
-     * @param array<int,LanguageId> $languages - R
-     * @param array<int,Translate> $translates - RW
+     * @param array<int,ArticleId> $articles
+     * @param array<int,ImageId> $images
+     * @param array<int,LanguageId> $languages
+     * @param array<int,Translate> $translates
      * @throws InvalidArgumentException
      * */
-    protected function __construct(
+    private function __construct(
         private AuthorId|null $identifier,
         private Name $name,
         private bool $active,
@@ -72,7 +70,7 @@ final class Author
             foreach ($languages as $languageId) {
                 $translateLanguageId = $translate->getLanguage();
                 if ($translateLanguageId() === $languageId()) {
-                    $this->translates[] = $translate;
+                    $this->translatesHash[$translateLanguageId] = $translate;
                     break;
                 }
             }
@@ -94,5 +92,90 @@ final class Author
             $languages,
             []
         );
+    }
+
+    /**
+     * @param array<int,ArticleId> $articles
+     * @param array<int,ImageId> $images
+     * @param array<int,LanguageId> $languages
+     * @param array<int,Translate> $translates
+     * @throws InvalidArgumentException
+     * */
+    public static function load(
+        AuthorId $id,
+        Name $name, 
+        bool $active,
+        array $articles,
+        array $images,
+        array $languages,
+        array $translates
+    ): self
+    {
+        return new self(
+            $id,
+            $name,
+            $active,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function addTranslate(Translate $translate): void
+    {
+        $this->translatesHash[$translate->getLanguage()] = $translate;
+    }
+
+    /** @throws CouldNotRemoveTranslateException */
+    public function removeTranslate(LanguageId $language): void
+    {
+        if ($this->active === true) {
+            throw new CouldNotRemoveTranslateException('Author is active. Deactivate first.');
+        }
+        $newHash = [];
+        foreach ($this->translatesHash as $key => $value) {
+            if ($key === $language()) {
+                continue;
+            }
+            $newHash[$key] = $value;
+        }
+        $this->translatesHash = $newHash;
+    }
+
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    public function reName(Name $name): void
+    {
+        $this->name = $name;
+    }
+
+    /** @throws CouldNotActivateException */
+    public function activate(): void
+    {
+        if ($this->active === true) {
+            return;
+        }
+
+        if ($this->identifier === null) {
+            throw new CouldNotActivateException('Author id is invalid');
+        }
+
+        if (count($this->languages) !== count($this->translatesHash)) {
+            throw new CouldNotActivateException('Author has missing translates');
+        }
+        
+        foreach($this->languages as $language) {
+            $check = $this->translatesHash[$language()] ?? null;
+            if ($check === null) {
+                throw new CouldNotActivateException(
+                    sprintf('Author has missing translates %s', $language())
+                );
+            }
+        }
+        $this->active = true;
     }
 }
