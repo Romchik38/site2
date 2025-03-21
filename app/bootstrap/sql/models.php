@@ -141,7 +141,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Language\ListView\RepositoryInterface',
         true,
         [
-            '\Romchik38\Server\Api\Models\DatabaseInterface'
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
         ]
     );
 

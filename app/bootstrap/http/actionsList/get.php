@@ -79,14 +79,21 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction')
-    ); 
+    );
+
+    $adminLanguage = new Controller(
+        'language',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction')
+    );
     
     $admin
     ->setChild($adminUsers)
     ->setChild($adminArticle)
     ->setChild($adminImagecache)
     ->setChild($adminImage)
-    ->setChild($adminAuthor);
+    ->setChild($adminAuthor)
+    ->setChild($adminLanguage);
     
     /** REGISTER */
     $register = new Controller(
