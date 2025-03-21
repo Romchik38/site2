@@ -2,6 +2,10 @@
 
 ## Current
 
+- languages
+  - controller
+  - template
+  - repository
 - author view
   - create complete view
 - author save
