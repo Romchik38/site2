@@ -131,5 +131,13 @@ return function (Container $container) {
         ]
     );
 
+    // LANGUAGE LIST VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Language\ListView\ListViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Language\ListView\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };
