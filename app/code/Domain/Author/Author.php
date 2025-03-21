@@ -8,41 +8,88 @@ use InvalidArgumentException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class Author
 {
-    private AuthorId $identifier;
-    private Name $name;
-    private array $articles;
-    private array $translates;
-    private array $images;
+    private array $translates = [];
 
-    /** 
-     * @param array<int,string> $articles
-     * @param array<int,string> $images
+    /**
+     * @param array<int,ArticleId> - R 
+     * @param array<int,ImageId> - R
+     * @param array<int,LanguageId> $languages - R
+     * @param array<int,Translate> $translates - RW
      * @throws InvalidArgumentException
      * */
-    public function __construct(
-        string $identifier,
-        string $name,
+    protected function __construct(
+        private AuthorId|null $identifier,
+        private Name $name,
         private bool $active,
-        array $translates = [],
-        array $articles = [],
-        array $images = []
+        private array $articles,
+        private array $images,
+        private array $languages,
+        array $translates
     ) {
-        $this->identifier = new AuthorId($identifier);
-        $this->name = new Name($name);
-        // article
-        $this->articles = [];
-        foreach($articles as $article) {
-            $this->articles[] = new ArticleId($article);
+        // check language array
+        foreach ($languages as $language) {
+            if (! $language instanceof LanguageId) {
+                throw new InvalidArgumentException('param language is not valid');
+            }
         }
-        // images
-        $this->images = [];
-        foreach($images as $image) {
-            $this->images[] = new Id($image);
+        // check article array
+        foreach ($articles as $article) {
+            if (! $article instanceof ArticleId) {
+                throw new InvalidArgumentException('param article is not valid');
+            }
         }
-        
+
+        // check article array
+        foreach ($images as $image) {
+            if (! $image instanceof ImageId) {
+                throw new InvalidArgumentException('param image is not valid');
+            }
+        }
+
+        // check traslates array
+        foreach ($translates as $translate) {
+            if (! $translate instanceof Translate) {
+                throw new InvalidArgumentException('param translate is not valid');
+            }
+        }
+
+        if (count($languages) === 0) {
+            throw new InvalidArgumentException('Languages list is empty');
+        }
+        if (count($languages) < count($translates)) {
+            throw new InvalidArgumentException('Translates count can not be grater than languages');
+        }
+        foreach ($translates as $translate) {
+            foreach ($languages as $languageId) {
+                $translateLanguageId = $translate->getLanguage();
+                if ($translateLanguageId() === $languageId()) {
+                    $this->translates[] = $translate;
+                    break;
+                }
+            }
+        }
+    }
+
+    /** 
+     * @param array<int,LanguageId> $languages
+     * @throws InvalidArgumentException
+     * */
+    public static function createNew(Name $name, array $languages): self
+    {
+        return new self(
+            null,
+            $name,
+            false,
+            [],
+            [],
+            $languages,
+            []
+        );
     }
 }
