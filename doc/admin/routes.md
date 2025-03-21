@@ -7,6 +7,7 @@
 - root admin users          users page
 - root admin image          images page
 - root admin imagecache     image cache
+- root admin language       languages list
 
 ## POST
 

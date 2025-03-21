@@ -10,7 +10,7 @@ CREATE table
 CREATE table
     article_translates (
         article_id text NOT NULL REFERENCES article (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE,
+        language text NOT NULL REFERENCES language (identifier) ON UPDATE CASCADE,
         name text NOT NULL UNIQUE,
         short_description NOT NULL text,
         description NOT NULL text,

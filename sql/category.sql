@@ -7,7 +7,7 @@ CREATE table category
 CREATE table
     category_translates (
         category_id text NOT NULL REFERENCES category (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE,
+        language text NOT NULL REFERENCES language (identifier) ON UPDATE CASCADE,
         name text NOT NULL UNIQUE,
         description text NOT NULL,
         CONSTRAINT pk_category_translates PRIMARY KEY (category_id, language)

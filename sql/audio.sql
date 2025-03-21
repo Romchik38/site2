@@ -8,7 +8,7 @@ CREATE TABLE audio
 CREATE table
     audio_translates(
         audio_id int NOT NULL REFERENCES audio (identifier) ON UPDATE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE,
+        language text NOT NULL REFERENCES language (identifier) ON UPDATE CASCADE,
         description text NOT NULL,
         path text NOT NULL
     );

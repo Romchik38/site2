@@ -9,7 +9,7 @@ CREATE table
 CREATE table
     links_translates (
         link_id int NOT NULL REFERENCES links (link_id) ON DELETE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON DELETE CASCADE,
+        language text NOT NULL REFERENCES language (identifier) ON DELETE CASCADE,
         name text NOT NULL UNIQUE,
         description text NOT NULL,
         CONSTRAINT pk_links_translates PRIMARY KEY (link_id, language)

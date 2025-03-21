@@ -7,7 +7,7 @@ CREATE table person
 CREATE table
     person_translates (
         person_id int NOT NULL REFERENCES person (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
-        language text NOT NULL REFERENCES translate_lang (language) ON UPDATE CASCADE ON DELETE CASCADE,
+        language text NOT NULL REFERENCES language (identifier) ON UPDATE CASCADE ON DELETE CASCADE,
         first_name text NOT NULL,
         last_name text NOT NULL,
         middle_name text DEFAULT NULL,
