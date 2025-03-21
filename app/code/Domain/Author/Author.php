@@ -16,6 +16,9 @@ final class Author
 {
     private array $translates = [];
 
+    /** @var array<int,ActionTranslate> */
+    private array $actionsTranslate = [];
+
     /**
      * @param array<int,ArticleId> - R 
      * @param array<int,ImageId> - R
