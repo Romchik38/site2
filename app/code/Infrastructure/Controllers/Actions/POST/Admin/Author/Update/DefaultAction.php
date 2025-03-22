@@ -47,19 +47,23 @@ final class DefaultAction extends AbstractMultiLanguageAction
             throw new RuntimeException('Incoming data is invalid');
         }
 
-        /** @todo add author id to uri */
         $uri = $this->urlbuilder->fromArray(['root', 'admin', 'author']);
         $message = '';
 
         $command = Update::formHash($requestData);
+        $uriId = $this->urlbuilder->fromArray(
+            ['root', 'admin', 'author', $command->id]
+        );
         try {
             $this->authorService->update($command);
             $message = $this::SUCCESS_UPDATE_KEY;
+            $uri = $uriId;
         } catch(InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
+            $uri = $uriId;
         } catch(NoSuchAuthorException) {
             $message = $this::AUTHOR_NOT_EXIST_KEY;
         }
