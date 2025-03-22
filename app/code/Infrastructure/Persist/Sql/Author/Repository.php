@@ -15,6 +15,8 @@ use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 final class Repository implements RepositoryInterface
 {
@@ -77,12 +79,26 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
+        // languages
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Author languages param is ivalid');
-        }
-        
+        }        
         $languages = $this->prepareRawLanguages($rawLanguages);
+
+        // articles
+        $rawArticles = $row['articles'] ?? null;
+        if ($rawArticles === null) {
+            throw new RepositoryException('Author articles param is ivalid');
+        }
+        $articles = $this->prepareRawArticles($rawArticles);
+
+        // images
+        $rawImages = $row['images'] ?? null;
+        if ($rawImages === null) {
+            throw new RepositoryException('Author images param is ivalid');
+        }
+        $images = $this->prepareRawImages($rawImages);
 
         // translates
         $translates = $this->createTranslates($rawIdentifier);
@@ -92,8 +108,8 @@ final class Repository implements RepositoryInterface
             new AuthorId($rawIdentifier),
             new Name($rawName),
             $active,
-            [],
-            [],
+            $articles,
+            $images,
             $languages,
             $translates
         );
@@ -128,7 +144,37 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @param string $languages - Json encoded array of string
+     * @param string $rawImages - Json encoded array of strings
+     * @return array<int,ImageId>
+     */
+    protected function prepareRawImages(string $rawImages): array
+    {
+        $decodedImages = json_decode($rawImages);
+
+        $data = [];
+        foreach ($decodedImages as $image) {
+            $data[] = new ImageId((string) $image);
+        }
+        return $data;
+    }
+
+        /**
+     * @param string $rawArticles - Json encoded array of strings
+     * @return array<int,ArticleId>
+     */
+    protected function prepareRawArticles(string $rawArticles): array
+    {
+        $decodedArticles = json_decode($rawArticles);
+
+        $data = [];
+        foreach ($decodedArticles as $article) {
+            $data[] = new ArticleId($article);
+        }
+        return $data;
+    }
+
+    /**
+     * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
     protected function prepareRawLanguages(string $rawLanguages): array
@@ -153,7 +199,19 @@ final class Repository implements RepositoryInterface
                 array (SELECT language.identifier 
                     FROM language
                 ) 
-            ) as languages
+            ) as languages,
+            array_to_json (
+                array (SELECT article.identifier 
+                    FROM article
+                    WHERE article.author_id = $1
+                ) 
+            ) as articles,
+            array_to_json (
+                array (SELECT img.identifier 
+                    FROM img
+                    WHERE img.author_id = $1
+                ) 
+            ) as images
         FROM author
         WHERE author.identifier = $1
         QUERY;
