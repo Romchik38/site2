@@ -28,7 +28,7 @@ final class Repository implements RepositoryInterface
     public function getById(AuthorId $id): Author
     {
         $params = [$id()];
-        $query = $this->defaultQuery();
+        $query = $this->defaultSelectQuery();
 
         $rows = $this->database->queryParams($query, $params);
         
@@ -53,6 +53,7 @@ final class Repository implements RepositoryInterface
     /** @todo implement */
     public function save(Author $model): Author
     {
+        
         return $model;
     }
 
@@ -189,7 +190,7 @@ final class Repository implements RepositoryInterface
     }
 
     
-    protected function defaultQuery(): string
+    protected function defaultSelectQuery(): string
     {
         return <<<'QUERY'
         SELECT author.identifier,
