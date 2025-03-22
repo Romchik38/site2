@@ -17,6 +17,7 @@ final class AuthorService
     }
 
     /** 
+     * @throws DuplicateIdException
      * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
      */

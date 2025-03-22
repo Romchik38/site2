@@ -70,7 +70,7 @@ final class Author
             foreach ($languages as $languageId) {
                 $translateLanguageId = $translate->getLanguage();
                 if ($translateLanguageId() === $languageId()) {
-                    $this->translatesHash[$translateLanguageId] = $translate;
+                    $this->translatesHash[$translateLanguageId()] = $translate;
                     break;
                 }
             }

@@ -23,8 +23,8 @@ final class Update
     {
         return new self(
             $hash[self::ID_FIELD] ?? '',
-            $hash[self::ID_FIELD] ?? '',
-            $hash[self::ID_FIELD] ?? '',
+            $hash[self::NAME_FIELD] ?? '',
+            $hash[self::CHANGE_ACTIVITY_FIELD] ?? '',
         );
     }
 }

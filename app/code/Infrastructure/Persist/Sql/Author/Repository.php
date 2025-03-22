@@ -12,6 +12,9 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Author\RepositoryException;
 use Romchik38\Site2\Domain\Author\DuplicateIdException;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Author\VO\Description;
 
 final class Repository implements RepositoryInterface
 {
@@ -73,16 +76,70 @@ final class Repository implements RepositoryInterface
         } else {
             $active = false;
         }
+
+        $rawLanguages = $row['languages'] ?? null;
+        if ($rawLanguages === null) {
+            throw new RepositoryException('Author languages param is ivalid');
+        }
         
+        $languages = $this->prepareRawLanguages($rawLanguages);
+
+        // translates
+        $translates = $this->createTranslates($rawIdentifier);
+
+        // create a model
         return Author::load(
             new AuthorId($rawIdentifier),
             new Name($rawName),
             $active,
             [],
             [],
-            [],
-            []
+            $languages,
+            $translates
         );
+    }
+
+    /** @return array<int,Translate> */
+    protected function createTranslates(string $authorId): array
+    {
+        $translates = [];
+
+        $params = [$authorId];
+        $query = $this->translatesQuery();
+
+        $rows = $this->database->queryParams($query, $params);
+
+        foreach ($rows as $row) {
+            $rawLanguage = $row['language'] ?? null;
+            if ($rawLanguage === null) {
+                throw new RepositoryException('Author translates language param is ivalid');
+            }
+            $rawDescription = $row['description'] ?? null;
+            if ($rawLanguage === null) {
+                throw new RepositoryException('Author translates description param is ivalid');
+            }
+            $translates[] = new Translate(
+                new LanguageId($rawLanguage),
+                new Description($rawDescription)
+            );
+        }
+
+        return $translates;
+    }
+
+    /**
+     * @param string $languages - Json encoded array of string
+     * @return array<int,LanguageId>
+     */
+    protected function prepareRawLanguages(string $rawLanguages): array
+    {
+        $decodedLanguages = json_decode($rawLanguages);
+
+        $data = [];
+        foreach ($decodedLanguages as $language) {
+            $data[] = new LanguageId($language);
+        }
+        return $data;
     }
 
     
@@ -91,9 +148,24 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         SELECT author.identifier,
             author.name,
-            author.active
+            author.active,
+            array_to_json (
+                array (SELECT language.identifier 
+                    FROM language
+                ) 
+            ) as languages
         FROM author
         WHERE author.identifier = $1
+        QUERY;
+    }
+
+    protected function translatesQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT author_translates.language,
+            author_translates.description
+        FROM author_translates
+        WHERE author_translates.author_id = $1
         QUERY;
     }
 }
