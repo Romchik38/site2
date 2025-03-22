@@ -46,6 +46,8 @@ return function (Container $container): ControllerInterface {
 
     // Admin
     $admin = new Controller('admin');
+    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
+
     $adminLogout = new Controller(
         'logout',
         false,
