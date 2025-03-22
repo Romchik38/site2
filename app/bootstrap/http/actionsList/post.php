@@ -75,9 +75,19 @@ return function (Container $container): ControllerInterface {
     $adminImagecacheClear->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminImagecache->setChild($adminImagecacheClear);
 
+    // Admin Author
+    $adminAuthor = new Controller('author');
+    $adminAuthorUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction')
+    );
+    $adminAuthor->setChild($adminAuthorUpdate);
+
     $admin->setChild($adminLogout)
     ->setChild($adminApi)
-    ->setChild($adminImagecache);
+    ->setChild($adminImagecache)
+    ->setChild($adminAuthor);
 
     $root->setChild($auth)
     ->setChild($admin)

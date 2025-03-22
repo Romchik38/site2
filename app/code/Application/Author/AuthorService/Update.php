@@ -9,6 +9,8 @@ final class Update
     public const ID_FIELD = 'id';
     public const NAME_FIELD = 'name';
     public const CHANGE_ACTIVITY_FIELD = 'change_activity';
+    public const CHANGE_ACTIVITY_YES_FIELD = 'yes';
+    public const CHANGE_ACTIVITY_NO_FIELD = 'no';
 
     private function __construct(
         public readonly string $id,

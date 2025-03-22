@@ -8,7 +8,10 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
 interface RepositoryInterface
 {
-    /** @throws NoSuchAuthorException */
+    /** 
+     * @throws DuplicateIdException
+     * @throws NoSuchAuthorException 
+     * */
     public function getById(AuthorId $id): Author;
 
     public function save(Author $model): Author;

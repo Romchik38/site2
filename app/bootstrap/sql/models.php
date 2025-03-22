@@ -145,5 +145,15 @@ return function (Container $container) {
         ]
     );
 
+    // AUTHOR REPOSITORY
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Author\Repository',
+        '\Romchik38\Site2\Domain\Author\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Api\Models\DatabaseInterface')
+        ]
+    );
+
     return $container;
 };

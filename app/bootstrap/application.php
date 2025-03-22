@@ -131,6 +131,14 @@ return function (Container $container) {
         ]
     );
 
+    // AUTHOR SERVICE
+    $container->shared(
+        '\Romchik38\Site2\Application\Author\AuthorService\AuthorService',
+        [
+            new Promise('\Romchik38\Site2\Domain\Author\RepositoryInterface')
+        ]
+    );
+
     // LANGUAGE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Language\ListView\ListViewService',

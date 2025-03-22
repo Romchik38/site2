@@ -57,7 +57,7 @@ final class Repository implements RepositoryInterface
 
     protected function defaultQuery(): string
     {
-        return <<<QUERY
+        return <<<'QUERY'
         SELECT language.identifier,
             language.active
         FROM language

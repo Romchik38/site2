@@ -6,14 +6,14 @@
 #}
 
 {% set author = data.authorDto %}
-{% set saveUrl = u.fromArray(['root', 'author', 'save']) %}
+{% set updateUrl = u.fromArray(['root', 'admin', 'author', 'update']) %}
 
 <div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">Author view page</h1>
         <p>On this page you can view and edit information about author.</p>
 
-        <form action="{{ saveUrl }}" method="post">
+        <form action="{{ updateUrl }}" method="post">
             <div class="mb-3">
                 <!-- @todo Refactor field name as var -->
                 <label class="form-label" for="id">Id: {{ author.identifier }}</label>
@@ -46,7 +46,7 @@
                 </label>
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
-            <button type="submit" class="btn btn-primary my-2">Save</button>
+            <button type="submit" class="btn btn-primary my-2">Update</button>
         </form>
             <script>
                 activeCheckbox = document.getElementById('checkbox_active');
