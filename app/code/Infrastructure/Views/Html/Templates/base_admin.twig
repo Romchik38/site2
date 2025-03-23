@@ -28,12 +28,7 @@
     <body class="container-fluid p-0">     
         {% include 'admin/layouts/header.twig' with {'translate': translate, 'u': urlbuilder} only %}
 
-        <!-- Display a message -->
-        {% if message != null %}
-            <div class="message text-center">
-                {{ message }}
-            </div>
-        {% endif %}
+        {% include 'admin/layouts/message.twig' with { 'message': message } only %}
 
         <!-- Dynamic content start -->
         {% include controller_template with {'data': data, 'translate': translate, 'u': urlbuilder, 'controller_template_dir': controller_template_dir} only %}

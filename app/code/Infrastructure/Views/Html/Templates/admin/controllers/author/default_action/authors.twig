@@ -85,7 +85,7 @@
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 3. Author Name -->
                 <td>{{ author.name }}</td>
-                {% set authorUrl = u.fromArray(['root', 'admin', 'author']) ~ '/' ~ author.identifier %}
+                {% set authorUrl = u.fromArray(['root', 'admin', 'author', author.identifier.__toString()]) %}
                 <td><a href="{{ authorUrl }} ">edit</a></td>
                 <td>
                     <form action="#" method="post">
