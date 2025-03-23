@@ -67,7 +67,10 @@ final class DynamicAction extends AbstractMultiLanguageAction
             Update::NAME_FIELD,
             Update::CHANGE_ACTIVITY_FIELD,
             Update::CHANGE_ACTIVITY_YES_FIELD,
-            Update::CHANGE_ACTIVITY_NO_FIELD
+            Update::CHANGE_ACTIVITY_NO_FIELD,
+            Update::TRANSLATES_FIELD,
+            Update::LANGUAGE_FIELD,
+            Update::DESCRIPTION_FIELD
         );
 
         $html = $this->view

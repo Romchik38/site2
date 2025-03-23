@@ -11,6 +11,9 @@ final class Update
     public const CHANGE_ACTIVITY_FIELD = 'change_activity';
     public const CHANGE_ACTIVITY_YES_FIELD = 'yes';
     public const CHANGE_ACTIVITY_NO_FIELD = 'no';
+    public const TRANSLATES_FIELD = 'translates';
+    public const LANGUAGE_FIELD = 'language';
+    public const DESCRIPTION_FIELD = 'description';
 
     private function __construct(
         public readonly string $id,

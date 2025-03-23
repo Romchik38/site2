@@ -15,35 +15,45 @@
         <p>On this page you can view and edit information about author.</p>
         <!-- Form -->
         <form action="{{ updateUrl }}" method="post">
-            <div class="mb-3">
-                <label class="form-label" for="{{ data.idFiled }}">Id: {{ author.identifier }}</label>
-                <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
-            </div>
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ author.identifier }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="{{ data.nameFiled }}">Name</label>
-                <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
+                </div>
             </div>
+            <div class="form-group p-2">
+                <div class="mb-3">                
+                    <p>Activity</p>
+                    {% if author.active == true %} 
+                        <span class="text-success bg-white">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
 
-            <div class="mb-3">                
-                <p>Activity</p>
-                {% if author.active == true %} 
-                    <div class="text-success">is active</div>
-                {% else %}
-                    <div class="text-danger">not active</div>
-                {% endif %}
-            </div>
-            <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
-                <label class="form-check-label" for="{{ data.changeActivityFiled }}">
-                {% if author.active == false %}
-                    Activate
-                {% elseif author.active == true %}
-                    Deactivate
-                {% endif %}
-                </label>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityFiled }}">
+                    {% if author.active == false %}
+                        Activate
+                    {% elseif author.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <!-- Translates -->
+            {% if translates|length == 0 %}
+                {% include controller_template_dir ~ '/blocks/zero_translates.twig' with {'translate': translate, 'u': u} only %}
+            {% else %}
+                {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': translate, 'u': u, 'translates': translates, 'data': data} only %}
+            {% endif %}
             <button type="submit" class="btn btn-primary my-2">Update</button>
         </form>
         <script>
@@ -61,12 +71,7 @@
                 console.error('Active checkbox input field not found'); 
             }
         </script>
-        <!-- Translates -->
-        {% if translates|length == 0 %}
-            zero translates
-        {% else %}
-            {{ translates|length }} translates
-        {% endif %}
+        <!-- Back link -->
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
     </div>
 </div>

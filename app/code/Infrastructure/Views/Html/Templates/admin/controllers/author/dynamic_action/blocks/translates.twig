@@ -1,0 +1,19 @@
+<!-- Inside a form -->
+<hr>
+<h2 class="text-center">Translates</h2>
+{% for translate in translates  %}
+    {% set languageVo = translate.language %}
+    {% set descriptionVo = translate.description %}
+    <div class="form-group p-2 my-2">
+        <div class="mb-1">
+            <!-- @todo replace with var -->
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ languageVo }}</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" value="{{ languageVo }}" hidden>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required value="{{ descriptionVo }}">
+        </div>
+    </div>
+{% endfor %}
