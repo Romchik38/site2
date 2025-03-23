@@ -14,6 +14,7 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
+use Romchik38\Site2\Application\Author\AuthorService\Update;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto;
@@ -61,7 +62,12 @@ final class DynamicAction extends AbstractMultiLanguageAction
             sprintf('Authors view page with id %s', $authorId()),
             $authorDto,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken
+            $csrfToken,
+            Update::ID_FIELD,
+            Update::NAME_FIELD,
+            Update::CHANGE_ACTIVITY_FIELD,
+            Update::CHANGE_ACTIVITY_YES_FIELD,
+            Update::CHANGE_ACTIVITY_NO_FIELD
         );
 
         $html = $this->view

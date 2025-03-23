@@ -7,23 +7,22 @@
 
 {% set author = data.authorDto %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'author', 'update']) %}
+{% set translates = data.authorDto.translates %}
 
 <div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">Author view page</h1>
         <p>On this page you can view and edit information about author.</p>
-
+        <!-- Form -->
         <form action="{{ updateUrl }}" method="post">
             <div class="mb-3">
-                <!-- @todo Refactor field name as var -->
-                <label class="form-label" for="id">Id: {{ author.identifier }}</label>
-                <input type="text" class="form-control" name="id" value="{{ author.identifier }}" hidden>
+                <label class="form-label" for="{{ data.idFiled }}">Id: {{ author.identifier }}</label>
+                <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
             </div>
 
             <div class="mb-3">
-                <!-- @todo Refactor field name as var -->
-                <label class="form-label" for="name">Name</label>
-                <input type="text" class="form-control" name="name" required value="{{ author.name }}">
+                <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
             </div>
 
             <div class="mb-3">                
@@ -35,9 +34,8 @@
                 {% endif %}
             </div>
             <div class="mb-3 form-check">
-                <!-- @todo Refactor field name as var -->
-                <input class="form-check-input" type="checkbox" name="change_activity" value="no" id="checkbox_active">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
+                <label class="form-check-label" for="{{ data.changeActivityFiled }}">
                 {% if author.active == false %}
                     Activate
                 {% elseif author.active == true %}
@@ -48,21 +46,27 @@
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <button type="submit" class="btn btn-primary my-2">Update</button>
         </form>
-            <script>
-                activeCheckbox = document.getElementById('checkbox_active');
-                if(activeCheckbox !== null) {
-                    activeCheckbox.addEventListener("change", function (e) {
-                        checked = e.target.checked;
-                        if(checked === true) {
-                            e.target.value = 'yes';
-                        } else {
-                            e.target.value = 'no';
-                        }
-                    });
-                } else {
-                    console.error('Active checkbox input field not found'); 
-                }
-            </script>
+        <script>
+            activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <!-- Translates -->
+        {% if translates|length == 0 %}
+            zero translates
+        {% else %}
+            {{ translates|length }} translates
+        {% endif %}
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
     </div>
 </div>

@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Author\AdminView;
 
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\DuplicateIdException;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Author\VO\Description;
+use Romchik38\Site2\Domain\Language\VO\Identifier;
 
 use function sprintf;
 
@@ -69,22 +73,67 @@ final class Repository implements RepositoryInterface
         if ($rawName === null) {
             throw new RepositoryException('Author name is ivalid');
         }
+
+        $translates = $this->createTranslates($rawIdentifier);
         
         return new AuthorDto(
             $rawIdentifier,
             $rawName,
-            $active
+            $active,
+            $translates
         );
+    }
+
+    /** @throws RepositoryException */
+    protected function createTranslates(string $rawId): array
+    {
+        $translates = [];
+
+        $query = $this->translatesQuery();
+        $params = [$rawId];
+
+        try {
+            $rows = $this->database->queryParams($query,$params);
+        } catch(QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $language = $row['language'] ?? null;
+            if ($language === null) {
+                throw new RepositoryException('Author translate languages is ivalid');
+            }
+            $description = $row['description'] ?? null;
+            if ($description === null) {
+                throw new RepositoryException('Author translate description is ivalid');
+            }
+            $translates[] = new Translate(
+                new Identifier($language),
+                new Description($description)
+            );
+        }
+
+        return $translates;
     }
 
     protected function defaultQuery(): string
     {
-        return <<<QUERY
+        return <<<'QUERY'
         SELECT author.identifier,
             author.active,
             author.name
         FROM author
         WHERE author.identifier = $1
+        QUERY;
+    }
+
+    protected function translatesQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT author_translates.language,
+            author_translates.description
+        FROM author_translates
+        WHERE author_translates.author_id = $1
         QUERY;
     }
 }

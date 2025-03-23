@@ -9,20 +9,20 @@ use InvalidArgumentException;
 final class Description
 {
     public function __construct(
-        public readonly string $name
+        public readonly string $description
     ) {
-        if ($name === '') {
+        if ($description === '') {
             throw new InvalidArgumentException('Authir Description is empty');
         }
     }
 
     public function __invoke(): string
     {
-        return $this->name;
+        return $this->description;
     }
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->description;
     }
 }
