@@ -82,7 +82,9 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction')
     );
-    $adminAuthor->setChild($adminAuthorUpdate);
+    $adminAuthor
+    ->setChild($adminAuthorUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)
     ->setChild($adminApi)

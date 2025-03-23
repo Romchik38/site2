@@ -3,7 +3,6 @@
 ## Current
 
 - author update
-  - csrf
   - show
     - articles
     - images

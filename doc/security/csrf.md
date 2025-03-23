@@ -6,7 +6,7 @@
 
 - `Auth` POST action recieves login form data from `Login` and `Login Admin` actions
 - `Admin Imagecache Clear`
-- `Admin Author Save`
+- `Admin Author`
 
 ## Not protected
 
