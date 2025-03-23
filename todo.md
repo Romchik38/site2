@@ -2,15 +2,18 @@
 
 ## Current
 
-- languages
-  - controller
-  - template
-  - repository
-- author view
-  - create complete view
-- author save
-  - controller
+- author update
   - csrf
+  - show
+    - articles
+    - images
+    - translates
+  - translates
+    - show
+    - catch as params
+    - update in a service
+    - update in a repository
+
 
 ## Next
 

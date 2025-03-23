@@ -23,6 +23,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    /** @todo translate */
     public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
     public const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
 

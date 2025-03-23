@@ -20,6 +20,7 @@ final class AuthorService
      * @throws DuplicateIdException
      * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
+     * @throws CouldNotSaveException
      */
     public function update(Update $command): void
     {
@@ -29,7 +30,7 @@ final class AuthorService
         $model = $this->repository->getById($authorId);
 
         $model->reName($name);
-        // ... next
-        $a = 1;
+        
+        $this->repository->save($model);
     }
 }

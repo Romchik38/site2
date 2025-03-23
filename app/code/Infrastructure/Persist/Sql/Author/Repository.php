@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Author;
 
+use PhpParser\Node\Expr\FuncCall;
 use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
@@ -17,6 +20,7 @@ use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Author\CouldNotSaveException;
 
 final class Repository implements RepositoryInterface
 {
@@ -50,10 +54,53 @@ final class Repository implements RepositoryInterface
         return $model;
     }
     
-    /** @todo implement */
+    /** 
+     * @todo implement 
+     * 
+     * @throws CouldNotSaveException
+    */
     public function save(Author $model): Author
     {
-        
+        $authorId = $model->getId();
+        if ($authorId === null) {
+            return $this->add($model);
+        }
+
+        $authorName = $model->getName();
+        if ($model->isActive()) {
+            $authorActive = 't';
+        } else {
+            $authorActive = 'f';
+        }
+
+        $mainSaveQuery = $this->mainSaveQuery();
+        $mainParams = [$authorName, $authorActive, $authorId()];
+
+        try {
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams($mainSaveQuery, $mainParams);
+            $this->database->transactionEnd();
+        } catch(DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new CouldNotSaveException($e->getMessage());
+            } catch(DatabaseTransactionException $e2) {
+                throw new CouldNotSaveException($e2->getMessage());
+            }
+        } catch(QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new CouldNotSaveException($e->getMessage());
+            } catch(DatabaseTransactionException $e2) {
+                throw new CouldNotSaveException($e2->getMessage());
+            }
+        }
+        return $this->getById($authorId);
+    }
+
+    /** Creates a new instance of Author */
+    protected function add(Author $model): Author
+    {
         return $model;
     }
 
@@ -225,6 +272,15 @@ final class Repository implements RepositoryInterface
             author_translates.description
         FROM author_translates
         WHERE author_translates.author_id = $1
+        QUERY;
+    }
+
+    protected function mainSaveQuery(): string
+    {
+        return <<<'QUERY'
+        UPDATE author 
+        SET name = $1, active = $2
+        WHERE identifier = $3
         QUERY;
     }
 }

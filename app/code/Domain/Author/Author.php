@@ -143,9 +143,19 @@ final class Author
         $this->translatesHash = $newHash;
     }
 
+    public function getId(): AuthorId
+    {
+        return $this->identifier;
+    }
+
     public function getName(): Name
     {
         return $this->name;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
     }
 
     public function reName(Name $name): void
