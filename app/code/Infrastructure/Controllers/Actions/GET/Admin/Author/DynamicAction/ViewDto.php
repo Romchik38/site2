@@ -6,9 +6,13 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\Dy
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {
+    /** 
+     * @param array<int,LanguageDto> $languages
+     */
     public function __construct(
         string $name,
         string $description,
@@ -22,7 +26,8 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $noField,
         public readonly string $translateField,
         public readonly string $languageField,
-        public readonly string $descriptionField
+        public readonly string $descriptionField,
+        public readonly array $languages
     ) {
         parent::__construct($name, $description);
     }

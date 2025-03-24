@@ -49,11 +49,7 @@
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
-            {% if translates|length == 0 %}
-                {% include controller_template_dir ~ '/blocks/zero_translates.twig' with {'translate': translate, 'u': u} only %}
-            {% else %}
-                {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': translate, 'u': u, 'translates': translates, 'data': data} only %}
-            {% endif %}
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
             <button type="submit" class="btn btn-primary my-2">Update</button>
         </form>
         <script>

@@ -20,6 +20,7 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
 
 use function sprintf;
 
@@ -31,8 +32,9 @@ final class DynamicAction extends AbstractMultiLanguageAction
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly AdminViewService $adminViewService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
+        private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly ListViewService $languageService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -54,6 +56,8 @@ final class DynamicAction extends AbstractMultiLanguageAction
             ));
         }
 
+        $languages = $this->languageService->getAll();
+
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
@@ -70,7 +74,8 @@ final class DynamicAction extends AbstractMultiLanguageAction
             Update::CHANGE_ACTIVITY_NO_FIELD,
             Update::TRANSLATES_FIELD,
             Update::LANGUAGE_FIELD,
-            Update::DESCRIPTION_FIELD
+            Update::DESCRIPTION_FIELD,
+            $languages
         );
 
         $html = $this->view
