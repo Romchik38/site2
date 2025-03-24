@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
 use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
@@ -14,11 +15,13 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
 
 final class AuthorService
 {
     public function __construct(
-        private readonly RepositoryInterface $repository
+        private readonly RepositoryInterface $repository,
+        private readonly ListViewService $languagesService
     ) {   
     }
 
@@ -28,21 +31,27 @@ final class AuthorService
      * @throws CouldNotSaveException
      * @throws CouldNotChangeActivityException
      */
-    public function update(Update $command): void
+    public function update(Update $command): AuthorId
     {
-        $authorId = new AuthorId($command->id);
         $name = new Name($command->name);
 
-        try {
-            $model = $this->repository->getById($authorId);            
-        } catch(DuplicateIdException $e) {
-            throw new CouldNotSaveException($e->getMessage());
-        } catch(RepositoryException $e) {
-            throw new CouldNotSaveException($e->getMessage());
+        if($command->id !== '') {
+            try {
+                $authorId = new AuthorId($command->id);
+                $model = $this->repository->getById($authorId); 
+                $model->reName($name);           
+            } catch(DuplicateIdException $e) {
+                throw new CouldNotSaveException($e->getMessage());
+            } catch(RepositoryException $e) {
+                throw new CouldNotSaveException($e->getMessage());
+            }
+        } else {
+            $languages = [];
+            foreach ($this->languagesService->getAll() as $language) {
+                $languages[] = $language->identifier;
+            };
+            $model = Author::createNew($name, $languages);
         }
-
-        // Name
-        $model->reName($name);
         
         // translates
         foreach ($command->translates as $translate)
@@ -62,6 +71,12 @@ final class AuthorService
             }
         };
 
-        $this->repository->save($model);
+        $savedModel = $this->repository->save($model);
+        $savedAuthorId = $savedModel->getId();
+        if ($savedAuthorId === null) {
+            throw new CouldNotSaveException('Author new id not updated');
+        } else {
+            return $savedAuthorId;
+        }
     }
 }

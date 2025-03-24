@@ -135,7 +135,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Author\AuthorService\AuthorService',
         [
-            new Promise('\Romchik38\Site2\Domain\Author\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Domain\Author\RepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
         ]
     );
 

@@ -80,10 +80,20 @@ return function (Container $container): ControllerInterface {
     $adminAuthorUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction'),
+        null,
+        'author_update'
+    );
+    $adminAuthorNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction'),
+        null,
+        'author_new'
     );
     $adminAuthor
     ->setChild($adminAuthorUpdate)
+    ->setChild($adminAuthorNew)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)

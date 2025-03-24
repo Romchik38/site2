@@ -148,7 +148,7 @@ final class Author
         return array_values($this->translatesHash);
     }
 
-    public function getId(): AuthorId
+    public function getId(): ?AuthorId
     {
         return $this->identifier;
     }
