@@ -12,7 +12,7 @@
         {% if data.authorList|length == 0 %} 
             {% include controller_template_dir ~ '/zero_authors.twig' with {'translate': translate, 'urlNew': urlNew} only %}
         {% else %}
-            {% include controller_template_dir ~ '/authors.twig' with {'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u, 'urlNew': urlNew } only %}
+            {% include controller_template_dir ~ '/authors.twig' with {'data': data, 'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u, 'urlNew': urlNew } only %}
         {% endif %}
 
     </div>

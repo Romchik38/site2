@@ -81,15 +81,17 @@ final class DefaultAction extends AbstractMultiLanguageAction
         }
 
         // Common answer
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $message
-        );
+        if ($message !== '') {
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $message
+            );
+        }
         return new RedirectResponse($uri);
     }
 
     public function getDescription(): string
     {
-        return 'Admin Author update point';
+        return 'Admin Author create new point';
     }
 }

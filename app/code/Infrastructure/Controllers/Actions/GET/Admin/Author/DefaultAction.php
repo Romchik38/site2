@@ -20,6 +20,9 @@ use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
+use Romchik38\Site2\Application\Author\AuthorService\Delete;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
@@ -27,10 +30,12 @@ final class DefaultAction extends AbstractMultiLanguageAction
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly AdminAuthorList $adminAuthorList
+        private readonly ViewInterface $view,
+        private readonly ServerRequestInterface $request,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly AdminAuthorList $adminAuthorList,
+        private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -64,6 +69,9 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
         $paginationHtml = $paginationView->create();
 
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+
         $dto = new ViewDto(
             'Authors',
             'Authors page',
@@ -73,7 +81,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 $searchCriteria->limit,
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
-            )
+            ),
+            Delete::ID_FIELD,
+            $this->session::ADMIN_CSRF_TOKEN_FIELD,
+            $csrfToken,
         );
 
         $html = $this->view

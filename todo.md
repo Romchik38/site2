@@ -3,7 +3,11 @@
 ## Current
 
 - author delete
-  - action
+  - tests
+  - translates
+- author view page
+  - articles
+  - images
 
 ## Next
 

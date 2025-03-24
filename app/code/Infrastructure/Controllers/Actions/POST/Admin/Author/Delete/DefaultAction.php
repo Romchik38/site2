@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -16,21 +16,22 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
-use RuntimeException;
-use Romchik38\Site2\Application\Author\AuthorService\Update;
-use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
-use Romchik38\Site2\Domain\Author\CouldNotSaveException;
-use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use RuntimeException;
+use Romchik38\Site2\Domain\Author\CouldDeleteException;
+use Romchik38\Site2\Application\Author\AuthorService\Delete;
+use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
+    /** @todo translate */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
-    public const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
+    public const string SUCCESS_DELETE_KEY = 'admin.data-was-deleted-successfully';
+    public const string COULD_NOT_DELETE_KEY = 'admin.data-could-not-delete';
     public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
-    public const string COULD_NOT_SAVE_KEY = 'admin.could-not-save';
+    public const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -55,38 +56,31 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $uri = $this->urlbuilder->fromArray(['root', 'admin', 'author']);
         $message = '';
 
-        $command = Update::formHash($requestData);
-        $uriId = $this->urlbuilder->fromArray(
-            ['root', 'admin', 'author', $command->id]
-        );
+        $command = Delete::formHash($requestData);
 
+        /** @todo tests all paths */
         try {
-            $this->authorService->update($command);
-            $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
-            $uri = $uriId;
+            $this->authorService->delete($command);
+            $message = $this::SUCCESS_DELETE_KEY;
         } catch(InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-            $uri = $uriId;
         } catch(NoSuchAuthorException) {
             $message = sprintf(
                 $this->translateService->t($this::AUTHOR_NOT_EXIST_KEY), 
                 $command->id
-            );
+            );            
         } catch(CouldNotChangeActivityException $e) {
             $message = sprintf(
                 $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
                 $e->getMessage()
             );
-            $uri = $uriId;
-        } catch (CouldNotSaveException $e) {
-            $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri = $uriId;
+        } catch (CouldDeleteException $e) {
+            $message = $this::COULD_NOT_DELETE_KEY;
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
-
         // Common answer
         if ($message !== '') {
             $this->session->setData(
@@ -94,11 +88,12 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 $message
             );
         }
+        
         return new RedirectResponse($uri);
     }
 
     public function getDescription(): string
     {
-        return 'Admin Author update point';
+        return 'Admin Author delete point';
     }
 }

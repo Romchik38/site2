@@ -80,16 +80,20 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
+                {% set authorId = author.identifier.__toString() %}
                 <!-- 1. Id -->
-                <th scope="row">{{ author.identifier }}</th>
+                <th scope="row">{{ authorId }}</th>
                 <!-- 2. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 3. Author Name -->
                 <td>{{ author.name }}</td>
-                {% set authorUrl = u.fromArray(['root', 'admin', 'author', author.identifier.__toString()]) %}
+                {% set authorUrl = u.fromArray(['root', 'admin', 'author', authorId]) %}
                 <td><a href="{{ authorUrl }} ">edit</a></td>
                 <td>
-                    <form action="#" method="post">
+                    <form action="{{ u.fromArray(['root', 'admin', 'author', 'delete']) }}" method="post">
+                        <!-- @todo var -->
+                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ authorId }}" hidden>
+                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
                 </td>

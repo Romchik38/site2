@@ -91,9 +91,17 @@ return function (Container $container): ControllerInterface {
         null,
         'author_new'
     );
+    $adminAuthorDelete = new Controller(
+        'delete',
+        false,
+        $container->get('Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction'),
+        null,
+        'author_delete'
+    );
     $adminAuthor
     ->setChild($adminAuthorUpdate)
     ->setChild($adminAuthorNew)
+    ->setChild($adminAuthorDelete)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)

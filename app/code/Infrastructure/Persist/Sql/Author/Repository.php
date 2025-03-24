@@ -19,6 +19,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
 
@@ -57,7 +58,20 @@ final class Repository implements RepositoryInterface
         $model = $this->createFromRow($rows[0]);
         return $model;
     }
-    
+
+    public function delete(Author $model): void
+    {
+        $query = $this->mainDeleteQuery();
+        $params = [(string) $model->getId()];
+
+        // Do not need delete translates, because they will be deleted cascade
+        try {
+            $this->database->queryParams($query, $params);
+        } catch(QueryException $e) {
+            throw new CouldDeleteException($e->getMessage());
+        }
+    }
+
     public function save(Author $model): Author
     {
         $authorId = $model->getId();
@@ -384,6 +398,14 @@ final class Repository implements RepositoryInterface
         INSERT INTO author (name, active)
         VALUES ($1, $2)
         RETURNING identifier;
+        QUERY;
+    }
+
+    protected function mainDeleteQuery(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM author 
+        WHERE identifier = $1
         QUERY;
     }
 }

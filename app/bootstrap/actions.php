@@ -181,7 +181,9 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\Author\AdminList\AdminAuthorList')
+            new Promise('\Romchik38\Site2\Application\Author\AdminList\AdminAuthorList'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
         ]
     );
 
@@ -334,6 +336,20 @@ return function (Container $container) {
     // ADMIN AUTHOR NEW
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
+    );
+
+    // ADMIN AUTHOR DELETE
+    $container->shared(
+        'Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),

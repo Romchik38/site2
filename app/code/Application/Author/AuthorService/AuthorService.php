@@ -16,6 +16,7 @@ use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Domain\Author\CouldDeleteException;
 
 final class AuthorService
 {
@@ -78,5 +79,27 @@ final class AuthorService
         } else {
             return $savedAuthorId;
         }
+    }
+
+    /** 
+     * @throws InvalidArgumentException
+     * @throws CouldDeleteException
+     * @throws NoSuchAuthorException
+     */
+    public function delete(Delete $command)
+    {
+        $authorId = new AuthorId($command->id);
+
+        try {
+            $model = $this->repository->getById($authorId); 
+        } catch(DuplicateIdException $e) {
+            throw new CouldDeleteException($e->getMessage());
+        } catch(RepositoryException $e) {
+            throw new CouldDeleteException($e->getMessage());
+        }
+
+        $model->deactivate();
+
+        $this->repository->delete($model);
     }
 }
