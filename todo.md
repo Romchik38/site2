@@ -3,6 +3,7 @@
 ## Current
 
 - author update
+  - activate
   - show
     - articles
     - images
