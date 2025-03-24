@@ -80,6 +80,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction')
     );
+    $adminAuthorNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction'),
+        null,
+        'author_new'
+    );
+    $adminAuthor->setChild($adminAuthorNew);
 
     $adminLanguage = new Controller(
         'language',

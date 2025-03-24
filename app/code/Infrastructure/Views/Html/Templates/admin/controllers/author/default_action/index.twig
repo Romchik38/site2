@@ -1,6 +1,8 @@
 {#
-    object          data            
+    string          urlNew                  url to create new author
 #}
+
+{%  set  urlNew = u.fromArray(['root', 'admin', 'author', 'new']) %}
 
 <div class="container-md my-3">
     <div class="row">
@@ -8,9 +10,9 @@
         <p>{{ data.description }}</p>
 
         {% if data.authorList|length == 0 %} 
-            {% include controller_template_dir ~ '/zero_authors.twig' with {'translate': translate} only %}
+            {% include controller_template_dir ~ '/zero_authors.twig' with {'translate': translate, 'urlNew': urlNew} only %}
         {% else %}
-            {% include controller_template_dir ~ '/authors.twig' with {'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u } only %}
+            {% include controller_template_dir ~ '/authors.twig' with {'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u, 'urlNew': urlNew } only %}
         {% endif %}
 
     </div>
