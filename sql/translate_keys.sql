@@ -7,6 +7,10 @@ INSERT INTO translate_keys (key) VALUES
     --global
     ('global.language'),
     --controller
+    ('admin.author-with-id-not-exist'),
+    ('admin.could-not-change-activity'),
+    ('admin.could-not-save'),
+    ('admin.data-success-update'),
     ('admin.roles.you-do-not-have-enough-permissions'),
     ('admin.image-cache.cache-cleared'),
     ('article.page_name'),

@@ -10,9 +10,13 @@ interface RepositoryInterface
 {
     /** 
      * @throws DuplicateIdException
-     * @throws NoSuchAuthorException 
+     * @throws NoSuchAuthorException
+     * 
+     * @todo implement catch block RepositoryException
+     * @throws RepositoryException
      * */
     public function getById(AuthorId $id): Author;
 
+    /** @throws CouldNotSaveException */
     public function save(Author $model): Author;
 }

@@ -34,7 +34,11 @@ final class Repository implements RepositoryInterface
         $params = [$id()];
         $query = $this->defaultSelectQuery();
 
-        $rows = $this->database->queryParams($query, $params);
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch(QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
         
         $rowsCount = count($rows);
         if ($rowsCount === 0) {
@@ -54,11 +58,6 @@ final class Repository implements RepositoryInterface
         return $model;
     }
     
-    /** 
-     * @todo implement 
-     * 
-     * @throws CouldNotSaveException
-    */
     public function save(Author $model): Author
     {
         $authorId = $model->getId();

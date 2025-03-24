@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\Author\CouldNotSaveException;
+use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Author\RepositoryException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
@@ -20,7 +23,6 @@ final class AuthorService
     }
 
     /** 
-     * @throws DuplicateIdException
      * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
      * @throws CouldNotSaveException
@@ -31,7 +33,13 @@ final class AuthorService
         $authorId = new AuthorId($command->id);
         $name = new Name($command->name);
 
-        $model = $this->repository->getById($authorId);
+        try {
+            $model = $this->repository->getById($authorId);            
+        } catch(DuplicateIdException $e) {
+            throw new CouldNotSaveException($e->getMessage());
+        } catch(RepositoryException $e) {
+            throw new CouldNotSaveException($e->getMessage());
+        }
 
         // Name
         $model->reName($name);
