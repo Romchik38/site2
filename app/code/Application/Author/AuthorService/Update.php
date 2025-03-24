@@ -15,19 +15,33 @@ final class Update
     public const LANGUAGE_FIELD = 'language';
     public const DESCRIPTION_FIELD = 'description';
 
+    /** @param array<int,Translate> $translates*/
     private function __construct(
         public readonly string $id,
         public readonly string $name,
-        public readonly string $changeActivity
+        public readonly string $changeActivity,
+        public readonly array $translates
     ) {   
     }
 
     public static function formHash(array $hash): self
     {
+        $rawTranslates = $hash[self::TRANSLATES_FIELD] ?? [];
+        if (count($rawTranslates) > 0) {
+            $translates = [];
+            foreach($rawTranslates as $rawTranslate) {
+                $language = $rawTranslate[self::LANGUAGE_FIELD] ?? '';
+                $description = $rawTranslate[self::DESCRIPTION_FIELD] ?? '';
+                $translates[] = new Translate($language, $description);
+            }
+            $rawTranslates = $translates;
+        }
+
         return new self(
             $hash[self::ID_FIELD] ?? '',
             $hash[self::NAME_FIELD] ?? '',
             $hash[self::CHANGE_ACTIVITY_FIELD] ?? '',
+            $rawTranslates
         );
     }
 }

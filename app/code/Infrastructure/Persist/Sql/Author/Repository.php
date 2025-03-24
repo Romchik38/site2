@@ -76,9 +76,37 @@ final class Repository implements RepositoryInterface
         $mainSaveQuery = $this->mainSaveQuery();
         $mainParams = [$authorName, $authorActive, $authorId()];
 
+        $translates = $model->getTranslates();
+        $translatetItems = [];
+        foreach ($translates as $translate) {
+            $translatetItems[] = sprintf(
+                '(%s, \'%s\', \'%s\')',
+                $authorId(), 
+                (string) $translate->getLanguage(), 
+                (string) $translate->getDescription()
+            );
+        }
+
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams($mainSaveQuery, $mainParams);
+            $this->database->transactionQueryParams(
+                $mainSaveQuery, 
+                $mainParams
+            );
+            $this->database->transactionQueryParams(
+                $this->translatesSaveQueryDelete(), 
+                [$authorId()]
+            );
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryInsert(), 
+                    [  
+                        $authorId(), 
+                        (string) $translate->getLanguage(), 
+                        (string) $translate->getDescription()
+                    ]
+                );
+            }
             $this->database->transactionEnd();
         } catch(DatabaseTransactionException $e) {
             try {
@@ -281,6 +309,22 @@ final class Repository implements RepositoryInterface
         UPDATE author 
         SET name = $1, active = $2
         WHERE identifier = $3
+        QUERY;
+    }
+
+    protected function translatesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM author_translates 
+        WHERE author_id = $1
+        QUERY;
+    }
+
+    protected function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO author_translates (author_id, language, description)
+            VALUES ($1, $2, $3)
         QUERY;
     }
 }

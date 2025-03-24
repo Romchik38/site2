@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
+use Romchik38\Site2\Domain\Language\VO\Identifier;
 
 final class AuthorService
 {
@@ -31,6 +34,15 @@ final class AuthorService
 
         $model->reName($name);
         
+        // translates
+        foreach ($command->translates as $translate)
+        {
+            $model->addTranslate(new Translate(
+                new Identifier($translate->language),
+                new Description($translate->description)
+            ));
+        }
+
         $this->repository->save($model);
     }
 }

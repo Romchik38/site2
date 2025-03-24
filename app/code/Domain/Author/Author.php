@@ -124,7 +124,7 @@ final class Author
 
     public function addTranslate(Translate $translate): void
     {
-        $this->translatesHash[$translate->getLanguage()] = $translate;
+        $this->translatesHash[(string) $translate->getLanguage()] = $translate;
     }
 
     /** @throws CouldNotRemoveTranslateException */
@@ -141,6 +141,11 @@ final class Author
             $newHash[$key] = $value;
         }
         $this->translatesHash = $newHash;
+    }
+
+    /** @return array<int,Translate> */
+    public function getTranslates(): array {
+        return array_values($this->translatesHash);
     }
 
     public function getId(): AuthorId
