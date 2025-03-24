@@ -6,12 +6,6 @@
   - show
     - articles
     - images
-    - translates
-  - translates
-    - show
-    - catch as params
-    - update in a service
-    - update in a repository
 - author add
 
 ## Next
