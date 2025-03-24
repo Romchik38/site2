@@ -125,10 +125,61 @@ final class Repository implements RepositoryInterface
         return $this->getById($authorId);
     }
 
-    /** Creates a new instance of Author */
+    /** @throws CouldNotSaveException */
     protected function add(Author $model): Author
     {
-        return $model;
+        $authorName = $model->getName();
+        if ($model->isActive()) {
+            $authorActive = 't';
+        } else {
+            $authorActive = 'f';
+        }
+
+        $mainParams = [$authorName, $authorActive];
+
+        $translates = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $rowsMainAdd = $this->database->transactionQueryParams(
+                $this->mainAddQuery(),
+                $mainParams
+            );
+            if (count($rowsMainAdd) !== 1) {
+                throw new CouldNotSaveException('Main add query must return 1 row');
+            }
+            $rawAuthorId = $rowsMainAdd[0]['identifier'] ?? null;
+            if ($rawAuthorId === null) {
+                throw new CouldNotSaveException('Main add query does not return identifier');
+            }
+
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryInsert(), 
+                    [  
+                        $rawAuthorId, 
+                        (string) $translate->getLanguage(), 
+                        (string) $translate->getDescription()
+                    ]
+                );
+            }
+            $this->database->transactionEnd();
+        } catch(DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new CouldNotSaveException($e->getMessage());
+            } catch(DatabaseTransactionException $e2) {
+                throw new CouldNotSaveException($e2->getMessage());
+            }
+        } catch(QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new CouldNotSaveException($e->getMessage());
+            } catch(DatabaseTransactionException $e2) {
+                throw new CouldNotSaveException($e2->getMessage());
+            }
+        }
+        return $this->getById(new AuthorId($rawAuthorId));
     }
 
     /** @param array<string,string> $row */
@@ -324,6 +375,15 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         INSERT INTO author_translates (author_id, language, description)
             VALUES ($1, $2, $3)
+        QUERY;
+    }
+
+    protected function mainAddQuery(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO author (name, active)
+        VALUES ($1, $2)
+        RETURNING identifier;
         QUERY;
     }
 }
