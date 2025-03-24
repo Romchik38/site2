@@ -2,11 +2,6 @@
 
 ## Current
 
-- author update
-  - activate
-  - show
-    - articles
-    - images
 - author add
 
 ## Next
