@@ -2,7 +2,8 @@
 
 ## Current
 
-- author add
+- author delete
+  - action
 
 ## Next
 
