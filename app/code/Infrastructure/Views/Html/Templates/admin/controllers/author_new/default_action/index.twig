@@ -1,1 +1,57 @@
-New Author
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto
+#}
+
+{% set newUrl = u.fromArray(['root', 'admin', 'author', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">Author new page</h1>
+        <p>On this page you can create a new author. Please fill information below.</p>
+        <!-- Form -->
+        <form action="{{ saveUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
+                </div>
+            </div>
+            <div class="form-group p-2">
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityFiled }}">
+                    {% if author.active == false %}
+                        Activate
+                    {% elseif author.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <!-- Translates -->
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'data': data} only %}
+            <button type="submit" class="btn btn-primary my-2">Create</button>
+        </form>
+        <script>
+            activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
+    </div>
+</div>
+
