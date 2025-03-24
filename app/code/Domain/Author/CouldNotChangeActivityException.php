@@ -6,6 +6,6 @@ namespace Romchik38\Site2\Domain\Author;
 
 use RuntimeException;
 
-final class CouldNotActivateException extends RuntimeException
+final class CouldNotChangeActivityException extends RuntimeException
 {
 }

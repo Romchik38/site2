@@ -168,7 +168,7 @@ final class Author
         $this->name = $name;
     }
 
-    /** @throws CouldNotActivateException */
+    /** @throws CouldNotChangeActivityException */
     public function activate(): void
     {
         if ($this->active === true) {
@@ -176,21 +176,42 @@ final class Author
         }
 
         if ($this->identifier === null) {
-            throw new CouldNotActivateException('Author id is invalid');
+            throw new CouldNotChangeActivityException('Author id is invalid');
         }
 
         if (count($this->languages) !== count($this->translatesHash)) {
-            throw new CouldNotActivateException('Author has missing translates');
+            throw new CouldNotChangeActivityException('Author has missing translates');
         }
         
         foreach($this->languages as $language) {
             $check = $this->translatesHash[$language()] ?? null;
             if ($check === null) {
-                throw new CouldNotActivateException(
+                throw new CouldNotChangeActivityException(
                     sprintf('Author has missing translates %s', $language())
                 );
             }
         }
         $this->active = true;
+    }
+
+    /** 
+     * @throws CouldNotChangeActivityException
+     */
+    public function deactivate(): void
+    {
+        if ($this->active === false) {
+            return;
+        }
+
+        if (count($this->articles) > 0) {
+            throw new CouldNotChangeActivityException('Author is used in articles. Change it first');
+        }
+
+
+        if (count($this->images) > 0) {
+            throw new CouldNotChangeActivityException('Author is used in images. Change it first');
+        }
+
+        $this->active = false;
     }
 }

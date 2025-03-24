@@ -16,6 +16,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
 use RuntimeException;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
+use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
@@ -26,6 +27,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
     /** @todo translate */
     public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
     public const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
+    public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -55,8 +57,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
         $uriId = $this->urlbuilder->fromArray(
             ['root', 'admin', 'author', $command->id]
         );
+        /** @todo implement all catches */
         try {
             $this->authorService->update($command);
+            /** @todo translate */
             $message = $this::SUCCESS_UPDATE_KEY;
             $uri = $uriId;
         } catch(InvalidArgumentException $e) {
@@ -67,6 +71,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
             $uri = $uriId;
         } catch(NoSuchAuthorException) {
             $message = $this::AUTHOR_NOT_EXIST_KEY;
+        } catch(CouldNotChangeActivityException $e) {
+            /** @todo translate */
+            $message = $this::COULD_NOT_CHANGE_ACTIVITY_KEY;
+            $uri = $uriId;
         }
 
         // Common answer

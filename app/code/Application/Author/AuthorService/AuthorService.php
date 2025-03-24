@@ -24,6 +24,7 @@ final class AuthorService
      * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
      * @throws CouldNotSaveException
+     * @throws CouldNotChangeActivityException
      */
     public function update(Update $command): void
     {
@@ -32,6 +33,7 @@ final class AuthorService
 
         $model = $this->repository->getById($authorId);
 
+        // Name
         $model->reName($name);
         
         // translates
@@ -42,6 +44,15 @@ final class AuthorService
                 new Description($translate->description)
             ));
         }
+
+        // Activity
+        if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
+            if($model->isActive()) {
+                $model->deactivate();
+            } else {
+                $model->activate();
+            }
+        };
 
         $this->repository->save($model);
     }
