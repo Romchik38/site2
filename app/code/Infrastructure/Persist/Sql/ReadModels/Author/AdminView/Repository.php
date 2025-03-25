@@ -16,6 +16,7 @@ use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 use function sprintf;
 
@@ -83,14 +84,37 @@ final class Repository implements RepositoryInterface
         }
         $articles = $this->prepareRawArticles($rawArticles);
 
+        $rawImages = $row['images'] ?? null;
+        if ($rawImages === null) {
+            throw new RepositoryException('Author images is ivalid');
+        }
+        $images = $this->prepareRawImages($rawImages);
+
         return new AuthorDto(
             $rawIdentifier,
             $rawName,
             $active,
             $translates,
-            $articles
+            $articles,
+            $images
         );
     }
+
+    /**
+     * @param string $rawImages - Json encoded array of strings
+     * @return array<int,ImageId>
+     */
+    protected function prepareRawImages(string $rawImages): array
+    {
+        $decodedImages = json_decode($rawImages);
+
+        $data = [];
+        foreach ($decodedImages as $image) {
+            $data[] = new ImageId((string) $image);
+        }
+        return $data;
+    }
+
 
     /**
      * @param string $rawArticles - Json encoded array of strings

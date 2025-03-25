@@ -2,9 +2,6 @@
 
 ## Current
 
-- author view page
-  - images
-
 ## Next
 
 - move to server

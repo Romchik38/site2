@@ -94,6 +94,9 @@
         
         <!-- Articles -->
         {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': author.articles} only %}
+        
+        <!-- Images -->
+        {% include controller_template_dir ~ '/blocks/images.twig' with {'translate': t, 'u': u, 'images': author.images} only %}
     </div>
 </div>
 
