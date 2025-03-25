@@ -725,7 +725,6 @@ COPY public.author (identifier, name, active) FROM stdin;
 3	Freepik	t
 1	AI	t
 2	Depositphotos	t
-5	next 1	t
 \.
 
 
@@ -740,8 +739,6 @@ COPY public.author_translates (author_id, language, description) FROM stdin;
 1	uk	Штучний інтелект
 2	en	Depositphotos/Depositphotos.com
 2	uk	Depositphotos/Depositphotos.com
-5	en	Desc of next
-5	uk	Опис наступного
 \.
 
 
@@ -1001,6 +998,10 @@ COPY public.translate_entities (entity_id, key, language, phrase) FROM stdin;
 193	admin.could-not-change-activity	uk	Не вдалося змінити активність - %s
 194	admin.could-not-save	en	Could not save, check error and try again
 195	admin.could-not-save	uk	Не вдалося зберегти, перевірте помилку та повторіть спробу
+196	admin.data-could-not-delete	en	An error occurred while attempting to delete, please check and try again
+197	admin.data-could-not-delete	uk	Під час спроби видалення сталася помилка, перевірьте те спробуйте знову
+198	admin.data-was-deleted-successfully	en	Data was successfully deleted.
+199	admin.data-was-deleted-successfully	uk	Дані були успішно видалені
 \.
 
 
@@ -1069,6 +1070,8 @@ admin.data-success-update
 admin.author-with-id-not-exist
 admin.could-not-change-activity
 admin.could-not-save
+admin.data-could-not-delete
+admin.data-was-deleted-successfully
 \.
 
 
@@ -1097,7 +1100,7 @@ SELECT pg_catalog.setval('public.audio_identifier_seq', 1, false);
 -- Name: author_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.author_identifier_seq', 5, true);
+SELECT pg_catalog.setval('public.author_identifier_seq', 10, true);
 
 
 --
@@ -1125,7 +1128,7 @@ SELECT pg_catalog.setval('public.persons_identifier_seq', 1, false);
 -- Name: translate_entities_entity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 195, true);
+SELECT pg_catalog.setval('public.translate_entities_entity_id_seq', 199, true);
 
 
 --

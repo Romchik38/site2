@@ -26,7 +26,6 @@ use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 final class DefaultAction extends AbstractMultiLanguageAction
     implements DefaultActionInterface
 {
-    /** @todo translate */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_DELETE_KEY = 'admin.data-was-deleted-successfully';
     public const string COULD_NOT_DELETE_KEY = 'admin.data-could-not-delete';
@@ -61,7 +60,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
         /** @todo tests all paths */
         try {
             $this->authorService->delete($command);
-            $message = $this::SUCCESS_DELETE_KEY;
+            $message = $this->translateService->t($this::SUCCESS_DELETE_KEY);
         } catch(InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
@@ -78,7 +77,7 @@ final class DefaultAction extends AbstractMultiLanguageAction
                 $e->getMessage()
             );
         } catch (CouldDeleteException $e) {
-            $message = $this::COULD_NOT_DELETE_KEY;
+            $message = $this->translateService->t($this::COULD_NOT_DELETE_KEY);
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
         // Common answer

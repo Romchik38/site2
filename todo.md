@@ -2,12 +2,10 @@
 
 ## Current
 
-- author delete
-  - tests
-  - translates
 - author view page
   - articles
   - images
+  - delete button
 
 ## Next
 
