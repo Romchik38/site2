@@ -50,7 +50,18 @@
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
             {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
-            <button type="submit" class="btn btn-primary my-2">Update</button>
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Update</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger my-2" id="delete-button">Delete</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ u.fromArray(['root', 'admin', 'author', 'delete']) }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
         </form>
         <script>
             activeCheckbox = document.getElementById('checkbox_active');
@@ -65,6 +76,17 @@
                 });
             } else {
                 console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
+            deleteButton = document.getElementById('delete-button');
+            deleteForm = document.getElementById('delete-form');
+            if(deleteButton !== null && deleteForm !== null) {
+                deleteButton.addEventListener("click", function (e) {
+                    deleteForm.submit();
+                });
+            } else {
+                console.error('Delete button or form not found'); 
             }
         </script>
         <!-- Back link -->

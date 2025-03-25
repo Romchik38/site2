@@ -5,7 +5,6 @@
 - author view page
   - articles
   - images
-  - delete button
 
 ## Next
 

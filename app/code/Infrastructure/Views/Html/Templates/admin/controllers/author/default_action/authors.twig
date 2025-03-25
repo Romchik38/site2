@@ -91,7 +91,6 @@
                 <td><a href="{{ authorUrl }} ">edit</a></td>
                 <td>
                     <form action="{{ u.fromArray(['root', 'admin', 'author', 'delete']) }}" method="post">
-                        <!-- @todo var -->
                         <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ authorId }}" hidden>
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
