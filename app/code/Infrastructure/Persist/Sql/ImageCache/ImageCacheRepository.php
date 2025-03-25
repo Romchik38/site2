@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache;
 
-use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Domain\ImageCache\ImageCache;
 use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;
 

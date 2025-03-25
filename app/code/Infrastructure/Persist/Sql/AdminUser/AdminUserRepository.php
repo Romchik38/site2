@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
-use Romchik38\Server\Api\Models\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
