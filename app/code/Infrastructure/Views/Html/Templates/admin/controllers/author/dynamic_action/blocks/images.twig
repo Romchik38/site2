@@ -1,0 +1,11 @@
+<h2 class="text-center">Articles</h2>
+
+{% if images|length == 0 %}
+    <p>Is not the author of any of the images</p>
+{% else %}
+    <ul>Author of images:
+        {% for image in images %}            
+            <li><a href="#">{{ image }}</a></li>
+        {% endfor %}
+    </ul>
+{%  endif %}

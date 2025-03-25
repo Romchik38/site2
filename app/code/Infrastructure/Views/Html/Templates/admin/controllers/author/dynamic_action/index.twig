@@ -91,6 +91,9 @@
         </script>
         <!-- Back link -->
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
+        
+        <!-- Articles -->
+        {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': author.articles} only %}
     </div>
 </div>
 

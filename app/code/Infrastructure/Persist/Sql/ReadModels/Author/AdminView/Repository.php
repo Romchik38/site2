@@ -15,6 +15,7 @@ use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 
 use function sprintf;
 
@@ -76,13 +77,36 @@ final class Repository implements RepositoryInterface
 
         $translates = $this->createTranslates($rawIdentifier);
         
+        $rawArticles = $row['articles'] ?? null;
+        if ($rawArticles === null) {
+            throw new RepositoryException('Author articles is ivalid');
+        }
+        $articles = $this->prepareRawArticles($rawArticles);
+
         return new AuthorDto(
             $rawIdentifier,
             $rawName,
             $active,
-            $translates
+            $translates,
+            $articles
         );
     }
+
+    /**
+     * @param string $rawArticles - Json encoded array of strings
+     * @return array<int,ArticleId>
+     */
+    protected function prepareRawArticles(string $rawArticles): array
+    {
+        $decodedArticles = json_decode($rawArticles);
+
+        $data = [];
+        foreach ($decodedArticles as $article) {
+            $data[] = new ArticleId($article);
+        }
+        return $data;
+    }
+
 
     /** @throws RepositoryException */
     protected function createTranslates(string $rawId): array
@@ -121,7 +145,19 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         SELECT author.identifier,
             author.active,
-            author.name
+            author.name,
+            array_to_json (
+                array (SELECT article.identifier 
+                    FROM article
+                    WHERE article.author_id = $1
+                ) 
+            ) as articles,
+            array_to_json (
+                array (SELECT img.identifier 
+                    FROM img
+                    WHERE img.author_id = $1
+                ) 
+            ) as images
         FROM author
         WHERE author.identifier = $1
         QUERY;

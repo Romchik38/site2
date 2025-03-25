@@ -3,7 +3,6 @@
 ## Current
 
 - author view page
-  - articles
   - images
 
 ## Next
