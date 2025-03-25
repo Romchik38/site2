@@ -12,7 +12,6 @@ interface RepositoryInterface
      * @throws DuplicateIdException
      * @throws NoSuchAuthorException
      * 
-     * @todo implement catch block RepositoryException
      * @throws RepositoryException
      * */
     public function getById(AuthorId $id): Author;

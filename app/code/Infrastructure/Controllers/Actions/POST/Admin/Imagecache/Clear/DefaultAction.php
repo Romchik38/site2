@@ -16,7 +16,6 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    /** @todo translate */
     public const SUCCESS_MESSAGE_KEY = 'admin.image-cache.cache-cleared';
 
     public function __construct(

@@ -57,7 +57,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
         $command = Delete::formHash($requestData);
 
-        /** @todo tests all paths */
         try {
             $this->authorService->delete($command);
             $message = $this->translateService->t($this::SUCCESS_DELETE_KEY);
