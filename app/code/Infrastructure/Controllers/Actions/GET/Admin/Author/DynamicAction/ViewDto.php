@@ -10,7 +10,7 @@ use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {
-    /** 
+    /**
      * @param array<int,LanguageDto> $languages
      */
     public function __construct(

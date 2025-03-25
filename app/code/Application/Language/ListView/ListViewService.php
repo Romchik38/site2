@@ -10,10 +10,10 @@ final class ListViewService
 {
     public function __construct(
         private readonly RepositoryInterface $repository
-    ) {  
+    ) {
     }
 
-    /** 
+    /**
      * @return array<int,LanguageDto>
      */
     public function getAll(): array

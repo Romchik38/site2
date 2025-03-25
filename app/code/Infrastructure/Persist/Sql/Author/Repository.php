@@ -4,42 +4,46 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Author;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\Author;
+use Romchik38\Site2\Domain\Author\CouldDeleteException;
+use Romchik38\Site2\Domain\Author\CouldNotSaveException;
+use Romchik38\Site2\Domain\Author\DuplicateIdException;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
+use Romchik38\Site2\Domain\Author\RepositoryException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
-use Romchik38\Site2\Domain\Author\VO\Name;
-use Romchik38\Site2\Domain\Author\RepositoryException;
-use Romchik38\Site2\Domain\Author\DuplicateIdException;
-use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\Description;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Domain\Author\CouldDeleteException;
+use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
-use Romchik38\Site2\Domain\Author\CouldNotSaveException;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+
+use function count;
+use function json_decode;
+use function sprintf;
 
 final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database
-    ) {   
+    ) {
     }
 
     public function getById(AuthorId $id): Author
     {
         $params = [$id()];
-        $query = $this->defaultSelectQuery();
+        $query  = $this->defaultSelectQuery();
 
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
-        
+
         $rowsCount = count($rows);
         if ($rowsCount === 0) {
             throw new NoSuchAuthorException(sprintf(
@@ -54,19 +58,18 @@ final class Repository implements RepositoryInterface
             ));
         }
 
-        $model = $this->createFromRow($rows[0]);
-        return $model;
+        return $this->createFromRow($rows[0]);
     }
 
     public function delete(Author $model): void
     {
-        $query = $this->mainDeleteQuery();
+        $query  = $this->mainDeleteQuery();
         $params = [(string) $model->getId()];
 
         // Do not need delete translates, because they will be deleted cascade
         try {
             $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new CouldDeleteException($e->getMessage());
         }
     }
@@ -86,15 +89,15 @@ final class Repository implements RepositoryInterface
         }
 
         $mainSaveQuery = $this->mainSaveQuery();
-        $mainParams = [$authorName, $authorActive, $authorId()];
+        $mainParams    = [$authorName, $authorActive, $authorId()];
 
-        $translates = $model->getTranslates();
+        $translates      = $model->getTranslates();
         $translatetItems = [];
         foreach ($translates as $translate) {
             $translatetItems[] = sprintf(
                 '(%s, \'%s\', \'%s\')',
-                $authorId(), 
-                (string) $translate->getLanguage(), 
+                $authorId(),
+                (string) $translate->getLanguage(),
                 (string) $translate->getDescription()
             );
         }
@@ -102,36 +105,36 @@ final class Repository implements RepositoryInterface
         try {
             $this->database->transactionStart();
             $this->database->transactionQueryParams(
-                $mainSaveQuery, 
+                $mainSaveQuery,
                 $mainParams
             );
             $this->database->transactionQueryParams(
-                $this->translatesSaveQueryDelete(), 
+                $this->translatesSaveQueryDelete(),
                 [$authorId()]
             );
             foreach ($translates as $translate) {
                 $this->database->transactionQueryParams(
-                    $this->translatesSaveQueryInsert(), 
-                    [  
-                        $authorId(), 
-                        (string) $translate->getLanguage(), 
-                        (string) $translate->getDescription()
+                    $this->translatesSaveQueryInsert(),
+                    [
+                        $authorId(),
+                        (string) $translate->getLanguage(),
+                        (string) $translate->getDescription(),
                     ]
                 );
             }
             $this->database->transactionEnd();
-        } catch(DatabaseTransactionException $e) {
+        } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
                 throw new CouldNotSaveException($e->getMessage());
-            } catch(DatabaseTransactionException $e2) {
+            } catch (DatabaseTransactionException $e2) {
                 throw new CouldNotSaveException($e2->getMessage());
             }
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
                 throw new CouldNotSaveException($e->getMessage());
-            } catch(DatabaseTransactionException $e2) {
+            } catch (DatabaseTransactionException $e2) {
                 throw new CouldNotSaveException($e2->getMessage());
             }
         }
@@ -168,27 +171,27 @@ final class Repository implements RepositoryInterface
 
             foreach ($translates as $translate) {
                 $this->database->transactionQueryParams(
-                    $this->translatesSaveQueryInsert(), 
-                    [  
-                        $rawAuthorId, 
-                        (string) $translate->getLanguage(), 
-                        (string) $translate->getDescription()
+                    $this->translatesSaveQueryInsert(),
+                    [
+                        $rawAuthorId,
+                        (string) $translate->getLanguage(),
+                        (string) $translate->getDescription(),
                     ]
                 );
             }
             $this->database->transactionEnd();
-        } catch(DatabaseTransactionException $e) {
+        } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
                 throw new CouldNotSaveException($e->getMessage());
-            } catch(DatabaseTransactionException $e2) {
+            } catch (DatabaseTransactionException $e2) {
                 throw new CouldNotSaveException($e2->getMessage());
             }
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
                 throw new CouldNotSaveException($e->getMessage());
-            } catch(DatabaseTransactionException $e2) {
+            } catch (DatabaseTransactionException $e2) {
                 throw new CouldNotSaveException($e2->getMessage());
             }
         }
@@ -222,7 +225,7 @@ final class Repository implements RepositoryInterface
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Author languages param is ivalid');
-        }        
+        }
         $languages = $this->prepareRawLanguages($rawLanguages);
 
         // articles
@@ -260,7 +263,7 @@ final class Repository implements RepositoryInterface
         $translates = [];
 
         $params = [$authorId];
-        $query = $this->translatesQuery();
+        $query  = $this->translatesQuery();
 
         $rows = $this->database->queryParams($query, $params);
 
@@ -298,9 +301,9 @@ final class Repository implements RepositoryInterface
     }
 
         /**
-     * @param string $rawArticles - Json encoded array of strings
-     * @return array<int,ArticleId>
-     */
+         * @param string $rawArticles - Json encoded array of strings
+         * @return array<int,ArticleId>
+         */
     protected function prepareRawArticles(string $rawArticles): array
     {
         $decodedArticles = json_decode($rawArticles);
@@ -327,7 +330,6 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-    
     protected function defaultSelectQuery(): string
     {
         return <<<'QUERY'

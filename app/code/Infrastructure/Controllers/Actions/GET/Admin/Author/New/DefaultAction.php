@@ -12,13 +12,12 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -33,7 +32,6 @@ final class DefaultAction extends AbstractMultiLanguageAction
 
     public function execute(): ResponseInterface
     {
-
         $languages = $this->languageService->getAll();
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
@@ -61,13 +59,10 @@ final class DefaultAction extends AbstractMultiLanguageAction
             ->toString();
 
         return new HtmlResponse($html);
-        
-        
     }
 
     public function getDescription(): string
     {
         return 'Admin Author create new page ';
     }
-
 }

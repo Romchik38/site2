@@ -12,7 +12,7 @@ final class Translate
     public function __construct(
         public readonly Identifier $language,
         public readonly Description $description
-    ) { 
+    ) {
     }
 
     public function getLanguage(): Identifier

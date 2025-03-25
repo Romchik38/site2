@@ -82,7 +82,7 @@ final class Repository implements RepositoryInterface
         if ($rawName === null) {
             throw new RepositoryException('Author name is ivalid');
         }
-        
+
         return new AuthorDto(
             $rawIdentifier,
             $rawName,

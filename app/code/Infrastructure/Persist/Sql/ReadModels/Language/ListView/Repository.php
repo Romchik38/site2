@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\ListView;
 
 use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Site2\Application\Language\ListView\RepositoryException;
 use Romchik38\Site2\Application\Language\ListView\RepositoryInterface;
 use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
-use Romchik38\Site2\Application\Language\ListView\RepositoryException;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
 final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database
-    ) {   
+    ) {
     }
 
     public function getAll(): array
@@ -24,7 +24,7 @@ final class Repository implements RepositoryInterface
         $rows = $this->database->queryParams($query, []);
 
         $list = [];
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $list[] = $this->createFromRow($row);
         }
         return $list;
@@ -47,13 +47,12 @@ final class Repository implements RepositoryInterface
         } else {
             $active = false;
         }
-        
+
         return new LanguageDto(
             new Identifier($rawIdentifier),
             $active
         );
     }
-    
 
     protected function defaultQuery(): string
     {

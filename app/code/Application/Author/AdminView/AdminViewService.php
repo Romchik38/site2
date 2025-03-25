@@ -12,11 +12,11 @@ final class AdminViewService
 {
     public function __construct(
         private readonly RepositoryInterface $repository
-    ) {   
+    ) {
     }
 
-    /** 
-     * @throws NoSuchAuthorException 
+    /**
+     * @throws NoSuchAuthorException
      * @throws DuplicateIdException
      * */
     public function find(AuthorId $id): AuthorDto

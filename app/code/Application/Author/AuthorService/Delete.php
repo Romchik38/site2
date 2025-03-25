@@ -10,7 +10,7 @@ final class Delete
 
     private function __construct(
         public readonly string $id
-    ) {   
+    ) {
     }
 
     public static function formHash(array $hash): self

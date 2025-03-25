@@ -11,6 +11,6 @@ final class LanguageDto
     public function __construct(
         public readonly Identifier $identifier,
         public readonly bool $active
-    ) {  
+    ) {
     }
 }

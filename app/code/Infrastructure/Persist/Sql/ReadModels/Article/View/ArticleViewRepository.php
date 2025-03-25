@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Application\Article\ArticleView\Find;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTO;

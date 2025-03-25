@@ -16,16 +16,17 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Author\AdminList\AdminAuthorList;
 use Romchik38\Site2\Application\Author\AdminList\Filter;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
 use Romchik38\Site2\Application\Author\AuthorService\Delete;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+use function count;
+
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,

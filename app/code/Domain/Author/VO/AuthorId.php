@@ -23,8 +23,8 @@ final class AuthorId
         return $this->authorId;
     }
 
-    public function __toString(): string 
+    public function __toString(): string
     {
-        return $this->authorId;  
+        return $this->authorId;
     }
 }

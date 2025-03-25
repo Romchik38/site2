@@ -4,37 +4,39 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Author\AdminView;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
-use Romchik38\Site2\Domain\Author\VO\AuthorId;
-use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
-use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
+use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
+use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
+use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
-use Romchik38\Site2\Domain\Language\VO\Identifier;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Language\VO\Identifier;
 
+use function count;
+use function json_decode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database
-    ) {   
+    ) {
     }
-    
+
     public function getById(AuthorId $id): AuthorDto
     {
         $idAsString = $id();
-        $params = [$idAsString];
+        $params     = [$idAsString];
 
         $query = $this->defaultQuery();
 
-        $rows = $this->database->queryParams($query, $params);
+        $rows     = $this->database->queryParams($query, $params);
         $rowCount = count($rows);
         if ($rowCount === 0) {
             throw new NoSuchAuthorException(sprintf(
@@ -77,7 +79,7 @@ final class Repository implements RepositoryInterface
         }
 
         $translates = $this->createTranslates($rawIdentifier);
-        
+
         $rawArticles = $row['articles'] ?? null;
         if ($rawArticles === null) {
             throw new RepositoryException('Author articles is ivalid');
@@ -115,7 +117,6 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-
     /**
      * @param string $rawArticles - Json encoded array of strings
      * @return array<int,ArticleId>
@@ -131,18 +132,17 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-
     /** @throws RepositoryException */
     protected function createTranslates(string $rawId): array
     {
         $translates = [];
 
-        $query = $this->translatesQuery();
+        $query  = $this->translatesQuery();
         $params = [$rawId];
 
         try {
-            $rows = $this->database->queryParams($query,$params);
-        } catch(QueryException $e) {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
 

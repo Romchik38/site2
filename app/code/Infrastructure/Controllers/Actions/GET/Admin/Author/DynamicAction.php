@@ -15,17 +15,16 @@ use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
 
 use function sprintf;
 
-final class DynamicAction extends AbstractMultiLanguageAction
-    implements DynamicActionInterface
+final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -43,13 +42,13 @@ final class DynamicAction extends AbstractMultiLanguageAction
     {
         try {
             $authorId = new AuthorId($dynamicRoute);
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             throw new ActionNotFoundException($e->getMessage());
         }
 
         try {
             $authorDto = $this->adminViewService->find($authorId);
-        } catch(NoSuchAuthorException) {
+        } catch (NoSuchAuthorException) {
             throw new ActionNotFoundException(sprintf(
                 'Author with id %s not exist',
                 $authorId()
@@ -84,8 +83,6 @@ final class DynamicAction extends AbstractMultiLanguageAction
             ->toString();
 
         return new HtmlResponse($html);
-        
-        
     }
 
     public function getDescription(string $dynamicRoute): string

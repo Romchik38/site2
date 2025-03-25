@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 
 use DateTime;
-use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Api\Models\SearchCriteria\SearchCriteriaInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\ArticleCategory;
 use Romchik38\Site2\Domain\Article\ArticleRepositoryInterface;

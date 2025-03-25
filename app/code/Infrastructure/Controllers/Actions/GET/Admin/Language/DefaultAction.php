@@ -14,15 +14,13 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\View\ViewDto;
 
-final class DefaultAction extends AbstractMultiLanguageAction
-    implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ListViewService $listViewService
-
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

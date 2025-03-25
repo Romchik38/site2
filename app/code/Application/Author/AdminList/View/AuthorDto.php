@@ -18,6 +18,6 @@ final class AuthorDto
         public readonly bool $active
     ) {
         $this->identifier = new AuthorId($id);
-        $this->name = new Name($name);
+        $this->name       = new Name($name);
     }
 }

@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Author;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
-use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+
+use function array_values;
+use function count;
+use function sprintf;
 
 final class Author
 {
@@ -77,7 +81,7 @@ final class Author
         }
     }
 
-    /** 
+    /**
      * @param array<int,LanguageId> $languages
      * @throws InvalidArgumentException
      * */
@@ -103,14 +107,13 @@ final class Author
      * */
     public static function load(
         AuthorId $id,
-        Name $name, 
+        Name $name,
         bool $active,
         array $articles,
         array $images,
         array $languages,
         array $translates
-    ): self
-    {
+    ): self {
         return new self(
             $id,
             $name,
@@ -144,7 +147,8 @@ final class Author
     }
 
     /** @return array<int,Translate> */
-    public function getTranslates(): array {
+    public function getTranslates(): array
+    {
         return array_values($this->translatesHash);
     }
 
@@ -182,8 +186,8 @@ final class Author
         if (count($this->languages) !== count($this->translatesHash)) {
             throw new CouldNotChangeActivityException('Author has missing translates');
         }
-        
-        foreach($this->languages as $language) {
+
+        foreach ($this->languages as $language) {
             $check = $this->translatesHash[$language()] ?? null;
             if ($check === null) {
                 throw new CouldNotChangeActivityException(
@@ -194,7 +198,7 @@ final class Author
         $this->active = true;
     }
 
-    /** 
+    /**
      * @throws CouldNotChangeActivityException
      */
     public function deactivate(): void
@@ -206,7 +210,6 @@ final class Author
         if (count($this->articles) > 0) {
             throw new CouldNotChangeActivityException('Author is used in articles. Change it first');
         }
-
 
         if (count($this->images) > 0) {
             throw new CouldNotChangeActivityException('Author is used in images. Change it first');

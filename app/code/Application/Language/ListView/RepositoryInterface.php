@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Application\Language\ListView;
 
 use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
-Interface RepositoryInterface
-{   
+interface RepositoryInterface
+{
     /** @return array<int,LanguageDto> */
     public function getAll(): array;
 }
