@@ -8,6 +8,9 @@
 - root admin image          images page
 - root admin imagecache     image cache
 - root admin language       languages list
+- root admin author         author list (default)
+                            author view/update (dynamic)
+- root admin author new     author create new
 
 ## POST
 
@@ -15,3 +18,6 @@
 - root admin logout             admin logout
 - root admin api userinfo       admin userinfo api point
 - root admin imagecache clear   clear image cache
+- root admin author delete      delete author
+- root admin author new         create author
+- root admin author update      save existing author
