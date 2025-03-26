@@ -2,6 +2,12 @@
 
 ## Current
 
+- translates list
+  - action
+  - template
+  - service
+  - repository
+
 ## Next
 
 - move to server
