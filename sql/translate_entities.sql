@@ -1,10 +1,11 @@
 CREATE table translate_entities
 (
-    entity_id serial PRIMARY KEY, 
-    key text REFERENCES translate_keys ( key ) ON DELETE CASCADE,
-    language text REFERENCES language ( identifier ) ON DELETE CASCADE,
+    key text REFERENCES translate_keys ( identifier ) ON DELETE CASCADE ON UPDATE CASCADE,
+    language text REFERENCES language ( identifier ) ON UPDATE CASCADE,
     phrase text NOT NULL,
-    CONSTRAINT uq_translate_entities UNIQUE ( key, language )
+    CONSTRAINT pk_translate_entities PRIMARY KEY ( key, language )
+
+    -- translate_entities_language_fkey
 );
 
 --Examples

@@ -1,9 +1,9 @@
 CREATE table translate_keys
 (
-    key text PRIMARY KEY
+    identifier text PRIMARY KEY
 );
 
-INSERT INTO translate_keys (key) VALUES
+INSERT INTO translate_keys (identifier) VALUES
     --global
     ('global.language'),
     --controller
