@@ -3,10 +3,8 @@
 ## Current
 
 - translates list
-  - action
+  - bootstrap
   - template
-  - service
-  - repository
 
 ## Next
 

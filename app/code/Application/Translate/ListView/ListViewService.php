@@ -17,9 +17,6 @@ final class ListViewService
     ) {
     }
 
-    /** 
-     * @return array<int,>
-     */
     public function list(Filter $command): FilterResult
     {
         $limit            = Limit::fromString($command->limit);
