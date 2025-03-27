@@ -16,19 +16,6 @@ return function (Container $container) {
         true,
         [$configDatabase]
     );
-    
-    // TRANSLATE ENTITY MODEL REPOSITORY
-    $container->multi(
-        '\Romchik38\Server\Models\TranslateEntity\Sql\TranslateEntityModelRepository',
-        '\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface',
-        true,
-        [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface'),
-            new Promise('\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface'),
-            'translate_entities',
-            'entity_id'
-        ]
-    );
 
     // ADMIN USER REPOSITORY
     $container->multi(

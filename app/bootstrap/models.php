@@ -8,13 +8,6 @@ return function (Container $container) {
     
     // MODEL FACTORIES
     $container->multi(
-        '\Romchik38\Server\Models\TranslateEntity\TranslateEntityModelFactory',
-        '\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelFactoryInterface',
-        true,
-        []
-    );
-
-    $container->multi(
         '\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory',
         '\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface',
         true,
