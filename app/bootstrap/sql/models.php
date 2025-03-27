@@ -151,6 +151,16 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
         ]
     );
+    
+    // TRANSLATE LIST VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\ListView\Repository',
+        '\Romchik38\Site2\Application\Translate\ListView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+        ]
+    );
 
     return $container;
 };

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\TranslateKey;
+namespace Romchik38\Site2\Domain\Translate;
 
-use Romchik38\Site2\Domain\TranslateKey\VO\Identifier;
+use Romchik38\Site2\Domain\Translate\VO\Identifier;
 
 final class Translate
 {

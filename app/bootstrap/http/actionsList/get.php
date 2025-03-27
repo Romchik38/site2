@@ -95,13 +95,20 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction')
     );
     
+    $adminTranslate = new Controller(
+        'translate',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction')
+    );
+
     $admin
     ->setChild($adminUsers)
     ->setChild($adminArticle)
     ->setChild($adminImagecache)
     ->setChild($adminImage)
     ->setChild($adminAuthor)
-    ->setChild($adminLanguage);
+    ->setChild($adminLanguage)
+    ->setChild($adminTranslate);
     
     /** REGISTER */
     $register = new Controller(

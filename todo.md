@@ -3,7 +3,6 @@
 ## Current
 
 - translates list
-  - bootstrap
   - template
 
 ## Next

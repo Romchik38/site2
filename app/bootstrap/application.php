@@ -148,5 +148,13 @@ return function (Container $container) {
         ]
     );
 
+    // TRANSLATE LIST VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Translate\ListView\ListViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Translate\ListView\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };

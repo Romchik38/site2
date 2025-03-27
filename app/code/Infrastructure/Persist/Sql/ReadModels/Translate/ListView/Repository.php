@@ -10,7 +10,7 @@ use Romchik38\Site2\Application\Translate\ListView\RepositoryException;
 use Romchik38\Site2\Application\Translate\ListView\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\ListView\SearchCriteria;
 use Romchik38\Site2\Application\Translate\ListView\View\TranslateDto;
-use Romchik38\Site2\Domain\TranslateKey\VO\Identifier;
+use Romchik38\Site2\Domain\Translate\VO\Identifier;
 
 use function implode;
 use function sprintf;

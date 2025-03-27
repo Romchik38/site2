@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\TranslateKey\VO;
+namespace Romchik38\Site2\Domain\Translate\VO;
 
 use InvalidArgumentException;
 
