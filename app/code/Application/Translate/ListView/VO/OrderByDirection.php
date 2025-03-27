@@ -11,7 +11,7 @@ use function sprintf;
 
 final class OrderByDirection
 {
-    public const DEFAULT_ORDER_BY_DIRECTION  = 'desc';
+    public const DEFAULT_ORDER_BY_DIRECTION  = 'asc';
     public const ALLOWED_ORDER_BY_DIRECTIONS = ['asc', 'desc'];
 
     public readonly string $orderByDirection;

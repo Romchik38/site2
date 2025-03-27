@@ -48,7 +48,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $filterResult   = $this->translateList->list($command);
         $searchCriteria = $filterResult->searchCriteria;
-        $authorList     = $filterResult->list;
+        $translateList     = $filterResult->list;
         $page           = $filterResult->page;
         $totalCount     = $this->translateList->totalCount();
 
@@ -65,7 +65,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $path,
             $this->urlbuilder,
             $pagination,
-            count($authorList)
+            count($translateList)
         );
 
         $paginationHtml = $paginationView->create();
@@ -76,7 +76,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $dto = new ViewDto(
             'Translates',
             'Translates page',
-            $authorList,
+            $translateList,
             $paginationHtml,
             new PaginationForm(
                 $searchCriteria->limit,
