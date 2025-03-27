@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82aa98c84be927db68537fe3e73e9973",
+    "content-hash": "5201f2b8e1157ea72183cbaaf0afda52",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -370,16 +370,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.16.4",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "2e3d82526c3b0a1df3a69cab491816f41a8617f6"
+                "reference": "302f2d3118fd3e1cfcea06b19f6410b8180189ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/2e3d82526c3b0a1df3a69cab491816f41a8617f6",
-                "reference": "2e3d82526c3b0a1df3a69cab491816f41a8617f6",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/302f2d3118fd3e1cfcea06b19f6410b8180189ad",
+                "reference": "302f2d3118fd3e1cfcea06b19f6410b8180189ad",
                 "shasum": ""
             },
             "require": {
@@ -425,10 +425,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.16.4",
+                "source": "https://github.com/Romchik38/server/tree/v1.17.0",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-03-25T13:44:32+00:00"
+            "time": "2025-03-27T12:50:34+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2916,12 +2916,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.3"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

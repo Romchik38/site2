@@ -3,7 +3,7 @@
 ## Current
 
 - Server translate
-  - update to v.17.0
+  - [+] update to v.17.0
   - create translate storage
   - config bootstrap for translate service
   - remove unused classes from bootstrap
