@@ -155,5 +155,15 @@ return function (Container $container) {
         ]
     );
 
+    // TRANSLATE STORAGE 
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage\TranslateStorage',
+        '\Romchik38\Server\Services\Translate\TranslateStorageInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+        ]
+    );
+
     return $container;
 };

@@ -48,7 +48,7 @@ return function (Container $container) {
 
     $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory', [
         new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
-        new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
     ]);
     
     $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [$configImgFolderFrontend]);

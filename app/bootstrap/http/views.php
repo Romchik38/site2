@@ -19,7 +19,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
@@ -35,7 +35,7 @@ return function (Container $container) {
         true,
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),

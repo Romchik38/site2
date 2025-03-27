@@ -14,7 +14,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         ]
@@ -24,7 +24,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         ]
@@ -38,7 +38,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
             $serverErrorResponseFile
@@ -50,7 +50,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
             new Promise ('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory')
@@ -63,7 +63,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
         ]
@@ -74,7 +74,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
         ]
     );
 
@@ -83,7 +83,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
@@ -95,7 +95,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleView\ArticleViewService'),
         ]
@@ -115,7 +115,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
@@ -128,7 +128,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view')
         ]
     );
@@ -138,7 +138,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
@@ -151,7 +151,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -164,7 +164,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
@@ -177,7 +177,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
@@ -192,7 +192,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
@@ -205,7 +205,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
         ]
@@ -215,7 +215,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\Author\AdminView\AdminViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -229,7 +229,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView')
         ]
@@ -240,7 +240,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
@@ -254,7 +254,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         ]
     );
@@ -264,7 +264,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -277,7 +277,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -290,7 +290,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         ]
@@ -301,7 +301,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         ]
@@ -312,7 +312,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
@@ -324,7 +324,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
@@ -338,7 +338,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
@@ -352,7 +352,7 @@ return function (Container $container) {
         'Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
@@ -367,7 +367,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         ]
     );

@@ -15,13 +15,6 @@ return function (Container $container) {
     );
 
     $container->multi(
-        '\Romchik38\Server\Models\DTO\TranslateEntity\TranslateEntityDTOFactory',
-        '\Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOFactoryInterface',
-        true,
-        []
-    );
-
-    $container->multi(
         '\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory',
         '\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface',
         true,

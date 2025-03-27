@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Views\Html;
 
-use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;

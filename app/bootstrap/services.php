@@ -38,7 +38,7 @@ return function (Container $container) {
     $container->shared('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat', []);
     // ReadLengthFormatter
     $container->shared('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter', [
-        new Promise('\Romchik38\Server\Api\Services\Translate\TranslateInterface')
+        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
     ]);
 
     // CSRF TOKEN GENERATOR
@@ -110,25 +110,15 @@ return function (Container $container) {
         ]
     );
 
-    // TRANSLATESTORAGE
-    $container->multi(
-        '\Romchik38\Server\Services\Translate\TranslateStorage',
-        '\Romchik38\Server\Api\Services\Translate\TranslateStorageInterface',
-        true,
-        [
-            new Promise('\Romchik38\Server\Api\Models\TranslateEntity\TranslateEntityModelRepositoryInterface'),
-            new Promise('\Romchik38\Server\Api\Models\DTO\TranslateEntity\TranslateEntityDTOFactoryInterface')
-        ]
-    );
-
     // TRANSLATE
     $container->multi(
-        '\Romchik38\Server\Services\Translate\Translate',
-        '\Romchik38\Server\Api\Services\Translate\TranslateInterface',
+        '\Romchik38\Server\Services\Translate\TranslateUseDynamicRoot',
+        '\Romchik38\Server\Services\Translate\TranslateInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Api\Services\Translate\TranslateStorageInterface'),
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+            new Promise('\Romchik38\Server\Services\Translate\TranslateStorageInterface'),
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
         ]
     );
 

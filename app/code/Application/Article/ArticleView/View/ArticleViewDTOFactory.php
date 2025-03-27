@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
 use DateTime;
-use Romchik38\Server\Api\Services\Translate\TranslateInterface;
+use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleListView\View\DateFormatterInterface;
 
 use function sprintf;
