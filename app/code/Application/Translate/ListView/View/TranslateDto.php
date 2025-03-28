@@ -9,7 +9,7 @@ use Romchik38\Site2\Domain\Translate\VO\Identifier;
 final class TranslateDto
 {
     public function __construct(
-        public readonly Identifier $identifier,
+        public readonly Identifier $identifier
     ) {
     }
 }

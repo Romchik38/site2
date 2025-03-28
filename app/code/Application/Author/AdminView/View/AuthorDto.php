@@ -16,6 +16,8 @@ final class AuthorDto
     public readonly Name $name;
 
     /**
+     * @todo refactor Translate - it must not be entity  but dto
+     * 
      * @param array<int,Translate> $translates
      * @param array<int,ArticleId> $articles
      * @param array<int,ImageId> $images

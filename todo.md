@@ -5,8 +5,7 @@
 - translates view
   - action
   - template
-  - service
-  - repository
+  - boostrap
 
 ## Next
 
