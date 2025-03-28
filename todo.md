@@ -14,6 +14,8 @@
   - service
   - repository
 
+- remove DuplicateIdException
+
 ## Next
 
 - move to server

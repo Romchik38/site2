@@ -8,10 +8,10 @@ use function count;
 
 final class Update
 {
-    public const ID_FIELD                  = 'id';
-    public const TRANSLATES_FIELD          = 'translates';
-    public const LANGUAGE_FIELD            = 'language';
-    public const PHRASE_FIELD         = 'phrase';
+    public const ID_FIELD         = 'id';
+    public const TRANSLATES_FIELD = 'translates';
+    public const LANGUAGE_FIELD   = 'language';
+    public const PHRASE_FIELD     = 'phrase';
 
     /** @param array<int,Phrase> $phrases*/
     private function __construct(
