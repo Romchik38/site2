@@ -2,10 +2,17 @@
 
 ## Current
 
-- translates view
+- translate update
   - action
   - template
-  - boostrap
+  - service
+  - repository
+  
+- translates new
+  - action
+  - template
+  - service
+  - repository
 
 ## Next
 
