@@ -11,6 +11,7 @@
 - root admin author         author list (default)
                             author view/update (dynamic)
 - root admin author new     author create new
+- root admin translate      translate list view
 
 ## POST
 

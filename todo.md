@@ -2,8 +2,11 @@
 
 ## Current
 
-- translates list
+- translates view
+  - action
   - template
+  - service
+  - repository
 
 ## Next
 
