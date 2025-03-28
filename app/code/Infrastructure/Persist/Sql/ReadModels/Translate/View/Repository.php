@@ -53,7 +53,25 @@ final class Repository implements RepositoryInterface
             ));
         }
 
+        $phrases = $this->createPhrases($id);
+
+        return new TranslateDto($id, $phrases);
+    }
+
+    /** return array<int,PhraseDto> */
+    private function createPhrases(Identifier $id): array
+    {
+        $query = $this->phrasesQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch(QueryException $e) {
+            throw new DatabaseException($e->getMessage());
+        }
+
         $phrases = [];
+
         foreach($rows as $row) {
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
@@ -68,10 +86,20 @@ final class Repository implements RepositoryInterface
                 new Phrase($rawPhrase)
             );
         }
-        return new TranslateDto($id, $phrases);
+
+        return $phrases;
     }
 
     protected function defaultQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT translate_keys.identifier
+        FROM translate_keys
+        WHERE translate_keys.identifier = $1
+        QUERY;
+    }
+
+    protected function phrasesQuery(): string
     {
         return <<<'QUERY'
         SELECT translate_entities.language,

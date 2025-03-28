@@ -156,5 +156,13 @@ return function (Container $container) {
         ]
     );
 
+    // TRANSLATE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Translate\View\ViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Translate\View\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };

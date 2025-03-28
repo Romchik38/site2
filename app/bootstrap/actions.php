@@ -239,6 +239,20 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN TRANSLATE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Application\Translate\View\ViewService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+        ]
+    );
+
     // Register
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',

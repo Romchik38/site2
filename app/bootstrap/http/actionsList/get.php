@@ -98,7 +98,8 @@ return function (Container $container): ControllerInterface {
     $adminTranslate = new Controller(
         'translate',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction'),
+        $container->get('\\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction')
     );
 
     $admin
