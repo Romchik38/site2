@@ -58,7 +58,7 @@ final class Repository implements RepositoryInterface
         return new TranslateDto($id, $phrases);
     }
 
-    /** return array<int,PhraseDto> */
+    /** @return array<int,PhraseDto> */
     private function createPhrases(Identifier $id): array
     {
         $query = $this->phrasesQuery();
