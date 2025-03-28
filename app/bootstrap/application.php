@@ -164,5 +164,13 @@ return function (Container $container) {
         ]
     );
 
+    // TRANSLATE SERVICE
+    $container->shared(
+        '\Romchik38\Site2\Application\Translate\TranslateService\TranslateService',
+        [
+            new Promise('\Romchik38\Site2\Domain\Translate\RepositoryInterface')
+        ]
+    );
+
     return $container;
 };

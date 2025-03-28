@@ -172,5 +172,15 @@ return function (Container $container) {
         ]
     );
 
+    // TRANSLATE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Translate\Repository',
+        '\Romchik38\Site2\Domain\Translate\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+        ]
+    );
+
     return $container;
 };

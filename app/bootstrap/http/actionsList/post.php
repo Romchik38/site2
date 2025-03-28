@@ -104,10 +104,22 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAuthorDelete)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
+    $adminTranslate = new Controller('translate');
+    $adminTranslateUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Update\DefaultAction'),
+        null,
+        'translate_update'
+    );
+    $adminTranslate->setChild($adminTranslateUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+
     $admin->setChild($adminLogout)
     ->setChild($adminApi)
     ->setChild($adminImagecache)
-    ->setChild($adminAuthor);
+    ->setChild($adminAuthor)
+    ->setChild($adminTranslate);
 
     $root->setChild($auth)
     ->setChild($admin)
