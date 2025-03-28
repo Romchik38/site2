@@ -2,11 +2,8 @@
 
 ## Current
   
-- translates new
+- translates new (post)
   - action
-  - template
-  - service
-  - repository
 
 - translate delete
 

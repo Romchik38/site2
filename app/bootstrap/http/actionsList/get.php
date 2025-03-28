@@ -101,6 +101,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction'),
         $container->get('\\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction')
     );
+    $admintranslateNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\New\DefaultAction'),
+        null,
+        'translate_new'
+    );
+    $adminTranslate->setChild($admintranslateNew);
 
     $admin
     ->setChild($adminUsers)

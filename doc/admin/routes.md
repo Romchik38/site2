@@ -13,6 +13,7 @@
 - root admin author new     author create new
 - root admin translate      translate list view
                             translate view
+- root admin translate new  translate create new
 
 ## POST
 
