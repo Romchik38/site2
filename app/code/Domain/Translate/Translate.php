@@ -19,7 +19,7 @@ final class Translate
         array $phrases
     ) {
         foreach ($phrases as $phrase) {
-            if (! $phrases instanceof Phrase) {
+            if (! $phrase instanceof Phrase) {
                 throw new InvalidArgumentException('param phrase is not valid');
             } else {
                 $this->phraseHash[(string) $phrase->getLanguage()] = $phrase;

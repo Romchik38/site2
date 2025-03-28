@@ -47,15 +47,7 @@ final class Repository implements RepositoryInterface
             ));
         }
 
-        $phrases = [];
-        foreach ($rows as $row) {
-            $result = $this->createPhrase($row);
-            if ($result === null) {
-                continue;
-            } else {
-                $phrases[] = $result;
-            }
-        }
+        $phrases = $this->createPhrases($id);
 
         return new Translate($id, $phrases);
     }
@@ -152,25 +144,36 @@ final class Repository implements RepositoryInterface
         return $this->getById($id);
     }
 
-    /** @return PhraseDto */
-    private function createPhrase(array $row): ?Phrase
+    /** @return array<int,Phrase> */
+    private function createPhrases(Identifier $id): array
     {
-        $rawLanguage = $row['language'] ?? null;
-        if ($rawLanguage === null) {
-            throw new RepositoryException('Translate language is ivalid');
+        $query = $this->querySelectPhrases();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch(QueryException $e) {
+            throw new RepositoryException($e->getMessage());
         }
-        $rawPhrase = $row['phrase'] ?? null;
-        if ($rawPhrase === null) {
-            throw new RepositoryException('Translate phrase is ivalid');
-        }
-        if (strlen($rawLanguage) === 0 && strlen($rawPhrase) === 0) {
-            return null;
-        } else {
-            return new Phrase(
+
+        $phrases = [];
+
+        foreach ($rows as $row) {
+            $rawLanguage = $row['language'] ?? null;
+            if ($rawLanguage === null) {
+                throw new RepositoryException('Translate language is ivalid');
+            }
+            $rawPhrase = $row['phrase'] ?? null;
+            if ($rawPhrase === null) {
+                throw new RepositoryException('Translate phrase is ivalid');
+            }
+            $phrases[] = new Phrase(
                 new LanguageId($rawLanguage),
                 new VOPhrase($rawPhrase)
             );
         }
+
+        return $phrases;
     }
 
     private function deletePhrasesQuery(): string
@@ -184,14 +187,9 @@ final class Repository implements RepositoryInterface
     private function getByIdQuery(): string
     {
         return <<<'QUERY'
-        SELECT translate_keys.identifier,
-            translate_entities.language,
-            translate_entities.phrase
+        SELECT translate_keys.identifier
         FROM translate_keys
-            LEFT JOIN translate_entities 
-                ON translate_keys.identifier = translate_entities.key
         WHERE translate_keys.identifier = $1
-        ;
         QUERY;
     }
 
@@ -208,6 +206,16 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         INSERT INTO translate_keys (identifier)
         VALUES ($1)
+        QUERY;
+    }
+
+    private function querySelectPhrases(): string
+    {
+        return <<<'QUERY'
+        SELECT translate_entities.language,
+            translate_entities.phrase
+        FROM translate_entities
+        WHERE translate_entities.key = $1
         QUERY;
     }
 }

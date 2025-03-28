@@ -23,3 +23,4 @@
 - root admin author delete      delete author
 - root admin author new         create author
 - root admin author update      save existing author
+- root admin translate update   save existing translate

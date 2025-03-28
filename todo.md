@@ -1,18 +1,14 @@
 # Todo
 
 ## Current
-
-- translate update
-  - action
-  - template
-  - service
-  - repository
   
 - translates new
   - action
   - template
   - service
   - repository
+
+- translate delete
 
 - remove DuplicateIdException
 
