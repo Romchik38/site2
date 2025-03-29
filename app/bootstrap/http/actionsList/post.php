@@ -112,7 +112,16 @@ return function (Container $container): ControllerInterface {
         null,
         'translate_update'
     );
-    $adminTranslate->setChild($adminTranslateUpdate)
+    $adminTranslateNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\New\DefaultAction'),
+        null,
+        'translate_new'
+    );
+    $adminTranslate
+    ->setChild($adminTranslateUpdate)
+    ->setChild($adminTranslateNew)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)

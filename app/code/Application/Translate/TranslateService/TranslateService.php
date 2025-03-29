@@ -70,11 +70,26 @@ final class TranslateService
     {
         try {
             $translateId = new Identifier($command->id);
-            $model = new Translate($translateId, []);
-            $savedModel = $this->repository->add($model);
-            return $savedModel->getId();
+            $model = $this->repository->getById($translateId);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());
+        } catch (NoSuchTranslateException) {
+            try {
+                $phrases  = [];
+                foreach ($command->phrases as $phrase) {
+                    $phrases[] = new Phrase(
+                        new VOIdentifier($phrase->language),
+                        new PhraseVO($phrase->phrase)
+                    );
+                }
+                $model = new Translate($translateId, $phrases);
+                $savedModel = $this->repository->add($model);
+                return $savedModel->getId();
+            } catch (RepositoryException $e) {
+                throw new CouldNotSaveException($e->getMessage());
+            }
         }
+
+        throw new CouldNotSaveException('Error while creating new translate');
     }
 }
