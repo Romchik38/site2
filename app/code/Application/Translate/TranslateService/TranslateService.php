@@ -53,17 +53,12 @@ final class TranslateService
     /**
      * @throws InvalidArgumentException
      * @throws CouldDeleteException
-     * @throws NoSuchTranslateException
      */
     public function delete(Delete $command)
-    {
+    {   
         $translateId = new Identifier($command->id);
 
-        try {
-            $model = $this->repository->deleteById($translateId);
-        } catch (RepositoryException $e) {
-            throw new CouldDeleteException($e->getMessage());
-        }
+        $this->repository->deleteById($translateId);
     }
 
     public function create(Update $command): Identifier

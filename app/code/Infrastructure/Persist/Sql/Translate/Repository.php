@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Translate;
 
+use Romchik38\Server\Models\Errors\CouldNotDeleteException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
@@ -60,7 +61,7 @@ final class Repository implements RepositoryInterface
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
+            throw new CouldNotDeleteException($e->getMessage());
         }
     }
 

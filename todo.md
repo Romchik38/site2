@@ -1,12 +1,8 @@
 # Todo
 
 ## Current
-  
-- translates new (post)
-  - action
 
-- translate delete
-
+- code quality
 - remove DuplicateIdException
 
 ## Next

@@ -119,9 +119,17 @@ return function (Container $container): ControllerInterface {
         null,
         'translate_new'
     );
+    $adminTranslateDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Delete\DefaultAction'),
+        null,
+        'translate_delete'
+    );
     $adminTranslate
     ->setChild($adminTranslateUpdate)
     ->setChild($adminTranslateNew)
+    ->setChild($adminTranslateDelete)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)

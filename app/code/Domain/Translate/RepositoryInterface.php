@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Translate;
 
+use Romchik38\Server\Models\Errors\CouldNotDeleteException;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 
 interface RepositoryInterface
@@ -14,7 +15,7 @@ interface RepositoryInterface
      * */
     public function getById(Identifier $id): Translate;
 
-    /** @throws CouldDeleteException */
+    /** @throws CouldNotDeleteException */
     public function deleteById(Identifier $id): void;
 
     /** @throws CouldNotSaveException */
