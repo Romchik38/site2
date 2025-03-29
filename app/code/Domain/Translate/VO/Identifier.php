@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Translate\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Controllers\Name;
 
-use function strlen;
-
-final class Identifier
+final class Identifier extends Name
 {
+    public const NAME = 'Translate_Identifier';
+
     public function __construct(
         protected readonly string $id
     ) {
-        if (strlen($id) === 0) {
-            throw new InvalidArgumentException('param id is empty');
-        }
+        parent::__construct($id);
     }
 
     public function __invoke(): string

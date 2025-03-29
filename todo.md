@@ -2,6 +2,8 @@
 
 ## Current
 
+- VO that used in dynamic routing must be extended from controller `Name`
+
 ## Next
 
 - move to server
