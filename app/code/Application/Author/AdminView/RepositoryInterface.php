@@ -10,6 +10,9 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
 interface RepositoryInterface
 {
-    /** @throws NoSuchAuthorException */
+    /**
+     * @throws NoSuchAuthorException
+     * @throws RepositoryException
+     * */
     public function getById(AuthorId $id): AuthorDto;
 }

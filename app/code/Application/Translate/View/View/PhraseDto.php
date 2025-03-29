@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Application\Translate\View\View;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase;
 
-final class PhraseDto 
+final class PhraseDto
 {
     public function __construct(
         public readonly Identifier $language,

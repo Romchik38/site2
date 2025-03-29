@@ -13,6 +13,7 @@ final class Delete
     ) {
     }
 
+    /** @param array<string,string> $hash */
     public static function formHash(array $hash): self
     {
         return new self(

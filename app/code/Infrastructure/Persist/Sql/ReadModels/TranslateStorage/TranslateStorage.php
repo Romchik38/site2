@@ -11,26 +11,28 @@ use Romchik38\Server\Services\Translate\TranslateEntityDTO;
 use Romchik38\Server\Services\Translate\TranslateEntityDTOInterface;
 use Romchik38\Server\Services\Translate\TranslateStorageInterface;
 
+use function count;
+use function sprintf;
+
 final class TranslateStorage implements TranslateStorageInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database
-    ) {   
+    ) {
     }
 
-    /** 
-     * @todo replace RepositoryException with TranslateStorageException 
-     * 
+    /**
+     * @todo replace RepositoryException with TranslateStorageException
      * @throws RepositoryException - On Query or repository/database implementation error.
      * */
     public function getByKey(string $key): TranslateEntityDTOInterface
     {
-        $query = $this->defaultQuery();
+        $query  = $this->defaultQuery();
         $params = [$key];
-        
+
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
 

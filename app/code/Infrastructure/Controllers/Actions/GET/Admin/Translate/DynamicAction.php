@@ -8,19 +8,19 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DynamicActionInterface;
-use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Translate\TranslateService\Update;
 use Romchik38\Site2\Application\Translate\View\ViewService;
 use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction\ViewDto;
-use Romchik38\Site2\Application\Translate\TranslateService\Update;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 

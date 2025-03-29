@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Translate\TranslateService;
 
 use function count;
+use function gettype;
 
 final class Update
 {
@@ -20,14 +21,18 @@ final class Update
     ) {
     }
 
+    /** @param array<string,mixed> $hash */
     public static function formHash(array $hash): self
     {
         $rawPhrases = $hash[self::TRANSLATES_FIELD] ?? [];
+        if (gettype($rawPhrases) !== 'array') {
+            $rawPhrases = [];
+        }
         if (count($rawPhrases) > 0) {
             $phrases = [];
             foreach ($rawPhrases as $rawPhrase) {
-                $language     = $rawPhrase[self::LANGUAGE_FIELD] ?? '';
-                $phrase  = $rawPhrase[self::PHRASE_FIELD] ?? '';
+                $language  = $rawPhrase[self::LANGUAGE_FIELD] ?? '';
+                $phrase    = $rawPhrase[self::PHRASE_FIELD] ?? '';
                 $phrases[] = new Phrase($language, $phrase);
             }
             $rawPhrases = $phrases;

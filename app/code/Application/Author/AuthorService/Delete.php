@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
+use function gettype;
+
 final class Delete
 {
     public const ID_FIELD = 'id';
@@ -13,10 +15,13 @@ final class Delete
     ) {
     }
 
+    /** @param array<string,mixed> $hash */
     public static function formHash(array $hash): self
     {
-        return new self(
-            $hash[self::ID_FIELD] ?? ''
-        );
+        $id = $hash[self::ID_FIELD] ?? '';
+        if (gettype($id) !== 'string') {
+            $id = '';
+        }
+        return new self($id);
     }
 }

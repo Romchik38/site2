@@ -10,7 +10,6 @@ use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
@@ -36,7 +35,12 @@ final class Repository implements RepositoryInterface
 
         $query = $this->defaultQuery();
 
-        $rows     = $this->database->queryParams($query, $params);
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         $rowCount = count($rows);
         if ($rowCount === 0) {
             throw new NoSuchAuthorException(sprintf(
@@ -45,7 +49,7 @@ final class Repository implements RepositoryInterface
             ));
         }
         if ($rowCount > 1) {
-            throw new DuplicateIdException(sprintf(
+            throw new RepositoryException(sprintf(
                 'Author with id %s has duplicates',
                 $idAsString
             ));
@@ -132,7 +136,10 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-    /** @throws RepositoryException */
+    /**
+     * @throws RepositoryException
+     * @return array<int,Translate>
+     * */
     protected function createTranslates(string $rawId): array
     {
         $translates = [];

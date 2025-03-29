@@ -7,10 +7,10 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 

@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Translate;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
+use Romchik38\Site2\Domain\Translate\VO\Identifier;
+
+use function array_values;
 
 final class Translate
 {
     /** @var array<string,Phrase> */
     private array $phraseHash = [];
 
-    /** @param array<int,Phrase> $phrases */
+    /** @param array<int,mixed|Phrase> $phrases */
     public function __construct(
         private Identifier $identifier,
         array $phrases

@@ -7,13 +7,13 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\View;
 use Romchik38\Server\Models\Errors\DatabaseException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
-use Romchik38\Site2\Application\Translate\View\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\View\RepositoryException;
-use Romchik38\Site2\Application\Translate\View\View\TranslateDto;
+use Romchik38\Site2\Application\Translate\View\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\View\View\PhraseDto;
-use Romchik38\Site2\Domain\Translate\VO\Identifier;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
+use Romchik38\Site2\Application\Translate\View\View\TranslateDto;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
+use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase;
 
 use function count;
@@ -35,7 +35,7 @@ final class Repository implements RepositoryInterface
 
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new DatabaseException($e->getMessage());
         }
 
@@ -61,18 +61,18 @@ final class Repository implements RepositoryInterface
     /** @return array<int,PhraseDto> */
     private function createPhrases(Identifier $id): array
     {
-        $query = $this->phrasesQuery();
+        $query  = $this->phrasesQuery();
         $params = [$id()];
 
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new DatabaseException($e->getMessage());
         }
 
         $phrases = [];
 
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
                 throw new RepositoryException('Translate language is ivalid');

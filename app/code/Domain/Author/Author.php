@@ -22,10 +22,10 @@ final class Author
     private array $translatesHash = [];
 
     /**
-     * @param array<int,ArticleId> $articles
-     * @param array<int,ImageId> $images
-     * @param array<int,LanguageId> $languages
-     * @param array<int,Translate> $translates
+     * @param array<int,mixed|ArticleId> $articles
+     * @param array<int,mixed|ImageId> $images
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translate> $translates
      * @throws InvalidArgumentException
      * */
     private function __construct(

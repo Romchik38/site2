@@ -11,15 +11,15 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LogLevel;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\LoggerServerInterface;
-use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Models\Errors\CouldNotDeleteException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Translate\TranslateService\Delete;
 use Romchik38\Site2\Application\Translate\TranslateService\TranslateService;
+use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
-use Romchik38\Site2\Application\Translate\TranslateService\Delete;
 
 use function gettype;
 use function sprintf;
@@ -27,7 +27,7 @@ use function sprintf;
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_QUERY_KEY            = 'admin.query-was-processed-successfully';
+    public const string SUCCESS_QUERY_KEY             = 'admin.query-was-processed-successfully';
     public const string COULD_NOT_DELETE_KEY          = 'admin.data-could-not-delete';
 
     public function __construct(

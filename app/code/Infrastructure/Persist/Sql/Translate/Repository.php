@@ -4,26 +4,28 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Translate;
 
-use Romchik38\Server\Models\Errors\CouldNotDeleteException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Translate\RepositoryInterface;
-use Romchik38\Site2\Domain\Translate\RepositoryException;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
+use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
 use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
-use Romchik38\Site2\Domain\Translate\CouldDeleteException;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
+use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
+use Romchik38\Site2\Domain\Translate\RepositoryException;
+use Romchik38\Site2\Domain\Translate\RepositoryInterface;
 use Romchik38\Site2\Domain\Translate\Translate;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase as VOPhrase;
 
+use function count;
+use function sprintf;
+
 final class Repository implements RepositoryInterface
 {
-    public  function __construct(
-        private  readonly DatabaseInterface $database
-    ) {   
+    public function __construct(
+        private readonly DatabaseInterface $database
+    ) {
     }
 
     /**
@@ -32,12 +34,12 @@ final class Repository implements RepositoryInterface
      * */
     public function getById(Identifier $id): Translate
     {
-        $query = $this->getByIdQuery();
+        $query  = $this->getByIdQuery();
         $params = [$id()];
 
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
 
@@ -53,10 +55,10 @@ final class Repository implements RepositoryInterface
         return new Translate($id, $phrases);
     }
 
-    /** @throws CouldDeleteException */
+    /** @throws CouldNotDeleteException */
     public function deleteById(Identifier $id): void
     {
-        $query = 'DELETE FROM translate_keys WHERE translate_keys.identifier = $1';
+        $query  = 'DELETE FROM translate_keys WHERE translate_keys.identifier = $1';
         $params = [$id()];
         try {
             $this->database->queryParams($query, $params);
@@ -68,7 +70,7 @@ final class Repository implements RepositoryInterface
     /** @throws CouldNotSaveException */
     public function save(Translate $model): Translate
     {
-        $id = $model->getId();
+        $id      = $model->getId();
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();
@@ -108,7 +110,7 @@ final class Repository implements RepositoryInterface
     /** @throws CouldNotSaveException */
     public function add(Translate $model): Translate
     {
-        $id = $model->getId();
+        $id      = $model->getId();
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();
@@ -148,12 +150,12 @@ final class Repository implements RepositoryInterface
     /** @return array<int,Phrase> */
     private function createPhrases(Identifier $id): array
     {
-        $query = $this->querySelectPhrases();
+        $query  = $this->querySelectPhrases();
         $params = [$id()];
 
         try {
             $rows = $this->database->queryParams($query, $params);
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
 

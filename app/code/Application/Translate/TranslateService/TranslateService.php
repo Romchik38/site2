@@ -6,14 +6,14 @@ namespace Romchik38\Site2\Application\Translate\TranslateService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Language\VO\Identifier as VOIdentifier;
-use Romchik38\Site2\Domain\Translate\RepositoryInterface;
-use Romchik38\Site2\Domain\Translate\CouldDeleteException;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
+use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
 use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
-use Romchik38\Site2\Domain\Translate\VO\Identifier;
+use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
 use Romchik38\Site2\Domain\Translate\RepositoryException;
+use Romchik38\Site2\Domain\Translate\RepositoryInterface;
 use Romchik38\Site2\Domain\Translate\Translate;
+use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase as PhraseVO;
 
 final class TranslateService
@@ -32,7 +32,7 @@ final class TranslateService
     {
         try {
             $translateId = new Identifier($command->id);
-            $model = $this->repository->getById($translateId);
+            $model       = $this->repository->getById($translateId);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());
         }
@@ -45,17 +45,16 @@ final class TranslateService
             ));
         }
 
-        $savedModel       = $this->repository->save($model);
-        $savedTranslateId = $savedModel->getId();
-        return $savedTranslateId;
+        $savedModel = $this->repository->save($model);
+        return $savedModel->getId();
     }
 
     /**
      * @throws InvalidArgumentException
-     * @throws CouldDeleteException
+     * @throws CouldNotDeleteException
      */
-    public function delete(Delete $command)
-    {   
+    public function delete(Delete $command): void
+    {
         $translateId = new Identifier($command->id);
 
         $this->repository->deleteById($translateId);
@@ -65,19 +64,19 @@ final class TranslateService
     {
         try {
             $translateId = new Identifier($command->id);
-            $model = $this->repository->getById($translateId);
+            $model       = $this->repository->getById($translateId);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());
         } catch (NoSuchTranslateException) {
             try {
-                $phrases  = [];
+                $phrases = [];
                 foreach ($command->phrases as $phrase) {
                     $phrases[] = new Phrase(
                         new VOIdentifier($phrase->language),
                         new PhraseVO($phrase->phrase)
                     );
                 }
-                $model = new Translate($translateId, $phrases);
+                $model      = new Translate($translateId, $phrases);
                 $savedModel = $this->repository->add($model);
                 return $savedModel->getId();
             } catch (RepositoryException $e) {

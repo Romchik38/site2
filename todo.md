@@ -2,7 +2,6 @@
 
 ## Current
 
-- code quality
 - remove DuplicateIdException
 
 ## Next

@@ -17,7 +17,6 @@ final class AdminViewService
 
     /**
      * @throws NoSuchAuthorException
-     * @throws DuplicateIdException
      * */
     public function find(AuthorId $id): AuthorDto
     {

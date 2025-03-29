@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Author\AdminList;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Author\AdminList\VO\Limit;
 use Romchik38\Site2\Application\Author\AdminList\VO\Offset;
 use Romchik38\Site2\Application\Author\AdminList\VO\OrderByDirection;

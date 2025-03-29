@@ -6,6 +6,6 @@ namespace Romchik38\Site2\Domain\Translate;
 
 use RuntimeException;
 
-final class CouldDeleteException extends RuntimeException
+final class CouldNotDeleteException extends RuntimeException
 {
 }

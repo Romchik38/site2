@@ -89,7 +89,7 @@ final class Repository implements RepositoryInterface
         }
 
         $mainSaveQuery = $this->mainSaveQuery();
-        $mainParams    = [$authorName, $authorActive, $authorId()];
+        $mainParams    = [$authorName(), $authorActive, $authorId()];
 
         $translates      = $model->getTranslates();
         $translatetItems = [];
@@ -151,7 +151,7 @@ final class Repository implements RepositoryInterface
             $authorActive = 'f';
         }
 
-        $mainParams = [$authorName, $authorActive];
+        $mainParams = [$authorName(), $authorActive];
 
         $translates = $model->getTranslates();
 
@@ -273,7 +273,7 @@ final class Repository implements RepositoryInterface
                 throw new RepositoryException('Author translates language param is ivalid');
             }
             $rawDescription = $row['description'] ?? null;
-            if ($rawLanguage === null) {
+            if ($rawDescription === null) {
                 throw new RepositoryException('Author translates description param is ivalid');
             }
             $translates[] = new Translate(

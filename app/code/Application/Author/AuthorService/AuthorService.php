@@ -8,9 +8,11 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
+use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
 use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
+use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\RepositoryException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
@@ -84,8 +86,9 @@ final class AuthorService
      * @throws InvalidArgumentException
      * @throws CouldDeleteException
      * @throws NoSuchAuthorException
+     * @throws CouldNotChangeActivityException
      */
-    public function delete(Delete $command)
+    public function delete(Delete $command): void
     {
         $authorId = new AuthorId($command->id);
 

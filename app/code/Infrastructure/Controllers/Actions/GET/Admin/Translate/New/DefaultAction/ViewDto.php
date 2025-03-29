@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\New\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {
