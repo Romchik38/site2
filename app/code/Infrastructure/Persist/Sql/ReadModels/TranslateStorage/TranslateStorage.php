@@ -9,6 +9,7 @@ use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Server\Services\Translate\NoSuchTranslateException;
 use Romchik38\Server\Services\Translate\TranslateEntityDTO;
 use Romchik38\Server\Services\Translate\TranslateEntityDTOInterface;
+use Romchik38\Server\Services\Translate\TranslateStorageException;
 use Romchik38\Server\Services\Translate\TranslateStorageInterface;
 
 use function count;
@@ -21,10 +22,6 @@ final class TranslateStorage implements TranslateStorageInterface
     ) {
     }
 
-    /**
-     * @todo replace RepositoryException with TranslateStorageException
-     * @throws RepositoryException - On Query or repository/database implementation error.
-     * */
     public function getByKey(string $key): TranslateEntityDTOInterface
     {
         $query  = $this->defaultQuery();
@@ -33,7 +30,7 @@ final class TranslateStorage implements TranslateStorageInterface
         try {
             $rows = $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
+            throw new TranslateStorageException($e->getMessage());
         }
 
         if (count($rows) === 0) {
@@ -47,13 +44,13 @@ final class TranslateStorage implements TranslateStorageInterface
         foreach ($rows as $row) {
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
-                throw new RepositoryException(
+                throw new TranslateStorageException(
                     'Translate entity parameter language is invalid'
                 );
             }
             $rawPhrase = $row['phrase'] ?? null;
             if ($rawPhrase === null) {
-                throw new RepositoryException(
+                throw new TranslateStorageException(
                     'Translate entity parameter phrase is invalid'
                 );
             }
