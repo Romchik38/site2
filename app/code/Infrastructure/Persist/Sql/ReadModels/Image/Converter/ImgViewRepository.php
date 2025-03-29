@@ -6,9 +6,9 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\Converter;
 
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Site2\Application\Image\ImgConverter\RepositoryException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgView;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
-use Romchik38\Site2\Domain\Image\DuplicateIdException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
@@ -47,7 +47,7 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
                 sprintf('img with id %s not exist', $id())
             );
         } else {
-            throw new DuplicateIdException(
+            throw new RepositoryException(
                 sprintf('img with id %s has duplicates', $id())
             );
         }

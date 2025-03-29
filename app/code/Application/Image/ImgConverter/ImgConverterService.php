@@ -29,7 +29,11 @@ final class ImgConverterService
      */
     public function createImg(ImgData $command): ImgResult
     {
-        $img         = $this->imgViewRepository->getById(new Id($command->id));
+        try {
+            $img = $this->imgViewRepository->getById(new Id($command->id));
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
+        }
         $imgFullPath = sprintf(
             '%s/%s',
             $this->imgPathPrefix,

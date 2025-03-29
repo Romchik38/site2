@@ -10,7 +10,6 @@ use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
-use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\RepositoryException;
@@ -43,8 +42,6 @@ final class AuthorService
                 $authorId = new AuthorId($command->id);
                 $model    = $this->repository->getById($authorId);
                 $model->reName($name);
-            } catch (DuplicateIdException $e) {
-                throw new CouldNotSaveException($e->getMessage());
             } catch (RepositoryException $e) {
                 throw new CouldNotSaveException($e->getMessage());
             }
@@ -94,8 +91,6 @@ final class AuthorService
 
         try {
             $model = $this->repository->getById($authorId);
-        } catch (DuplicateIdException $e) {
-            throw new CouldDeleteException($e->getMessage());
         } catch (RepositoryException $e) {
             throw new CouldDeleteException($e->getMessage());
         }

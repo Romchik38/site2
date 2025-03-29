@@ -2,8 +2,6 @@
 
 ## Current
 
-- remove DuplicateIdException
-
 ## Next
 
 - move to server

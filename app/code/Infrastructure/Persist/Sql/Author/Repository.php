@@ -11,7 +11,6 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
-use Romchik38\Site2\Domain\Author\DuplicateIdException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\RepositoryException;
@@ -52,7 +51,7 @@ final class Repository implements RepositoryInterface
             ));
         }
         if ($rowsCount > 1) {
-            throw new DuplicateIdException(sprintf(
+            throw new RepositoryException(sprintf(
                 'Author with is %s has duplicates',
                 $id()
             ));

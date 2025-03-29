@@ -9,7 +9,6 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 interface RepositoryInterface
 {
     /**
-     * @throws DuplicateIdException
      * @throws NoSuchAuthorException
      * @throws RepositoryException
      * */

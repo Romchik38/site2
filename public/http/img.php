@@ -60,6 +60,7 @@ try {
     // create new image (see Case 2 below)
 } catch (\Exception $e) {
     // do error log
+    exit('We are sorry, there is an error on our side, please try later');
 }
 
 // Case 2 - no cache

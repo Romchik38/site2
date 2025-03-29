@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView;
 
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImageCacheView\RepositoryException;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
-use Romchik38\Site2\Domain\ImageCache\DuplicateKeyException;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
@@ -44,11 +44,11 @@ final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterfac
                 new Data($row['data'])
             );
         } elseif ($count === 0) {
-            throw new NoSuchEntityException(
+            throw new NoSuchImageCacheException(
                 sprintf('img with id %s not exist', $key())
             );
         } else {
-            throw new DuplicateKeyException(
+            throw new RepositoryException(
                 sprintf('img with id %s has duplicates', $key())
             );
         }

@@ -12,11 +12,11 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleView\ArticleViewService;
 use Romchik38\Site2\Application\Article\ArticleView\Find;
+use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction\ViewDTO;
 
 use function sprintf;
@@ -38,7 +38,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
                 $dynamicRoute,
                 $this->getLanguage()
             ));
-        } catch (NoSuchEntityException $e) {
+        } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException(
                 sprintf('Route %s not found. Error message: %s', $dynamicRoute, $e->getMessage())
             );
@@ -78,7 +78,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
                 $dynamicRoute,
                 $this->getLanguage()
             ));
-        } catch (NoSuchEntityException $e) {
+        } catch (NoSuchArticleException $e) {
             throw new DynamicActionLogicException(
                 sprintf(
                     'Description not found in action %s',

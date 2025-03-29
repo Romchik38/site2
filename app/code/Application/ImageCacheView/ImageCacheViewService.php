@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ImageCacheView;
 
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
+use InvalidArgumentException;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
-
-use function sprintf;
 
 final class ImageCacheViewService
 {
@@ -18,20 +16,14 @@ final class ImageCacheViewService
     ) {
     }
 
-    /** @throws NoSuchImageCacheException */
+    /**
+     * @throws InvalidArgumentException
+     * @throws NoSuchImageCacheException
+     * @throws RepositoryException
+     */
     public function getByKey(Find $command): ImageCacheViewDTO
     {
-        try {
-            return $this->imageCacheViewRepository->getByKey(
-                new Key($command->key())
-            );
-        } catch (NoSuchEntityException) {
-            throw new NoSuchImageCacheException(
-                sprintf(
-                    'image with key %s do not present in the cache storage',
-                    $command->key()
-                )
-            );
-        }
+        $keyVo = new Key($command->key());
+        return $this->imageCacheViewRepository->getByKey($keyVo);
     }
 }

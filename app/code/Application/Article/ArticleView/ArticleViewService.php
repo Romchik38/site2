@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\ArticleView;
 
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface;
@@ -16,7 +15,11 @@ final class ArticleViewService
     ) {
     }
 
-    /** @return ArticleViewDTO Active article by provided language */
+    /**
+     * @throws NoSuchArticleException
+     * @throws RepositoryException
+     * @return ArticleViewDTO Active article by provided language
+     * */
     public function getArticle(Find $command): ArticleViewDTO
     {
         return $this->articleViewRepository->getByIdAndLanguage($command);
@@ -41,7 +44,6 @@ final class ArticleViewService
     }
 
     /**
-     * @throws NoSuchEntityException
      * @return string Article name
      */
     public function getArticleName(Find $command): string

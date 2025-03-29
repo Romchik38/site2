@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
-use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Server\Models\Sql\DatabaseInterface;
 use Romchik38\Site2\Application\Article\ArticleView\Find;
+use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\ArticleView\RepositoryException;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTO;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\ArticleView\View\AuthorDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\DuplicateArticleException;
 use Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory;
 
 use function count;
@@ -39,13 +39,13 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         $rows = $this->database->queryParams($this->getByIdQuery(), $params);
 
         if (count($rows) === 0) {
-            throw new NoSuchEntityException(sprintf(
+            throw new NoSuchArticleException(sprintf(
                 'Article with id %s and language %s not found',
                 $articleId,
                 $language
             ));
         } elseif (count($rows) > 1) {
-            throw new DuplicateArticleException(sprintf(
+            throw new RepositoryException(sprintf(
                 'Article with id %s and language %s has duplicate',
                 $articleId,
                 $language
