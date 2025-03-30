@@ -2,7 +2,8 @@
 
 ## Current
 
-- VO that used in dynamic routing must be extended from controller `Name`
+- remove dep on `Name` from `Identifier`
+- encode url part in dynamic routing
 
 ## Next
 
