@@ -33,9 +33,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function execute(string $dynamicRoute): ResponseInterface
     {
+        $decodedRoute = urldecode($dynamicRoute);
         try {
             $article = $this->articleViewService->getArticle(new Find(
-                $dynamicRoute,
+                $decodedRoute,
                 $this->getLanguage()
             ));
         } catch (NoSuchArticleException $e) {

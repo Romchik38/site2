@@ -2,13 +2,6 @@
 
 ## Current
 
-- remove dep on `Name` from `Identifier`
-- encode url part in dynamic routing
-
-`url_encode`
-
-`$decodedRoute = urldecode($dynamicRoute);`
-
 ## Next
 
 - move to server

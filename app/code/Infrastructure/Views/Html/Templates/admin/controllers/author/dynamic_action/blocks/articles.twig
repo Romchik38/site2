@@ -17,7 +17,8 @@
                                     <tr>
                                         <th>{{ article }}</th>
                                         <td><a href="#">Edit</a></td>
-                                        <td><a href="{{ u.fromArray(['root', 'article', article.__toString()]) }}" target="_blank">Preview</a></td>
+                                        {% set urlId = article.__toString()|url_encode %}
+                                        <td><a href="{{ u.fromArray(['root', 'article', urlId ]) }}" target="_blank">Preview</a></td>
                                     </tr>
                         {% endfor %}
                     <tbody>
