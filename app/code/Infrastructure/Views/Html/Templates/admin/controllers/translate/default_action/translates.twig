@@ -79,8 +79,8 @@
                 {% set translateId = translate.identifier.__toString() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ translateId }}</th>
-                {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId]) %}
-                <td><a href="{{ translateUrl }} ">edit</a></td>
+                {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId|url_encode]) %}
+                <td><a href="{{ translateUrl }}">edit</a></td>
                 <td>
                     <form action="{{ u.fromArray(['root', 'admin', 'translate', 'delete']) }}" method="post">
                         <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translateId }}" hidden>

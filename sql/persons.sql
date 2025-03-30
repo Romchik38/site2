@@ -1,3 +1,4 @@
+-- @todo remove
 CREATE table person
 (
     identifier serial NOT NULL PRIMARY KEY,

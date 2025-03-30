@@ -1,6 +1,6 @@
 CREATE table
     article (
-        identifier text UNIQUE NOT NULL,
+        identifier text UNIQUE NOT NULL PRIMARY KEY,
         active boolean DEFAULT false,
         author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         img_id int REFERENCES img (identifier) ON UPDATE CASCADE,

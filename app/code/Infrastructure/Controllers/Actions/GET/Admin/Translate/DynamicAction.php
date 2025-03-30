@@ -40,8 +40,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function execute(string $dynamicRoute): ResponseInterface
     {
+        $decodedRoute = urldecode($dynamicRoute);
         try {
-            $translateId = new Identifier($dynamicRoute);
+            $translateId = new Identifier($decodedRoute);
         } catch (InvalidArgumentException $e) {
             throw new ActionNotFoundException($e->getMessage());
         }

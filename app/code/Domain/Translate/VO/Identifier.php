@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Translate\VO;
 
-use Romchik38\Server\Controllers\Name;
+use InvalidArgumentException;
 
-final class Identifier extends Name
+final class Identifier
 {
     public const NAME = 'Translate_Identifier';
 
     public function __construct(
-        protected readonly string $id
+        private readonly string $id
     ) {
-        parent::__construct($id);
+        if ($id === '') {
+            throw new InvalidArgumentException(
+                sprintf('%s %s is invalid', $this::NAME, $id)
+            );
+        }
     }
 
     public function __invoke(): string
