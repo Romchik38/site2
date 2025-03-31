@@ -20,6 +20,7 @@ use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction\ViewDTO;
 
 use function sprintf;
+use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {

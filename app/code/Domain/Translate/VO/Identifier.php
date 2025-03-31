@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Translate\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Identifier
 {
     public const NAME = 'Translate_Identifier';
