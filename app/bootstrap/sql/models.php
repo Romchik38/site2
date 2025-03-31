@@ -12,7 +12,7 @@ return function (Container $container) {
     // DATABASES
     $container->multi(
         '\Romchik38\Server\Models\Sql\DatabasePostgresql',
-        '\Romchik38\Server\Models\Sql\DatabaseInterface',
+        '\Romchik38\Server\Models\Sql\DatabaseSqlInterface',
         true,
         [$configDatabase]
     );
@@ -23,7 +23,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -33,7 +33,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface'),
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTOFactory'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory')
         ]
@@ -45,7 +45,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface'),
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory')
@@ -58,7 +58,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -68,7 +68,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -78,7 +78,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -88,7 +88,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -98,7 +98,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -108,7 +108,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Author\AdminList\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -118,7 +118,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Author\AdminView\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -128,7 +128,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Language\ListView\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -138,7 +138,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Domain\Author\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -148,7 +148,7 @@ return function (Container $container) {
         '\Romchik38\Server\Services\Translate\TranslateStorageInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
     
@@ -158,7 +158,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Translate\ListView\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -168,7 +168,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Translate\View\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 
@@ -178,7 +178,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Domain\Translate\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Models\Sql\DatabaseInterface')
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
 use Romchik38\Site2\Application\ImageCacheView\RepositoryException;
 use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
@@ -19,7 +19,7 @@ use function sprintf;
 final class ImageCacheViewRepository implements ImageCacheViewRepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseInterface $database,
+        protected readonly DatabaseSqlInterface $database,
     ) {
     }
 

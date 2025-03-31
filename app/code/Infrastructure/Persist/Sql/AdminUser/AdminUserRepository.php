@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
@@ -41,7 +41,7 @@ final class AdminUserRepository implements AdminUserRepositoryInterface
     public const ADMIN_ROLES_C_DESCRIPTION = 'description';
 
     public function __construct(
-        protected readonly DatabaseInterface $database
+        protected readonly DatabaseSqlInterface $database
     ) {
     }
 

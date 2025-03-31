@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Article\ArticleView\Find;
 use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleView\RepositoryException;
@@ -23,7 +23,7 @@ use function sprintf;
 final class ArticleViewRepository implements ArticleViewRepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseInterface $database,
+        protected readonly DatabaseSqlInterface $database,
         protected readonly ArticleViewDTOFactory $factory,
         protected readonly ImageDTOFactory $imageDtoFactory,
         protected readonly AudioDTOFactory $audioDtoFactory

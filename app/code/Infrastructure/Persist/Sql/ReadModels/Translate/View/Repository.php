@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\View;
 
 use Romchik38\Server\Models\Errors\DatabaseException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Translate\View\RepositoryException;
 use Romchik38\Site2\Application\Translate\View\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\View\View\PhraseDto;
@@ -22,7 +22,7 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        private readonly DatabaseInterface $database
+        private readonly DatabaseSqlInterface $database
     ) {
     }
 

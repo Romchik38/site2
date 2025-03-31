@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\Converter;
 
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Image\ImgConverter\RepositoryException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgView;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
@@ -18,7 +18,7 @@ use function sprintf;
 final class ImgViewRepository implements ImgViewRepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseInterface $database,
+        protected readonly DatabaseSqlInterface $database,
     ) {
     }
 

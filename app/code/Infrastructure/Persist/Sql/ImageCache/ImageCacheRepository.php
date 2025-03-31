@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Domain\ImageCache\ImageCache;
 use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;
 
 final class ImageCacheRepository implements ImageCacheRepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseInterface $database
+        protected readonly DatabaseSqlInterface $database
     ) {
     }
 

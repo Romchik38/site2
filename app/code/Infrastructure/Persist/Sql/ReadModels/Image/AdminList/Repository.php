@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList;
 
-use Romchik38\Server\Models\Sql\DatabaseInterface;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryException;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface;
@@ -17,7 +17,7 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseInterface $database
+        protected readonly DatabaseSqlInterface $database
     ) {
     }
 
