@@ -2,6 +2,14 @@
 
 ## Current
 
+- image view
+  - structure
+  - app service
+  - dto
+  - repository
+  - action
+  - template
+
 ## Next
 
 - move to server
