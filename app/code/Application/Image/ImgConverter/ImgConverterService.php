@@ -8,7 +8,7 @@ use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
-use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
+use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Id;
 
@@ -44,7 +44,7 @@ final class ImgConverterService
             $imgFullPath,
             Width::fromString($command->width),
             Height::fromString($command->height),
-            Type::fromString($command->type)
+            new Type($command->type)
         );
     }
 
@@ -54,7 +54,7 @@ final class ImgConverterService
             $command->filePath,
             Width::fromString($command->width),
             Height::fromString($command->height),
-            Type::fromString($command->type)
+            new Type($command->type)
         );
     }
 }

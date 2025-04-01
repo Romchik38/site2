@@ -14,7 +14,7 @@ final class Path
         protected readonly string $path
     ) {
         if (strlen($path) === 0) {
-            throw new InvalidArgumentException('param path is empty');
+            throw new InvalidArgumentException('param image path is empty');
         }
     }
 

@@ -10,20 +10,20 @@ use function strlen;
 
 final class Description
 {
-    protected function __construct(
+    public function __construct(
         protected readonly string $description
     ) {
-    }
-
-    public static function fromString(string $description): self
-    {
         if (strlen($description) === 0) {
-            throw new InvalidArgumentException('param description is empty');
+            throw new InvalidArgumentException('param image description is empty');
         }
-        return new self($description);
     }
 
     public function __invoke(): string
+    {
+        return $this->description;
+    }
+
+    public function __toString(): string
     {
         return $this->description;
     }

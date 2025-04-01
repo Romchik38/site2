@@ -10,7 +10,7 @@ use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
-use Romchik38\Site2\Application\Image\ImgConverter\View\Type;
+use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
 
