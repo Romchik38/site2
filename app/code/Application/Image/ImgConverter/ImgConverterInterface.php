@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Application\Image\ImgConverter;
 
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
-use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
+use Romchik38\Site2\Domain\Image\VO\Type;
 
 interface ImgConverterInterface
 {

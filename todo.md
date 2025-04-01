@@ -3,6 +3,7 @@
 ## Current
 
 - image model
+  - tests
 - image view
   - structure
   - app service
@@ -10,6 +11,9 @@
   - repository
   - action
   - template
+
+- check activation
+  - diactivate author when it's image is active
 
 ## Next
 

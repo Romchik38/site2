@@ -6,17 +6,20 @@ namespace Romchik38\Site2\Domain\Image;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
-use Romchik38\Site2\Domain\Image\VO\Path;
-use Romchik38\Site2\Domain\Image\VO\Id;
-use Romchik38\Site2\Domain\Image\VO\Name;
-use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
+use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Name;
+use Romchik38\Site2\Domain\Image\VO\Path;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+
+use function count;
+use function sprintf;
 
 final class Image
 {
-    /** @var array<int,ArticleId> $articles */
+    /** @var array<int,Article> $articles */
     private readonly array $articles;
 
     private Content $content;
@@ -30,9 +33,9 @@ final class Image
     private array $translates = [];
 
     /**
-     * @param array<int,mixed|ArticleId> $articles
+     * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
-     * @param array<int,mixed|Translate>
+     * @param array<int,mixed|Translate> $translates
      * */
     private function __construct(
         private ?Id $id,
@@ -52,7 +55,7 @@ final class Image
         $this->languages = $languages;
 
         foreach ($articles as $article) {
-            if (! $article instanceof ArticleId) {
+            if (! $article instanceof Article) {
                 throw new InvalidArgumentException('param image article id is invalid');
             }
         }
@@ -64,7 +67,7 @@ final class Image
             } else {
                 // language check
                 $languageId = $translate->getLanguage();
-                $found = false;
+                $found      = false;
                 foreach ($languages as $languageExist) {
                     if ($languageId() === $languageExist()) {
                         $found = true;
@@ -89,12 +92,42 @@ final class Image
         }
     }
 
+    public function getAuthor(): AuthorId
+    {
+        return $this->authorId;
+    }
+
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    public function getPath(): Path
+    {
+        return $this->path;
+    }
+
+    public function changePath(Path $path): void
+    {
+        $this->path = $path;
+    }
+
     public function loadContent(Content $content): void
     {
-        $this->content = $content;
+        $this->content  = $content;
         $this->isLoaded = true;
     }
 
+    public function reName(Name $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param array<int,mixed|Article> $articles
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translate> $translates
+     * */
     public static function create(
         Name $name,
         AuthorId $authorId,
@@ -115,6 +148,11 @@ final class Image
         );
     }
 
+    /**
+     * @param array<int,mixed|Article> $articles
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translate> $translates
+     * */
     public static function load(
         Id $id,
         bool $active,
@@ -179,8 +217,13 @@ final class Image
             return;
         }
 
-        if (count($this->articles) > 0) {
-            throw new CouldNotChangeActivityException('Author is used in articles. Change it first');
+        foreach ($this->articles as $article) {
+            if ($article->active === true) {
+                throw new CouldNotChangeActivityException(sprintf(
+                    'Image is used in article %s. Change it first',
+                    (string) $article->id
+                ));
+            }
         }
 
         $this->active = false;

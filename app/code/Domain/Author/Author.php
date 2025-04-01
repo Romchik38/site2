@@ -21,6 +21,15 @@ final class Author
     /** @var array<string,Translate> */
     private array $translatesHash = [];
 
+    /** @var array<int,ArticleId> $articles */
+    private readonly array $articles;
+
+    /** @var array<int,ImageId> $images */
+    private readonly array $images;
+
+    /** @var array<int,LanguageId> $languages */
+    private readonly array $languages;
+
     /**
      * @param array<int,mixed|ArticleId> $articles
      * @param array<int,mixed|ImageId> $images
@@ -32,9 +41,9 @@ final class Author
         private AuthorId|null $identifier,
         private Name $name,
         private bool $active,
-        private array $articles,
-        private array $images,
-        private array $languages,
+        array $articles,
+        array $images,
+        array $languages,
         array $translates
     ) {
         // check language array
@@ -43,12 +52,14 @@ final class Author
                 throw new InvalidArgumentException('param language is not valid');
             }
         }
+        $this->languages = $languages;
         // check article array
         foreach ($articles as $article) {
             if (! $article instanceof ArticleId) {
                 throw new InvalidArgumentException('param article is not valid');
             }
         }
+        $this->articles = $articles;
 
         // check article array
         foreach ($images as $image) {
@@ -56,6 +67,7 @@ final class Author
                 throw new InvalidArgumentException('param image is not valid');
             }
         }
+        $this->images = $images;
 
         // check traslates array
         foreach ($translates as $translate) {

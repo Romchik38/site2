@@ -8,9 +8,9 @@ use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
-use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Type;
 
 use function sprintf;
 

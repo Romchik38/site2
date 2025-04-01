@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
 
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
-use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
+use Romchik38\Site2\Domain\Image\VO\Type;
 use RuntimeException;
 
 use function explode;
@@ -18,9 +18,9 @@ use function sprintf;
 
 final class Image
 {
-    /** 
-     * Types to convert. 
-     * The loaded from storage image must be in array to be converted 
+    /**
+     * Types to convert.
+     * The loaded from storage image must be in array to be converted
      * */
     protected const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
