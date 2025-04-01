@@ -14,6 +14,7 @@ use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
+use function array_values;
 use function count;
 use function sprintf;
 
@@ -83,6 +84,7 @@ final class Image
         }
     }
 
+    /** @todo test */
     public function getContent(): ?Content
     {
         if ($this->isLoaded === true) {
@@ -90,6 +92,13 @@ final class Image
         } else {
             return null;
         }
+    }
+
+    /** @todo test */
+    /** @return array<int,Article> */
+    public function getArticles(): array
+    {
+        return $this->articles;
     }
 
     public function getAuthor(): AuthorId
@@ -107,22 +116,37 @@ final class Image
         return $this->path;
     }
 
+    public function getTranslate(string $language): ?Translate
+    {
+        return $this->translates[$language] ?? null;
+    }
+
+    /** @return array<int,Translate> */
+    public function getTranslates(): array
+    {
+        return array_values($this->translates);
+    }
+
+    /** @todo test */
     public function changePath(Path $path): void
     {
         $this->path = $path;
     }
 
+    /** @todo test */
     public function loadContent(Content $content): void
     {
         $this->content  = $content;
         $this->isLoaded = true;
     }
 
+    /** @todo test */
     public function reName(Name $name): void
     {
         $this->name = $name;
     }
 
+    /** @todo test */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -148,6 +172,7 @@ final class Image
         );
     }
 
+    /** @todo test */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -175,6 +200,7 @@ final class Image
         );
     }
 
+    /** @todo test */
     /** @throws CouldNotChangeActivityException */
     public function activate(): void
     {
@@ -208,6 +234,7 @@ final class Image
         $this->active = true;
     }
 
+    /** @todo test */
     /**
      * @throws CouldNotChangeActivityException
      */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Tests\unit\Infrastructure\Views\Html\Classes;
+namespace Romchik38\Tests\Unit\Infrastructure\Views\Html\Classes;
 
 use PHPUnit\Framework\TestCase;
 use Romchik38\Server\Controllers\Controller;
