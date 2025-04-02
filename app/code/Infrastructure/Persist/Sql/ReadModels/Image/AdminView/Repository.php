@@ -6,27 +6,30 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminView;
 
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Image\AdminView\RepositoryInterface;
+use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Image\AdminView\View\Dto;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
+use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
-use Romchik38\Site2\Application\Image\AdminView\View\Dto;
-use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
-use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
-use Romchik38\Site2\Domain\Image\NoSuchImageException;
+
+use function count;
+use function sprintf;
 
 final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly DatabaseSqlInterface $database
-    ) {   
+    ) {
     }
 
     public function getById(Id $id): Dto
     {
-        $query = $this->getByIdQuery();
+        $query  = $this->getByIdQuery();
         $params = [$id()];
 
         try {
@@ -92,7 +95,7 @@ final class Repository implements RepositoryInterface
         if ($rawAuthorName === null) {
             throw new RepositoryException('Image author name is ivalid');
         }
-        
+
         $rawAuthorActive = $row['active'] ?? null;
         if ($rawAuthorActive === null) {
             throw new RepositoryException('Image author active is ivalid');
@@ -118,7 +121,7 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    private function getByIdQuery() : string
+    private function getByIdQuery(): string
     {
         return <<<'QUERY'
             SELECT img.identifier,

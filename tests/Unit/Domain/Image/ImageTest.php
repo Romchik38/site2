@@ -10,6 +10,7 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Image\Entities\Article;
+use Romchik38\Site2\Domain\Image\Entities\Author;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
@@ -40,7 +41,10 @@ final class ImageTest extends TestCase
     public function testCreate(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -52,7 +56,7 @@ final class ImageTest extends TestCase
         ];
         $image      = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -60,7 +64,7 @@ final class ImageTest extends TestCase
 
         $this->assertSame(null, $image->getId());
         $this->assertSame('image-name-1', (string) $image->getName());
-        $this->assertSame('25', (string) $image->getAuthor());
+        $this->assertSame($author, $image->getAuthor());
         $this->assertSame('/images/img1.webp', (string) $image->getPath());
 
         $translates = $image->getTranslates();
@@ -81,7 +85,10 @@ final class ImageTest extends TestCase
     public function testCreateThrowsErrorInvalidLanguages(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [1, 3];
         $translates = [
@@ -93,7 +100,7 @@ final class ImageTest extends TestCase
 
         Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -107,7 +114,10 @@ final class ImageTest extends TestCase
     public function testCreateThrowsErrorInvalidTranslateLanguage(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -122,7 +132,7 @@ final class ImageTest extends TestCase
 
         Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -136,7 +146,10 @@ final class ImageTest extends TestCase
     public function testCreateThrowsErrorInvalidTranslate(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -151,7 +164,7 @@ final class ImageTest extends TestCase
 
         Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -166,7 +179,10 @@ final class ImageTest extends TestCase
     public function testGetContent(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -179,7 +195,7 @@ final class ImageTest extends TestCase
 
         $image = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -195,7 +211,10 @@ final class ImageTest extends TestCase
     public function testGetContentReturnNull(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -208,7 +227,7 @@ final class ImageTest extends TestCase
 
         $image = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -220,7 +239,10 @@ final class ImageTest extends TestCase
     public function testChangePath(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -232,7 +254,7 @@ final class ImageTest extends TestCase
         ];
         $image      = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -246,7 +268,10 @@ final class ImageTest extends TestCase
     public function testReName(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -258,7 +283,7 @@ final class ImageTest extends TestCase
         ];
         $image      = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -284,7 +309,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -303,7 +331,7 @@ final class ImageTest extends TestCase
             $id,
             true,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -316,7 +344,7 @@ final class ImageTest extends TestCase
         $this->assertSame($id, $image->getId());
         $this->assertSame(true, $image->isActive());
         $this->assertSame($name, $image->getName());
-        $this->assertSame($authorId, $image->getAuthor());
+        $this->assertSame($author, $image->getAuthor());
         $this->assertSame($path, $image->getPath());
         $this->assertSame($articles, $image->getArticles());
         $this->assertSame(2, count($image->getTranslates()));
@@ -328,7 +356,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -349,7 +380,7 @@ final class ImageTest extends TestCase
             $id,
             false, // wrong
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -361,7 +392,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -380,7 +414,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -399,7 +433,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -417,7 +454,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -435,7 +472,10 @@ final class ImageTest extends TestCase
     public function testActivateThrowsErrorOnCreate(): void
     {
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -447,7 +487,7 @@ final class ImageTest extends TestCase
         ];
         $image      = Image::create(
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $translates
@@ -465,7 +505,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -484,7 +527,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -499,7 +542,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -517,7 +563,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -533,7 +579,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -551,7 +600,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -567,7 +616,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -585,7 +637,7 @@ final class ImageTest extends TestCase
             $id,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -602,7 +654,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -621,7 +676,7 @@ final class ImageTest extends TestCase
             $id,
             true,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
@@ -636,7 +691,10 @@ final class ImageTest extends TestCase
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
         $path       = new Path('/images/img1.webp');
         $languages  = [
             new LanguageId('en'),
@@ -655,7 +713,7 @@ final class ImageTest extends TestCase
             $id,
             true,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,

@@ -12,15 +12,15 @@ final class AdminViewService
 {
     public function __construct(
         private readonly RepositoryInterface $repository
-    ) {   
+    ) {
     }
 
-    /** 
+    /**
      * @throws NoSuchImageException
      * @throws RepositoryException
      */
     public function find(Id $id): Dto
     {
         return $this->repository->getById($id);
-    } 
+    }
 }

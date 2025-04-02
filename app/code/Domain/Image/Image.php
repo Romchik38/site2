@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Image;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\Entities\Article;
+use Romchik38\Site2\Domain\Image\Entities\Author;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\VO\Id;
@@ -43,7 +43,7 @@ final class Image
         private ?Id $id,
         private bool $active,
         private Name $name,
-        private AuthorId $authorId,
+        private Author $author,
         private Path $path,
         array $languages,
         array $articles,
@@ -89,9 +89,9 @@ final class Image
         return $this->articles;
     }
 
-    public function getAuthor(): AuthorId
+    public function getAuthor(): Author
     {
-        return $this->authorId;
+        return $this->author;
     }
 
     public function getContent(): ?Content
@@ -145,6 +145,22 @@ final class Image
         } else {
             $languageId                      = $translate->getLanguage();
             $this->translates[$languageId()] = $translate;
+        }
+    }
+
+    /** @todo tests */
+    public function changeAuthor(Author $author): void
+    {
+        if ($this->active === false) {
+            $this->author = $author;
+        } else {
+            if ($author->active === true) {
+                $this->author = $author;
+            } else {
+                throw new InvalidArgumentException(
+                    'param Image author is not active, activate it first'
+                );
+            }
         }
     }
 
@@ -225,7 +241,7 @@ final class Image
      * */
     public static function create(
         Name $name,
-        AuthorId $authorId,
+        Author $author,
         Path $path,
         array $languages,
         array $translates = []
@@ -234,7 +250,7 @@ final class Image
             null,
             false,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             [],
@@ -252,7 +268,7 @@ final class Image
         Id $id,
         bool $active,
         Name $name,
-        AuthorId $authorId,
+        Author $author,
         Path $path,
         array $languages,
         array $articles,
@@ -262,7 +278,7 @@ final class Image
             $id,
             $active,
             $name,
-            $authorId,
+            $author,
             $path,
             $languages,
             $articles,
