@@ -2,7 +2,11 @@
     string              paginationHtml              html to display
     ImageDto[]          imagesList                  Romchik38\Site2\Application\Image\AdminImageListService\View\ImageDto
     object              paginationForm              Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\PaginationForm
+    object              t                           Translate Service
+    object              u                           Urlbuilder
 #}
+
+{% set deleteUrl = u.fromArray(['root', 'admin', 'image', 'delete' ]) %}
 
 <div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="#" role="button">New</a>
@@ -97,10 +101,10 @@
                 <td>{{ image.name }}</td> 
                 <!-- 5. Author Name -->
                 <td>{{ image.authorName }}</td>
-
-                <td><a href="#">edit</a></td>
+                {% set editUrl = u.fromArray(['root', 'admin', 'image', image.identifier.__toString() ]) %}
+                <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
-                    <form action="#" method="post">
+                    <form action="{{ deleteUrl }}" method="post">
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
                 </td>

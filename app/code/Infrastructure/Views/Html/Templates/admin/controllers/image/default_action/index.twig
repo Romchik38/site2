@@ -8,9 +8,9 @@
         <p>{{ data.description }}</p>
 
         {% if data.imagesList|length == 0 %} 
-            {% include controller_template_dir ~ '/zero_images.twig' with {'translate': translate} only %}
+            {% include controller_template_dir ~ '/zero_images.twig' with {'t': translate} only %}
         {% else %}
-            {% include controller_template_dir ~ '/images.twig' with {'imagesList': data.imagesList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm } only %}
+            {% include controller_template_dir ~ '/images.twig' with {'imagesList': data.imagesList, 't': translate, 'u': u, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm } only %}
         {% endif %}
 
     </div>
