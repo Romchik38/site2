@@ -32,6 +32,7 @@ final class ImageTest extends TestCase
      *   getPath
      *   getTranslate
      *   getTranslates
+     *   getArticles
      */
     public function testCreate(): void
     {
@@ -66,6 +67,7 @@ final class ImageTest extends TestCase
         $this->assertSame('Blue sky', (string) $t1->getDescription());
         $this->assertSame('uk', (string) $t2->getLanguage());
         $this->assertSame('Блакитне небо', (string) $t2->getDescription());
+        $this->assertSame([], $image->getArticles());
     }
 
      /**
@@ -206,11 +208,7 @@ final class ImageTest extends TestCase
         $this->assertSame(null, $image->getContent());
     }
 
-    /** 
-     * Tested
-     *   __construct
-     */
-    public function testGetArticles(): void
+    public function testChangePath(): void
     {
         $name       = new Name('image-name-1');
         $authorId   = new AuthorId('25');
@@ -223,13 +221,7 @@ final class ImageTest extends TestCase
             new Translate(new LanguageId('en'), new Description('Blue sky')),
             new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
         ];
-
-        $articles = [
-            new Article(new ArticleId('article-1'), false),
-            new Article(new ArticleId('article-2'), false),
-        ];
-
-        $image = Image::create(
+        $image      = Image::create(
             $name,
             $authorId,
             $path,
@@ -237,7 +229,8 @@ final class ImageTest extends TestCase
             $translates
         );
 
-
-        $this->assertSame([], $image->getArticles());
+        $newPath = new Path('/images/houses/img1.webp');
+        $image->changePath($newPath);
+        $this->assertSame($newPath, $image->getPath());
     }
 }

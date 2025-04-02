@@ -133,7 +133,6 @@ final class Image
         return array_values($this->translates);
     }
 
-    /** @todo test */
     public function changePath(Path $path): void
     {
         $this->path = $path;
