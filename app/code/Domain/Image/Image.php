@@ -60,6 +60,10 @@ final class Image
             if (! $article instanceof Article) {
                 throw new InvalidArgumentException('param image article id is invalid');
             }
+            /** @todo test load */
+            if ($article->active === true && $active === false) {
+                throw new InvalidArgumentException('param image article active and image active are different');
+            }
         }
         $this->articles = $articles;
 
@@ -96,7 +100,7 @@ final class Image
         }
     }
 
-    /** @todo test */
+    /** @todo test load */
     /** @return array<int,Article> */
     public function getArticles(): array
     {
@@ -160,7 +164,6 @@ final class Image
         AuthorId $authorId,
         Path $path,
         array $languages,
-        array $articles = [],
         array $translates = []
     ): self {
         return new self(
@@ -170,7 +173,7 @@ final class Image
             $authorId,
             $path,
             $languages,
-            $articles,
+            [],
             $translates
         );
     }

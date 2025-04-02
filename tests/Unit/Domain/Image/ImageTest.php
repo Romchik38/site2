@@ -6,7 +6,9 @@ namespace Romchik38\Tests\Unit\Domain\Image;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
@@ -49,7 +51,6 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
             $translates
         );
 
@@ -89,37 +90,6 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
-            $translates
-        );
-    }
-
-    /**
-     * Tested:
-     *   __construct
-     */
-    public function testCreateThrowsErrorInvalidArticles(): void
-    {
-        $name       = new Name('image-name-1');
-        $authorId   = new AuthorId('25');
-        $path       = new Path('/images/img1.webp');
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Blue sky')),
-            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
-        ];
-
-        $this->expectException(InvalidArgumentException::class);
-
-        Image::create(
-            $name,
-            $authorId,
-            $path,
-            $languages,
-            [1, 2],                     // Invalid articles
             $translates
         );
     }
@@ -149,7 +119,6 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
             $translates
         );
     }
@@ -179,7 +148,6 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
             $translates
         );
     }
@@ -203,7 +171,6 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
             $translates
         );
 
@@ -233,10 +200,44 @@ final class ImageTest extends TestCase
             $authorId,
             $path,
             $languages,
-            [],
             $translates
         );
 
         $this->assertSame(null, $image->getContent());
+    }
+
+    /** 
+     * Tested
+     *   __construct
+     */
+    public function testGetArticles(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), false),
+            new Article(new ArticleId('article-2'), false),
+        ];
+
+        $image = Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            $translates
+        );
+
+
+        $this->assertSame([], $image->getArticles());
     }
 }
