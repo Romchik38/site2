@@ -87,7 +87,6 @@ final class Image
         }
     }
 
-    /** @todo test */
     public function getContent(): ?Content
     {
         if ($this->isLoaded === true) {
