@@ -17,14 +17,13 @@ final class ImageDto
     public readonly Path $path;
 
     public function __construct(
-        string $identifier,
+        int $identifier,
         public readonly bool $active,
         string $name,
         string $authorName,
         string $path
     ) {
-        /** @todo refactor int id */
-        $this->identifier = new Id((int) $identifier);
+        $this->identifier = new Id($identifier);
         $this->name       = new ImageName($name);
         $this->authorName = new AuthorName($authorName);
         $this->path       = new Path($path);

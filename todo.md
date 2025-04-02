@@ -2,6 +2,10 @@
 
 ## Current
 
+- model
+  - diactivate author when it's image is active
+  - activate image when author is not active
+
 - image view
   - structure
   - app service
@@ -9,9 +13,6 @@
   - repository
   - action
   - template
-
-- check activation
-  - diactivate author when it's image is active
 
 ## Next
 

@@ -94,7 +94,7 @@ final class Repository implements RepositoryInterface
         }
 
         return new ImageDto(
-            $rawIdentifier,
+            (int) $rawIdentifier,
             $active,
             $rawName,
             $rawAuthorName,
