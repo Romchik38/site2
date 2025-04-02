@@ -2,8 +2,6 @@
 
 ## Current
 
-- image model
-  - tests
 - image view
   - structure
   - app service

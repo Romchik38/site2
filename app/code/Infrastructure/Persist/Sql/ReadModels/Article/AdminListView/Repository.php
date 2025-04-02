@@ -106,10 +106,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article author name is ivalid');
         }
 
-        $rawImageId =  $row['img_id'] ?? null;
-        $imageId = $rawImageId;
+        $rawImageId = $row['img_id'] ?? null;
         if ($rawImageId !== null) {
             $imageId = new Id((int) $rawImageId);
+        } else {
+            $imageId = $rawImageId;
         }
 
         return new ArticleDto(
