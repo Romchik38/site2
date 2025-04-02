@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services;
+namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
 
 use GdImage;
 use Romchik38\Server\Services\Streams\TempStream;
