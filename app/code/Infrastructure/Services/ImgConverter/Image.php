@@ -82,6 +82,7 @@ final class Image
         }
 
         $mime = $dimensions['mime'];
+        /** @todo replace with image vo type */
         if (! in_array($mime, self::ALLOWED_MIME)) {
             throw new RuntimeException(sprintf(
                 'Original image type %s not allowed',
@@ -89,9 +90,10 @@ final class Image
             ));
         }
         $this->originalType = (explode('/', $mime))[1];
+        /** @todo replace with image vo type */
         if (! in_array('image/' . $copyType(), self::ALLOWED_MIME)) {
             throw new RuntimeException(sprintf(
-                'Original image type %s not allowed',
+                'Copy image type %s not allowed',
                 $mime
             ));
         }
