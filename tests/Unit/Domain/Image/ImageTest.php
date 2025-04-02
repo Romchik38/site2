@@ -723,4 +723,104 @@ final class ImageTest extends TestCase
         $this->expectException(CouldNotChangeActivityException::class);
         $image->deactivate();
     }
+
+    public function testChangeAuthorWhenActive(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), false),
+        ];
+
+        $image = Image::load(
+            $id,
+            true,
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
+
+        // 1. Success
+        $newAuthor = new Author(
+            new AuthorId('26'),
+            true
+        );
+        $image->changeAuthor($newAuthor);
+        $this->assertSame($newAuthor, $image->getAuthor());
+
+        // 2. Exception
+        $newAuthor2 = new Author(
+            new AuthorId('27'),
+            false
+        );
+        $this->expectException(InvalidArgumentException::class);
+        $image->changeAuthor($newAuthor2);
+    }
+
+    public function testChangeAuthorWhenNonActive(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), false),
+        ];
+
+        $image = Image::load(
+            $id,
+            false,
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
+
+        // 1. Success
+        $newAuthor = new Author(
+            new AuthorId('26'),
+            true
+        );
+        $image->changeAuthor($newAuthor);
+        $this->assertSame($newAuthor, $image->getAuthor());
+
+        // 2. Also success
+        $newAuthor2 = new Author(
+            new AuthorId('27'),
+            false
+        );
+        $image->changeAuthor($newAuthor2);
+        $this->assertSame($newAuthor2, $image->getAuthor());
+    }
 }

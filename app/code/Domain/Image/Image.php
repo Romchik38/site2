@@ -148,7 +148,7 @@ final class Image
         }
     }
 
-    /** @todo tests */
+    /** @throws InvalidArgumentException */
     public function changeAuthor(Author $author): void
     {
         if ($this->active === false) {
