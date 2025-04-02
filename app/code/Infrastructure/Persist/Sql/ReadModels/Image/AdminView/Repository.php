@@ -125,10 +125,10 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             SELECT img.identifier,
-                img.active
-                img.name
-                img.author_id
-                img.path
+                img.active,
+                img.name,
+                img.author_id,
+                img.path,
                 author.name as author_name,
                 author.active as author_active
             FROM img,

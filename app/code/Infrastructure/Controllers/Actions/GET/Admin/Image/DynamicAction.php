@@ -16,14 +16,14 @@ use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
+use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Domain\Image\NoSuchImageException;
+use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
-use Romchik38\Site2\Domain\Image\VO\Id;
-use Romchik38\Site2\Domain\Image\NoSuchImageException;
-use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
 
 use function sprintf;
 
@@ -76,8 +76,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDto(
-            sprintf('Author view id %s', (string) $imageId),
-            sprintf('Authors view page with id %s', (string) $imageId),
+            sprintf('Image view id %s', (string) $imageId),
+            sprintf('Image view page with id %s', (string) $imageId),
             $imageDto,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
@@ -102,7 +102,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function getDescription(string $dynamicRoute): string
     {
-        return 'Admin Author page view ' . $dynamicRoute;
+        return 'Admin Image page view ' . $dynamicRoute;
     }
 
     public function getDynamicRoutes(): array

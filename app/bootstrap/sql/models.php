@@ -17,7 +17,7 @@ return function (Container $container) {
         [$configDatabase]
     );
 
-    // ADMIN USER REPOSITORY
+    // ADMIN USER
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository',
         '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface',
@@ -27,7 +27,7 @@ return function (Container $container) {
         ]
     );
 
-    // ARTICLE LIST VIEW REPOSITORY
+    // ARTICLE LIST VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\ArticleListViewRepository',
         '\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface',
@@ -39,7 +39,7 @@ return function (Container $container) {
         ]
     );
 
-    // ARTICLE VIEW REPOSITORY
+    // ARTICLE VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View\ArticleViewRepository',
         '\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface',
@@ -52,7 +52,7 @@ return function (Container $container) {
         ]
     );
 
-    // IMG VIEW REPOSITORY
+    // IMG VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\Converter\ImgViewRepository',
         '\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface',
@@ -62,7 +62,7 @@ return function (Container $container) {
         ]
     );
 
-    // ADMIN IMAGE LIST REPOSITORY
+    // ADMIN IMAGE LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList\Repository',
         '\Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface',
@@ -72,7 +72,17 @@ return function (Container $container) {
         ]
     );
 
-    // IMAGE CACHE REPOSITORY
+    // ADMIN IMAGE VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminView\Repository',
+        '\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
+
+    // IMAGE CACHE
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\ImageCacheRepository',
         '\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface',
@@ -82,7 +92,7 @@ return function (Container $container) {
         ]
     );
 
-    // Image Cache View Repository
+    // IMAGE CACHE VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository',
         '\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface',
@@ -92,7 +102,7 @@ return function (Container $container) {
         ]
     );
 
-    // ADMIN ARTICLE LIST VIEW REPOSITORY
+    // ADMIN ARTICLE LIST VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView\Repository',
         '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
@@ -132,7 +142,7 @@ return function (Container $container) {
         ]
     );
 
-    // AUTHOR REPOSITORY
+    // AUTHOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\Author\Repository',
         '\Romchik38\Site2\Domain\Author\RepositoryInterface',

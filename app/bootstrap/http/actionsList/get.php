@@ -71,7 +71,8 @@ return function (Container $container): ControllerInterface {
     $adminImage = new Controller(
         'image',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction')
     );
 
     $adminAuthor = new Controller(

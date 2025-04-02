@@ -91,6 +91,14 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN IMAGE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Image\AdminView\AdminViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface')
+        ]
+    );
+
     // IMAGE CACHE
     $container->shared(
         '\Romchik38\Site2\Application\ImageCache\ImageCacheService',

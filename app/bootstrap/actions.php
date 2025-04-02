@@ -172,6 +172,21 @@ return function (Container $container) {
         ]
     );
     
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Application\Image\AdminView\AdminViewService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
+    );
+
     // Admin Author
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction',
