@@ -25,4 +25,19 @@ final class Id
     {
         return (string) $this->id;
     }
+
+    public static function fromString(string $id): self
+    {
+        $oldValue = $id;
+        $intId = (int) $id;
+        $strId = (string) $intId;
+        if ($oldValue !== $strId) {
+            throw new InvalidArgumentException(sprintf(
+                'param image id %s is invalid',
+                $id
+            ));
+        } 
+
+        return new self($intId);
+    }
 }
