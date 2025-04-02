@@ -23,7 +23,8 @@ final class ImageDto
         string $authorName,
         string $path
     ) {
-        $this->identifier = new Id($identifier);
+        /** @todo refactor int id */
+        $this->identifier = new Id((int) $identifier);
         $this->name       = new ImageName($name);
         $this->authorName = new AuthorName($authorName);
         $this->path       = new Path($path);

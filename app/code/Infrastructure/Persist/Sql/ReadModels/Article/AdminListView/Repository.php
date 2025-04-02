@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException
 use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
+use Romchik38\Site2\Domain\Image\VO\Id;
 
 use function implode;
 use function sprintf;
@@ -105,11 +106,17 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article author name is ivalid');
         }
 
+        $rawImageId =  $row['img_id'] ?? null;
+        $imageId = $rawImageId;
+        if ($rawImageId !== null) {
+            $imageId = new Id((int) $rawImageId);
+        }
+
         return new ArticleDto(
             $rawIdentifier,
             $active,
             $imageActive,
-            $row['img_id'] ?? null,
+            $imageId,
             $audioActive,
             $rawAuthorName
         );

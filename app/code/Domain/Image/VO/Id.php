@@ -6,25 +6,23 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
-use function strlen;
-
 final class Id
 {
     public function __construct(
-        protected readonly string $id
+        protected readonly int $id
     ) {
-        if (strlen($id) === 0) {
-            throw new InvalidArgumentException('param id is empty');
+        if ($id <= 0) {
+            throw new InvalidArgumentException('param image id must be greater than 0');
         }
     }
 
-    public function __invoke(): string
+    public function __invoke(): int
     {
         return $this->id;
     }
 
     public function __toString(): string
     {
-        return $this->id;
+        return (string) $this->id;
     }
 }

@@ -91,16 +91,6 @@ final class Image
         }
     }
 
-    public function getContent(): ?Content
-    {
-        if ($this->isLoaded === true) {
-            return $this->content;
-        } else {
-            return null;
-        }
-    }
-
-    /** @todo test load */
     /** @return array<int,Article> */
     public function getArticles(): array
     {
@@ -110,6 +100,20 @@ final class Image
     public function getAuthor(): AuthorId
     {
         return $this->authorId;
+    }
+
+    public function getContent(): ?Content
+    {
+        if ($this->isLoaded === true) {
+            return $this->content;
+        } else {
+            return null;
+        }
+    }
+
+    public function getId(): Id
+    {
+        return $this->id;
     }
 
     public function getName(): Name
@@ -133,25 +137,27 @@ final class Image
         return array_values($this->translates);
     }
 
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
     public function changePath(Path $path): void
     {
         $this->path = $path;
     }
 
-    /** @todo test */
     public function loadContent(Content $content): void
     {
         $this->content  = $content;
         $this->isLoaded = true;
     }
 
-    /** @todo test */
     public function reName(Name $name): void
     {
         $this->name = $name;
     }
 
-    /** @todo test */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -177,7 +183,6 @@ final class Image
         );
     }
 
-    /** @todo test */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -261,4 +266,5 @@ final class Image
 
         $this->active = false;
     }
+
 }

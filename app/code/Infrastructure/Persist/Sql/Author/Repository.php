@@ -294,7 +294,7 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedImages as $image) {
-            $data[] = new ImageId((string) $image);
+            $data[] = new ImageId($image);
         }
         return $data;
     }

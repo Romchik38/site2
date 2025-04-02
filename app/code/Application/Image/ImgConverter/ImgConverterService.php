@@ -30,7 +30,7 @@ final class ImgConverterService
     public function createImg(ImgData $command): ImgResult
     {
         try {
-            $img = $this->imgViewRepository->getById(new Id($command->id));
+            $img = $this->imgViewRepository->getById(new Id((int) $command->id));
         } catch (RepositoryException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }

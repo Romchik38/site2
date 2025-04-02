@@ -38,8 +38,12 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
         $count = count($rows);
         if ($count === 1) {
             $row = $rows[0];
+            $rawId = $row['identifier'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('image identifier is invalid');
+            }
             return new ImgView(
-                new Id($row['identifier']),
+                new Id((int) $rawId),
                 new Path($row['path'])
             );
         } elseif ($count === 0) {

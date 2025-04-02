@@ -13,6 +13,7 @@ use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\VO\Description;
+use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Image\VO\Type;
@@ -154,6 +155,11 @@ final class ImageTest extends TestCase
         );
     }
 
+    /**
+     * Tested:
+     *  loadContent
+     *  getContent
+     */
     public function testGetContent(): void
     {
         $name       = new Name('image-name-1');
@@ -232,5 +238,119 @@ final class ImageTest extends TestCase
         $newPath = new Path('/images/houses/img1.webp');
         $image->changePath($newPath);
         $this->assertSame($newPath, $image->getPath());
+    }
+
+    public function testReName(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+        $image      = Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            $translates
+        );
+
+        $newName = new Name('image-name-2');
+        $image->reName($newName);
+        $this->assertSame($newName, $image->getName());
+    }
+
+    /**
+     * Tests
+     *   __constract
+     *   getId
+     *   isActive
+     *   getName
+     *   getAuthor
+     *   getPath
+     *   getArticles
+     *   getTranslates
+     */
+    public function testLoad(): void
+    {
+        $id = new Id(1);
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), true)
+        ];
+
+        $image      = Image::load(
+            $id,
+            true,
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
+
+        $t1 = $image->getTranslate('en');
+        $t2 = $image->getTranslate('uk');
+
+        $this->assertSame($id, $image->getId());
+        $this->assertSame(true, $image->isActive());
+        $this->assertSame($name, $image->getName());
+        $this->assertSame($authorId, $image->getAuthor());
+        $this->assertSame($path, $image->getPath());
+        $this->assertSame($articles, $image->getArticles());
+        $this->assertSame(2, count($image->getTranslates()));
+        $this->assertSame('Blue sky', (string) $t1->getDescription());
+        $this->assertSame('Блакитне небо', (string) $t2->getDescription());
+    }
+
+    public function testLoadActiveImageAndNotActiveArticle(): void
+    {
+        $id = new Id(1);
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), true)   // wrong
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        
+        Image::load(
+            $id,
+            false,                                          // wrong
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
     }
 }
