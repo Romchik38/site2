@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Tests\Unit\Domain\Image;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
@@ -12,6 +13,7 @@ use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use stdClass;
 
 use function count;
 
@@ -60,5 +62,122 @@ final class ImageTest extends TestCase
         $this->assertSame('Blue sky', (string) $t1->getDescription());
         $this->assertSame('uk', (string) $t2->getLanguage());
         $this->assertSame('Блакитне небо', (string) $t2->getDescription());
+    }
+
+     /**
+     * Tested:
+     *   __construct
+     */
+    public function testCreateThrowsErrorInvalidLanguages(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [ 1, 3];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            [],
+            $translates
+        );
+    }
+
+    /**
+     * Tested:
+     *   __construct
+     */
+    public function testCreateThrowsErrorInvalidArticles(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            [1, 2],                     // Invalid articles
+            $translates
+        );
+    }
+
+    /**
+     * Tested:
+     *   __construct
+     */
+    public function testCreateThrowsErrorInvalidTranslateLanguage(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('fr'), new Description('Blue sky')),   // Invalid language
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            [],
+            $translates
+        );
+    }
+
+    /**
+     * Tested:
+     *   __construct
+     */
+    public function testCreateThrowsErrorInvalidTranslate(): void
+    {
+        $name       = new Name('image-name-1');
+        $authorId   = new AuthorId('25');
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new stdClass(),                             // Invalid Translate instance
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Image::create(
+            $name,
+            $authorId,
+            $path,
+            $languages,
+            [],
+            $translates
+        );
     }
 }

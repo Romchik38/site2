@@ -37,6 +37,7 @@ final class Image
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
+     * @throws InvalidArgumentException
      * */
     private function __construct(
         private ?Id $id,
@@ -76,7 +77,9 @@ final class Image
                     }
                 }
                 if ($found === false) {
-                    throw new InvalidArgumentException('param image translate language is invalid');
+                    throw new InvalidArgumentException(
+                        'param image translate language has non expected language'
+                    );
                 } else {
                     $this->translates[$languageId()] = $translate;
                 }
@@ -151,6 +154,7 @@ final class Image
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
+     * @throws InvalidArgumentException
      * */
     public static function create(
         Name $name,
@@ -177,6 +181,7 @@ final class Image
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
+     * @throws InvalidArgumentException
      * */
     public static function load(
         Id $id,
