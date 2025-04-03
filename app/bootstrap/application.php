@@ -97,7 +97,8 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\AdminView\AdminViewService',
         [
             new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface'),
-            new Promise('image.path-prefix')
+            new Promise('image.path-prefix'),
+            new Promise('\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface')
         ]
     );
 

@@ -124,8 +124,14 @@ return function (Container $container) {
 
     // IMG CONVERTER
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\ImgConverter\ImgConverter',
+        '\Romchik38\Site2\Infrastructure\Services\Image\ImgConverter',
         '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface'
+    );
+
+    // IMAGE METADATA LOADER
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Services\Image\ImageMetadataLoader',
+        '\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface'
     );
 
     return $container;

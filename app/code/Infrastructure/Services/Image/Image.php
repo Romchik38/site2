@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
+namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use Romchik38\Site2\Domain\Image\VO\Type;
 use RuntimeException;
@@ -26,6 +26,7 @@ class Image
     public readonly int $originalHeight;
     public readonly string $originalType;
 
+    /** @throws RuntimeException */
     public function __construct(
         public readonly string $filePath,
     ) {

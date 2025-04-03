@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Image\AdminView;
 
-use Romchik38\Site2\Application\Image\AdminView\View\Dto;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 
@@ -12,17 +11,23 @@ final class AdminViewService
 {
     public function __construct(
         private readonly RepositoryInterface $repository,
-        private readonly string $imgPathPrefix
+        private readonly string $imgPathPrefix,
+        private readonly ImageMetadataLoaderInterface $loader
     ) {
     }
 
     /**
      * @throws NoSuchImageException
-     * @throws RepositoryException
+     * @throws CouldNotFindException
      */
-    public function find(Id $id): Dto
+    public function find(Id $id): Result
     {
-        $image = $this->repository->getById($id);
+        try {
+            $image = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotFindException($e->getMessage());
+        }
+
         $path = (string) $image->path;
         $imgFullPath = sprintf(
             '%s/%s',
@@ -30,6 +35,12 @@ final class AdminViewService
             $path
         );
 
-        return $image;
+        try {
+            $metadata = $this->loader->loadMetadata($imgFullPath);
+        } catch (CouldNotLoadImageMetadataException $e) {
+            throw new CouldNotFindException($e->getMessage());
+        }
+
+        return new Result($image, $metadata);
     }
 }

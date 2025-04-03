@@ -17,13 +17,14 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
-use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
+use Romchik38\Site2\Application\Image\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Image\AdminView\Result;
 
 use function sprintf;
 
@@ -54,13 +55,13 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         }
 
         try {
-            $imageDto = $this->adminViewService->find($imageId);
+            $result = $this->adminViewService->find($imageId);
         } catch (NoSuchImageException) {
             throw new ActionNotFoundException(sprintf(
                 'Image with id %s not exist',
                 (string) $imageId
             ));
-        } catch (RepositoryException $e) {
+        } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
             $this->session->setData(
@@ -78,7 +79,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $dto = new ViewDto(
             sprintf('Image view id %s', (string) $imageId),
             sprintf('Image view page with id %s', (string) $imageId),
-            $imageDto,
+            $result->image,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
             // Update::ID_FIELD,

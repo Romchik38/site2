@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
+namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use GdImage;
 use Romchik38\Server\Services\Streams\TempStream;
@@ -12,7 +12,7 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
-use Romchik38\Site2\Infrastructure\Services\ImgConverter\CopyImage;
+use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
 
 use function extension_loaded;
 use function gd_info;
