@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\ImgConverter;
 
-use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
-use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use RuntimeException;
 
@@ -16,7 +14,7 @@ use function in_array;
 use function is_readable;
 use function sprintf;
 
-final class Image
+class Image
 {
     /**
      * Types to convert.
@@ -27,20 +25,10 @@ final class Image
     public readonly int $originalWidth;
     public readonly int $originalHeight;
     public readonly string $originalType;
-    public readonly int $copyWidth;
-    public readonly int $copyHeight;
-    public readonly string $copyType;
-    public readonly string $copyMimeType;
 
     public function __construct(
         public readonly string $filePath,
-        Width $copyWidth,
-        Height $copyHeight,
-        Type $copyType,
     ) {
-        $this->copyWidth  = $copyWidth();
-        $this->copyHeight = $copyHeight();
-
         if (! file_exists($filePath) || (! is_readable($filePath))) {
             throw new RuntimeException(sprintf(
                 'Image file %s not exist',
@@ -66,21 +54,6 @@ final class Image
         $this->originalWidth  = $originalWidth;
         $this->originalHeight = $dimensions[1];
 
-        if (
-            $this->originalWidth < $this->copyWidth
-            || $this->originalHeight < $this->copyHeight
-        ) {
-            throw new RuntimeException(
-                sprintf(
-                    'Image too small to resize. Original width %s, height %s. Copy width %s, height %s',
-                    $this->originalWidth,
-                    $this->originalHeight,
-                    $this->copyWidth,
-                    $this->copyHeight
-                )
-            );
-        }
-
         $mime = $dimensions['mime'];
         $this->originalType = (explode('/', $mime))[1];
 
@@ -90,8 +63,5 @@ final class Image
                 $this->originalType
             ));
         }
-
-        $this->copyType     = $copyType();
-        $this->copyMimeType = 'image/' . $this->copyType;
     }
 }

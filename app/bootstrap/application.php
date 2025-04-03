@@ -7,7 +7,8 @@ use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
-    $configImg = require_once(__DIR__ . '/../config/shared/images.php');
+    /** @todo move to consts */
+    $configImg = require __DIR__ . '/../config/shared/images.php';
     $configImgFolderFrontend =  $configImg['img-folder-frontend'] ??
         throw new RuntimeException('Missing config field: img-folder-frontend');
 
@@ -95,7 +96,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Image\AdminView\AdminViewService',
         [
-            new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface'),
+            new Promise('image.path-prefix')
         ]
     );
 

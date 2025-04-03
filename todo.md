@@ -2,6 +2,8 @@
 
 ## Current
 
+- move config to const
+
 - model
   - diactivate author when it's image is active
   - activate image when author is not active

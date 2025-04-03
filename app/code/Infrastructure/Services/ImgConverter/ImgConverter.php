@@ -12,7 +12,7 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
-use Romchik38\Site2\Infrastructure\Services\ImgConverter\Image;
+use Romchik38\Site2\Infrastructure\Services\ImgConverter\CopyImage;
 
 use function extension_loaded;
 use function gd_info;
@@ -50,7 +50,7 @@ class ImgConverter implements ImgConverterInterface
         Type $copyType
     ): ImgResult {
         // 1. Create an image with all data
-        $image = new Image(
+        $image = new CopyImage(
             $filePath,
             $copyWidth,
             $copyHeight,

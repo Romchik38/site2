@@ -11,7 +11,8 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 final class AdminViewService
 {
     public function __construct(
-        private readonly RepositoryInterface $repository
+        private readonly RepositoryInterface $repository,
+        private readonly string $imgPathPrefix
     ) {
     }
 
@@ -21,6 +22,14 @@ final class AdminViewService
      */
     public function find(Id $id): Dto
     {
-        return $this->repository->getById($id);
+        $image = $this->repository->getById($id);
+        $path = (string) $image->path;
+        $imgFullPath = sprintf(
+            '%s/%s',
+            $this->imgPathPrefix,
+            $path
+        );
+
+        return $image;
     }
 }
