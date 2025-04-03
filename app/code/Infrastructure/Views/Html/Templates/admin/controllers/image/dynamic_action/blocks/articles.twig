@@ -1,0 +1,37 @@
+<h2 class="text-center">Articles</h2>
+
+{% if articles|length == 0 %}
+    <p>Image do not used in any article</p>
+{% else %}
+    <ul>The image is used in articles:
+            <table class="table table-bordered">
+                    <thead>
+                          <tr>
+                                <th scope="col">Identifier</th>
+                                <th scope="col">Activity</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Preview</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}  
+                                {% set activeColorArticle = '' %}
+                                {% if article.active == false %}
+                                    {% set activeColorArticle = 'text-warning bg-secondary' %}
+                                    {% set activeArticle = 'not active' %}
+                                {% elseif article.active == true %}
+                                    {% set activeColorArticle = 'text-success' %}
+                                    {% set activeArticle = 'active' %}
+                                {% endif %}           
+                                <tr>
+                                    {% set articleId = article.id.__toString() %}
+                                    <th>{{ articleId }}</th>
+                                    <td class="{{ activeColorArticle }}">{{ activeArticle }}</td>
+                                    <td><a href="#">Edit</a></td>
+                                    <td><a href="{{ u.fromArray(['root', 'article', articleId|url_encode ]) }}" target="_blank">Preview</a></td>
+                                </tr>
+                        {% endfor %}
+                    <tbody>
+            </table>
+    </ul>
+{%  endif %}
