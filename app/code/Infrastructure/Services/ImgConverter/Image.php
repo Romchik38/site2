@@ -22,7 +22,7 @@ final class Image
      * Types to convert.
      * The loaded from storage image must be in array to be converted
      * */
-    protected const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    //protected const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
     public readonly int $originalWidth;
     public readonly int $originalHeight;
@@ -82,21 +82,15 @@ final class Image
         }
 
         $mime = $dimensions['mime'];
-        /** @todo replace with image vo type */
-        if (! in_array($mime, self::ALLOWED_MIME)) {
+        $this->originalType = (explode('/', $mime))[1];
+
+        if (! in_array($this->originalType, TYPE::ALLOWED_TYPES)) {
             throw new RuntimeException(sprintf(
                 'Original image type %s not allowed',
-                $mime
+                $this->originalType
             ));
         }
-        $this->originalType = (explode('/', $mime))[1];
-        /** @todo replace with image vo type */
-        if (! in_array('image/' . $copyType(), self::ALLOWED_MIME)) {
-            throw new RuntimeException(sprintf(
-                'Copy image type %s not allowed',
-                $mime
-            ));
-        }
+
         $this->copyType     = $copyType();
         $this->copyMimeType = 'image/' . $this->copyType;
     }
