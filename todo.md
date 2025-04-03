@@ -9,12 +9,9 @@
   - activate image when author is not active
 
 - image view
-  - structure
-  - app service
-  - dto
-  - repository
-  - action
   - template
+- image service
+  - update command
 
 ## Next
 
