@@ -10,12 +10,20 @@ use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class Dto
 {
+    /**
+     * @param array<int,ArticleDto> $articles
+     * @param array<int,AuthorDto> $authors
+     * @param array<int,TranslateDto> $translates
+     * */
     public function __construct(
         public readonly Id $identifier,
         public readonly bool $active,
         public readonly ImageName $name,
         public readonly Path $path,
-        public readonly AuthorDto $author
+        public readonly AuthorDto $author,
+        public readonly array $translates,
+        public readonly array $articles,
+        public readonly array $authors
     ) {
     }
 }
