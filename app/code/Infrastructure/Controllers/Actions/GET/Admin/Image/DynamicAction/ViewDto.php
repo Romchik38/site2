@@ -19,17 +19,18 @@ final class ViewDto extends DefaultViewDTO
         string $description,
         public readonly ImageDto $imageDto,
         public readonly MetadataDto $metadataDto,
+        public readonly array $languages,
         public readonly string $csrfTokenField,
         public string $csrfToken,
-        // public readonly string $idFiled,
-        // public readonly string $nameFiled,
-        // public readonly string $changeActivityFiled,
-        // public readonly string $yesField,
-        // public readonly string $noField,
-        // public readonly string $translateField,
-        // public readonly string $languageField,
-        // public readonly string $descriptionField,
-        public readonly array $languages
+        public readonly string $idFiled,
+        public readonly string $nameFiled,
+        public readonly string $authorIdFiled,
+        public readonly string $changeActivityFiled,
+        public readonly string $yesField,
+        public readonly string $noField,
+        public readonly string $translateField,
+        public readonly string $languageField,
+        public readonly string $descriptionField,
     ) {
         parent::__construct($name, $description);
     }

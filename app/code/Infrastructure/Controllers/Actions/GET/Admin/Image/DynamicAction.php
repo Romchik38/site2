@@ -24,6 +24,7 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Image\ImageService\Update;
 
 use function sprintf;
 
@@ -80,17 +81,18 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             sprintf('Image view page with id %s', (string) $imageId),
             $result->image,
             $result->metadata,
+            $languages,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
-            // Update::ID_FIELD,
-            // Update::NAME_FIELD,
-            // Update::CHANGE_ACTIVITY_FIELD,
-            // Update::CHANGE_ACTIVITY_YES_FIELD,
-            // Update::CHANGE_ACTIVITY_NO_FIELD,
-            // Update::TRANSLATES_FIELD,
-            // Update::LANGUAGE_FIELD,
-            // Update::DESCRIPTION_FIELD,
-            $languages
+            Update::ID_FIELD,
+            Update::NAME_FIELD,
+            Update::AUTHOR_ID_FIELD,
+            Update::CHANGE_ACTIVITY_FIELD,
+            Update::CHANGE_ACTIVITY_YES_FIELD,
+            Update::CHANGE_ACTIVITY_NO_FIELD,
+            Update::TRANSLATES_FIELD,
+            Update::LANGUAGE_FIELD,
+            Update::DESCRIPTION_FIELD,
         );
 
         $html = $this->view
