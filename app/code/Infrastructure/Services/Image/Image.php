@@ -55,10 +55,10 @@ class Image
         $this->originalWidth  = $originalWidth;
         $this->originalHeight = $dimensions[1];
 
-        $mime = $dimensions['mime'];
+        $mime               = $dimensions['mime'];
         $this->originalType = (explode('/', $mime))[1];
 
-        if (! in_array($this->originalType, TYPE::ALLOWED_TYPES)) {
+        if (! in_array($this->originalType, Type::ALLOWED_TYPES)) {
             throw new RuntimeException(sprintf(
                 'Original image type %s not allowed',
                 $this->originalType

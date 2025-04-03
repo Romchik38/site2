@@ -9,6 +9,9 @@ use Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface;
 use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
 use RuntimeException;
 
+use function filesize;
+use function sprintf;
+
 final class ImageMetadataLoader implements ImageMetadataLoaderInterface
 {
     public function loadMetadata(string $path): MetadataDto
@@ -19,8 +22,19 @@ final class ImageMetadataLoader implements ImageMetadataLoaderInterface
             throw new CouldNotLoadImageMetadataException($e->getMessage());
         }
 
-        
+        $bytes = filesize($path);
+        if ($bytes === false) {
+            throw new CouldNotLoadImageMetadataException(sprintf(
+                'Could not read file size %s',
+                $path
+            ));
+        }
 
-        return new MetadataDto();
+        return new MetadataDto(
+            $image->originalWidth,
+            $image->originalHeight,
+            $image->originalType,
+            $bytes
+        );
     }
 }

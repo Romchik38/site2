@@ -12,6 +12,6 @@ final class Result
     public function __construct(
         public readonly Dto $image,
         public readonly MetadataDto $metadata
-    ) {   
+    ) {
     }
 }

@@ -31,7 +31,7 @@ final class CopyImage extends Image
         Type $copyType,
     ) {
         parent::__construct($filePath);
-        
+
         $this->copyWidth  = $copyWidth();
         $this->copyHeight = $copyHeight();
 

@@ -7,6 +7,8 @@ namespace Romchik38\Site2\Application\Image\AdminView;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 
+use function sprintf;
+
 final class AdminViewService
 {
     public function __construct(
@@ -28,7 +30,7 @@ final class AdminViewService
             throw new CouldNotFindException($e->getMessage());
         }
 
-        $path = (string) $image->path;
+        $path        = (string) $image->path;
         $imgFullPath = sprintf(
             '%s/%s',
             $this->imgPathPrefix,

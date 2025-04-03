@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\Dyn
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\Image\AdminView\View\Dto as ImageDto;
+use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
 use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
@@ -16,7 +17,8 @@ final class ViewDto extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        public readonly ImageDto $authorDto,
+        public readonly ImageDto $imageDto,
+        public readonly MetadataDto $metadataDto,
         public readonly string $csrfTokenField,
         public string $csrfToken,
         // public readonly string $idFiled,
