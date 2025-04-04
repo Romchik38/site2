@@ -89,6 +89,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::NAME_FIELD,
             Update::AUTHOR_ID_FIELD,
             Update::CHANGE_AUTHOR_ID_FIELD,
+            Update::CHANGE_AUTHOR_FIELD,
             Update::CHANGE_ACTIVITY_FIELD,
             Update::CHANGE_ACTIVITY_YES_FIELD,
             Update::CHANGE_ACTIVITY_NO_FIELD,
