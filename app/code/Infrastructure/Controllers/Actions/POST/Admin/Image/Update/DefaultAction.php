@@ -21,6 +21,7 @@ use RuntimeException;
 use Romchik38\Site2\Application\Image\ImageService\Update;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotUpdateException;
+use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 
 use function gettype;
 use function sprintf;
@@ -76,13 +77,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::IMAGE_NOT_EXIST_KEY),
                 $command->id
             );
-            /** @todo implement */
-        // } catch (CouldNotChangeActivityException $e) {
-        //     $message = sprintf(
-        //         $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
-        //         $e->getMessage()
-        //     );
-        //     $uri     = $uriId;
+        } catch (CouldNotChangeActivityException $e) {
+            $message = sprintf(
+                $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
+                $e->getMessage()
+            );
+            $uri     = $uriId;
         } catch (CouldNotUpdateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
             $uri     = $uriId;

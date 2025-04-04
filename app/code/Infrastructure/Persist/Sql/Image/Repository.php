@@ -21,6 +21,7 @@ use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\VO\Description;
+use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
 
 final class Repository implements ImageRepositoryInterface
 {
@@ -57,6 +58,37 @@ final class Repository implements ImageRepositoryInterface
 
         $model = $this->createModel($id, $row);
         return $model;
+    }
+
+    public function findAuthor(AuthorId $id): Author
+    {
+        $query = $this->findAuthorQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count === 0) {
+            throw new NoSuchAuthorException(sprintf(
+                'Image author with id %s not exist',
+                $id()
+            ));
+        }
+        if ($count > 1) {
+            throw new RepositoryException(sprintf(
+                'Image author with id %s has duplicates',
+                $id()
+            ));
+        }
+
+        $row = $rows[0];
+
+        $authorEntity = $this->createAuthor($row);
+        return $authorEntity;
     }
 
     /**
@@ -257,6 +289,16 @@ final class Repository implements ImageRepositoryInterface
                 img_translates.description
             FROM img_translates
             WHERE img_translates.img_id = $1
+        QUERY;
+    }
+
+    private function findAuthorQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT author.identifier as author_id,
+                author.active
+            FROM author
+            WHERE author.identifier = $1
         QUERY;
     }
 }
