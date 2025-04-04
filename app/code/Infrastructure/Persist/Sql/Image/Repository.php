@@ -226,13 +226,13 @@ final class Repository implements ImageRepositoryInterface
             SELECT img.active,
                 img.name,
                 img.author_id,
-                img.path
+                img.path,
                 author.active as author_active,
                 array_to_json (
                     array (SELECT language.identifier 
                         FROM language
                     ) 
-                ) as languages,
+                ) as languages
             FROM img,
                 author
             WHERE img.identifier = $1
