@@ -1,6 +1,9 @@
 <!-- inside row -->
- {% set m = data.metadataDto %}
-<img class="img-fluid" src="{{ data.imageFrontendPath }}">
+{% set m = data.metadataDto %}
+{% set i = data.imageDto %}
+<div class="col-md-6 m-auto">
+  <img class="img-fluid" src="{{ data.imageFrontendPath }}">
+</div>
 <div class="col-12">
     <table class="table">
       <thead>
@@ -17,6 +20,19 @@
           <td>{{ m.height }}</td>
           <td>{{ m.type }}</td>
           <td>{{ m.prettySize() }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Path</th>
+          <td>{{ i.path }}</td>
+        </tr>
+        <tr>
+          <th>Link</th>
+          <td><a href="{{ data.imageFrontendPath }}" target="_blank">{{ data.imageFrontendPath }}</a></td>
         </tr>
       </tbody>
     </table>

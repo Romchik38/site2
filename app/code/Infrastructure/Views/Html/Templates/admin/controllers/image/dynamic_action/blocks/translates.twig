@@ -5,7 +5,8 @@
 
 {% set availableLanguages = data.languages %}
 <!-- Inside a form -->
-<h2 class="text-center">Translates</h2>
+<div class="form-group p-2 my-2">
+    <h2 class="text-center">Translates</h2>
 {% for availableLanguage in availableLanguages  %}
     {% set availableLanguageVo = availableLanguage.identifier %}
     {% set description = '' %}
@@ -16,8 +17,6 @@
             {% set description = descriptionVo.__toString() %}
         {% endif %}
     {% endfor %}
-
-    <div class="form-group p-2 my-2">
         <div class="mb-1">
             <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
             <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
@@ -32,5 +31,5 @@
                 value="{{ description }}"
             >
         </div>
-    </div>
 {% endfor %}
+</div>

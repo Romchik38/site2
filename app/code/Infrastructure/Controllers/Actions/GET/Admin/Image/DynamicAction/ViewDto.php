@@ -28,6 +28,7 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $idFiled,
         public readonly string $nameFiled,
         public readonly string $authorIdFiled,
+        public readonly string $changeAuthorIdFiled,
         public readonly string $changeActivityFiled,
         public readonly string $yesField,
         public readonly string $noField,

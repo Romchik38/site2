@@ -12,6 +12,7 @@ final class Update
     public const ID_FIELD                  = 'id';
     public const NAME_FIELD                = 'name';
     public const AUTHOR_ID_FIELD           = 'author_id';
+    public const CHANGE_AUTHOR_ID_FIELD    = 'change_author_id';
     public const CHANGE_ACTIVITY_FIELD     = 'change_activity';
     public const CHANGE_ACTIVITY_YES_FIELD = 'yes';
     public const CHANGE_ACTIVITY_NO_FIELD  = 'no';
