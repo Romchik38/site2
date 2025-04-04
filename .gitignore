@@ -1,10 +1,7 @@
+.*
+!.gitignore
 app/config/private
 app/var
 vendor/
-.vscode/
-.idea
-# todo.md
 testsomecode/
-.phpunit.result.cache
-.deptrac.cache
 temp/
