@@ -65,6 +65,18 @@ return function (Container $container): ControllerInterface {
     );
     $adminApi->setChild($adminApiUserunfo);
 
+    // Admin Image
+    $adminImage = new Controller('image');
+    $adminImageUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update\DefaultAction'),
+        null,
+        'image_update'
+    );
+    $adminImage->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    $adminImage->setChild($adminImageUpdate);
+
     // Admin Image Cache
     $adminImagecache = new Controller('imagecache', false);
     $adminImagecacheClear = new Controller(
@@ -134,6 +146,7 @@ return function (Container $container): ControllerInterface {
 
     $admin->setChild($adminLogout)
     ->setChild($adminApi)
+    ->setChild( $adminImage)
     ->setChild($adminImagecache)
     ->setChild($adminAuthor)
     ->setChild($adminTranslate);
