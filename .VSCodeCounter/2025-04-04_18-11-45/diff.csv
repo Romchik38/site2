@@ -1,0 +1,156 @@
+"filename", "language", "Markdown", "PHP", "XML", "JSON", "MS SQL", "Properties", "JavaScript", "HTML", "Docker", "CSS", "Ini", "YAML", "comment", "blank", "total"
+"/home/ser/Projects/Docker/site2/LICENSE.md", "Markdown", -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -10
+"/home/ser/Projects/Docker/site2/compose.yaml", "YAML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -49, 0, -6, -55
+"/home/ser/Projects/Docker/site2/composer.json", "JSON", 0, 0, 0, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -63
+"/home/ser/Projects/Docker/site2/composer.lock", "JSON", 0, 0, 0, -2927, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -2928
+"/home/ser/Projects/Docker/site2/deptrac.yaml", "YAML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -25, 0, -1, -26
+"/home/ser/Projects/Docker/site2/doc/Entities/Article.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -9
+"/home/ser/Projects/Docker/site2/doc/Entities/Audio.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -10
+"/home/ser/Projects/Docker/site2/doc/Entities/Author.md", "Markdown", -9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -12
+"/home/ser/Projects/Docker/site2/doc/Entities/Category.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -10
+"/home/ser/Projects/Docker/site2/doc/Entities/Img.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -10
+"/home/ser/Projects/Docker/site2/doc/Entities/Language.md", "Markdown", -11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -13
+"/home/ser/Projects/Docker/site2/doc/Entities/Person.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -10
+"/home/ser/Projects/Docker/site2/doc/Image_Converter/01_readme.md", "Markdown", -17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12, -29
+"/home/ser/Projects/Docker/site2/doc/admin/authorization.md", "Markdown", -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -6
+"/home/ser/Projects/Docker/site2/doc/admin/routes.md", "Markdown", -25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -30
+"/home/ser/Projects/Docker/site2/doc/admin/schema.md", "Markdown", -14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, -18
+"/home/ser/Projects/Docker/site2/doc/bootstrap/00_readme.md", "Markdown", -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -8
+"/home/ser/Projects/Docker/site2/doc/bootstrap/Container.md", "Markdown", -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -6
+"/home/ser/Projects/Docker/site2/doc/design/01-readme.md", "Markdown", -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -5
+"/home/ser/Projects/Docker/site2/doc/design/bootstrap.md", "Markdown", -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -6
+"/home/ser/Projects/Docker/site2/doc/design/responsive.md", "Markdown", -29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -34
+"/home/ser/Projects/Docker/site2/doc/docker/00_readme.md", "Markdown", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, -11
+"/home/ser/Projects/Docker/site2/doc/errors/errors.md", "Markdown", -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -7
+"/home/ser/Projects/Docker/site2/doc/errors/not-found/00-readme.md", "Markdown", -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -6
+"/home/ser/Projects/Docker/site2/doc/errors/server-errors/00-readme.md", "Markdown", -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -6
+"/home/ser/Projects/Docker/site2/doc/errors/server-errors/01-how-it-works.md", "Markdown", -19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, -29
+"/home/ser/Projects/Docker/site2/doc/errors/server-errors/02-server-error-controller.md", "Markdown", -12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, -20
+"/home/ser/Projects/Docker/site2/doc/errors/server-errors/03-php-fpm-service-error.md", "Markdown", -17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, -27
+"/home/ser/Projects/Docker/site2/doc/frontend/routes.md", "Markdown", -13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -18
+"/home/ser/Projects/Docker/site2/doc/language/01-readme.md", "Markdown", -6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -9
+"/home/ser/Projects/Docker/site2/doc/language/action.md", "Markdown", -20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -25
+"/home/ser/Projects/Docker/site2/doc/language/sketches.md", "Markdown", -39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20, -59
+"/home/ser/Projects/Docker/site2/doc/mail/docker.md", "Markdown", -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -5
+"/home/ser/Projects/Docker/site2/doc/security/csrf.md", "Markdown", -16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12, -28
+"/home/ser/Projects/Docker/site2/doc/templates/01-readme.md", "Markdown", -41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -19, -60
+"/home/ser/Projects/Docker/site2/docker/nginx/conf.d/default.conf", "Properties", 0, 0, 0, 0, 0, -27, 0, 0, 0, 0, 0, 0, -6, -7, -40
+"/home/ser/Projects/Docker/site2/docker/php-fpm/Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, 0, 0, -14, 0, 0, 0, 0, -6, -20
+"/home/ser/Projects/Docker/site2/docker/php-fpm/php/conf.d/site2.ini", "Ini", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, -2
+"/home/ser/Projects/Docker/site2/docker/php-fpm/readme.md", "Markdown", -20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, -26
+"/home/ser/Projects/Docker/site2/docker/postgres/Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, -1, -4
+"/home/ser/Projects/Docker/site2/docker/postgres/readme.md", "Markdown", -11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, -17
+"/home/ser/Projects/Docker/site2/docker/postgres/scripts/database.sql", "MS SQL", 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5
+"/home/ser/Projects/Docker/site2/docker/postgres/scripts/site2.sql", "MS SQL", 0, 0, 0, 0, -736, 0, 0, 0, 0, 0, 0, 0, -383, -411, -1530
+"/home/ser/Projects/Docker/site2/nginx/simple.conf", "Properties", 0, 0, 0, 0, 0, -39, 0, 0, 0, 0, 0, 0, -8, -12, -59
+"/home/ser/Projects/Docker/site2/phpcs.xml", "XML", 0, 0, -13, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -4, -20
+"/home/ser/Projects/Docker/site2/phpunit.xml", "XML", 0, 0, -13, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -14
+"/home/ser/Projects/Docker/site2/public/http/img.php", "PHP", 0, -91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12, -11, -114
+"/home/ser/Projects/Docker/site2/public/http/index.php", "PHP", 0, -14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -7, -26
+"/home/ser/Projects/Docker/site2/public/http/media/css/admin/admin.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -18, 0, 0, 0, -5, -23
+"/home/ser/Projects/Docker/site2/public/http/media/css/admin_main.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -7, 0, 0, 0, -2, -9
+"/home/ser/Projects/Docker/site2/public/http/media/css/article.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, 0, 0, 0, -1, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3886, 0, 0, -6, -193, -4085
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3886, 0, 0, -6, -192, -4084
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -518, 0, 0, -14, -65, -597
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -524, 0, 0, -6, -64, -594
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -4891, 0, 0, -8, -503, -5402
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -4887, 0, 0, -6, -500, -5393
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -5, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -11136, 0, 0, -24, -897, -12057
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, -4, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -11138, 0, 0, -6, -886, -12030
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, -4, 0, -6
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3865, 0, 0, -7, -1130, -5002
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3865, 0, 0, -7, -1129, -5001
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -346, 0, 0, -16, -64, -426
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -7, 0, -8
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -352, 0, 0, -8, -63, -423
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -7, 0, -8
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3634, 0, 0, -9, -1109, -4752
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -3630, 0, 0, -7, -1106, -4743
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -9102, 0, 0, -27, -1708, -10837
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, -5, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.rtl.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -9104, 0, 0, -7, -1702, -10813
+"/home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.rtl.min.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, -5, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/css/category.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -25, 0, 0, 0, -3, -28
+"/home/ser/Projects/Docker/site2/public/http/media/css/home.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -27, 0, 0, -12, -10, -49
+"/home/ser/Projects/Docker/site2/public/http/media/css/main.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, -73, 0, 0, -13, -24, -110
+"/home/ser/Projects/Docker/site2/public/http/media/html/article-with-img-1080.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -319, 0, 0, 0, 0, -22, -16, -357
+"/home/ser/Projects/Docker/site2/public/http/media/html/category.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -437, 0, 0, 0, 0, -40, -28, -505
+"/home/ser/Projects/Docker/site2/public/http/media/html/errors/not-found-404.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -37, 0, 0, 0, 0, -8, -10, -55
+"/home/ser/Projects/Docker/site2/public/http/media/html/errors/server-error-500.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -147, 0, 0, 0, 0, -1, -15, -163
+"/home/ser/Projects/Docker/site2/public/http/media/html/errors/server-error-502.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -147, 0, 0, 0, 0, -1, -15, -163
+"/home/ser/Projects/Docker/site2/public/http/media/html/footer-copyrights.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -34, 0, 0, 0, 0, -4, -7, -45
+"/home/ser/Projects/Docker/site2/public/http/media/html/footer-infoline.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -55, 0, 0, 0, 0, -6, -8, -69
+"/home/ser/Projects/Docker/site2/public/http/media/html/footer-links.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -76, 0, 0, 0, 0, -5, -9, -90
+"/home/ser/Projects/Docker/site2/public/http/media/html/footer-policy.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -39, 0, 0, 0, 0, -6, -7, -52
+"/home/ser/Projects/Docker/site2/public/http/media/html/footer-social-links.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -37, 0, 0, 0, 0, -6, -9, -52
+"/home/ser/Projects/Docker/site2/public/http/media/html/header-breadcrumbs.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -35, 0, 0, 0, 0, -4, -9, -48
+"/home/ser/Projects/Docker/site2/public/http/media/html/header-infoline.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -39, 0, 0, 0, 0, -2, -7, -48
+"/home/ser/Projects/Docker/site2/public/http/media/html/header-logo.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -55, 0, 0, 0, 0, -6, -9, -70
+"/home/ser/Projects/Docker/site2/public/http/media/html/header-nav.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -131, 0, 0, 0, 0, -8, -10, -149
+"/home/ser/Projects/Docker/site2/public/http/media/html/home.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -452, 0, 0, 0, 0, -41, -19, -512
+"/home/ser/Projects/Docker/site2/public/http/media/html/proto.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -52, 0, 0, 0, 0, -2, -6, -60
+"/home/ser/Projects/Docker/site2/public/http/media/html/skeleton.html", "HTML", 0, 0, 0, 0, 0, 0, 0, -58, 0, 0, 0, 0, -26, -21, -105
+"/home/ser/Projects/Docker/site2/public/http/media/js/admin/userinfo.js", "JavaScript", 0, 0, 0, 0, 0, 0, -42, 0, 0, 0, 0, 0, -1, -10, -53
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.bundle.js", "JavaScript", 0, 0, 0, 0, 0, 0, -5064, 0, 0, 0, 0, 0, -655, -596, -6315
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.esm.js", "JavaScript", 0, 0, 0, 0, 0, 0, -3568, 0, 0, 0, 0, 0, -578, -302, -4448
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.esm.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.js", "JavaScript", 0, 0, 0, 0, 0, 0, -3604, 0, 0, 0, 0, 0, -584, -307, -4495
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.bundle.js", "JavaScript", 0, 0, 0, 0, 0, 0, -4836, 0, 0, 0, 0, 0, -571, -1342, -6749
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.bundle.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.esm.js", "JavaScript", 0, 0, 0, 0, 0, 0, -3425, 0, 0, 0, 0, 0, -483, -1060, -4968
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.esm.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.js", "JavaScript", 0, 0, 0, 0, 0, 0, -3464, 0, 0, 0, 0, 0, -489, -1064, -5017
+"/home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -6, 0, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/frontend/userinfo.js", "JavaScript", 0, 0, 0, 0, 0, 0, -51, 0, 0, 0, 0, 0, -4, -10, -65
+"/home/ser/Projects/Docker/site2/public/http/media/js/language.js", "JavaScript", 0, 0, 0, 0, 0, 0, -18, 0, 0, 0, 0, 0, -4, -10, -32
+"/home/ser/Projects/Docker/site2/public/http/media/js/modules/urlbuilder/dynamicTarget.js", "JavaScript", 0, 0, 0, 0, 0, 0, -14, 0, 0, 0, 0, 0, 0, -2, -16
+"/home/ser/Projects/Docker/site2/public/http/media/js/modules/urlbuilder/urlbuilder.js", "JavaScript", 0, 0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0, -1, -7
+"/home/ser/Projects/Docker/site2/public/http/media/js/popper.min.js", "JavaScript", 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -4, -2, -7
+"/home/ser/Projects/Docker/site2/readme.md", "Markdown", -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12, -47
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/FilterInterface.php", "PHP", 0, -8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -5, -15
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/LimitInterface.php", "PHP", 0, -6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -9
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/OffsetInterface.php", "PHP", 0, -6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -9
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/OrderByInterface.php", "PHP", 0, -13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -18
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/SearchCriteriaFactoryInterface.php", "PHP", 0, -11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -4, -16
+"/home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/SearchCriteriaInterface.php", "PHP", 0, -16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -15, -17, -48
+"/home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Filter.php", "PHP", 0, -19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7, -26
+"/home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Limit.php", "PHP", 0, -28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, -36
+"/home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Offset.php", "PHP", 0, -17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7, -24
+"/home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/OrderBy.php", "PHP", 0, -41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -11, -57
+"/home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/SearchCriteria.php", "PHP", 0, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -16, -81
+"/home/ser/Projects/Docker/site2/sql/admin_users.sql", "MS SQL", 0, 0, 0, 0, -45, 0, 0, 0, 0, 0, 0, 0, 0, -6, -51
+"/home/ser/Projects/Docker/site2/sql/article.sql", "MS SQL", 0, 0, 0, 0, -129, 0, 0, 0, 0, 0, 0, 0, -1, -6, -136
+"/home/ser/Projects/Docker/site2/sql/articleListView/author.sql", "MS SQL", 0, 0, 0, 0, -39, 0, 0, 0, 0, 0, 0, 0, 0, -2, -41
+"/home/ser/Projects/Docker/site2/sql/articleListView/select.sql", "MS SQL", 0, 0, 0, 0, -63, 0, 0, 0, 0, 0, 0, 0, -4, -3, -70
+"/home/ser/Projects/Docker/site2/sql/audio.sql", "MS SQL", 0, 0, 0, 0, -26, 0, 0, 0, 0, 0, 0, 0, 0, -3, -29
+"/home/ser/Projects/Docker/site2/sql/author.sql", "MS SQL", 0, 0, 0, 0, -20, 0, 0, 0, 0, 0, 0, 0, 0, -5, -25
+"/home/ser/Projects/Docker/site2/sql/category.sql", "MS SQL", 0, 0, 0, 0, -13, 0, 0, 0, 0, 0, 0, 0, 0, -2, -15
+"/home/ser/Projects/Docker/site2/sql/database.sql", "MS SQL", 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5
+"/home/ser/Projects/Docker/site2/sql/img.sql", "MS SQL", 0, 0, 0, 0, -25, 0, 0, 0, 0, 0, 0, 0, 0, -5, -30
+"/home/ser/Projects/Docker/site2/sql/img_cache.sql", "MS SQL", 0, 0, 0, 0, -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7
+"/home/ser/Projects/Docker/site2/sql/language.sql", "MS SQL", 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0, 0, -1, -10
+"/home/ser/Projects/Docker/site2/sql/links.sql", "MS SQL", 0, 0, 0, 0, -40, 0, 0, 0, 0, 0, 0, 0, -3, -5, -48
+"/home/ser/Projects/Docker/site2/sql/persons.sql", "MS SQL", 0, 0, 0, 0, -25, 0, 0, 0, 0, 0, 0, 0, -2, -4, -31
+"/home/ser/Projects/Docker/site2/sql/rights.sql", "MS SQL", 0, 0, 0, 0, -13, 0, 0, 0, 0, 0, 0, 0, 0, -1, -14
+"/home/ser/Projects/Docker/site2/sql/translate_entities.sql", "MS SQL", 0, 0, 0, 0, -133, 0, 0, 0, 0, 0, 0, 0, -7, -3, -143
+"/home/ser/Projects/Docker/site2/sql/translate_keys.sql", "MS SQL", 0, 0, 0, 0, -68, 0, 0, 0, 0, 0, 0, 0, -5, -3, -76
+"/home/ser/Projects/Docker/site2/tests/Unit/Domain/Image/ImageTest.php", "PHP", 0, -735, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -43, -90, -868
+"/home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Controllers/Sitemap/DefaultAction/SitemapDTOFactoryTest.php", "PHP", 0, -47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, -63
+"/home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Controllers/Sitemap/DefaultAction/SitemapDTOTest.php", "PHP", 0, -14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7, -21
+"/home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Views/Html/Classes/SitemapLinkTreeToHtmlTest.php", "PHP", 0, -36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12, -48
+"/home/ser/Projects/Docker/site2/todo.md", "Markdown", -18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7, -25
+"Total", "-", -452, -1162, -26, -2987, -1401, -66, -24099, -2150, -17, -74940, -2, -74, -4383, -17196, -128955

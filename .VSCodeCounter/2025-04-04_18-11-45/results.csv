@@ -1,0 +1,411 @@
+"filename", "language", "PHP", "HTML (Twig)", "comment", "blank", "total"
+"/home/ser/Projects/Docker/site2/app/bootstrap/actions.php", "PHP", 396, 0, 36, 44, 476
+"/home/ser/Projects/Docker/site2/app/bootstrap/application.php", "PHP", 138, 0, 18, 27, 183
+"/home/ser/Projects/Docker/site2/app/bootstrap/consts.php", "PHP", 12, 0, 0, 8, 20
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/actionsList.php", "PHP", 14, 0, 2, 6, 22
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/actionsList/get.php", "PHP", 127, 0, 8, 19, 154
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/actionsList/post.php", "PHP", 123, 0, 8, 16, 147
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/actionsList/request_middlewares.php", "PHP", 50, 0, 4, 6, 60
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/router.php", "PHP", 38, 0, 4, 9, 51
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/server.php", "PHP", 28, 0, 0, 6, 34
+"/home/ser/Projects/Docker/site2/app/bootstrap/http/views.php", "PHP", 46, 0, 4, 10, 60
+"/home/ser/Projects/Docker/site2/app/bootstrap/models.php", "PHP", 12, 0, 1, 6, 19
+"/home/ser/Projects/Docker/site2/app/bootstrap/services.php", "PHP", 105, 0, 14, 19, 138
+"/home/ser/Projects/Docker/site2/app/bootstrap/sql/models.php", "PHP", 155, 0, 18, 24, 197
+"/home/ser/Projects/Docker/site2/app/bootstrap_http_sql.php", "PHP", 16, 0, 2, 7, 25
+"/home/ser/Projects/Docker/site2/app/bootstrap_img.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Application/AdminUserCheck/AdminUserCheckService.php", "PHP", 35, 0, 6, 8, 49
+"/home/ser/Projects/Docker/site2/app/code/Application/AdminUserCheck/CheckPassword.php", "PHP", 20, 0, 1, 6, 27
+"/home/ser/Projects/Docker/site2/app/code/Application/AdminUserCheck/InvalidPasswordException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/AdminUserRoles/AdminUserRolesService.php", "PHP", 28, 0, 5, 7, 40
+"/home/ser/Projects/Docker/site2/app/code/Application/AdminUserRoles/ListRoles.php", "PHP", 10, 0, 0, 4, 14
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/AdminArticleListViewService.php", "PHP", 39, 0, 4, 9, 52
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/Filter.php", "PHP", 23, 0, 1, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/FilterResult.php", "PHP", 14, 0, 1, 5, 20
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/RepositoryInterface.php", "PHP", 9, 0, 4, 6, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/SearchCriteria.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/VO/Limit.php", "PHP", 42, 0, 0, 13, 55
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/VO/Offset.php", "PHP", 25, 0, 0, 8, 33
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/VO/OrderByDirection.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/VO/OrderByField.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/VO/Page.php", "PHP", 37, 0, 0, 9, 46
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/AdminArticleListView/View/ArticleDto.php", "PHP", 22, 0, 0, 7, 29
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/ArticleListViewService.php", "PHP", 29, 0, 2, 8, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/Pagination.php", "PHP", 29, 0, 0, 8, 37
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ArticleDTO.php", "PHP", 16, 0, 1, 4, 21
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ArticleDTOFactory.php", "PHP", 43, 0, 1, 10, 54
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ArticleListViewRepositoryInterface.php", "PHP", 9, 0, 5, 6, 20
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ArticleViewProcessException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/DateFormatterInterface.php", "PHP", 8, 0, 3, 5, 16
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ImageDTO.php", "PHP", 12, 0, 0, 4, 16
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ImageDTOFactory.php", "PHP", 37, 0, 0, 8, 45
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/ReadLengthFormatterInterface.php", "PHP", 7, 0, 1, 4, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/SearchCriteriaFactoryInterface.php", "PHP", 13, 0, 0, 4, 17
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleListView/View/SearchCriteriaInterface.php", "PHP", 13, 0, 0, 8, 21
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/ArticleViewService.php", "PHP", 30, 0, 16, 9, 55
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/Find.php", "PHP", 19, 0, 0, 6, 25
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/NoSuchArticleException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ArticleIdNameDTO.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ArticleViewDTO.php", "PHP", 18, 0, 2, 4, 24
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ArticleViewDTOFactory.php", "PHP", 60, 0, 1, 13, 74
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ArticleViewRepositoryInterface.php", "PHP", 12, 0, 10, 7, 29
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/AudioDTO.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/AudioDTOFactory.php", "PHP", 35, 0, 0, 8, 43
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/AuthorDTO.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ImageDTO.php", "PHP", 13, 0, 0, 4, 17
+"/home/ser/Projects/Docker/site2/app/code/Application/Article/ArticleView/View/ImageDTOFactory.php", "PHP", 39, 0, 0, 8, 47
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/AdminAuthorList.php", "PHP", 39, 0, 4, 9, 52
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/Filter.php", "PHP", 23, 0, 1, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/FilterResult.php", "PHP", 14, 0, 1, 5, 20
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/RepositoryInterface.php", "PHP", 9, 0, 4, 6, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/SearchCriteria.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/VO/Limit.php", "PHP", 42, 0, 0, 13, 55
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/VO/Offset.php", "PHP", 25, 0, 0, 8, 33
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/VO/OrderByDirection.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/VO/OrderByField.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/VO/Page.php", "PHP", 37, 0, 0, 9, 46
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminList/View/AuthorDto.php", "PHP", 18, 0, 0, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminView/AdminViewService.php", "PHP", 17, 0, 3, 6, 26
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminView/RepositoryInterface.php", "PHP", 10, 0, 4, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AdminView/View/AuthorDto.php", "PHP", 24, 0, 6, 6, 36
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AuthorService/AuthorService.php", "PHP", 75, 0, 14, 14, 103
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AuthorService/Delete.php", "PHP", 20, 0, 1, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AuthorService/Translate.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Author/AuthorService/Update.php", "PHP", 51, 0, 2, 8, 61
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/AdminImageListService.php", "PHP", 39, 0, 4, 9, 52
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/Filter.php", "PHP", 23, 0, 1, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/FilterResult.php", "PHP", 14, 0, 1, 5, 20
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/RepositoryInterface.php", "PHP", 9, 0, 4, 6, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/SearchCriteria.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/VO/Limit.php", "PHP", 42, 0, 0, 13, 55
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/VO/Offset.php", "PHP", 25, 0, 0, 8, 33
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/VO/OrderByDirection.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/VO/OrderByField.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/VO/Page.php", "PHP", 37, 0, 0, 9, 46
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminImageListService/View/ImageDto.php", "PHP", 26, 0, 0, 6, 32
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/AdminViewService.php", "PHP", 41, 0, 4, 11, 56
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/CouldNotFindException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/CouldNotLoadImageMetadataException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/ImageMetadataLoaderInterface.php", "PHP", 9, 0, 1, 5, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/RepositoryInterface.php", "PHP", 10, 0, 4, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/Result.php", "PHP", 14, 0, 0, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/View/ArticleDto.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/View/AuthorDto.php", "PHP", 14, 0, 0, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/View/Dto.php", "PHP", 20, 0, 6, 5, 31
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/View/MetadataDto.php", "PHP", 34, 0, 2, 6, 42
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/AdminView/View/TranslateDto.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImageService/CouldNotUpdateException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImageService/ImageService.php", "PHP", 22, 0, 3, 7, 32
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImageService/Translate.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImageService/Update.php", "PHP", 60, 0, 2, 8, 70
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/CouldNotCreateImageException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/ImgConverterInterface.php", "PHP", 16, 0, 1, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/ImgConverterService.php", "PHP", 48, 0, 4, 9, 61
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/ImgData.php", "PHP", 26, 0, 1, 6, 33
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/StubData.php", "PHP", 25, 0, 3, 6, 34
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/View/Height.php", "PHP", 29, 0, 0, 11, 40
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/View/ImgResult.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/View/ImgView.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/View/ImgViewRepositoryInterface.php", "PHP", 10, 0, 4, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Image/ImgConverter/View/Width.php", "PHP", 29, 0, 0, 11, 40
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCache/Cache.php", "PHP", 12, 0, 0, 4, 16
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCache/ImageCacheService.php", "PHP", 40, 0, 0, 11, 51
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/Find.php", "PHP", 14, 0, 0, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/ImageCacheViewService.php", "PHP", 19, 0, 5, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/NoSuchImageCacheException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/View/ImageCacheViewDTO.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Application/ImageCacheView/View/ImageCacheViewRepositoryInterface.php", "PHP", 10, 0, 4, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Language/ListView/ListViewService.php", "PHP", 15, 0, 3, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Application/Language/ListView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Language/ListView/RepositoryInterface.php", "PHP", 8, 0, 1, 5, 14
+"/home/ser/Projects/Docker/site2/app/code/Application/Language/ListView/View/LanguageDto.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/Filter.php", "PHP", 23, 0, 1, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/FilterResult.php", "PHP", 14, 0, 1, 5, 20
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/ListViewService.php", "PHP", 38, 0, 0, 9, 47
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/RepositoryInterface.php", "PHP", 9, 0, 4, 6, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/SearchCriteria.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/VO/Limit.php", "PHP", 42, 0, 0, 13, 55
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/VO/Offset.php", "PHP", 25, 0, 0, 8, 33
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/VO/OrderByDirection.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/VO/OrderByField.php", "PHP", 30, 0, 0, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/VO/Page.php", "PHP", 37, 0, 0, 9, 46
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/ListView/View/TranslateDto.php", "PHP", 11, 0, 0, 5, 16
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/TranslateService/Delete.php", "PHP", 17, 0, 1, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/TranslateService/Phrase.php", "PHP", 11, 0, 0, 4, 15
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/TranslateService/TranslateService.php", "PHP", 68, 0, 10, 12, 90
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/TranslateService/Update.php", "PHP", 37, 0, 2, 8, 47
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/View/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/View/RepositoryInterface.php", "PHP", 10, 0, 4, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/View/View/PhraseDto.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/View/View/TranslateDto.php", "PHP", 12, 0, 1, 5, 18
+"/home/ser/Projects/Docker/site2/app/code/Application/Translate/View/ViewService.php", "PHP", 17, 0, 4, 6, 27
+"/home/ser/Projects/Docker/site2/app/code/Application/User/UserCheck/CheckPassword.php", "PHP", 20, 0, 1, 6, 27
+"/home/ser/Projects/Docker/site2/app/code/Application/User/UserCheck/InvalidPasswordException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Application/User/UserCheck/UserCheckService.php", "PHP", 25, 0, 6, 9, 40
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminRole/VO/Description.php", "PHP", 18, 0, 0, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminRole/VO/Identifier.php", "PHP", 18, 0, 1, 6, 25
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminRole/VO/Name.php", "PHP", 18, 0, 0, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/AdminUser.php", "PHP", 43, 0, 0, 11, 54
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/AdminUserInterface.php", "PHP", 15, 0, 0, 9, 24
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/AdminUserNotActiveException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/AdminUserRepositoryInterface.php", "PHP", 8, 0, 1, 5, 14
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/NoSuchAdminUserException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Active.php", "PHP", 15, 0, 0, 6, 21
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Email.php", "PHP", 29, 0, 1, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Identifier.php", "PHP", 18, 0, 1, 6, 25
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Password.php", "PHP", 29, 0, 1, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/PasswordHash.php", "PHP", 18, 0, 0, 6, 24
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Role.php", "PHP", 27, 0, 0, 8, 35
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Roles.php", "PHP", 28, 0, 2, 8, 38
+"/home/ser/Projects/Docker/site2/app/code/Domain/AdminUser/VO/Username.php", "PHP", 29, 0, 1, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/Article.php", "PHP", 66, 0, 7, 16, 89
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/ArticleCategory.php", "PHP", 37, 0, 2, 10, 49
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/ArticleFilterFactoryInterface.php", "PHP", 8, 0, 0, 5, 13
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/ArticleRepositoryInterface.php", "PHP", 11, 0, 13, 6, 30
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/ArticleTranslates.php", "PHP", 109, 0, 10, 27, 146
+"/home/ser/Projects/Docker/site2/app/code/Domain/Article/VO/ArticleId.php", "PHP", 23, 0, 1, 8, 32
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/Author.php", "PHP", 171, 0, 32, 30, 233
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/CouldDeleteException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/CouldNotChangeActivityException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/CouldNotRemoveTranslateException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/CouldNotSaveException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/Entities/Translate.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/NoSuchAuthorException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/RepositoryInterface.php", "PHP", 10, 0, 6, 7, 23
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/VO/AuthorId.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/VO/Description.php", "PHP", 22, 0, 0, 7, 29
+"/home/ser/Projects/Docker/site2/app/code/Domain/Author/VO/Name.php", "PHP", 22, 0, 0, 7, 29
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/CouldNotChangeActivityException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/Entities/Article.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/Entities/Author.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/Entities/Content.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/Entities/Translate.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/Image.php", "PHP", 239, 0, 30, 40, 309
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/ImageRepositoryInterface.php", "PHP", 8, 0, 4, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/NoSuchImageException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/VO/Description.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/VO/Id.php", "PHP", 36, 0, 0, 10, 46
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/VO/Name.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/VO/Path.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Image/VO/Type.php", "PHP", 24, 0, 1, 9, 34
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/ImageCache.php", "PHP", 35, 0, 0, 10, 45
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/ImageCacheRepositoryInterface.php", "PHP", 12, 0, 5, 9, 26
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/VO/CreatedAt.php", "PHP", 36, 0, 0, 10, 46
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/VO/Data.php", "PHP", 19, 0, 0, 7, 26
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/VO/Key.php", "PHP", 19, 0, 0, 7, 26
+"/home/ser/Projects/Docker/site2/app/code/Domain/ImageCache/VO/Type.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Language/Language.php", "PHP", 6, 0, 0, 4, 10
+"/home/ser/Projects/Docker/site2/app/code/Domain/Language/VO/Identifier.php", "PHP", 23, 0, 0, 8, 31
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/CouldNotDeleteException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/CouldNotSaveException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/Entities/Phrase.php", "PHP", 21, 0, 0, 7, 28
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/NoSuchTranslateException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/RepositoryException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/RepositoryInterface.php", "PHP", 12, 0, 7, 8, 27
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/Translate.php", "PHP", 35, 0, 3, 10, 48
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/VO/Identifier.php", "PHP", 26, 0, 0, 9, 35
+"/home/ser/Projects/Docker/site2/app/code/Domain/Translate/VO/Phrase.php", "PHP", 22, 0, 0, 7, 29
+"/home/ser/Projects/Docker/site2/app/code/Domain/User/NoSuchUserException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Domain/User/VO/Email.php", "PHP", 29, 0, 1, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Domain/User/VO/Password.php", "PHP", 29, 0, 1, 9, 39
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Article/DefaultAction.php", "PHP", 78, 0, 0, 13, 91
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Article/DefaultAction/PaginationForm.php", "PHP", 60, 0, 3, 11, 74
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Article/DefaultAction/ViewDto.php", "PHP", 17, 0, 1, 5, 23
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/DefaultAction.php", "PHP", 88, 0, 0, 16, 104
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/DefaultAction/PaginationForm.php", "PHP", 60, 0, 3, 11, 74
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/DefaultAction/ViewDto.php", "PHP", 20, 0, 1, 5, 26
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/DynamicAction.php", "PHP", 83, 0, 0, 15, 98
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/DynamicAction/ViewDto.php", "PHP", 27, 0, 3, 5, 35
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/New/DefaultAction.php", "PHP", 58, 0, 0, 11, 69
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Author/New/DefaultAction/ViewDto.php", "PHP", 25, 0, 3, 5, 33
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/DefaultAction.php", "PHP", 31, 0, 0, 7, 38
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/DefaultAction/ViewDTO.php", "PHP", 13, 0, 0, 5, 18
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Image/DefaultAction.php", "PHP", 78, 0, 0, 15, 93
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Image/DefaultAction/PaginationForm.php", "PHP", 60, 0, 3, 11, 74
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Image/DefaultAction/ViewDto.php", "PHP", 17, 0, 1, 5, 23
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Image/DynamicAction.php", "PHP", 103, 0, 0, 16, 119
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Image/DynamicAction/ViewDto.php", "PHP", 33, 0, 4, 5, 42
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Imagecache/DefaultAction.php", "PHP", 50, 0, 0, 10, 60
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Imagecache/DefaultAction/ViewDto.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Language/DefaultAction.php", "PHP", 41, 0, 0, 9, 50
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Language/View/ViewDto.php", "PHP", 15, 0, 1, 5, 21
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/DefaultAction.php", "PHP", 88, 0, 0, 16, 104
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/DefaultAction/PaginationForm.php", "PHP", 60, 0, 3, 11, 74
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/DefaultAction/ViewDto.php", "PHP", 20, 0, 1, 5, 26
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/DynamicAction.php", "PHP", 78, 0, 0, 15, 93
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/DynamicAction/ViewDto.php", "PHP", 23, 0, 3, 5, 31
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/New/DefaultAction.php", "PHP", 55, 0, 0, 12, 67
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Translate/New/DefaultAction/ViewDto.php", "PHP", 21, 0, 3, 5, 29
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Admin/Users/DefaultAction.php", "PHP", 34, 0, 0, 7, 41
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Article/DefaultAction.php", "PHP", 82, 0, 5, 16, 103
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Article/DefaultAction/Pagination.php", "PHP", 97, 0, 6, 21, 124
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Article/DefaultAction/ViewDTO.php", "PHP", 26, 0, 2, 7, 35
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Article/DynamicAction.php", "PHP", 79, 0, 1, 13, 93
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Article/DynamicAction/ViewDTO.php", "PHP", 15, 0, 0, 5, 20
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Login/Admin/DefaultAction.php", "PHP", 56, 0, 1, 10, 67
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Login/Admin/DefaultAction/ViewDTO.php", "PHP", 19, 0, 0, 5, 24
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Login/DefaultAction.php", "PHP", 52, 0, 0, 10, 62
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Login/DefaultAction/ViewDTO.php", "PHP", 18, 0, 0, 5, 23
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/PageNotFound/DefaultAction.php", "PHP", 39, 0, 0, 10, 49
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Register/DefaultAction.php", "PHP", 38, 0, 1, 8, 47
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Register/DefaultAction/ViewDTO.php", "PHP", 14, 0, 0, 5, 19
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Root/DefaultAction.php", "PHP", 39, 0, 0, 11, 50
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Root/DynamicAction.php", "PHP", 67, 0, 1, 17, 85
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/ServerError/DefaultAction.php", "PHP", 104, 0, 8, 12, 124
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/ServerErrorExample/DefaultAction.php", "PHP", 19, 0, 1, 7, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Sitemap/DefaultAction.php", "PHP", 42, 0, 3, 10, 55
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Sitemap/DefaultAction/SitemapDTO.php", "PHP", 20, 0, 9, 7, 36
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Sitemap/DefaultAction/SitemapDTOFactory.php", "PHP", 24, 0, 11, 7, 42
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/GET/Sitemap/SitemapLinkTreeInterface.php", "PHP", 8, 0, 5, 5, 18
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Api/Userinfo/DefaultAction.php", "PHP", 49, 0, 0, 9, 58
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Author/Delete/DefaultAction.php", "PHP", 85, 0, 1, 13, 99
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Author/New/DefaultAction.php", "PHP", 85, 0, 1, 13, 99
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Author/Update/DefaultAction.php", "PHP", 92, 0, 1, 13, 106
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Imagecache/Clear/DefaultAction.php", "PHP", 39, 0, 0, 8, 47
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Logout/DefaultAction.php", "PHP", 42, 0, 0, 8, 50
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Translate/Delete/DefaultAction.php", "PHP", 71, 0, 1, 13, 85
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Translate/New/DefaultAction.php", "PHP", 74, 0, 2, 13, 89
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Admin/Translate/Update/DefaultAction.php", "PHP", 84, 0, 2, 13, 99
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Api/Userinfo/DefaultAction.php", "PHP", 49, 0, 0, 9, 58
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Auth/Admin/DefaultAction.php", "PHP", 93, 0, 1, 10, 104
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Auth/DefaultAction.php", "PHP", 93, 0, 2, 11, 106
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/Actions/POST/Logout/DefaultAction.php", "PHP", 41, 0, 0, 9, 50
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/RequestMiddlewares/Admin/AdminLoginMiddleware.php", "PHP", 36, 0, 0, 10, 46
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/RequestMiddlewares/Admin/AdminRolesMiddleware.php", "PHP", 51, 0, 7, 8, 66
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Controllers/RequestMiddlewares/CsrfMiddleware.php", "PHP", 63, 0, 1, 15, 79
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/AdminUser/AdminUserRepository.php", "PHP", 110, 0, 27, 21, 158
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/ArticleOrderBy.php", "PHP", 17, 0, 0, 5, 22
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/ArticleRepository.php", "PHP", 253, 0, 49, 34, 336
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/ArticleSearchCriteria.php", "PHP", 22, 0, 0, 5, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/ArticleSearchCriteriaFactory.php", "PHP", 28, 0, 0, 8, 36
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/Filters/ArticleFilter.php", "PHP", 21, 0, 0, 6, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Article/Filters/ArticleFilterFactory.php", "PHP", 11, 0, 0, 5, 16
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Author/Repository.php", "PHP", 343, 0, 21, 48, 412
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ImageCache/ImageCacheRepository.php", "PHP", 49, 0, 0, 17, 66
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Article/AdminListView/Repository.php", "PHP", 126, 0, 4, 27, 157
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Article/ListView/ArticleListViewRepository.php", "PHP", 129, 0, 11, 22, 162
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Article/ListView/SearchCriteria.php", "PHP", 33, 0, 0, 9, 42
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Article/ListView/SearchCriteriaFactory.php", "PHP", 69, 0, 0, 12, 81
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Article/View/ArticleViewRepository.php", "PHP", 170, 0, 2, 19, 191
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Author/AdminList/Repository.php", "PHP", 87, 0, 4, 24, 115
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Author/AdminView/Repository.php", "PHP", 165, 0, 13, 29, 207
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Image/AdminList/Repository.php", "PHP", 101, 0, 4, 26, 131
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Image/AdminView/Repository.php", "PHP", 248, 0, 5, 32, 285
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Image/Converter/ImgViewRepository.php", "PHP", 50, 0, 0, 10, 60
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/ImageCacheView/ImageCacheViewRepository.php", "PHP", 47, 0, 0, 10, 57
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Language/ListView/Repository.php", "PHP", 53, 0, 1, 12, 66
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Translate/ListView/Repository.php", "PHP", 71, 0, 4, 22, 97
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/Translate/View/Repository.php", "PHP", 92, 0, 1, 19, 112
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/ReadModels/TranslateStorage/TranslateStorage.php", "PHP", 61, 0, 0, 12, 73
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Persist/Sql/Translate/Repository.php", "PHP", 193, 0, 8, 24, 225
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/DateFormatterUsesDateFormat.php", "PHP", 13, 0, 0, 6, 19
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Image/CopyImage.php", "PHP", 41, 0, 5, 11, 57
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Image/Image.php", "PHP", 51, 0, 6, 12, 69
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Image/ImageMetadataLoader.php", "PHP", 33, 0, 0, 8, 41
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Image/ImgConverter.php", "PHP", 185, 0, 12, 25, 222
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/ReadLengthFormatter.php", "PHP", 40, 0, 0, 12, 52
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Session/Site2Session.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/Session/Site2SessionInterface.php", "PHP", 12, 0, 0, 5, 17
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/TokenGenerators/CouldNotGenerateException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/TokenGenerators/CsrfTokenGeneratorInterface.php", "PHP", 7, 0, 5, 4, 16
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Services/TokenGenerators/CsrfTokenGeneratorUseRandomBytes.php", "PHP", 31, 0, 0, 8, 39
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/CantCreateViewException.php", "PHP", 7, 0, 0, 5, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Classes/CreatePagination.php", "PHP", 138, 0, 11, 15, 164
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Classes/Pagination.php", "PHP", 35, 0, 0, 10, 45
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Classes/SitemapLinkTreeToHtml.php", "PHP", 57, 0, 18, 11, 86
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/CreatePaginationInterface.php", "PHP", 7, 0, 0, 4, 11
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/PaginationInterface.php", "PHP", 15, 0, 0, 9, 24
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Site2TwigView.php", "PHP", 80, 0, 13, 14, 107
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/articles.twig", "HTML (Twig)", 0, 4, 0, 0, 4
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/authors.twig", "HTML (Twig)", 0, 7, 0, 0, 7
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/images.twig", "HTML (Twig)", 0, 7, 0, 0, 7
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/languages.twig", "HTML (Twig)", 0, 4, 0, 0, 4
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/translates.twig", "HTML (Twig)", 0, 7, 0, 0, 7
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/blocks/users.twig", "HTML (Twig)", 0, 4, 0, 0, 4
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/admin/default_action/index.twig", "HTML (Twig)", 0, 10, 5, 0, 15
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/article/default_action/articles.twig", "HTML (Twig)", 0, 130, 5, 11, 146
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/article/default_action/index.twig", "HTML (Twig)", 0, 12, 0, 2, 14
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/article/default_action/zero_articles.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/default_action/authors.twig", "HTML (Twig)", 0, 99, 6, 10, 115
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/default_action/index.twig", "HTML (Twig)", 0, 12, 3, 4, 19
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/default_action/zero_authors.twig", "HTML (Twig)", 0, 1, 3, 2, 6
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/dynamic_action/blocks/articles.twig", "HTML (Twig)", 0, 26, 0, 1, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/dynamic_action/blocks/images.twig", "HTML (Twig)", 0, 16, 0, 1, 17
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/dynamic_action/blocks/translates.twig", "HTML (Twig)", 0, 29, 4, 3, 36
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author/dynamic_action/index.twig", "HTML (Twig)", 0, 89, 6, 8, 103
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author_new/default_action/blocks/translates.twig", "HTML (Twig)", 0, 21, 4, 2, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/author_new/default_action/index.twig", "HTML (Twig)", 0, 49, 5, 4, 58
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/default_action/images.twig", "HTML (Twig)", 0, 108, 7, 12, 127
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/default_action/index.twig", "HTML (Twig)", 0, 11, 3, 3, 17
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/default_action/zero_images.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/dynamic_action/blocks/articles.twig", "HTML (Twig)", 0, 36, 0, 1, 37
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/dynamic_action/blocks/image.twig", "HTML (Twig)", 0, 38, 0, 1, 39
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/dynamic_action/blocks/translates.twig", "HTML (Twig)", 0, 29, 4, 2, 35
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/image/dynamic_action/index.twig", "HTML (Twig)", 0, 145, 8, 10, 163
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/imagecache/default_action/index.twig", "HTML (Twig)", 0, 12, 0, 0, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/language/default_action/index.twig", "HTML (Twig)", 0, 43, 0, 3, 46
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate/default_action/index.twig", "HTML (Twig)", 0, 12, 3, 4, 19
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate/default_action/translates.twig", "HTML (Twig)", 0, 88, 8, 11, 107
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate/default_action/zero_translates.twig", "HTML (Twig)", 0, 1, 3, 2, 6
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate/dynamic_action/blocks/phrases.twig", "HTML (Twig)", 0, 30, 4, 3, 37
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate/dynamic_action/index.twig", "HTML (Twig)", 0, 46, 6, 4, 56
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate_new/default_action/blocks/phrases.twig", "HTML (Twig)", 0, 30, 4, 3, 37
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/translate_new/default_action/index.twig", "HTML (Twig)", 0, 26, 5, 4, 35
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/controllers/users/default_action/index.twig", "HTML (Twig)", 0, 6, 0, 0, 6
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/heads/admin/default_action/index.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/layouts/before-body-close-tag.twig", "HTML (Twig)", 0, 3, 0, 0, 3
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/layouts/footer.twig", "HTML (Twig)", 0, 7, 0, 0, 7
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/layouts/head.twig", "HTML (Twig)", 0, 15, 6, 2, 23
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/layouts/header.twig", "HTML (Twig)", 0, 28, 0, 0, 28
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/admin/layouts/message.twig", "HTML (Twig)", 0, 23, 0, 0, 23
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/base.twig", "HTML (Twig)", 0, 26, 11, 11, 48
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/base_admin.twig", "HTML (Twig)", 0, 21, 10, 9, 40
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/article/default_action/articles.twig", "HTML (Twig)", 0, 94, 3, 10, 107
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/article/default_action/index.twig", "HTML (Twig)", 0, 84, 5, 5, 94
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/article/default_action/zero_articles.twig", "HTML (Twig)", 0, 1, 3, 0, 4
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/article/dynamic_action/index.twig", "HTML (Twig)", 0, 149, 4, 10, 163
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/login/default_action/index.twig", "HTML (Twig)", 0, 33, 4, 2, 39
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/login_admin/default_action/index.twig", "HTML (Twig)", 0, 22, 4, 1, 27
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/not-found/default_action/index.twig", "HTML (Twig)", 0, 12, 0, 1, 13
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/register/default_action/index.twig", "HTML (Twig)", 0, 12, 0, 0, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/root/default_action/index.twig", "HTML (Twig)", 0, 462, 3, 1, 466
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/root/dynamic_action/about.twig", "HTML (Twig)", 0, 4, 3, 1, 8
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/root/dynamic_action/contacts.twig", "HTML (Twig)", 0, 4, 3, 1, 8
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/root/dynamic_action/index.twig", "HTML (Twig)", 0, 2, 0, 1, 3
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/server-error/default_action/index.twig", "HTML (Twig)", 0, 9, 0, 0, 9
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/controllers/sitemap/default_action/index.twig", "HTML (Twig)", 0, 5, 0, 1, 6
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/heads/article/default_action/index.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/heads/article/dynamic_action/index.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/heads/root/default_action/index.twig", "HTML (Twig)", 0, 1, 0, 0, 1
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/before-body-close-tag.twig", "HTML (Twig)", 0, 3, 0, 0, 3
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer.twig", "HTML (Twig)", 0, 9, 0, 4, 13
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer/copyrights.twig", "HTML (Twig)", 0, 7, 0, 0, 7
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer/infoline.twig", "HTML (Twig)", 0, 48, 0, 2, 50
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer/links.twig", "HTML (Twig)", 0, 49, 0, 0, 49
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer/policy.twig", "HTML (Twig)", 0, 12, 0, 0, 12
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/footer/social-links.twig", "HTML (Twig)", 0, 10, 0, 0, 10
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/head.twig", "HTML (Twig)", 0, 16, 5, 3, 24
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/header.twig", "HTML (Twig)", 0, 6, 0, 0, 6
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/header/breadcrumbs.twig", "HTML (Twig)", 0, 25, 0, 0, 25
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/header/infoline.twig", "HTML (Twig)", 0, 50, 0, 4, 54
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/header/logo.twig", "HTML (Twig)", 0, 45, 0, 6, 51
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/Templates/frontend/layouts/header/nav.twig", "HTML (Twig)", 0, 106, 0, 0, 106
+"/home/ser/Projects/Docker/site2/app/code/Infrastructure/Views/Html/TwigView.php", "PHP", 79, 0, 28, 21, 128
+"/home/ser/Projects/Docker/site2/app/config/shared/audio.php", "PHP", 5, 0, 6, 2, 13
+"/home/ser/Projects/Docker/site2/app/config/shared/bootstrap.php", "PHP", 5, 0, 0, 2, 7
+"/home/ser/Projects/Docker/site2/app/config/shared/dynamic_root.php", "PHP", 7, 0, 0, 3, 10
+"/home/ser/Projects/Docker/site2/app/config/shared/errors.php", "PHP", 5, 0, 7, 2, 14
+"/home/ser/Projects/Docker/site2/app/config/shared/images.php", "PHP", 6, 0, 6, 2, 14
+"/home/ser/Projects/Docker/site2/app/config/shared/twig.php", "PHP", 7, 0, 0, 2, 9
+"Total", "-", 12624, 2596, 984, 3161, 19365

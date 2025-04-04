@@ -68,6 +68,14 @@ return function (Container $container) {
     // USER CHECK
     $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
+    // IMAGE
+    $container->shared(
+        '\Romchik38\Site2\Application\Image\ImageService\ImageService',
+        [
+            new Promise('\Romchik38\Site2\Domain\Image\ImageRepositoryInterface')
+        ]
+    );
+
     // IMAGE CONVERTER
     $container->shared(
         '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService',

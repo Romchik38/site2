@@ -1,0 +1,260 @@
+Date : 2025-04-04 18:11:45
+Directory : /home/ser/Projects/Docker/site2/app
+Total : 154 files,  -107376 codes, -4383 comments, -17196 blanks, all -128955 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Ini        |          1 |         -2 |          0 |          0 |         -2 |
+| Docker     |          2 |        -17 |          0 |         -7 |        -24 |
+| XML        |          2 |        -26 |         -4 |         -4 |        -34 |
+| Properties |          2 |        -66 |        -14 |        -19 |        -99 |
+| YAML       |          2 |        -74 |          0 |         -7 |        -81 |
+| Markdown   |         35 |       -452 |          0 |       -199 |       -651 |
+| PHP        |         17 |     -1,162 |        -88 |       -229 |     -1,479 |
+| MS SQL     |         18 |     -1,401 |       -405 |       -460 |     -2,266 |
+| HTML       |         17 |     -2,150 |       -188 |       -205 |     -2,543 |
+| JSON       |          2 |     -2,987 |          0 |         -4 |     -2,991 |
+| JavaScript |         18 |    -24,099 |     -3,409 |     -4,706 |    -32,214 |
+| CSS        |         38 |    -74,940 |       -275 |    -11,356 |    -86,571 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |        154 |   -107,376 |     -4,383 |    -17,196 |   -128,955 |
+| ..                                                                                                                    |        154 |   -107,376 |     -4,383 |    -17,196 |   -128,955 |
+| .. (Files)                                                                                                            |          9 |     -3,145 |         -4 |        -39 |     -3,188 |
+| ../doc                                                                                                                |         30 |       -363 |          0 |       -163 |       -526 |
+| ../doc/Entities                                                                                                       |          7 |        -55 |          0 |        -19 |        -74 |
+| ../doc/Image_Converter                                                                                                |          1 |        -17 |          0 |        -12 |        -29 |
+| ../doc/admin                                                                                                          |          3 |        -42 |          0 |        -12 |        -54 |
+| ../doc/bootstrap                                                                                                      |          2 |         -8 |          0 |         -6 |        -14 |
+| ../doc/design                                                                                                         |          3 |        -36 |          0 |         -9 |        -45 |
+| ../doc/docker                                                                                                         |          1 |         -7 |          0 |         -4 |        -11 |
+| ../doc/errors                                                                                                         |          6 |        -60 |          0 |        -35 |        -95 |
+| ../doc/errors (Files)                                                                                                 |          1 |         -4 |          0 |         -3 |         -7 |
+| ../doc/errors/not-found                                                                                               |          1 |         -4 |          0 |         -2 |         -6 |
+| ../doc/errors/server-errors                                                                                           |          4 |        -52 |          0 |        -30 |        -82 |
+| ../doc/frontend                                                                                                       |          1 |        -13 |          0 |         -5 |        -18 |
+| ../doc/language                                                                                                       |          3 |        -65 |          0 |        -28 |        -93 |
+| ../doc/mail                                                                                                           |          1 |         -3 |          0 |         -2 |         -5 |
+| ../doc/security                                                                                                       |          1 |        -16 |          0 |        -12 |        -28 |
+| ../doc/templates                                                                                                      |          1 |        -41 |          0 |        -19 |        -60 |
+| ../docker                                                                                                             |          8 |       -818 |       -389 |       -437 |     -1,644 |
+| ../docker/nginx                                                                                                       |          1 |        -27 |         -6 |         -7 |        -40 |
+| ../docker/nginx/conf.d                                                                                                |          1 |        -27 |         -6 |         -7 |        -40 |
+| ../docker/php-fpm                                                                                                     |          3 |        -36 |          0 |        -12 |        -48 |
+| ../docker/php-fpm (Files)                                                                                             |          2 |        -34 |          0 |        -12 |        -46 |
+| ../docker/php-fpm/php                                                                                                 |          1 |         -2 |          0 |          0 |         -2 |
+| ../docker/php-fpm/php/conf.d                                                                                          |          1 |         -2 |          0 |          0 |         -2 |
+| ../docker/postgres                                                                                                    |          4 |       -755 |       -383 |       -418 |     -1,556 |
+| ../docker/postgres (Files)                                                                                            |          2 |        -14 |          0 |         -7 |        -21 |
+| ../docker/postgres/scripts                                                                                            |          2 |       -741 |       -383 |       -411 |     -1,535 |
+| ../nginx                                                                                                              |          1 |        -39 |         -8 |        -12 |        -59 |
+| ../public                                                                                                             |         75 |   -101,294 |     -3,889 |    -16,285 |   -121,468 |
+| ../public/http                                                                                                        |         75 |   -101,294 |     -3,889 |    -16,285 |   -121,468 |
+| ../public/http (Files)                                                                                                |          2 |       -105 |        -17 |        -18 |       -140 |
+| ../public/http/media                                                                                                  |         73 |   -101,189 |     -3,872 |    -16,267 |   -121,328 |
+| ../public/http/media/css                                                                                              |         38 |    -74,940 |       -275 |    -11,356 |    -86,571 |
+| ../public/http/media/css (Files)                                                                                      |          5 |       -138 |        -25 |        -40 |       -203 |
+| ../public/http/media/css/admin                                                                                        |          1 |        -18 |          0 |         -5 |        -23 |
+| ../public/http/media/css/bootstrap                                                                                    |         16 |    -33,908 |       -136 |     -8,011 |    -42,055 |
+| ../public/http/media/css/bootstrap-5.3.3-dist                                                                         |         16 |    -40,876 |       -114 |     -3,300 |    -44,290 |
+| ../public/http/media/css/bootstrap-5.3.3-dist/css                                                                     |         16 |    -40,876 |       -114 |     -3,300 |    -44,290 |
+| ../public/http/media/html                                                                                             |         17 |     -2,150 |       -188 |       -205 |     -2,543 |
+| ../public/http/media/html (Files)                                                                                     |         14 |     -1,819 |       -178 |       -165 |     -2,162 |
+| ../public/http/media/html/errors                                                                                      |          3 |       -331 |        -10 |        -40 |       -381 |
+| ../public/http/media/js                                                                                               |         18 |    -24,099 |     -3,409 |     -4,706 |    -32,214 |
+| ../public/http/media/js (Files)                                                                                       |          8 |    -11,747 |     -1,569 |     -3,478 |    -16,794 |
+| ../public/http/media/js/admin                                                                                         |          1 |        -42 |         -1 |        -10 |        -53 |
+| ../public/http/media/js/bootstrap-5.3.3-dist                                                                          |          6 |    -12,239 |     -1,835 |     -1,205 |    -15,279 |
+| ../public/http/media/js/bootstrap-5.3.3-dist/js                                                                       |          6 |    -12,239 |     -1,835 |     -1,205 |    -15,279 |
+| ../public/http/media/js/frontend                                                                                      |          1 |        -51 |         -4 |        -10 |        -65 |
+| ../public/http/media/js/modules                                                                                       |          2 |        -20 |          0 |         -3 |        -23 |
+| ../public/http/media/js/modules/urlbuilder                                                                            |          2 |        -20 |          0 |         -3 |        -23 |
+| ../server                                                                                                             |         11 |       -225 |        -28 |        -86 |       -339 |
+| ../server/Api                                                                                                         |          6 |        -60 |        -18 |        -37 |       -115 |
+| ../server/Api/Models                                                                                                  |          6 |        -60 |        -18 |        -37 |       -115 |
+| ../server/Api/Models/SearchCriteria                                                                                   |          6 |        -60 |        -18 |        -37 |       -115 |
+| ../server/Models                                                                                                      |          5 |       -165 |        -10 |        -49 |       -224 |
+| ../server/Models/Sql                                                                                                  |          5 |       -165 |        -10 |        -49 |       -224 |
+| ../server/Models/Sql/SearchCriteria                                                                                   |          5 |       -165 |        -10 |        -49 |       -224 |
+| ../sql                                                                                                                |         16 |       -660 |        -22 |        -49 |       -731 |
+| ../sql (Files)                                                                                                        |         14 |       -558 |        -18 |        -44 |       -620 |
+| ../sql/articleListView                                                                                                |          2 |       -102 |         -4 |         -5 |       -111 |
+| ../tests                                                                                                              |          4 |       -832 |        -43 |       -125 |     -1,000 |
+| ../tests/Unit                                                                                                         |          4 |       -832 |        -43 |       -125 |     -1,000 |
+| ../tests/Unit/Domain                                                                                                  |          1 |       -735 |        -43 |        -90 |       -868 |
+| ../tests/Unit/Domain/Image                                                                                            |          1 |       -735 |        -43 |        -90 |       -868 |
+| ../tests/Unit/Infrastructure                                                                                          |          3 |        -97 |          0 |        -35 |       -132 |
+| ../tests/Unit/Infrastructure/Controllers                                                                              |          2 |        -61 |          0 |        -23 |        -84 |
+| ../tests/Unit/Infrastructure/Controllers/Sitemap                                                                      |          2 |        -61 |          0 |        -23 |        -84 |
+| ../tests/Unit/Infrastructure/Controllers/Sitemap/DefaultAction                                                        |          2 |        -61 |          0 |        -23 |        -84 |
+| ../tests/Unit/Infrastructure/Views                                                                                    |          1 |        -36 |          0 |        -12 |        -48 |
+| ../tests/Unit/Infrastructure/Views/Html                                                                               |          1 |        -36 |          0 |        -12 |        -48 |
+| ../tests/Unit/Infrastructure/Views/Html/Classes                                                                       |          1 |        -36 |          0 |        -12 |        -48 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                              | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /home/ser/Projects/Docker/site2/LICENSE.md                                                                            | Markdown   |         -5 |          0 |         -5 |        -10 |
+| /home/ser/Projects/Docker/site2/compose.yaml                                                                          | YAML       |        -49 |          0 |         -6 |        -55 |
+| /home/ser/Projects/Docker/site2/composer.json                                                                         | JSON       |        -60 |          0 |         -3 |        -63 |
+| /home/ser/Projects/Docker/site2/composer.lock                                                                         | JSON       |     -2,927 |          0 |         -1 |     -2,928 |
+| /home/ser/Projects/Docker/site2/deptrac.yaml                                                                          | YAML       |        -25 |          0 |         -1 |        -26 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Article.md                                                               | Markdown   |         -7 |          0 |         -2 |         -9 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Audio.md                                                                 | Markdown   |         -7 |          0 |         -3 |        -10 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Author.md                                                                | Markdown   |         -9 |          0 |         -3 |        -12 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Category.md                                                              | Markdown   |         -7 |          0 |         -3 |        -10 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Img.md                                                                   | Markdown   |         -7 |          0 |         -3 |        -10 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Language.md                                                              | Markdown   |        -11 |          0 |         -2 |        -13 |
+| /home/ser/Projects/Docker/site2/doc/Entities/Person.md                                                                | Markdown   |         -7 |          0 |         -3 |        -10 |
+| /home/ser/Projects/Docker/site2/doc/Image_Converter/01_readme.md                                                      | Markdown   |        -17 |          0 |        -12 |        -29 |
+| /home/ser/Projects/Docker/site2/doc/admin/authorization.md                                                            | Markdown   |         -3 |          0 |         -3 |         -6 |
+| /home/ser/Projects/Docker/site2/doc/admin/routes.md                                                                   | Markdown   |        -25 |          0 |         -5 |        -30 |
+| /home/ser/Projects/Docker/site2/doc/admin/schema.md                                                                   | Markdown   |        -14 |          0 |         -4 |        -18 |
+| /home/ser/Projects/Docker/site2/doc/bootstrap/00_readme.md                                                            | Markdown   |         -5 |          0 |         -3 |         -8 |
+| /home/ser/Projects/Docker/site2/doc/bootstrap/Container.md                                                            | Markdown   |         -3 |          0 |         -3 |         -6 |
+| /home/ser/Projects/Docker/site2/doc/design/01-readme.md                                                               | Markdown   |         -4 |          0 |         -1 |         -5 |
+| /home/ser/Projects/Docker/site2/doc/design/bootstrap.md                                                               | Markdown   |         -3 |          0 |         -3 |         -6 |
+| /home/ser/Projects/Docker/site2/doc/design/responsive.md                                                              | Markdown   |        -29 |          0 |         -5 |        -34 |
+| /home/ser/Projects/Docker/site2/doc/docker/00_readme.md                                                               | Markdown   |         -7 |          0 |         -4 |        -11 |
+| /home/ser/Projects/Docker/site2/doc/errors/errors.md                                                                  | Markdown   |         -4 |          0 |         -3 |         -7 |
+| /home/ser/Projects/Docker/site2/doc/errors/not-found/00-readme.md                                                     | Markdown   |         -4 |          0 |         -2 |         -6 |
+| /home/ser/Projects/Docker/site2/doc/errors/server-errors/00-readme.md                                                 | Markdown   |         -4 |          0 |         -2 |         -6 |
+| /home/ser/Projects/Docker/site2/doc/errors/server-errors/01-how-it-works.md                                           | Markdown   |        -19 |          0 |        -10 |        -29 |
+| /home/ser/Projects/Docker/site2/doc/errors/server-errors/02-server-error-controller.md                                | Markdown   |        -12 |          0 |         -8 |        -20 |
+| /home/ser/Projects/Docker/site2/doc/errors/server-errors/03-php-fpm-service-error.md                                  | Markdown   |        -17 |          0 |        -10 |        -27 |
+| /home/ser/Projects/Docker/site2/doc/frontend/routes.md                                                                | Markdown   |        -13 |          0 |         -5 |        -18 |
+| /home/ser/Projects/Docker/site2/doc/language/01-readme.md                                                             | Markdown   |         -6 |          0 |         -3 |         -9 |
+| /home/ser/Projects/Docker/site2/doc/language/action.md                                                                | Markdown   |        -20 |          0 |         -5 |        -25 |
+| /home/ser/Projects/Docker/site2/doc/language/sketches.md                                                              | Markdown   |        -39 |          0 |        -20 |        -59 |
+| /home/ser/Projects/Docker/site2/doc/mail/docker.md                                                                    | Markdown   |         -3 |          0 |         -2 |         -5 |
+| /home/ser/Projects/Docker/site2/doc/security/csrf.md                                                                  | Markdown   |        -16 |          0 |        -12 |        -28 |
+| /home/ser/Projects/Docker/site2/doc/templates/01-readme.md                                                            | Markdown   |        -41 |          0 |        -19 |        -60 |
+| /home/ser/Projects/Docker/site2/docker/nginx/conf.d/default.conf                                                      | Properties |        -27 |         -6 |         -7 |        -40 |
+| /home/ser/Projects/Docker/site2/docker/php-fpm/Dockerfile                                                             | Docker     |        -14 |          0 |         -6 |        -20 |
+| /home/ser/Projects/Docker/site2/docker/php-fpm/php/conf.d/site2.ini                                                   | Ini        |         -2 |          0 |          0 |         -2 |
+| /home/ser/Projects/Docker/site2/docker/php-fpm/readme.md                                                              | Markdown   |        -20 |          0 |         -6 |        -26 |
+| /home/ser/Projects/Docker/site2/docker/postgres/Dockerfile                                                            | Docker     |         -3 |          0 |         -1 |         -4 |
+| /home/ser/Projects/Docker/site2/docker/postgres/readme.md                                                             | Markdown   |        -11 |          0 |         -6 |        -17 |
+| /home/ser/Projects/Docker/site2/docker/postgres/scripts/database.sql                                                  | MS SQL     |         -5 |          0 |          0 |         -5 |
+| /home/ser/Projects/Docker/site2/docker/postgres/scripts/site2.sql                                                     | MS SQL     |       -736 |       -383 |       -411 |     -1,530 |
+| /home/ser/Projects/Docker/site2/nginx/simple.conf                                                                     | Properties |        -39 |         -8 |        -12 |        -59 |
+| /home/ser/Projects/Docker/site2/phpcs.xml                                                                             | XML        |        -13 |         -3 |         -4 |        -20 |
+| /home/ser/Projects/Docker/site2/phpunit.xml                                                                           | XML        |        -13 |         -1 |          0 |        -14 |
+| /home/ser/Projects/Docker/site2/public/http/img.php                                                                   | PHP        |        -91 |        -12 |        -11 |       -114 |
+| /home/ser/Projects/Docker/site2/public/http/index.php                                                                 | PHP        |        -14 |         -5 |         -7 |        -26 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/admin/admin.css                                                 | CSS        |        -18 |          0 |         -5 |        -23 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/admin_main.css                                                  | CSS        |         -7 |          0 |         -2 |         -9 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/article.css                                                     | CSS        |         -6 |          0 |         -1 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.css                     | CSS        |     -3,886 |         -6 |       -193 |     -4,085 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css                 | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.rtl.css                 | CSS        |     -3,886 |         -6 |       -192 |     -4,084 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-grid.rtl.min.css             | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.css                   | CSS        |       -518 |        -14 |        -65 |       -597 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.min.css               | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.rtl.css               | CSS        |       -524 |         -6 |        -64 |       -594 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-reboot.rtl.min.css           | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.css                | CSS        |     -4,891 |         -8 |       -503 |     -5,402 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.min.css            | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.rtl.css            | CSS        |     -4,887 |         -6 |       -500 |     -5,393 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap-utilities.rtl.min.css        | CSS        |         -1 |         -5 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.css                          | CSS        |    -11,136 |        -24 |       -897 |    -12,057 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css                      | CSS        |         -2 |         -4 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.rtl.css                      | CSS        |    -11,138 |         -6 |       -886 |    -12,030 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.rtl.min.css                  | CSS        |         -2 |         -4 |          0 |         -6 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.css                                    | CSS        |     -3,865 |         -7 |     -1,130 |     -5,002 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.min.css                                | CSS        |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.rtl.css                                | CSS        |     -3,865 |         -7 |     -1,129 |     -5,001 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-grid.rtl.min.css                            | CSS        |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.css                                  | CSS        |       -346 |        -16 |        -64 |       -426 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.min.css                              | CSS        |         -1 |         -7 |          0 |         -8 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.rtl.css                              | CSS        |       -352 |         -8 |        -63 |       -423 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-reboot.rtl.min.css                          | CSS        |         -1 |         -7 |          0 |         -8 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.css                               | CSS        |     -3,634 |         -9 |     -1,109 |     -4,752 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.min.css                           | CSS        |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.rtl.css                           | CSS        |     -3,630 |         -7 |     -1,106 |     -4,743 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap-utilities.rtl.min.css                       | CSS        |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.css                                         | CSS        |     -9,102 |        -27 |     -1,708 |    -10,837 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.min.css                                     | CSS        |         -2 |         -5 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.rtl.css                                     | CSS        |     -9,104 |         -7 |     -1,702 |    -10,813 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/bootstrap/bootstrap.rtl.min.css                                 | CSS        |         -2 |         -5 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/category.css                                                    | CSS        |        -25 |          0 |         -3 |        -28 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/home.css                                                        | CSS        |        -27 |        -12 |        -10 |        -49 |
+| /home/ser/Projects/Docker/site2/public/http/media/css/main.css                                                        | CSS        |        -73 |        -13 |        -24 |       -110 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/article-with-img-1080.html                                     | HTML       |       -319 |        -22 |        -16 |       -357 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/category.html                                                  | HTML       |       -437 |        -40 |        -28 |       -505 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/errors/not-found-404.html                                      | HTML       |        -37 |         -8 |        -10 |        -55 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/errors/server-error-500.html                                   | HTML       |       -147 |         -1 |        -15 |       -163 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/errors/server-error-502.html                                   | HTML       |       -147 |         -1 |        -15 |       -163 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/footer-copyrights.html                                         | HTML       |        -34 |         -4 |         -7 |        -45 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/footer-infoline.html                                           | HTML       |        -55 |         -6 |         -8 |        -69 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/footer-links.html                                              | HTML       |        -76 |         -5 |         -9 |        -90 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/footer-policy.html                                             | HTML       |        -39 |         -6 |         -7 |        -52 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/footer-social-links.html                                       | HTML       |        -37 |         -6 |         -9 |        -52 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/header-breadcrumbs.html                                        | HTML       |        -35 |         -4 |         -9 |        -48 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/header-infoline.html                                           | HTML       |        -39 |         -2 |         -7 |        -48 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/header-logo.html                                               | HTML       |        -55 |         -6 |         -9 |        -70 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/header-nav.html                                                | HTML       |       -131 |         -8 |        -10 |       -149 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/home.html                                                      | HTML       |       -452 |        -41 |        -19 |       -512 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/proto.html                                                     | HTML       |        -52 |         -2 |         -6 |        -60 |
+| /home/ser/Projects/Docker/site2/public/http/media/html/skeleton.html                                                  | HTML       |        -58 |        -26 |        -21 |       -105 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/admin/userinfo.js                                                | JavaScript |        -42 |         -1 |        -10 |        -53 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.bundle.js                      | JavaScript |     -5,064 |       -655 |       -596 |     -6,315 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js                  | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.esm.js                         | JavaScript |     -3,568 |       -578 |       -302 |     -4,448 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.esm.min.js                     | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.js                             | JavaScript |     -3,604 |       -584 |       -307 |     -4,495 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js                         | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.bundle.js                                              | JavaScript |     -4,836 |       -571 |     -1,342 |     -6,749 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.bundle.min.js                                          | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.esm.js                                                 | JavaScript |     -3,425 |       -483 |     -1,060 |     -4,968 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.esm.min.js                                             | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.js                                                     | JavaScript |     -3,464 |       -489 |     -1,064 |     -5,017 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/bootstrap.min.js                                                 | JavaScript |         -1 |         -6 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/frontend/userinfo.js                                             | JavaScript |        -51 |         -4 |        -10 |        -65 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/language.js                                                      | JavaScript |        -18 |         -4 |        -10 |        -32 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/modules/urlbuilder/dynamicTarget.js                              | JavaScript |        -14 |          0 |         -2 |        -16 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/modules/urlbuilder/urlbuilder.js                                 | JavaScript |         -6 |          0 |         -1 |         -7 |
+| /home/ser/Projects/Docker/site2/public/http/media/js/popper.min.js                                                    | JavaScript |         -1 |         -4 |         -2 |         -7 |
+| /home/ser/Projects/Docker/site2/readme.md                                                                             | Markdown   |        -35 |          0 |        -12 |        -47 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/FilterInterface.php                                  | PHP        |         -8 |         -2 |         -5 |        -15 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/LimitInterface.php                                   | PHP        |         -6 |          0 |         -3 |         -9 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/OffsetInterface.php                                  | PHP        |         -6 |          0 |         -3 |         -9 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/OrderByInterface.php                                 | PHP        |        -13 |          0 |         -5 |        -18 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/SearchCriteriaFactoryInterface.php                   | PHP        |        -11 |         -1 |         -4 |        -16 |
+| /home/ser/Projects/Docker/site2/server/Api/Models/SearchCriteria/SearchCriteriaInterface.php                          | PHP        |        -16 |        -15 |        -17 |        -48 |
+| /home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Filter.php                                           | PHP        |        -19 |          0 |         -7 |        -26 |
+| /home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Limit.php                                            | PHP        |        -28 |          0 |         -8 |        -36 |
+| /home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/Offset.php                                           | PHP        |        -17 |          0 |         -7 |        -24 |
+| /home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/OrderBy.php                                          | PHP        |        -41 |         -5 |        -11 |        -57 |
+| /home/ser/Projects/Docker/site2/server/Models/Sql/SearchCriteria/SearchCriteria.php                                   | PHP        |        -60 |         -5 |        -16 |        -81 |
+| /home/ser/Projects/Docker/site2/sql/admin_users.sql                                                                   | MS SQL     |        -45 |          0 |         -6 |        -51 |
+| /home/ser/Projects/Docker/site2/sql/article.sql                                                                       | MS SQL     |       -129 |         -1 |         -6 |       -136 |
+| /home/ser/Projects/Docker/site2/sql/articleListView/author.sql                                                        | MS SQL     |        -39 |          0 |         -2 |        -41 |
+| /home/ser/Projects/Docker/site2/sql/articleListView/select.sql                                                        | MS SQL     |        -63 |         -4 |         -3 |        -70 |
+| /home/ser/Projects/Docker/site2/sql/audio.sql                                                                         | MS SQL     |        -26 |          0 |         -3 |        -29 |
+| /home/ser/Projects/Docker/site2/sql/author.sql                                                                        | MS SQL     |        -20 |          0 |         -5 |        -25 |
+| /home/ser/Projects/Docker/site2/sql/category.sql                                                                      | MS SQL     |        -13 |          0 |         -2 |        -15 |
+| /home/ser/Projects/Docker/site2/sql/database.sql                                                                      | MS SQL     |         -5 |          0 |          0 |         -5 |
+| /home/ser/Projects/Docker/site2/sql/img.sql                                                                           | MS SQL     |        -25 |          0 |         -5 |        -30 |
+| /home/ser/Projects/Docker/site2/sql/img_cache.sql                                                                     | MS SQL     |         -7 |          0 |          0 |         -7 |
+| /home/ser/Projects/Docker/site2/sql/language.sql                                                                      | MS SQL     |         -9 |          0 |         -1 |        -10 |
+| /home/ser/Projects/Docker/site2/sql/links.sql                                                                         | MS SQL     |        -40 |         -3 |         -5 |        -48 |
+| /home/ser/Projects/Docker/site2/sql/persons.sql                                                                       | MS SQL     |        -25 |         -2 |         -4 |        -31 |
+| /home/ser/Projects/Docker/site2/sql/rights.sql                                                                        | MS SQL     |        -13 |          0 |         -1 |        -14 |
+| /home/ser/Projects/Docker/site2/sql/translate_entities.sql                                                            | MS SQL     |       -133 |         -7 |         -3 |       -143 |
+| /home/ser/Projects/Docker/site2/sql/translate_keys.sql                                                                | MS SQL     |        -68 |         -5 |         -3 |        -76 |
+| /home/ser/Projects/Docker/site2/tests/Unit/Domain/Image/ImageTest.php                                                 | PHP        |       -735 |        -43 |        -90 |       -868 |
+| /home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Controllers/Sitemap/DefaultAction/SitemapDTOFactoryTest.php | PHP        |        -47 |          0 |        -16 |        -63 |
+| /home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Controllers/Sitemap/DefaultAction/SitemapDTOTest.php        | PHP        |        -14 |          0 |         -7 |        -21 |
+| /home/ser/Projects/Docker/site2/tests/Unit/Infrastructure/Views/Html/Classes/SitemapLinkTreeToHtmlTest.php            | PHP        |        -36 |          0 |        -12 |        -48 |
+| /home/ser/Projects/Docker/site2/todo.md                                                                               | Markdown   |        -18 |          0 |         -7 |        -25 |
+| Total                                                                                                                 |            |   -107,376 |     -4,383 |    -17,196 |   -128,955 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
