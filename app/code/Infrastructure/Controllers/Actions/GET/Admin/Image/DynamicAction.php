@@ -81,6 +81,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             sprintf('Image view page with id %s', (string) $imageId),
             $result->image,
             $result->metadata,
+            $result->imageFrontendPath,
             $languages,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,

@@ -18,6 +18,7 @@
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
         <p>{{ data.description }}</p>
+        {% include controller_template_dir ~ '/blocks/image.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
         <!-- Form -->
         <form action="{{ updateUrl }}" method="post">
             <div class="form-group mb-2 p-2">

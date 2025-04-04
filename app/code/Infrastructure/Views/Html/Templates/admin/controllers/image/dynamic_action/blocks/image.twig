@@ -1,0 +1,23 @@
+<!-- inside row -->
+ {% set m = data.metadataDto %}
+<img class="img-fluid" src="{{ data.imageFrontendPath }}">
+<div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Width</th>
+          <th scope="col">Height</th>
+          <th scope="col">Type</th>
+          <th scope="col">Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ m.width }}</th>
+          <td>{{ m.height }}</td>
+          <td>{{ m.type }}</td>
+          <td>{{ m.prettySize() }}</td>
+        </tr>
+      </tbody>
+    </table>
+<div>

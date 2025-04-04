@@ -92,7 +92,8 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface'),
             new Promise('img-folder-backend'),
-            new Promise('\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface')
+            new Promise('\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface'),
+            new Promise('img-folder-frontend')
         ]
     );
 

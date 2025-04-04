@@ -14,7 +14,8 @@ final class AdminViewService
     public function __construct(
         private readonly RepositoryInterface $repository,
         private readonly string $imgPathPrefix,
-        private readonly ImageMetadataLoaderInterface $loader
+        private readonly ImageMetadataLoaderInterface $loader,
+        private readonly string $imgPathPrefixFrontend,
     ) {
     }
 
@@ -43,6 +44,12 @@ final class AdminViewService
             throw new CouldNotFindException($e->getMessage());
         }
 
-        return new Result($image, $metadata);
+        $imageFrontendPath = sprintf(
+            '%s/%s',
+            $this->imgPathPrefixFrontend,
+            $path
+        );
+
+        return new Result($image, $metadata, $imageFrontendPath);
     }
 }
