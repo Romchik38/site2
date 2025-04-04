@@ -210,6 +210,12 @@ final class Image
             );
         }
 
+        if ($this->author->active === false) {
+            throw new CouldNotChangeActivityException(
+                'Image author is not active, activate it first'
+            );
+        }
+
         $this->active = true;
     }
 

@@ -538,6 +538,47 @@ final class ImageTest extends TestCase
         $image->activate();
     }
 
+    public function testActivateThrowsErrorAuthorNotActive(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId('25'),
+            false
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Blue sky')),
+        ];
+
+        $articles = [
+            new Article(new ArticleId('article-1'), false),
+        ];
+
+        $image = Image::load(
+            $id,
+            false,
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
+
+        $data    = imagecreatetruecolor(1, 1);
+        $content = new Content($data, new Type('webp'));
+        $image->loadContent($content);
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $image->activate();
+    }
+
     public function testAddTranslateWithNonExistingLanguage(): void
     {
         $id         = new Id(1);

@@ -13,7 +13,6 @@ final class ViewDto extends DefaultViewDTO
 {
     /**
      * @todo check all fields usage
-     * 
      * @param array<int,LanguageDto> $languages
      */
     public function __construct(

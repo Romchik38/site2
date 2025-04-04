@@ -12,7 +12,6 @@ final class Dto
 {
     /**
      * @todo check all fields usage
-     * 
      * @param array<int,ArticleDto> $articles
      * @param array<int,AuthorDto> $authors
      * @param array<int,TranslateDto> $translates

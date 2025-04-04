@@ -25,6 +25,9 @@ final class Update
     private function __construct(
         public readonly string $id,
         public readonly string $name,
+        public readonly string $authorId,
+        public readonly string $changeAuthor,
+        public readonly string $changeAuthorId,
         public readonly string $changeActivity,
         public readonly array $translates
     ) {
@@ -57,6 +60,8 @@ final class Update
             $hash[self::ID_FIELD] ?? '',
             $hash[self::NAME_FIELD] ?? '',
             $hash[self::AUTHOR_ID_FIELD] ?? '',
+            $hash[self::CHANGE_AUTHOR_FIELD] ?? '',
+            $hash[self::CHANGE_AUTHOR_ID_FIELD] ?? '',
             $hash[self::CHANGE_ACTIVITY_FIELD] ?? '',
             $rawTranslates
         );
