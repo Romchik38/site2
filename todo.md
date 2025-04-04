@@ -6,10 +6,10 @@
   - diactivate author when it's image is active
   - activate image when author is not active
 
-- image view
-  - template
-- image service
-  - update command
+- image update
+  - service
+  - action
+  - repository
 
 - move config to const
 
