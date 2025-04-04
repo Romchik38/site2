@@ -7,10 +7,13 @@ use Romchik38\Container\Container;
 return function (Container $container) {
 
     $configImg = require __DIR__ . '/../config/shared/images.php';
-    $configImgFolderBackend =  $configImg['img-folder-backend'];
+    $configAudio = require __DIR__ . '/../config/shared/audio.php';
 
-    $container->add('image.path-prefix', $configImgFolderBackend);
+    $configs = array_merge($configImg, $configAudio);
 
+    foreach($configs as $key => $val) {
+        $container->add($key, $val);
+    }
 
     return $container;
 };

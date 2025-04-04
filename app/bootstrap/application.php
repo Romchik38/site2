@@ -7,18 +7,6 @@ use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
-    /** @todo move to consts */
-    $configImg = require __DIR__ . '/../config/shared/images.php';
-    $configImgFolderFrontend =  $configImg['img-folder-frontend'] ??
-        throw new RuntimeException('Missing config field: img-folder-frontend');
-
-    $configImgFolderBackend =  $configImg['img-folder-backend'] ??
-        throw new RuntimeException('Missing config field: img-folder-backend');
-
-    $configAudio = require_once(__DIR__ . '/../config/shared/audio.php');
-    $configAudioFolderFrontend =  $configAudio['audio-folder-frontend'] ??
-        throw new RuntimeException('Missing config field: audio-folder-frontend');
-
     // ARTICLE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService',
@@ -37,7 +25,9 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter')
         ]
     );
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory', [$configImgFolderFrontend]);
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory', [
+        new Promise('img-folder-frontend')
+    ]);
 
     // ARTICLE VIEW
     $container->shared(
@@ -52,8 +42,12 @@ return function (Container $container) {
         new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
     ]);
     
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [$configImgFolderFrontend]);
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory', [$configAudioFolderFrontend]);
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [
+        new Promise('img-folder-frontend')
+    ]);
+    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory', [
+        new Promise('audio-folder-frontend')
+    ]);
 
     // ADMIN USER CHECK
     $container->shared(
@@ -79,7 +73,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService',
         [
             new Promise('\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface'),
-            $configImgFolderBackend,
+            new Promise('img-folder-backend'),
             new Promise('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface')
         ]
     );
@@ -97,7 +91,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\AdminView\AdminViewService',
         [
             new Promise('\Romchik38\Site2\Application\Image\AdminView\RepositoryInterface'),
-            new Promise('image.path-prefix'),
+            new Promise('img-folder-backend'),
             new Promise('\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface')
         ]
     );
