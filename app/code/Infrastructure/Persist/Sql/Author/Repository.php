@@ -202,17 +202,17 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Author id is ivalid');
+            throw new RepositoryException('Author id is invalid');
         }
 
         $rawName = $row['name'] ?? null;
         if ($rawName === null) {
-            throw new RepositoryException('Author name is ivalid');
+            throw new RepositoryException('Author name is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Author active is ivalid');
+            throw new RepositoryException('Author active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -223,21 +223,21 @@ final class Repository implements RepositoryInterface
         // languages
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
-            throw new RepositoryException('Author languages param is ivalid');
+            throw new RepositoryException('Author languages param is invalid');
         }
         $languages = $this->prepareRawLanguages($rawLanguages);
 
         // articles
         $rawArticles = $row['articles'] ?? null;
         if ($rawArticles === null) {
-            throw new RepositoryException('Author articles param is ivalid');
+            throw new RepositoryException('Author articles param is invalid');
         }
         $articles = $this->prepareRawArticles($rawArticles);
 
         // images
         $rawImages = $row['images'] ?? null;
         if ($rawImages === null) {
-            throw new RepositoryException('Author images param is ivalid');
+            throw new RepositoryException('Author images param is invalid');
         }
         $images = $this->prepareRawImages($rawImages);
 
@@ -269,11 +269,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
-                throw new RepositoryException('Author translates language param is ivalid');
+                throw new RepositoryException('Author translates language param is invalid');
             }
             $rawDescription = $row['description'] ?? null;
             if ($rawDescription === null) {
-                throw new RepositoryException('Author translates description param is ivalid');
+                throw new RepositoryException('Author translates description param is invalid');
             }
             $translates[] = new Translate(
                 new LanguageId($rawLanguage),

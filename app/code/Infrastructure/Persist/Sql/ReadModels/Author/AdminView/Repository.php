@@ -64,12 +64,12 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Author id is ivalid');
+            throw new RepositoryException('Author id is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Author active is ivalid');
+            throw new RepositoryException('Author active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -79,20 +79,20 @@ final class Repository implements RepositoryInterface
 
         $rawName = $row['name'] ?? null;
         if ($rawName === null) {
-            throw new RepositoryException('Author name is ivalid');
+            throw new RepositoryException('Author name is invalid');
         }
 
         $translates = $this->createTranslates($rawIdentifier);
 
         $rawArticles = $row['articles'] ?? null;
         if ($rawArticles === null) {
-            throw new RepositoryException('Author articles is ivalid');
+            throw new RepositoryException('Author articles is invalid');
         }
         $articles = $this->prepareRawArticles($rawArticles);
 
         $rawImages = $row['images'] ?? null;
         if ($rawImages === null) {
-            throw new RepositoryException('Author images is ivalid');
+            throw new RepositoryException('Author images is invalid');
         }
         $images = $this->prepareRawImages($rawImages);
 
@@ -156,11 +156,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $language = $row['language'] ?? null;
             if ($language === null) {
-                throw new RepositoryException('Author translate languages is ivalid');
+                throw new RepositoryException('Author translate languages is invalid');
             }
             $description = $row['description'] ?? null;
             if ($description === null) {
-                throw new RepositoryException('Author translate description is ivalid');
+                throw new RepositoryException('Author translate description is invalid');
             }
             $translates[] = new Translate(
                 new Identifier($language),

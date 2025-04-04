@@ -65,12 +65,12 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Author id is ivalid');
+            throw new RepositoryException('Author id is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Author active is ivalid');
+            throw new RepositoryException('Author active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -80,7 +80,7 @@ final class Repository implements RepositoryInterface
 
         $rawName = $row['name'] ?? null;
         if ($rawName === null) {
-            throw new RepositoryException('Author name is ivalid');
+            throw new RepositoryException('Author name is invalid');
         }
 
         return new AuthorDto(

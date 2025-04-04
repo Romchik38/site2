@@ -66,7 +66,7 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Translate id is ivalid');
+            throw new RepositoryException('Translate id is invalid');
         }
 
         return new TranslateDto(

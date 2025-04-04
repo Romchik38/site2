@@ -52,6 +52,16 @@ return function (Container $container) {
         ]
     );
 
+    // IMAGE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Image\Repository',
+        '\Romchik38\Site2\Domain\Image\ImageRepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),
+        ]
+    );
+
     // IMG VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\Converter\ImgViewRepository',

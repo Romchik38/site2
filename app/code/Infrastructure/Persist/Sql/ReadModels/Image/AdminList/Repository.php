@@ -65,12 +65,12 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Image id is ivalid');
+            throw new RepositoryException('Image id is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Image active is ivalid');
+            throw new RepositoryException('Image active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -80,17 +80,17 @@ final class Repository implements RepositoryInterface
 
         $rawName = $row['name'] ?? null;
         if ($rawName === null) {
-            throw new RepositoryException('Image name is ivalid');
+            throw new RepositoryException('Image name is invalid');
         }
 
         $rawAuthorName = $row['author_name'] ?? null;
         if ($rawAuthorName === null) {
-            throw new RepositoryException('Image author name is ivalid');
+            throw new RepositoryException('Image author name is invalid');
         }
 
         $rawPath = $row['path'] ?? null;
         if ($rawPath === null) {
-            throw new RepositoryException('Image author name is ivalid');
+            throw new RepositoryException('Image author name is invalid');
         }
 
         return new ImageDto(

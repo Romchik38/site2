@@ -35,12 +35,12 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Language id is ivalid');
+            throw new RepositoryException('Language id is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Language active is ivalid');
+            throw new RepositoryException('Language active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;

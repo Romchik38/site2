@@ -67,12 +67,12 @@ final class Repository implements RepositoryInterface
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
-            throw new RepositoryException('Image id is ivalid');
+            throw new RepositoryException('Image id is invalid');
         }
 
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Image active is ivalid');
+            throw new RepositoryException('Image active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
@@ -82,28 +82,28 @@ final class Repository implements RepositoryInterface
 
         $rawName = $row['name'] ?? null;
         if ($rawName === null) {
-            throw new RepositoryException('Image name is ivalid');
+            throw new RepositoryException('Image name is invalid');
         }
 
         $rawPath = $row['path'] ?? null;
         if ($rawPath === null) {
-            throw new RepositoryException('Image author name is ivalid');
+            throw new RepositoryException('Image author name is invalid');
         }
 
         // Author
         $rawAuthorId = $row['author_id'] ?? null;
         if ($rawAuthorId === null) {
-            throw new RepositoryException('Image author id is ivalid');
+            throw new RepositoryException('Image author id is invalid');
         }
 
         $rawAuthorName = $row['author_name'] ?? null;
         if ($rawAuthorName === null) {
-            throw new RepositoryException('Image author name is ivalid');
+            throw new RepositoryException('Image author name is invalid');
         }
 
         $rawAuthorActive = $row['active'] ?? null;
         if ($rawAuthorActive === null) {
-            throw new RepositoryException('Image author active is ivalid');
+            throw new RepositoryException('Image author active is invalid');
         }
         if ($rawAuthorActive === 't') {
             $activeAuthor = true;
@@ -149,11 +149,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawDescription = $row['description'] ?? null;
             if ($rawDescription === null) {
-                throw new RepositoryException('Image translate description is ivalid');
+                throw new RepositoryException('Image translate description is invalid');
             }
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
-                throw new RepositoryException('Image translate language is ivalid');
+                throw new RepositoryException('Image translate language is invalid');
             }
             $translates[] = new TranslateDto(
                 new LanguageId($rawLanguage),
@@ -179,11 +179,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawIdentifier = $row['identifier'] ?? null;
             if ($rawIdentifier === null) {
-                throw new RepositoryException('Image article identifier is ivalid');
+                throw new RepositoryException('Image article identifier is invalid');
             }
             $rawActive = $row['active'] ?? null;
             if ($rawActive === null) {
-                throw new RepositoryException('Image article active is ivalid');
+                throw new RepositoryException('Image article active is invalid');
             }
             if ($rawActive === 't') {
                 $active = true;
@@ -211,15 +211,15 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawIdentifier = $row['identifier'] ?? null;
             if ($rawIdentifier === null) {
-                throw new RepositoryException('Image author identifier is ivalid');
+                throw new RepositoryException('Image author identifier is invalid');
             }
             $rawName = $row['name'] ?? null;
             if ($rawName === null) {
-                throw new RepositoryException('Image author name is ivalid');
+                throw new RepositoryException('Image author name is invalid');
             }
             $rawActive = $row['active'] ?? null;
             if ($rawActive === null) {
-                throw new RepositoryException('Image author active is ivalid');
+                throw new RepositoryException('Image author active is invalid');
             }
             if ($rawActive === 't') {
                 $active = true;

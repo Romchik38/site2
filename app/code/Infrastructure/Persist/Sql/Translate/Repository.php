@@ -164,11 +164,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
-                throw new RepositoryException('Translate language is ivalid');
+                throw new RepositoryException('Translate language is invalid');
             }
             $rawPhrase = $row['phrase'] ?? null;
             if ($rawPhrase === null) {
-                throw new RepositoryException('Translate phrase is ivalid');
+                throw new RepositoryException('Translate phrase is invalid');
             }
             $phrases[] = new Phrase(
                 new LanguageId($rawLanguage),
