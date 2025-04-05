@@ -23,6 +23,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use stdClass;
 use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Width;
+use Romchik38\Site2\Domain\Image\VO\Size;
 
 use function count;
 use function imagecreatetruecolor;
@@ -208,7 +209,8 @@ final class ImageTest extends TestCase
             $data, 
             new Type('webp'),
             new Height(1100),
-            new Width(1100)
+            new Width(1100),
+            new Size(35200)
         );
         $image->loadContent($content);
 
@@ -433,7 +435,8 @@ final class ImageTest extends TestCase
             $data, 
             new Type('webp'),
             new Height(1100),
-            new Width(1100)
+            new Width(1100),
+            new Size(35200)
         );
         $image->loadContent($content);
 
@@ -478,7 +481,8 @@ final class ImageTest extends TestCase
             $data, 
             new Type('webp'),
             new Height(1100),
-            new Width(1100)
+            new Width(1100),
+            new Size(35200)
         );
         $image->loadContent($content);
 
@@ -515,7 +519,8 @@ final class ImageTest extends TestCase
             $data, 
             new Type('webp'),
             new Height(1100),
-            new Width(1100)
+            new Width(1100),
+            new Size(35200)
         );
         $image->loadContent($content);
 
@@ -598,7 +603,8 @@ final class ImageTest extends TestCase
             $data, 
             new Type('webp'),
             new Height(1100),
-            new Width(1100)
+            new Width(1100),
+            new Size(35200)
         );
         $image->loadContent($content);
 

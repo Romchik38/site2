@@ -8,6 +8,7 @@ use GdImage;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Width;
+use Romchik38\Site2\Domain\Image\VO\Size;
 
 final class Content
 {
@@ -15,7 +16,8 @@ final class Content
         private readonly GdImage $data,
         private readonly Type $type,
         private readonly Height $height,
-        private readonly Width $width
+        private readonly Width $width,
+        private readonly Size $size
     ) {
     }
 
