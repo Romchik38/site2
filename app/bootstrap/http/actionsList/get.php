@@ -74,6 +74,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction')
     );
+    $adminImageNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction'),
+        null,
+        'image_new'
+    );
+    $adminImage->setChild($adminImageNew);
 
     $adminAuthor = new Controller(
         'author',

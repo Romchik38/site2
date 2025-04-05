@@ -23,7 +23,7 @@ use Romchik38\Site2\Application\Language\ListView\RepositoryException;
 
 use function sprintf;
 
-final class DynamicAction extends AbstractMultiLanguageAction implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     /** @todo usage */
     public const ERROR_MESSAGE_KEY = 'server-error.message';

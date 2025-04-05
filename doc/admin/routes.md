@@ -6,6 +6,7 @@
 - root admin                admin panel
 - root admin users          users page
 - root admin image          images page
+- root admin image new      create new image
 - root admin imagecache     image cache
 - root admin language       languages list
 - root admin author         author list (default)

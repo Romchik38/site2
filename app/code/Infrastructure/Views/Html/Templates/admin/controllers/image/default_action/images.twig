@@ -4,12 +4,14 @@
     object              paginationForm              Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\PaginationForm
     object              t                           Translate Service
     object              u                           Urlbuilder
+    string              newUrl                      url to create a new image
+
 #}
 
 {% set deleteUrl = u.fromArray(['root', 'admin', 'image', 'delete' ]) %}
 
 <div class="col-12 text-end mb-2">
-      <a class="btn btn-primary" href="#" role="button">New</a>
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
 </div>
 <div class="col-12 mb-2">
     <form class="d-sm-flex" action="" method="get">
@@ -114,7 +116,7 @@
 </table>
 
 <div class="text-end">
-      <a class="btn btn-primary" href="#" role="button">New</a>
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
 </div>
 
 <!-- Pagination -->
