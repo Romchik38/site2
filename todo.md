@@ -2,7 +2,16 @@
 
 ## Current
 
-- image new
+- image update
+  - check on frontend error getById
+- image new get
+  - template
+  - action
+  - service
+  - repository
+- image new post
+
+- @todos
 
 - move config to const
 
