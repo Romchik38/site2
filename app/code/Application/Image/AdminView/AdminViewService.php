@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\Image\AdminView;
 
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
 
 use function sprintf;
 
@@ -51,5 +52,14 @@ final class AdminViewService
         );
 
         return new Result($image, $metadata, $imageFrontendPath);
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,AuthorDto>
+     */
+    public function listAuthors(): array
+    {
+        return $this->repository->listAuthors();
     }
 }

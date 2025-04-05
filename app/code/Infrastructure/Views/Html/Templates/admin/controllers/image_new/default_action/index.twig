@@ -25,8 +25,8 @@
                 <h2 class="text-center">Author</h2>
 
                 <div class="me-2">
-                    <select class="form-select form-select-sm" name="{{ data.authorIdFiled }}" aria-label="select {{ data.authorIdFiled }}">
-                        {% for author in authors %}
+                    <select class="form-select form-select-sm" name="{{ data.authorIdFiled }}" aria-label="select {{ data.authorIdFiled }}" required>
+                        {% for author in data.authors %}
                             <option value="{{ author.id }}">{{ author.name }}</option>
                         {% endfor %}
                     </select>

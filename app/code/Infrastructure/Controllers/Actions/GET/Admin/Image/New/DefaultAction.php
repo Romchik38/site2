@@ -19,7 +19,9 @@ use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Application\Language\ListView\RepositoryException;
+use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
+use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
+use Romchik38\Site2\Application\Image\AdminView\RepositoryException as ImageViewRepositoryException;
 
 use function sprintf;
 
@@ -36,7 +38,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListViewService $languageService,
         private readonly LoggerServerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly AdminViewService $adminViewService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -44,21 +47,27 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         /** @todo test */
+        $error = false;
         try {
             $languages = $this->languageService->getAll();
-        } catch (RepositoryException $e) {
+            $authors = $this->adminViewService->listAuthors();
+        } catch (LanguageRepositoryException $e) {
+            $error = true;
+            $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
+        } catch (ImageViewRepositoryException $e) {
+            $error = true;
+            $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
+        }
+
+        if ($error === true) {
             $this->logger->error($e->getMessage());
             $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
-            $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
                 $message
             );
             return new RedirectResponse($urlList);
         }
-
-        /** @todo implement */
-        $authors = [];
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);

@@ -7,23 +7,23 @@
 <!-- Inside a form -->
 <div class="form-group p-2 my-2">
     <h2 class="text-center">Translates</h2>
-{% for availableLanguage in availableLanguages  %}
-    {% set availableLanguageVo = availableLanguage.identifier %}
-    <div class="form-group p-2 my-2">
-        <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
-            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
-                value="{{ availableLanguageVo }}" 
-                hidden
-            >
-        </div>
+    {% for availableLanguage in availableLanguages  %}
+        {% set availableLanguageVo = availableLanguage.identifier %}
+        <div class="form-group p-2 my-2">
+            <div class="mb-1">
+                <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
+                <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
+                    value="{{ availableLanguageVo }}" 
+                    hidden
+                >
+            </div>
 
-        <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
-            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
-                value=""
-            >
+            <div class="mb-1">
+                <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
+                <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
+                    value=""
+                >
+            </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
 </div>

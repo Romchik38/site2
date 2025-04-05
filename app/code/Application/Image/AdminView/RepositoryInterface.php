@@ -15,4 +15,10 @@ interface RepositoryInterface
      * @throws RepositoryException
      */
     public function getById(Id $id): Dto;
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,AuthorDto>
+     */
+    public function listAuthors(): array;
 }

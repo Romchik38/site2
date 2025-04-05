@@ -62,6 +62,11 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($rawImage);
     }
 
+    public function listAuthors(): array
+    {
+        return $this->createAuthors();
+    }
+
     /** @param array<string,string> $row */
     private function createFromRow(array $row): Dto
     {
@@ -119,7 +124,7 @@ final class Repository implements RepositoryInterface
 
         $translates = $this->createTranslates($rawIdentifier);
         $articles   = $this->createArticles($rawIdentifier);
-        $authors    = $this->createAuthors($rawIdentifier);
+        $authors    = $this->createAuthors();
 
         return new Dto(
             new Id((int) $rawIdentifier),
@@ -198,8 +203,11 @@ final class Repository implements RepositoryInterface
         return $articles;
     }
 
-    /** @return array<int,AuthorDto> */
-    private function createAuthors(string $id): array
+    /**
+     * @throws RepositoryException
+     * @return array<int,AuthorDto> 
+     * */
+    private function createAuthors(): array
     {
         $query = $this->authorsQuery();
         try {
