@@ -80,4 +80,15 @@ final class ImageService
             throw new CouldNotUpdateException($e->getMessage());
         }
     }
+
+    /**
+     * @todo throws
+     */
+    public function create(Create $command): ImageId
+    {
+        
+        
+        /** @todo replace with real */
+        return new ImageId(1);
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\ListView;
 
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException;
 use Romchik38\Site2\Application\Language\ListView\RepositoryInterface;
@@ -21,7 +22,11 @@ final class Repository implements RepositoryInterface
     {
         $query = $this->defaultQuery();
 
-        $rows = $this->database->queryParams($query, []);
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $list = [];
         foreach ($rows as $row) {

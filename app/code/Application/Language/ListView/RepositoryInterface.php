@@ -8,6 +8,9 @@ use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 interface RepositoryInterface
 {
-    /** @return array<int,LanguageDto> */
+    /**
+     * @throws RepositoryException 
+     * @return array<int,LanguageDto> 
+     * */
     public function getAll(): array;
 }

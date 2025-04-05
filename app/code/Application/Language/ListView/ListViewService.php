@@ -14,6 +14,7 @@ final class ListViewService
     }
 
     /**
+     * @throws RepositoryException
      * @return array<int,LanguageDto>
      */
     public function getAll(): array
