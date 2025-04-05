@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Image;
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\ImageRepositoryInterface;
 use Romchik38\Site2\Domain\Image\RepositoryException;
@@ -89,6 +90,71 @@ final class Repository implements ImageRepositoryInterface
 
         $authorEntity = $this->createAuthor($row);
         return $authorEntity;
+    }
+
+    public function save(Image $model): Image
+    {
+        $imageId = $model->getId();
+        if ($imageId === null) {
+            return $this->add($model);
+        }
+
+        $imageName = $model->getName();
+        if ($model->isActive()) {
+            $imageActive = 't';
+        } else {
+            $imageActive = 'f';
+        }
+
+        $authorId = $model->getAuthor()->id;
+
+        $mainSaveQuery = $this->mainSaveQuery();
+        $mainParams    = [$imageActive, $imageName(), $authorId(), $imageId()];
+
+        $translates      = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams(
+                $mainSaveQuery,
+                $mainParams
+            );
+            $this->database->transactionQueryParams(
+                $this->translatesSaveQueryDelete(),
+                [$imageId()]
+            );
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryInsert(),
+                    [
+                        $imageId(),
+                        (string) $translate->getLanguage(),
+                        (string) $translate->getDescription(),
+                    ]
+                );
+            }
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        }
+        return $this->getById($imageId);
+    }
+
+    /** @todo implement */
+    private function add(Image $model): Image {
+        return $model;
     }
 
     /**
@@ -299,6 +365,33 @@ final class Repository implements ImageRepositoryInterface
                 author.active
             FROM author
             WHERE author.identifier = $1
+        QUERY;
+    }
+
+    private function mainSaveQuery(): string
+    {
+        return <<<'QUERY'
+            UPDATE img
+            SET active = $1,
+                name = $2,
+                author_id = $3
+            WHERE img.identifier = $4
+        QUERY;
+    }
+
+    protected function translatesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM img_translates 
+        WHERE img_id = $1
+        QUERY;
+    }
+
+    protected function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO img_translates (img_id, language, description)
+            VALUES ($1, $2, $3)
         QUERY;
     }
 }

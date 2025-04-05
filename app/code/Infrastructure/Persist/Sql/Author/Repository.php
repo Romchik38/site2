@@ -91,15 +91,6 @@ final class Repository implements RepositoryInterface
         $mainParams    = [$authorName(), $authorActive, $authorId()];
 
         $translates      = $model->getTranslates();
-        $translatetItems = [];
-        foreach ($translates as $translate) {
-            $translatetItems[] = sprintf(
-                '(%s, \'%s\', \'%s\')',
-                $authorId(),
-                (string) $translate->getLanguage(),
-                (string) $translate->getDescription()
-            );
-        }
 
         try {
             $this->database->transactionStart();

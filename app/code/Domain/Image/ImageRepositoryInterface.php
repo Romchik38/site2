@@ -22,4 +22,7 @@ interface ImageRepositoryInterface
      * @throws RepositoryException
      */
     public function findAuthor(AuthorId $id): Author;
+
+    /** @throws RepositoryException */
+    public function save(Image $model): Image;
 }

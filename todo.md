@@ -2,14 +2,7 @@
 
 ## Current
 
-- model
-  - diactivate author when it's image is active
-  - activate image when author is not active
-
-- image update
-  - service
-  - action
-  - repository
+- image new
 
 - move config to const
 
