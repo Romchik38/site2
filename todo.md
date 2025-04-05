@@ -2,8 +2,6 @@
 
 ## Current
 
-- image update
-  - check on frontend error getById
 - image new get
   - template
   - action
