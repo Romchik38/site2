@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Image\AdminView\View\ImageRequirementsDto;
 
 final class ViewDto extends DefaultViewDTO
 {
@@ -26,7 +27,9 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $translateField,
         public readonly string $languageField,
         public readonly string $descriptionField,
-        public readonly array $authors
+        public readonly array $authors,
+        public readonly ImageRequirementsDto $imageRequirements,
+        public readonly string $fileField
     ) {
         parent::__construct($name, $description);
     }

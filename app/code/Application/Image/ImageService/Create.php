@@ -14,6 +14,7 @@ final class Create
     public const TRANSLATES_FIELD          = 'translates';
     public const LANGUAGE_FIELD            = 'language';
     public const DESCRIPTION_FIELD         = 'description';
+    public const FILE_FIELD                =  'file';
 
     /** @param array<int,Translate> $translates*/
     private function __construct(

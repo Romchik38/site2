@@ -12,7 +12,6 @@ use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Image\VO\Name;
-use Romchik38\Site2\Domain\Image\Entities\Author;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
 

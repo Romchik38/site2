@@ -7,6 +7,11 @@ namespace Romchik38\Site2\Application\Image\AdminView;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Image\AdminView\View\ImageRequirementsDto;
+use Romchik38\Site2\Domain\Image\VO\Height;
+use Romchik38\Site2\Domain\Image\VO\Size;
+use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Domain\Image\VO\Width;
 
 use function sprintf;
 
@@ -61,5 +66,15 @@ final class AdminViewService
     public function listAuthors(): array
     {
         return $this->repository->listAuthors();
+    }
+
+    public function imageRequirements(): ImageRequirementsDto
+    {
+        return new ImageRequirementsDto(
+            Width::MIN_VALUE,
+            Height::MIN_VALUE,
+            Size::MAX_VALUE,
+            Type::ALLOWED_TYPES
+        );
     }
 }

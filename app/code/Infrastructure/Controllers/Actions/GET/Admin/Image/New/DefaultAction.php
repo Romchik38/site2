@@ -69,6 +69,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($urlList);
         }
 
+        $imageRequirements = $this->adminViewService->imageRequirements();
+
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
@@ -83,7 +85,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             Create::TRANSLATES_FIELD,
             Create::LANGUAGE_FIELD,
             Create::DESCRIPTION_FIELD,
-            $authors
+            $authors,
+            $imageRequirements,
+            Create::FILE_FIELD
         );
 
         $html = $this->view
