@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -26,11 +26,12 @@ use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use function gettype;
 use function sprintf;
 
+/** @todo implement */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    /** @todo usage */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
-    public const string IMAGE_NOT_EXIST_KEY          = 'admin.image-with-id-not-exist';
+    public const string SUCCESS_SAVE_KEY            = 'admin.data-success-saved';
     public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
@@ -61,9 +62,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ['root', 'admin', 'image', $command->id]
         );
 
+        /** @todo check all paths */
         try {
             $this->imageService->update($command);
-            $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
+            $message = $this->translateService->t($this::SUCCESS_SAVE_KEY);
             $uri     = $uriId;
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
@@ -71,11 +73,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $e->getMessage()
             );
             $uri     = $uriId;
-        } catch (NoSuchImageException) {
-            $message = sprintf(
-                $this->translateService->t($this::IMAGE_NOT_EXIST_KEY),
-                $command->id
-            );
         } catch (CouldNotChangeActivityException $e) {
             $message = sprintf(
                 $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
