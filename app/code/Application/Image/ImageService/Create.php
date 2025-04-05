@@ -11,9 +11,6 @@ final class Create
 {
     public const NAME_FIELD                = 'name';
     public const AUTHOR_ID_FIELD           = 'author_id';
-    public const CHANGE_ACTIVITY_FIELD     = 'change_activity';
-    public const CHANGE_ACTIVITY_YES_FIELD = 'yes';
-    public const CHANGE_ACTIVITY_NO_FIELD  = 'no';
     public const TRANSLATES_FIELD          = 'translates';
     public const LANGUAGE_FIELD            = 'language';
     public const DESCRIPTION_FIELD         = 'description';
@@ -22,7 +19,6 @@ final class Create
     private function __construct(
         public readonly string $name,
         public readonly string $authorId,
-        public readonly string $changeActivity,
         public readonly array $translates
     ) {
     }
@@ -53,7 +49,6 @@ final class Create
         return new self(
             $hash[self::NAME_FIELD] ?? '',
             $hash[self::AUTHOR_ID_FIELD] ?? '',
-            $hash[self::CHANGE_ACTIVITY_FIELD] ?? '',
             $rawTranslates
         );
     }

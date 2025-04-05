@@ -4,23 +4,18 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New;
 
-use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Controllers\Actions\DynamicActionInterface;
 use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
-use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -51,7 +46,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Default
         /** @todo test */
         try {
             $languages = $this->languageService->getAll();
-        } catch (RepositoryException) {
+        } catch (RepositoryException $e) {
+            $this->logger->error($e->getMessage());
             $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
             $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
             $this->session->setData(
@@ -60,6 +56,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Default
             );
             return new RedirectResponse($urlList);
         }
+
+        /** @todo implement */
+        $authors = [];
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
@@ -72,12 +71,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Default
             $csrfToken,
             Create::NAME_FIELD,
             Create::AUTHOR_ID_FIELD,
-            Create::CHANGE_ACTIVITY_FIELD,
-            Create::CHANGE_ACTIVITY_YES_FIELD,
-            Create::CHANGE_ACTIVITY_NO_FIELD,
             Create::TRANSLATES_FIELD,
             Create::LANGUAGE_FIELD,
             Create::DESCRIPTION_FIELD,
+            $authors
         );
 
         $html = $this->view
