@@ -1,6 +1,6 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    Object      translate                   Translate service
+    Object      translates                  Translate service
     string      controller_template_dir     path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction\ViewDto
 #}
@@ -26,8 +26,7 @@
 
                 <div class="me-2">
                     <select class="form-select form-select-sm" name="{{ data.authorIdFiled }}" aria-label="select {{ data.authorIdFiled }}" required>
-                        <option value="">{{ translate.t('global.please-select') }}</option>
-                        {% for author in data.authors %}
+                        {% for author in authors %}
                             <option value="{{ author.id }}">{{ author.name }}</option>
                         {% endfor %}
                     </select>
