@@ -21,6 +21,8 @@ use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use stdClass;
+use Romchik38\Site2\Domain\Image\VO\Height;
+use Romchik38\Site2\Domain\Image\VO\Width;
 
 use function count;
 use function imagecreatetruecolor;
@@ -202,7 +204,12 @@ final class ImageTest extends TestCase
         );
 
         $data    = imagecreatetruecolor(1, 1);
-        $content = new Content($data, new Type('webp'));
+        $content = new Content(
+            $data, 
+            new Type('webp'),
+            new Height(1100),
+            new Width(1100)
+        );
         $image->loadContent($content);
 
         $this->assertSame($content, $image->getContent());
@@ -422,7 +429,12 @@ final class ImageTest extends TestCase
         );
 
         $data    = imagecreatetruecolor(1, 1);
-        $content = new Content($data, new Type('webp'));
+        $content = new Content(
+            $data, 
+            new Type('webp'),
+            new Height(1100),
+            new Width(1100)
+        );
         $image->loadContent($content);
 
         $image->activate();
@@ -462,7 +474,12 @@ final class ImageTest extends TestCase
         );
 
         $data    = imagecreatetruecolor(1, 1);
-        $content = new Content($data, new Type('webp'));
+        $content = new Content(
+            $data, 
+            new Type('webp'),
+            new Height(1100),
+            new Width(1100)
+        );
         $image->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);
@@ -494,7 +511,12 @@ final class ImageTest extends TestCase
         );
 
         $data    = imagecreatetruecolor(1, 1);
-        $content = new Content($data, new Type('webp'));
+        $content = new Content(
+            $data, 
+            new Type('webp'),
+            new Height(1100),
+            new Width(1100)
+        );
         $image->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);
@@ -572,7 +594,12 @@ final class ImageTest extends TestCase
         );
 
         $data    = imagecreatetruecolor(1, 1);
-        $content = new Content($data, new Type('webp'));
+        $content = new Content(
+            $data, 
+            new Type('webp'),
+            new Height(1100),
+            new Width(1100)
+        );
         $image->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);

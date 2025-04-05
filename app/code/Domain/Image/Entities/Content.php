@@ -6,12 +6,16 @@ namespace Romchik38\Site2\Domain\Image\Entities;
 
 use GdImage;
 use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Domain\Image\VO\Height;
+use Romchik38\Site2\Domain\Image\VO\Width;
 
 final class Content
 {
     public function __construct(
-        private GdImage $data,
-        private Type $type
+        private readonly GdImage $data,
+        private readonly Type $type,
+        private readonly Height $height,
+        private readonly Width $width
     ) {
     }
 
@@ -23,5 +27,15 @@ final class Content
     public function getType(): Type
     {
         return $this->type;
+    }
+
+    public function getHeight(): Height
+    {
+        return $this->height;
+    }
+
+    public function getWidth(): Width
+    {
+        return $this->width;
     }
 }
