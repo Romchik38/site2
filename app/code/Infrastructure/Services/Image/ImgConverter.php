@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use GdImage;
+use InvalidArgumentException;
 use Romchik38\Server\Services\Streams\TempStream;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
@@ -13,6 +14,7 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
+use RuntimeException;
 
 use function extension_loaded;
 use function gd_info;
@@ -26,6 +28,7 @@ use const PHP_ROUND_HALF_DOWN;
 
 class ImgConverter implements ImgConverterInterface
 {
+    use DimensionsTraits;
     /**
      * Must be in sinc with $this->createFrom() & createTo()
      *
@@ -50,16 +53,22 @@ class ImgConverter implements ImgConverterInterface
         Type $copyType
     ): ImgResult {
         // 1. Create an image with all data
-        $image = new CopyImage(
-            $filePath,
-            $copyWidth,
-            $copyHeight,
-            $copyType
-        );
+        try {
+            $demensions = $this->fromFilePath($filePath);
+        } catch (RuntimeException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
+        }
+
+        try {
+            $image = new CopyImage($demensions, $copyWidth, $copyHeight, $copyType);
+        } catch (InvalidArgumentException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
+        }
+
 
         if ($image->copyWidth <= 0 || $image->copyHeight <= 0) {
             throw new CouldNotCreateImageException(
-                sprintf('Image width/height must be greater than 0 in %s', $image->filePath)
+                sprintf('Image width/height must be greater than 0 in %s', $filePath)
             );
         }
 
@@ -93,17 +102,17 @@ class ImgConverter implements ImgConverterInterface
         $temporaryHeight = (int) ($image->originalHeight / $scaleRatio);
         if ($temporaryWidth <= 0 || $temporaryHeight <= 0) {
             throw new CouldNotCreateImageException(
-                sprintf('Image width/height must be greater than 0 in %s', $image->filePath)
+                sprintf('Image width/height must be greater than 0 in %s', $filePath)
             );
         }
 
         // 4. Load original image
-        $original = $this->createFrom($image->filePath, $image->originalType);
+        $original = $this->createFrom($filePath, $image->originalType);
         // 5. Create temporary copy
         $temporary = imagecreatetruecolor($temporaryWidth, $temporaryHeight);
         if ($temporary === false) {
             throw new CouldNotCreateImageException(
-                sprintf('Cannot create temporary image for %s', $image->filePath)
+                sprintf('Cannot create temporary image for %s', $filePath)
             );
         }
 
@@ -122,14 +131,14 @@ class ImgConverter implements ImgConverterInterface
         );
         if ($resultFillTemporary === false) {
             throw new CouldNotCreateImageException(
-                sprintf('Cannot fill temporary image for %s', $image->filePath)
+                sprintf('Cannot fill temporary image for %s', $filePath)
             );
         }
 
         $copy = imagecreatetruecolor($image->copyWidth, $image->copyHeight);
         if ($copy === false) {
             throw new CouldNotCreateImageException(
-                sprintf('Cannot create copy image for %s', $image->filePath)
+                sprintf('Cannot create copy image for %s', $filePath)
             );
         }
 

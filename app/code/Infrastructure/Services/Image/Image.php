@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use RuntimeException;
 
@@ -26,43 +27,43 @@ class Image
     public readonly int $originalHeight;
     public readonly string $originalType;
 
-    /** @throws RuntimeException */
+    /**
+     * @param array<int|string,mixed> $dimensions
+     * @throws InvalidArgumentException 
+     * */
     public function __construct(
-        public readonly string $filePath,
+        array $dimensions
     ) {
-        if (! file_exists($filePath) || (! is_readable($filePath))) {
-            throw new RuntimeException(sprintf(
-                'Image file %s not exist',
-                $filePath
-            ));
-        }
-
-        $dimensions = getimagesize($filePath);
-        if ($dimensions === false) {
-            throw new RuntimeException(sprintf(
-                'File %s is not an image',
-                $filePath
-            ));
-        }
-
         $originalWidth = $dimensions[0];
         if ($originalWidth === 0) {
-            throw new RuntimeException(sprintf(
-                'Cannot determine image width size of %s',
-                $filePath
-            ));
+            throw new InvalidArgumentException('Cannot determine image width size');
         }
         $this->originalWidth  = $originalWidth;
         $this->originalHeight = $dimensions[1];
 
-        $mime               = $dimensions['mime'];
-        $this->originalType = (explode('/', $mime))[1];
-
-        if (! in_array($this->originalType, Type::ALLOWED_TYPES)) {
-            throw new RuntimeException(sprintf(
-                'Original image type %s not allowed',
-                $this->originalType
-            ));
+        $mime = $dimensions['mime'] ?? null;
+        if ($mime === null) {
+            throw new InvalidArgumentException('Cannot determine image width size');
         }
+        $this->originalType = (explode('/', $mime))[1];
     }
+
+    // /**
+    //  * @throws InvalidArgumentException
+    //  */
+    // public static function fromFilePath(string $filePath): self
+    // {
+    //     if (! file_exists($filePath) || (! is_readable($filePath))) {
+    //         throw new InvalidArgumentException(sprintf(
+    //             'Image file %s not exist',
+    //             $filePath
+    //         ));
+    //     }
+
+    //     $dimensions = getimagesize($filePath);
+    //     if ($dimensions === false) {
+    //         throw new InvalidArgumentException('Can\'t determine demensions, image is not valid');
+    //     }
+    //     return new self($dimensions);
+    // }
 }

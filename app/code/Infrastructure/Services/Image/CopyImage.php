@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
@@ -24,13 +25,17 @@ final class CopyImage extends Image
     public readonly string $copyType;
     public readonly string $copyMimeType;
 
+    /**
+     * @param array<int|string,mixed> $dimensions
+     * @throws InvalidArgumentException 
+     * */
     public function __construct(
-        string $filePath,
+        array $dimensions,
         Width $copyWidth,
         Height $copyHeight,
         Type $copyType,
     ) {
-        parent::__construct($filePath);
+        parent::__construct($dimensions);
 
         $this->copyWidth  = $copyWidth();
         $this->copyHeight = $copyHeight();
@@ -39,7 +44,7 @@ final class CopyImage extends Image
             $this->originalWidth < $this->copyWidth
             || $this->originalHeight < $this->copyHeight
         ) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Image too small to resize. Original width %s, height %s. Copy width %s, height %s',
                     $this->originalWidth,

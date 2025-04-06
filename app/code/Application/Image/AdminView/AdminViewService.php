@@ -45,7 +45,7 @@ final class AdminViewService
         );
 
         try {
-            $metadata = $this->loader->loadMetadata($imgFullPath);
+            $metadata = $this->loader->loadMetadataFromFile($imgFullPath);
         } catch (CouldNotLoadImageMetadataException $e) {
             throw new CouldNotFindException($e->getMessage());
         }
