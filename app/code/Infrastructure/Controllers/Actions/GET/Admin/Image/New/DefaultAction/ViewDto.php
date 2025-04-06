@@ -13,6 +13,7 @@ final class ViewDto extends DefaultViewDTO
 {
     /**
      * @param array<int,AuthorDto> $authors
+     * @param array<int,string> $folders
      * @param array<int,LanguageDto> $languages
      */
     public function __construct(
@@ -29,7 +30,9 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $descriptionField,
         public readonly array $authors,
         public readonly ImageRequirementsDto $imageRequirements,
-        public readonly string $fileField
+        public readonly string $fileField,
+        public readonly string $folderField,
+        public readonly array $folders
     ) {
         parent::__construct($name, $description);
     }

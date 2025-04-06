@@ -37,7 +37,7 @@
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
             {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
-            {% include controller_template_dir ~ '/blocks/image.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+            {% include controller_template_dir ~ '/blocks/image.twig' with {'translate': translate, 'u': u, 'data': data} only %}
             <div class="d-flex ">
                 <div>
                     <button type="submit" class="btn btn-primary my-2">Create</button>

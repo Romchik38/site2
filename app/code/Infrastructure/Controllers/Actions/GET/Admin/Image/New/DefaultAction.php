@@ -87,7 +87,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             Create::DESCRIPTION_FIELD,
             $authors,
             $imageRequirements,
-            Create::FILE_FIELD
+            Create::FILE_FIELD,
+            Create::FOLDER_FIELD,
+            Create::ALLOWED_FOLDERS
         );
 
         $html = $this->view

@@ -14,12 +14,17 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
+use Romchik38\Site2\Domain\Image\Image;
+use Romchik38\Site2\Domain\Image\VO\Path;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
 
 final class ImageService
 {
     public function __construct(
         private readonly ImageRepositoryInterface $repository,
-        private readonly CreateContentServiceInterface $contentService
+        private readonly CreateContentServiceInterface $contentService,
+        private readonly ListViewService $languagesService
     ) {   
     }
 
@@ -93,7 +98,64 @@ final class ImageService
             throw new CouldNotCreateException($e->getMessage());
         }
         
+        $authorId = new AuthorId($command->authorId);
+
+        try {
+            $author = $this->repository->findAuthor($authorId);
+        } catch (NoSuchAuthorException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        $path = sprintf(
+            '%s/%s.%s',
+            $command->folder,
+            $this->generateRandomString(20),
+            ($content->getType())()
+        );
+
+        try {
+            $languages = [];
+            foreach ($this->languagesService->getAll() as $language) {
+                $languages[] = $language->identifier;
+            }
+        } catch(LanguageRepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        // translates
+        $translates = [];
+        foreach ($command->translates as $translate) {
+            $translates[] = new Translate(
+                new LanguageId($translate->language),
+                new Description($translate->description)
+            );
+        }
+        
+        $model = Image::create(
+            new Name($command->name),
+            $author,
+            new Path($path),
+            $languages,
+            $translates
+        );
+
+        $model->loadContent($content);
+
         /** @todo replace with real */
         return new ImageId(1);
+    }
+
+    private function generateRandomString($length = 10): string {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+    
+        return $randomString;
     }
 }

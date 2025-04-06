@@ -15,13 +15,16 @@ final class Create
     public const LANGUAGE_FIELD            = 'language';
     public const DESCRIPTION_FIELD         = 'description';
     public const FILE_FIELD                =  'file';
+    public const FOLDER_FIELD              =  'folder';
+    public const ALLOWED_FOLDERS           = ['articles', 'common'];
 
     /** @param array<int,Translate> $translates*/
     private function __construct(
         public readonly string $name,
         public readonly string $authorId,
         public readonly array $translates,
-        public readonly mixed $file
+        public readonly mixed $file,
+        public readonly string $folder,
     ) {
     }
 
@@ -52,7 +55,8 @@ final class Create
             $hash[self::NAME_FIELD] ?? '',
             $hash[self::AUTHOR_ID_FIELD] ?? '',
             $rawTranslates,
-            $hash[self::FILE_FIELD] ?? null
+            $hash[self::FILE_FIELD] ?? null,
+            $hash[self::FOLDER_FIELD] ?? '',
         );
     }
 }
