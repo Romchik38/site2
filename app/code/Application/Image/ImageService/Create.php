@@ -20,7 +20,8 @@ final class Create
     private function __construct(
         public readonly string $name,
         public readonly string $authorId,
-        public readonly array $translates
+        public readonly array $translates,
+        public readonly mixed $file
     ) {
     }
 
@@ -50,7 +51,8 @@ final class Create
         return new self(
             $hash[self::NAME_FIELD] ?? '',
             $hash[self::AUTHOR_ID_FIELD] ?? '',
-            $rawTranslates
+            $rawTranslates,
+            $hash[self::FILE_FIELD] ?? null
         );
     }
 }

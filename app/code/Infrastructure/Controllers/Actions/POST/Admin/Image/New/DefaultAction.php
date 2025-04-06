@@ -18,21 +18,17 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\ImageService\ImageService;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
-use Romchik38\Site2\Application\Image\ImageService\Update;
-use Romchik38\Site2\Domain\Image\NoSuchImageException;
+use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotUpdateException;
-use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 
 use function gettype;
 use function sprintf;
 
-/** @todo implement */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     /** @todo usage */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_SAVE_KEY            = 'admin.data-success-saved';
-    public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
     public function __construct(
@@ -57,31 +53,28 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $uri     = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
         $message = '';
 
-        $command = Update::formHash($requestData);
-        $uriId   = $this->urlbuilder->fromArray(
-            ['root', 'admin', 'image', $command->id]
+
+        $files = $this->request->getUploadedFiles();
+
+        $command = Create::formHash(array_merge($requestData, $files));
+        $uri   = $this->urlbuilder->fromArray(
+            ['root', 'admin', 'image']
         );
 
         /** @todo check all paths */
         try {
-            $this->imageService->update($command);
+            $id = $this->imageService->create($command);
             $message = $this->translateService->t($this::SUCCESS_SAVE_KEY);
-            $uri     = $uriId;
+            $uri     = $this->urlbuilder->fromArray(
+                ['root', 'admin', 'image', (string) $id]
+            );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-            $uri     = $uriId;
-        } catch (CouldNotChangeActivityException $e) {
-            $message = sprintf(
-                $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
-                $e->getMessage()
-            );
-            $uri     = $uriId;
         } catch (CouldNotUpdateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri     = $uriId;
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 

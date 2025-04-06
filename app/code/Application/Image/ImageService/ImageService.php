@@ -18,7 +18,8 @@ use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
 final class ImageService
 {
     public function __construct(
-        private readonly ImageRepositoryInterface $repository
+        private readonly ImageRepositoryInterface $repository,
+        //private readonly CreateContentServiceInterface $contentService
     ) {   
     }
 
@@ -81,11 +82,15 @@ final class ImageService
     }
 
     /**
-     * @todo throws
+     * @throws CouldNotCreateException
      */
     public function create(Create $command): ImageId
     {
-        
+        try {
+            $content = $this->contentService->createContent($command->file);
+        } catch (CouldNotCreateContentException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
         
         /** @todo replace with real */
         return new ImageId(1);

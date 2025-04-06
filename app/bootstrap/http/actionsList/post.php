@@ -74,8 +74,17 @@ return function (Container $container): ControllerInterface {
         null,
         'image_update'
     );
+    $adminImageNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New\DefaultAction'),
+        null,
+        'image_new'
+    );
     $adminImage->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
-    $adminImage->setChild($adminImageUpdate);
+    $adminImage
+    ->setChild($adminImageUpdate)
+    ->setChild($adminImageNew);
 
     // Admin Image Cache
     $adminImagecache = new Controller('imagecache', false);
