@@ -10,6 +10,7 @@ final class Width
 {
     public const MIN_VALUE = 1085;
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly int $width
     ) {
@@ -22,6 +23,7 @@ final class Width
         }
     }
 
+    /** @throws InvalidArgumentException */    
     public static function fromString(string $width): self
     {
         $intValue = (int) $width;

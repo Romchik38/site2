@@ -73,7 +73,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\ImageService\ImageService',
         [
             new Promise('\Romchik38\Site2\Domain\Image\ImageRepositoryInterface'),
-            //new Promise('\Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface')
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface')
         ]
     );
 

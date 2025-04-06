@@ -19,7 +19,7 @@ final class ImageService
 {
     public function __construct(
         private readonly ImageRepositoryInterface $repository,
-        //private readonly CreateContentServiceInterface $contentService
+        private readonly CreateContentServiceInterface $contentService
     ) {   
     }
 
@@ -83,6 +83,7 @@ final class ImageService
 
     /**
      * @throws CouldNotCreateException
+     * @throws InvalidArgumentException
      */
     public function create(Create $command): ImageId
     {

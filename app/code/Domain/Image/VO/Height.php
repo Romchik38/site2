@@ -10,6 +10,7 @@ final class Height
 {
     public const MIN_VALUE = 1085;
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly int $height
     ) {
@@ -22,6 +23,7 @@ final class Height
         }
     }
 
+    /** @throws InvalidArgumentException */
     public static function fromString(string $height): self
     {
         $intValue = (int) $height;

@@ -17,12 +17,6 @@ use function sprintf;
 
 class Image
 {
-    /**
-     * Types to convert.
-     * The loaded from storage image must be in array to be converted
-     * */
-    //protected const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
     public readonly int $originalWidth;
     public readonly int $originalHeight;
     public readonly string $originalType;
@@ -47,23 +41,4 @@ class Image
         }
         $this->originalType = (explode('/', $mime))[1];
     }
-
-    // /**
-    //  * @throws InvalidArgumentException
-    //  */
-    // public static function fromFilePath(string $filePath): self
-    // {
-    //     if (! file_exists($filePath) || (! is_readable($filePath))) {
-    //         throw new InvalidArgumentException(sprintf(
-    //             'Image file %s not exist',
-    //             $filePath
-    //         ));
-    //     }
-
-    //     $dimensions = getimagesize($filePath);
-    //     if ($dimensions === false) {
-    //         throw new InvalidArgumentException('Can\'t determine demensions, image is not valid');
-    //     }
-    //     return new self($dimensions);
-    // }
 }

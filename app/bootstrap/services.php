@@ -134,5 +134,12 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface'
     );
 
+    // Image Create Content Service
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Services\Image\CreateContentServiceUseDiactoros',
+        '\Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface',
+        true,
+    );
+
     return $container;
 };

@@ -12,6 +12,7 @@ final class Size
 
     /** 
      * @param int $size - Content size in bytes
+    ** @throws InvalidArgumentException
      * */
     public function __construct(
         protected readonly int $size
@@ -32,6 +33,7 @@ final class Size
         }
     }
 
+    /** @throws InvalidArgumentException */    
     public static function fromString(string $size): self
     {
         $intValue = (int) $size;

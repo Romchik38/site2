@@ -13,11 +13,15 @@ final class Type
     /** All images must be only these types */
     public const ALLOWED_TYPES = ['webp'];
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         private readonly string $type
     ) {
         if (! in_array($type, self::ALLOWED_TYPES)) {
-            throw new InvalidArgumentException('param image type is invalid');
+            throw new InvalidArgumentException(sprintf(
+                'param image type %s is invalid',
+                $type
+            ));
         }
     }
 
