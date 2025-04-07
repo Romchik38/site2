@@ -77,7 +77,6 @@ final class ImageService
 
         /** @todo load content */
         // do update
-
         try {
             $this->repository->save($model);
         } catch (RepositoryException $e) {
@@ -142,8 +141,17 @@ final class ImageService
 
         $model->loadContent($content);
 
-        /** @todo replace with real */
-        return new ImageId(1);
+        /** add to repository */
+        try {
+            $addedModel = $this->repository->add($model);
+        } catch(RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        /** save image */
+        
+
+        return $addedModel->getId();
     }
 
     private function generateRandomString($length = 10): string {

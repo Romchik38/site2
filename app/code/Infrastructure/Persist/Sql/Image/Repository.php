@@ -147,9 +147,67 @@ final class Repository implements ImageRepositoryInterface
         }
     }
 
-    /** @todo implement */
     public function add(Image $model): Image {
         return $model;
+        
+        $imageName = $model->getName();
+        $authorId = $model->getAuthor()->id;
+        $path = $model->getPath();
+
+        if ($model->isActive()) {
+            $imageActive = 't';
+        } else {
+            $imageActive = 'f';
+        }
+
+        $mainAddQuery = $this->mainAddQuery();
+        $mainParams   = [$imageActive, $imageName(), $authorId(), $path()];
+
+        $translates   = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $rows = $this->database->transactionQueryParams(
+                $mainAddQuery,
+                $mainParams
+            );
+            if (count($rows) !== 1) {
+                throw new RepositoryException('Result must return 1 row with id while adding new image');
+            }
+            $row = $rows[0];
+            $rawImageId =  $row['identifier'] ?? null;
+            if ($rawImageId === null) {
+                throw new RepositoryException('Param id is invalid while adding new image');
+            }
+            $imageId = Id::fromString($rawImageId);
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryInsert(),
+                    [
+                        $imageId(),
+                        (string) $translate->getLanguage(),
+                        (string) $translate->getDescription(),
+                    ]
+                );
+            }
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        }
+
+        return $this->getById($imageId);
     }
 
     /**
@@ -387,6 +445,15 @@ final class Repository implements ImageRepositoryInterface
         return <<<'QUERY'
         INSERT INTO img_translates (img_id, language, description)
             VALUES ($1, $2, $3)
+        QUERY;
+    }
+
+    private function mainAddQuery(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO img (active, name, author_id, path)
+                VALUES ($1, $2, $3, $4)
+                RETURNING identifier
         QUERY;
     }
 }
