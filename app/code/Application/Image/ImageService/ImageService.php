@@ -33,7 +33,7 @@ final class ImageService
      * @throws CouldNotChangeActivityException
      * @throws InvalidArgumentException
      */
-    public function update(Update $command): ImageId
+    public function update(Update $command): void
     {
         $imageId = ImageId::fromString($command->id);
         try {
@@ -79,8 +79,7 @@ final class ImageService
         // do update
 
         try {
-            $savedModel = $this->repository->save($model);
-            return  $savedModel->getId();
+            $this->repository->save($model);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         }

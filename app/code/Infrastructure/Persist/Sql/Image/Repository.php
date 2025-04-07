@@ -92,14 +92,10 @@ final class Repository implements ImageRepositoryInterface
         return $authorEntity;
     }
 
-    public function save(Image $model): Image
+    public function save(Image $model): void
     {
-        $imageId = $model->getId();
-        if ($imageId === null) {
-            return $this->add($model);
-        }
-
         $imageName = $model->getName();
+        $imageId = $model->getId();
         if ($model->isActive()) {
             $imageActive = 't';
         } else {
@@ -149,11 +145,10 @@ final class Repository implements ImageRepositoryInterface
                 throw new RepositoryException($e2->getMessage());
             }
         }
-        return $this->getById($imageId);
     }
 
     /** @todo implement */
-    private function add(Image $model): Image {
+    public function add(Image $model): Image {
         return $model;
     }
 
