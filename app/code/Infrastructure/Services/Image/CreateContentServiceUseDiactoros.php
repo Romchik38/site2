@@ -13,8 +13,10 @@ use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Size;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Width;
+use RuntimeException;
 
-final class CreateContentServiceUseDiactoros implements CreateContentServiceInterface
+final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd 
+    implements CreateContentServiceInterface
 {
     public function createContent(mixed $file): Content
     {
@@ -33,14 +35,9 @@ final class CreateContentServiceUseDiactoros implements CreateContentServiceInte
         $stream = $file->getStream();
         $data = $stream->getContents();
 
-        $dimensions = getimagesizefromstring($data);
-        if ($dimensions === false) {
-            throw new CouldNotCreateContentException('Can\'t determine demensions, image data is not valid');
-        }
-        
         try {
-            $imageMetadata = new Image($dimensions);
-        } catch (InvalidArgumentException $e) {
+            $imageMetadata = $this->loadMetaDataFromString($data);
+        } catch (RuntimeException $e) {
             throw new CouldNotCreateContentException($e->getMessage());
         }
 
@@ -51,9 +48,9 @@ final class CreateContentServiceUseDiactoros implements CreateContentServiceInte
 
         $content = new Content(
             $image,
-            new Type($imageMetadata->originalType),
-            new Height($imageMetadata->originalHeight),
-            new Width($imageMetadata->originalWidth),
+            new Type($imageMetadata->type),
+            new Height($imageMetadata->height),
+            new Width($imageMetadata->width),
             new Size($file->getSize())
         );
         return $content;

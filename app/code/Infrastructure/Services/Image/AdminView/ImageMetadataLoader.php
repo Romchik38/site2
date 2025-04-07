@@ -35,9 +35,9 @@ final class ImageMetadataLoader extends AbstractImageStorageUseGd implements Ima
         }
 
         return new MetadataDto(
-            $image->originalWidth,
-            $image->originalHeight,
-            $image->originalType,
+            $image->width,
+            $image->height,
+            $image->type,
             $bytes
         );
     }

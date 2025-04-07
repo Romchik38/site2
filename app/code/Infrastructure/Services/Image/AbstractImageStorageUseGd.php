@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use GdImage;
+use InvalidArgumentException;
 use Romchik38\Server\Services\Streams\TempStream;
 use RuntimeException;
 
@@ -101,10 +102,43 @@ abstract class AbstractImageStorageUseGd
         return $dimensions;
     }
 
+    /**
+     * @throws RuntimeException
+     * @return array<int|string,mixed>
+     */
+    protected function getDemensionsFromString(string $data): array
+    {
+        $dimensions = getimagesizefromstring($data);
+        if ($dimensions === false) {
+            throw new RuntimeException('Can\'t determine demensions, image is not valid');
+        }
+        return $dimensions;
+    }
+
+    /** @throws RuntimeException */
     protected function loadMetaDataFromFile(string $fullPath): Image
     {
         $demensions = $this->getDemensionsfromFile($fullPath);
-        return new Image($demensions);
+        $size = filesize($fullPath);
+        try {
+            $image = new Image($demensions, $size);
+        } catch (InvalidArgumentException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+        return $image;
+    }
+    
+    /** @throws RuntimeException */
+    protected function loadMetaDataFromString(string $data): Image
+    {
+        $demensions = $this->getDemensionsFromString($data);
+        $size = strlen($data);
+        try {
+            $image = new Image($demensions, $size);
+        } catch (InvalidArgumentException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+        return $image;
     }
 
         /**
@@ -118,7 +152,7 @@ abstract class AbstractImageStorageUseGd
     ): void {
         
         try {
-            $this->checkGDcapabilities($type());
+            $this->checkGDcapabilities($type);
         } catch(RuntimeException $e) {
             throw new RuntimeException($e->getMessage());
         }

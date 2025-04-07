@@ -5,40 +5,34 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Image\VO\Type;
-use RuntimeException;
 
 use function explode;
-use function file_exists;
-use function getimagesize;
-use function in_array;
-use function is_readable;
-use function sprintf;
 
 class Image
 {
-    public readonly int $originalWidth;
-    public readonly int $originalHeight;
-    public readonly string $originalType;
+    public readonly int $width;
+    public readonly int $height;
+    public readonly string $type;
 
     /**
      * @param array<int|string,mixed> $dimensions
      * @throws InvalidArgumentException 
      * */
     public function __construct(
-        array $dimensions
+        array $dimensions,
+        public readonly int $size
     ) {
         $originalWidth = $dimensions[0];
         if ($originalWidth === 0) {
             throw new InvalidArgumentException('Cannot determine image width size');
         }
-        $this->originalWidth  = $originalWidth;
-        $this->originalHeight = $dimensions[1];
+        $this->width  = $originalWidth;
+        $this->height = $dimensions[1];
 
         $mime = $dimensions['mime'] ?? null;
         if ($mime === null) {
             throw new InvalidArgumentException('Cannot determine image width size');
         }
-        $this->originalType = (explode('/', $mime))[1];
+        $this->type = (explode('/', $mime))[1];
     }
 }

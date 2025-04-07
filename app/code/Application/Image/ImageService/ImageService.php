@@ -71,12 +71,16 @@ final class ImageService
             if ($model->isActive()) {
                 $model->deactivate();
             } else {
-                /** @todo load content */
-                $model->activate();
+                try {
+                    $content = $this->imageStorage->load($model->getPath());
+                    $model->loadContent($content);
+                    $model->activate();
+                } catch (CouldNotLoadImageDataException $e) {
+                    throw new CouldNotUpdateException($e->getMessage());
+                }
             }
         }
 
-        /** @todo load content */
         // do update
         try {
             $this->repository->save($model);

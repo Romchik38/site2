@@ -15,7 +15,7 @@ interface ImageStorageInterface
     /**
      * @throws CouldNotLoadImageDataException
     */
-    public function load(Path $path, Type $type): Content;
+    public function load(Path $path): Content;
     
     /**
      * @throws CouldNotSaveImageDataException

@@ -38,7 +38,13 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
         }
 
         try {
-            $image = new CopyImage($demensions, $copyWidth, $copyHeight, $copyType);
+            $image = new CopyImage(
+                $demensions,
+                filesize($filePath),
+                $copyWidth, 
+                $copyHeight, 
+                $copyType
+            );
         } catch (InvalidArgumentException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }
@@ -52,7 +58,7 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
 
         // 2. Check capabilities
         try {
-            $this->checkGDcapabilities($image->originalType);
+            $this->checkGDcapabilities($image->type);
             $this->checkGDcapabilities($image->copyType);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
@@ -64,13 +70,13 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
         } else {
             $minCopy = $image->copyHeight;
         }
-        if ($image->originalWidth > $image->originalHeight) {
-            $scaleRatio = $image->originalHeight / $minCopy;
+        if ($image->width > $image->height) {
+            $scaleRatio = $image->height / $minCopy;
         } else {
-            $scaleRatio = $image->originalWidth / $minCopy;
+            $scaleRatio = $image->width / $minCopy;
         }
-        $temporaryWidth  = (int) ($image->originalWidth / $scaleRatio);
-        $temporaryHeight = (int) ($image->originalHeight / $scaleRatio);
+        $temporaryWidth  = (int) ($image->width / $scaleRatio);
+        $temporaryHeight = (int) ($image->height / $scaleRatio);
         if ($temporaryWidth <= 0 || $temporaryHeight <= 0) {
             throw new CouldNotCreateImageException(
                 sprintf('Image width/height must be greater than 0 in %s', $filePath)
@@ -79,7 +85,7 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
 
         // 4. Load original image
         try {
-            $original = $this->createImageFromFile($filePath, $image->originalType);
+            $original = $this->createImageFromFile($filePath, $image->type);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }
@@ -102,8 +108,8 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
             0,
             $temporaryWidth,
             $temporaryHeight,
-            $image->originalWidth,
-            $image->originalHeight
+            $image->width,
+            $image->height
         );
         if ($resultFillTemporary === false) {
             throw new CouldNotCreateImageException(

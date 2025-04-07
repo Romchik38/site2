@@ -31,24 +31,25 @@ final class CopyImage extends Image
      * */
     public function __construct(
         array $dimensions,
+        int $size,
         Width $copyWidth,
         Height $copyHeight,
         Type $copyType,
     ) {
-        parent::__construct($dimensions);
+        parent::__construct($dimensions, $size);
 
         $this->copyWidth  = $copyWidth();
         $this->copyHeight = $copyHeight();
 
         if (
-            $this->originalWidth < $this->copyWidth
-            || $this->originalHeight < $this->copyHeight
+            $this->width < $this->copyWidth
+            || $this->height < $this->copyHeight
         ) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Image too small to resize. Original width %s, height %s. Copy width %s, height %s',
-                    $this->originalWidth,
-                    $this->originalHeight,
+                    $this->width,
+                    $this->height,
                     $this->copyWidth,
                     $this->copyHeight
                 )

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotLoadImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotSaveImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\ImageStorageInterface;
 use Romchik38\Site2\Domain\Image\Entities\Content;
+use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Path;
+use Romchik38\Site2\Domain\Image\VO\Size;
 use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Domain\Image\VO\Width;
 use RuntimeException;
 
 /** @todo move to persist */
@@ -26,18 +30,35 @@ final class ImageStorageUseFile extends AbstractImageStorageUseGd
     /**
      * @throws CouldNotLoadImageDataException
     */
-    public function load(Path $path, Type $type): Content
+    public function load(Path $path): Content
     {
+        $fullPath = $this->createFullPath($path);
+
         try {
-            $data = $this->createImageFromFile(
-                $this->createFullPath($path),
-                $type()
-            );
+            $metadata = $this->loadMetaDataFromFile($fullPath);
         } catch (RuntimeException $e) {
             throw new CouldNotLoadImageDataException($e->getMessage());
         }
 
+        try {
+            $data = $this->createImageFromFile($fullPath, $metadata->type);
+        } catch (RuntimeException $e) {
+            throw new CouldNotLoadImageDataException($e->getMessage());
+        }
+
+        try {
+            $content = new Content(
+                $data,
+                new Type($metadata->type),
+                new Height($metadata->height),
+                new Width($metadata->width),
+                new Size($metadata->size)
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new CouldNotLoadImageDataException($e->getMessage());
+        }
         
+        return $content;
     }
 
     /**
