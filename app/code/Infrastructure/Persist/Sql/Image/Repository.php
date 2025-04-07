@@ -368,7 +368,7 @@ final class Repository implements ImageRepositoryInterface
             throw new RepositoryException('Image author id is invalid');
         }
         
-        $rawActive = $row['active'] ?? null;
+        $rawActive = $row['author_active'] ?? null;
         if ($rawActive === null) {
             throw new RepositoryException('Image author active is invalid');
         }

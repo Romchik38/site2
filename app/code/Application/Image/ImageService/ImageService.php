@@ -151,6 +151,12 @@ final class ImageService
         /** add to repository */
         try {
             $addedModel = $this->repository->add($model);
+            $addedImageId = $addedModel->getId();
+            if ($addedImageId === null) {
+                throw new CouldNotCreateException('Image id was not updated while creating');
+            } else {
+                
+            }
         } catch(RepositoryException $e) {
             throw new CouldNotCreateException($e->getMessage());
         }
@@ -161,9 +167,13 @@ final class ImageService
         } catch (CouldNotSaveImageDataException $e) {
             /** delete from database */
             try {
-                $this->repository->deleteById($addedModel->getId());
+                $this->repository->deleteById($addedImageId);
             } catch (RepositoryException $e) {
-                throw new CouldNotCreateException($e->getMessage()); 
+                throw new CouldNotCreateException(sprintf(
+                    'Content was not saved. Image with id %s must be deleted from database manualy, because of error %s',
+                    $addedImageId(),
+                    $e->getMessage()
+                )); 
             } 
             
             throw new CouldNotCreateException($e->getMessage());
