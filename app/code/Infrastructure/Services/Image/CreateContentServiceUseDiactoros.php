@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
+use GdImage;
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface;
 use Romchik38\Site2\Domain\Image\Entities\Content;

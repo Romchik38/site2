@@ -24,7 +24,8 @@ final class ImageService
     public function __construct(
         private readonly ImageRepositoryInterface $repository,
         private readonly CreateContentServiceInterface $contentService,
-        private readonly ListViewService $languagesService
+        private readonly ListViewService $languagesService,
+        private readonly string $imageBackendPath
     ) {   
     }
 
@@ -149,9 +150,14 @@ final class ImageService
         }
 
         /** save image */
-        
+        $fullPath = sprintf(
+            '%s/%s',
+            $this->imageBackendPath,
+            $path
+        );
 
-        return $addedModel->getId();
+        //return $addedModel->getId();
+        return new ImageId(1);
     }
 
     private function generateRandomString($length = 10): string {

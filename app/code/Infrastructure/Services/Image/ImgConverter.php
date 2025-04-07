@@ -16,8 +16,6 @@ use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
 use RuntimeException;
 
-use function extension_loaded;
-use function gd_info;
 use function imagecopyresampled;
 use function imagecreatefromwebp;
 use function imagecreatetruecolor;
@@ -26,31 +24,16 @@ use function sprintf;
 
 use const PHP_ROUND_HALF_DOWN;
 
-class ImgConverter implements ImgConverterInterface
+class ImgConverter extends AbstractImageServiceUseGd implements ImgConverterInterface
 {
     use DimensionsTraits;
-    /**
-     * Must be in sinc with $this->createFrom() & createTo()
-     *
-     * @var array<string,string> $capabilities
-     */
-    protected array $capabilities = [
-        'webp' => 'WebP Support',
-    ];
-
-    public function __construct(
-        protected readonly int $quality = 90
-    ) {
-        if (extension_loaded('gd') === false) {
-            throw new CouldNotCreateImageException('GD extension not loaded');
-        }
-    }
 
     public function create(
         string $filePath,
         Width $copyWidth,
         Height $copyHeight,
-        Type $copyType
+        Type $copyType,
+        int $quality = 90
     ): ImgResult {
         // 1. Create an image with all data
         try {
@@ -73,18 +56,11 @@ class ImgConverter implements ImgConverterInterface
         }
 
         // 2. Check capabilities
-        if ($this->checkGDcapabilities($image->originalType) === false) {
-            throw new CouldNotCreateImageException(sprintf(
-                'GD library do not support type %s',
-                $image->originalType
-            ));
-        }
-
-        if ($this->checkGDcapabilities($image->copyType) === false) {
-            throw new CouldNotCreateImageException(sprintf(
-                'GD library do not support type %s',
-                $image->copyType
-            ));
+        try {
+            $this->checkGDcapabilities($image->originalType);
+            $this->checkGDcapabilities($image->copyType);
+        } catch (RuntimeException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
         }
 
         // 3 calculate $temporaryWidth / $temporaryHeight
@@ -159,7 +135,7 @@ class ImgConverter implements ImgConverterInterface
             $image->copyHeight,
         );
 
-        $imgAsString = $this->createTo($copy, $image->copyType);
+        $imgAsString = $this->createTo($copy, $image->copyType, $quality);
 
         return new ImgResult($image->copyType, $imgAsString);
     }
@@ -190,12 +166,12 @@ class ImgConverter implements ImgConverterInterface
         }
     }
 
-    protected function createTo(GdImage $image, string $type): string
+    protected function createTo(GdImage $image, string $type, int $quality): string
     {
         $result = '';
         if ($type === 'webp') {
             $stream = new TempStream();
-            $stream->writeFromCallable('imagewebp', 1, $image, null, $this->quality);
+            $stream->writeFromCallable('imagewebp', 1, $image, null, $quality);
             $result = $stream();
         } else {
             throw new CouldNotCreateImageException(
@@ -207,24 +183,5 @@ class ImgConverter implements ImgConverterInterface
         }
 
         return $result;
-    }
-
-    protected function checkGDcapabilities(string $type): bool
-    {
-        $info = gd_info();
-        $key  = $this->capabilities[$type] ?? null;
-        if ($key === null) {
-            throw new CouldNotCreateImageException(sprintf('Type %s not supported by converter', $type));
-        }
-        $capability = $info[$key] ?? null;
-        if ($capability === null) {
-            throw new CouldNotCreateImageException(
-                sprintf(
-                    'ImgConverter internal error. Capability %s is expected, but not found',
-                    $key
-                )
-            );
-        }
-        return $capability;
     }
 }
