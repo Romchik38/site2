@@ -130,7 +130,7 @@ return function (Container $container) {
 
     // IMAGE METADATA LOADER
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\Image\ImageMetadataLoader',
+        '\Romchik38\Site2\Infrastructure\Services\Image\AdminView\ImageMetadataLoader',
         '\Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface'
     );
 

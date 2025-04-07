@@ -10,5 +10,5 @@ use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
 interface ImageMetadataLoaderInterface
 {
     /** @throws CouldNotLoadImageMetadataException */
-    public function loadMetadataFromFile(string $path): MetadataDto;
+    public function createMetadataDto(string $path): MetadataDto;
 }

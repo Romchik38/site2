@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
-use GdImage;
 use InvalidArgumentException;
-use Romchik38\Server\Services\Streams\TempStream;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
@@ -17,7 +15,6 @@ use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
 use RuntimeException;
 
 use function imagecopyresampled;
-use function imagecreatefromwebp;
 use function imagecreatetruecolor;
 use function round;
 use function sprintf;
@@ -26,8 +23,6 @@ use const PHP_ROUND_HALF_DOWN;
 
 class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInterface
 {
-    use DimensionsTraits;
-
     public function makeCopy(
         string $filePath,
         Width $copyWidth,
@@ -37,7 +32,7 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
     ): ImgResult {
         // 1. Create an image with all data
         try {
-            $demensions = $this->fromFilePath($filePath);
+            $demensions = $this->getDemensionsFromFile($filePath);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }
@@ -83,7 +78,12 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
         }
 
         // 4. Load original image
-        $original = $this->createFrom($filePath, $image->originalType);
+        try {
+            $original = $this->createImageFromFile($filePath, $image->originalType);
+        } catch (RuntimeException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
+        }
+
         // 5. Create temporary copy
         $temporary = imagecreatetruecolor($temporaryWidth, $temporaryHeight);
         if ($temporary === false) {
@@ -135,53 +135,12 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
             $image->copyHeight,
         );
 
-        $imgAsString = $this->createTo($copy, $image->copyType, $quality);
+        try {
+            $imgAsString = $this->saveImageToString($copy, $image->copyType, $quality);
+        } catch (RuntimeException $e) {
+            throw new CouldNotCreateImageException($e->getMessage());
+        }
 
         return new ImgResult($image->copyType, $imgAsString);
-    }
-
-    protected function createFrom(string $path, string $type): GdImage
-    {
-        $result = false;
-        if ($type === 'webp') {
-            $result = imagecreatefromwebp($path);
-        } else {
-            throw new CouldNotCreateImageException(
-                sprintf(
-                    'Image creation for type %s not supported',
-                    $type
-                )
-            );
-        }
-
-        if ($result === false) {
-            throw new CouldNotCreateImageException(
-                sprintf(
-                    'failed attempt to create image %s',
-                    $path
-                )
-            );
-        } else {
-            return $result;
-        }
-    }
-
-    protected function createTo(GdImage $image, string $type, int $quality): string
-    {
-        $result = '';
-        if ($type === 'webp') {
-            $stream = new TempStream();
-            $stream->writeFromCallable('imagewebp', 1, $image, null, $quality);
-            $result = $stream();
-        } else {
-            throw new CouldNotCreateImageException(
-                sprintf(
-                    'Image creation for type %s not supported',
-                    $type
-                )
-            );
-        }
-
-        return $result;
     }
 }

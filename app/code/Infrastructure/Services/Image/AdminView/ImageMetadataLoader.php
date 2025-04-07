@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image;
+namespace Romchik38\Site2\Infrastructure\Services\Image\AdminView;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\AdminView\CouldNotLoadImageMetadataException;
 use Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface;
 use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
+use Romchik38\Site2\Infrastructure\Services\Image\AbstractImageStorageUseGd;
 use RuntimeException;
 
 use function filesize;
 use function sprintf;
 
-final class ImageMetadataLoader implements ImageMetadataLoaderInterface
-{
-    use DimensionsTraits;
-    
-    public function loadMetadataFromFile(string $path): MetadataDto
+final class ImageMetadataLoader extends AbstractImageStorageUseGd implements ImageMetadataLoaderInterface
+{   
+    public function createMetadataDto(string $path): MetadataDto
     {
         try {
-            $demensions = $this->fromFilePath($path);
-            $image = new Image($demensions);
+            $image = $this->loadMetaDataFromFile($path);
         } catch (InvalidArgumentException $e) {
             throw new CouldNotLoadImageMetadataException($e->getMessage());
         } catch (RuntimeException $e) {

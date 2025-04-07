@@ -166,7 +166,6 @@ final class ImageService
         }
 
         return $addedModel->getId();
-        //return new ImageId(1);
     }
 
     private function generateRandomString($length = 10): string {
