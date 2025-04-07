@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
+use GdImage;
 use RuntimeException;
 
-abstract class AbstractImageServiceUseGd
+abstract class AbstractImageStorageUseGd
 {
     /**
      * Must be in sinc with Image Type
@@ -44,6 +45,36 @@ abstract class AbstractImageServiceUseGd
         if ($capability === false) {
             throw new RuntimeException(
                 sprintf('GD library do not support type %s', $type)
+            );
+        }
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function saveImageToFile(
+        GdImage $data,
+        string $fullPath,
+        string $type,
+        int $quility = 100
+    ): void {
+        
+        try {
+            $this->checkGDcapabilities($type());
+        } catch(RuntimeException $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        if ($type === 'webp') {
+            $result = imagewebp($data, $fullPath, $quility);
+            if ($result === false) {
+                throw new RuntimeException(
+                    sprintf('Failed to save image to file %s', $fullPath)
+                );
+            }
+        } else {
+            throw new RuntimeException(
+                sprintf('Image saving for type %s not supported', $type())
             );
         }
     }

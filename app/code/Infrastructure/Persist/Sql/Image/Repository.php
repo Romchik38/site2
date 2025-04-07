@@ -158,10 +158,8 @@ final class Repository implements ImageRepositoryInterface
         }
     }
 
+    /** @todo test */
     public function add(Image $model): Image {
-        /** @todo remove a stub */
-        //return $model;
-
         $imageName = $model->getName();
         $authorId = $model->getAuthor()->id;
         $path = $model->getPath();

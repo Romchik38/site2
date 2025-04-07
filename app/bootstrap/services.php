@@ -141,11 +141,14 @@ return function (Container $container) {
         true,
     );
 
-    // IMAGE SAVER 
+    // IMAGE STORAGE 
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\Image\ImageSaverService',
-        '\Romchik38\Site2\Application\Image\ImageService\ImageSaverServiceInterface',
-        true
+        '\Romchik38\Site2\Infrastructure\Services\Image\ImageStorageUseFile',
+        '\Romchik38\Site2\Application\Image\ImageService\ImageStorageInterface',
+        true,
+        [
+            new Promise('img-folder-backend'),
+        ]
     );
 
     return $container;

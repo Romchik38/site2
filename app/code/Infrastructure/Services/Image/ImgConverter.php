@@ -24,11 +24,11 @@ use function sprintf;
 
 use const PHP_ROUND_HALF_DOWN;
 
-class ImgConverter extends AbstractImageServiceUseGd implements ImgConverterInterface
+class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInterface
 {
     use DimensionsTraits;
 
-    public function create(
+    public function makeCopy(
         string $filePath,
         Width $copyWidth,
         Height $copyHeight,

@@ -12,7 +12,7 @@ use Romchik38\Site2\Domain\Image\VO\Type;
 interface ImgConverterInterface
 {
     /** @throws CouldNotCreateImageException */
-    public function create(
+    public function makeCopy(
         string $filePath,
         Width $copyWidth,
         Height $copyHeight,

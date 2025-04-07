@@ -25,8 +25,7 @@ final class ImageService
         private readonly ImageRepositoryInterface $repository,
         private readonly CreateContentServiceInterface $contentService,
         private readonly ListViewService $languagesService,
-        private readonly string $imageBackendPath,
-        private readonly ImageSaverServiceInterface $imageSaver
+        private readonly ImageStorageInterface $imageStorage
     ) {   
     }
 
@@ -87,6 +86,8 @@ final class ImageService
     }
 
     /**
+     * @todo test
+     * 
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */
@@ -151,18 +152,8 @@ final class ImageService
         }
 
         /** save image */
-        $fullPath = sprintf(
-            '%s/%s',
-            $this->imageBackendPath,
-            $path
-        );
-
         try {
-            $this->imageSaver->saveImageToFile(
-                $content->getData(),
-                $fullPath,
-                $content->getType()
-            );
+            $this->imageStorage->save($content, $addedModel->getPath());
         } catch (CouldNotSaveImageDataException $e) {
             /** delete from database */
             try {

@@ -40,7 +40,7 @@ final class ImgConverterService
             ($img->path())()
         );
 
-        return $this->imgConverter->create(
+        return $this->imgConverter->makeCopy(
             $imgFullPath,
             Width::fromString($command->width),
             Height::fromString($command->height),
@@ -50,7 +50,7 @@ final class ImgConverterService
 
     public function createStub(StubData $command): ImgResult
     {
-        return $this->imgConverter->create(
+        return $this->imgConverter->makeCopy(
             $command->filePath,
             Width::fromString($command->width),
             Height::fromString($command->height),
