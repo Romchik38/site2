@@ -28,4 +28,7 @@ interface ImageRepositoryInterface
 
     /** @throws RepositoryException */
     public function add(Image $model): Image;
+
+    /** @throws RepositoryException */
+    public function deleteById(Id $id): void;
 }

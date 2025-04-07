@@ -61,6 +61,17 @@ final class Repository implements ImageRepositoryInterface
         return $model;
     }
 
+    public function deleteById(Id $id): void
+    {
+        $query = $this->deleteByIdQuery();
+        $params = [$id()];
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
     public function findAuthor(AuthorId $id): Author
     {
         $query = $this->findAuthorQuery();
@@ -148,8 +159,9 @@ final class Repository implements ImageRepositoryInterface
     }
 
     public function add(Image $model): Image {
-        return $model;
-        
+        /** @todo remove a stub */
+        //return $model;
+
         $imageName = $model->getName();
         $authorId = $model->getAuthor()->id;
         $path = $model->getPath();
@@ -454,6 +466,13 @@ final class Repository implements ImageRepositoryInterface
             INSERT INTO img (active, name, author_id, path)
                 VALUES ($1, $2, $3, $4)
                 RETURNING identifier
+        QUERY;
+    }
+
+    private function deleteByIdQuery(): string
+    {
+        return <<<'QUERY'
+            DELETE FROM img WHERE identifier = $1
         QUERY;
     }
 }

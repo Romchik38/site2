@@ -75,7 +75,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Domain\Image\ImageRepositoryInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface'),
             new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
-            new Promise('img-folder-backend')
+            new Promise('img-folder-backend'),
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageSaverServiceInterface')
         ]
     );
 

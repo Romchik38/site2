@@ -25,7 +25,8 @@ final class ImageService
         private readonly ImageRepositoryInterface $repository,
         private readonly CreateContentServiceInterface $contentService,
         private readonly ListViewService $languagesService,
-        private readonly string $imageBackendPath
+        private readonly string $imageBackendPath,
+        private readonly ImageSaverServiceInterface $imageSaver
     ) {   
     }
 
@@ -156,8 +157,25 @@ final class ImageService
             $path
         );
 
-        //return $addedModel->getId();
-        return new ImageId(1);
+        try {
+            $this->imageSaver->saveImageToFile(
+                $content->getData(),
+                $fullPath,
+                $content->getType()
+            );
+        } catch (CouldNotSaveImageDataException $e) {
+            /** delete from database */
+            try {
+                $this->repository->deleteById($addedModel->getId());
+            } catch (RepositoryException $e) {
+                throw new CouldNotCreateException($e->getMessage()); 
+            } 
+            
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        return $addedModel->getId();
+        //return new ImageId(1);
     }
 
     private function generateRandomString($length = 10): string {
