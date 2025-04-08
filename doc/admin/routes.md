@@ -23,6 +23,7 @@
 - root admin api userinfo       admin userinfo api point
 - root admin image update       update image
 - root admin image new          create new image
+- root admin image delete       delete image
 - root admin imagecache clear   clear image cache
 - root admin author delete      delete author
 - root admin author new         create author
