@@ -104,10 +104,14 @@ try {
     }
 } catch(CouldNotCreateImageException $e){
     http_response_code(500);
-    echo $e->getMessage();
+    /** 
+     * This is a public message, so we can\'t display it to user
+     * Do log instead $e->getMessage();
+     * */ 
+    echo 'Server error, please try again later';
 } catch (\Exception) {
     http_response_code(500);
-    echo 'Server error, pleaser try again later';
+    echo 'Server error, please try again later';
 } finally {
     exit();
 }

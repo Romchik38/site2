@@ -2,9 +2,6 @@
 
 ## Current
 
-- hide error img.php when image exist in database, but not found on filesystem
-  `Image file /app/config/shared/../../../public/http/media/img/articles/FGkTEJfvV9dqzDl2phbg.webp not exist`
-
 - test image service
   - update
   - create
