@@ -5,8 +5,6 @@
 - hide error img.php when image exist in database, but not found on filesystem
   `Image file /app/config/shared/../../../public/http/media/img/articles/FGkTEJfvV9dqzDl2phbg.webp not exist`
 
-- download `https://kit.fontawesome.com/d99166463c.js`
-
 - test image service
   - update
   - create
