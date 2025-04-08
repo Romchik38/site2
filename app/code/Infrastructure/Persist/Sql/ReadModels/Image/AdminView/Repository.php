@@ -205,7 +205,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @return array<int,AuthorDto> 
+     * @return array<int,AuthorDto>
      * */
     private function createAuthors(): array
     {

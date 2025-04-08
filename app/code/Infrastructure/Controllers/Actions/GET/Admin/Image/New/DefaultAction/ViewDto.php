@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
-use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
 use Romchik38\Site2\Application\Image\AdminView\View\ImageRequirementsDto;
+use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {

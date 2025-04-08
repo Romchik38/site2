@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Image\AdminView\View;
 
+use function round;
+use function sprintf;
+
 final class ImageRequirementsDto
 {
     /** @param array<int,string> $types */
@@ -12,7 +15,7 @@ final class ImageRequirementsDto
         public readonly int $height,
         public readonly int $size,
         public readonly array $types,
-    ) {  
+    ) {
     }
 
     public function prettySize(): string

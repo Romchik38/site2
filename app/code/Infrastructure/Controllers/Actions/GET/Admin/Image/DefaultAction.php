@@ -16,13 +16,13 @@ use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
+use Romchik38\Site2\Application\Image\ImageService\Delete;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
-use Romchik38\Site2\Application\Image\ImageService\Delete;
 
 use function count;
 

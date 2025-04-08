@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Width
 {
     public const MIN_VALUE = 1085;
@@ -23,7 +25,7 @@ final class Width
         }
     }
 
-    /** @throws InvalidArgumentException */    
+    /** @throws InvalidArgumentException */
     public static function fromString(string $width): self
     {
         $intValue = (int) $width;

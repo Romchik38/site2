@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
-use RuntimeException;
 
 use function sprintf;
 
@@ -27,7 +26,7 @@ final class CopyImage extends Image
 
     /**
      * @param array<int|string,mixed> $dimensions
-     * @throws InvalidArgumentException 
+     * @throws InvalidArgumentException
      * */
     public function __construct(
         array $dimensions,

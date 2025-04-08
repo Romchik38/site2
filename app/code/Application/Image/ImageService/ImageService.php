@@ -27,6 +27,8 @@ use function strlen;
 
 final class ImageService
 {
+    public const CONTENT_NAME_LENGTH = 20;
+
     public function __construct(
         private readonly ImageRepositoryInterface $repository,
         private readonly CreateContentServiceInterface $contentService,
@@ -37,13 +39,15 @@ final class ImageService
 
     /**
      * Update existing image model
-     * do 1 transaction - update data in the database
+     * do 1 transaction:
+     *   - updates data in the database
+     *
      * @throws CouldNotUpdateException
      * @throws CouldNotChangeActivityException
      * @throws InvalidArgumentException
      */
     public function update(Update $command): void
-    {   
+    {
         $imageId = ImageId::fromString($command->id);
         try {
             $model = $this->repository->getById($imageId);
@@ -98,7 +102,11 @@ final class ImageService
     }
 
     /**
-     * @todo test
+     * Create new image model
+     * do 2 transactions:
+     *   - adds new data to the database
+     *   - saves content on the filesystem
+     *
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */
@@ -123,7 +131,7 @@ final class ImageService
         $path = sprintf(
             '%s/%s.%s',
             $command->folder,
-            $this->generateRandomString(20),
+            $this->generateRandomString($this::CONTENT_NAME_LENGTH),
             ($content->getType())()
         );
 
@@ -155,30 +163,41 @@ final class ImageService
 
         $model->loadContent($content);
 
-        /** add to repository */
+        /** 1 transaction add to the repository */
         try {
             $addedModel   = $this->repository->add($model);
             $addedImageId = $addedModel->getId();
             if ($addedImageId === null) {
                 throw new CouldNotCreateException('Image id was not updated while creating');
             } else {
-                /** save image */
+                /** 2 transaction - save the image */
                 try {
                     $this->imageStorage->save($content, $addedModel->getPath());
-                } catch (CouldNotSaveImageDataException $e) {
+                } catch (CouldNotSaveImageDataException $eContent) {
                     /** delete from database */
                     try {
                         $this->repository->deleteById($addedImageId);
                     } catch (RepositoryException $e) {
                         throw new CouldNotCreateException(sprintf(
-                            'Content was not saved. '
-                            . 'Image with id %s must be deleted from database manualy, because of error %s',
-                            $addedImageId(),
-                            $e->getMessage()
+                            '%s;%s;%s',
+                            sprintf('Image was added to the database with id %s', $addedImageId()),
+                            sprintf('Content was not saved with error %s', $eContent->getMessage()),
+                            sprintf(
+                                'Image with id %s must be deleted from database manualy with error %s',
+                                $addedImageId(),
+                                $e->getMessage()
+                            )
                         ));
                     }
 
-                    throw new CouldNotCreateException($e->getMessage());
+                    throw new CouldNotCreateException(
+                        sprintf(
+                            '%s;%s;%s',
+                            sprintf('Image was added to the database with id %s', $addedImageId()),
+                            sprintf('Content was not saved with error %s', $eContent->getMessage()),
+                            'Image was removed from the database'
+                        )
+                    );
                 }
 
                 return $addedImageId;

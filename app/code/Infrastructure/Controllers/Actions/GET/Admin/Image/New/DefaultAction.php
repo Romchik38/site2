@@ -14,14 +14,14 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
+use Romchik38\Site2\Application\Image\AdminView\RepositoryException as ImageViewRepositoryException;
 use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
-use Romchik38\Site2\Application\Image\AdminView\RepositoryException as ImageViewRepositoryException;
 
 use function sprintf;
 
@@ -50,12 +50,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $error = false;
         try {
             $languages = $this->languageService->getAll();
-            $authors = $this->adminViewService->listAuthors();
+            $authors   = $this->adminViewService->listAuthors();
         } catch (LanguageRepositoryException $e) {
-            $error = true;
+            $error   = true;
             $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
         } catch (ImageViewRepositoryException $e) {
-            $error = true;
+            $error   = true;
             $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
         }
 

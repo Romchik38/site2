@@ -9,14 +9,14 @@ use function gettype;
 
 final class Create
 {
-    public const NAME_FIELD                = 'name';
-    public const AUTHOR_ID_FIELD           = 'author_id';
-    public const TRANSLATES_FIELD          = 'translates';
-    public const LANGUAGE_FIELD            = 'language';
-    public const DESCRIPTION_FIELD         = 'description';
-    public const FILE_FIELD                =  'file';
-    public const FOLDER_FIELD              =  'folder';
-    public const ALLOWED_FOLDERS           = ['articles', 'common'];
+    public const NAME_FIELD        = 'name';
+    public const AUTHOR_ID_FIELD   = 'author_id';
+    public const TRANSLATES_FIELD  = 'translates';
+    public const LANGUAGE_FIELD    = 'language';
+    public const DESCRIPTION_FIELD = 'description';
+    public const FILE_FIELD        = 'file';
+    public const FOLDER_FIELD      = 'folder';
+    public const ALLOWED_FOLDERS   = ['articles', 'common'];
 
     /** @param array<int,Translate> $translates*/
     private function __construct(

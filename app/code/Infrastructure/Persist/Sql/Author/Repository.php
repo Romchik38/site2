@@ -90,7 +90,7 @@ final class Repository implements RepositoryInterface
         $mainSaveQuery = $this->mainSaveQuery();
         $mainParams    = [$authorName(), $authorActive, $authorId()];
 
-        $translates      = $model->getTranslates();
+        $translates = $model->getTranslates();
 
         try {
             $this->database->transactionStart();

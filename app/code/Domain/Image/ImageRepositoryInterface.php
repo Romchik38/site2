@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Image;
 
-use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\Entities\Author;
 use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
-use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Image\VO\Id;
 
 interface ImageRepositoryInterface
 {
-    /** 
-     * @throws NoSuchImageException 
+    /**
+     * @throws NoSuchImageException
      * @throws RepositoryException
      * */
     public function getById(Id $id): Image;
 
-    /** 
+    /**
      * @throws NoSuchAuthorException
      * @throws RepositoryException
      */

@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Height
 {
     public const MIN_VALUE = 1085;

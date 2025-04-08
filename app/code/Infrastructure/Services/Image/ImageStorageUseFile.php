@@ -17,20 +17,22 @@ use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Width;
 use RuntimeException;
 
-/** @todo move to persist */
-final class ImageStorageUseFile extends AbstractImageStorageUseGd 
-    implements ImageStorageInterface
-{
+use function ob_get_clean;
+use function ob_start;
+use function sprintf;
+use function unlink;
 
+/** @todo move to persist */
+final class ImageStorageUseFile extends AbstractImageStorageUseGd implements ImageStorageInterface
+{
     public function __construct(
         private readonly string $imageBackendPath
     ) {
     }
 
-
     /**
      * @throws CouldNotLoadImageDataException
-    */
+     */
     public function load(Path $path): Content
     {
         $fullPath = $this->createFullPath($path);
@@ -58,7 +60,7 @@ final class ImageStorageUseFile extends AbstractImageStorageUseGd
         } catch (InvalidArgumentException $e) {
             throw new CouldNotLoadImageDataException($e->getMessage());
         }
-        
+
         return $content;
     }
 
@@ -87,12 +89,12 @@ final class ImageStorageUseFile extends AbstractImageStorageUseGd
     {
         ob_start();
         $fullPath = $this->createFullPath($path);
-        $result = unlink($fullPath);
-        $flushVar   = ob_get_clean();
+        $result   = unlink($fullPath);
+        $flushVar = ob_get_clean();
         if ($result === false) {
             $message = sprintf('File %s was not deleted', $fullPath);
             if ($flushVar !== false) {
-                $message = $flushVar;  
+                $message = $flushVar;
             }
             throw new CouldNotDeleteImageDataException($message);
         }

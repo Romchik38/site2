@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Image\Entities;
 
 use GdImage;
-use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Height;
-use Romchik38\Site2\Domain\Image\VO\Width;
 use Romchik38\Site2\Domain\Image\VO\Size;
+use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Domain\Image\VO\Width;
 
 final class Content
 {

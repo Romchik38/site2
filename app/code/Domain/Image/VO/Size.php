@@ -6,13 +6,15 @@ namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
 
+use function sprintf;
+
 final class Size
 {
     public const MAX_VALUE = 2097152;
 
-    /** 
+    /**
      * @param int $size - Content size in bytes
-    ** @throws InvalidArgumentException
+     * * @throws InvalidArgumentException
      * */
     public function __construct(
         protected readonly int $size
@@ -25,7 +27,7 @@ final class Size
             ));
         }
 
-        if ($size < 1 ) {
+        if ($size < 1) {
             throw new InvalidArgumentException(sprintf(
                 'param image size %s is invalid',
                 $size,
@@ -33,7 +35,7 @@ final class Size
         }
     }
 
-    /** @throws InvalidArgumentException */    
+    /** @throws InvalidArgumentException */
     public static function fromString(string $size): self
     {
         $intValue = (int) $size;

@@ -9,17 +9,28 @@ use InvalidArgumentException;
 use Romchik38\Server\Services\Streams\TempStream;
 use RuntimeException;
 
+use function extension_loaded;
+use function file_exists;
+use function filesize;
+use function gd_info;
+use function getimagesize;
+use function getimagesizefromstring;
+use function gettype;
+use function imagecreatefromwebp;
+use function imagewebp;
+use function is_readable;
+use function sprintf;
+use function strlen;
+
 abstract class AbstractImageStorageUseGd
 {
-    /**
-     * @var array<string,string> $capabilities
-     */
+    /** @var array<string,string> $capabilities */
     protected array $capabilities = [
         'webp' => 'WebP Support',
     ];
 
     /** @throws RuntimeException */
-    public function __construct() 
+    public function __construct()
     {
         if (extension_loaded('gd') === false) {
             throw new RuntimeException('GD extension not loaded');
@@ -50,7 +61,7 @@ abstract class AbstractImageStorageUseGd
         }
     }
 
-    /** 
+    /**
      * @throws RuntimeException
      */
     protected function createImageFromFile(string $fullPath, string $type): GdImage
@@ -74,9 +85,10 @@ abstract class AbstractImageStorageUseGd
         } elseif (gettype($result) === 'resource') {
             throw new RuntimeException(
                 sprintf(
-                    'Image type resurce not expected, failed to create an image from file %s', 
+                    'Image type resurce not expected, failed to create an image from file %s',
                     $fullPath
-            ));
+                )
+            );
         } else {
             return $result;
         }
@@ -119,7 +131,7 @@ abstract class AbstractImageStorageUseGd
     protected function loadMetaDataFromFile(string $fullPath): Image
     {
         $demensions = $this->getDemensionsfromFile($fullPath);
-        $size = filesize($fullPath);
+        $size       = filesize($fullPath);
         try {
             $image = new Image($demensions, $size);
         } catch (InvalidArgumentException $e) {
@@ -127,12 +139,12 @@ abstract class AbstractImageStorageUseGd
         }
         return $image;
     }
-    
+
     /** @throws RuntimeException */
     protected function loadMetaDataFromString(string $data): Image
     {
         $demensions = $this->getDemensionsFromString($data);
-        $size = strlen($data);
+        $size       = strlen($data);
         try {
             $image = new Image($demensions, $size);
         } catch (InvalidArgumentException $e) {
@@ -142,18 +154,17 @@ abstract class AbstractImageStorageUseGd
     }
 
         /**
-     * @throws RuntimeException
-     */
+         * @throws RuntimeException
+         */
     protected function saveImageToFile(
         GdImage $data,
         string $fullPath,
         string $type,
         int $quility = 100
     ): void {
-        
         try {
             $this->checkGDcapabilities($type);
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new RuntimeException($e->getMessage());
         }
 

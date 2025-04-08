@@ -16,7 +16,7 @@ class Image
 
     /**
      * @param array<int|string,mixed> $dimensions
-     * @throws InvalidArgumentException 
+     * @throws InvalidArgumentException
      * */
     public function __construct(
         array $dimensions,

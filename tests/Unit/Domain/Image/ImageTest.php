@@ -15,15 +15,15 @@ use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\VO\Description;
+use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
+use Romchik38\Site2\Domain\Image\VO\Size;
 use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Domain\Image\VO\Width;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use stdClass;
-use Romchik38\Site2\Domain\Image\VO\Height;
-use Romchik38\Site2\Domain\Image\VO\Width;
-use Romchik38\Site2\Domain\Image\VO\Size;
 
 use function count;
 use function imagecreatetruecolor;
@@ -206,7 +206,7 @@ final class ImageTest extends TestCase
 
         $data    = imagecreatetruecolor(1, 1);
         $content = new Content(
-            $data, 
+            $data,
             new Type('webp'),
             new Height(1100),
             new Width(1100),
@@ -432,7 +432,7 @@ final class ImageTest extends TestCase
 
         $data    = imagecreatetruecolor(1, 1);
         $content = new Content(
-            $data, 
+            $data,
             new Type('webp'),
             new Height(1100),
             new Width(1100),
@@ -478,7 +478,7 @@ final class ImageTest extends TestCase
 
         $data    = imagecreatetruecolor(1, 1);
         $content = new Content(
-            $data, 
+            $data,
             new Type('webp'),
             new Height(1100),
             new Width(1100),
@@ -516,7 +516,7 @@ final class ImageTest extends TestCase
 
         $data    = imagecreatetruecolor(1, 1);
         $content = new Content(
-            $data, 
+            $data,
             new Type('webp'),
             new Height(1100),
             new Width(1100),
@@ -600,7 +600,7 @@ final class ImageTest extends TestCase
 
         $data    = imagecreatetruecolor(1, 1);
         $content = new Content(
-            $data, 
+            $data,
             new Type('webp'),
             new Height(1100),
             new Width(1100),

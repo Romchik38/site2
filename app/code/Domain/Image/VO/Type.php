@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Domain\Image\VO;
 use InvalidArgumentException;
 
 use function in_array;
+use function sprintf;
 
 final class Type
 {

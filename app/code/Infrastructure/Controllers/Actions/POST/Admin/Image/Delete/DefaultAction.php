@@ -15,13 +15,13 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Image\ImageService\ImageService;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
-use RuntimeException;
+use Romchik38\Site2\Application\Image\ImageService\CouldNotDeleteException;
 use Romchik38\Site2\Application\Image\ImageService\Delete;
+use Romchik38\Site2\Application\Image\ImageService\ImageService;
 use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
-use Romchik38\Site2\Application\Image\ImageService\CouldNotDeleteException;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use RuntimeException;
 
 use function gettype;
 use function sprintf;
@@ -32,7 +32,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public const string SUCCESS_DELETE_KEY            = 'admin.data-was-deleted-successfully';
     public const string COULD_NOT_DELETE_KEY          = 'admin.data-could-not-delete';
     public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
-    public const string IMAGE_NOT_EXIST_KEY          = 'admin.image-with-id-not-exist';
+    public const string IMAGE_NOT_EXIST_KEY           = 'admin.image-with-id-not-exist';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,

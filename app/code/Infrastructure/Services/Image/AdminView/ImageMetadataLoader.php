@@ -15,7 +15,7 @@ use function filesize;
 use function sprintf;
 
 final class ImageMetadataLoader extends AbstractImageStorageUseGd implements ImageMetadataLoaderInterface
-{   
+{
     public function createMetadataDto(string $path): MetadataDto
     {
         try {

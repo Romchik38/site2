@@ -14,6 +14,7 @@ use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
 use RuntimeException;
 
+use function filesize;
 use function imagecopyresampled;
 use function imagecreatetruecolor;
 use function round;
@@ -41,14 +42,13 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
             $image = new CopyImage(
                 $demensions,
                 filesize($filePath),
-                $copyWidth, 
-                $copyHeight, 
+                $copyWidth,
+                $copyHeight,
                 $copyType
             );
         } catch (InvalidArgumentException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }
-
 
         if ($image->copyWidth <= 0 || $image->copyHeight <= 0) {
             throw new CouldNotCreateImageException(

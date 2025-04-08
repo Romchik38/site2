@@ -8,32 +8,36 @@ use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Image\Entities\Article;
+use Romchik38\Site2\Domain\Image\Entities\Author;
+use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\ImageRepositoryInterface;
-use Romchik38\Site2\Domain\Image\RepositoryException;
+use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
+use Romchik38\Site2\Domain\Image\RepositoryException;
+use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Image\VO\Id;
-use Romchik38\Site2\Domain\Image\Entities\Author;
-use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Image\Entities\Article;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Domain\Image\Entities\Translate;
-use Romchik38\Site2\Domain\Image\VO\Description;
-use Romchik38\Site2\Domain\Image\NoSuchAuthorException;
+
+use function count;
+use function json_decode;
+use function sprintf;
 
 final class Repository implements ImageRepositoryInterface
 {
     public function __construct(
         private readonly DatabaseSqlInterface $database
-    ) {  
+    ) {
     }
 
     public function getById(Id $id): Image
     {
-        $query = $this->getByIdQuery();
+        $query  = $this->getByIdQuery();
         $params = [$id()];
         try {
             $rows = $this->database->queryParams($query, $params);
@@ -57,13 +61,12 @@ final class Repository implements ImageRepositoryInterface
 
         $row = $rows[0];
 
-        $model = $this->createModel($id, $row);
-        return $model;
+        return $this->createModel($id, $row);
     }
 
     public function deleteById(Id $id): void
     {
-        $query = $this->deleteByIdQuery();
+        $query  = $this->deleteByIdQuery();
         $params = [$id()];
         try {
             $this->database->queryParams($query, $params);
@@ -74,7 +77,7 @@ final class Repository implements ImageRepositoryInterface
 
     public function findAuthor(AuthorId $id): Author
     {
-        $query = $this->findAuthorQuery();
+        $query  = $this->findAuthorQuery();
         $params = [$id()];
 
         try {
@@ -99,14 +102,13 @@ final class Repository implements ImageRepositoryInterface
 
         $row = $rows[0];
 
-        $authorEntity = $this->createAuthor($row);
-        return $authorEntity;
+        return $this->createAuthor($row);
     }
 
     public function save(Image $model): void
     {
         $imageName = $model->getName();
-        $imageId = $model->getId();
+        $imageId   = $model->getId();
         if ($model->isActive()) {
             $imageActive = 't';
         } else {
@@ -118,7 +120,7 @@ final class Repository implements ImageRepositoryInterface
         $mainSaveQuery = $this->mainSaveQuery();
         $mainParams    = [$imageActive, $imageName(), $authorId(), $imageId()];
 
-        $translates      = $model->getTranslates();
+        $translates = $model->getTranslates();
 
         try {
             $this->database->transactionStart();
@@ -159,11 +161,12 @@ final class Repository implements ImageRepositoryInterface
     }
 
     /** @todo test */
-    public function add(Image $model): Image {
-        $modelId = $model->getId();
+    public function add(Image $model): Image
+    {
+        $modelId   = $model->getId();
         $imageName = $model->getName();
-        $authorId = $model->getAuthor()->id;
-        $path = $model->getPath();
+        $authorId  = $model->getAuthor()->id;
+        $path      = $model->getPath();
 
         if ($model->isActive()) {
             $imageActive = 't';
@@ -179,8 +182,8 @@ final class Repository implements ImageRepositoryInterface
             $mainAddQuery = $this->mainAddQueryWithId();
             $mainParams   = [$modelId, $imageActive, $imageName(), $authorId(), $path()];
         }
-        
-        $translates   = $model->getTranslates();
+
+        $translates = $model->getTranslates();
 
         try {
             $this->database->transactionStart();
@@ -191,8 +194,8 @@ final class Repository implements ImageRepositoryInterface
             if (count($rows) !== 1) {
                 throw new RepositoryException('Result must return 1 row with id while adding new image');
             }
-            $row = $rows[0];
-            $rawImageId =  $row['identifier'] ?? null;
+            $row        = $rows[0];
+            $rawImageId = $row['identifier'] ?? null;
             if ($rawImageId === null) {
                 throw new RepositoryException('Param id is invalid while adding new image');
             }
@@ -228,7 +231,7 @@ final class Repository implements ImageRepositoryInterface
     }
 
     /**
-     * @param array<string,string> $row 
+     * @param array<string,string> $row
      * @throws InvalidArgumentException
      * @throws RepositoryException
      * */
@@ -261,7 +264,7 @@ final class Repository implements ImageRepositoryInterface
             throw new RepositoryException('Image languages param is invalid');
         }
         $languages = $this->createLanguages($rawLanguages);
-        
+
         $articles = $this->createArticles($id);
 
         $translates = $this->createTranslates($id);
@@ -280,7 +283,7 @@ final class Repository implements ImageRepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @return array<int,Translate> 
+     * @return array<int,Translate>
      * */
     private function createTranslates(Id $id): array
     {
@@ -310,8 +313,8 @@ final class Repository implements ImageRepositoryInterface
         }
         return $translates;
     }
-    
-    /** 
+
+    /**
      * @throws RepositoryException
      * @return array<int,Article>
      */
@@ -364,7 +367,7 @@ final class Repository implements ImageRepositoryInterface
         return $data;
     }
 
-    /** 
+    /**
      * @param array<string,string> $row
      * @throws RepositoryException
      * */
@@ -374,7 +377,7 @@ final class Repository implements ImageRepositoryInterface
         if ($rawId === null) {
             throw new RepositoryException('Image author id is invalid');
         }
-        
+
         $rawActive = $row['author_active'] ?? null;
         if ($rawActive === null) {
             throw new RepositoryException('Image author active is invalid');
