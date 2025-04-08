@@ -208,7 +208,11 @@ final class ImageService
     }
 
     /**
-     * @todo test
+     * Delete image model
+     * do 2 transactions:
+     *   - deletes data from the database
+     *   - removes content from the filesystem
+     *
      * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
      * @throws NoSuchImageException
@@ -219,45 +223,86 @@ final class ImageService
 
         try {
             $model = $this->repository->getById($id);
-            // 1. Deactivate
+            $path  = $model->getPath();
+            // Deactivate
             $model->deactivate();
             try {
-                // 2. Remove from database
+                // 1 transaction - delete from the database
                 $this->repository->deleteById($id);
-                // 3. Remove content from storage
+                // 2 transaction - remove content from the storage
                 try {
                     $this->imageStorage->delete($model->getPath());
-                } catch (CouldNotDeleteImageDataException $e) {
+                } catch (CouldNotDeleteImageDataException $eDelete) {
                     try {
                         $content = $this->imageStorage->load($model->getPath());
                         $model->loadContent($content);
                         $model->activate();
                         try {
+                            // deleted from database
+                            // not deleted from storage
+                            // loaded from storage
+                            // activated
+                            // restored in database
                             $this->repository->add($model);
                             throw new CouldNotDeleteException(sprintf(
-                                'Could not delete image file %s with error %s, '
-                                . 'model with id %s was restored in the database',
-                                (string) $model->getPath(),
-                                $e->getMessage(),
-                                (string) $id
+                                '%s;%s;%s;%s;%s',
+                                sprintf('Image with id %s was deleted from database', (string) $id),
+                                sprintf(
+                                    'Image was not removed from storage with error %s (file %s)',
+                                    $eDelete->getMessage(),
+                                    $path()
+                                ),
+                                sprintf('Image was loaded from storage (file %s)', $path()),
+                                'Image was activated',
+                                sprintf('Image was restored in the database with id %s', (string) $id),
                             ));
-                        } catch (RepositoryException $e2) {
+                        } catch (RepositoryException $eDatabaseRestore) {
+                            // deleted from database
+                            // not deleted from storage
+                            // loaded from storage
+                            // activated
+                            // not restored in database
                             throw new CouldNotDeleteException(sprintf(
-                                'Could not delete image file %s with error %s, '
-                                . 'model with id %s was not restored in the database with error %s',
-                                (string) $model->getPath(),
-                                $e->getMessage(),
-                                (string) $id,
-                                $e2->getMessage()
+                                '%s;%s;%s;%s;%s',
+                                sprintf('Image with id %s was deleted from database', (string) $id),
+                                sprintf(
+                                    'Image was not removed from storage with error %s (file %s)',
+                                    $eDelete->getMessage(),
+                                    $path()
+                                ),
+                                sprintf('Image was loaded from storage (file %s)', $path()),
+                                'Image was activated',
+                                sprintf(
+                                    'Image with id %s was not restore in the database with error %s',
+                                    $id(),
+                                    $eDatabaseRestore->getMessage()
+                                ),
                             ));
                         }
                     } catch (CouldNotLoadImageDataException $eLoad) {
                         throw new CouldNotDeleteException(
                             sprintf(
-                                '%s%s%s',
-                                sprintf('Image with id %s was deleted from database, ', (string) $id),
-                                sprintf('Was not deleted from storage with error %s, ', $e->getMessage()),
-                                sprintf('Was not restore in database because of load error %s', $eLoad->getMessage()),
+                                '%s;%s;%s',
+                                sprintf('Image with id %s was deleted from database', (string) $id),
+                                sprintf(
+                                    'Image with path %s was not deleted from storage with error %s',
+                                    $model->getPath(),
+                                    $eDelete->getMessage()
+                                ),
+                                sprintf('Image was not restore in the database because of storage load error %s', $eLoad->getMessage()),
+                            )
+                        );
+                    } catch (CouldNotChangeActivityException $eActivity) {
+                        throw new CouldNotDeleteException(
+                            sprintf(
+                                '%s;%s;%s',
+                                sprintf('Image with id %s was deleted from database', (string) $id),
+                                sprintf(
+                                    'Image with path %s was not deleted from storage with error %s',
+                                    $model->getPath(),
+                                    $eDelete->getMessage()
+                                ),
+                                sprintf('Image Was not restore in the database because of activation error %s', $eActivity->getMessage()),
                             )
                         );
                     }

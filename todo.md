@@ -3,9 +3,7 @@
 ## Current
 
 - test image service
-  - update
-  - create
-  - delete
+  - phpstan
 
 - @todos
 
