@@ -9,6 +9,9 @@
 #}
 
 {% set deleteUrl = u.fromArray(['root', 'admin', 'image', 'delete' ]) %}
+{% set imagesList = data.imagesList %}
+{% set paginationHtml = data.paginationHtml %}
+{% set paginationForm = data.paginationForm %}
 
 <div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
@@ -86,27 +89,31 @@
                 {% set activeColor = 'text-success' %}
                 {% set active = 'active' %}
             {% endif %}
+
+            {% set imageId = image.identifier.__toString() %}
             <tr>
 
                 <!-- 1. Display image -->
                 <td>
                     <img class="img-fluid" 
-                        src="/img.php?id={{image.identifier}}&type=webp&width=200&height=100" 
+                        src="/img.php?id={{imageId}}&type=webp&width=200&height=100" 
                         alt=""
                     >
                 </td>
                 <!-- 2. Id -->
-                <th scope="row">{{ image.identifier }}</th>
+                <th scope="row">{{ imageId }}</th>
                 <!-- 3. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 4. Name -->
                 <td>{{ image.name }}</td> 
                 <!-- 5. Author Name -->
                 <td>{{ image.authorName }}</td>
-                {% set editUrl = u.fromArray(['root', 'admin', 'image', image.identifier.__toString() ]) %}
+                {% set editUrl = u.fromArray(['root', 'admin', 'image', imageId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
                     <form action="{{ deleteUrl }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ imageId }}" hidden>
+                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
                 </td>

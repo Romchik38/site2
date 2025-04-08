@@ -12,7 +12,7 @@
         {% if data.imagesList|length == 0 %} 
             {% include controller_template_dir ~ '/zero_images.twig' with {'t': translate, 'newUrl': newUrl} only %}
         {% else %}
-            {% include controller_template_dir ~ '/images.twig' with {'imagesList': data.imagesList, 't': translate, 'u': u, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'newUrl': newUrl } only %}
+            {% include controller_template_dir ~ '/images.twig' with {'data': data, 't': translate, 'u': u, 'newUrl': newUrl } only %}
         {% endif %}
 
     </div>

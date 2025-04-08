@@ -18,6 +18,8 @@ use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListServic
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 
@@ -31,7 +33,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         protected readonly ViewInterface $view,
         protected readonly AdminImageListService $adminImageListService,
         protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderInterface $urlbuilder
+        protected readonly UrlbuilderInterface $urlbuilder,
+        private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -65,6 +69,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+
         $dto = new ViewDto(
             'Images',
             'Images page',
@@ -74,7 +81,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->limit,
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
-            )
+            ),
+            $this->session::ADMIN_CSRF_TOKEN_FIELD,
+            $csrfToken
         );
 
         $html = $this->view
