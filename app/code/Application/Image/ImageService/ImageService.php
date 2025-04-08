@@ -36,12 +36,14 @@ final class ImageService
     }
 
     /**
+     * Update existing image model
+     * do 1 transaction - update data in the database
      * @throws CouldNotUpdateException
      * @throws CouldNotChangeActivityException
      * @throws InvalidArgumentException
      */
     public function update(Update $command): void
-    {
+    {   
         $imageId = ImageId::fromString($command->id);
         try {
             $model = $this->repository->getById($imageId);
