@@ -408,6 +408,20 @@ return function (Container $container) {
         ]
     );
 
+    // Admin Image Delete
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
+    );
+
     // Admin Image Cache Clear
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',

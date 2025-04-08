@@ -81,10 +81,18 @@ return function (Container $container): ControllerInterface {
         null,
         'image_new'
     );
+    $adminImageDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction'),
+        null,
+        'image_delete'
+    );
     $adminImage->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminImage
     ->setChild($adminImageUpdate)
-    ->setChild($adminImageNew);
+    ->setChild($adminImageNew)
+    ->setChild($adminImageDelete);
 
     // Admin Image Cache
     $adminImagecache = new Controller('imagecache', false);

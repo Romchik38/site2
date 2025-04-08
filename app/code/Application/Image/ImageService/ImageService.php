@@ -189,8 +189,10 @@ final class ImageService
      * @throws CouldNotDeleteException
      * @throws NoSuchImageException
      */
-    public function delete(ImageId $id): void
+    public function delete(Delete $command): void
     {
+        $id = ImageId::fromString($command->id);
+
         try {
             $model = $this->repository->getById($id);
             // 1. Deactivate
