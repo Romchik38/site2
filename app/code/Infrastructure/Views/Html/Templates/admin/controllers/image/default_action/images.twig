@@ -112,7 +112,7 @@
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
                     <form action="{{ deleteUrl }}" method="post">
-                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ imageId }}" hidden>
+                        <input type="text" class="form-control" name="{{ data.imageIdField }}" value="{{ imageId }}" hidden>
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>

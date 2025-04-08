@@ -22,6 +22,7 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
+use Romchik38\Site2\Application\Image\ImageService\Delete;
 
 use function count;
 
@@ -83,7 +84,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByDirection
             ),
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken
+            $csrfToken,
+            Delete::ID_FIELD
         );
 
         $html = $this->view

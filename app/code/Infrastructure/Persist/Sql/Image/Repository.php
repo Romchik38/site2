@@ -432,7 +432,7 @@ final class Repository implements ImageRepositoryInterface
     {
         return <<<'QUERY'
             SELECT author.identifier as author_id,
-                author.active
+                author.active as author_active
             FROM author
             WHERE author.identifier = $1
         QUERY;

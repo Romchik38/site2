@@ -185,6 +185,8 @@ final class ImageService
     }
 
     /** 
+     * @todo test
+     * 
      * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
      * @throws NoSuchImageException
@@ -204,23 +206,36 @@ final class ImageService
                 try {
                     $this->imageStorage->delete($model->getPath());
                 } catch(CouldNotDeleteImageDataException $e) {
-                    $model->activate();
+
                     try {
-                        $this->repository->add($model);
-                        throw new CouldNotDeleteException(sprintf(
-                            'Could not delete image file %s with error %s, model with id %s was restored in the database',
-                            (string) $model->getPath(),
-                            $e->getMessage(),
-                            (string) $id
-                        ));
-                    } catch (RepositoryException $e2) {
-                        throw new CouldNotDeleteException(sprintf(
-                            'Could not delete image file %s with error %s, model with id %s was not restored in the database with error %s',
-                            (string) $model->getPath(),
-                            $e->getMessage(),
-                            (string) $id,
-                            $e2->getMessage()
-                        ));
+                        $content = $this->imageStorage->load($model->getPath());
+                        $model->activate($content);
+                        try {
+                            $this->repository->add($model);
+                            throw new CouldNotDeleteException(sprintf(
+                                'Could not delete image file %s with error %s, model with id %s was restored in the database',
+                                (string) $model->getPath(),
+                                $e->getMessage(),
+                                (string) $id
+                            ));
+                        } catch (RepositoryException $e2) {
+                            throw new CouldNotDeleteException(sprintf(
+                                'Could not delete image file %s with error %s, model with id %s was not restored in the database with error %s',
+                                (string) $model->getPath(),
+                                $e->getMessage(),
+                                (string) $id,
+                                $e2->getMessage()
+                            ));
+                        }
+                    } catch (CouldNotLoadImageDataException $eLoad) {
+                        throw new CouldNotDeleteException(
+                            sprintf(
+                                '%s%s%s',
+                                sprintf('Image with id %s was deleted from database, ', (string) $id), 
+                                sprintf('Was not deleted from storage with error %s, ', $e->getMessage()), 
+                                sprintf('Was not restore in database because of load error %s', $eLoad->getMessage()),
+                            )
+                        );
                     }
                 }
             } catch (RepositoryException $e) {

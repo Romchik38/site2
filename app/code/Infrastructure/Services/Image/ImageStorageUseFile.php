@@ -85,9 +85,16 @@ final class ImageStorageUseFile extends AbstractImageStorageUseGd
      */
     public function delete(Path $path): void
     {
-        $result = unlink($this->createFullPath($path));
+        ob_start();
+        $fullPath = $this->createFullPath($path);
+        $result = unlink($fullPath);
+        $flushVar   = ob_get_clean();
         if ($result === false) {
-            throw new CouldNotDeleteImageDataException('File %s was not deleted');
+            $message = sprintf('File %s was not deleted', $fullPath);
+            if ($flushVar !== false) {
+                $message = $flushVar;  
+            }
+            throw new CouldNotDeleteImageDataException($message);
         }
     }
 
