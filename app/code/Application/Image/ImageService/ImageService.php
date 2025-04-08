@@ -18,6 +18,8 @@ use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
+use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Image\NoSuchImageException;
 
 final class ImageService
 {
@@ -180,6 +182,51 @@ final class ImageService
         }
 
         return $addedModel->getId();
+    }
+
+    /** 
+     * @throws CouldNotChangeActivityException
+     * @throws CouldNotDeleteException
+     * @throws NoSuchImageException
+     */
+    public function delete(ImageId $id): void
+    {
+        try {
+            $model = $this->repository->getById($id);
+            // 1. Deactivate
+            $model->deactivate();
+            try {
+                // 2. Remove from database
+                $this->repository->deleteById($id);
+                // 3. Remove content from storage
+                try {
+                    $this->imageStorage->delete($model->getPath());
+                } catch(CouldNotDeleteImageDataException $e) {
+                    $model->activate();
+                    try {
+                        $this->repository->add($model);
+                        throw new CouldNotDeleteException(sprintf(
+                            'Could not delete image file %s with error %s, model with id %s was restored in the database',
+                            (string) $model->getPath(),
+                            $e->getMessage(),
+                            (string) $id
+                        ));
+                    } catch (RepositoryException $e2) {
+                        throw new CouldNotDeleteException(sprintf(
+                            'Could not delete image file %s with error %s, model with id %s was not restored in the database with error %s',
+                            (string) $model->getPath(),
+                            $e->getMessage(),
+                            (string) $id,
+                            $e2->getMessage()
+                        ));
+                    }
+                }
+            } catch (RepositoryException $e) {
+                throw new CouldNotDeleteException($e->getMessage());
+            }
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
+        }
     }
 
     private function generateRandomString($length = 10): string {

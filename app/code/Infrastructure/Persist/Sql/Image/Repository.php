@@ -160,6 +160,7 @@ final class Repository implements ImageRepositoryInterface
 
     /** @todo test */
     public function add(Image $model): Image {
+        $modelId = $model->getId();
         $imageName = $model->getName();
         $authorId = $model->getAuthor()->id;
         $path = $model->getPath();
@@ -170,9 +171,15 @@ final class Repository implements ImageRepositoryInterface
             $imageActive = 'f';
         }
 
-        $mainAddQuery = $this->mainAddQuery();
-        $mainParams   = [$imageActive, $imageName(), $authorId(), $path()];
-
+        /** @todo test */
+        if ($modelId === null) {
+            $mainAddQuery = $this->mainAddQuery();
+            $mainParams   = [$imageActive, $imageName(), $authorId(), $path()];
+        } else {
+            $mainAddQuery = $this->mainAddQueryWithId();
+            $mainParams   = [$modelId, $imageActive, $imageName(), $authorId(), $path()];
+        }
+        
         $translates   = $model->getTranslates();
 
         try {
@@ -463,6 +470,15 @@ final class Repository implements ImageRepositoryInterface
         return <<<'QUERY'
             INSERT INTO img (active, name, author_id, path)
                 VALUES ($1, $2, $3, $4)
+                RETURNING identifier
+        QUERY;
+    }
+
+    private function mainAddQueryWithId(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO img (identifier, active, name, author_id, path)
+                VALUES ($1, $2, $3, $4, $5)
                 RETURNING identifier
         QUERY;
     }

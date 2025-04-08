@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Image\ImageService\CouldNotDeleteImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotLoadImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotSaveImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\ImageStorageInterface;
@@ -76,6 +77,17 @@ final class ImageStorageUseFile extends AbstractImageStorageUseGd
             );
         } catch (RuntimeException $e) {
             throw new CouldNotSaveImageDataException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws CouldNotDeleteImageDataException
+     */
+    public function delete(Path $path): void
+    {
+        $result = unlink($this->createFullPath($path));
+        if ($result === false) {
+            throw new CouldNotDeleteImageDataException('File %s was not deleted');
         }
     }
 

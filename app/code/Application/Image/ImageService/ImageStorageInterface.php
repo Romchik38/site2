@@ -8,7 +8,7 @@ use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotSaveImageDataException;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotLoadImageDataException;
-use Romchik38\Site2\Domain\Image\VO\Type;
+use Romchik38\Site2\Application\Image\ImageService\CouldNotDeleteImageDataException;
 
 interface ImageStorageInterface
 {
@@ -21,4 +21,9 @@ interface ImageStorageInterface
      * @throws CouldNotSaveImageDataException
      */
     public function save(Content $content, Path $path): void;
+
+    /**
+     * @throws CouldNotDeleteImageDataException
+     */
+    public function delete(Path $path): void;
 }
