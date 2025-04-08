@@ -1,8 +1,14 @@
 <!-- inside row -->
 {% set m = data.metadataDto %}
 {% set i = data.imageDto %}
-<div class="col-md-6 m-auto">
-  <img class="img-fluid" src="{{ data.imageFrontendPath }}">
+{% set w = data.imageDto.width %}
+{% set h = data.imageDto.height %}
+<div class="col-md-6 m-auto text-center">
+	{% if w >= h %}
+	    <img class="img-fluid w-50" src="{{ data.imageFrontendPath }}">
+	{% else %}
+	    <img class="img-fluid h-50" src="{{ data.imageFrontendPath }}">
+	{% endif %}
 </div>
 <div class="col-12">
     <table class="table">
