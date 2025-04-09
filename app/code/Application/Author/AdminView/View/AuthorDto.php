@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AdminView\View;
 
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
-use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
@@ -16,7 +15,6 @@ final class AuthorDto
     public readonly Name $name;
 
     /**
-     * @todo refactor Translate - it must not be entity  but dto
      * @param array<int,Translate> $translates
      * @param array<int,ArticleId> $articles
      * @param array<int,ImageId> $images
