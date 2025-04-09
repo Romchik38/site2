@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Services\Image;
 
-use Exception;
-use Laminas\Diactoros\Exception\UploadedFileAlreadyMovedException;
-use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotCreateContentException;
 use Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface;
@@ -38,16 +35,8 @@ final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd i
         }
 
         try {
-            $stream = $file->getStream();
-        } catch (UploadedFileErrorException $e) {
-            throw new CouldNotCreateContentException($e->getMessage());
-        } catch (UploadedFileAlreadyMovedException $e) {
-            throw new CouldNotCreateContentException($e->getMessage());
-        }
-        // ->
-        $data   = $stream->getContents();
-
-        try {
+            $stream        = $file->getStream();
+            $data          = $stream->getContents();
             $imageMetadata = $this->loadMetaDataFromString($data);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateContentException($e->getMessage());

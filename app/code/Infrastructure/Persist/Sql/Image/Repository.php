@@ -240,8 +240,7 @@ final class Repository implements ImageRepositoryInterface
             } catch (DatabaseTransactionException $e2) {
                 throw new RepositoryException($e2->getMessage());
             }
-        } 
-
+        }
 
         return $this->getById($imageId);
     }
