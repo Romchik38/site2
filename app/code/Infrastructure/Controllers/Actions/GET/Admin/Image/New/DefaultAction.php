@@ -47,24 +47,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function execute(): ResponseInterface
     {
         /** @todo test */
-        $error = false;
+        $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
         try {
             $languages = $this->languageService->getAll();
             $authors   = $this->adminViewService->listAuthors();
         } catch (LanguageRepositoryException $e) {
-            $error   = true;
-            $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
-        } catch (ImageViewRepositoryException $e) {
-            $error   = true;
-            $message = $this->translateService->t($this::ERROR_MESSAGE_KEY);
-        }
-
-        if ($error === true) {
             $this->logger->error($e->getMessage());
-            $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
-                $message
+                $this->translateService->t($this::ERROR_MESSAGE_KEY)
+            );
+            return new RedirectResponse($urlList);
+        } catch (ImageViewRepositoryException $e) {
+            $this->logger->error($e->getMessage());
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::ERROR_MESSAGE_KEY)
             );
             return new RedirectResponse($urlList);
         }

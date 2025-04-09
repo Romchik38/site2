@@ -16,6 +16,7 @@ use RuntimeException;
 
 use function gettype;
 use function imagecreatefromstring;
+use function is_resource;
 use function sprintf;
 
 final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd implements CreateContentServiceInterface
@@ -44,8 +45,13 @@ final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd i
         }
 
         $image = imagecreatefromstring($data);
-        if ($image === false || gettype($image) === 'resource') {
-            throw new CouldNotCreateContentException('Image creation aborted: type not GdImage');
+        if ($image === false || is_resource($image) === true) {
+            throw new CouldNotCreateContentException('Image creation is failed');
+        }
+
+        $fileSize = $file->getSize();
+        if ($fileSize === null) {
+            throw new CouldNotCreateContentException('Image creation is failed: cannot determine filesize');
         }
 
         return new Content(
@@ -53,7 +59,7 @@ final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd i
             new Type($imageMetadata->type),
             new Height($imageMetadata->height),
             new Width($imageMetadata->width),
-            new Size($file->getSize())
+            new Size($fileSize)
         );
     }
 }

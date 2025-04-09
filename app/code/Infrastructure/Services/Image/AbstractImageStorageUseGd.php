@@ -15,10 +15,10 @@ use function filesize;
 use function gd_info;
 use function getimagesize;
 use function getimagesizefromstring;
-use function gettype;
 use function imagecreatefromwebp;
 use function imagewebp;
 use function is_readable;
+use function is_resource;
 use function sprintf;
 use function strlen;
 
@@ -82,7 +82,7 @@ abstract class AbstractImageStorageUseGd
             throw new RuntimeException(
                 sprintf('failed attempt to create image %s', $fullPath)
             );
-        } elseif (gettype($result) === 'resource') {
+        } elseif (is_resource($result) === true) {
             throw new RuntimeException(
                 sprintf(
                     'Image type resurce not expected, failed to create an image from file %s',
@@ -127,11 +127,20 @@ abstract class AbstractImageStorageUseGd
         return $dimensions;
     }
 
-    /** @throws RuntimeException */
+    /**
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * */
     protected function loadMetaDataFromFile(string $fullPath): Image
     {
         $demensions = $this->getDemensionsfromFile($fullPath);
         $size       = filesize($fullPath);
+        if ($size === false) {
+            throw new RuntimeException(sprintf(
+                'Cannot determine filesize of %s',
+                $fullPath
+            ));
+        }
         try {
             $image = new Image($demensions, $size);
         } catch (InvalidArgumentException $e) {
@@ -177,7 +186,7 @@ abstract class AbstractImageStorageUseGd
             }
         } else {
             throw new RuntimeException(
-                sprintf('Image saving for type %s not supported', $type())
+                sprintf('Image saving for type %s not supported', $type)
             );
         }
     }

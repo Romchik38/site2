@@ -38,10 +38,18 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
             throw new CouldNotCreateImageException($e->getMessage());
         }
 
+        $fileSize = filesize($filePath);
+        if ($fileSize === false) {
+            throw new CouldNotCreateImageException(sprintf(
+                'Could not determine size of the file %s',
+                $filePath
+            ));
+        }
+
         try {
             $image = new CopyImage(
                 $demensions,
-                filesize($filePath),
+                $fileSize,
                 $copyWidth,
                 $copyHeight,
                 $copyType

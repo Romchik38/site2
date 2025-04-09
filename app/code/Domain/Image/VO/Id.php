@@ -28,6 +28,7 @@ final class Id
         return (string) $this->id;
     }
 
+    /** @throws InvalidArgumentException */
     public static function fromString(string $id): self
     {
         $oldValue = $id;

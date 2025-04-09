@@ -26,14 +26,19 @@ final class Content
         return $this->data;
     }
 
+    public function getHeight(): Height
+    {
+        return $this->height;
+    }
+
     public function getType(): Type
     {
         return $this->type;
     }
 
-    public function getHeight(): Height
+    public function getSize(): Size
     {
-        return $this->height;
+        return $this->size;
     }
 
     public function getWidth(): Width

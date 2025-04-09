@@ -45,6 +45,7 @@ final class ImageService
      * @throws CouldNotUpdateException
      * @throws CouldNotChangeActivityException
      * @throws InvalidArgumentException
+     * @throws NoSuchImageException
      */
     public function update(Update $command): void
     {
@@ -215,6 +216,7 @@ final class ImageService
      *
      * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
+     * @throws InvalidArgumentException
      * @throws NoSuchImageException
      */
     public function delete(Delete $command): void
@@ -289,7 +291,10 @@ final class ImageService
                                     $model->getPath(),
                                     $eDelete->getMessage()
                                 ),
-                                sprintf('Image was not restore in the database because of storage load error %s', $eLoad->getMessage()),
+                                sprintf(
+                                    'Image was not restore in the database because of storage load error %s',
+                                    $eLoad->getMessage()
+                                ),
                             )
                         );
                     } catch (CouldNotChangeActivityException $eActivity) {
@@ -302,7 +307,10 @@ final class ImageService
                                     $model->getPath(),
                                     $eDelete->getMessage()
                                 ),
-                                sprintf('Image Was not restore in the database because of activation error %s', $eActivity->getMessage()),
+                                sprintf(
+                                    'Image Was not restore in the database because of activation error %s',
+                                    $eActivity->getMessage()
+                                ),
                             )
                         );
                     }

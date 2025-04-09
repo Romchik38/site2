@@ -2,9 +2,6 @@
 
 ## Current
 
-- test image service
-  - phpstan
-
 - @todos
 
 - move config to const

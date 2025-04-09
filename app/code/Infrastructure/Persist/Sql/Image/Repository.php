@@ -109,6 +109,9 @@ final class Repository implements ImageRepositoryInterface
     {
         $imageName = $model->getName();
         $imageId   = $model->getId();
+        if ($imageId === null) {
+            throw new RepositoryException('Image id is not set');
+        }
         if ($model->isActive()) {
             $imageActive = 't';
         } else {
@@ -180,7 +183,7 @@ final class Repository implements ImageRepositoryInterface
             $mainParams   = [$imageActive, $imageName(), $authorId(), $path()];
         } else {
             $mainAddQuery = $this->mainAddQueryWithId();
-            $mainParams   = [$modelId, $imageActive, $imageName(), $authorId(), $path()];
+            $mainParams   = [$modelId(), $imageActive, $imageName(), $authorId(), $path()];
         }
 
         $translates = $model->getTranslates();
