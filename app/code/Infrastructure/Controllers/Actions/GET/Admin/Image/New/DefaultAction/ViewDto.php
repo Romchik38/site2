@@ -17,7 +17,6 @@ final class ViewDto extends DefaultViewDTO
      * @param array<int,LanguageDto> $languages
      */
     public function __construct(
-        /** @todo usage */
         string $name,
         string $description,
         public readonly array $languages,

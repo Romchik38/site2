@@ -129,9 +129,18 @@ final class ImageService
             throw new CouldNotCreateException($e->getMessage());
         }
 
+        $folder = $command->folder;
+        if (! in_array($folder, Create::ALLOWED_FOLDERS)) {
+            throw new CouldNotCreateException(sprintf(
+                'image folder %s is not allowed',
+                $folder
+        ));
+        }
+
         $path = sprintf(
             '%s/%s.%s',
-            $command->folder,
+            /** @todo check this field first */
+            $folder,
             $this->generateRandomString($this::CONTENT_NAME_LENGTH),
             ($content->getType())()
         );
