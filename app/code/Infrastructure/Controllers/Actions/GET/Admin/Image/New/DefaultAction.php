@@ -27,7 +27,6 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    /** @todo usage */
     public const ERROR_MESSAGE_KEY = 'server-error.message';
 
     public function __construct(
@@ -46,7 +45,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function execute(): ResponseInterface
     {
-        /** @todo test */
         $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
         try {
             $languages = $this->languageService->getAll();
