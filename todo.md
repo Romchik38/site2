@@ -2,8 +2,6 @@
 
 ## Current
 
-- @todos
-
 - move config to const
 
 ## Next
