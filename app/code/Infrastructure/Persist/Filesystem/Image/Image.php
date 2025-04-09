@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image;
+namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image;
 
 use InvalidArgumentException;
 

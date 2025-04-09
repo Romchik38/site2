@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image;
+namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImageService;
 
 use Laminas\Diactoros\UploadedFile;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotCreateContentException;
@@ -12,12 +12,13 @@ use Romchik38\Site2\Domain\Image\VO\Height;
 use Romchik38\Site2\Domain\Image\VO\Size;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Width;
+use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\AbstractImageStorageUseGd;
 use RuntimeException;
 
 use function gettype;
 use function sprintf;
 
-final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd implements CreateContentServiceInterface
+final class ImageStorageUseDiactoros extends AbstractImageStorageUseGd implements CreateContentServiceInterface
 {
     public function createContent(mixed $file): Content
     {

@@ -242,7 +242,7 @@ final class ImageService
                 $this->repository->deleteById($id);
                 // 2 transaction - remove content from the storage
                 try {
-                    $this->imageStorage->delete($model->getPath());
+                    $this->imageStorage->deleteByPath($model->getPath());
                 } catch (CouldNotDeleteImageDataException $eDelete) {
                     try {
                         $content = $this->imageStorage->load($model->getPath());

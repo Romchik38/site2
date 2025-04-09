@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image\AdminView;
+namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\AdminView;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\AdminView\CouldNotLoadImageMetadataException;
 use Romchik38\Site2\Application\Image\AdminView\ImageMetadataLoaderInterface;
 use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
-use Romchik38\Site2\Infrastructure\Services\Image\AbstractImageStorageUseGd;
+use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\AbstractImageStorageUseGd;
 use RuntimeException;
 
 use function filesize;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image;
+namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image;
 
 use GdImage;
 use InvalidArgumentException;
@@ -103,6 +103,25 @@ abstract class AbstractImageStorageUseGd
             throw new RuntimeException('Image creation from string is failed');
         }
         return $image;
+    }
+
+    /**
+     * Removes a file from the file system
+     * 
+     * @throws RuntimeException
+     */
+    protected function deleteFile(string $fullPath): void
+    {
+        ob_start();
+        $result   = unlink($fullPath);
+        $flushVar = ob_get_clean();
+        if ($result === false) {
+            $message = sprintf('File %s was not deleted', $fullPath);
+            if ($flushVar !== false) {
+                $message = $flushVar;
+            }
+            throw new RuntimeException($message);
+        }
     }
 
     /**

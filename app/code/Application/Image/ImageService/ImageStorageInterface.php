@@ -25,5 +25,5 @@ interface ImageStorageInterface
     /**
      * @throws CouldNotDeleteImageDataException
      */
-    public function delete(Path $path): void;
+    public function deleteByPath(Path $path): void;
 }

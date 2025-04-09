@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\Image;
+namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImgConverter;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
@@ -11,7 +11,8 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Type;
-use Romchik38\Site2\Infrastructure\Services\Image\CopyImage;
+use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\AbstractImageStorageUseGd;
+use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\CopyImage;
 use RuntimeException;
 
 use function filesize;
