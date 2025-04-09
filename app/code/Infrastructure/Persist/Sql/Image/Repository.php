@@ -163,7 +163,6 @@ final class Repository implements ImageRepositoryInterface
         }
     }
 
-    /** @todo test */
     public function add(Image $model): Image
     {
         $modelId   = $model->getId();
@@ -177,7 +176,6 @@ final class Repository implements ImageRepositoryInterface
             $imageActive = 'f';
         }
 
-        /** @todo test */
         if ($modelId === null) {
             $mainAddQuery = $this->mainAddQuery();
             $mainParams   = [$imageActive, $imageName(), $authorId(), $path()];
@@ -228,7 +226,22 @@ final class Repository implements ImageRepositoryInterface
             } catch (DatabaseTransactionException $e2) {
                 throw new RepositoryException($e2->getMessage());
             }
-        }
+        } catch (RepositoryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (InvalidArgumentException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } 
+
 
         return $this->getById($imageId);
     }
