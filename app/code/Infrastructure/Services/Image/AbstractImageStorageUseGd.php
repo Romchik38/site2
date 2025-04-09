@@ -15,6 +15,7 @@ use function filesize;
 use function gd_info;
 use function getimagesize;
 use function getimagesizefromstring;
+use function imagecreatefromstring;
 use function imagecreatefromwebp;
 use function imagewebp;
 use function is_readable;
@@ -43,13 +44,13 @@ abstract class AbstractImageStorageUseGd
         $info = gd_info();
         $key  = $this->capabilities[$type] ?? null;
         if ($key === null) {
-            throw new RuntimeException(sprintf('Type %s not supported by converter', $type));
+            throw new RuntimeException(sprintf('Type %s not supported by image storage', $type));
         }
         $capability = $info[$key] ?? null;
         if ($capability === null) {
             throw new RuntimeException(
                 sprintf(
-                    'ImgConverter internal error. Capability %s is expected, but not found',
+                    'Image storage internal error. Capability %s is expected, but not found',
                     $key
                 )
             );
@@ -92,6 +93,16 @@ abstract class AbstractImageStorageUseGd
         } else {
             return $result;
         }
+    }
+
+    /** @throws RuntimeException */
+    protected function createImageFromString(string $data): GdImage
+    {
+        $image = imagecreatefromstring($data);
+        if ($image === false || is_resource($image) === true) {
+            throw new RuntimeException('Image creation from string is failed');
+        }
+        return $image;
     }
 
     /**
@@ -162,9 +173,9 @@ abstract class AbstractImageStorageUseGd
         return $image;
     }
 
-        /**
-         * @throws RuntimeException
-         */
+    /**
+     * @throws RuntimeException
+     */
     protected function saveImageToFile(
         GdImage $data,
         string $fullPath,

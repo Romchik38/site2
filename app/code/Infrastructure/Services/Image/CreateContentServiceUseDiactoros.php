@@ -15,8 +15,6 @@ use Romchik38\Site2\Domain\Image\VO\Width;
 use RuntimeException;
 
 use function gettype;
-use function imagecreatefromstring;
-use function is_resource;
 use function sprintf;
 
 final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd implements CreateContentServiceInterface
@@ -38,13 +36,9 @@ final class CreateContentServiceUseDiactoros extends AbstractImageStorageUseGd i
             $stream        = $file->getStream();
             $data          = $stream->getContents();
             $imageMetadata = $this->loadMetaDataFromString($data);
+            $image         = $this->createImageFromString($data);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateContentException($e->getMessage());
-        }
-
-        $image = imagecreatefromstring($data);
-        if ($image === false || is_resource($image) === true) {
-            throw new CouldNotCreateContentException('Image creation is failed');
         }
 
         $fileSize = $file->getSize();
