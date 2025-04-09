@@ -139,7 +139,6 @@ final class ImageService
 
         $path = sprintf(
             '%s/%s.%s',
-            /** @todo check this field first */
             $folder,
             $this->generateRandomString($this::CONTENT_NAME_LENGTH),
             ($content->getType())()
