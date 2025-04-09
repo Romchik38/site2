@@ -361,7 +361,7 @@ final class ImageTest extends TestCase
         $this->assertSame('Блакитне небо', (string) $t2->getDescription());
     }
 
-    public function testLoadActiveImageAndNotActiveArticle(): void
+    public function testLoadActiveArticleAndNotActiveImage(): void
     {
         $id         = new Id(1);
         $name       = new Name('image-name-1');
@@ -388,6 +388,42 @@ final class ImageTest extends TestCase
         Image::load(
             $id,
             false, // wrong
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $translates
+        );
+    }
+
+    public function testLoadThrowsErrorInvalidArticle(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId('25'),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [
+            'some string', // wrong
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Image::load(
+            $id,
+            false,
             $name,
             $author,
             $path,

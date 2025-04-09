@@ -60,7 +60,6 @@ final class Image
             if (! $article instanceof Article) {
                 throw new InvalidArgumentException('param image article id is invalid');
             }
-            /** @todo test load */
             if ($article->active === true && $active === false) {
                 throw new InvalidArgumentException('param image article active and image active are different');
             }
