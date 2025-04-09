@@ -21,6 +21,7 @@ use Romchik38\Site2\Domain\Image\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
+use function in_array;
 use function random_int;
 use function sprintf;
 use function strlen;
@@ -134,7 +135,7 @@ final class ImageService
             throw new CouldNotCreateException(sprintf(
                 'image folder %s is not allowed',
                 $folder
-        ));
+            ));
         }
 
         $path = sprintf(

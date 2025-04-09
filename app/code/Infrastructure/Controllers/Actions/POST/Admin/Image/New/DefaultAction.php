@@ -27,7 +27,6 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    /** @todo usage */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_SAVE_KEY              = 'admin.data-success-saved';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
@@ -61,7 +60,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ['root', 'admin', 'image']
         );
 
-        /** @todo check all paths */
         try {
             $id      = $this->imageService->create($command);
             $message = $this->translateService->t($this::SUCCESS_SAVE_KEY);
@@ -90,6 +88,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Admin Image update point';
+        return 'Admin Image new point';
     }
 }
