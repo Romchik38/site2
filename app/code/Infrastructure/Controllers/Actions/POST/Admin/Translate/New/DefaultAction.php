@@ -42,7 +42,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo csrf */
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getParsedBody();
