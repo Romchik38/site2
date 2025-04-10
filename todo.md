@@ -2,6 +2,13 @@
 
 ## Current
 
+- audio
+  - find a library
+  - domain
+  - admin
+    - list
+    - view
+
 - move config to const
 
 ## Next
