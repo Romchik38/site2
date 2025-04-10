@@ -119,6 +119,11 @@ final class Audio
         }
     }
 
+    public function getId(): ?Id
+    {
+        return $this->id;
+    }
+
     public function getName(): Name
     {
         return $this->name;
@@ -141,12 +146,17 @@ final class Audio
         $checkResult = $this->languageCheck($translate, $this->languages);
         if ($checkResult === false) {
             throw new InvalidArgumentException(
-                'param image translate language has non expected language'
+                'param audio translate language has non expected language'
             );
         } else {
             $languageId                      = $translate->getLanguage();
             $this->translates[$languageId()] = $translate;
         }
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
     }
 
     public function loadContent(Content $content): void

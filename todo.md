@@ -2,11 +2,17 @@
 
 ## Current
 
+- audio list
+  - application
+  - repository
+  - action
+  - template
+
 - audio
-  - domain
-  - admin
-    - list
-    - view
+  - view
+  - update
+  - new
+  - delete
 
 - move config to const
 - refactor folder structure
