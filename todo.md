@@ -3,7 +3,6 @@
 ## Current
 
 - audio
-  - find a library
   - domain
   - admin
     - list
