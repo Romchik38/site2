@@ -9,6 +9,7 @@
     - view
 
 - move config to const
+- refactor folder structure
 
 ## Next
 
@@ -16,6 +17,6 @@
   - `Romchik38\Server\Models\Sql\SearchCriteria\Limit`
   - `Romchik38\Server\Models\Sql\SearchCriteria\Offset`
   - `Romchik38\Server\Models\Sql\SearchCriteria\OrderBy`
-- tests  
-  - TwigView  
-- move TwigView to module  
+  - TwigView
+  - Image storage
+  
