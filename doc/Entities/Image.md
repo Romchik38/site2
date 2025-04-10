@@ -1,8 +1,8 @@
-# Audio
+# Image
 
-Represents an Audio.
+Represents an Image.
 
-- Audio must be *activated*.
+- Image must be *activated*.
 - Requirements to become active:
   - id is set
   - content present in the storage (loaded)
