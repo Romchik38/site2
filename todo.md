@@ -2,8 +2,6 @@
 
 ## Current
 
-- add links to images in the admin aothor view
-
 - audio
   - domain
   - admin

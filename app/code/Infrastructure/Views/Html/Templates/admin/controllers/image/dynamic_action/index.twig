@@ -14,6 +14,7 @@
 {% set translates = data.imageDto.translates %}
 {% set articles = data.imageDto.articles %}
 {% set authors = data.imageDto.authors %}
+{% set authorAdminUrl = u.fromArray(['root', 'admin', 'author', author.id.__toString()]) %}
 
 <div class="container-md my-3">
     <div class="row">
@@ -37,7 +38,7 @@
             <div class="form-group mb-2 p-2">
                 <h2 class="text-center">Author</h2>
                 <div class="mb-3">
-                    <label class="form-label" for="{{ data.authorIdFiled }}">Id: {{ author.id }}</label>
+                    <label class="form-label" for="{{ data.authorIdFiled }}"><a href="{{ authorAdminUrl }}">Id: {{ author.id }}</a></label>
                     <input type="text" class="form-control" name="{{ data.authorIdFiled }}" value="{{ author.id }}" id="author_id" hidden>
                 </div>
                 <div class="mb-3">
