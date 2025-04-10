@@ -20,8 +20,11 @@ use function imagecreatefromwebp;
 use function imagewebp;
 use function is_readable;
 use function is_resource;
+use function ob_get_clean;
+use function ob_start;
 use function sprintf;
 use function strlen;
+use function unlink;
 
 abstract class AbstractImageStorageUseGd
 {
@@ -107,7 +110,7 @@ abstract class AbstractImageStorageUseGd
 
     /**
      * Removes a file from the file system
-     * 
+     *
      * @throws RuntimeException
      */
     protected function deleteFile(string $fullPath): void

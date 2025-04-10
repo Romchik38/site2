@@ -6,22 +6,25 @@ namespace Romchik38\Site2\Domain\Audio;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
-use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Audio\Entities\Translate;
-use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Audio\Entities\Author;
 use Romchik38\Site2\Domain\Audio\Entities\Content;
+use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Id;
+use Romchik38\Site2\Domain\Audio\VO\Name;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-/** 
- * @todo implement
+use function array_values;
+use function count;
+use function sprintf;
+
+/**
  * @todo test
  */
 final class Audio
 {
     /** @var array<int,Article> $articles */
     private readonly array $articles;
-    
+
     private Content $content;
 
     private bool $isLoaded = false;
@@ -30,9 +33,9 @@ final class Audio
     private readonly array $languages;
 
     /** @var array<string,Translate> $translates */
-    private array $translates = [];    
-    
-    /** 
+    private array $translates = [];
+
+    /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
@@ -79,7 +82,7 @@ final class Audio
             }
         }
     }
-    
+
     /** @throws InvalidArgumentException */
     public function changeAuthor(Author $author): void
     {
@@ -114,6 +117,11 @@ final class Audio
         } else {
             return null;
         }
+    }
+
+    public function getName(): Name
+    {
+        return $this->name;
     }
 
     public function getTranslate(string $language): ?Translate
@@ -151,13 +159,13 @@ final class Audio
     {
         $this->name = $name;
     }
-    
+
     /**
-     * @todo 
+     * @todo
      * - Requirements to become active:
      *   - id is set
      *   - author is active
-     * @throws CouldNotChangeActivityException 
+     * @throws CouldNotChangeActivityException
      * */
     public function activate(): void
     {
@@ -198,8 +206,8 @@ final class Audio
     }
 
     /**
-     * @throws CouldNotChangeActivityException 
-     * */    
+     * @throws CouldNotChangeActivityException
+     * */
     public function deactivate(): void
     {
         if ($this->active === false) {
@@ -264,7 +272,7 @@ final class Audio
             $languages,
             $translates
         );
-    }    
+    }
 
     /** @param array<int,mixed|LanguageId> $languages */
     private function languageCheck(Translate $translate, array $languages): bool
