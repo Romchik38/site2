@@ -10,6 +10,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Audio\Entities\Author;
+use Romchik38\Site2\Domain\Audio\Entities\Content;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 
 /** 
@@ -21,7 +22,7 @@ final class Audio
     /** @var array<int,Article> $articles */
     private readonly array $articles;
     
-    private ContentInterface $content;
+    private Content $content;
 
     private bool $isLoaded = false;
 
@@ -106,7 +107,7 @@ final class Audio
         return $this->author;
     }
 
-    public function getContent(): ?ContentInterface
+    public function getContent(): ?Content
     {
         if ($this->isLoaded === true) {
             return $this->content;
@@ -140,7 +141,7 @@ final class Audio
         }
     }
 
-    public function loadContent(ContentInterface $content): void
+    public function loadContent(Content $content): void
     {
         $this->content  = $content;
         $this->isLoaded = true;
