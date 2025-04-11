@@ -6,6 +6,8 @@ namespace Romchik38\Site2\Application\Audio\AdminList;
 
 use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
 
+use function is_string;
+
 final class Filter
 {
     public function __construct(
@@ -20,28 +22,28 @@ final class Filter
     public static function fromRequest(array $hash): self
     {
         // Limit
-        $limit = '';
+        $limit    = '';
         $rawLimit = $hash[PaginationInterface::LIMIT_FIELD] ?? '';
         if (is_string($rawLimit)) {
             $limit = $rawLimit;
         }
 
         // Page
-        $page = '';
+        $page    = '';
         $rawPage = $hash[PaginationInterface::PAGE_FIELD] ?? '';
         if (is_string($rawPage)) {
             $page = $rawPage;
         }
 
         // Order By
-        $orderBy = '';
+        $orderBy    = '';
         $rawOrderBy = $hash[PaginationInterface::ORDER_BY_FIELD] ?? '';
         if (is_string($rawOrderBy)) {
             $orderBy = $rawOrderBy;
         }
 
         // Order By Direction
-        $orderByDirection = '';
+        $orderByDirection    = '';
         $rawOrderByDirection = $hash[PaginationInterface::ORDER_BY_DIRECTION_FIELD] ?? '';
         if (is_string($rawOrderByDirection)) {
             $orderByDirection = $rawOrderByDirection;

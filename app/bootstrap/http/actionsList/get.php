@@ -49,6 +49,12 @@ return function (Container $container): ControllerInterface {
     );
     $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
+    $adminAudio = new Controller(
+        'audio',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction')
+    );
+
     $adminUsers = new Controller(
         'users',
         false,
@@ -120,13 +126,14 @@ return function (Container $container): ControllerInterface {
     $adminTranslate->setChild($admintranslateNew);
 
     $admin
-    ->setChild($adminUsers)
+    ->setChild($adminAudio)
     ->setChild($adminArticle)
+    ->setChild($adminAuthor)
     ->setChild($adminImagecache)
     ->setChild($adminImage)
-    ->setChild($adminAuthor)
     ->setChild($adminLanguage)
-    ->setChild($adminTranslate);
+    ->setChild($adminTranslate)
+    ->setChild($adminUsers);
     
     /** REGISTER */
     $register = new Controller(

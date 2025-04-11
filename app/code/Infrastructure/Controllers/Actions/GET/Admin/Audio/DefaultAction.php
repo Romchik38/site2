@@ -17,23 +17,23 @@ use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Audio\AdminList\AdminList;
+use Romchik38\Site2\Application\Audio\AdminList\CouldNotListException;
+use Romchik38\Site2\Application\Audio\AdminList\Filter;
+use Romchik38\Site2\Application\Audio\AudioService\Delete;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
-use Romchik38\Site2\Application\Audio\AdminList\AdminList;
-use Romchik38\Site2\Application\Audio\AdminList\CouldNotListException;
-use Romchik38\Site2\Application\Audio\AdminList\Filter;
-use Romchik38\Site2\Application\Audio\AudioService\Delete;
 
 use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public const ERROR_MESSAGE_KEY = 'server-error.message';
-    
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -54,7 +54,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $command     = Filter::fromRequest($requestData);
 
         try {
-            $filterResult   = $this->audioList->list($command);
+            $filterResult = $this->audioList->list($command);
         } catch (CouldNotListException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin']);
@@ -63,7 +63,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::ERROR_MESSAGE_KEY)
             );
             return new RedirectResponse($uri);
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin']);
             $this->session->setData(
@@ -100,8 +100,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDto(
-            'Translates',
-            'Translates page',
+            'Audios',
+            'Audio list page',
             $audioList,
             $paginationHtml,
             new PaginationForm(

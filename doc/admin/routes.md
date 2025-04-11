@@ -4,6 +4,7 @@
 
 - root login admin          admin login page
 - root admin                admin panel
+- root admin audio          audio list page
 - root admin users          users page
 - root admin image          images page
 - root admin image new      create new image
