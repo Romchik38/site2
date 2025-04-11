@@ -29,7 +29,6 @@ final class Repository implements RepositoryInterface
         $params     = [];
         $paramCount = 0;
 
-        /** @todo use Prepared Statement */
         /** ORDER BY */
         $orderBy = new OrderBy(
             ($searchCriteria->orderByField)(),
