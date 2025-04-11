@@ -12,7 +12,7 @@ final class Translate
     private Content $content;
 
     /** @todo test */
-    public bool $isLoaded = false;
+    public bool $isContentLoaded = false;
 
     public function __construct(
         public readonly Identifier $language,
@@ -20,7 +20,7 @@ final class Translate
     ) {
     }
 
-    /** @todo test */    
+    /** @todo test */
     public function getLanguage(): Identifier
     {
         return $this->language;
@@ -35,7 +35,7 @@ final class Translate
     /** @todo test */
     public function getContent(): ?Content
     {
-        if ($this->isLoaded === true) {
+        if ($this->isContentLoaded === true) {
             return $this->content;
         } else {
             return null;
@@ -45,7 +45,7 @@ final class Translate
     /** @todo test */
     public function loadContent(Content $content): void
     {
-        $this->content  = $content;
-        $this->isLoaded = true;
+        $this->content         = $content;
+        $this->isContentLoaded = true;
     }
 }

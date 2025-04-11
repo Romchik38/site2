@@ -7,7 +7,6 @@ namespace Romchik38\Site2\Domain\Audio;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
 use Romchik38\Site2\Domain\Audio\Entities\Author;
-use Romchik38\Site2\Domain\Audio\Entities\Content;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
@@ -127,23 +126,6 @@ final class Audio
         return array_values($this->translates);
     }
 
-    /** @todo test */
-    public function isLoaded(): bool
-    {
-        foreach($this->languages as $language) {
-            $translate = $this->translates[$language()] ?? null;
-            if ($translate === null) {
-                return false;
-            } else {
-                if ($translate->isLoaded === false) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
@@ -198,7 +180,8 @@ final class Audio
             }
         }
 
-        if ($this->isLoaded() === false) {
+        /** @todo test */
+        if ($this->isContentLoaded() === false) {
             throw new CouldNotChangeActivityException(
                 sprintf('Audio content must be loaded before activation')
             );
@@ -294,5 +277,21 @@ final class Audio
             }
         }
         return $found;
+    }
+
+    private function isContentLoaded(): bool
+    {
+        foreach ($this->languages as $language) {
+            $translate = $this->translates[$language()] ?? null;
+            if ($translate === null) {
+                return false;
+            } else {
+                if ($translate->isContentLoaded === false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
