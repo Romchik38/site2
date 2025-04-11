@@ -2,14 +2,13 @@
 
 ## Current
 
-- audio list
+- audio view
   - application
   - repository
   - action
   - template
 
 - audio
-  - view
   - update
   - new
   - delete
