@@ -44,7 +44,7 @@ final class Image
         private bool $active,
         private Name $name,
         private Author $author,
-        private Path $path,
+        private readonly Path $path,
         array $languages,
         array $articles,
         array $translates
@@ -161,11 +161,6 @@ final class Image
                 );
             }
         }
-    }
-
-    public function changePath(Path $path): void
-    {
-        $this->path = $path;
     }
 
     public function loadContent(Content $content): void

@@ -245,35 +245,6 @@ final class ImageTest extends TestCase
         $this->assertSame(null, $image->getContent());
     }
 
-    public function testChangePath(): void
-    {
-        $name       = new Name('image-name-1');
-        $author     = new Author(
-            new AuthorId('25'),
-            true
-        );
-        $path       = new Path('/images/img1.webp');
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Blue sky')),
-            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
-        ];
-        $image      = Image::create(
-            $name,
-            $author,
-            $path,
-            $languages,
-            $translates
-        );
-
-        $newPath = new Path('/images/houses/img1.webp');
-        $image->changePath($newPath);
-        $this->assertSame($newPath, $image->getPath());
-    }
-
     public function testReName(): void
     {
         $name       = new Name('image-name-1');
