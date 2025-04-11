@@ -8,10 +8,10 @@ use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Audio\Entities\Content;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Description;
+use Romchik38\Site2\Domain\Audio\VO\Path;
 use Romchik38\Site2\Domain\Audio\VO\Size;
 use Romchik38\Site2\Domain\Audio\VO\Type;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Audio\VO\Path;
 
 final class TranslateTest extends TestCase
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Audio\Entities;
 
 use Romchik38\Site2\Domain\Audio\VO\Description;
-use Romchik38\Site2\Domain\Language\VO\Identifier;
 use Romchik38\Site2\Domain\Audio\VO\Path;
+use Romchik38\Site2\Domain\Language\VO\Identifier;
 
 final class Translate
 {
