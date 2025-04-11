@@ -164,73 +164,6 @@ final class AudioTest extends TestCase
         );
     }
 
-    /**
-     * Tested:
-     *  loadContent
-     *  getContent
-     */
-    public function testGetContent(): void
-    {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
-
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
-        ];
-
-        $audio = Audio::create(
-            $name,
-            $author,
-            $languages,
-            $translates
-        );
-
-        $data    = '\x\x1a\x00';
-        $content = new Content(
-            $data,
-            new Type('mp3'),
-            new Size(35200)
-        );
-        $audio->loadContent($content);
-
-        $this->assertSame($content, $audio->getContent());
-    }
-
-    public function testGetContentReturnNull(): void
-    {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
-
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
-        ];
-
-        $audio = Audio::create(
-            $name,
-            $author,
-            $languages,
-            $translates
-        );
-
-        $this->assertSame(null, $audio->getContent());
-    }
-
     public function testReName(): void
     {
         $name   = new Name('audio-name-1');
@@ -393,14 +326,24 @@ final class AudioTest extends TestCase
             true
         );
 
-        $languages  = [
+        $languages   = [
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
-        ];
+        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+
+        $translateEn->loadContent(new Content(
+            '\x1\x00\xa1',
+            new Type('mp3'),
+            new Size(35200)
+        ));
+
+        $translateUk->loadContent(new Content(
+            '\x1\x20\xc4',
+            new Type('mp3'),
+            new Size(31010)
+        ));
 
         $articles = [
             new Article(new ArticleId('article-1'), false),
@@ -413,16 +356,8 @@ final class AudioTest extends TestCase
             $author,
             $articles,
             $languages,
-            $translates
+            [$translateEn, $translateUk]
         );
-
-        $data    = '\x1\x00\xa1';
-        $content = new Content(
-            $data,
-            new Type('mp3'),
-            new Size(35200)
-        );
-        $audio->loadContent($content);
 
         $audio->activate();
         $this->assertSame(true, $audio->isActive());
@@ -437,13 +372,18 @@ final class AudioTest extends TestCase
             true
         );
 
-        $languages  = [
+        $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-        ];
+
+        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
+
+        $translateEn->loadContent(new Content(
+            '\x1\x00\xa1',
+            new Type('mp3'),
+            new Size(35200)
+        ));
 
         $articles = [
             new Article(new ArticleId('article-1'), false),
@@ -456,16 +396,8 @@ final class AudioTest extends TestCase
             $author,
             $articles,
             $languages,
-            $translates
+            [$translateEn]
         );
-
-        $data    = '\x1\x00\xa1';
-        $content = new Content(
-            $data,
-            new Type('mp3'),
-            new Size(35200)
-        );
-        $audio->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);
         $audio->activate();
@@ -479,34 +411,37 @@ final class AudioTest extends TestCase
             true
         );
 
-        $languages  = [
+        $languages   = [
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
-        ];
-        $audio      = Audio::create(
+        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+
+        $translateEn->loadContent(new Content(
+            '\x1\x00\xa1',
+            new Type('mp3'),
+            new Size(35200)
+        ));
+
+        $translateUk->loadContent(new Content(
+            '\x1\x20\xc4',
+            new Type('mp3'),
+            new Size(31010)
+        ));
+
+        $audio = Audio::create(
             $name,
             $author,
             $languages,
-            $translates
+            [$translateEn, $translateUk]
         );
-
-        $data    = '\x1\x00\xa1';
-        $content = new Content(
-            $data,
-            new Type('mp3'),
-            new Size(35200)
-        );
-        $audio->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);
         $audio->activate();
     }
 
-    public function testActivateThrowsErrorImageNotLoaded(): void
+    public function testActivateThrowsErrorContentNotLoaded(): void
     {
         $id     = new Id(1);
         $name   = new Name('audio-name-1');
@@ -551,14 +486,24 @@ final class AudioTest extends TestCase
             false
         );
 
-        $languages  = [
+        $languages   = [
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Some audio track')),
-        ];
+        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+
+        $translateEn->loadContent(new Content(
+            '\x1\x00\xa1',
+            new Type('mp3'),
+            new Size(35200)
+        ));
+
+        $translateUk->loadContent(new Content(
+            '\x1\x20\xc4',
+            new Type('mp3'),
+            new Size(31010)
+        ));
 
         $articles = [
             new Article(new ArticleId('article-1'), false),
@@ -571,16 +516,8 @@ final class AudioTest extends TestCase
             $author,
             $articles,
             $languages,
-            $translates
+            [$translateEn, $translateUk]
         );
-
-        $data    = '\x1\x00\xa1';
-        $content = new Content(
-            $data,
-            new Type('mp3'),
-            new Size(35200)
-        );
-        $audio->loadContent($content);
 
         $this->expectException(CouldNotChangeActivityException::class);
         $audio->activate();

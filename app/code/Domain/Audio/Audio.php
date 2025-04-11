@@ -180,7 +180,6 @@ final class Audio
             }
         }
 
-        /** @todo test */
         if ($this->isContentLoaded() === false) {
             throw new CouldNotChangeActivityException(
                 sprintf('Audio content must be loaded before activation')

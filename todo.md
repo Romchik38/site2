@@ -2,8 +2,6 @@
 
 ## Current
 
-- refactor conten audio model - move to translate
-
 - audio view
   - application
   - repository
