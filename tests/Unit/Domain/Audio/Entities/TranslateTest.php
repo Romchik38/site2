@@ -11,6 +11,7 @@ use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Size;
 use Romchik38\Site2\Domain\Audio\VO\Type;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use Romchik38\Site2\Domain\Audio\VO\Path;
 
 final class TranslateTest extends TestCase
 {
@@ -18,22 +19,26 @@ final class TranslateTest extends TestCase
      * Tested:
      *  - getLanguage
      *  - getDescription
+     *  - getPath
      */
     public function testConstruct(): void
     {
         $description = new Description('some description');
         $language    = new LanguageId('en');
-        $translate   = new Translate($language, $description);
+        $path        = new Path('some/file1.mp3');
+        $translate   = new Translate($language, $description, $path);
 
-        $this->assertSame('some description', (string) $translate->getDescription());
-        $this->assertSame('en', (string) $translate->getLanguage());
+        $this->assertSame($description, $translate->getDescription());
+        $this->assertSame($language, $translate->getLanguage());
+        $this->assertSame($path, $translate->getPath());
     }
 
     public function testGetContentReturnsNull(): void
     {
         $description = new Description('some description');
         $language    = new LanguageId('en');
-        $translate   = new Translate($language, $description);
+        $path        = new Path('some/file1.mp3');
+        $translate   = new Translate($language, $description, $path);
 
         $this->assertSame(null, $translate->getContent());
     }
@@ -48,7 +53,8 @@ final class TranslateTest extends TestCase
     {
         $description = new Description('some description');
         $language    = new LanguageId('en');
-        $translate   = new Translate($language, $description);
+        $path        = new Path('some/file1.mp3');
+        $translate   = new Translate($language, $description, $path);
 
         $content = new Content(
             's01191z+cs',

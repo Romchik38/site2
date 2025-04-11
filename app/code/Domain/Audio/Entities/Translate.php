@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Domain\Audio\Entities;
 
 use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
+use Romchik38\Site2\Domain\Audio\VO\Path;
 
 final class Translate
 {
@@ -15,13 +16,9 @@ final class Translate
 
     public function __construct(
         public readonly Identifier $language,
-        public readonly Description $description
+        public readonly Description $description,
+        private Path $path
     ) {
-    }
-
-    public function getLanguage(): Identifier
-    {
-        return $this->language;
     }
 
     public function getDescription(): Description
@@ -36,6 +33,17 @@ final class Translate
         } else {
             return null;
         }
+    }
+
+    public function getLanguage(): Identifier
+    {
+        return $this->language;
+    }
+
+    /** @todo test */
+    public function getPath(): Path
+    {
+        return $this->path;
     }
 
     public function loadContent(Content $content): void
