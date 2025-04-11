@@ -25,10 +25,6 @@ final class Audio
     /** @var array<int,Article> $articles */
     private readonly array $articles;
 
-    private Content $content;
-
-    private bool $isLoaded = false;
-
     /** @var array<int,LanguageId> $languages */
     private readonly array $languages;
 
@@ -110,15 +106,6 @@ final class Audio
         return $this->author;
     }
 
-    public function getContent(): ?Content
-    {
-        if ($this->isLoaded === true) {
-            return $this->content;
-        } else {
-            return null;
-        }
-    }
-
     public function getId(): ?Id
     {
         return $this->id;
@@ -140,6 +127,23 @@ final class Audio
         return array_values($this->translates);
     }
 
+    /** @todo test */
+    public function isLoaded(): bool
+    {
+        foreach($this->languages as $language) {
+            $translate = $this->translates[$language()] ?? null;
+            if ($translate === null) {
+                return false;
+            } else {
+                if ($translate->isLoaded === false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
@@ -157,12 +161,6 @@ final class Audio
     public function isActive(): bool
     {
         return $this->active;
-    }
-
-    public function loadContent(Content $content): void
-    {
-        $this->content  = $content;
-        $this->isLoaded = true;
     }
 
     public function reName(Name $name): void
@@ -200,7 +198,7 @@ final class Audio
             }
         }
 
-        if ($this->isLoaded === false) {
+        if ($this->isLoaded() === false) {
             throw new CouldNotChangeActivityException(
                 sprintf('Audio content must be loaded before activation')
             );
