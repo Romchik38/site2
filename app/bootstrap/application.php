@@ -49,6 +49,14 @@ return function (Container $container) {
         new Promise('audio-folder-frontend')
     ]);
 
+    // Admin AUDIO LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Audio\AdminList\AdminList',
+        [
+            new Promise('\Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface')
+        ]
+    );
+
     // ADMIN USER CHECK
     $container->shared(
         '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',
