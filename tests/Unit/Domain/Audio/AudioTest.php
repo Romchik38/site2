@@ -16,6 +16,7 @@ use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
+use Romchik38\Site2\Domain\Audio\VO\Path;
 use Romchik38\Site2\Domain\Audio\VO\Size;
 use Romchik38\Site2\Domain\Audio\VO\Type;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
@@ -49,8 +50,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
         $audio      = Audio::create(
             $name,
@@ -88,8 +97,16 @@ final class AudioTest extends TestCase
 
         $languages  = [1, 3];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $this->expectException(InvalidArgumentException::class);
@@ -119,8 +136,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('fr'), new Description('Some audio track')), // Invalid language
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('fr'),
+                new Description('Some audio track'),
+                new Path('/some/file-fr-1.mp3')
+            ), // Invalid language
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $this->expectException(InvalidArgumentException::class);
@@ -151,7 +176,11 @@ final class AudioTest extends TestCase
         ];
         $translates = [
             new stdClass(), // Invalid Translate instance
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $this->expectException(InvalidArgumentException::class);
@@ -177,8 +206,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
         $audio      = Audio::create(
             $name,
@@ -216,8 +253,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -261,8 +306,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -296,8 +349,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -330,8 +391,16 @@ final class AudioTest extends TestCase
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
-        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Description('Some audio track'),
+            new Path('some/file-en-1.mp3')
+        );
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Description('Якийсь аудіо трек'),
+            new Path('some/file-uk-1.mp3')
+        );
 
         $translateEn->loadContent(new Content(
             '\x1\x00\xa1',
@@ -377,7 +446,11 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
 
-        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Description('Some audio track'),
+            new Path('some/file-en-1.mp3')
+        );
 
         $translateEn->loadContent(new Content(
             '\x1\x00\xa1',
@@ -415,8 +488,16 @@ final class AudioTest extends TestCase
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
-        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Description('Some audio track'),
+            new Path('some/file-en-1.mp3')
+        );
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Description('Якийсь аудіо трек'),
+            new Path('some/file-uk-1.mp3')
+        );
 
         $translateEn->loadContent(new Content(
             '\x1\x00\xa1',
@@ -455,8 +536,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Some audio track')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Some audio track'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -490,8 +579,16 @@ final class AudioTest extends TestCase
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-        $translateEn = new Translate(new LanguageId('en'), new Description('Some audio track'));
-        $translateUk = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Description('Some audio track'),
+            new Path('some/file-en-1.mp3')
+        );
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Description('Якийсь аудіо трек'),
+            new Path('some/file-uk-1.mp3')
+        );
 
         $translateEn->loadContent(new Content(
             '\x1\x00\xa1',
@@ -537,7 +634,11 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -554,7 +655,11 @@ final class AudioTest extends TestCase
             $translates
         );
 
-        $addedTranslate = new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек'));
+        $addedTranslate = new Translate(
+            new LanguageId('uk'),
+            new Description('Якийсь аудіо трек'),
+            new Path('some/file-uk-1.mp3')
+        );
         $audio->addTranslate($addedTranslate);
         $this->assertSame($addedTranslate, $audio->getTranslate('uk'));
     }
@@ -573,7 +678,11 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -590,7 +699,11 @@ final class AudioTest extends TestCase
             $translates
         );
 
-        $rewritedTranslate = new Translate(new LanguageId('en'), new Description('Some audio track 1'));
+        $rewritedTranslate = new Translate(
+            new LanguageId('en'),
+            new Description('Some audio track 1'),
+            new Path('some/file-en-1.mp3')
+        );
         $audio->addTranslate($rewritedTranslate);
         $this->assertSame($rewritedTranslate, $audio->getTranslate('en'));
     }
@@ -609,7 +722,11 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -626,7 +743,11 @@ final class AudioTest extends TestCase
             $translates
         );
 
-        $addedTranslate = new Translate(new LanguageId('fr'), new Description('Якийсь аудіо трек'));
+        $addedTranslate = new Translate(
+            new LanguageId('fr'),
+            new Description('Якийсь аудіо трек'),
+            new Path('some/file-fr-1.mp3')
+        );
 
         $this->expectException(InvalidArgumentException::class);
         $audio->addTranslate($addedTranslate);
@@ -646,8 +767,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -682,8 +811,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -718,8 +855,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
@@ -767,8 +912,16 @@ final class AudioTest extends TestCase
             new LanguageId('uk'),
         ];
         $translates = [
-            new Translate(new LanguageId('en'), new Description('Some audio track')),
-            new Translate(new LanguageId('uk'), new Description('Якийсь аудіо трек')),
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
         ];
 
         $articles = [
