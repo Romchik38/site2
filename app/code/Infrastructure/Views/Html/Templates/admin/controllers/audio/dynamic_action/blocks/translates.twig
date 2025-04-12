@@ -1,0 +1,38 @@
+{# 
+    Object          data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction\ViewDto
+    LanguageDto[]   availableLanguages          Romchik38\Site2\Application\Language\ListView\View\LanguageDto
+#}
+
+{% set availableLanguages = data.languages %}
+{% set audio = data.audioDto %}
+{% set translates = audio.translates %}
+<!-- Inside a form -->
+<h2 class="text-center">Translates</h2>
+{% for availableLanguage in availableLanguages  %}
+    {% set availableLanguageVo = availableLanguage.identifier %}
+    {% set description = '' %}
+    {% for translate in translates %}
+        {% set languageVo = translate.language %}
+        {% set descriptionVo = translate.description %}
+        {% if languageVo.__toString() == availableLanguageVo.__toString() %}
+            {% set description = descriptionVo.__toString() %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="form-group p-2 my-2">
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
+                value="{{ availableLanguageVo }}" 
+                hidden
+            >
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
+                value="{{ description }}"
+            >
+        </div>
+    </div>
+{% endfor %}

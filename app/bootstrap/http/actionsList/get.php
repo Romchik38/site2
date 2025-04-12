@@ -52,7 +52,8 @@ return function (Container $container): ControllerInterface {
     $adminAudio = new Controller(
         'audio',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DynamicAction')
     );
 
     $adminUsers = new Controller(

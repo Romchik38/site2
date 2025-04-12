@@ -1,0 +1,27 @@
+<h2 class="text-center">Articles</h2>
+
+{% if articles|length == 0 %}
+    <p>Audio not used in any article</p>
+{% else %}
+    <ul>Audio used in the articles:
+            <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Identifier</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Preview</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}             
+                            <tr>
+                                <th>{{ article }}</th>
+                                <td><a href="#">Edit</a></td>
+                                {% set urlId = article.__toString()|url_encode %}
+                                <td><a href="{{ u.fromArray(['root', 'article', urlId ]) }}" target="_blank">Preview</a></td>
+                            </tr>
+                        {% endfor %}
+                    <tbody>
+            </table>
+    </ul>
+{%  endif %}

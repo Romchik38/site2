@@ -49,11 +49,19 @@ return function (Container $container) {
         new Promise('audio-folder-frontend')
     ]);
 
-    // Admin AUDIO LIST
+    // ADMIN AUDIO LIST
     $container->shared(
         '\Romchik38\Site2\Application\Audio\AdminList\AdminList',
         [
             new Promise('\Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface')
+        ]
+    );
+
+    // ADMIN AUDIO VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Audio\AdminView\AdminView',
+        [
+            new Promise('\Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface')
         ]
     );
 

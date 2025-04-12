@@ -167,8 +167,8 @@ final class Repository implements RepositoryInterface
                         FROM article
                         WHERE article.audio_id = $1
                     ) 
-                ) as articles,
-            FROM audio,
+                ) as articles
+            FROM audio
             WHERE audio.identifier = $1
         QUERY;
     }
