@@ -171,6 +171,14 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
         ]
     );
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminView\Repository',
+        '\Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
 
     // TRANSLATE STORAGE 
     $container->multi(

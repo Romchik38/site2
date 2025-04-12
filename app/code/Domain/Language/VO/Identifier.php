@@ -10,6 +10,7 @@ use function strlen;
 
 final class Identifier
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $id
     ) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Author\AdminView\View;
+namespace Romchik38\Site2\Application\Audio\AdminView\View;
 
 use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Path;

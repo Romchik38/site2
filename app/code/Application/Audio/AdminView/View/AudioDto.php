@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Author\AdminView\View;
+namespace Romchik38\Site2\Application\Audio\AdminView\View;
 
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Audio\VO\Id;
@@ -19,7 +19,7 @@ final class AudioDto
         public readonly bool $active,
         public readonly Name $name,
         public readonly array $articles,
-        public readonly array $translates,
+        public readonly array $translates
     ) {
     }
 }
