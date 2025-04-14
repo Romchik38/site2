@@ -8,31 +8,44 @@
 {% set translates = audio.translates %}
 <!-- Inside a form -->
 <h2 class="text-center">Translates</h2>
-{% for availableLanguage in availableLanguages  %}
-    {% set availableLanguageVo = availableLanguage.identifier %}
-    {% set description = '' %}
-    {% for translate in translates %}
-        {% set languageVo = translate.language %}
-        {% set descriptionVo = translate.description %}
-        {% if languageVo.__toString() == availableLanguageVo.__toString() %}
-            {% set description = descriptionVo.__toString() %}
-        {% endif %}
-    {% endfor %}
 
-    <div class="form-group p-2 my-2">
-        <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
-            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
-                value="{{ availableLanguageVo }}" 
-                hidden
-            >
-        </div>
+<div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Language</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for availableLanguage in availableLanguages  %}
+            {% set availableLanguageVo = availableLanguage.identifier %}
+            {% set break = false %}
+            {% for translate in translates %}
+                {% set languageVo = translate.language %}
+                {% set descriptionVo = translate.description %}
+                {% if languageVo.__toString() == availableLanguageVo.__toString() %}
+                    <!-- translate exust -->
+                    <tr>
+                        <td>{{ languageVo }}</td>
+                        <td>{{ translate.name }}</td>
+                        <td><a href="#">edit</a></td>
+                    </tr>
+                    {% set break = true %}
+                {% else %}
+                    <!-- translate not exust -->
+                     {% if not break %}
+                        <tr>
+                            <td>{{ availableLanguageVo }}</td>
+                            <td colspan="2"><a href="#">add</a></td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
 
-        <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
-            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
-                value="{{ description }}"
-            >
-        </div>
-    </div>
-{% endfor %}
+
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
