@@ -2,14 +2,13 @@
 
 ## Current
 
-- audio view
-  - application
-  - repository
-  - action
-  - template
-
 - audio
   - update
+
+- audio translate
+  - update
+
+- audio
   - new
   - delete
 
