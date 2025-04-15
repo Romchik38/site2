@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ImageCache;
+namespace Romchik38\Site2\Application\ImageCache\ImageCacheService;
 
 use Romchik38\Site2\Domain\ImageCache\ImageCache;
 use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;

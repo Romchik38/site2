@@ -126,7 +126,7 @@ return function (Container $container) {
 
     // IMAGE CACHE
     $container->shared(
-        '\Romchik38\Site2\Application\ImageCache\ImageCacheService',
+        '\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService',
         [
             new Promise('\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface')
         ]
@@ -134,9 +134,9 @@ return function (Container $container) {
 
     // IMAGE CACHE VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService',
+        '\Romchik38\Site2\Application\ImageCache\ImageCacheView\ImageCacheViewService',
         [
-            new Promise('\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewRepositoryInterface')
         ]
     );
  

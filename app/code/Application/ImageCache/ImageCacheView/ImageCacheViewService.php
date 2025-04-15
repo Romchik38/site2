@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ImageCacheView;
+namespace Romchik38\Site2\Application\ImageCache\ImageCacheView;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
-use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewRepositoryInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewDTO;
 
 final class ImageCacheViewService
 {

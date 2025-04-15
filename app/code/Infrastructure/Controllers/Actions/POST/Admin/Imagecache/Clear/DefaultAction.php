@@ -11,7 +11,7 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\ImageCache\ImageCacheService;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface

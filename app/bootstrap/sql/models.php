@@ -104,8 +104,8 @@ return function (Container $container) {
 
     // IMAGE CACHE VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView\ImageCacheViewRepository',
-        '\Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCache\ImageCacheView\ImageCacheViewRepository',
+        '\Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewRepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')

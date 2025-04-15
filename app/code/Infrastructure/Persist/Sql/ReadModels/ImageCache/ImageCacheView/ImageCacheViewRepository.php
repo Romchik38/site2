@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCacheView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCache\ImageCacheView;
 
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
-use Romchik38\Site2\Application\ImageCacheView\RepositoryException;
-use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewDTO;
-use Romchik38\Site2\Application\ImageCacheView\View\ImageCacheViewRepositoryInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewDTO;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\View\ImageCacheViewRepositoryInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\RepositoryException;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;

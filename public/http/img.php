@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
-use Romchik38\Site2\Application\ImageCache\Cache;
-use Romchik38\Site2\Application\ImageCache\ImageCacheService;
-use Romchik38\Site2\Application\ImageCacheView\Find;
-use Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService;
-use Romchik38\Site2\Application\ImageCacheView\NoSuchImageCacheException;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgData;
 use Romchik38\Site2\Application\Image\ImgConverter\StubData;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\Find;
+use Romchik38\Site2\Application\ImageCache\ImageCacheView\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Cache;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
@@ -22,9 +21,9 @@ try {
     /** @var ImgConverterService $imgConverterService */
     $imgConverterService = $container->get('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService');
     /** @var ImageCacheService $imgCacheService */
-    $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService');
+    $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService');
     /** @var ImageCacheViewService $imgCacheViewService */
-    $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCacheView\ImageCacheViewService');
+    $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheView\ImageCacheViewService');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
