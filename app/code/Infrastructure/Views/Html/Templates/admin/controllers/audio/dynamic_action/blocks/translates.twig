@@ -23,28 +23,25 @@
             {% set availableLanguageVo = availableLanguage.identifier %}
             {% set break = false %}
             {% for translate in translates %}
-                {% set languageVo = translate.language %}
+                {% set translateLanguageVo = translate.language %}
                 {% set descriptionVo = translate.description %}
-                {% if languageVo.__toString() == availableLanguageVo.__toString() %}
+                {% if translateLanguageVo.__toString() == availableLanguageVo.__toString() %}
                     <!-- translate exust -->
                     <tr>
-                        <td>{{ languageVo }}</td>
-                        <td>{{ translate.name }}</td>
+                        <td>{{ translateLanguageVo }}</td>
+                        <td>{{ translate.description }}</td>
                         <td><a href="#">edit</a></td>
                     </tr>
                     {% set break = true %}
-                {% else %}
-                    <!-- translate not exust -->
-                     {% if not break %}
-                        <tr>
-                            <td>{{ availableLanguageVo }}</td>
-                            <td colspan="2"><a href="#">add</a></td>
-                        </tr>
-                    {% endif %}
                 {% endif %}
             {% endfor %}
-
-
+            {% if not break %}
+            <!-- @todo tests -->
+               <tr>
+                   <td>{{ availableLanguageVo }}</td>
+                   <td colspan="2"><a href="#">add</a></td>
+               </tr>
+           {% endif %}
         {% endfor %}
       </tbody>
     </table>
