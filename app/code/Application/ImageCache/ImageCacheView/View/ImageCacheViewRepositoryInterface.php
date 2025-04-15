@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\ImageCache\ImageCacheView\View;
 
-use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Application\ImageCache\ImageCacheView\NoSuchImageCacheException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheView\RepositoryException;
+use Romchik38\Site2\Domain\ImageCache\VO\Key;
 
 interface ImageCacheViewRepositoryInterface
 {

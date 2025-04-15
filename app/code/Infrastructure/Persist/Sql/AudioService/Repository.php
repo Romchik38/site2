@@ -1,0 +1,409 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Image;
+
+use InvalidArgumentException;
+use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
+use Romchik38\Site2\Application\Audio\AudioService\RepositoryException;
+use Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface;
+use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Audio\Audio;
+use Romchik38\Site2\Domain\Audio\Entities\Article;
+use Romchik38\Site2\Domain\Audio\Entities\Translate;
+use Romchik38\Site2\Domain\Audio\VO\Description;
+use Romchik38\Site2\Domain\Audio\VO\Id;
+use Romchik38\Site2\Domain\Audio\VO\Name;
+use Romchik38\Site2\Domain\Audio\VO\Path;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+
+use function count;
+use function json_decode;
+use function sprintf;
+
+/** @todo implement */
+final class Repository implements RepositoryInterface
+{
+    public function __construct(
+        private readonly DatabaseSqlInterface $database
+    ) {
+    }
+
+    /** @todo test */
+    public function getById(Id $id): Audio
+    {
+        $query  = $this->getByIdQuery();
+        $params = [$id()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count === 0) {
+            throw new NoSuchAudioException(sprintf(
+                'Audio with id %s not exist',
+                $id()
+            ));
+        }
+        if ($count > 1) {
+            throw new RepositoryException(sprintf(
+                'Audio with id %s has duplicates',
+                $id()
+            ));
+        }
+
+        $row = $rows[0];
+
+        return $this->createModel($id, $row);
+    }
+
+    /** @todo implement */
+    public function deleteById(Id $id): void
+    {
+        $query  = $this->deleteByIdQuery();
+        $params = [$id()];
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
+    /** @todo test */
+    public function save(Audio $model): void
+    {
+        $audioName = $model->getName();
+        $audioId   = $model->getId();
+        if ($audioId === null) {
+            throw new RepositoryException('Audio id is not set');
+        }
+        if ($model->isActive()) {
+            $imageActive = 't';
+        } else {
+            $imageActive = 'f';
+        }
+
+        $query  = $this->mainSaveQuery();
+        $params = [$imageActive, $audioName(), $audioId()];
+
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
+    /** @todo implement */
+    // public function add(Image $model): Image
+    // {
+    //     $modelId   = $model->getId();
+    //     $audioName = $model->getName();
+    //     $authorId  = $model->getAuthor()->id;
+    //     $path      = $model->getPath();
+
+    //     if ($model->isActive()) {
+    //         $imageActive = 't';
+    //     } else {
+    //         $imageActive = 'f';
+    //     }
+
+    //     if ($modelId === null) {
+    //         $mainAddQuery = $this->mainAddQuery();
+    //         $params   = [$imageActive, $audioName(), $authorId(), $path()];
+    //     } else {
+    //         $mainAddQuery = $this->mainAddQueryWithId();
+    //         $params   = [$modelId(), $imageActive, $audioName(), $authorId(), $path()];
+    //     }
+
+    //     $translates = $model->getTranslates();
+
+    //     try {
+    //         $this->database->transactionStart();
+    //         $rows = $this->database->transactionQueryParams(
+    //             $mainAddQuery,
+    //             $params
+    //         );
+    //         if (count($rows) !== 1) {
+    //             throw new RepositoryException('Result must return 1 row with id while adding new image');
+    //         }
+    //         $row        = $rows[0];
+    //         $rawImageId = $row['identifier'] ?? null;
+    //         if ($rawImageId === null) {
+    //             throw new RepositoryException('Param id is invalid while adding new image');
+    //         }
+    //         $audioId = Id::fromString($rawImageId);
+    //         foreach ($translates as $translate) {
+    //             $this->database->transactionQueryParams(
+    //                 $this->translatesSaveQueryInsert(),
+    //                 [
+    //                     $audioId(),
+    //                     (string) $translate->getLanguage(),
+    //                     (string) $translate->getDescription(),
+    //                 ]
+    //             );
+    //         }
+    //         $this->database->transactionEnd();
+    //     } catch (DatabaseTransactionException $e) {
+    //         try {
+    //             $this->database->transactionRollback();
+    //             throw new RepositoryException($e->getMessage());
+    //         } catch (DatabaseTransactionException $e2) {
+    //             throw new RepositoryException($e2->getMessage());
+    //         }
+    //     } catch (QueryException $e) {
+    //         try {
+    //             $this->database->transactionRollback();
+    //             throw new RepositoryException($e->getMessage());
+    //         } catch (DatabaseTransactionException $e2) {
+    //             throw new RepositoryException($e2->getMessage());
+    //         }
+    //     } catch (RepositoryException $e) {
+    //         try {
+    //             $this->database->transactionRollback();
+    //             throw new RepositoryException($e->getMessage());
+    //         } catch (DatabaseTransactionException $e2) {
+    //             throw new RepositoryException($e2->getMessage());
+    //         }
+    //     } catch (InvalidArgumentException $e) {
+    //         try {
+    //             $this->database->transactionRollback();
+    //             throw new RepositoryException($e->getMessage());
+    //         } catch (DatabaseTransactionException $e2) {
+    //             throw new RepositoryException($e2->getMessage());
+    //         }
+    //     }
+
+    //     return $this->getById($audioId);
+    // }
+
+    /**
+     * @param array<string,string> $row
+     * @throws InvalidArgumentException
+     * @throws RepositoryException
+     * */
+    private function createModel(Id $id, array $row): Audio
+    {
+        $rawActive = $row['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Audio active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        $rawName = $row['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Audio name is invalid');
+        }
+
+        $rawLanguages = $row['languages'] ?? null;
+        if ($rawLanguages === null) {
+            throw new RepositoryException('Audio languages param is invalid');
+        }
+        $languages = $this->createLanguages($rawLanguages);
+
+        $articles = $this->createArticles($id);
+
+        // ->
+        $translates = $this->createTranslates($id);
+
+        return Audio::load(
+            $id,
+            $active,
+            new Name($rawName),
+            $articles,
+            $languages,
+            $translates
+        );
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,Translate>
+     * */
+    private function createTranslates(Id $id): array
+    {
+        $query  = $this->translatesQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $translates = [];
+        foreach ($rows as $row) {
+            $rawDescription = $row['description'] ?? null;
+            if ($rawDescription === null) {
+                throw new RepositoryException('Image translate description is invalid');
+            }
+            $rawLanguage = $row['language'] ?? null;
+            if ($rawLanguage === null) {
+                throw new RepositoryException('Image translate language is invalid');
+            }
+            $rawPath = $row['path'] ?? null;
+            if ($rawPath === null) {
+                throw new RepositoryException('Audio translate path is invalid');
+            }
+            $translates[] = new Translate(
+                new LanguageId($rawLanguage),
+                new Description($rawDescription),
+                new Path($rawPath)
+            );
+        }
+        return $translates;
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,Article>
+     */
+    protected function createArticles(Id $id): array
+    {
+        $query  = $this->articlesQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $articles = [];
+        foreach ($rows as $row) {
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Audio article identifier is invalid');
+            }
+            $rawActive = $row['active'] ?? null;
+            if ($rawActive === null) {
+                throw new RepositoryException('Audio article active is invalid');
+            }
+            if ($rawActive === 't') {
+                $active = true;
+            } else {
+                $active = false;
+            }
+            $articles[] = new Article(
+                new ArticleId($rawIdentifier),
+                $active
+            );
+        }
+        return $articles;
+    }
+
+    /**
+     * @param string $rawLanguages - Json encoded array of strings
+     * @return array<int,LanguageId>
+     */
+    protected function createLanguages(string $rawLanguages): array
+    {
+        $decodedLanguages = json_decode($rawLanguages);
+
+        $data = [];
+        foreach ($decodedLanguages as $language) {
+            $data[] = new LanguageId($language);
+        }
+        return $data;
+    }
+
+    private function getByIdQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT audio.active,
+                audio.name,
+                array_to_json (
+                    array (SELECT language.identifier 
+                        FROM language
+                    ) 
+                ) as languages
+            FROM audio
+            WHERE img.identifier = $1
+        QUERY;
+    }
+
+    private function articlesQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT article.identifier,
+                article.active
+            FROM article
+            WHERE article.audio_id = $1
+        QUERY;
+    }
+
+    private function translatesQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT audio_translates.language,
+                audio_translates.description,
+                audio_translates.path
+            FROM audio_translates
+            WHERE audio_translates.audio_id = $1
+        QUERY;
+    }
+
+    private function mainSaveQuery(): string
+    {
+        return <<<'QUERY'
+            UPDATE audio
+            SET active = $1,
+                name = $2
+            WHERE audio.identifier = $3
+        QUERY;
+    }
+
+    /** @todo usage */
+    protected function translatesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM img_translates 
+        WHERE img_id = $1
+        QUERY;
+    }
+
+    /** @todo usage */
+    protected function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO img_translates (img_id, language, description)
+            VALUES ($1, $2, $3)
+        QUERY;
+    }
+
+    /** @todo usage */
+    private function mainAddQuery(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO img (active, name, author_id, path)
+                VALUES ($1, $2, $3, $4)
+                RETURNING identifier
+        QUERY;
+    }
+
+    /** @todo usage */
+    private function mainAddQueryWithId(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO img (identifier, active, name, author_id, path)
+                VALUES ($1, $2, $3, $4, $5)
+                RETURNING identifier
+        QUERY;
+    }
+
+    /** @todo usage */
+    private function deleteByIdQuery(): string
+    {
+        return <<<'QUERY'
+            DELETE FROM img WHERE identifier = $1
+        QUERY;
+    }
+}
