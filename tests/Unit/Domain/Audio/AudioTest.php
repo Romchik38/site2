@@ -10,7 +10,6 @@ use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
-use Romchik38\Site2\Domain\Audio\Entities\Author;
 use Romchik38\Site2\Domain\Audio\Entities\Content;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Description;
@@ -19,7 +18,6 @@ use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Audio\VO\Path;
 use Romchik38\Site2\Domain\Audio\VO\Size;
 use Romchik38\Site2\Domain\Audio\VO\Type;
-use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use stdClass;
 
@@ -30,7 +28,6 @@ final class AudioTest extends TestCase
     /**
      * Tested:
      *   create
-     *   getAuthor
      *   getId
      *   getName
      *   getTranslate
@@ -39,11 +36,7 @@ final class AudioTest extends TestCase
      */
     public function testCreate(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -63,14 +56,12 @@ final class AudioTest extends TestCase
         ];
         $audio      = Audio::create(
             $name,
-            $author,
             $languages,
             $translates
         );
 
         $this->assertSame(null, $audio->getId());
         $this->assertSame('audio-name-1', (string) $audio->getName());
-        $this->assertSame($author, $audio->getAuthor());
 
         $translates = $audio->getTranslates();
         $this->assertSame(2, count($translates));
@@ -89,11 +80,7 @@ final class AudioTest extends TestCase
       */
     public function testCreateThrowsErrorInvalidLanguages(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages  = [1, 3];
         $translates = [
@@ -113,7 +100,6 @@ final class AudioTest extends TestCase
 
         Audio::create(
             $name,
-            $author,
             $languages,
             $translates
         );
@@ -125,11 +111,7 @@ final class AudioTest extends TestCase
      */
     public function testCreateThrowsErrorInvalidTranslateLanguage(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -152,7 +134,6 @@ final class AudioTest extends TestCase
 
         Audio::create(
             $name,
-            $author,
             $languages,
             $translates
         );
@@ -164,11 +145,7 @@ final class AudioTest extends TestCase
      */
     public function testCreateThrowsErrorInvalidTranslate(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -187,7 +164,6 @@ final class AudioTest extends TestCase
 
         Audio::create(
             $name,
-            $author,
             $languages,
             $translates
         );
@@ -195,11 +171,7 @@ final class AudioTest extends TestCase
 
     public function testReName(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -219,7 +191,6 @@ final class AudioTest extends TestCase
         ];
         $audio      = Audio::create(
             $name,
-            $author,
             $languages,
             $translates
         );
@@ -235,18 +206,13 @@ final class AudioTest extends TestCase
      *   getId
      *   isActive
      *   getName
-     *   getAuthor
      *   getArticles
      *   getTranslates
      */
     public function testLoad(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -273,7 +239,6 @@ final class AudioTest extends TestCase
             $id,
             true,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -285,7 +250,6 @@ final class AudioTest extends TestCase
         $this->assertSame($id, $audio->getId());
         $this->assertSame(true, $audio->isActive());
         $this->assertSame($name, $audio->getName());
-        $this->assertSame($author, $audio->getAuthor());
         $this->assertSame($articles, $audio->getArticles());
         $this->assertSame(2, count($audio->getTranslates()));
         $this->assertSame('Some audio track', (string) $t1->getDescription());
@@ -294,12 +258,8 @@ final class AudioTest extends TestCase
 
     public function testLoadActiveArticleAndNotActiveImage(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -328,7 +288,6 @@ final class AudioTest extends TestCase
             $id,
             false, // wrong
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -337,12 +296,8 @@ final class AudioTest extends TestCase
 
     public function testLoadThrowsErrorInvalidArticle(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -371,7 +326,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -380,12 +334,8 @@ final class AudioTest extends TestCase
 
     public function testActivate(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages   = [
             new LanguageId('en'),
@@ -422,7 +372,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             [$translateEn, $translateUk]
@@ -434,12 +383,8 @@ final class AudioTest extends TestCase
 
     public function testActivateThrowsErrorOnMissingTranslate(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages = [
             new LanguageId('en'),
@@ -466,7 +411,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             [$translateEn]
@@ -478,11 +422,7 @@ final class AudioTest extends TestCase
 
     public function testActivateThrowsErrorOnCreate(): void
     {
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $name = new Name('audio-name-1');
 
         $languages   = [
             new LanguageId('en'),
@@ -513,7 +453,6 @@ final class AudioTest extends TestCase
 
         $audio = Audio::create(
             $name,
-            $author,
             $languages,
             [$translateEn, $translateUk]
         );
@@ -524,12 +463,8 @@ final class AudioTest extends TestCase
 
     public function testActivateThrowsErrorContentNotLoaded(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -556,7 +491,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -566,68 +500,10 @@ final class AudioTest extends TestCase
         $audio->activate();
     }
 
-    public function testActivateThrowsErrorAuthorNotActive(): void
-    {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            false
-        );
-
-        $languages   = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translateEn = new Translate(
-            new LanguageId('en'),
-            new Description('Some audio track'),
-            new Path('some/file-en-1.mp3')
-        );
-        $translateUk = new Translate(
-            new LanguageId('uk'),
-            new Description('Якийсь аудіо трек'),
-            new Path('some/file-uk-1.mp3')
-        );
-
-        $translateEn->loadContent(new Content(
-            '\x1\x00\xa1',
-            new Type('mp3'),
-            new Size(35200)
-        ));
-
-        $translateUk->loadContent(new Content(
-            '\x1\x20\xc4',
-            new Type('mp3'),
-            new Size(31010)
-        ));
-
-        $articles = [
-            new Article(new ArticleId('article-1'), false),
-        ];
-
-        $audio = Audio::load(
-            $id,
-            false,
-            $name,
-            $author,
-            $articles,
-            $languages,
-            [$translateEn, $translateUk]
-        );
-
-        $this->expectException(CouldNotChangeActivityException::class);
-        $audio->activate();
-    }
-
     public function testAddTranslateWithNonExistingLanguage(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -649,7 +525,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -666,12 +541,8 @@ final class AudioTest extends TestCase
 
     public function testAddTranslateRewriteExisting(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -693,7 +564,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -710,12 +580,8 @@ final class AudioTest extends TestCase
 
     public function testAddTranslateThrowsErrorOnWrongLanguage(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -737,7 +603,6 @@ final class AudioTest extends TestCase
             $id,
             false,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -755,12 +620,8 @@ final class AudioTest extends TestCase
 
     public function testDeactivate(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -787,7 +648,6 @@ final class AudioTest extends TestCase
             $id,
             true,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -799,12 +659,8 @@ final class AudioTest extends TestCase
 
     public function testDeactivateThrowsErrorOnExistingActiveArticle(): void
     {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
 
         $languages  = [
             new LanguageId('en'),
@@ -831,7 +687,6 @@ final class AudioTest extends TestCase
             $id,
             true,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
@@ -839,119 +694,5 @@ final class AudioTest extends TestCase
 
         $this->expectException(CouldNotChangeActivityException::class);
         $audio->deactivate();
-    }
-
-    public function testChangeAuthorWhenActive(): void
-    {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
-
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(
-                new LanguageId('en'),
-                new Description('Some audio track'),
-                new Path('some/file-en-1.mp3')
-            ),
-            new Translate(
-                new LanguageId('uk'),
-                new Description('Якийсь аудіо трек'),
-                new Path('some/file-uk-1.mp3')
-            ),
-        ];
-
-        $articles = [
-            new Article(new ArticleId('article-1'), false),
-        ];
-
-        $audio = Audio::load(
-            $id,
-            true,
-            $name,
-            $author,
-            $articles,
-            $languages,
-            $translates
-        );
-
-        // 1. Success
-        $newAuthor = new Author(
-            new AuthorId('26'),
-            true
-        );
-        $audio->changeAuthor($newAuthor);
-        $this->assertSame($newAuthor, $audio->getAuthor());
-
-        // 2. Exception
-        $newAuthor2 = new Author(
-            new AuthorId('27'),
-            false
-        );
-        $this->expectException(InvalidArgumentException::class);
-        $audio->changeAuthor($newAuthor2);
-    }
-
-    public function testChangeAuthorWhenNonActive(): void
-    {
-        $id     = new Id(1);
-        $name   = new Name('audio-name-1');
-        $author = new Author(
-            new AuthorId('25'),
-            true
-        );
-
-        $languages  = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-        $translates = [
-            new Translate(
-                new LanguageId('en'),
-                new Description('Some audio track'),
-                new Path('some/file-en-1.mp3')
-            ),
-            new Translate(
-                new LanguageId('uk'),
-                new Description('Якийсь аудіо трек'),
-                new Path('some/file-uk-1.mp3')
-            ),
-        ];
-
-        $articles = [
-            new Article(new ArticleId('article-1'), false),
-        ];
-
-        $audio = Audio::load(
-            $id,
-            false,
-            $name,
-            $author,
-            $articles,
-            $languages,
-            $translates
-        );
-
-        // 1. Success
-        $newAuthor = new Author(
-            new AuthorId('26'),
-            true
-        );
-        $audio->changeAuthor($newAuthor);
-        $this->assertSame($newAuthor, $audio->getAuthor());
-
-        // 2. Also success
-        $newAuthor2 = new Author(
-            new AuthorId('27'),
-            false
-        );
-        $audio->changeAuthor($newAuthor2);
-        $this->assertSame($newAuthor2, $audio->getAuthor());
     }
 }

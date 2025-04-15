@@ -6,7 +6,6 @@ namespace Romchik38\Site2\Domain\Audio;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
-use Romchik38\Site2\Domain\Audio\Entities\Author;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
@@ -40,7 +39,6 @@ final class Audio
         private ?Id $id,
         private bool $active,
         private Name $name,
-        private Author $author,
         array $articles,
         array $languages,
         array $translates
@@ -78,31 +76,10 @@ final class Audio
         }
     }
 
-    /** @throws InvalidArgumentException */
-    public function changeAuthor(Author $author): void
-    {
-        if ($this->active === false) {
-            $this->author = $author;
-        } else {
-            if ($author->active === true) {
-                $this->author = $author;
-            } else {
-                throw new InvalidArgumentException(
-                    'param audio author is not active, activate it first'
-                );
-            }
-        }
-    }
-
     /** @return array<int,Article> */
     public function getArticles(): array
     {
         return $this->articles;
-    }
-
-    public function getAuthor(): Author
-    {
-        return $this->author;
     }
 
     public function getId(): ?Id
@@ -154,7 +131,6 @@ final class Audio
      * @todo
      * - Requirements to become active:
      *   - id is set
-     *   - author is active
      * @throws CouldNotChangeActivityException
      * */
     public function activate(): void
@@ -183,12 +159,6 @@ final class Audio
         if ($this->isContentLoaded() === false) {
             throw new CouldNotChangeActivityException(
                 sprintf('Audio content must be loaded before activation')
-            );
-        }
-
-        if ($this->author->active === false) {
-            throw new CouldNotChangeActivityException(
-                'Audio author is not active, activate it first'
             );
         }
 
@@ -223,7 +193,6 @@ final class Audio
      * */
     public static function create(
         Name $name,
-        Author $author,
         array $languages,
         array $translates = []
     ): self {
@@ -231,7 +200,6 @@ final class Audio
             null,
             false,
             $name,
-            $author,
             [],
             $languages,
             $translates
@@ -248,7 +216,6 @@ final class Audio
         Id $id,
         bool $active,
         Name $name,
-        Author $author,
         array $articles,
         array $languages,
         array $translates
@@ -257,7 +224,6 @@ final class Audio
             $id,
             $active,
             $name,
-            $author,
             $articles,
             $languages,
             $translates
