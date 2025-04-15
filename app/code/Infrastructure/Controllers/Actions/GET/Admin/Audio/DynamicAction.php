@@ -41,7 +41,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListViewService $languageService,
         private readonly LoggerServerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly string $audioPathPrefix
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -88,7 +89,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::CHANGE_ACTIVITY_FIELD,
             Update::CHANGE_ACTIVITY_YES_FIELD,
             Update::CHANGE_ACTIVITY_NO_FIELD,
-            $languages
+            $languages,
+            $this->audioPathPrefix
         );
 
         $html = $this->view

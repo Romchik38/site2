@@ -6,6 +6,7 @@
 {% set availableLanguages = data.languages %}
 {% set audio = data.audioDto %}
 {% set translates = audio.translates %}
+{% set audioPathPrefix = data.audioPathPrefix %}
 <!-- Inside a form -->
 <h2 class="text-center">Translates</h2>
 
@@ -32,11 +33,7 @@
                         <td>{{ translateLanguageVo }}</td>
                         <td>{{ translate.description }}</td>
                         <td>
-							<audio 
-                        	        src="{{ '/media/audio' ~ '/' ~ translate.path }}" 
-                        	        controls
-                        	        crossorigin="anonymous">{{ translate.description }}
-							</audio>
+							<audio src="{{ audioPathPrefix ~ '/' ~ translate.path }}" controls crossorigin="anonymous">{{ translate.description }}</audio>
                         </td>
                         <td><a href="#">edit</a></td>
                     </tr>
