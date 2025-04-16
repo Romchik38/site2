@@ -105,17 +105,17 @@ final class Repository implements RepositoryInterface
         $audioName = $model->getName();
 
         if ($model->isActive()) {
-            $imageActive = 't';
+            $audioActive = 't';
         } else {
-            $imageActive = 'f';
+            $audioActive = 'f';
         }
 
         if ($modelId === null) {
             $mainAddQuery = $this->mainAddQuery();
-            $params       = [$imageActive, $audioName()];
+            $params       = [$audioActive, $audioName()];
         } else {
             $mainAddQuery = $this->mainAddQueryWithId();
-            $params       = [$modelId(), $imageActive, $audioName()];
+            $params       = [$modelId(), $audioActive, $audioName()];
         }
 
         $translates = $model->getTranslates();

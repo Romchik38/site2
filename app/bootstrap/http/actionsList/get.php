@@ -55,6 +55,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DynamicAction')
     );
+    $adminAudioNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\New\DefaultAction'),
+        null,
+        'audio_new'
+    );
+    $adminAudio->setChild($adminAudioNew);
 
     $adminUsers = new Controller(
         'users',

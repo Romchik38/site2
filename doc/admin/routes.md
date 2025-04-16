@@ -5,6 +5,7 @@
 - root login admin          admin login page
 - root admin                admin panel
 - root admin audio          audio list page
+- root admin audio new      create new audio
 - root admin users          users page
 - root admin image          images page
 - root admin image new      create new image
@@ -22,6 +23,7 @@
 - root auth admin               admin authentication
 - root admin logout             admin logout
 - root admin api userinfo       admin userinfo api point
+- root admin audio new          create new audio
 - root admin audio update       update audio
 - root admin author delete      delete author
 - root admin author new         create author

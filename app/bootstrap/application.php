@@ -63,6 +63,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
         ]
     );
 

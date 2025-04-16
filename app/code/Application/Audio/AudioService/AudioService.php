@@ -12,6 +12,8 @@ use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
 
+use function sprintf;
+
 final class AudioService
 {
     public function __construct(
@@ -49,7 +51,14 @@ final class AudioService
             throw new CouldNotCreateException($e->getMessage());
         }
 
-        return $addedModel->getId();
+        $addedId = $addedModel->getId();
+        if ($addedId === null) {
+            throw new CouldNotCreateException(sprintf(
+                'Model id for audio with name %s not updated',
+                $name()
+            ));
+        }
+        return $addedId;
     }
 
     /**

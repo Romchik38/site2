@@ -12,7 +12,7 @@
 
 <div class="col-12">
     <table class="table">
-      <thead>
+      <thead class="table-secondary">
         <tr>
           <th scope="col">Language</th>
           <th scope="col">Name</th>
@@ -29,7 +29,7 @@
                 {% set descriptionVo = translate.description %}
                 {% if translateLanguageVo.__toString() == availableLanguageVo.__toString() %}
                     <!-- translate exust -->
-                    <tr>
+                    <tr class="table-success">
                         <td>{{ translateLanguageVo }}</td>
                         <td>{{ translate.description }}</td>
                         <td>
@@ -41,10 +41,11 @@
                 {% endif %}
             {% endfor %}
             {% if not break %}
-            <!-- @todo tests -->
-               <tr>
+               <tr class="table-danger">
                    <td>{{ availableLanguageVo }}</td>
-                   <td colspan="3"><a href="#">add</a></td>
+                   <td>-</td>
+                   <td>-</td>
+                   <td><a href="#">add</a></td>
                </tr>
            {% endif %}
         {% endfor %}

@@ -141,7 +141,19 @@ return function (Container $container) {
         ]
     );
     
-     // Admin Login
+    // ADMIN AUDIO NEW 
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+        ]
+    );
+
+    // Admin Login
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction',
         [
@@ -365,46 +377,20 @@ return function (Container $container) {
         ]
     );
 
-    // Auth Admin
+    // Admin Api
+    // Userinfo
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
-        ]
-    );
-
-    // Auth
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-        ]
-    );
-    
-    // Logout
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
         ]
     );
 
-    // Admin Audio Update
+    // ADMIN AUDIO NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -416,68 +402,17 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Logout
+    // ADMIN AUDIO UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-        ]
-    );
-
-    // Admin Image Update
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
+            new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
-        ]
-    );
-
-    // Admin image new
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
-        ]
-    );
-
-    // Admin Image Delete
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
-        ]
-    );
-
-    // Admin Image Cache Clear
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),            
         ]
     );
 
@@ -523,7 +458,72 @@ return function (Container $container) {
         ]
     );
 
-    // TRANSLATE UPDATE
+    // Admin Image Update
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
+    );
+
+    // Admin image new
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
+    );
+    
+    // Admin Image Delete
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+        ]
+    );
+
+    // Admin Image Cache Clear
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+        ]
+    );
+    
+    // Admin Logout
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+        ]
+    );
+
+    // ADMIN TRANSLATE UPDATE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Update\DefaultAction',
         [
@@ -537,7 +537,7 @@ return function (Container $container) {
         ]
     );
 
-    // TRANSLATE NEW
+    // ADMIN TRANSLATE NEW
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\New\DefaultAction',
         [
@@ -551,7 +551,7 @@ return function (Container $container) {
         ]
     );
 
-    // TRANSLATE DELETE
+    // ADMIN TRANSLATE DELETE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Delete\DefaultAction',
         [
@@ -565,16 +565,42 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Api
-    // Userinfo
+    // Auth Admin
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
         ]
     );
 
+    // Auth
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+        ]
+    );
+    
+    // Logout
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
+        ]
+    );
+    
     return $container;
 };

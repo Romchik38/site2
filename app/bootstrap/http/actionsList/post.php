@@ -66,8 +66,17 @@ return function (Container $container): ControllerInterface {
         null,
         'audio_update'
     );
+    $adminAudioNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\New\DefaultAction'),
+        null,
+        'audio_new'
+    );
     $adminAudio->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
-    $adminAudio->setChild($adminAudioUpdate);
+    $adminAudio
+    ->setChild($adminAudioNew)
+    ->setChild($adminAudioUpdate);
 
     // Admin Author
     $adminAuthor = new Controller('author');

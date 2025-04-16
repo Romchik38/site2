@@ -1,11 +1,11 @@
 <h2 class="text-center">Articles</h2>
 
 {% if articles|length == 0 %}
-    <p>Audio not used in any article</p>
+    <p class="text-danger">Audio not used in any article.</p>
 {% else %}
     <ul>Audio used in the articles:
             <table class="table table-bordered">
-                    <thead>
+                    <thead class="table-secondary">
                         <tr>
                             <th scope="col">Identifier</th>
                             <th scope="col">Edit</th>
@@ -14,7 +14,7 @@
                     </thead>
                     <tbody>
                         {% for article in articles %}             
-                            <tr>
+                            <tr class="table-success">
                                 <th>{{ article }}</th>
                                 <td><a href="#">Edit</a></td>
                                 {% set urlId = article.__toString()|url_encode %}
