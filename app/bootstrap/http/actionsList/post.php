@@ -48,14 +48,6 @@ return function (Container $container): ControllerInterface {
     $admin = new Controller('admin');
     $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
-    $adminLogout = new Controller(
-        'logout',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction'),
-        null,
-        'admin_logout'
-    );
-
     // Admin Api
     $adminApi = new Controller('api');
     $adminApiUserunfo = new Controller(
@@ -65,6 +57,47 @@ return function (Container $container): ControllerInterface {
     );
     $adminApi->setChild($adminApiUserunfo);
 
+    // Admin Audio
+    $adminAudio = new Controller('audio');
+    $adminAudioUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update\DefaultAction'),
+        null,
+        'audio_update'
+    );
+    $adminAudio->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    $adminAudio->setChild($adminAudioUpdate);
+
+    // Admin Author
+    $adminAuthor = new Controller('author');
+    $adminAuthorUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction'),
+        null,
+        'author_update'
+    );
+    $adminAuthorNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction'),
+        null,
+        'author_new'
+    );
+    $adminAuthorDelete = new Controller(
+        'delete',
+        false,
+        $container->get('Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction'),
+        null,
+        'author_delete'
+    );
+    $adminAuthor
+    ->setChild($adminAuthorUpdate)
+    ->setChild($adminAuthorNew)
+    ->setChild($adminAuthorDelete)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    
     // Admin Image
     $adminImage = new Controller('image');
     $adminImageUpdate = new Controller(
@@ -104,35 +137,16 @@ return function (Container $container): ControllerInterface {
     $adminImagecacheClear->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminImagecache->setChild($adminImagecacheClear);
 
-    // Admin Author
-    $adminAuthor = new Controller('author');
-    $adminAuthorUpdate = new Controller(
-        'update',
+    // Admin Logout
+    $adminLogout = new Controller(
+        'logout',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction'),
         null,
-        'author_update'
+        'admin_logout'
     );
-    $adminAuthorNew = new Controller(
-        'new',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction'),
-        null,
-        'author_new'
-    );
-    $adminAuthorDelete = new Controller(
-        'delete',
-        false,
-        $container->get('Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction'),
-        null,
-        'author_delete'
-    );
-    $adminAuthor
-    ->setChild($adminAuthorUpdate)
-    ->setChild($adminAuthorNew)
-    ->setChild($adminAuthorDelete)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
-
+    
+    // Admin Translate
     $adminTranslate = new Controller('translate');
     $adminTranslateUpdate = new Controller(
         'update',
@@ -163,9 +177,10 @@ return function (Container $container): ControllerInterface {
 
     $admin->setChild($adminLogout)
     ->setChild($adminApi)
-    ->setChild( $adminImage)
-    ->setChild($adminImagecache)
+    ->setChild($adminAudio)
     ->setChild($adminAuthor)
+    ->setChild($adminImage)
+    ->setChild($adminImagecache)
     ->setChild($adminTranslate);
 
     $root->setChild($auth)

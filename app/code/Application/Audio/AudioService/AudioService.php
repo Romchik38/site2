@@ -36,6 +36,7 @@ final class AudioService
         $name = new Name($command->name);
         $model->reName($name);
 
+        /** @todo diactivate on test audio */
         // activity
         if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
             if ($model->isActive()) {

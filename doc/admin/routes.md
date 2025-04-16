@@ -22,13 +22,14 @@
 - root auth admin               admin authentication
 - root admin logout             admin logout
 - root admin api userinfo       admin userinfo api point
+- root admin audio update       update audio
+- root admin author delete      delete author
+- root admin author new         create author
+- root admin author update      save existing author
 - root admin image update       update image
 - root admin image new          create new image
 - root admin image delete       delete image
 - root admin imagecache clear   clear image cache
-- root admin author delete      delete author
-- root admin author new         create author
-- root admin author update      save existing author
 - root admin translate update   save existing translate
 - root admin translate new      translate create new
 - root admin translate delete   delete existing translate

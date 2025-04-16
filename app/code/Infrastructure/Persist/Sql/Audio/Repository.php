@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\AudioService;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Audio;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
@@ -83,13 +83,13 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Audio id is not set');
         }
         if ($model->isActive()) {
-            $imageActive = 't';
+            $audioActive = 't';
         } else {
-            $imageActive = 'f';
+            $audioActive = 'f';
         }
 
         $query  = $this->mainSaveQuery();
-        $params = [$imageActive, $audioName(), $audioId()];
+        $params = [$audioActive, $audioName(), $audioId()];
 
         try {
             $this->database->queryParams($query, $params);
@@ -243,11 +243,11 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $rawDescription = $row['description'] ?? null;
             if ($rawDescription === null) {
-                throw new RepositoryException('Image translate description is invalid');
+                throw new RepositoryException('Audio translate description is invalid');
             }
             $rawLanguage = $row['language'] ?? null;
             if ($rawLanguage === null) {
-                throw new RepositoryException('Image translate language is invalid');
+                throw new RepositoryException('Audio translate language is invalid');
             }
             $rawPath = $row['path'] ?? null;
             if ($rawPath === null) {
@@ -326,7 +326,7 @@ final class Repository implements RepositoryInterface
                     ) 
                 ) as languages
             FROM audio
-            WHERE img.identifier = $1
+            WHERE audio.identifier = $1
         QUERY;
     }
 

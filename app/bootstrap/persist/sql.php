@@ -182,7 +182,7 @@ return function (Container $container) {
 
     // AUDIO AUDIOSERVICE
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\AudioService\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Audio\Repository',
         '\Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface',
         true,
         [
