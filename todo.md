@@ -2,14 +2,16 @@
 
 ## Current
 
-- audio
-  - update
+- audio translate view
+  - application
+  - repository
+  - action
+  - template
 
-- audio translate
-  - update
-
 - audio
-  - new
+  - translate create
+  - translate update
+  - translate delete
   - delete
 
 - move config to const
