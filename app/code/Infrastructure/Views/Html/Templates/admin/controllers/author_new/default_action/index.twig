@@ -11,11 +11,11 @@
         <h1 class="text-center">Author new page</h1>
         <p>On this page you can create a new author. Please fill information below.</p>
         <!-- Form -->
-        <form action="{{ saveUrl }}" method="post">
+        <form action="{{ newUrl }}" method="post">
             <div class="form-group mb-2 p-2">
                 <div class="mb-3">
                     <label class="form-label" for="{{ data.nameFiled }}">Name</label>
-                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required>
                 </div>
             </div>
             <div class="form-group p-2">
