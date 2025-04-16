@@ -39,21 +39,30 @@ return function (Container $container) {
 
     $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory', [
         new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
-        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
+        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
     ]);
     
     $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [
         new Promise('img-folder-frontend')
     ]);
     $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory', [
-        new Promise('audio-folder-frontend')
+        new Promise('audio-folder-frontend'),
     ]);
 
     // ADMIN AUDIO LIST
     $container->shared(
         '\Romchik38\Site2\Application\Audio\AdminList\AdminList',
         [
-            new Promise('\Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface'),
+        ]
+    );
+
+    // admin audio SERVICE
+    $container->shared(
+        '\Romchik38\Site2\Application\Audio\AudioService\AudioService',
+        [
+            new Promise('\Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface'),
         ]
     );
 

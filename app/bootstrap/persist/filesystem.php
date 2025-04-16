@@ -6,6 +6,17 @@ use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
 
 return function (Container $container) {
+
+    // AUDIOSERVICE STORAGE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio\AudioService\AudioStorage',
+        '\Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface',
+        true,
+        [
+            new Promise('audio-folder-backend')
+        ]
+    );
+
     // IMG CONVERTER
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImgConverter\ImgConverter',

@@ -162,7 +162,7 @@ return function (Container $container) {
         ]
     );
 
-    // AUDIO
+    // AUDIO ADMINLIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminList\Repository',
         '\Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface',
@@ -174,6 +174,16 @@ return function (Container $container) {
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminView\Repository',
         '\Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
+
+    // AUDIO AUDIOSERVICE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\AudioService\Repository',
+        '\Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
