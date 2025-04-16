@@ -19,4 +19,9 @@ interface RepositoryInterface
      * @throws RepositoryException
      * */
     public function save(Audio $model): void;
+
+    /**
+     * @throws RepositoryException
+     * */
+    public function add(Audio $model): Audio;
 }

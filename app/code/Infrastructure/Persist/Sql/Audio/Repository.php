@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Audio;
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\RepositoryException;
 use Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface;
@@ -98,88 +99,87 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @todo implement */
-    // public function add(Image $model): Image
-    // {
-    //     $modelId   = $model->getId();
-    //     $audioName = $model->getName();
-    //     $authorId  = $model->getAuthor()->id;
-    //     $path      = $model->getPath();
+    public function add(Audio $model): Audio
+    {
+        $modelId   = $model->getId();
+        $audioName = $model->getName();
 
-    //     if ($model->isActive()) {
-    //         $imageActive = 't';
-    //     } else {
-    //         $imageActive = 'f';
-    //     }
+        if ($model->isActive()) {
+            $imageActive = 't';
+        } else {
+            $imageActive = 'f';
+        }
 
-    //     if ($modelId === null) {
-    //         $mainAddQuery = $this->mainAddQuery();
-    //         $params   = [$imageActive, $audioName(), $authorId(), $path()];
-    //     } else {
-    //         $mainAddQuery = $this->mainAddQueryWithId();
-    //         $params   = [$modelId(), $imageActive, $audioName(), $authorId(), $path()];
-    //     }
+        if ($modelId === null) {
+            $mainAddQuery = $this->mainAddQuery();
+            $params       = [$imageActive, $audioName()];
+        } else {
+            $mainAddQuery = $this->mainAddQueryWithId();
+            $params       = [$modelId(), $imageActive, $audioName()];
+        }
 
-    //     $translates = $model->getTranslates();
+        $translates = $model->getTranslates();
 
-    //     try {
-    //         $this->database->transactionStart();
-    //         $rows = $this->database->transactionQueryParams(
-    //             $mainAddQuery,
-    //             $params
-    //         );
-    //         if (count($rows) !== 1) {
-    //             throw new RepositoryException('Result must return 1 row with id while adding new image');
-    //         }
-    //         $row        = $rows[0];
-    //         $rawImageId = $row['identifier'] ?? null;
-    //         if ($rawImageId === null) {
-    //             throw new RepositoryException('Param id is invalid while adding new image');
-    //         }
-    //         $audioId = Id::fromString($rawImageId);
-    //         foreach ($translates as $translate) {
-    //             $this->database->transactionQueryParams(
-    //                 $this->translatesSaveQueryInsert(),
-    //                 [
-    //                     $audioId(),
-    //                     (string) $translate->getLanguage(),
-    //                     (string) $translate->getDescription(),
-    //                 ]
-    //             );
-    //         }
-    //         $this->database->transactionEnd();
-    //     } catch (DatabaseTransactionException $e) {
-    //         try {
-    //             $this->database->transactionRollback();
-    //             throw new RepositoryException($e->getMessage());
-    //         } catch (DatabaseTransactionException $e2) {
-    //             throw new RepositoryException($e2->getMessage());
-    //         }
-    //     } catch (QueryException $e) {
-    //         try {
-    //             $this->database->transactionRollback();
-    //             throw new RepositoryException($e->getMessage());
-    //         } catch (DatabaseTransactionException $e2) {
-    //             throw new RepositoryException($e2->getMessage());
-    //         }
-    //     } catch (RepositoryException $e) {
-    //         try {
-    //             $this->database->transactionRollback();
-    //             throw new RepositoryException($e->getMessage());
-    //         } catch (DatabaseTransactionException $e2) {
-    //             throw new RepositoryException($e2->getMessage());
-    //         }
-    //     } catch (InvalidArgumentException $e) {
-    //         try {
-    //             $this->database->transactionRollback();
-    //             throw new RepositoryException($e->getMessage());
-    //         } catch (DatabaseTransactionException $e2) {
-    //             throw new RepositoryException($e2->getMessage());
-    //         }
-    //     }
+        try {
+            $this->database->transactionStart();
+            $rows = $this->database->transactionQueryParams(
+                $mainAddQuery,
+                $params
+            );
+            if (count($rows) !== 1) {
+                throw new RepositoryException('Result must return 1 row with id while adding new audio');
+            }
+            $row        = $rows[0];
+            $rawAudioId = $row['identifier'] ?? null;
+            if ($rawAudioId === null) {
+                throw new RepositoryException('Param id is invalid while adding new audio');
+            }
+            $audioId = Id::fromString($rawAudioId);
+            /** @todo check */
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryInsert(),
+                    [
+                        $audioId(),
+                        (string) $translate->getLanguage(),
+                        (string) $translate->getDescription(),
+                        (string) $translate->getPath(),
+                    ]
+                );
+            }
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (RepositoryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        } catch (InvalidArgumentException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException($e2->getMessage());
+            }
+        }
 
-    //     return $this->getById($audioId);
-    // }
+        return $this->getById($audioId);
+    }
 
     /**
      * @param array<string,string> $row
@@ -374,27 +374,25 @@ final class Repository implements RepositoryInterface
     protected function translatesSaveQueryInsert(): string
     {
         return <<<'QUERY'
-        INSERT INTO img_translates (img_id, language, description)
-            VALUES ($1, $2, $3)
+        INSERT INTO audio_translates (audio_id, language, description, path)
+            VALUES ($1, $2, $3, $4)
         QUERY;
     }
 
-    /** @todo usage */
     private function mainAddQuery(): string
     {
         return <<<'QUERY'
-            INSERT INTO img (active, name, author_id, path)
-                VALUES ($1, $2, $3, $4)
+            INSERT INTO audio (active, name)
+                VALUES ($1, $2)
                 RETURNING identifier
         QUERY;
     }
 
-    /** @todo usage */
     private function mainAddQueryWithId(): string
     {
         return <<<'QUERY'
-            INSERT INTO img (identifier, active, name, author_id, path)
-                VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO audio (identifier, active, name)
+                VALUES ($1, $2, $3)
                 RETURNING identifier
         QUERY;
     }

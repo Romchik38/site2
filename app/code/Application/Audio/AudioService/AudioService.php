@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Audio\AudioService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
+use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
@@ -13,8 +16,40 @@ final class AudioService
 {
     public function __construct(
         private readonly RepositoryInterface $repository,
-        private readonly AudioStorageInterface $audioStorage
+        private readonly AudioStorageInterface $audioStorage,
+        private readonly ListViewService $languagesService
     ) {
+    }
+
+    /**
+     * @throws CouldNotCreateException
+     * @throws InvalidArgumentException
+     */
+    public function create(Create $command): Id
+    {
+        $name = new Name($command->name);
+
+        try {
+            $languages = [];
+            foreach ($this->languagesService->getAll() as $language) {
+                $languages[] = $language->identifier;
+            }
+        } catch (LanguageRepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        $model = Audio::create(
+            $name,
+            $languages
+        );
+
+        try {
+            $addedModel = $this->repository->add($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        return $addedModel->getId();
     }
 
     /**
