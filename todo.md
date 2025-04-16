@@ -3,7 +3,6 @@
 ## Current
 
 - audio translate view
-  - action
   - template
 
 - audio
