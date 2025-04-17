@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio\AudioService;
 
+use Laminas\Diactoros\Exception\UploadedFileAlreadyMovedException;
+use Laminas\Diactoros\Exception\UploadedFileErrorException;
+use Laminas\Diactoros\UploadedFile;
 use Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface;
+use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateContentException;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotDeleteAudioDataException;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotLoadAudioDataException;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotSaveAudioDataException;
@@ -15,11 +19,49 @@ use Romchik38\Site2\Domain\Audio\VO\Type;
 use Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio\AbstractAudioStorage;
 use RuntimeException;
 
-final class AudioStorage extends AbstractAudioStorage implements AudioStorageInterface
+final class AudioStorageUseDiactoros extends AbstractAudioStorage implements AudioStorageInterface
 {
     public function __construct(
         private readonly string $pathPrefix
     ) {
+    }
+
+    /**
+     * @throws CouldNotCreateContentException
+     * @throws InvalidArgumentException
+     * */
+    public function createContent(mixed $file): Content
+    {
+        if (! $file instanceof UploadedFile) {
+            $type = gettype($file);
+            if ($type === 'object') {
+                $type = $file::class;
+            }
+            throw new CouldNotCreateContentException(sprintf(
+                'Param file is invalid: expected \Laminas\Diactoros\UploadedFile, given %s',
+                $type
+            ));
+        }
+
+        try {
+            $stream        = $file->getStream();
+            $data          = $stream->getContents();
+            $properties = $this->getPropertiesFromString($data);
+        } catch (RuntimeException $e) {
+            throw new CouldNotCreateContentException($e->getMessage());
+        } catch (UploadedFileAlreadyMovedException $e) {
+            throw new CouldNotCreateContentException($e->getMessage());
+        } catch (UploadedFileErrorException $e) {
+            throw new CouldNotCreateContentException($e->getMessage());
+        }
+
+        $content = new Content(
+            $data,
+            new Type($properties->type),
+            new Size($properties->size)
+        );
+
+        return $content;
     }
 
     /**
