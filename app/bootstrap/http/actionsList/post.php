@@ -73,9 +73,21 @@ return function (Container $container): ControllerInterface {
         null,
         'audio_new'
     );
+    $adminAudioTranslate = new Controller('translate', false, null, null, 'audio_translate');
+    $adminAudioTranslateUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Update\DefaultAction'),
+        null,
+        'audio_translate_update'
+    );
+    $adminAudioTranslate
+    ->setChild($adminAudioTranslateUpdate);
+
     $adminAudio->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminAudio
     ->setChild($adminAudioNew)
+    ->setChild($adminAudioTranslate)
     ->setChild($adminAudioUpdate);
 
     // Admin Author

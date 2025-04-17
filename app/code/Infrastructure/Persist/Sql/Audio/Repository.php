@@ -101,17 +101,17 @@ final class Repository implements RepositoryInterface
                 $params
             );
 
-            // foreach ($translates as $translate) {
-            //     $this->database->transactionQueryParams(
-            //         $this->translatesSaveQueryInsert(),
-            //         [
-            //             $audioId(),
-            //             (string) $translate->getLanguage(),
-            //             (string) $translate->getDescription(),
-            //             (string) $translate->getPath(),
-            //         ]
-            //     );
-            // }
+            foreach ($translates as $translate) {
+                $this->database->transactionQueryParams(
+                    $this->translatesSaveQueryUpdate(),
+                    [
+                        (string) $translate->getDescription(),
+                        (string) $translate->getPath(),
+                        $audioId(),
+                        (string) $translate->getLanguage(),
+                    ]
+                );
+            }
 
             $this->database->transactionEnd();
         } catch (DatabaseTransactionException $e) {
@@ -464,6 +464,15 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             DELETE FROM img WHERE identifier = $1
+        QUERY;
+    }
+
+    private function translatesSaveQueryUpdate(): string
+    {
+        return <<<'QUERY'
+        UPDATE audio_translates
+        SET description = $1, path = $2
+        WHERE audio_id = $3 AND language = $4
         QUERY;
     }
 }

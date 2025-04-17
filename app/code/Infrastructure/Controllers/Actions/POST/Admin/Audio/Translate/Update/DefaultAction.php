@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Update;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -16,24 +16,28 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Audio\AudioService\AudioService;
-use Romchik38\Site2\Application\Audio\AudioService\CouldNotUpdateException;
+use Romchik38\Site2\Application\Audio\AudioService\CouldNotUpdateTranslateException;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
-use Romchik38\Site2\Application\Audio\AudioService\Update;
-use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
+use Romchik38\Site2\Application\Audio\AudioService\NoSuchTranslateException;
+use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;
 use function sprintf;
 
+/** @todo csrf */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    /** @todo usage */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
     public const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
+    public const string AUDIO_TRANSLATE_NOT_EXIST     = 'admin.audio-translate-with-language-not-exist';
     public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
+    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -46,6 +50,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /** @todo test all paths */
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getParsedBody();
@@ -53,15 +58,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             throw new RuntimeException('Incoming data is invalid');
         }
 
-        $uri     = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
-        $message = '';
+        $uriList     = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
+        $uriRedirect = $uriList;
+        $message     = '';
 
-        $command = Update::formHash($requestData);
+        $command = UpdateTranslate::formHash($requestData);
 
         try {
-            $this->audioService->update($command);
-            $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
-            $uri     = $this->createUriWithId($command->id);
+            $this->audioService->updateTranslate($command);
+            $message     = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
+            $uriRedirect = $this->urlbuilder->fromArray(
+                ['root', 'admin', 'audio', 'translate'],
+                [
+                    UpdateTranslate::ID_FIELD       => $command->id,
+                    UpdateTranslate::LANGUAGE_FIELD => $command->language,
+                ]
+            );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
@@ -72,16 +84,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::AUDIO_NOT_EXIST_KEY),
                 $command->id
             );
-        } catch (CouldNotChangeActivityException $e) {
-            $message = sprintf(
-                $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
-                $e->getMessage()
+        } catch (NoSuchTranslateException) {
+            $message     = sprintf(
+                $this->translateService->t($this::AUDIO_TRANSLATE_NOT_EXIST),
+                $command->id
             );
-            $uri     = $this->createUriWithId($command->id);
-        } catch (CouldNotUpdateException $e) {
-            /** @todo test when repos throws error on getByid, lokks like a circular redirect */
+            $uriRedirect = $this->createUriWithId($command->id);
+        } catch (CouldNotUpdateTranslateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri     = $this->createUriWithId($command->id);
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 
@@ -92,12 +102,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $message
             );
         }
-        return new RedirectResponse($uri);
+        return new RedirectResponse($uriRedirect);
     }
 
     public function getDescription(): string
     {
-        return 'Admin Audio update point';
+        return 'Admin Audio Translate update point';
     }
 
     protected function createUriWithId(string $id): string
