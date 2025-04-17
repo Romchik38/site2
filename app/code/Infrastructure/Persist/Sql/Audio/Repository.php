@@ -75,7 +75,6 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @todo test */
     public function save(Audio $model): void
     {
         $audioName = $model->getName();
@@ -117,7 +116,10 @@ final class Repository implements RepositoryInterface
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new RepositoryException($e->getMessage());
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
             } catch (DatabaseTransactionException $e2) {
                 throw new RepositoryException(sprintf(
                     'Transaction error: %s, tried to rollback with error: %s',
@@ -128,7 +130,10 @@ final class Repository implements RepositoryInterface
         } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new RepositoryException($e->getMessage());
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
             } catch (DatabaseTransactionException $e2) {
                 throw new RepositoryException(sprintf(
                     'Query error: %s, tried to rollback with error: %s',
@@ -143,17 +148,6 @@ final class Repository implements RepositoryInterface
             } catch (DatabaseTransactionException $e2) {
                 throw new RepositoryException(sprintf(
                     'Repository error: %s, tried to rollback with error: %s',
-                    $e->getMessage(),
-                    $e2->getMessage()
-                ));
-            }
-        } catch (InvalidArgumentException $e) {
-            try {
-                $this->database->transactionRollback();
-                throw new RepositoryException($e->getMessage());
-            } catch (DatabaseTransactionException $e2) {
-                throw new RepositoryException(sprintf(
-                    'Invalid argument error: %s, tried to rollback with error: %s',
                     $e->getMessage(),
                     $e2->getMessage()
                 ));

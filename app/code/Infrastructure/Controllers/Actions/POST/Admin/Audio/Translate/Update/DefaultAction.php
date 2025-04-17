@@ -26,18 +26,14 @@ use RuntimeException;
 use function gettype;
 use function sprintf;
 
-/** @todo csrf */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    /** @todo usage */
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
     public const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
     public const string AUDIO_TRANSLATE_NOT_EXIST     = 'admin.audio-translate-with-language-not-exist';
-    public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
-    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -87,7 +83,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         } catch (NoSuchTranslateException) {
             $message     = sprintf(
                 $this->translateService->t($this::AUDIO_TRANSLATE_NOT_EXIST),
-                $command->id
+                $command->id,
+                $command->language
             );
             $uriRedirect = $this->createUriWithId($command->id);
         } catch (CouldNotUpdateTranslateException $e) {

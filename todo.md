@@ -3,10 +3,9 @@
 ## Current
 
 - audio
-  - translate update
-
-- audio
   - translate create
+  
+- audio
   - translate delete
   - delete
 
