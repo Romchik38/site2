@@ -17,7 +17,7 @@ final class Translate
     public function __construct(
         public readonly Identifier $language,
         public Description $description,
-        private readonly Path $path
+        public readonly Path $path
     ) {
     }
 

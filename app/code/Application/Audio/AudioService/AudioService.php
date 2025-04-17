@@ -9,14 +9,17 @@ use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
-use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Audio\Entities\Translate;
 use Romchik38\Site2\Domain\Audio\VO\Path;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
+use function in_array;
+use function random_int;
 use function sprintf;
+use function strlen;
 
 final class AudioService
 {
@@ -156,8 +159,8 @@ final class AudioService
      */
     public function createTranslate(CreateTranslate $command): void
     {
-        $audioId  = Id::fromString($command->id);
-        $language = new LanguageId($command->language);
+        $audioId     = Id::fromString($command->id);
+        $language    = new LanguageId($command->language);
         $description = new Description($command->description);
 
         try {
@@ -206,24 +209,25 @@ final class AudioService
         );
 
         // Transaction 2: save model
-
         try {
             $model->addTranslate($translate);
-        } catch(InvalidArgumentException $e) {
+            $this->repository->addTranslate($audioId, $translate);
+        } catch (InvalidArgumentException $e) {
+            // Rollback Transaction 1
+            $this->removeContent($translate->getPath(), $e->getMessage(), (string) $audioId, $language());
+        } catch (RepositoryException $e) {
             // Rollback Transaction 1
             $this->removeContent($translate->getPath(), $e->getMessage(), (string) $audioId, $language());
         }
-        
     }
 
     /** @throws CouldNotCreateException */
     private function removeContent(
         Path $path,
-        string $errorMessage, 
-        string $id, 
+        string $errorMessage,
+        string $id,
         string $language
-        ): void
-    {
+    ): void {
         try {
             // Case 1: success rollback
             $this->audioStorage->deleteByPath($path);

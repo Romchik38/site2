@@ -8,7 +8,7 @@ use function is_string;
 
 final class CreateTranslate
 {
-    public const AUDIO_ID_FIELD = 'audio_id';
+    public const AUDIO_ID_FIELD    = 'audio_id';
     public const LANGUAGE_FIELD    = 'language';
     public const DESCRIPTION_FIELD = 'description';
     public const FILE_FIELD        = 'file';
@@ -52,9 +52,9 @@ final class CreateTranslate
         }
 
         return new self(
-            $id, 
-            $language, 
-            $description, 
+            $id,
+            $language,
+            $description,
             $folder,
             $hash[self::FILE_FIELD] ?? null
         );

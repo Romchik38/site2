@@ -33,7 +33,6 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    /** @todo test */
     public function getById(Id $id): Audio
     {
         $query  = $this->getByIdQuery();
@@ -194,7 +193,7 @@ final class Repository implements RepositoryInterface
             /** @todo check */
             foreach ($translates as $translate) {
                 $this->database->transactionQueryParams(
-                    $this->translatesSaveQueryInsert(),
+                    $this->translatesAddQuery(),
                     [
                         $audioId(),
                         (string) $translate->getLanguage(),
@@ -235,6 +234,26 @@ final class Repository implements RepositoryInterface
         }
 
         return $this->getById($audioId);
+    }
+
+    /**
+     * @throws RepositoryException
+     * */
+    public function addTranslate(Id $id, Translate $translate): void
+    {
+        $query  = $this->translatesAddQuery();
+        $params = [
+            $id(),
+            (string) $translate->language,
+            (string) $translate->description,
+            (string) $translate->path,
+        ];
+
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     /**
@@ -426,8 +445,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo usage */
-    protected function translatesSaveQueryInsert(): string
+    protected function translatesAddQuery(): string
     {
         return <<<'QUERY'
         INSERT INTO audio_translates (audio_id, language, description, path)
