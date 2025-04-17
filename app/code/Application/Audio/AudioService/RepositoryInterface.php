@@ -10,6 +10,11 @@ use Romchik38\Site2\Domain\Audio\VO\Id;
 interface RepositoryInterface
 {
     /**
+     * @throws RepositoryException
+     * */
+    public function add(Audio $model): Audio;
+
+    /**
      * @throws NoSuchAudioException
      * @throws RepositoryException
      * */
@@ -19,9 +24,4 @@ interface RepositoryInterface
      * @throws RepositoryException
      * */
     public function save(Audio $model): void;
-
-    /**
-     * @throws RepositoryException
-     * */
-    public function add(Audio $model): Audio;
 }

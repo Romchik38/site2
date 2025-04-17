@@ -89,13 +89,75 @@ final class Repository implements RepositoryInterface
             $audioActive = 'f';
         }
 
-        $query  = $this->mainSaveQuery();
-        $params = [$audioActive, $audioName(), $audioId()];
+        $mainSaveQuery = $this->mainSaveQuery();
+        $params        = [$audioActive, $audioName(), $audioId()];
+
+        $translates = $model->getTranslates();
 
         try {
-            $this->database->queryParams($query, $params);
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams(
+                $mainSaveQuery,
+                $params
+            );
+
+            // foreach ($translates as $translate) {
+            //     $this->database->transactionQueryParams(
+            //         $this->translatesSaveQueryInsert(),
+            //         [
+            //             $audioId(),
+            //             (string) $translate->getLanguage(),
+            //             (string) $translate->getDescription(),
+            //             (string) $translate->getPath(),
+            //         ]
+            //     );
+            // }
+
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
         } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (RepositoryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Repository error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (InvalidArgumentException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Invalid argument error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
         }
     }
 

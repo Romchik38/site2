@@ -9,8 +9,10 @@ use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function sprintf;
 
@@ -103,6 +105,42 @@ final class AudioService
             $this->repository->save($model);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws CouldNotUpdateTranslateException
+     * @throws InvalidArgumentException
+     * @throws NoSuchAudioException
+     * @throws NoSuchTranslateException
+     */
+    public function updateTranslate(UpdateTranslate $command): void
+    {
+        $audioId  = Id::fromString($command->id);
+        $language = new LanguageId($command->language);
+
+        try {
+            $model = $this->repository->getById($audioId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateTranslateException($e->getMessage());
+        }
+
+        $translate = $model->getTranslate($language());
+        if ($translate === null) {
+            throw new NoSuchTranslateException(sprintf(
+                'Audio translate with language %s not exist',
+                $language()
+            ));
+        }
+
+        $translate->changeDescription(new Description($command->description));
+
+        $model->addTranslate($translate);
+
+        try {
+            $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateTranslateException($e->getMessage());
         }
     }
 }

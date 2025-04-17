@@ -16,9 +16,15 @@ final class Translate
 
     public function __construct(
         public readonly Identifier $language,
-        public readonly Description $description,
-        private Path $path
+        public Description $description,
+        private readonly Path $path
     ) {
+    }
+
+    /** @todo test */
+    public function changeDescription(Description $description): void
+    {
+        $this->description = $description;
     }
 
     public function getDescription(): Description
