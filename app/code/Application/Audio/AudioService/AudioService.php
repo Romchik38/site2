@@ -13,11 +13,15 @@ use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use Romchik38\Site2\Domain\Audio\Entities\Translate;
+use Romchik38\Site2\Domain\Audio\VO\Path;
 
 use function sprintf;
 
 final class AudioService
 {
+    public const CONTENT_NAME_LENGTH = 20;
+
     public function __construct(
         private readonly RepositoryInterface $repository,
         private readonly AudioStorageInterface $audioStorage,
@@ -142,5 +146,118 @@ final class AudioService
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateTranslateException($e->getMessage());
         }
+    }
+
+    /**
+     * @throws CouldNotCreateContentException
+     * @throws CouldNotCreateTranslateException
+     * @throws InvalidArgumentException
+     * @throws NoSuchAudioException
+     */
+    public function createTranslate(CreateTranslate $command): void
+    {
+        $audioId  = Id::fromString($command->id);
+        $language = new LanguageId($command->language);
+        $description = new Description($command->description);
+
+        try {
+            $model = $this->repository->getById($audioId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateTranslateException($e->getMessage());
+        }
+
+        $translate = $model->getTranslate($language());
+        if ($translate !== null) {
+            throw new CouldNotCreateTranslateException(sprintf(
+                'Audio with id %s already has translate in %s language',
+                $audioId(),
+                $language()
+            ));
+        }
+
+        $folder = $command->folder;
+        if (! in_array($folder, CreateTranslate::ALLOWED_FOLDERS)) {
+            throw new CouldNotCreateTranslateException(sprintf(
+                'audio folder %s is not allowed',
+                $folder
+            ));
+        }
+
+        // TRANSACTION START
+
+        // Transaction 1: save content
+        try {
+            $content = $this->audioStorage->createContent($command->file);
+        } catch (CouldNotCreateContentException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        $path = sprintf(
+            '%s/%s.%s',
+            $folder,
+            $this->generateRandomString($this::CONTENT_NAME_LENGTH),
+            ($content->getType())()
+        );
+
+        $translate = new Translate(
+            $language,
+            $description,
+            new Path($path)
+        );
+
+        // Transaction 2: save model
+
+        try {
+            $model->addTranslate($translate);
+        } catch(InvalidArgumentException $e) {
+            // Rollback Transaction 1
+            $this->removeContent($translate->getPath(), $e->getMessage(), (string) $audioId, $language());
+        }
+        
+    }
+
+    /** @throws CouldNotCreateException */
+    private function removeContent(
+        Path $path,
+        string $errorMessage, 
+        string $id, 
+        string $language
+        ): void
+    {
+        try {
+            // Case 1: success rollback
+            $this->audioStorage->deleteByPath($path);
+            $message = sprintf(
+                '%s;%s;%s;%s',
+                sprintf('Audio id %s translate for language %s', $id, $language),
+                sprintf('Content was stored successfully'),
+                sprintf('Was not saved in database with error %s', $errorMessage),
+                'Content was removed successfully'
+            );
+        } catch (CouldNotDeleteAudioDataException $eAudioData) {
+            // Case 2: failed rollback
+            $message = sprintf(
+                '%s;%s;%s;%s',
+                sprintf('Audio id %s translate for language %s', $id, $language),
+                sprintf('Content was stored successfully'),
+                sprintf('Was not saved in database with error %s', $errorMessage),
+                sprintf('Content was not removed with error %s', $eAudioData->getMessage())
+            );
+        }
+
+        throw new CouldNotCreateException($message);
+    }
+
+    private function generateRandomString(int $length = 10): string
+    {
+        $characters       = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString     = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 }
