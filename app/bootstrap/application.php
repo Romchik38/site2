@@ -57,7 +57,7 @@ return function (Container $container) {
         ]
     );
 
-    // admin audio SERVICE
+    // ADMIN AUDIO SERVICE
     $container->shared(
         '\Romchik38\Site2\Application\Audio\AudioService\AudioService',
         [
@@ -72,6 +72,14 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Audio\AdminView\AdminView',
         [
             new Promise('\Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface')
+        ]
+    );
+
+    // ADMIN AUDIO TRANSLATE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView',
+        [
+            new Promise('\Romchik38\Site2\Application\Audio\AdminTranslateView\RepositoryInterface')
         ]
     );
 

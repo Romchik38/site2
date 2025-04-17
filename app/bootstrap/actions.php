@@ -153,6 +153,23 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN AUDIO TRANSLATE
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+            new Promise('audio-folder-frontend')
+        ]
+    );
+
     // Admin Login
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction',

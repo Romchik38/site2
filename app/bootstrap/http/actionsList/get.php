@@ -62,7 +62,16 @@ return function (Container $container): ControllerInterface {
         null,
         'audio_new'
     );
-    $adminAudio->setChild($adminAudioNew);
+    $adminAudioTranslate = new Controller(
+        'translate',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction'),
+        null,
+        'audio_translate'
+    );
+    $adminAudio
+    ->setChild($adminAudioNew)
+    ->setChild($adminAudioTranslate);
 
     $adminUsers = new Controller(
         'users',

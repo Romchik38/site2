@@ -25,7 +25,9 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $yesField,
         public readonly string $noField,
         public readonly array $languages,
-        public readonly string $audioPathPrefix
+        public readonly string $audioPathPrefix,
+        public readonly string $translateAudioIdField,
+        public readonly string $translateLanguageField
     ) {
         parent::__construct($name, $description);
     }

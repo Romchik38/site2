@@ -190,6 +190,16 @@ return function (Container $container) {
         ]
     );
 
+    // AUDIO TRANSLATE VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminTranslateView\Repository',
+        '\Romchik38\Site2\Application\Audio\AdminTranslateView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
+
     // TRANSLATE STORAGE 
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage\TranslateStorage',

@@ -20,6 +20,7 @@ use Romchik38\Site2\Application\Audio\AdminView\AdminView;
 use Romchik38\Site2\Application\Audio\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminView\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\Update;
+use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DynamicAction\ViewDto;
@@ -90,7 +91,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::CHANGE_ACTIVITY_YES_FIELD,
             Update::CHANGE_ACTIVITY_NO_FIELD,
             $languages,
-            $this->audioPathPrefix
+            $this->audioPathPrefix,
+            UpdateTranslate::ID_FIELD,
+            UpdateTranslate::LANGUAGE_FIELD
         );
 
         $html = $this->view

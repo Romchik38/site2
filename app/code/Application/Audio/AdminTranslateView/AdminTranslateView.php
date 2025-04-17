@@ -25,7 +25,7 @@ final class AdminTranslateView
     {
         $searchCriteria = new SearchCriteria(
             AudioId::fromString($command->id),
-            new LanguageId($command->id)
+            new LanguageId($command->language)
         );
 
         try {

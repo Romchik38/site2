@@ -29,13 +29,22 @@
                 {% set descriptionVo = translate.description %}
                 {% if translateLanguageVo.__toString() == availableLanguageVo.__toString() %}
                     <!-- translate exust -->
+					{% 
+						set editUrl = u.fromArray(
+							['root', 'admin', 'audio', 'translate'], 
+							{ 
+								(data.translateAudioIdField): audio.id.__toString(),
+								(data.translateLanguageField): translateLanguageVo,
+							}
+						) 
+					%}
                     <tr class="table-success">
                         <td>{{ translateLanguageVo }}</td>
                         <td>{{ translate.description }}</td>
                         <td>
 							<audio src="{{ audioPathPrefix ~ '/' ~ translate.path }}" controls crossorigin="anonymous">{{ translate.description }}</audio>
                         </td>
-                        <td><a href="#">edit</a></td>
+                        <td><a href="{{ editUrl }}">edit</a></td>
                     </tr>
                     {% set break = true %}
                 {% endif %}
