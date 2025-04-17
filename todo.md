@@ -2,12 +2,11 @@
 
 ## Current
 
-- audio translate view
-  - template
+- audio
+  - translate update
 
 - audio
   - translate create
-  - translate update
   - translate delete
   - delete
 

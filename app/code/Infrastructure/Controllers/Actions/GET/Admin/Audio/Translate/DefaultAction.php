@@ -84,7 +84,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $pageName = sprintf(
-            'Audio translate id %s, language %s',
+            'Audio translate id %s language %s',
             $command->id,
             $command->language
         );
