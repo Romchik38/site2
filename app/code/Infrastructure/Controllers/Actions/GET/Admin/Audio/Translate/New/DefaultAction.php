@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -21,17 +21,19 @@ use Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\Find;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\NoSuchTranslateException;
-use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
+/** @todo implemend after app service */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    /** @todo usage */
     public const ERROR_MESSAGE_KEY = 'server-error.message';
 
+    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -47,6 +49,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /** @todo test all paths */
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getQueryParams();

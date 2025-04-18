@@ -19,6 +19,9 @@ use Romchik38\Site2\Domain\Audio\VO\Type;
 use Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio\AbstractAudioStorage;
 use RuntimeException;
 
+use function gettype;
+use function sprintf;
+
 final class AudioStorageUseDiactoros extends AbstractAudioStorage implements AudioStorageInterface
 {
     public function __construct(
@@ -44,8 +47,8 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
         }
 
         try {
-            $stream        = $file->getStream();
-            $data          = $stream->getContents();
+            $stream     = $file->getStream();
+            $data       = $stream->getContents();
             $properties = $this->getPropertiesFromString($data);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateContentException($e->getMessage());
@@ -55,13 +58,11 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
             throw new CouldNotCreateContentException($e->getMessage());
         }
 
-        $content = new Content(
+        return new Content(
             $data,
             new Type($properties->type),
             new Size($properties->size)
         );
-
-        return $content;
     }
 
     /**
