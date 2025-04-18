@@ -90,9 +90,9 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
      */
     public function save(Content $content, Path $path): void
     {
-        $fullPath = $this->pathPrefix . $path();
+        $fullPath = $this->createFullPath($path);
         try {
-            $this->saveAudioToFile($content->getData(),$fullPath);
+            $this->saveAudioToFile($content->getData(), $fullPath);
         } catch (RuntimeException $e) {
             throw new CouldNotSaveAudioDataException($e->getMessage());
         }
@@ -104,11 +104,20 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
      */
     public function deleteByPath(Path $path): void
     {
-        $fullPath = $this->pathPrefix . $path();
+        $fullPath = $this->createFullPath($path);
         try {
             $this->deleteAudioFile($fullPath);
         } catch (RuntimeException $e) {
             throw new CouldNotDeleteAudioDataException($e->getMessage());
         }
+    }
+
+    private function createFullPath(Path $path): string
+    {
+        return sprintf(
+            '%s/%s',
+            $this->pathPrefix,
+            $path()
+        );
     }
 }

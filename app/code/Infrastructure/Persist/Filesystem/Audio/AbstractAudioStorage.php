@@ -7,11 +7,18 @@ namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio;
 use RuntimeException;
 use wapmorgan\Mp3Info\Mp3Info;
 
+use function fclose;
 use function file_exists;
 use function file_get_contents;
+use function fopen;
+use function fwrite;
 use function is_readable;
+use function ob_end_clean;
+use function ob_get_clean;
+use function ob_start;
 use function sprintf;
 use function strlen;
+use function unlink;
 
 abstract class AbstractAudioStorage
 {
@@ -71,21 +78,32 @@ abstract class AbstractAudioStorage
     /**
      * @throws RuntimeException
      */
-    protected function saveAudioToFile(string $data, string $fullPath): void {
+    protected function saveAudioToFile(string $data, string $fullPath): void
+    {
+        // 1: Open file
         ob_start();
-        /** @todo implement */
-        $result = file_put_contents($fullPath, $data, FILE_APPEND | LOCK_EX);
-        $flushVar = ob_get_clean();
+        $fp = fopen($fullPath, 'w');
+        ob_end_clean();
+        if ($fp === false) {
+            throw new RuntimeException(sprintf(
+                'Failed to open file %s to save audio data',
+                $fullPath
+            ));
+        }
+
+        ob_start();
+        /** @todo test unlink */
+        $result = fwrite($fp, $data);
+        ob_end_clean();
         if ($result === false) {
-            $message = sprintf(
+            fclose($fp);
+            unlink($fullPath);
+            throw new RuntimeException(sprintf(
                 'Failed to save audio file %s',
                 $fullPath
-            );
-            if ($flushVar !== false) {
-                $message = $flushVar;
-            }
-            throw new RuntimeException($message);
+            ));
         }
+        fclose($fp);
     }
 
     /**

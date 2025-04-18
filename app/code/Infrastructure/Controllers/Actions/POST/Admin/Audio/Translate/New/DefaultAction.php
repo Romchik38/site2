@@ -18,9 +18,11 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Audio\AudioService\AudioService;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateTranslateException;
 use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
+use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
+use function array_merge;
 use function gettype;
 use function sprintf;
 
@@ -67,8 +69,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $uriRedirect = $this->urlbuilder->fromArray(
                 ['root', 'admin', 'audio', 'translate'],
                 [
-                    CreateTranslate::AUDIO_ID_FIELD => $command->id,
-                    CreateTranslate::LANGUAGE_FIELD => $command->language,
+                    UpdateTranslate::ID_FIELD       => $command->id,
+                    UpdateTranslate::LANGUAGE_FIELD => $command->language,
                 ]
             );
         } catch (InvalidArgumentException $e) {
@@ -88,6 +90,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $message
             );
         }
+
         return new RedirectResponse($uriRedirect);
     }
 
