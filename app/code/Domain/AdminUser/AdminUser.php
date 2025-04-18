@@ -17,12 +17,12 @@ use function password_verify;
 final class AdminUser implements AdminUserInterface
 {
     public function __construct(
-        protected Identifier $identifier,
-        protected Username $username,
-        protected PasswordHash $passwordHash,
-        protected Active $active,
-        protected Email $email,
-        protected Roles $roles
+        private Identifier $identifier,
+        private Username $username,
+        private PasswordHash $passwordHash,
+        private Active $active,
+        private Email $email,
+        private Roles $roles
     ) {
     }
 
