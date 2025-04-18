@@ -99,18 +99,25 @@ final class Repository implements RepositoryInterface
                 $params
             );
 
-            foreach ($translates as $translate) {
+            /** @todo test delete/insrt translates */
+            if (count($translates) > 0) {
                 $this->database->transactionQueryParams(
-                    $this->translatesSaveQueryUpdate(),
-                    [
-                        (string) $translate->getDescription(),
-                        (string) $translate->getPath(),
-                        $audioId(),
-                        (string) $translate->getLanguage(),
-                    ]
+                    $this->translatesSaveQueryDelete(),
+                    [$audioId()]
                 );
-            }
 
+                foreach ($translates as $translate) {
+                    $this->database->transactionQueryParams(
+                        $this->translatesSaveQueryInsert(),
+                        [
+                            (string) $translate->getDescription(),
+                            (string) $translate->getPath(),
+                            $audioId(),
+                            (string) $translate->getLanguage(),
+                        ]
+                    );
+                }
+            }
             $this->database->transactionEnd();
         } catch (DatabaseTransactionException $e) {
             try {
@@ -436,12 +443,11 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo usage */
     protected function translatesSaveQueryDelete(): string
     {
         return <<<'QUERY'
-        DELETE FROM img_translates 
-        WHERE img_id = $1
+        DELETE FROM audio_translates 
+        WHERE audio_translates.audio_id = $1
         QUERY;
     }
 
@@ -485,6 +491,14 @@ final class Repository implements RepositoryInterface
         UPDATE audio_translates
         SET description = $1, path = $2
         WHERE audio_id = $3 AND language = $4
+        QUERY;
+    }
+
+    private function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO audio_translates (description, path, audio_id, language)
+        VALUES ($1, $2, $3, $4)
         QUERY;
     }
 }

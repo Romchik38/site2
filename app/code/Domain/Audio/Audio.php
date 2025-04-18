@@ -117,6 +117,31 @@ final class Audio
         }
     }
 
+    /**
+     * @todo test
+     * @throws CouldNotDeleteTranslateException
+     * */
+    public function deleteTranslate(string $language): void
+    {
+        if ($this->active === true) {
+            throw new CouldNotDeleteTranslateException(
+                'Coould not delete translate, audio is active. Diactivaye it first'
+            );
+        }
+        $translates = array_values($this->translates);
+        $arr        = [];
+        foreach ($translates as $translate) {
+            $translateLanguage = $translate->getLanguage();
+            if ($translateLanguage() === $language) {
+                continue;
+            } else {
+                $arr[$translateLanguage()] = $translate;
+            }
+        }
+
+        $this->translates = $arr;
+    }
+
     public function isActive(): bool
     {
         return $this->active;

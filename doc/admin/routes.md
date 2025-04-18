@@ -28,7 +28,8 @@
 - root admin audio new              create new audio
 - root admin audio update           update audio
 - root admin audio translate update update audio translate
-- root admin audio translate new    create new translate
+- root admin audio translate new    create new audio translate
+- root admin audio translate delete remove audio translate
 - root admin author delete          delete author
 - root admin author new             create author
 - root admin author update          save existing author

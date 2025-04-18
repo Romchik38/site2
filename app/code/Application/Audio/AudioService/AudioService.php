@@ -152,6 +152,7 @@ final class AudioService
     }
 
     /**
+     * @todo test all path
      * @throws CouldNotCreateTranslateException
      * @throws InvalidArgumentException
      */
@@ -224,7 +225,86 @@ final class AudioService
         }
     }
 
-    /** @throws CouldNotCreateTranslateException */
+    /**
+     * @todo tests all path
+     * @throws CouldNotChangeActivityException
+     * @throws CouldNotDeleteTranslateException
+     * @throws NoSuchTranslateException
+     */
+    public function deleteTranslate(DeleteTranslate $command): void
+    {
+        $audioId  = Id::fromString($command->id);
+        $language = new LanguageId($command->language);
+
+        try {
+            $model = $this->repository->getById($audioId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteTranslateException($e->getMessage());
+        }
+
+        $translate = $model->getTranslate($language());
+        if ($translate === null) {
+            throw new NoSuchTranslateException(sprintf(
+                'Audio translate with language %s not exist',
+                $language()
+            ));
+        }
+
+        try {
+            $content = $this->audioStorage->load($translate->getPath());
+        } catch (CouldNotLoadAudioDataException $e) {
+            throw new CouldNotDeleteTranslateException($e->getMessage());
+        }
+
+        $translate->loadContent($content);
+
+        $model->deactivate();
+        $model->deleteTranslate($language());
+
+        // TRANSACTION 1: remove content
+        try {
+            $this->audioStorage->deleteByPath($translate->getPath());
+        } catch (CouldNotDeleteAudioDataException $e) {
+            throw new CouldNotDeleteTranslateException($e->getMessage());
+        }
+        // TRANSACTION 2: save to database
+        try {
+            $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            // restore content
+            try {
+                $this->audioStorage->save($translate->getContent(), $translate->getPath());
+            } catch (CouldNotSaveAudioDataException $e2) {
+                throw new CouldNotDeleteTranslateException(sprintf(
+                    '%s;%s;%s;%s',
+                    sprintf(
+                        'Error while deleting audio translate id %s language %s',
+                        (string) $audioId,
+                        $language()
+                    ),
+                    'Content was removed',
+                    sprintf('Translate was not removed from database with error %s', $e->getMessage()),
+                    sprintf('Content was not restored in the storage with error %s', $e2->getMessage())
+                ));
+            }
+            throw new CouldNotDeleteTranslateException(sprintf(
+                '%s;%s;%s;%s',
+                sprintf(
+                    'Error while deleting audio translate id %s language %s',
+                    (string) $audioId,
+                    $language()
+                ),
+                'Content was removed',
+                sprintf('Translate was not removed from database with error %s', $e->getMessage()),
+                'Content was restored successfully'
+            ));
+        }
+    }
+
+    /**
+     * Create translate part
+     *
+     * @throws CouldNotCreateTranslateException */
     private function removeContent(
         Path $path,
         string $errorMessage,
