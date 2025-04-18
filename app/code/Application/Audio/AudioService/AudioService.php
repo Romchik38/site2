@@ -184,9 +184,6 @@ final class AudioService
             ));
         }
 
-        // TRANSACTION START
-
-        // Transaction 1: save content
         try {
             $content = $this->audioStorage->createContent($command->file);
         } catch (CouldNotCreateContentException $e) {
@@ -206,6 +203,14 @@ final class AudioService
             new Path($path)
         );
 
+        // TRANSACTION START
+
+        // Transaction 1: save content
+        try {
+            $this->audioStorage->save($content, $translate->getPath());
+        } catch (CouldNotSaveAudioDataException $e) {
+            throw new CouldNotCreateTranslateException($e->getMessage());
+        }
         // Transaction 2: save model
         try {
             $model->addTranslate($translate);

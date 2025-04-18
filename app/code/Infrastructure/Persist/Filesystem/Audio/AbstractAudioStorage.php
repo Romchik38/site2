@@ -67,4 +67,43 @@ abstract class AbstractAudioStorage
     {
         return Mp3Info::isValid($data);
     }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function saveAudioToFile(string $data, string $fullPath): void {
+        ob_start();
+        /** @todo implement */
+        $result = file_put_contents($fullPath, $data, FILE_APPEND | LOCK_EX);
+        $flushVar = ob_get_clean();
+        if ($result === false) {
+            $message = sprintf(
+                'Failed to save audio file %s',
+                $fullPath
+            );
+            if ($flushVar !== false) {
+                $message = $flushVar;
+            }
+            throw new RuntimeException($message);
+        }
+    }
+
+    /**
+     * Removes a file from the file system
+     *
+     * @throws RuntimeException
+     */
+    protected function deleteAudioFile(string $fullPath): void
+    {
+        ob_start();
+        $result   = unlink($fullPath);
+        $flushVar = ob_get_clean();
+        if ($result === false) {
+            $message = sprintf('Adio file %s was not deleted', $fullPath);
+            if ($flushVar !== false) {
+                $message = $flushVar;
+            }
+            throw new RuntimeException($message);
+        }
+    }
 }

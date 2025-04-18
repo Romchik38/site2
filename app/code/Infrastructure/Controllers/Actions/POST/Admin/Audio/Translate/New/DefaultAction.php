@@ -59,8 +59,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $files = $this->request->getUploadedFiles();
 
-        //$command = Create::formHash(array_merge($requestData, $files));
-        $command = CreateTranslate::formHash($requestData);
+        $command = CreateTranslate::formHash(array_merge($requestData, $files));
 
         try {
             $this->audioService->createTranslate($command);
