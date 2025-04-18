@@ -15,7 +15,7 @@ final class Identifier
         protected readonly string $id
     ) {
         if (strlen($id) === 0) {
-            throw new InvalidArgumentException('param id is empty');
+            throw new InvalidArgumentException('param language id is empty');
         }
     }
 

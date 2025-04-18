@@ -44,7 +44,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo test all paths */
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getQueryParams();

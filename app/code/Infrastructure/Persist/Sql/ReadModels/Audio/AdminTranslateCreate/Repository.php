@@ -46,14 +46,14 @@ final class Repository implements RepositoryInterface
         $count = count($rows);
         if ($count === 0) {
             throw new NoSuchTranslateException(sprintf(
-                'Audio translate with id %s and language %s can not be created',
+                'Translate with audio id %s and language %s can not be created',
                 (string) $audioId,
                 $language()
             ));
         }
         if ($count > 1) {
             throw new RepositoryException(sprintf(
-                'Audio translate with id %s and language %s has duplicates',
+                'Translate with audio id %s and language %s has duplicates',
                 (string) $audioId,
                 $language()
             ));
