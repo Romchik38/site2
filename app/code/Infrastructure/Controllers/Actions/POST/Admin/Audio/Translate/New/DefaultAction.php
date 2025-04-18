@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Update;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\New;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -16,10 +16,8 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Audio\AudioService\AudioService;
-use Romchik38\Site2\Application\Audio\AudioService\CouldNotUpdateTranslateException;
-use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
-use Romchik38\Site2\Application\Audio\AudioService\NoSuchTranslateException;
-use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
+use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateTranslateException;
+use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -30,8 +28,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 {
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
-    public const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
-    public const string AUDIO_TRANSLATE_NOT_EXIST     = 'admin.audio-translate-with-language-not-exist';
     public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
     public function __construct(
@@ -46,6 +42,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /**
+     * @todo test all paths
+     * @todo csrf
+     * */
     public function execute(): ResponseInterface
     {
         $requestData = $this->request->getParsedBody();
@@ -57,16 +57,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $uriRedirect = $uriList;
         $message     = '';
 
-        $command = UpdateTranslate::formHash($requestData);
+        $files = $this->request->getUploadedFiles();
+
+        //$command = Create::formHash(array_merge($requestData, $files));
+        $command = CreateTranslate::formHash($requestData);
 
         try {
-            $this->audioService->updateTranslate($command);
+            $this->audioService->createTranslate($command);
             $message     = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uriRedirect = $this->urlbuilder->fromArray(
                 ['root', 'admin', 'audio', 'translate'],
                 [
-                    UpdateTranslate::ID_FIELD       => $command->id,
-                    UpdateTranslate::LANGUAGE_FIELD => $command->language,
+                    CreateTranslate::AUDIO_ID_FIELD => $command->id,
+                    CreateTranslate::LANGUAGE_FIELD => $command->language,
                 ]
             );
         } catch (InvalidArgumentException $e) {
@@ -74,19 +77,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-        } catch (NoSuchAudioException) {
-            $message = sprintf(
-                $this->translateService->t($this::AUDIO_NOT_EXIST_KEY),
-                $command->id
-            );
-        } catch (NoSuchTranslateException) {
-            $message     = sprintf(
-                $this->translateService->t($this::AUDIO_TRANSLATE_NOT_EXIST),
-                $command->id,
-                $command->language
-            );
-            $uriRedirect = $this->createUriWithId($command->id);
-        } catch (CouldNotUpdateTranslateException $e) {
+        } catch (CouldNotCreateTranslateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
@@ -103,13 +94,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Admin Audio Translate update point';
-    }
-
-    protected function createUriWithId(string $id): string
-    {
-        return $this->urlbuilder->fromArray(
-            ['root', 'admin', 'audio', $id]
-        );
+        return 'Admin Audio Translate new point';
     }
 }

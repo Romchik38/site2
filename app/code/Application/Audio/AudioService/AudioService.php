@@ -152,10 +152,8 @@ final class AudioService
     }
 
     /**
-     * @throws CouldNotCreateContentException
      * @throws CouldNotCreateTranslateException
      * @throws InvalidArgumentException
-     * @throws NoSuchAudioException
      */
     public function createTranslate(CreateTranslate $command): void
     {
@@ -192,7 +190,7 @@ final class AudioService
         try {
             $content = $this->audioStorage->createContent($command->file);
         } catch (CouldNotCreateContentException $e) {
-            throw new CouldNotCreateException($e->getMessage());
+            throw new CouldNotCreateTranslateException($e->getMessage());
         }
 
         $path = sprintf(
@@ -221,7 +219,7 @@ final class AudioService
         }
     }
 
-    /** @throws CouldNotCreateException */
+    /** @throws CouldNotCreateTranslateException */
     private function removeContent(
         Path $path,
         string $errorMessage,
@@ -249,7 +247,7 @@ final class AudioService
             );
         }
 
-        throw new CouldNotCreateException($message);
+        throw new CouldNotCreateTranslateException($message);
     }
 
     private function generateRandomString(int $length = 10): string
