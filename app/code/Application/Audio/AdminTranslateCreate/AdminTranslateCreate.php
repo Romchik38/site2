@@ -30,7 +30,7 @@ final class AdminTranslateCreate
             $translate = $this->repository->find($searchCriteria);
         } catch (RepositoryException $e) {
             throw new CouldNotFindException($e->getMessage());
-        } catch (CouldNotFindException $e) {
+        } catch (NoSuchTranslateException $e) {
             throw new CouldNotFindException($e->getMessage());
         }
 

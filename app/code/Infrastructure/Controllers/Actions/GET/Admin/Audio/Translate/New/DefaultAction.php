@@ -13,21 +13,19 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView;
-use Romchik38\Site2\Application\Audio\AdminTranslateView\CouldNotFindException;
-use Romchik38\Site2\Application\Audio\AdminTranslateView\Find;
-use Romchik38\Site2\Application\Audio\AdminTranslateView\NoSuchTranslateException;
+use Romchik38\Site2\Application\Audio\AdminTranslateCreate\AdminTranslateCreate;
+use Romchik38\Site2\Application\Audio\AdminTranslateCreate\CouldNotFindException;
+use Romchik38\Site2\Application\Audio\AdminTranslateCreate\Find;
+use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
-/** @todo implemend after app service */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     /** @todo usage */
@@ -39,12 +37,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ServerRequestInterface $request,
-        private readonly AdminTranslateView $adminTranslateViewService,
+        private readonly AdminTranslateCreate $adminTranslateCreateService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly LoggerServerInterface $logger,
-        private readonly string $audioPathPrefix
+        private readonly LoggerServerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -58,7 +55,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $uriRedirectList = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
 
         try {
-            $translateDto = $this->adminTranslateViewService->find($command);
+            $translateDto = $this->adminTranslateCreateService->find($command);
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
             $this->session->setData(
@@ -69,28 +66,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         } catch (InvalidArgumentException $e) {
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
+                $this->translateService->t($e->getMessage())
             );
             return new RedirectResponse($uriRedirectList);
-        } catch (NoSuchTranslateException $e) {
-            throw new ActionNotFoundException(sprintf(
-                'Audio translate with id %s and language %s not exist',
-                $command->id,
-                $command->language
-            ));
         }
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $pageName = sprintf(
-            'Audio translate id %s language %s',
+            'Create translate audio id %s language %s',
             $command->id,
             $command->language
         );
 
         $pageDescription = sprintf(
-            'Audio translate id %s, language %s page (view, edit or delete)',
+            'Create translate audio id %s, language %s page',
             $command->id,
             $command->language
         );
@@ -101,10 +92,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $translateDto,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
-            UpdateTranslate::ID_FIELD,
-            UpdateTranslate::LANGUAGE_FIELD,
-            UpdateTranslate::DESCRIPTION_FIELD,
-            $this->audioPathPrefix
+            CreateTranslate::AUDIO_ID_FIELD,
+            CreateTranslate::LANGUAGE_FIELD,
+            CreateTranslate::DESCRIPTION_FIELD,
+            CreateTranslate::FILE_FIELD,
+            CreateTranslate::FOLDER_FIELD,
+            CreateTranslate::ALLOWED_FOLDERS
         );
 
         $html = $this->view
@@ -117,6 +110,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Audio translate view page';
+        return 'Audio translate create page';
     }
 }
