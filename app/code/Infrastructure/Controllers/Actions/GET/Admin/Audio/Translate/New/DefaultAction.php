@@ -28,10 +28,8 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    /** @todo usage */
     public const ERROR_MESSAGE_KEY = 'server-error.message';
 
-    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,

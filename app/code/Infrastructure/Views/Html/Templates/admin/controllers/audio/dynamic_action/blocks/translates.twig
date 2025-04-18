@@ -50,12 +50,21 @@
                 {% endif %}
             {% endfor %}
             {% if not break %}
-               <tr class="table-danger">
-                   <td>{{ availableLanguageVo }}</td>
-                   <td>-</td>
-                   <td>-</td>
-                   <td><a href="#">add</a></td>
-               </tr>
+                {% 
+					set addUrl = u.fromArray(
+						['root', 'admin', 'audio', 'translate', 'new'], 
+						{ 
+							(data.translateAudioIdField): audio.id.__toString(),
+							(data.translateLanguageField): availableLanguageVo,
+						}
+					) 
+				%}
+                <tr class="table-danger">
+                    <td>{{ availableLanguageVo }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><a href="{{ addUrl }}">add</a></td>
+                </tr>
            {% endif %}
         {% endfor %}
       </tbody>
