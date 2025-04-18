@@ -4,12 +4,12 @@
     Object      data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction\ViewDto
 #}
 
-{% set translate = data.translateDto %}
+{% set translateDto = data.translateDto %}
 
-{% set audioId = translate.audioId.__toString() %}
-{% set language = translate.language.__toString() %}
-{% set description = translate.description.__toString() %}
-{% set path = translate.path.__toString() %}
+{% set audioId = translateDto.audioId.__toString() %}
+{% set language = translateDto.language.__toString() %}
+{% set description = translateDto.description.__toString() %}
+{% set path = translateDto.path.__toString() %}
 
 {% set audioUrl = u.fromArray(['root', 'admin', 'audio', audioId]) %}
 {% set deleteUrl = u.fromArray(['root', 'admin', 'audio', 'translate', 'delete']) %}

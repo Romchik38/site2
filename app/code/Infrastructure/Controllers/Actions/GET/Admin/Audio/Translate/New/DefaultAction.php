@@ -71,6 +71,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
+        $audioRequirements = $this->adminTranslateCreateService->audioRequirements();
+
         $pageName = sprintf(
             'Create translate audio id %s language %s',
             $command->id,
@@ -94,7 +96,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             CreateTranslate::DESCRIPTION_FIELD,
             CreateTranslate::FILE_FIELD,
             CreateTranslate::FOLDER_FIELD,
-            CreateTranslate::ALLOWED_FOLDERS
+            CreateTranslate::ALLOWED_FOLDERS,
+            $audioRequirements
         );
 
         $html = $this->view

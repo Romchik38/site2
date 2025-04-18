@@ -14,6 +14,9 @@
 
 - repositories must *catch* `InvalidArgimentException` error on entity creation and *throws* Repository error, because this is a problem of the database consistency.
 
+- make public
+- php 8.4
+
 ## Next
 
 - move to server

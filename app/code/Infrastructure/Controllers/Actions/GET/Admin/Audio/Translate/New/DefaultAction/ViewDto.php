@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Site2\Application\Audio\AdminTranslateCreate\View\AudioRequirementsDto;
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\View\TranslateDto;
 
 final class ViewDto extends DefaultViewDTO
@@ -20,7 +21,8 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $descriptionField,
         public readonly string $fileField,
         public readonly string $folderField,
-        public readonly array $folders
+        public readonly array $folders,
+        public readonly AudioRequirementsDto $audioRequirements
     ) {
         parent::__construct($name, $description);
     }

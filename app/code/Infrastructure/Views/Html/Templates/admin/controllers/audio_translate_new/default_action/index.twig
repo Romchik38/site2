@@ -41,7 +41,7 @@
             </div>
 
             <!-- File select -->
-
+            {% include controller_template_dir ~ '/blocks/audio.twig' with {'translate': translate, 'u': u, 'data': data} only %}
 
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <div class="d-flex">
