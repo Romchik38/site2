@@ -83,6 +83,14 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN AUDIO TRANSLATE CREATE
+    $container->shared(
+        '\Romchik38\Site2\Application\Audio\AdminTranslateCreate\AdminTranslateCreate',
+        [
+            new Promise('\Romchik38\Site2\Application\Audio\AdminTranslateCreate\RepositoryInterface')
+        ]
+    );
+
     // ADMIN USER CHECK
     $container->shared(
         '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',
