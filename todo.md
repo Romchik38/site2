@@ -2,11 +2,8 @@
 
 ## Current
 
+- todo
 - audio
-  - translate create
-  
-- audio
-  - translate delete
   - delete
 
 - move config to const
