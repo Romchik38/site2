@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\ListView;
 
+use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException;
@@ -35,7 +36,10 @@ final class Repository implements RepositoryInterface
         return $list;
     }
 
-    /** @param array<string,string> $row */
+    /** 
+     * @throws RepositoryException
+     * @param array<string,string> $row 
+     * */
     protected function createFromRow(array $row): LanguageDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
@@ -53,8 +57,16 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
+        try {
+            $id = new Identifier($rawIdentifier);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException(
+                'Language list view repository:' . $e->getMessage()
+        );
+        }
+
         return new LanguageDto(
-            new Identifier($rawIdentifier),
+            $id,
             $active
         );
     }
