@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Audio\CouldNotDeleteTranslateException;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
 use Romchik38\Site2\Domain\Audio\Entities\Content;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
@@ -694,5 +695,78 @@ final class AudioTest extends TestCase
 
         $this->expectException(CouldNotChangeActivityException::class);
         $audio->deactivate();
+    }
+
+    public function testDeleteTranslate(): void
+    {
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
+
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
+        ];
+
+        $audio = Audio::load(
+            $id,
+            false,
+            $name,
+            [],
+            $languages,
+            $translates
+        );
+
+        $audio->deleteTranslate('en');
+        $this->assertSame(null, $audio->getTranslate('en'));
+
+        $tUk = $audio->getTranslate('uk');
+        $this->assertSame('Якийсь аудіо трек', (string) $tUk->getDescription());
+    }
+
+    public function testDeleteTranslateThrowsError(): void
+    {
+        $id   = new Id(1);
+        $name = new Name('audio-name-1');
+
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Description('Some audio track'),
+                new Path('some/file-en-1.mp3')
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Description('Якийсь аудіо трек'),
+                new Path('some/file-uk-1.mp3')
+            ),
+        ];
+
+        $audio = Audio::load(
+            $id,
+            true,
+            $name,
+            [],
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotDeleteTranslateException::class);
+        $audio->deleteTranslate('en');
     }
 }

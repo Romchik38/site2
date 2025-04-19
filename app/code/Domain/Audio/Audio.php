@@ -15,9 +15,6 @@ use function array_values;
 use function count;
 use function sprintf;
 
-/**
- * @todo test
- */
 final class Audio
 {
     /** @var array<int,Article> $articles */
@@ -118,7 +115,6 @@ final class Audio
     }
 
     /**
-     * @todo test
      * @throws CouldNotDeleteTranslateException
      * */
     public function deleteTranslate(string $language): void
@@ -153,7 +149,6 @@ final class Audio
     }
 
     /**
-     * @todo
      * - Requirements to become active:
      *   - id is set
      * @throws CouldNotChangeActivityException
