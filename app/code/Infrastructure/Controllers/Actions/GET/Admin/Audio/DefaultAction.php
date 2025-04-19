@@ -111,7 +111,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ),
             Delete::ID_FIELD,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $csrfToken
         );
 
         $html = $this->view

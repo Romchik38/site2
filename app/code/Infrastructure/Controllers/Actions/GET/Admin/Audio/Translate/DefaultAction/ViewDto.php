@@ -18,7 +18,9 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $idFiled,
         public readonly string $languageFiled,
         public readonly string $descriptionField,
-        public readonly string $audioPathPrefix
+        public readonly string $audioPathPrefix,
+        public readonly string $deleteIdFiled,
+        public readonly string $deleteLanguageFiled
     ) {
         parent::__construct($name, $description);
     }

@@ -51,8 +51,8 @@
             </div>
         </form>
         <form action="{{ deleteUrl }}" method="post" id="delete-form">
-            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audioId }}" hidden>
-            <input type="text" class="form-control" name="{{ data.languageFiled }}" value="{{ language }}" hidden>
+            <input type="text" class="form-control" name="{{ data.deleteIdFiled }}" value="{{ audioId }}" hidden>
+            <input type="text" class="form-control" name="{{ data.deleteLanguageFiled }}" value="{{ language }}" hidden>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
         </form>
         <script>

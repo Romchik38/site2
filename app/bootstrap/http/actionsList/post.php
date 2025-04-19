@@ -88,7 +88,15 @@ return function (Container $container): ControllerInterface {
         null,
         'audio_translate_update'
     );
+    $adminAudioTranslateDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Delete\DefaultAction'),
+        null,
+        'audio_translate_delete'
+    );
     $adminAudioTranslate
+    ->setChild($adminAudioTranslateDelete)
     ->setChild($adminAudioTranslateNew)
     ->setChild($adminAudioTranslateUpdate);
 

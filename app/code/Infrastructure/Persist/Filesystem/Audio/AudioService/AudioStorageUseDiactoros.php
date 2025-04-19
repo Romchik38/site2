@@ -70,7 +70,7 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
      */
     public function load(Path $path): Content
     {
-        $fullPath = $this->pathPrefix . $path();
+        $fullPath = $this->createFullPath($path);
         try {
             $data       = $this->loadAudioFromFile($fullPath);
             $properties = $this->getPropertiesFromString($data);

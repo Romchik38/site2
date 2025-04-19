@@ -21,6 +21,7 @@ use Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\Find;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\NoSuchTranslateException;
+use Romchik38\Site2\Application\Audio\AudioService\DeleteTranslate;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
@@ -101,7 +102,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             UpdateTranslate::ID_FIELD,
             UpdateTranslate::LANGUAGE_FIELD,
             UpdateTranslate::DESCRIPTION_FIELD,
-            $this->audioPathPrefix
+            $this->audioPathPrefix,
+            DeleteTranslate::AUDIO_ID_FIELD,
+            DeleteTranslate::LANGUAGE_FIELD
         );
 
         $html = $this->view

@@ -29,11 +29,13 @@
                 {% set descriptionVo = translate.description %}
                 {% if translateLanguageVo.__toString() == availableLanguageVo.__toString() %}
                     <!-- translate exust -->
+                    {% set audioId = audio.id %}
+                    {% set languageId = translateLanguageVo %}
 					{% 
 						set editUrl = u.fromArray(
 							['root', 'admin', 'audio', 'translate'], 
 							{ 
-								(data.translateAudioIdField): audio.id.__toString(),
+								(data.translateAudioIdField): audioId,
 								(data.translateLanguageField): translateLanguageVo,
 							}
 						) 
@@ -45,6 +47,17 @@
 							<audio src="{{ audioPathPrefix ~ '/' ~ translate.path }}" controls crossorigin="anonymous">{{ translate.description }}</audio>
                         </td>
                         <td><a href="{{ editUrl }}">edit</a></td>
+
+
+                        <!-- <td>
+                            <form action="{{ deleteUrl }}" method="post">
+                                <input type="text" class="form-control" name="{{ data.deleteTranslateIdFiled }}" value="{{ audioId }}" hidden>
+                                <input type="text" class="form-control" name="{{ data.deleteTranslateLanguageFiled }}" value="{{ languageId }}" hidden>
+                                <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+                                <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
+                            </form>
+                        </td> -->
+
                     </tr>
                     {% set break = true %}
                 {% endif %}

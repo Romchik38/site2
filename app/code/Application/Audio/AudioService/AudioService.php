@@ -227,9 +227,11 @@ final class AudioService
 
     /**
      * @todo tests all path
-     * @throws CouldNotChangeActivityException
-     * @throws CouldNotDeleteTranslateException
-     * @throws NoSuchTranslateException
+     * 1 @throws CouldNotChangeActivityException
+     * 1 @throws CouldNotDeleteTranslateException
+     * 1 @throws InvalidArgumentException
+     * @throws NoSuchAudioException
+     * 1 @throws NoSuchTranslateException
      */
     public function deleteTranslate(DeleteTranslate $command): void
     {
