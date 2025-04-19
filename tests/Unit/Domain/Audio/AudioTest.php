@@ -106,6 +106,20 @@ final class AudioTest extends TestCase
         );
     }
 
+    public function testCreateThrowsErrorEmptyLanguages(): void
+    {
+        $name = new Name('audio-name-1');
+
+        $languages = []; // wrong
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Audio::create(
+            $name,
+            $languages,
+        );
+    }
+
     /**
      * Tested:
      *   __construct

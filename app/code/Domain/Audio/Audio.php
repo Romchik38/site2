@@ -40,6 +40,9 @@ final class Audio
         array $languages,
         array $translates
     ) {
+        if (count($languages) === 0) {
+            throw new InvalidArgumentException('audio language list is empty');
+        }
         foreach ($languages as $language) {
             if (! $language instanceof LanguageId) {
                 throw new InvalidArgumentException('param audio language id is invalid');
