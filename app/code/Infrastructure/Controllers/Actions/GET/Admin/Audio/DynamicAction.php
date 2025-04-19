@@ -47,8 +47,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
-
-    /** @todo tests all path */
+    
     public function execute(string $dynamicRoute): ResponseInterface
     {
         try {

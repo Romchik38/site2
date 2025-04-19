@@ -88,20 +88,31 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Audio articles is invalid');
         }
 
-        $articles = $this->createArticles($rawArticles);
-
         $translates = $this->createTranslates($rawIdentifier);
 
+        try {
+            $articles = $this->createArticles($rawArticles);
+            $id       = Id::fromString($rawIdentifier);
+            $name     = new Name($rawName);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException(
+                'Audio admin view repository:' . $e->getMessage()
+            );
+        }
+
         return new AudioDto(
-            Id::fromString($rawIdentifier),
+            $id,
             $active,
-            new Name($rawName),
+            $name,
             $articles,
             $translates
         );
     }
 
-    /** @return array<int,ArticleId> */
+    /**
+     * @throws  InvalidArgumentException
+     * @return array<int,ArticleId>
+     * */
     private function createArticles(string $rawArticles): array
     {
         $decodedArticles = json_decode($rawArticles);
@@ -113,7 +124,10 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-    /** @return array<int,Translate> */
+    /**
+     * @throws RepositoryException
+     * @return array<int,Translate>
+     * */
     protected function createTranslates(string $rawAudioId): array
     {
         $translates = [];
@@ -149,7 +163,9 @@ final class Repository implements RepositoryInterface
                 );
                 $translates[] = $translate;
             } catch (InvalidArgumentException $e) {
-                throw new RepositoryException($e->getMessage());
+                throw new RepositoryException(
+                    'Audio admin view repository:' . $e->getMessage()
+                );
             }
         }
 
