@@ -275,7 +275,7 @@ final class AudioService
         } catch (RepositoryException $e) {
             // restore content
             try {
-                $this->audioStorage->save($translate->getContent(), $translate->getPath());
+                $this->audioStorage->save($content, $translate->getPath());
             } catch (CouldNotSaveAudioDataException $e2) {
                 throw new CouldNotDeleteTranslateException(sprintf(
                     '%s;%s;%s;%s',

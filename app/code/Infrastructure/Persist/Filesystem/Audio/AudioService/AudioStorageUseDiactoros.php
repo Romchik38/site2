@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Audio\AudioService;
 
-use Laminas\Diactoros\Exception\UploadedFileAlreadyMovedException;
-use Laminas\Diactoros\Exception\UploadedFileErrorException;
+use InvalidArgumentException;
 use Laminas\Diactoros\UploadedFile;
 use Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateContentException;
@@ -52,10 +51,6 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
             $properties = $this->getPropertiesFromString($data);
         } catch (RuntimeException $e) {
             throw new CouldNotCreateContentException($e->getMessage());
-        } catch (UploadedFileAlreadyMovedException $e) {
-            throw new CouldNotCreateContentException($e->getMessage());
-        } catch (UploadedFileErrorException $e) {
-            throw new CouldNotCreateContentException($e->getMessage());
         }
 
         return new Content(
@@ -85,7 +80,6 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
     }
 
     /**
-     * @todo implement
      * @throws CouldNotSaveAudioDataException
      */
     public function save(Content $content, Path $path): void
@@ -99,7 +93,6 @@ final class AudioStorageUseDiactoros extends AbstractAudioStorage implements Aud
     }
 
     /**
-     * @todo implement
      * @throws CouldNotDeleteAudioDataException
      */
     public function deleteByPath(Path $path): void

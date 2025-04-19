@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\Audio\AdminTranslateCreate\View\TranslateDto;
 
 final class ViewDto extends DefaultViewDTO
 {
+    /** @param array<int,string> $folders */
     public function __construct(
         string $name,
         string $description,

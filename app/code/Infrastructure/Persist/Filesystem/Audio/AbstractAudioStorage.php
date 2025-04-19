@@ -72,7 +72,10 @@ abstract class AbstractAudioStorage
 
     private function checkMp3(string $data): bool
     {
-        return Mp3Info::isValid($data);
+        ob_start();
+        $result = Mp3Info::isValid($data);
+        ob_end_clean();
+        return $result;
     }
 
     /**

@@ -31,6 +31,11 @@ final class AdminUser implements AdminUserInterface
         return password_verify($password(), ($this->passwordHash)());
     }
 
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
     public function identifier(): Identifier
     {
         return $this->identifier;

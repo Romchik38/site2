@@ -74,6 +74,7 @@ final class Repository implements RepositoryInterface
         }
     }
 
+    /** @todo  delete translate test */
     public function save(Audio $model): void
     {
         $audioName = $model->getName();
@@ -99,13 +100,12 @@ final class Repository implements RepositoryInterface
                 $params
             );
 
-            /** @todo test delete/insrt translates */
-            if (count($translates) > 0) {
-                $this->database->transactionQueryParams(
-                    $this->translatesSaveQueryDelete(),
-                    [$audioId()]
-                );
+            $this->database->transactionQueryParams(
+                $this->translatesSaveQueryDelete(),
+                [$audioId()]
+            );
 
+            if (count($translates) > 0) {
                 foreach ($translates as $translate) {
                     $this->database->transactionQueryParams(
                         $this->translatesSaveQueryInsert(),
@@ -482,15 +482,6 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             DELETE FROM img WHERE identifier = $1
-        QUERY;
-    }
-
-    private function translatesSaveQueryUpdate(): string
-    {
-        return <<<'QUERY'
-        UPDATE audio_translates
-        SET description = $1, path = $2
-        WHERE audio_id = $3 AND language = $4
         QUERY;
     }
 
