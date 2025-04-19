@@ -89,7 +89,6 @@ final class AudioService
         $name = new Name($command->name);
         $model->reName($name);
 
-        /** @todo diactivate on test audio */
         // activity
         if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
             if ($model->isActive()) {
@@ -152,7 +151,6 @@ final class AudioService
     }
 
     /**
-     * @todo test all path
      * @throws CouldNotCreateTranslateException
      * @throws InvalidArgumentException
      */
@@ -165,6 +163,8 @@ final class AudioService
         try {
             $model = $this->repository->getById($audioId);
         } catch (RepositoryException $e) {
+            throw new CouldNotCreateTranslateException($e->getMessage());
+        } catch (NoSuchAudioException $e) {
             throw new CouldNotCreateTranslateException($e->getMessage());
         }
 
@@ -205,7 +205,6 @@ final class AudioService
         );
 
         // TRANSACTION START
-
         // Transaction 1: save content
         try {
             $this->audioStorage->save($content, $translate->getPath());
@@ -215,7 +214,7 @@ final class AudioService
         // Transaction 2: save model
         try {
             $model->addTranslate($translate);
-            $this->repository->addTranslate($audioId, $translate);
+            $this->repository->save($model);
         } catch (InvalidArgumentException $e) {
             // Rollback Transaction 1
             $this->removeContent($translate->getPath(), $e->getMessage(), (string) $audioId, $language());
