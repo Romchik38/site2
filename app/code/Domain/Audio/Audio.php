@@ -151,6 +151,7 @@ final class Audio
     /**
      * - Requirements to become active:
      *   - id is set
+     *
      * @throws CouldNotChangeActivityException
      * */
     public function activate(): void

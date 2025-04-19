@@ -70,4 +70,26 @@ final class TranslateTest extends TestCase
 
         $this->assertSame($content, $translate->getContent());
     }
+
+    public function testChangeDescription(): void
+    {
+        $description = new Description('some description');
+        $language    = new LanguageId('en');
+        $path        = new Path('some/file1.mp3');
+        $translate   = new Translate($language, $description, $path);
+
+        $newDescription = new Description('Some updated description');
+        $translate->changeDescription($newDescription);
+        $this->assertSame($newDescription, $translate->getDescription());
+    }
+
+    public function testGetPath(): void
+    {
+        $description = new Description('some description');
+        $language    = new LanguageId('en');
+        $path        = new Path('some/file1.mp3');
+        $translate   = new Translate($language, $description, $path);
+
+        $this->assertSame($path, $translate->getPath());
+    }
 }

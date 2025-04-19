@@ -21,7 +21,6 @@ final class Translate
     ) {
     }
 
-    /** @todo test */
     public function changeDescription(Description $description): void
     {
         $this->description = $description;
@@ -46,7 +45,6 @@ final class Translate
         return $this->language;
     }
 
-    /** @todo test */
     public function getPath(): Path
     {
         return $this->path;
