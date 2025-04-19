@@ -36,9 +36,9 @@ final class Repository implements RepositoryInterface
         return $list;
     }
 
-    /** 
+    /**
      * @throws RepositoryException
-     * @param array<string,string> $row 
+     * @param array<string,string> $row
      * */
     protected function createFromRow(array $row): LanguageDto
     {
@@ -62,7 +62,7 @@ final class Repository implements RepositoryInterface
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException(
                 'Language list view repository:' . $e->getMessage()
-        );
+            );
         }
 
         return new LanguageDto(
