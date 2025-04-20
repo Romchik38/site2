@@ -2,7 +2,6 @@
 
 ## Current
 
-- todo
 - audio
   - delete
 
