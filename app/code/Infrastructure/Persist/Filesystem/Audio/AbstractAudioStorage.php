@@ -95,14 +95,20 @@ abstract class AbstractAudioStorage
         }
 
         ob_start();
-        /** @todo test unlink */
         $result = fwrite($fp, $data);
         ob_end_clean();
         if ($result === false) {
             fclose($fp);
-            unlink($fullPath);
+            ob_start();
+            $resultUnlink = unlink($fullPath);
+            ob_end_clean();
+            if ($resultUnlink === true) {
+                $message = 'Failed to save audio; Temporary file %s was removed';
+            } else {
+                $message = 'Failed to save audio; Temporary file %s was not removed';
+            }
             throw new RuntimeException(sprintf(
-                'Failed to save audio file %s',
+                $message,
                 $fullPath
             ));
         }
