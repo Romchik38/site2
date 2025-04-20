@@ -25,7 +25,6 @@ use function count;
 use function json_decode;
 use function sprintf;
 
-/** @todo implement */
 final class Repository implements RepositoryInterface
 {
     public function __construct(
@@ -196,7 +195,6 @@ final class Repository implements RepositoryInterface
                 throw new RepositoryException('Param id is invalid while adding new audio');
             }
             $audioId = Id::fromString($rawAudioId);
-            /** @todo check */
             foreach ($translates as $translate) {
                 $this->database->transactionQueryParams(
                     $this->translatesAddQuery(),
