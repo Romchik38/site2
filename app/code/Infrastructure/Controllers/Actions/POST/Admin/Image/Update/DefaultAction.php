@@ -57,21 +57,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $message = '';
 
         $command = Update::formHash($requestData);
-        /** @todo check when id is empty */
-        $uriId = $this->urlbuilder->fromArray(
-            ['root', 'admin', 'image', $command->id]
-        );
 
         try {
             $this->imageService->update($command);
             $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
-            $uri     = $uriId;
+            $uri     = $this->createUriWithId($command->id);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-            $uri     = $uriId;
         } catch (NoSuchImageException) {
             $message = sprintf(
                 $this->translateService->t($this::IMAGE_NOT_EXIST_KEY),
@@ -82,10 +77,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
                 $e->getMessage()
             );
-            $uri     = $uriId;
+            $uri     = $this->createUriWithId($command->id);
         } catch (CouldNotUpdateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri     = $uriId;
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 
@@ -102,5 +96,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function getDescription(): string
     {
         return 'Admin Image update point';
+    }
+
+    private function createUriWithId(string $id): string
+    {
+        return $this->urlbuilder->fromArray(
+            ['root', 'admin', 'image', $id]
+        );
     }
 }

@@ -79,9 +79,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             );
             $uri     = $this->createUriWithId($command->id);
         } catch (CouldNotUpdateException $e) {
-            /** @todo test when repos throws error on getByid, lokks like a circular redirect */
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri     = $this->createUriWithId($command->id);
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 
