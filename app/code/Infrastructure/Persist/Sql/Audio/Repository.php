@@ -61,10 +61,13 @@ final class Repository implements RepositoryInterface
         return $this->createModel($id, $row);
     }
 
-    /** @todo implement */
-    public function deleteById(Id $id): void
+    public function delete(Audio $model): void
     {
-        $query  = $this->deleteByIdQuery();
+        $id = $model->getId();
+        if ($id === null) {
+            throw new RepositoryException('Could not delete audio from repository, id is not set');
+        }
+        $query  = $this->deleteQuery();
         $params = [$id()];
         try {
             $this->database->queryParams($query, $params);
@@ -474,11 +477,10 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo usage */
-    private function deleteByIdQuery(): string
+    private function deleteQuery(): string
     {
         return <<<'QUERY'
-            DELETE FROM img WHERE identifier = $1
+            DELETE FROM audio WHERE identifier = $1
         QUERY;
     }
 

@@ -16,6 +16,16 @@ interface RepositoryInterface
     public function add(Audio $model): Audio;
 
     /**
+     * @throws RepositoryException
+     * */
+    public function addTranslate(Id $id, Translate $translate): void;
+
+    /**
+     * @throws RepositoryException
+     * */
+    public function delete(Audio $model): void;
+
+    /**
      * @throws NoSuchAudioException
      * @throws RepositoryException
      * */
@@ -25,9 +35,4 @@ interface RepositoryInterface
      * @throws RepositoryException
      * */
     public function save(Audio $model): void;
-
-    /**
-     * @throws RepositoryException
-     * */
-    public function addTranslate(Id $id, Translate $translate): void;
 }

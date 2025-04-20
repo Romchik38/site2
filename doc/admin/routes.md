@@ -27,6 +27,7 @@
 - root admin api userinfo           admin userinfo api point
 - root admin audio new              create new audio
 - root admin audio update           update audio
+- root admin audio delete           delete audio
 - root admin audio translate update update audio translate
 - root admin audio translate new    create new audio translate
 - root admin audio translate delete remove audio translate

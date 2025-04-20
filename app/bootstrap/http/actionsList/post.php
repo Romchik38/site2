@@ -59,6 +59,13 @@ return function (Container $container): ControllerInterface {
 
     // Admin Audio
     $adminAudio = new Controller('audio');
+    $adminAudioDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Delete\DefaultAction'),
+        null,
+        'audio_delete'
+    );
     $adminAudioUpdate = new Controller(
         'update',
         false,
@@ -102,6 +109,7 @@ return function (Container $container): ControllerInterface {
 
     $adminAudio->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminAudio
+    ->setChild($adminAudioDelete)
     ->setChild($adminAudioNew)
     ->setChild($adminAudioTranslate)
     ->setChild($adminAudioUpdate);

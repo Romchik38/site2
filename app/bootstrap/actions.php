@@ -421,6 +421,20 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN AUDIO DELETE
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Delete\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+        ]
+    );
+
     // ADMIN AUDIO NEW
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\New\DefaultAction',

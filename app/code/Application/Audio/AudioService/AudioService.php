@@ -16,6 +16,7 @@ use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Audio\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
+use function count;
 use function in_array;
 use function random_int;
 use function sprintf;
@@ -68,6 +69,39 @@ final class AudioService
             ));
         }
         return $addedId;
+    }
+
+    /**
+     * @throws CouldNotChangeActivityException
+     * @throws CouldNotDeleteAudioException
+     * @throws InvalidArgumentException
+     * @throws NoSuchAudioException
+     */
+    public function delete(Delete $command): void
+    {
+        $id = Id::fromString($command->id);
+
+        try {
+            $model = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteAudioException($e->getMessage());
+        }
+
+        $model->deactivate();
+
+        $translates = $model->getTranslates();
+        if (count($translates) > 0) {
+            throw new CouldNotDeleteAudioException(sprintf(
+                'Faild to delete audio with id %s, it has translates. Delete them first',
+                (string) $id
+            ));
+        }
+
+        try {
+            $this->repository->delete($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteAudioException($e->getMessage());
+        }
     }
 
     /**

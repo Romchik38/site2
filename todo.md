@@ -2,9 +2,6 @@
 
 ## Current
 
-- audio
-  - delete
-
 - move config to const
 - refactor folder structure
 
