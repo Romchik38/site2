@@ -12,6 +12,7 @@ final class Identifier
 {
     public const NAME = 'Category_Identifier';
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         private readonly string $id
     ) {

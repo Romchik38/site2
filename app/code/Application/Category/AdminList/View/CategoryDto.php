@@ -9,7 +9,8 @@ use Romchik38\Site2\Domain\Category\VO\Identifier;
 final class CategoryDto
 {
     public function __construct(
-        public readonly Identifier $id
+        public readonly Identifier $id,
+        public readonly bool $active
     ) {
     }
 }
