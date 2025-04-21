@@ -2,6 +2,13 @@
 
 ## Current
 
+- category
+  - list
+  - view
+  - update
+  - create
+  - delete
+
 - move config to const
 - refactor folder structure
 
