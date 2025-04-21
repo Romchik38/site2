@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Translate\ListView;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Translate\ListView\VO\Limit;
 use Romchik38\Site2\Application\Translate\ListView\VO\Offset;
 use Romchik38\Site2\Application\Translate\ListView\VO\OrderByDirection;
@@ -17,6 +18,9 @@ final class ListViewService
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function list(Filter $command): FilterResult
     {
         $limit            = Limit::fromString($command->limit);
@@ -32,6 +36,7 @@ final class ListViewService
             $orderByDirection
         );
 
+        /** @todo CouldNotFilterException */
         return new FilterResult(
             $searchCriteria,
             $page,
@@ -41,6 +46,7 @@ final class ListViewService
 
     public function totalCount(): int
     {
+        /** @todo catch repo exc */
         return $this->repository->totalCount();
     }
 }

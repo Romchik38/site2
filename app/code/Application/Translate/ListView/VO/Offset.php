@@ -10,6 +10,7 @@ use function sprintf;
 
 final class Offset
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly int $offset
     ) {

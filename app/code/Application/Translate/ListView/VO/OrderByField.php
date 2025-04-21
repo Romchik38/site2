@@ -16,6 +16,7 @@ final class OrderByField
 
     public readonly string $orderByField;
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         string $orderByField,
     ) {

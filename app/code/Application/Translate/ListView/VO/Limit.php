@@ -24,6 +24,7 @@ final class Limit
         return $this->limit;
     }
 
+    /** @throws InvalidArgumentException */
     public static function fromString(string $limit): self
     {
         if ($limit === '') {

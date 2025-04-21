@@ -16,6 +16,7 @@ final class OrderByDirection
 
     public readonly string $orderByDirection;
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         string $orderByDirection
     ) {

@@ -22,6 +22,7 @@ final class Page
         }
     }
 
+    /** @throws InvalidArgumentException */
     public static function fromString(string $page): self
     {
         if ($page === '') {
