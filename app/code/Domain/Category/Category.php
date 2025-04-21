@@ -16,6 +16,15 @@ use function sprintf;
 
 final class Category
 {
+    public const string ERROR_EMPTY_LANGUAGE_LIST      = 'category language list is empty';
+    public const string ERROR_WRONG_TRANSLATE_LANGUAGE = 'category translate language has non expected language';
+    public const string ERROR_WRONG_LANGUAGE_INSTANCE  = 'category language is invalid';
+    public const string ERROR_WRONG_TRANSLATE_INSTANCE = 'category translate is invalid';
+    public const string ERROR_WRONG_ARTICLE_INSTANCE   = 'category article is invalid';
+    public const string ERROR_DELETE_TRANSLATE_ACTIVE  =
+        'Could not delete the translate, category is active. Diactivate it first';
+    public const string ERROR_ACTIVATE_NO_ARTICLE      = 'Category does not have any active article';
+
     /** @var array<int,Article> $articles */
     private readonly array $articles;
 
@@ -25,12 +34,12 @@ final class Category
     /** @var array<string,Translate> $translates */
     private array $translates = [];
 
-        /**
-         * @param array<int,mixed|Article> $articles
-         * @param array<int,mixed|LanguageId> $languages
-         * @param array<int,mixed|Translate> $translates
-         * @throws InvalidArgumentException
-         * */
+    /**
+     * @param array<int,mixed|Article> $articles
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translate> $translates
+     * @throws InvalidArgumentException
+     * */
     private function __construct(
         private ?Identifier $id,
         private bool $active,
@@ -39,30 +48,28 @@ final class Category
         array $translates
     ) {
         if (count($languages) === 0) {
-            throw new InvalidArgumentException('category language list is empty');
+            throw new InvalidArgumentException(self::ERROR_EMPTY_LANGUAGE_LIST);
         }
         foreach ($languages as $language) {
             if (! $language instanceof LanguageId) {
-                throw new InvalidArgumentException('param category language id is invalid');
+                throw new InvalidArgumentException(self::ERROR_WRONG_LANGUAGE_INSTANCE);
             }
         }
         $this->languages = $languages;
 
         foreach ($articles as $article) {
             if (! $article instanceof Article) {
-                throw new InvalidArgumentException('param category article id is invalid');
+                throw new InvalidArgumentException(self::ERROR_WRONG_ARTICLE_INSTANCE);
             }
         }
         $this->articles = $articles;
 
         foreach ($translates as $translate) {
             if (! $translate instanceof Translate) {
-                throw new InvalidArgumentException('param category translate is invalid');
+                throw new InvalidArgumentException(self::ERROR_WRONG_TRANSLATE_INSTANCE);
             } else {
                 if ($this->languageCheck($translate, $languages) === false) {
-                    throw new InvalidArgumentException(
-                        'param category translate language has non expected language'
-                    );
+                    throw new InvalidArgumentException(self::ERROR_WRONG_TRANSLATE_LANGUAGE);
                 } else {
                     $languageId                      = $translate->getLanguage();
                     $this->translates[$languageId()] = $translate;
@@ -98,9 +105,7 @@ final class Category
     {
         $checkResult = $this->languageCheck($translate, $this->languages);
         if ($checkResult === false) {
-            throw new InvalidArgumentException(
-                'param Category translate language has non expected language'
-            );
+            throw new InvalidArgumentException(self::ERROR_WRONG_TRANSLATE_LANGUAGE);
         } else {
             $languageId                      = $translate->getLanguage();
             $this->translates[$languageId()] = $translate;
@@ -113,9 +118,7 @@ final class Category
     public function deleteTranslate(string $language): void
     {
         if ($this->active === true) {
-            throw new CouldNotDeleteTranslateException(
-                'Coould not delete translate, category is active. Diactivaye it first'
-            );
+            throw new CouldNotDeleteTranslateException(self::ERROR_DELETE_TRANSLATE_ACTIVE);
         }
         $translates = array_values($this->translates);
         $arr        = [];
@@ -136,9 +139,12 @@ final class Category
         return $this->active;
     }
 
+    /** @todo tests */
     /**
      * - Requirements to become active:
      *   - id is set
+     *   - has active article
+     *   - has all translates
      *
      * @throws CouldNotChangeActivityException
      * */
@@ -165,9 +171,25 @@ final class Category
             }
         }
 
+        if (count($this->articles) === 0) {
+            throw new CouldNotChangeActivityException(self::ERROR_ACTIVATE_NO_ARTICLE);
+        }
+
+        $hasActiveArticle = false;
+        foreach ($this->articles as $article) {
+            if ($article->active === true) {
+                $hasActiveArticle = true;
+                break;
+            }
+        }
+        if ($hasActiveArticle === false) {
+            throw new CouldNotChangeActivityException(self::ERROR_ACTIVATE_NO_ARTICLE);
+        }
+
         $this->active = true;
     }
 
+    /** @todo tests */
     public function deactivate(): void
     {
         if ($this->active === false) {
@@ -177,6 +199,7 @@ final class Category
         $this->active = false;
     }
 
+    /** @todo tests */
     /**
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
@@ -195,6 +218,7 @@ final class Category
         );
     }
 
+    /** @todo tests */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -217,6 +241,7 @@ final class Category
         );
     }
 
+    /** @todo tests */
     /** @param array<int,mixed|LanguageId> $languages */
     private function languageCheck(Translate $translate, array $languages): bool
     {
