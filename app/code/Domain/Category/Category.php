@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Audio;
+namespace Romchik38\Site2\Domain\Category;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Audio\Entities\Article;
-use Romchik38\Site2\Domain\Audio\Entities\Translate;
-use Romchik38\Site2\Domain\Audio\VO\Id;
-use Romchik38\Site2\Domain\Audio\VO\Name;
+use Romchik38\Site2\Domain\Category\Entities\Article;
+use Romchik38\Site2\Domain\Category\Entities\Translate;
+use Romchik38\Site2\Domain\Category\VO\Identifier;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_values;
 use function count;
 use function sprintf;
 
-final class Audio
+final class Category
 {
     /** @var array<int,Article> $articles */
     private readonly array $articles;
@@ -26,47 +25,43 @@ final class Audio
     /** @var array<string,Translate> $translates */
     private array $translates = [];
 
-    /**
-     * @param array<int,mixed|Article> $articles
-     * @param array<int,mixed|LanguageId> $languages
-     * @param array<int,mixed|Translate> $translates
-     * @throws InvalidArgumentException
-     * */
+        /**
+         * @param array<int,mixed|Article> $articles
+         * @param array<int,mixed|LanguageId> $languages
+         * @param array<int,mixed|Translate> $translates
+         * @throws InvalidArgumentException
+         * */
     private function __construct(
-        private ?Id $id,
+        private ?Identifier $id,
         private bool $active,
-        private Name $name,
         array $articles,
         array $languages,
         array $translates
     ) {
         if (count($languages) === 0) {
-            throw new InvalidArgumentException('audio language list is empty');
+            throw new InvalidArgumentException('category language list is empty');
         }
         foreach ($languages as $language) {
             if (! $language instanceof LanguageId) {
-                throw new InvalidArgumentException('param audio language id is invalid');
+                throw new InvalidArgumentException('param category language id is invalid');
             }
         }
         $this->languages = $languages;
 
         foreach ($articles as $article) {
             if (! $article instanceof Article) {
-                throw new InvalidArgumentException('param audio article id is invalid');
-            }
-            if ($article->active === true && $active === false) {
-                throw new InvalidArgumentException('param audio article active and audio active are different');
+                throw new InvalidArgumentException('param category article id is invalid');
             }
         }
         $this->articles = $articles;
 
         foreach ($translates as $translate) {
             if (! $translate instanceof Translate) {
-                throw new InvalidArgumentException('param audio translate is invalid');
+                throw new InvalidArgumentException('param category translate is invalid');
             } else {
                 if ($this->languageCheck($translate, $languages) === false) {
                     throw new InvalidArgumentException(
-                        'param audio translate language has non expected language'
+                        'param category translate language has non expected language'
                     );
                 } else {
                     $languageId                      = $translate->getLanguage();
@@ -82,14 +77,9 @@ final class Audio
         return $this->articles;
     }
 
-    public function getId(): ?Id
+    public function getId(): ?Identifier
     {
         return $this->id;
-    }
-
-    public function getName(): Name
-    {
-        return $this->name;
     }
 
     public function getTranslate(string $language): ?Translate
@@ -109,7 +99,7 @@ final class Audio
         $checkResult = $this->languageCheck($translate, $this->languages);
         if ($checkResult === false) {
             throw new InvalidArgumentException(
-                'param audio translate language has non expected language'
+                'param Category translate language has non expected language'
             );
         } else {
             $languageId                      = $translate->getLanguage();
@@ -124,7 +114,7 @@ final class Audio
     {
         if ($this->active === true) {
             throw new CouldNotDeleteTranslateException(
-                'Coould not delete translate, audio is active. Diactivate it first'
+                'Coould not delete translate, category is active. Diactivaye it first'
             );
         }
         $translates = array_values($this->translates);
@@ -146,11 +136,6 @@ final class Audio
         return $this->active;
     }
 
-    public function reName(Name $name): void
-    {
-        $this->name = $name;
-    }
-
     /**
      * - Requirements to become active:
      *   - id is set
@@ -164,47 +149,29 @@ final class Audio
         }
 
         if ($this->id === null) {
-            throw new CouldNotChangeActivityException('Audio id is invalid');
+            throw new CouldNotChangeActivityException('Category id is invalid');
         }
 
         if (count($this->languages) > count($this->translates)) {
-            throw new CouldNotChangeActivityException('Audio has missing translates');
+            throw new CouldNotChangeActivityException('Category has missing translates');
         }
 
         foreach ($this->languages as $language) {
             $check = $this->translates[$language()] ?? null;
             if ($check === null) {
                 throw new CouldNotChangeActivityException(
-                    sprintf('Audio has missing translates %s', $language())
+                    sprintf('Category has missing translates %s', $language())
                 );
             }
-        }
-
-        if ($this->isContentLoaded() === false) {
-            throw new CouldNotChangeActivityException(
-                sprintf('Audio content must be loaded before activation')
-            );
         }
 
         $this->active = true;
     }
 
-    /**
-     * @throws CouldNotChangeActivityException
-     * */
     public function deactivate(): void
     {
         if ($this->active === false) {
             return;
-        }
-
-        foreach ($this->articles as $article) {
-            if ($article->active === true) {
-                throw new CouldNotChangeActivityException(sprintf(
-                    'Audio is used in article %s. Change it first',
-                    (string) $article->id
-                ));
-            }
         }
 
         $this->active = false;
@@ -216,14 +183,12 @@ final class Audio
      * @throws InvalidArgumentException
      * */
     public static function create(
-        Name $name,
         array $languages,
         array $translates = []
     ): self {
         return new self(
             null,
             false,
-            $name,
             [],
             $languages,
             $translates
@@ -237,9 +202,8 @@ final class Audio
      * @throws InvalidArgumentException
      * */
     public static function load(
-        Id $id,
+        Identifier $id,
         bool $active,
-        Name $name,
         array $articles,
         array $languages,
         array $translates
@@ -247,7 +211,6 @@ final class Audio
         return new self(
             $id,
             $active,
-            $name,
             $articles,
             $languages,
             $translates
@@ -266,21 +229,5 @@ final class Audio
             }
         }
         return $found;
-    }
-
-    private function isContentLoaded(): bool
-    {
-        foreach ($this->languages as $language) {
-            $translate = $this->translates[$language()] ?? null;
-            if ($translate === null) {
-                return false;
-            } else {
-                if ($translate->isContentLoaded === false) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

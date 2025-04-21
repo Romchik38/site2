@@ -3,6 +3,9 @@
 ## Current
 
 - category
+  - domain model tests
+
+- category
   - list
   - view
   - update
