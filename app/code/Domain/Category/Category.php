@@ -22,8 +22,9 @@ final class Category
     public const string ERROR_WRONG_TRANSLATE_INSTANCE = 'category translate is invalid';
     public const string ERROR_WRONG_ARTICLE_INSTANCE   = 'category article is invalid';
     public const string ERROR_DELETE_TRANSLATE_ACTIVE  =
-        'Could not delete the translate, category is active. Diactivate it first';
-    public const string ERROR_ACTIVATE_NO_ARTICLE      = 'Category does not have any active article';
+        'could not delete the translate, category is active. Diactivate it first';
+    public const string ERROR_ACTIVATE_NO_ARTICLE      = 'category does not have any active article';
+    public const ERROR_ACTIVATE_MISSING_TRANSLATE      = 'category has missing translate %s';
 
     /** @var array<int,Article> $articles */
     private readonly array $articles;
@@ -139,7 +140,6 @@ final class Category
         return $this->active;
     }
 
-    /** @todo tests */
     /**
      * - Requirements to become active:
      *   - id is set
@@ -158,15 +158,11 @@ final class Category
             throw new CouldNotChangeActivityException('Category id is invalid');
         }
 
-        if (count($this->languages) > count($this->translates)) {
-            throw new CouldNotChangeActivityException('Category has missing translates');
-        }
-
         foreach ($this->languages as $language) {
             $check = $this->translates[$language()] ?? null;
             if ($check === null) {
                 throw new CouldNotChangeActivityException(
-                    sprintf('Category has missing translates %s', $language())
+                    sprintf(self::ERROR_ACTIVATE_MISSING_TRANSLATE, $language())
                 );
             }
         }
@@ -189,7 +185,6 @@ final class Category
         $this->active = true;
     }
 
-    /** @todo tests */
     public function deactivate(): void
     {
         if ($this->active === false) {
@@ -199,7 +194,6 @@ final class Category
         $this->active = false;
     }
 
-    /** @todo tests */
     /**
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
@@ -218,7 +212,6 @@ final class Category
         );
     }
 
-    /** @todo tests */
     /**
      * @param array<int,mixed|Article> $articles
      * @param array<int,mixed|LanguageId> $languages
@@ -241,7 +234,6 @@ final class Category
         );
     }
 
-    /** @todo tests */
     /** @param array<int,mixed|LanguageId> $languages */
     private function languageCheck(Translate $translate, array $languages): bool
     {

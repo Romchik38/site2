@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
 use Romchik38\Site2\Domain\Category\Category;
+use Romchik38\Site2\Domain\Category\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Category\CouldNotDeleteTranslateException;
 use Romchik38\Site2\Domain\Category\Entities\Article;
 use Romchik38\Site2\Domain\Category\Entities\Translate;
@@ -16,6 +17,8 @@ use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Category\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use stdClass;
+
+use function sprintf;
 
 final class CategoryTest extends TestCase
 {
@@ -302,5 +305,145 @@ final class CategoryTest extends TestCase
 
         $category->activate();
         $this->assertSame(true, $category->isActive());
+    }
+
+    public function testActivateThrowsErrorOnEmptyArticles(): void
+    {
+        $id = new CategoryId('some-id');
+
+        $languageEn = new LanguageId('en');
+        $languageUk = new LanguageId('uk');
+        $languages  = [$languageEn, $languageUk];
+
+        $descriptionEn = new Description('Some description');
+        $nameEn        = new Name('Some name');
+        $translateEn   = new Translate($languageEn, $descriptionEn, $nameEn);
+
+        $descriptionUk = new Description('Деякий опис');
+        $nameUk        = new Name('Якесь ім\'я');
+        $translateUk   = new Translate($languageUk, $descriptionUk, $nameUk);
+
+        $translates = [$translateEn, $translateUk];
+
+        $articles = [];
+
+        $category = Category::load(
+            $id,
+            false,
+            $articles,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage(Category::ERROR_ACTIVATE_NO_ARTICLE);
+
+        $category->activate();
+    }
+
+    /**
+     * as min 1 article must be active, to activate the category
+     */
+    public function testActivateThrowsErrorOnNonActiveArticle(): void
+    {
+        $id = new CategoryId('some-id');
+
+        $languageEn = new LanguageId('en');
+        $languageUk = new LanguageId('uk');
+        $languages  = [$languageEn, $languageUk];
+
+        $descriptionEn = new Description('Some description');
+        $nameEn        = new Name('Some name');
+        $translateEn   = new Translate($languageEn, $descriptionEn, $nameEn);
+
+        $descriptionUk = new Description('Деякий опис');
+        $nameUk        = new Name('Якесь ім\'я');
+        $translateUk   = new Translate($languageUk, $descriptionUk, $nameUk);
+
+        $translates = [$translateEn, $translateUk];
+
+        $article1 = new Article(new ArticleId('some-article-id 1'), false);
+        $article2 = new Article(new ArticleId('some-article-id 2'), false);
+        $articles = [$article1, $article2];
+
+        $category = Category::load(
+            $id,
+            false,
+            $articles,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage(Category::ERROR_ACTIVATE_NO_ARTICLE);
+
+        $category->activate();
+    }
+
+    public function testActivateThrowsErrorMissingTranslates(): void
+    {
+        $id = new CategoryId('some-id');
+
+        $languageEn = new LanguageId('en');
+        $languageUk = new LanguageId('uk');
+        $languages  = [$languageEn, $languageUk];
+
+        $descriptionEn = new Description('Some description');
+        $nameEn        = new Name('Some name');
+        $translateEn   = new Translate($languageEn, $descriptionEn, $nameEn);
+
+        $translates = [$translateEn];
+
+        $article1 = new Article(new ArticleId('some-article-id 1'), true);
+        $articles = [$article1];
+
+        $category = Category::load(
+            $id,
+            false,
+            $articles,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage(sprintf(
+            Category::ERROR_ACTIVATE_MISSING_TRANSLATE,
+            'uk'
+        ));
+
+        $category->activate();
+    }
+
+    public function testDiactivate(): void
+    {
+        $id = new CategoryId('some-id');
+
+        $languageEn = new LanguageId('en');
+        $languageUk = new LanguageId('uk');
+        $languages  = [$languageEn, $languageUk];
+
+        $descriptionEn = new Description('Some description');
+        $nameEn        = new Name('Some name');
+        $translateEn   = new Translate($languageEn, $descriptionEn, $nameEn);
+
+        $descriptionUk = new Description('Деякий опис');
+        $nameUk        = new Name('Якесь ім\'я');
+        $translateUk   = new Translate($languageUk, $descriptionUk, $nameUk);
+
+        $translates = [$translateEn, $translateUk];
+
+        $article1 = new Article(new ArticleId('some-article-id'), true);
+        $articles = [$article1];
+
+        $category = Category::load(
+            $id,
+            true,
+            $articles,
+            $languages,
+            $translates
+        );
+
+        $category->deactivate();
+        $this->assertSame(false, $category->isActive());
     }
 }
