@@ -8,7 +8,6 @@ use Romchik38\Site2\Domain\Category\VO\Description;
 use Romchik38\Site2\Domain\Category\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
-/** @todo test */
 final class Translate
 {
     public function __construct(
