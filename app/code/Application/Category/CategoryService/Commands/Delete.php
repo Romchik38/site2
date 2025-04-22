@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Category\CategoryService;
+namespace Romchik38\Site2\Application\Category\CategoryService\Commands;
 
 final class Delete
 {

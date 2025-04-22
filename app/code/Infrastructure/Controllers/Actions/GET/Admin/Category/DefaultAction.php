@@ -16,7 +16,7 @@ use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Category\AdminList\AdminList;
 use Romchik38\Site2\Application\Category\AdminList\Filter;
-use Romchik38\Site2\Application\Category\CategoryService\Delete;
+use Romchik38\Site2\Application\Category\CategoryService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;

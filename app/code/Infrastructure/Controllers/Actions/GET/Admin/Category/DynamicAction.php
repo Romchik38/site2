@@ -19,7 +19,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Category\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Category\AdminView\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\AdminView\ViewService;
-use Romchik38\Site2\Application\Category\CategoryService\Update;
+use Romchik38\Site2\Application\Category\CategoryService\Commands\Update;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Application\Language\ListView\RepositoryException as LanguageException;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;

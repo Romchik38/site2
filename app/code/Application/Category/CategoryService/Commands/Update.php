@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Category\CategoryService;
-
-use Romchik38\Site2\Application\Category\CategoryService\Translate;
+namespace Romchik38\Site2\Application\Category\CategoryService\Commands;
 
 use function count;
 use function is_array;
