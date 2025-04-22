@@ -22,6 +22,28 @@
                 </div>
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+
+            <div class="form-group p-2">
+                <div class="mb-3">                
+                    <h2 class="text-center">Activity</h2>
+                    {% if category.active == true %} 
+                        <span class="text-success">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityField }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityField }}">
+                    {% if category.active == false %}
+                        Activate
+                    {% elseif category.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
             <!-- Translates -->
             {% include controller_template_dir ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
             <div class="d-flex ">
@@ -38,6 +60,21 @@
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
         </form>
         <script>
+            var activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
             deleteButton = document.getElementById('delete-button');
             deleteForm = document.getElementById('delete-form');
             if(deleteButton !== null && deleteForm !== null) {
@@ -51,7 +88,7 @@
         <!-- Back link -->
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'category']) }}">Category list</a> page</div>
 
-        ArticleS !!!
+        {% include controller_template_dir ~ '/blocks/articles.twig' with {'t': t, 'u': u, 'articles': articles } only %}
     </div>
 </div>
 

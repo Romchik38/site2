@@ -35,9 +35,7 @@
         </div>
         <div class="mb-1">
             <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
-            <textarea class="form-control" form="category-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
-                maxlength="255" rows="4"
-            >{{ description }}</textarea>
+            <textarea class="form-control" form="category-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required maxlength="255" rows="4">{{ description }}</textarea>
         </div>
     </div>
 {% endfor %}
