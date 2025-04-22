@@ -107,7 +107,7 @@ return function (Container $container): ControllerInterface {
         'category',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction'),
-        null,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction'),
         'admin_category'
     );
 

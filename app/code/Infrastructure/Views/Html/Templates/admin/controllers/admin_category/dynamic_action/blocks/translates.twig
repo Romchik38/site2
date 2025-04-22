@@ -1,0 +1,43 @@
+{# 
+    Object          data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction\ViewDto
+    LanguageDto[]   availableLanguages          Romchik38\Site2\Application\Language\ListView\View\LanguageDto
+#}
+
+{% set availableLanguages = data.languages %}
+{% set translates = data.categoryDto.translates %}
+<!-- Inside a form -->
+<h2 class="text-center">Translates</h2>
+{% for availableLanguage in availableLanguages  %}
+    {% set availableLanguageVo = availableLanguage.identifier %}
+    {% set name = '' %}
+    {% set description = '' %}
+    {% for item in translates %}
+        {% if item.getLanguage() == availableLanguageVo.__toString() %}
+            {% set name = item.getName() %}
+            {% set description = item.getDescription() %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="form-group p-2 my-2">
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
+                value="{{ availableLanguageVo }}" 
+                hidden
+            >
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.nameField }}]">Name</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.nameField }}]" required 
+                value="{{ name }}"
+            >
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
+            <textarea class="form-control" form="category-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required 
+                maxlength="255" rows="4"
+            >{{ description }}</textarea>
+        </div>
+    </div>
+{% endfor %}
