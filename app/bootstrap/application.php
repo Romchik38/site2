@@ -91,11 +91,19 @@ return function (Container $container) {
         ]
     );
 
-    // ADMIN CATEGORY
+    // ADMIN CATEGORY LIST
     $container->shared(
         '\Romchik38\Site2\Application\Category\AdminList\AdminList',
         [
             new Promise('\Romchik38\Site2\Application\Category\AdminList\RepositoryInterface')
+        ]
+    );
+
+    // ADMIN CATEGORY VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Category\AdminView\ViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Category\AdminView\RepositoryInterface')
         ]
     );
 

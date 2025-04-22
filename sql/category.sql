@@ -12,3 +12,5 @@ CREATE table
         description text NOT NULL,
         CONSTRAINT pk_category_translates PRIMARY KEY (category_id, language)
     );
+
+

@@ -220,6 +220,16 @@ return function (Container $container) {
         ]
     );
 
+    // CATEGORY ADMIN VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\AdminView\Repository',
+        '\Romchik38\Site2\Application\Category\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
+
     // TRANSLATE STORAGE 
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage\TranslateStorage',

@@ -14,6 +14,7 @@ final class CategoryDto
      * */
     public function __construct(
         public readonly Identifier $id,
+        public readonly bool $active,
         public readonly array $articles,
         public readonly array $translates
     ) {
