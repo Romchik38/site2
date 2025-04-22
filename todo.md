@@ -3,7 +3,6 @@
 ## Current
 
 - category
-  - list
   - view
   - update
   - create
