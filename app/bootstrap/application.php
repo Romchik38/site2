@@ -91,6 +91,14 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN CATEGORY
+    $container->shared(
+        '\Romchik38\Site2\Application\Category\AdminList\AdminList',
+        [
+            new Promise('\Romchik38\Site2\Application\Category\AdminList\RepositoryInterface')
+        ]
+    );
+
     // ADMIN USER CHECK
     $container->shared(
         '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',

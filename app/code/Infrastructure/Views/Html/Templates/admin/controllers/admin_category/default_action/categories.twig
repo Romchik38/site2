@@ -1,15 +1,15 @@
 {#
     string              paginationHtml              html to display
-    TranslateDto[]      translateList               Romchik38\Site2\Application\Translate\ListView\View\TranslateDto
+    CategoryDto[]       categoryList                Romchik38\Site2\Application\Category\AdminList\View\CategoryDto
     object              paginationForm              Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction\PaginationForm
-    string              urlNew                      url to create new translate
+    string              urlNew                      url to create new category
     object              u                           urlbuilder
     object              t                           translate service
 #}
 
 {% set paginationForm = data.paginationForm %}
 {% set paginationHtml = data.paginationHtml %}
-{% set translateList = data.translateList %}
+{% set categoryList = data.categoryList %}
 
 <div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="{{ urlNew }}" role="button">New</a>
@@ -66,24 +66,34 @@
 
 <!-- Image List -->
 <table class="table table-bordered">
-    <thead>
+    <thead class="table-secondary">
           <tr>
                 <th scope="col">Identifier</th>
+                <th scope="col">Active</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
           </tr>
     </thead>
     <tbody>
-        {% for translate in translateList %}
+        {% for category in categoryList %}
+            {% set activeColor = '' %}
+            {% if category.active == false %}
+                {% set activeColor = 'text-warning bg-secondary' %}
+                {% set active = 'not active' %}
+            {% elseif category.active == true %}
+                {% set activeColor = 'text-success' %}
+                {% set active = 'active' %}
+            {% endif %}
             <tr>
-                {% set translateId = translate.identifier.__toString() %}
+                {% set categoryId = category.id.__toString() %}
                 <!-- 1. Id -->
-                <th scope="row">{{ translateId }}</th>
-                {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId|url_encode]) %}
-                <td><a href="{{ translateUrl }}">edit</a></td>
+                <th scope="row">{{ categoryId }}</th>
+                {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId|url_encode]) %}
+                <td class="{{ activeColor }}">{{ active }}</td>
+                <td><a href="{{ categoryUrl }}">edit</a></td>
                 <td>
-                    <form action="{{ u.fromArray(['root', 'admin', 'translate', 'delete']) }}" method="post">
-                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translateId }}" hidden>
+                    <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ categoryId }}" hidden>
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>

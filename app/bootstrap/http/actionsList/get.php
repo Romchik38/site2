@@ -82,17 +82,33 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAudioNew)
     ->setChild($adminAudioTranslate);
 
-    $adminUsers = new Controller(
-        'users',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction')
-    );
-    $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware'));
-
     $adminArticle = new Controller(
         'article',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction')
+    );
+
+    $adminAuthor = new Controller(
+        'author',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction')
+    );
+    $adminAuthorNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction'),
+        null,
+        'author_new'
+    );
+    $adminAuthor->setChild($adminAuthorNew);
+
+    $adminCategory = new Controller(
+        'category',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction'),
+        null,
+        'admin_category'
     );
 
     $adminImagecache = new Controller(
@@ -116,21 +132,6 @@ return function (Container $container): ControllerInterface {
     );
     $adminImage->setChild($adminImageNew);
 
-    $adminAuthor = new Controller(
-        'author',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction')
-    );
-    $adminAuthorNew = new Controller(
-        'new',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction'),
-        null,
-        'author_new'
-    );
-    $adminAuthor->setChild($adminAuthorNew);
-
     $adminLanguage = new Controller(
         'language',
         false,
@@ -152,10 +153,18 @@ return function (Container $container): ControllerInterface {
     );
     $adminTranslate->setChild($admintranslateNew);
 
+    $adminUsers = new Controller(
+        'users',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction')
+    );
+    $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware'));
+
     $admin
     ->setChild($adminAudio)
     ->setChild($adminArticle)
     ->setChild($adminAuthor)
+    ->setChild($adminCategory)
     ->setChild($adminImagecache)
     ->setChild($adminImage)
     ->setChild($adminLanguage)

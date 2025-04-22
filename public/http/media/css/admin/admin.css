@@ -6,16 +6,20 @@
     background-color: #606bd2;
 }
 
+.authors {
+    background-color: #696fb9;
+}
+
+.categories {
+    background-color: #d5556c;
+}
+
 .users {
     background-color: #c7a0ce;
 }
 
 .imagecache {
     background-color: #a2cdce;
-}
-
-.authors {
-    background-color: #696fb9;
 }
 
 .languages {

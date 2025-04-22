@@ -8,17 +8,18 @@
 - root admin audio new              create new audio
 - root admin audio translate        view audio translate
 - root admin audio translate new    create new audio translate
-- root admin users                  users page
+- root admin author                 author list (default)
+                                    author view/update (dynamic)
+- root admin author new             author create new
+- root admin category               category list
 - root admin image                  images page
 - root admin image new              create new image
 - root admin imagecache             image cache
 - root admin language               languages list
-- root admin author                 author list (default)
-                                    author view/update (dynamic)
-- root admin author new             author create new
 - root admin translate              translate list view
                                     translate view
 - root admin translate new          translate create new
+- root admin users                  users page
 
 ## POST
 
