@@ -12,6 +12,7 @@
                                     author view/update (dynamic)
 - root admin author new             author create new
 - root admin category               category list
+- root admin category new           create new category
 - root admin image                  images page
 - root admin image new              create new image
 - root admin imagecache             image cache
