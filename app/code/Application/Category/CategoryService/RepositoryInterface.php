@@ -18,7 +18,7 @@ interface RepositoryInterface
     public function getById(Identifier $id): Category;
 
     /** @throws RepositoryException */
-    public function deleteById(Identifier $id): void;
+    public function delete(Category $model): void;
 
     /** @throws RepositoryException */
     public function save(Category $model): void;

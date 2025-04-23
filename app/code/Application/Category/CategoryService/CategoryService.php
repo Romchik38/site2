@@ -6,8 +6,10 @@ namespace Romchik38\Site2\Application\Category\CategoryService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
+use Romchik38\Site2\Application\Category\CategoryService\Commands\Delete;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Update;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotCreateException;
+use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;
@@ -31,7 +33,6 @@ final class CategoryService
 
     /**
      * @todo test witch action (delete)
-     * 
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */
@@ -68,6 +69,31 @@ final class CategoryService
             return $this->repository->add($model);
         } catch (RepositoryException $e) {
             throw new CouldNotCreateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @todo test all paths
+     * @throws CouldNotDeleteException
+     * @throws InvalidArgumentException
+     * @throws NoSuchCategoryException
+     */
+    public function delete(Delete $command): void
+    {
+        $id = new CategoryId($command->id);
+
+        try {
+            $model = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
+        }
+
+        $model->deactivate();
+
+        try {
+            $this->repository->delete($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
         }
     }
 

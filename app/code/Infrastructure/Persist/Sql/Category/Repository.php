@@ -68,11 +68,20 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @todo implement
      * @throws RepositoryException
      */
-    public function deleteById(Identifier $id): void
+    public function delete(Category $model): void
     {
+        $id = $model->getId();
+
+        $query  = $this->deleteQuery();
+        $params = [$id()];
+
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     /**
@@ -370,6 +379,14 @@ final class Repository implements RepositoryInterface
         return $translates;
     }
 
+    private function deleteQuery(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM category
+        WHERE category.identifier = $1;
+        QUERY;
+    }
+
     private function translatesQuery(): string
     {
         return <<<'QUERY'
@@ -416,7 +433,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryDelete(): string
+    private function translatesSaveQueryDelete(): string
     {
         return <<<'QUERY'
         DELETE FROM category_translates 
