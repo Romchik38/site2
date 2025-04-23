@@ -42,7 +42,7 @@ final class Category
      * @throws InvalidArgumentException
      * */
     private function __construct(
-        private ?Identifier $id,
+        private Identifier $id,
         private bool $active,
         array $articles,
         array $languages,
@@ -85,7 +85,7 @@ final class Category
         return $this->articles;
     }
 
-    public function getId(): ?Identifier
+    public function getId(): Identifier
     {
         return $this->id;
     }
@@ -142,7 +142,6 @@ final class Category
 
     /**
      * - Requirements to become active:
-     *   - id is set
      *   - has active article
      *   - has all translates
      *
@@ -152,10 +151,6 @@ final class Category
     {
         if ($this->active === true) {
             return;
-        }
-
-        if ($this->id === null) {
-            throw new CouldNotChangeActivityException('Category id is invalid');
         }
 
         foreach ($this->languages as $language) {
@@ -200,11 +195,12 @@ final class Category
      * @throws InvalidArgumentException
      * */
     public static function create(
+        Identifier $id,
         array $languages,
         array $translates = []
     ): self {
         return new self(
-            null,
+            $id,
             false,
             [],
             $languages,

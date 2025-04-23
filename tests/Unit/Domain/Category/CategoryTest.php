@@ -32,6 +32,7 @@ final class CategoryTest extends TestCase
      */
     public function testCreate(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languages  = [$languageEn, $languageUk];
@@ -42,40 +43,44 @@ final class CategoryTest extends TestCase
         $translates    = [$translateEn];
 
         $category = Category::create(
+            $id,
             $languages,
             $translates
         );
 
         $this->assertSame($translateEn, $category->getTranslate('en'));
         $this->assertSame([$translateEn], $category->getTranslates());
-        $this->assertSame(null, $category->getId());
+        $this->assertSame($id, $category->getId());
         $this->assertSame(false, $category->isActive());
     }
 
     public function testCreateThrowsErrorEmptyLanguages(): void
     {
+        $id         = new CategoryId('traffic');
         $languages  = [];
         $translates = [];
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Category::ERROR_EMPTY_LANGUAGE_LIST);
 
-        Category::create($languages, $translates);
+        Category::create($id, $languages, $translates);
     }
 
     public function testCreateThrowsErrorWrongLanguageInstance(): void
     {
+        $id         = new CategoryId('traffic');
         $languages  = [new stdClass()];
         $translates = [];
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Category::ERROR_WRONG_LANGUAGE_INSTANCE);
 
-        Category::create($languages, $translates);
+        Category::create($id, $languages, $translates);
     }
 
     public function testCreateThrowsErrorWrongTranslateLanguage(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languageFr = new LanguageId('fr');
@@ -89,11 +94,12 @@ final class CategoryTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Category::ERROR_WRONG_TRANSLATE_LANGUAGE);
 
-        Category::create($languages, $translates);
+        Category::create($id, $languages, $translates);
     }
 
     public function testCreateThrowsErrorWrongTranslateInstance(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languages  = [$languageEn, $languageUk];
@@ -103,11 +109,12 @@ final class CategoryTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Category::ERROR_WRONG_TRANSLATE_INSTANCE);
 
-        Category::create($languages, $translates);
+        Category::create($id, $languages, $translates);
     }
 
     public function testAddTranslate(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languages  = [$languageEn, $languageUk];
@@ -115,6 +122,7 @@ final class CategoryTest extends TestCase
         $translates = [];
 
         $category = Category::create(
+            $id,
             $languages,
             $translates
         );
@@ -129,6 +137,7 @@ final class CategoryTest extends TestCase
 
     public function testAddTranslateThrowsErrorOnWrontranslateLanguage(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languageFr = new LanguageId('fr');
@@ -137,6 +146,7 @@ final class CategoryTest extends TestCase
         $translates = [];
 
         $category = Category::create(
+            $id,
             $languages,
             $translates
         );
@@ -153,6 +163,7 @@ final class CategoryTest extends TestCase
 
     public function testDeleteTranslate(): void
     {
+        $id         = new CategoryId('traffic');
         $languageEn = new LanguageId('en');
         $languageUk = new LanguageId('uk');
         $languages  = [$languageEn, $languageUk];
@@ -163,6 +174,7 @@ final class CategoryTest extends TestCase
         $translates    = [$translateEn];
 
         $category = Category::create(
+            $id,
             $languages,
             $translates
         );

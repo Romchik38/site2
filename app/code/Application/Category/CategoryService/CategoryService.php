@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Category\CategoryService;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Update;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotCreateException;
@@ -56,6 +57,7 @@ final class CategoryService
         }
 
         $model = Category::create(
+            $id,
             $languages,
             $translates
         );

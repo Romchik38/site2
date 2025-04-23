@@ -82,9 +82,6 @@ final class Repository implements RepositoryInterface
     public function save(Category $model): void
     {
         $categoryId = $model->getId();
-        if ($categoryId === null) {
-            throw new RepositoryException('Category id is not set');
-        }
         if ($model->isActive()) {
             $categoryActive = 't';
         } else {
