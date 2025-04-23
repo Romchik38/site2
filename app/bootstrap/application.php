@@ -215,6 +215,14 @@ return function (Container $container) {
         ]
     );
 
+    // CATEGORY SERVICE
+    $container->shared(
+        '\Romchik38\Site2\Application\Category\CategoryService\CategoryService',
+        [
+            new Promise('\Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface')
+        ]
+    );
+
     // LANGUAGE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Language\ListView\ListViewService',

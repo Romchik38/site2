@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\AdminView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\Category;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Category\AdminView\NoSuchCategoryException;
-use Romchik38\Site2\Application\Category\AdminView\RepositoryException;
-use Romchik38\Site2\Application\Category\AdminView\RepositoryInterface;
-use Romchik38\Site2\Application\Category\AdminView\View\ArticleDto;
-use Romchik38\Site2\Application\Category\AdminView\View\CategoryDto;
-use Romchik38\Site2\Application\Category\AdminView\View\TranslateDto;
+use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
+use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface;
 use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Category\Category;
+use Romchik38\Site2\Domain\Category\Entities\Article;
+use Romchik38\Site2\Domain\Category\Entities\Translate;
 use Romchik38\Site2\Domain\Category\VO\Description;
-use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
+use Romchik38\Site2\Domain\Category\VO\Identifier;
 use Romchik38\Site2\Domain\Category\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function count;
+use function json_decode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
@@ -29,12 +30,16 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    public function getById(CategoryId $id): CategoryDto
+    /**
+     * @throws NoSuchCategoryException
+     * @throws RepositoryException
+     * */
+    public function getById(Identifier $id): Category
     {
         $idAsString = $id();
         $params     = [$idAsString];
 
-        $query = $this->defaultQuery();
+        $query = $this->getByIdQuery();
 
         try {
             $rows = $this->database->queryParams($query, $params);
@@ -61,8 +66,32 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($id, $row);
     }
 
+    /**
+     * @todo implement
+     * @throws RepositoryException
+     */
+    public function deleteById(Identifier $id): void
+    {
+    }
+
+    /**
+     * @todo implement
+     * @throws RepositoryException
+     */
+    public function save(Category $model): void
+    {
+    }
+
+    /**
+     * @todo implement
+     * @throws RepositoryException
+     */
+    public function add(Category $model): Identifier
+    {
+    }
+
     /** @param array<string,string> $row */
-    private function createFromRow(CategoryId $id, array $row): CategoryDto
+    private function createFromRow(Identifier $id, array $row): Category
     {
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
@@ -74,22 +103,30 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
-        $articles   = $this->createArticles($id);
+        $articles = $this->createArticles($id);
+
+        $rawLanguages = $row['languages'] ?? null;
+        if ($rawLanguages === null) {
+            throw new RepositoryException('Category languages param is invalid');
+        }
+        $languages = $this->createLanguages($rawLanguages);
+
         $translates = $this->createTranslates($id);
 
-        return new CategoryDto(
+        return Category::load(
             $id,
             $active,
             $articles,
+            $languages,
             $translates
         );
     }
 
     /**
      * @throws RepositoryException - on database error.
-     * @return array<int,ArticleDto>
+     * @return array<int,Article>
      * */
-    private function createArticles(CategoryId $id): array
+    private function createArticles(Identifier $id): array
     {
         $query  = $this->articleQuery();
         $params = [$id()];
@@ -120,7 +157,7 @@ final class Repository implements RepositoryInterface
 
             try {
                 $id         = new ArticleId($rawIdentifier);
-                $articles[] = new ArticleDto($id, $active);
+                $articles[] = new Article($id, $active);
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());
             }
@@ -130,10 +167,25 @@ final class Repository implements RepositoryInterface
     }
 
     /**
+     * @param string $rawLanguages - Json encoded array of strings
+     * @return array<int,LanguageId>
+     */
+    protected function createLanguages(string $rawLanguages): array
+    {
+        $decodedLanguages = json_decode($rawLanguages);
+
+        $data = [];
+        foreach ($decodedLanguages as $language) {
+            $data[] = new LanguageId($language);
+        }
+        return $data;
+    }
+
+    /**
      * @throws RepositoryException
-     * @return array<int,TranslateDto>
+     * @return array<int,Translate>
      * */
-    protected function createTranslates(CategoryId $id): array
+    protected function createTranslates(Identifier $id): array
     {
         $translates = [];
 
@@ -161,15 +213,15 @@ final class Repository implements RepositoryInterface
             }
 
             try {
-                $translate    = new TranslateDto(
+                $translate    = new Translate(
                     new LanguageId($rawLanguage),
-                    new Name($rawName),
-                    new Description($rawDescription)
+                    new Description($rawDescription),
+                    new Name($rawName)
                 );
                 $translates[] = $translate;
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException(
-                    'Category admin view repository:' . $e->getMessage()
+                    'Category repository:' . $e->getMessage()
                 );
             }
         }
@@ -199,11 +251,17 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    private function defaultQuery(): string
+    /** @todo implement */
+    private function getByIdQuery(): string
     {
         return <<<'QUERY'
         SELECT category.identifier,
-            category.active
+            category.active,
+            array_to_json (
+                array (SELECT language.identifier 
+                    FROM language
+                ) 
+            ) as languages
         FROM category
         WHERE category.identifier = $1
         QUERY;

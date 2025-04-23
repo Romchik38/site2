@@ -210,6 +210,16 @@ return function (Container $container) {
         ]
     );
 
+    // CATEGORY
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Category\Repository',
+        '\Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
+        ]
+    );
+
     // CATEGORY ADMIN LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\AdminList\Repository',
