@@ -76,7 +76,6 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @todo implement
      * @throws RepositoryException
      */
     public function save(Category $model): void

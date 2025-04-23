@@ -30,6 +30,8 @@ final class CategoryService
     }
 
     /**
+     * @todo test witch action (delete)
+     * 
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */

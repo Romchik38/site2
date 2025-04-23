@@ -589,7 +589,21 @@ return function (Container $container) {
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+        ]
+    );
+
+    // ADMIN CATEGORY NEW
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Psr\Http\Message\ServerRequestInterface'),
+            new Promise('\Romchik38\Site2\Application\Category\CategoryService\CategoryService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 
@@ -603,7 +617,7 @@ return function (Container $container) {
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Category\CategoryService\CategoryService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 

@@ -152,7 +152,15 @@ return function (Container $container): ControllerInterface {
         null,
         'category_update'
     );
+    $adminCategoryNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\New\DefaultAction'),
+        null,
+        'category_new'
+    );
     $adminCategory
+    ->setChild($adminCategoryNew)
     ->setChild($adminCategoryUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
