@@ -32,7 +32,6 @@ final class CategoryService
     }
 
     /**
-     * @todo test witch action (delete)
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */
@@ -59,11 +58,11 @@ final class CategoryService
             );
         }
 
-        $model = Category::create(
-            $id,
-            $languages,
-            $translates
-        );
+        try {
+            $model = Category::create($id, $languages, $translates);
+        } catch (InvalidArgumentException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
 
         try {
             return $this->repository->add($model);
@@ -73,7 +72,7 @@ final class CategoryService
     }
 
     /**
-     * @todo test all paths
+     * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
      * @throws InvalidArgumentException
      * @throws NoSuchCategoryException
@@ -122,7 +121,6 @@ final class CategoryService
             ));
         }
 
-        /** @todo check on fresh category, must throw error on empty articles list (add) */
         // activity
         if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
             if ($model->isActive()) {

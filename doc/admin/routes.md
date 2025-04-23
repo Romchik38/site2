@@ -36,8 +36,9 @@
 - root admin author delete          delete author
 - root admin author new             create author
 - root admin author update          save existing author
-- root admin category update        update category
+- root admin category delete        delete category
 - root admin category new           create new category
+- root admin category update        update category
 - root admin image update           update image
 - root admin image new              create new image
 - root admin image delete           delete image

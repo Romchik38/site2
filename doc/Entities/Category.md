@@ -8,4 +8,4 @@ Represents a Category of articles.
   - all translates
   - has at least one active article
 - Cannot be *deactivated* if has referencies from:
-  - Article if active
+  - Article

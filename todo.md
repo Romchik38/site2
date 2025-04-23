@@ -2,10 +2,6 @@
 
 ## Current
 
-- category
-  - create
-  - delete
-
 - add to all VO docblock @throws InvalidArgumentException
 - move config to const
 - refactor folder structure

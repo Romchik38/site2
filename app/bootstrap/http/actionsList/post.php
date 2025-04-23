@@ -145,12 +145,12 @@ return function (Container $container): ControllerInterface {
     
     // Admin Category
     $adminCategory = new Controller('category');
-    $adminCategoryUpdate = new Controller(
-        'update',
+    $adminCategoryDelete = new Controller(
+        'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Delete\DefaultAction'),
         null,
-        'category_update'
+        'category_delete'
     );
     $adminCategoryNew = new Controller(
         'new',
@@ -159,7 +159,15 @@ return function (Container $container): ControllerInterface {
         null,
         'category_new'
     );
+    $adminCategoryUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Update\DefaultAction'),
+        null,
+        'category_update'
+    );
     $adminCategory
+    ->setChild($adminCategoryDelete)
     ->setChild($adminCategoryNew)
     ->setChild($adminCategoryUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));

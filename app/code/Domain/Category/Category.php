@@ -25,6 +25,7 @@ final class Category
         'could not delete the translate, category is active. Diactivate it first';
     public const string ERROR_ACTIVATE_NO_ARTICLE      = 'category does not have any active article';
     public const ERROR_ACTIVATE_MISSING_TRANSLATE      = 'category has missing translate %s';
+    public const ERROR_DIACTIVATE_HAS_ARTICLES         = 'category has active articles, remove them first';
 
     /** @var array<int,Article> $articles */
     private readonly array $articles;
@@ -180,10 +181,22 @@ final class Category
         $this->active = true;
     }
 
+    /**
+     * - Requirements to become active:
+     *   - no active articles
+     *
+     * @throws CouldNotChangeActivityException
+     * */
     public function deactivate(): void
     {
         if ($this->active === false) {
             return;
+        }
+
+        foreach ($this->articles as $article) {
+            if ($article->active === true) {
+                throw new CouldNotChangeActivityException(self::ERROR_DIACTIVATE_HAS_ARTICLES);
+            }
         }
 
         $this->active = false;

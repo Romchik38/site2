@@ -444,7 +444,7 @@ final class CategoryTest extends TestCase
 
         $translates = [$translateEn, $translateUk];
 
-        $article1 = new Article(new ArticleId('some-article-id'), true);
+        $article1 = new Article(new ArticleId('some-article-id'), false);
         $articles = [$article1];
 
         $category = Category::load(
@@ -457,5 +457,39 @@ final class CategoryTest extends TestCase
 
         $category->deactivate();
         $this->assertSame(false, $category->isActive());
+    }
+
+    public function testDiactivateThrowsErrorOnActiveArticle(): void
+    {
+        $id = new CategoryId('some-id');
+
+        $languageEn = new LanguageId('en');
+        $languageUk = new LanguageId('uk');
+        $languages  = [$languageEn, $languageUk];
+
+        $descriptionEn = new Description('Some description');
+        $nameEn        = new Name('Some name');
+        $translateEn   = new Translate($languageEn, $descriptionEn, $nameEn);
+
+        $descriptionUk = new Description('Деякий опис');
+        $nameUk        = new Name('Якесь ім\'я');
+        $translateUk   = new Translate($languageUk, $descriptionUk, $nameUk);
+
+        $translates = [$translateEn, $translateUk];
+
+        $article1 = new Article(new ArticleId('some-article-id'), true);
+        $articles = [$article1];
+
+        $category = Category::load(
+            $id,
+            true,
+            $articles,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage(Category::ERROR_DIACTIVATE_HAS_ARTICLES);
+        $category->deactivate();
     }
 }

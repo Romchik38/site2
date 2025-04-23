@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Delete;
+namespace Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Delete;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -15,11 +15,11 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Audio\AudioService\AudioService;
-use Romchik38\Site2\Application\Audio\AudioService\CouldNotDeleteAudioException;
-use Romchik38\Site2\Application\Audio\AudioService\Delete;
-use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
-use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
+use Romchik38\Site2\Application\Category\CategoryService\CategoryService;
+use Romchik38\Site2\Application\Category\CategoryService\Commands\Delete;
+use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotDeleteException;
+use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
+use Romchik38\Site2\Domain\Category\CouldNotChangeActivityException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -29,17 +29,17 @@ use function sprintf;
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_DELETE_KEY            = 'admin.data-success-delete';
-    public const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
+    public const string CATEGORY_NOT_EXIST_KEY        = 'admin.category-with-id-not-exist';
     public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
-    public const string COULD_NOT_DELETE_KEY          = 'admin.could-not-delete';
+    public const string SUCCESS_DELETE_KEY            = 'admin.data-was-deleted-successfully';
+    public const string COULD_NOT_DELETE_KEY          = 'admin.data-could-not-delete';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ServerRequestInterface $request,
-        private readonly AudioService $audioService,
+        private readonly CategoryService $categoryService,
         protected readonly Site2SessionInterface $session,
         protected readonly LoggerServerInterface $logger
     ) {
@@ -53,22 +53,25 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             throw new RuntimeException('Incoming data is invalid');
         }
 
-        $uri     = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
+        $uri     = $this->urlbuilder->fromArray(['root', 'admin', 'category']);
         $message = '';
 
         $command = Delete::formHash($requestData);
 
         try {
-            $this->audioService->delete($command);
+            $this->categoryService->delete($command);
             $message = $this->translateService->t($this::SUCCESS_DELETE_KEY);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-        } catch (NoSuchAudioException) {
+        } catch (CouldNotDeleteException $e) {
+            $message = $this->translateService->t($this::COULD_NOT_DELETE_KEY);
+            $this->logger->log(LogLevel::ERROR, $e->getMessage());
+        } catch (NoSuchCategoryException $e) {
             $message = sprintf(
-                $this->translateService->t($this::AUDIO_NOT_EXIST_KEY),
+                $this->translateService->t($this::CATEGORY_NOT_EXIST_KEY),
                 $command->id
             );
         } catch (CouldNotChangeActivityException $e) {
@@ -76,10 +79,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::COULD_NOT_CHANGE_ACTIVITY_KEY),
                 $e->getMessage()
             );
-            $uri     = $this->createUriWithId($command->id);
-        } catch (CouldNotDeleteAudioException $e) {
-            $message = $this->translateService->t($this::COULD_NOT_DELETE_KEY);
-            $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 
         // Common answer
@@ -94,13 +93,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Admin Audio delete point';
-    }
-
-    protected function createUriWithId(string $id): string
-    {
-        return $this->urlbuilder->fromArray(
-            ['root', 'admin', 'audio', $id]
-        );
+        return 'Admin Category delete point';
     }
 }

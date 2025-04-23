@@ -14,7 +14,7 @@
         <form action="{{ newUrl }}" method="post" id="category-new-form">
             <div class="form-group mb-2 p-2">
                 <div class="mb">
-                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ category.getId() }}</label>
+                    <label class="form-label" for="{{ data.idFiled }}">Id: use <strong>latin chars</strong> and <strong>-</strong>. Id is used in the url</label>
                     <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" required>
                 </div>
             </div>
@@ -27,10 +27,6 @@
                     <button type="submit" class="btn btn-primary my-2">Create</button>
                 </div>
             </div>
-        </form>
-        <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post" id="delete-form">
-            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" hidden>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
         </form>
         <!-- Back link -->
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'category']) }}">Category list</a> page</div>
