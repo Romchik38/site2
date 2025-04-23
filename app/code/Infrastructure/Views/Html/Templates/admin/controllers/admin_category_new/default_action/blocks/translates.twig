@@ -1,0 +1,31 @@
+{# 
+    Object          data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction\ViewDto
+    LanguageDto[]   availableLanguages          Romchik38\Site2\Application\Language\ListView\View\LanguageDto
+#}
+
+{% set availableLanguages = data.languages %}
+<!-- Inside a form -->
+<h2 class="text-center">Translates</h2>
+{% for availableLanguage in availableLanguages  %}
+    {% set availableLanguage = availableLanguage.identifier.__toString() %}
+    <div class="form-group p-2 my-2">
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguage }}</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
+                value="{{ availableLanguage }}" 
+                hidden
+            >
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.nameField }}]">Name</label>
+            <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.nameField }}]" required 
+                value=""
+            >
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
+            <textarea class="form-control" form="category-new-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required maxlength="255" rows="4"></textarea>
+        </div>
+    </div>
+{% endfor %}

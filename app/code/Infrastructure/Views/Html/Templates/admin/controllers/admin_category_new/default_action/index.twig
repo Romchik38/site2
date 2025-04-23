@@ -1,0 +1,39 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\New\DefaultAction\ViewDto
+#}
+
+{% set newUrl = u.fromArray(['root', 'admin', 'category', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ newUrl }}" method="post" id="category-new-form">
+            <div class="form-group mb-2 p-2">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ category.getId() }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" required>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+
+            <!-- Translates -->
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Create</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+        </form>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'category']) }}">Category list</a> page</div>
+    </div>
+</div>
+

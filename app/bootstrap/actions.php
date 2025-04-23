@@ -237,7 +237,6 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Category View
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction',
         [
@@ -251,6 +250,22 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
         ]
+    );
+
+    // Admin Category New
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('admin_view'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+        ]
+
     );
 
     // Admin Image cache

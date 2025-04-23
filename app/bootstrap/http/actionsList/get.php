@@ -8,14 +8,6 @@ use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
 use Romchik38\Server\Controllers\Controller;
 
 return function (Container $container): ControllerInterface {
-    /** ROOT */
-    $root = new Controller(
-        ControllerTreeInterface::ROOT_NAME,
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction'),
-    );
-
     /** API */
     $api = new Controller('api');
 
@@ -103,6 +95,7 @@ return function (Container $container): ControllerInterface {
     );
     $adminAuthor->setChild($adminAuthorNew);
 
+    // Admin Category
     $adminCategory = new Controller(
         'category',
         false,
@@ -110,13 +103,23 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction'),
         'admin_category'
     );
+    $adminCategoryNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\New\DefaultAction'),
+        null,
+        'admin_category_new'
+    );
+    $adminCategory->setChild($adminCategoryNew);
 
+    // Admin Imagecache
     $adminImagecache = new Controller(
         'imagecache',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction')
     );
 
+    // Admin Image
     $adminImage = new Controller(
         'image',
         false,
@@ -132,12 +135,14 @@ return function (Container $container): ControllerInterface {
     );
     $adminImage->setChild($adminImageNew);
 
+    // Admin Language
     $adminLanguage = new Controller(
         'language',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction')
     );
     
+    // Admin Translate
     $adminTranslate = new Controller(
         'translate',
         false,
@@ -153,6 +158,7 @@ return function (Container $container): ControllerInterface {
     );
     $adminTranslate->setChild($admintranslateNew);
 
+    // Admin Users
     $adminUsers = new Controller(
         'users',
         false,
@@ -193,6 +199,14 @@ return function (Container $container): ControllerInterface {
     );
     $login->setChild($loginAdmin);
     
+    /** ROOT */
+    $root = new Controller(
+        ControllerTreeInterface::ROOT_NAME,
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction'),
+    );
+
     $root
         ->setChild($api)
         ->setChild($sitemap)
