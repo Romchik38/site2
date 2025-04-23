@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Category\CategoryService;
 
-use InvalidArgumentException;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Update;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
@@ -26,7 +25,7 @@ final class CategoryService
     /**
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
-     * @throws InvalidArgumentException
+     * + @throws InvalidArgumentException
      * @throws NoSuchCategoryException
      */
     public function update(Update $command): void

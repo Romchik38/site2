@@ -143,6 +143,19 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAuthorDelete)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     
+    // Admin Category
+    $adminCategory = new Controller('category');
+    $adminCategoryUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Update\DefaultAction'),
+        null,
+        'category_update'
+    );
+    $adminCategory
+    ->setChild($adminCategoryUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+
     // Admin Image
     $adminImage = new Controller('image');
     $adminImageUpdate = new Controller(
@@ -224,6 +237,7 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminApi)
     ->setChild($adminAudio)
     ->setChild($adminAuthor)
+    ->setChild($adminCategory)
     ->setChild($adminImage)
     ->setChild($adminImagecache)
     ->setChild($adminTranslate);
