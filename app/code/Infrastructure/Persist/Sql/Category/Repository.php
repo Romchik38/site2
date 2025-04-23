@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Category;
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface;
@@ -80,6 +81,87 @@ final class Repository implements RepositoryInterface
      */
     public function save(Category $model): void
     {
+        $categoryId = $model->getId();
+        if ($categoryId === null) {
+            throw new RepositoryException('Category id is not set');
+        }
+        if ($model->isActive()) {
+            $categoryActive = 't';
+        } else {
+            $categoryActive = 'f';
+        }
+
+        $mainSaveQuery = $this->mainSaveQuery();
+        $params        = [$categoryActive, $categoryId()];
+
+        $translates = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams(
+                $mainSaveQuery,
+                $params
+            );
+
+            $this->database->transactionQueryParams(
+                $this->translatesSaveQueryDelete(),
+                [$categoryId()]
+            );
+
+            if (count($translates) > 0) {
+                foreach ($translates as $translate) {
+                    $this->database->transactionQueryParams(
+                        $this->translatesSaveQueryInsert(),
+                        [
+                            $categoryId(),
+                            (string) $translate->getLanguage(),
+                            (string) $translate->getName(),
+                            (string) $translate->getDescription(),
+                        ]
+                    );
+                }
+            }
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (RepositoryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Repository error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        }
     }
 
     /**
@@ -251,7 +333,6 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo implement */
     private function getByIdQuery(): string
     {
         return <<<'QUERY'
@@ -264,6 +345,31 @@ final class Repository implements RepositoryInterface
             ) as languages
         FROM category
         WHERE category.identifier = $1
+        QUERY;
+    }
+
+    private function mainSaveQuery(): string
+    {
+        return <<<'QUERY'
+            UPDATE category
+            SET active = $1
+            WHERE category.identifier = $2
+        QUERY;
+    }
+
+    protected function translatesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+        DELETE FROM category_translates 
+        WHERE category_translates.category_id = $1
+        QUERY;
+    }
+
+    private function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+        INSERT INTO category_translates (category_id, language, name, description)
+        VALUES ($1, $2, $3, $4)
         QUERY;
     }
 }

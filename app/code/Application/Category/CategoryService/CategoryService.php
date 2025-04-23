@@ -47,6 +47,7 @@ final class CategoryService
             ));
         }
 
+        /** @todo check on fresh category, must throw error on empty articles list (add) */
         // activity
         if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
             if ($model->isActive()) {
