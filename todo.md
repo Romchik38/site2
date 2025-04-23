@@ -3,8 +3,6 @@
 ## Current
 
 - category
-  - view
-  - update
   - create
   - delete
 
