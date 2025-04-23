@@ -162,11 +162,74 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @todo implement
      * @throws RepositoryException
      */
     public function add(Category $model): Identifier
     {
+        $id = $model->getId();
+        if ($model->isActive()) {
+            $categoryActive = 't';
+        } else {
+            $categoryActive = 'f';
+        }
+
+        $translates = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams(
+                $this->mainAddQuery(),
+                [$id(), $categoryActive]
+            );
+
+            if (count($translates) > 0) {
+                foreach ($translates as $translate) {
+                    $this->database->transactionQueryParams(
+                        $this->translatesSaveQueryInsert(),
+                        [
+                            $id(),
+                            (string) $translate->getLanguage(),
+                            (string) $translate->getName(),
+                            (string) $translate->getDescription(),
+                        ]
+                    );
+                }
+            }
+            $this->database->transactionEnd();
+            return $id;
+        } catch (DatabaseTransactionException $e) {
+            $transactionErrorMessage = '';
+            try {
+                $this->database->transactionRollback();
+                $transactionErrorMessage = sprintf(
+                    'Transaction error: %s, transaction rollback success',
+                    $e->getMessage()
+                );
+            } catch (DatabaseTransactionException $e2) {
+                $transactionErrorMessage = sprintf(
+                    'Transaction error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                );
+            }
+            throw new RepositoryException($transactionErrorMessage);
+        } catch (QueryException $e) {
+            $queryErrorMessage = '';
+            try {
+                $this->database->transactionRollback();
+                $queryErrorMessage = sprintf(
+                    'Query error: %s, transaction rollback success',
+                    $e->getMessage()
+                );
+            } catch (DatabaseTransactionException $e2) {
+                $queryErrorMessage = sprintf(
+                    'Query error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                );
+            }
+            throw new RepositoryException($queryErrorMessage);
+        }
     }
 
     /** @param array<string,string> $row */
@@ -367,6 +430,14 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         INSERT INTO category_translates (category_id, language, name, description)
         VALUES ($1, $2, $3, $4)
+        QUERY;
+    }
+
+    private function mainAddQuery(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO category (identifier, active)
+            VALUES ($1, $2)
         QUERY;
     }
 }

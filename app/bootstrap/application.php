@@ -219,7 +219,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Category\CategoryService\CategoryService',
         [
-            new Promise('\Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
         ]
     );
 
