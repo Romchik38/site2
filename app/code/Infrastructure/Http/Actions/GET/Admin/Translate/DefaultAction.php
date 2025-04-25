@@ -24,10 +24,10 @@ use Romchik38\Site2\Application\Translate\ListView\ListViewService;
 use Romchik38\Site2\Application\Translate\TranslateService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
 
 use function count;
 

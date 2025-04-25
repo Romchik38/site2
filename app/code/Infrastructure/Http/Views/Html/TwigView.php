@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Views\Html;
+namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
 use Romchik38\Server\Api\Controllers\Actions\ActionInterface;
 use Romchik38\Server\Api\Views\Http\HttpViewInterface;

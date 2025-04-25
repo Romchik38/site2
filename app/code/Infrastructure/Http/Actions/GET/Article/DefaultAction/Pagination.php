@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
 
 use function in_array;
 use function sprintf;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Views\Html\Classes;
+namespace Romchik38\Site2\Infrastructure\Http\Views\Html\Classes;
 
-use Romchik38\Site2\Infrastructure\Views\Html\PaginationInterface;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
 
 final class Pagination implements PaginationInterface
 {

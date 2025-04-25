@@ -20,7 +20,7 @@ use Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService;
 use Romchik38\Site2\Application\Article\ArticleListView\Pagination as ArticleListViewPagination;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 
 use function count;
 

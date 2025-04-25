@@ -12,7 +12,7 @@ return function (Container $container) {
 
     // Frontend View
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView',
         [
             new Promise('\Twig\Environment'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -26,7 +26,7 @@ return function (Container $container) {
 
     // Admin View
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView',
         'admin_view',
         true,
         [
@@ -42,7 +42,7 @@ return function (Container $container) {
 
     // Other classes
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\SitemapLinkTreeToHtml',
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\SitemapLinkTreeInterface',
         true,
         [

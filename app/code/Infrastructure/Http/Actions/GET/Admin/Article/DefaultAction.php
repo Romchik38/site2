@@ -18,8 +18,8 @@ use Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListVie
 use Romchik38\Site2\Application\Article\AdminArticleListView\Filter;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\CreatePagination;
-use Romchik38\Site2\Infrastructure\Views\Html\Classes\Pagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
 
 use function count;
 
