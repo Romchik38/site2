@@ -8,7 +8,7 @@ use Romchik38\Container\Promise;
 return function (Container $container) {
     // Root
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -18,7 +18,7 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -28,7 +28,7 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerError\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -40,20 +40,20 @@ return function (Container $container) {
 
     // Sitemap
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
-            new Promise ('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
+            new Promise ('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory'),
         ]
     );
-    $container->shared('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory');
+    $container->shared('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory');
 
     // Not found
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\PageNotFound\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -64,7 +64,7 @@ return function (Container $container) {
 
     // Server Error Example
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
@@ -73,7 +73,7 @@ return function (Container $container) {
 
     // Article
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -85,7 +85,7 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -96,7 +96,7 @@ return function (Container $container) {
 
     // Admin
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction',
         [
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface')
@@ -105,7 +105,7 @@ return function (Container $container) {
 
     // Admin Audio
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -119,7 +119,7 @@ return function (Container $container) {
         ]
     );
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -136,7 +136,7 @@ return function (Container $container) {
     
     // ADMIN AUDIO NEW 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -148,7 +148,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO TRANSLATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -165,7 +165,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO TRANSLATE NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -181,7 +181,7 @@ return function (Container $container) {
 
     // Admin Login
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -194,7 +194,7 @@ return function (Container $container) {
 
     // Admin Users
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Users\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -204,7 +204,7 @@ return function (Container $container) {
 
     // Admin Article
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -217,7 +217,7 @@ return function (Container $container) {
 
     // Admin Category
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -231,7 +231,7 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -247,7 +247,7 @@ return function (Container $container) {
 
     // Admin Category New
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -263,7 +263,7 @@ return function (Container $container) {
 
     // Admin Image cache
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Imagecache\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -276,7 +276,7 @@ return function (Container $container) {
 
     // Admin Image
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -290,7 +290,7 @@ return function (Container $container) {
     );
     
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -306,7 +306,7 @@ return function (Container $container) {
 
     // Admin Image New
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -322,7 +322,7 @@ return function (Container $container) {
 
     // Admin Author
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -337,7 +337,7 @@ return function (Container $container) {
 
     // ADMIN AUTHOR NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -350,7 +350,7 @@ return function (Container $container) {
 
     // ADMIN LANGUAGE LIST VIEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Language\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -360,7 +360,7 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -374,7 +374,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE LIST
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -390,7 +390,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE VIEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -406,7 +406,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -419,7 +419,7 @@ return function (Container $container) {
 
     // Register
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -430,7 +430,7 @@ return function (Container $container) {
     
     // Login
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -444,7 +444,7 @@ return function (Container $container) {
     // Api
     // Userinfo
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\Userinfo\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -455,7 +455,7 @@ return function (Container $container) {
     // Admin Api
     // Userinfo
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Api\Userinfo\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -465,7 +465,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO DELETE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Delete\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -479,7 +479,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -493,7 +493,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -507,7 +507,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO TRANSLATE UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -521,7 +521,7 @@ return function (Container $container) {
 
     // ADMIN AUDIO TRANSLATE NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -535,7 +535,7 @@ return function (Container $container) {
     
     // ADMIN AUDIO TRANSLATE DELETE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Delete\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -549,7 +549,7 @@ return function (Container $container) {
 
     // ADMIN AUTHOR UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -563,7 +563,7 @@ return function (Container $container) {
 
     // ADMIN AUTHOR NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -577,7 +577,7 @@ return function (Container $container) {
 
     // ADMIN AUTHOR DELETE
     $container->shared(
-        'Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction',
+        'Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -591,7 +591,7 @@ return function (Container $container) {
 
     // ADMIN CATEGORY DELETE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Delete\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -605,7 +605,7 @@ return function (Container $container) {
 
     // ADMIN CATEGORY NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -619,7 +619,7 @@ return function (Container $container) {
 
     // ADMIN CATEGORY UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -633,7 +633,7 @@ return function (Container $container) {
 
     // Admin Image Update
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -647,7 +647,7 @@ return function (Container $container) {
 
     // Admin image new
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -661,7 +661,7 @@ return function (Container $container) {
     
     // Admin Image Delete
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -675,7 +675,7 @@ return function (Container $container) {
 
     // Admin Image Cache Clear
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clear\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -687,7 +687,7 @@ return function (Container $container) {
     
     // Admin Logout
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Logout\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -698,7 +698,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE UPDATE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Update\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\Update\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -712,7 +712,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE NEW
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\New\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\New\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -726,7 +726,7 @@ return function (Container $container) {
 
     // ADMIN TRANSLATE DELETE
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Delete\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\Delete\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -740,7 +740,7 @@ return function (Container $container) {
 
     // Auth Admin
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Auth\Admin\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -753,7 +753,7 @@ return function (Container $container) {
 
     // Auth
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Auth\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
@@ -766,7 +766,7 @@ return function (Container $container) {
     
     // Logout
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Logout\DefaultAction',
         [
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),

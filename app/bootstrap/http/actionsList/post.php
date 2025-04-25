@@ -15,14 +15,14 @@ return function (Container $container): ControllerInterface {
     $auth = new Controller(
         'auth', 
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Auth\DefaultAction')
     );
-    $auth->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware'));
+    $auth->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware'));
     
     $authAdmin = new Controller(
         'admin',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Auth\Admin\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Auth\Admin\DefaultAction'),
         null,
         'auth_admin'
     );
@@ -32,7 +32,7 @@ return function (Container $container): ControllerInterface {
     $logout = new Controller(
         'logout',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Logout\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Logout\DefaultAction')
     );
 
     // Api
@@ -40,20 +40,20 @@ return function (Container $container): ControllerInterface {
     $apiUserinfo = new Controller(
         'userinfo',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Api\Userinfo\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\Userinfo\DefaultAction')
     );
     $api->setChild($apiUserinfo);
 
     // Admin
     $admin = new Controller('admin');
-    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
+    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
     // Admin Api
     $adminApi = new Controller('api');
     $adminApiUserunfo = new Controller(
         'userinfo',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Api\Userinfo\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Api\Userinfo\DefaultAction')
     );
     $adminApi->setChild($adminApiUserunfo);
 
@@ -62,21 +62,21 @@ return function (Container $container): ControllerInterface {
     $adminAudioDelete = new Controller(
         'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Delete\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Delete\DefaultAction'),
         null,
         'audio_delete'
     );
     $adminAudioUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Update\DefaultAction'),
         null,
         'audio_update'
     );
     $adminAudioNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\New\DefaultAction'),
         null,
         'audio_new'
     );
@@ -84,21 +84,21 @@ return function (Container $container): ControllerInterface {
     $adminAudioTranslateNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\New\DefaultAction'),
         null,
         'audio_translate_new'
     );
     $adminAudioTranslateUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\Update\DefaultAction'),
         null,
         'audio_translate_update'
     );
     $adminAudioTranslateDelete = new Controller(
         'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Audio\Translate\Delete\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Translate\Delete\DefaultAction'),
         null,
         'audio_translate_delete'
     );
@@ -119,21 +119,21 @@ return function (Container $container): ControllerInterface {
     $adminAuthorUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\Update\DefaultAction'),
         null,
         'author_update'
     );
     $adminAuthorNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\New\DefaultAction'),
         null,
         'author_new'
     );
     $adminAuthorDelete = new Controller(
         'delete',
         false,
-        $container->get('Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Author\Delete\DefaultAction'),
+        $container->get('Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Author\Delete\DefaultAction'),
         null,
         'author_delete'
     );
@@ -148,21 +148,21 @@ return function (Container $container): ControllerInterface {
     $adminCategoryDelete = new Controller(
         'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Delete\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\Delete\DefaultAction'),
         null,
         'category_delete'
     );
     $adminCategoryNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\New\DefaultAction'),
         null,
         'category_new'
     );
     $adminCategoryUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Category\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\Update\DefaultAction'),
         null,
         'category_update'
     );
@@ -177,21 +177,21 @@ return function (Container $container): ControllerInterface {
     $adminImageUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\Update\DefaultAction'),
         null,
         'image_update'
     );
     $adminImageNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\New\DefaultAction'),
         null,
         'image_new'
     );
     $adminImageDelete = new Controller(
         'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Image\Delete\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Image\Delete\DefaultAction'),
         null,
         'image_delete'
     );
@@ -206,7 +206,7 @@ return function (Container $container): ControllerInterface {
     $adminImagecacheClear = new Controller(
         'clear',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Imagecache\Clear\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clear\DefaultAction')
     );
     $adminImagecacheClear->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminImagecache->setChild($adminImagecacheClear);
@@ -215,7 +215,7 @@ return function (Container $container): ControllerInterface {
     $adminLogout = new Controller(
         'logout',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Logout\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Logout\DefaultAction'),
         null,
         'admin_logout'
     );
@@ -225,21 +225,21 @@ return function (Container $container): ControllerInterface {
     $adminTranslateUpdate = new Controller(
         'update',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Update\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\Update\DefaultAction'),
         null,
         'translate_update'
     );
     $adminTranslateNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\New\DefaultAction'),
         null,
         'translate_new'
     );
     $adminTranslateDelete = new Controller(
         'delete',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\POST\Admin\Translate\Delete\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Translate\Delete\DefaultAction'),
         null,
         'translate_delete'
     );

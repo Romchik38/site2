@@ -24,7 +24,7 @@ return function (Container $container) {
         [
             HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME,
             true,
-            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\PageNotFound\DefaultAction')
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Actions\GET\PageNotFound\DefaultAction')
         ]
     );
 

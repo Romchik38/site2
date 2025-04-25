@@ -15,56 +15,56 @@ return function (Container $container): ControllerInterface {
     $sitemap = new Controller(
         'sitemap',
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction')
     );
 
     /** SERVER-ERROR example */
     $serverErrorExample = new Controller(
         'server-error-example',
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerErrorExample\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction')
     );
 
     /** ARTICLE */
     $article = new Controller(
         'article',
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Article\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction')
     );
 
     /** ADMIN */
     $admin = new Controller(
         'admin',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction')
     );
-    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware'));
+    $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
     $adminAudio = new Controller(
         'audio',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction')
     );
     $adminAudioNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\New\DefaultAction'),
         null,
         'audio_new'
     );
     $adminAudioTranslate = new Controller(
         'translate',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\DefaultAction'),
         null,
         'audio_translate'
     );
     $adminAudioTranslateNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Audio\Translate\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction'),
         null,
         'audio_translate_new'
     );
@@ -77,19 +77,19 @@ return function (Container $container): ControllerInterface {
     $adminArticle = new Controller(
         'article',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Article\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction')
     );
 
     $adminAuthor = new Controller(
         'author',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction')
     );
     $adminAuthorNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Author\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\New\DefaultAction'),
         null,
         'author_new'
     );
@@ -99,14 +99,14 @@ return function (Container $container): ControllerInterface {
     $adminCategory = new Controller(
         'category',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\DynamicAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction'),
         'admin_category'
     );
     $adminCategoryNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Category\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\New\DefaultAction'),
         null,
         'admin_category_new'
     );
@@ -116,20 +116,20 @@ return function (Container $container): ControllerInterface {
     $adminImagecache = new Controller(
         'imagecache',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Imagecache\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Imagecache\DefaultAction')
     );
 
     // Admin Image
     $adminImage = new Controller(
         'image',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction')
     );
     $adminImageNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Image\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction'),
         null,
         'image_new'
     );
@@ -139,20 +139,20 @@ return function (Container $container): ControllerInterface {
     $adminLanguage = new Controller(
         'language',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Language\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Language\DefaultAction')
     );
     
     // Admin Translate
     $adminTranslate = new Controller(
         'translate',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DefaultAction'),
-        $container->get('\\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction'),
+        $container->get('\\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction')
     );
     $admintranslateNew = new Controller(
         'new',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Translate\New\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\New\DefaultAction'),
         null,
         'translate_new'
     );
@@ -162,9 +162,9 @@ return function (Container $container): ControllerInterface {
     $adminUsers = new Controller(
         'users',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Admin\Users\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Users\DefaultAction')
     );
-    $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware'));
+    $adminUsers->addRequestMiddleware($container->get('Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminRolesMiddleware'));
 
     $admin
     ->setChild($adminAudio)
@@ -181,19 +181,19 @@ return function (Container $container): ControllerInterface {
     $register = new Controller(
         'register', 
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Register\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction')
     );
 
     /** LOGIN */
     $login = new Controller(
         'login', 
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction')
     );
     $loginAdmin = new Controller(
         'admin',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Login\Admin\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction'),
         null,
         'login_admin'
     );
@@ -203,8 +203,8 @@ return function (Container $container): ControllerInterface {
     $root = new Controller(
         ControllerTreeInterface::ROOT_NAME,
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DynamicAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction'),
     );
 
     $root

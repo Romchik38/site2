@@ -10,7 +10,7 @@ use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 return function (Container $container): void {
     // Admin Login
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminLoginMiddleware',
+        '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminLoginMiddleware',
         [
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
@@ -20,7 +20,7 @@ return function (Container $container): void {
 
     // Admin Users
     $container->shared(
-        'Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\Admin\AdminRolesMiddleware',
+        'Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminRolesMiddleware',
         [
             ['ADMIN_ROOT'],
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -32,7 +32,7 @@ return function (Container $container): void {
 
     // Csrf
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware',
+        '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware',
         [
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
@@ -45,7 +45,7 @@ return function (Container $container): void {
 
     // Csrf admin
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Controllers\RequestMiddlewares\CsrfMiddleware',
+        '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware',
         'request-middleware.csrf.admin',
         true,
         [

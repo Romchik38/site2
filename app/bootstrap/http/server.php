@@ -14,7 +14,7 @@ return function (Container $container) {
         [
             ServerInterface::SERVER_ERROR_CONTROLLER_NAME,
             false,
-            new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction')
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerError\DefaultAction')
         ]
     );
 

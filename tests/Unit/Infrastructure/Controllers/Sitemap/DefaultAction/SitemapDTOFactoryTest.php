@@ -6,7 +6,7 @@ namespace Romchik38\Tests\Unit\Infrastructure\Controllers\Sitemap\DefaultAction;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory;
 
 class SitemapDTOFactoryTest extends TestCase
 {

@@ -43,7 +43,7 @@ return function (Container $container) {
     // Other classes
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Views\Html\Classes\SitemapLinkTreeToHtml',
-        '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface',
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\SitemapLinkTreeInterface',
         true,
         [
             new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
