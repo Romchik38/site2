@@ -2,7 +2,6 @@
 
 ## Current
 
-- move config to const
 - refactor folder structure
 
 - repositories must *catch* `InvalidArgimentException` error on entity creation and *throws* Repository error, because this is a problem of the database consistency.

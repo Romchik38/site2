@@ -7,7 +7,6 @@ use Romchik38\Container\Promise;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 
 return function (Container $container) {
-
     // LOGGER
     $container->multi(
         '\Romchik38\Server\Services\Logger\Loggers\FileLogger',
@@ -15,7 +14,7 @@ return function (Container $container) {
         true,
         [
             __DIR__ . '/../var/file.log',
-            7
+            7,
         ]
     );
 
@@ -26,19 +25,19 @@ return function (Container $container) {
         true,
         [
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\DynamicTarget')
+            new Promise('\Romchik38\Server\Services\Urlbuilder\DynamicTarget'),
         ]
     );
 
     $container->shared('\Romchik38\Server\Services\Urlbuilder\DynamicTarget', [
-        new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+        new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
     ]);
 
     // DateFormatter
     $container->shared('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat', []);
     // ReadLengthFormatter
     $container->shared('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter', [
-        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
+        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
     ]);
 
     // CSRF TOKEN GENERATOR
@@ -54,7 +53,7 @@ return function (Container $container) {
         '\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb',
         [
             new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
-            new promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+            new promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
         ]
     );
 
@@ -67,7 +66,7 @@ return function (Container $container) {
         '\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface')
+            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
         ]
     );
 
@@ -91,22 +90,13 @@ return function (Container $container) {
         []
     );
 
-    // DYNAMIC ROOT
-    // $configDynamicRoot = require_once(__DIR__ . '/../config/shared/dynamic_root.php');
-    // $defaultDynamicRoot = $configDynamicRoot[DynamicRootInterface::DEFAULT_ROOT_FIELD] ??
-    //     throw new RuntimeException('Missing config field: '
-    //         . DynamicRootInterface::DEFAULT_ROOT_FIELD);
-    // $DynamicRootList = $configDynamicRoot[DynamicRootInterface::ROOT_LIST_FIELD] ??
-    //     throw new RuntimeException('Missing config field: '
-    //         . DynamicRootInterface::ROOT_LIST_FIELD);
-
     $container->multi(
         '\Romchik38\Server\Services\DynamicRoot\DynamicRoot',
         '\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface',
         true,
         [
-            new Promise(DynamicRootInterface::DEFAULT_ROOT_FIELD),//$defaultDynamicRoot,
-            new Promise(DynamicRootInterface::ROOT_LIST_FIELD) //$DynamicRootList
+            new Promise(DynamicRootInterface::DEFAULT_ROOT_FIELD),
+            new Promise(DynamicRootInterface::ROOT_LIST_FIELD),
         ]
     );
 
@@ -118,7 +108,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Services\Translate\TranslateStorageInterface'),
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 

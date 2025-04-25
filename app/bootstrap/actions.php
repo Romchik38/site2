@@ -6,9 +6,6 @@ use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
 
 return function (Container $container) {
-
-    $errorConfig = include_once(__DIR__ . '/../config/shared/errors.php');
-
     // Root
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Root\DefaultAction',
@@ -26,13 +23,9 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface')
+            new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
         ]
     );
-
-    // ServerError
-    $serverErrorResponseFile = $errorConfig['server-error-page'] ?? 
-        throw new RuntimeException('Missing server-error-page config parameter');
 
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\ServerError\DefaultAction',
@@ -41,7 +34,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface'),
-            $serverErrorResponseFile
+            new Promise('server-error-page'),
         ]
     );
 
@@ -53,7 +46,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView'),
             new Promise('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\SitemapLinkTreeInterface'),
-            new Promise ('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory')
+            new Promise ('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory'),
         ]
     );
     $container->shared('\Romchik38\Site2\Infrastructure\Controllers\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory');

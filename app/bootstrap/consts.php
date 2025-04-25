@@ -36,12 +36,6 @@ return function (Container $container) {
         $configs = array_merge($configs, $config);
     }
 
-
-    //$configImg = require __DIR__ . '/../config/shared/images.php';
-    //$configAudio = require __DIR__ . '/../config/shared/audio.php';
-
-    //$configs = array_merge($configImg, $configAudio);
-
     foreach($configs as $key => $val) {
         $container->add($key, $val);
     }

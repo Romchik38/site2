@@ -156,6 +156,7 @@ final class Audio
      *  - id is set
      *  - all translates
      *  - content is loaded
+     *
      * @throws CouldNotChangeActivityException
      * */
     public function activate(): void

@@ -6,15 +6,11 @@ use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
 
 return function (Container $container) {
-
-    $twigConfig = require_once(__DIR__ . '/../../config/shared/twig.php');
-
-    // Twig
-    $loaderConfig = $twigConfig[\Twig\Loader\FilesystemLoader::class];
-    $container->shared('\Twig\Loader\FilesystemLoader', [$loaderConfig['path']]);
+    // TWIG LOADER
+    $container->shared('\Twig\Loader\FilesystemLoader', [new Promise('view.twig.path')]);
     $container->shared('\Twig\Environment', [new Promise('\Twig\Loader\FilesystemLoader')]);
 
-    // Twig Default View
+    // Frontend View
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
         [
@@ -28,7 +24,7 @@ return function (Container $container) {
         ]
     );
 
-    // Twig Admin View
+    // Admin View
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Views\Html\Site2TwigView',
         'admin_view',

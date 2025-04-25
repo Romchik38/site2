@@ -74,7 +74,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             );
         } catch (CouldNotSaveException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri = $this->urlbuilder->fromArray(
+            $uri     = $this->urlbuilder->fromArray(
                 ['root', 'admin', 'translate', $command->id]
             );
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
