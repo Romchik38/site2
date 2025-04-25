@@ -391,6 +391,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Translate\ListView\ListViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 

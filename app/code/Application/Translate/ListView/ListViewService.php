@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Translate\ListView;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotCountException;
+use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotFilterException;
+use Romchik38\Site2\Application\Translate\ListView\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Translate\ListView\VO\Limit;
 use Romchik38\Site2\Application\Translate\ListView\VO\Offset;
 use Romchik38\Site2\Application\Translate\ListView\VO\OrderByDirection;
@@ -19,6 +22,7 @@ final class ListViewService
     }
 
     /**
+     * @throws CouldNotFilterException
      * @throws InvalidArgumentException
      */
     public function list(Filter $command): FilterResult
@@ -36,17 +40,23 @@ final class ListViewService
             $orderByDirection
         );
 
-        /** @todo CouldNotFilterException */
-        return new FilterResult(
-            $searchCriteria,
-            $page,
-            $this->repository->list($searchCriteria)
-        );
+        try {
+            $list = $this->repository->list($searchCriteria);
+        } catch (RepositoryException $e) {
+            throw new CouldNotFilterException($e->getMessage());
+        }
+        return new FilterResult($searchCriteria, $page, $list);
     }
 
+    /**
+     * @throws CouldNotCountException
+     */
     public function totalCount(): int
     {
-        /** @todo catch repo exc */
-        return $this->repository->totalCount();
+        try {
+            return $this->repository->totalCount();
+        } catch (RepositoryException $e) {
+            throw new CouldNotCountException($e->getMessage());
+        }
     }
 }

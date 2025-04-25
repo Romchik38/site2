@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\ListView;
 
+use InvalidArgumentException;
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Translate\ListView\RepositoryException;
+use Romchik38\Site2\Application\Translate\ListView\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Translate\ListView\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\ListView\SearchCriteria;
 use Romchik38\Site2\Application\Translate\ListView\View\TranslateDto;
@@ -29,10 +31,14 @@ final class Repository implements RepositoryInterface
         $paramCount = 0;
 
         /** ORDER BY */
-        $orderBy = new OrderBy(
-            ($searchCriteria->orderByField)(),
-            ($searchCriteria->orderByDirection)()
-        );
+        try {
+            $orderBy = new OrderBy(
+                ($searchCriteria->orderByField)(),
+                ($searchCriteria->orderByDirection)()
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $expression[] = sprintf(
             'ORDER BY %s %s %s',
@@ -51,7 +57,11 @@ final class Repository implements RepositoryInterface
 
         $query = sprintf('%s %s', $this->defaultQuery(), implode(' ', $expression));
 
-        $rows = $this->database->queryParams($query, $params);
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $models = [];
 
@@ -61,36 +71,46 @@ final class Repository implements RepositoryInterface
         return $models;
     }
 
-    /** @param array<string,string> $row */
-    protected function createFromRow(array $row): TranslateDto
+    public function totalCount(): int
+    {
+        $query = 'SELECT count(translate_keys.identifier) as count FROM translate_keys';
+
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $firstElem = $rows[0];
+        $count     = $firstElem['count'];
+
+        return (int) $count;
+    }
+
+    /**
+     * @throws RepositoryException
+     * @param array<string,string> $row
+     * */
+    private function createFromRow(array $row): TranslateDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
             throw new RepositoryException('Translate id is invalid');
         }
 
-        return new TranslateDto(
-            new Identifier($rawIdentifier),
-        );
+        try {
+            $id = new Identifier($rawIdentifier);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+        return new TranslateDto($id);
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<QUERY
         SELECT translate_keys.identifier
         FROM translate_keys
         QUERY;
-    }
-
-    public function totalCount(): int
-    {
-        $query = 'SELECT count(translate_keys.identifier) as count FROM translate_keys';
-
-        $rows = $this->database->queryParams($query, []);
-
-        $firstElem = $rows[0];
-        $count     = $firstElem['count'];
-
-        return (int) $count;
     }
 }
