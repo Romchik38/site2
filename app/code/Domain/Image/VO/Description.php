@@ -10,6 +10,7 @@ use function strlen;
 
 final class Description
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $description
     ) {

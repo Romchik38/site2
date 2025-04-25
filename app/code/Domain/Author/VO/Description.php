@@ -8,6 +8,7 @@ use InvalidArgumentException;
 
 final class Description
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly string $description
     ) {

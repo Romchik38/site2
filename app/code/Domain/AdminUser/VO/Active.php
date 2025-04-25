@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\AdminUser\VO;
 
+/** @todo refactor (remove) this class as unnecessary */
 final class Active
 {
     public const FIELD = 'active';

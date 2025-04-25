@@ -10,6 +10,7 @@ use function sprintf;
 
 final class Id
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly int $id
     ) {

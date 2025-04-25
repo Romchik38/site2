@@ -8,6 +8,7 @@ use InvalidArgumentException;
 
 final class PasswordHash
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $hash
     ) {

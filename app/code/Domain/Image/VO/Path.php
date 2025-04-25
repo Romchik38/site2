@@ -10,6 +10,7 @@ use function strlen;
 
 final class Path
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $path
     ) {

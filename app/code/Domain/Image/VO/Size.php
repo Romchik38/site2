@@ -14,7 +14,7 @@ final class Size
 
     /**
      * @param int $size - Content size in bytes
-     * * @throws InvalidArgumentException
+     * @throws InvalidArgumentException
      * */
     public function __construct(
         protected readonly int $size

@@ -8,6 +8,7 @@ use InvalidArgumentException;
 
 final class Name
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         public readonly string $name
     ) {

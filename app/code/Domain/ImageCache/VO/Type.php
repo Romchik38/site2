@@ -13,6 +13,7 @@ final class Type
 {
     protected const ALLOWED_TYPES = ['webp'];
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $type
     ) {

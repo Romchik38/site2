@@ -57,6 +57,7 @@ final class TranslateService
     {
         $translateId = new Identifier($command->id);
 
+        /** @todo refactor */
         $this->repository->deleteById($translateId);
     }
 

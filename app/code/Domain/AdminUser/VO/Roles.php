@@ -13,7 +13,10 @@ final class Roles
     /** @var array<string, Role> */
     protected array $hash;
 
-    /** @param array<int,Role> $roles*/
+    /**
+     * @param array<int,Role> $roles
+     * @throws InvalidArgumentException
+     * */
     public function __construct(
         array $roles
     ) {

@@ -20,6 +20,7 @@ final class CreatedAt
     ) {
     }
 
+    /** @throws InvalidArgumentException */
     public static function fromString(string $datetime): self
     {
         if (strlen($datetime) === 0) {

@@ -10,6 +10,7 @@ use function strlen;
 
 final class Data
 {
+    /** @throws InvalidArgumentException */
     public function __construct(
         protected readonly string $data
     ) {
