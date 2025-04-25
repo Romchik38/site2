@@ -19,7 +19,7 @@ use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Author\CouldNotSaveException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

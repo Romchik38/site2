@@ -21,7 +21,7 @@ use Romchik38\Site2\Application\Audio\AudioService\DeleteTranslate;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchTranslateException;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

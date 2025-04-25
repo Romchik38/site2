@@ -84,8 +84,8 @@ return function (Container $container) {
 
     // SESSION
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\Session\Site2Session',
-        '\Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface',
+        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2Session',
+        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface',
         true,
         []
     );

@@ -18,7 +18,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\ImageService\CouldNotCreateException;
 use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Image\ImageService\ImageService;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function array_merge;

@@ -13,7 +13,7 @@ use Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService;
 use Romchik38\Site2\Application\AdminUserRoles\ListRoles;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {

@@ -18,7 +18,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Category\CategoryService\CategoryService;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotCreateException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

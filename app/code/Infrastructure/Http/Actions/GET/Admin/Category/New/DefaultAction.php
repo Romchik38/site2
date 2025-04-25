@@ -18,7 +18,7 @@ use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
 use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException as LanguageException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface

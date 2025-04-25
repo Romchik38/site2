@@ -17,7 +17,7 @@ use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
 use Romchik38\Site2\Application\User\UserCheck\InvalidPasswordException;
 use Romchik38\Site2\Application\User\UserCheck\UserCheckService;
 use Romchik38\Site2\Domain\User\NoSuchUserException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

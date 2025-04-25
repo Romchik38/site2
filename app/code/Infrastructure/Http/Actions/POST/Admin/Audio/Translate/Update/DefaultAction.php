@@ -20,7 +20,7 @@ use Romchik38\Site2\Application\Audio\AudioService\CouldNotUpdateTranslateExcept
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchTranslateException;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

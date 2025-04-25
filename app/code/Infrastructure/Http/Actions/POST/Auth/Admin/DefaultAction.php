@@ -18,7 +18,7 @@ use Romchik38\Site2\Application\AdminUserCheck\CheckPassword;
 use Romchik38\Site2\Application\AdminUserCheck\InvalidPasswordException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

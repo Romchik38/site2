@@ -19,7 +19,7 @@ use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotSa
 use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\NoSuchTranslateException;
 use Romchik38\Site2\Application\Translate\TranslateService\TranslateService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

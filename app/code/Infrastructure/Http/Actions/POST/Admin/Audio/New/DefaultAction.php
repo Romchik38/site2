@@ -18,7 +18,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Audio\AudioService\AudioService;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateException;
 use Romchik38\Site2\Application\Audio\AudioService\Create;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;

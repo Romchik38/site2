@@ -21,7 +21,7 @@ use Romchik38\Site2\Application\Audio\AdminTranslateCreate\CouldNotFindException
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\Find;
 use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;

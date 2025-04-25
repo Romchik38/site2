@@ -20,7 +20,7 @@ use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;

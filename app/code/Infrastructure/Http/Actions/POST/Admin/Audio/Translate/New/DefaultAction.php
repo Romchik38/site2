@@ -19,7 +19,7 @@ use Romchik38\Site2\Application\Audio\AudioService\AudioService;
 use Romchik38\Site2\Application\Audio\AudioService\CouldNotCreateTranslateException;
 use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
-use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function array_merge;
