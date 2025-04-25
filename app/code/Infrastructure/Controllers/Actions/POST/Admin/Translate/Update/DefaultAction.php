@@ -15,10 +15,10 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotSaveException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\NoSuchTranslateException;
 use Romchik38\Site2\Application\Translate\TranslateService\TranslateService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
-use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -55,20 +55,18 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $message = '';
 
         $command = Update::formHash($requestData);
-        $uriId   = $this->urlbuilder->fromArray(
-            ['root', 'admin', 'translate', $command->id]
-        );
 
         try {
             $this->translateModelService->update($command);
             $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
-            $uri     = $uriId;
+            $uri     = $this->urlbuilder->fromArray(
+                ['root', 'admin', 'translate', $command->id]
+            );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-            $uri     = $uriId;
         } catch (NoSuchTranslateException) {
             $message = sprintf(
                 $this->translateService->t($this::TRANSLATE_NOT_EXIST_KEY),
@@ -76,7 +74,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             );
         } catch (CouldNotSaveException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            $uri     = $uriId;
+            /** @todo check this when Repo exc occures and id not found */
+            $uri = $this->urlbuilder->fromArray(
+                ['root', 'admin', 'translate', $command->id]
+            );
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         }
 

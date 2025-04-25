@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Translate\TranslateService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotDeleteException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotSaveException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\NoSuchTranslateException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Translate\TranslateService\RepositoryInterface;
 use Romchik38\Site2\Domain\Language\VO\Identifier as VOIdentifier;
-use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
-use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
-use Romchik38\Site2\Domain\Translate\RepositoryException;
-use Romchik38\Site2\Domain\Translate\RepositoryInterface;
 use Romchik38\Site2\Domain\Translate\Translate;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase as PhraseVO;
+
+use function sprintf;
 
 final class TranslateService
 {
@@ -24,15 +26,16 @@ final class TranslateService
     }
 
     /**
+     * @throws CouldNotSaveException
      * @throws InvalidArgumentException
      * @throws NoSuchTranslateException
-     * @throws CouldNotSaveException
      */
-    public function update(Update $command): Identifier
+    public function update(Update $command): void
     {
+        $translateId = new Identifier($command->id);
+
         try {
-            $translateId = new Identifier($command->id);
-            $model       = $this->repository->getById($translateId);
+            $model = $this->repository->getById($translateId);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());
         }
@@ -45,8 +48,11 @@ final class TranslateService
             ));
         }
 
-        $savedModel = $this->repository->save($model);
-        return $savedModel->getId();
+        try {
+            $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotSaveException($e->getMessage());
+        }
     }
 
     /**
@@ -57,34 +63,45 @@ final class TranslateService
     {
         $translateId = new Identifier($command->id);
 
-        /** @todo refactor */
-        $this->repository->deleteById($translateId);
+        try {
+            $this->repository->deleteById($translateId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
+        }
     }
 
-    public function create(Update $command): Identifier
+    /**
+     * @throws CouldNotSaveException
+     * @throws InvalidArgumentException
+     * */
+    public function create(Update $command): void
     {
+        $translateId = new Identifier($command->id);
+
         try {
-            $translateId = new Identifier($command->id);
-            $model       = $this->repository->getById($translateId);
+            $found = $this->repository->getById($translateId);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());
         } catch (NoSuchTranslateException) {
+            $phrases = [];
+            foreach ($command->phrases as $phrase) {
+                $phrases[] = new Phrase(
+                    new VOIdentifier($phrase->language),
+                    new PhraseVO($phrase->phrase)
+                );
+            }
+            $model = new Translate($translateId, $phrases);
             try {
-                $phrases = [];
-                foreach ($command->phrases as $phrase) {
-                    $phrases[] = new Phrase(
-                        new VOIdentifier($phrase->language),
-                        new PhraseVO($phrase->phrase)
-                    );
-                }
-                $model      = new Translate($translateId, $phrases);
-                $savedModel = $this->repository->add($model);
-                return $savedModel->getId();
+                $this->repository->add($model);
+                return;
             } catch (RepositoryException $e) {
                 throw new CouldNotSaveException($e->getMessage());
             }
         }
 
-        throw new CouldNotSaveException('Error while creating new translate');
+        throw new InvalidArgumentException(sprintf(
+            'Translate with id %s already exist',
+            $translateId
+        ));
     }
 }

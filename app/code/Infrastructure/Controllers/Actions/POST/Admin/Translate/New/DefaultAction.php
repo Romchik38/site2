@@ -15,9 +15,9 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotSaveException;
 use Romchik38\Site2\Application\Translate\TranslateService\TranslateService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
-use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -55,10 +55,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $command = Update::formHash($requestData);
 
         try {
-            $savedId = $this->translateModelService->create($command);
+            $this->translateModelService->create($command);
             $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uri     = $this->urlbuilder->fromArray(
-                ['root', 'admin', 'translate', $savedId()]
+                ['root', 'admin', 'translate', $command->id]
             );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(

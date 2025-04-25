@@ -16,8 +16,8 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Translate\TranslateService\Delete;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Translate\TranslateService\TranslateService;
-use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
 use Romchik38\Site2\Infrastructure\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -36,8 +36,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ServerRequestInterface $request,
         private readonly TranslateService $translateModelService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly LoggerServerInterface $logger
+        private readonly Site2SessionInterface $session,
+        private readonly LoggerServerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

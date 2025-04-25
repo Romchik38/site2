@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\View;
 
-use Romchik38\Server\Models\Errors\DatabaseException;
+use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Translate\View\RepositoryException;
+use Romchik38\Site2\Application\Translate\View\Exceptions\NoSuchTranslateException;
+use Romchik38\Site2\Application\Translate\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Translate\View\RepositoryInterface;
 use Romchik38\Site2\Application\Translate\View\View\PhraseDto;
 use Romchik38\Site2\Application\Translate\View\View\TranslateDto;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase;
 
@@ -36,7 +36,7 @@ final class Repository implements RepositoryInterface
         try {
             $rows = $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new DatabaseException($e->getMessage());
+            throw new RepositoryException($e->getMessage());
         }
 
         $rowCount = count($rows);
@@ -47,7 +47,7 @@ final class Repository implements RepositoryInterface
             ));
         }
         if ($rowCount > 1) {
-            throw new DatabaseException(sprintf(
+            throw new RepositoryException(sprintf(
                 'Translate with id %s has duplicates',
                 $idAsString
             ));
@@ -58,7 +58,10 @@ final class Repository implements RepositoryInterface
         return new TranslateDto($id, $phrases);
     }
 
-    /** @return array<int,PhraseDto> */
+    /**
+     * @throws RepositoryException
+     * @return array<int,PhraseDto>
+     * */
     private function createPhrases(Identifier $id): array
     {
         $query  = $this->phrasesQuery();
@@ -67,7 +70,7 @@ final class Repository implements RepositoryInterface
         try {
             $rows = $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new DatabaseException($e->getMessage());
+            throw new RepositoryException($e->getMessage());
         }
 
         $phrases = [];
@@ -81,10 +84,13 @@ final class Repository implements RepositoryInterface
             if ($rawPhrase === null) {
                 throw new RepositoryException('Translate phrase is invalid');
             }
-            $phrases[] = new PhraseDto(
-                new LanguageId($rawLanguage),
-                new Phrase($rawPhrase)
-            );
+            try {
+                $language = new LanguageId($rawLanguage);
+                $phrase   = new Phrase($rawPhrase);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $phrases[] = new PhraseDto($language, $phrase);
         }
 
         return $phrases;

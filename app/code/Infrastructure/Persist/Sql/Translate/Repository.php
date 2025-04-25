@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Translate;
 
+use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\NoSuchTranslateException;
+use Romchik38\Site2\Application\Translate\TranslateService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Translate\TranslateService\RepositoryInterface;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Translate\CouldNotDeleteException;
-use Romchik38\Site2\Domain\Translate\CouldNotSaveException;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
-use Romchik38\Site2\Domain\Translate\NoSuchTranslateException;
-use Romchik38\Site2\Domain\Translate\RepositoryException;
-use Romchik38\Site2\Domain\Translate\RepositoryInterface;
 use Romchik38\Site2\Domain\Translate\Translate;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Domain\Translate\VO\Phrase as VOPhrase;
@@ -28,10 +27,6 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    /**
-     * @throws NoSuchTranslateException
-     * @throws RepositoryException
-     * */
     public function getById(Identifier $id): Translate
     {
         $query  = $this->getByIdQuery();
@@ -55,7 +50,6 @@ final class Repository implements RepositoryInterface
         return new Translate($id, $phrases);
     }
 
-    /** @throws CouldNotDeleteException */
     public function deleteById(Identifier $id): void
     {
         $query  = 'DELETE FROM translate_keys WHERE translate_keys.identifier = $1';
@@ -63,12 +57,11 @@ final class Repository implements RepositoryInterface
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new CouldNotDeleteException($e->getMessage());
+            throw new RepositoryException($e->getMessage());
         }
     }
 
-    /** @throws CouldNotSaveException */
-    public function save(Translate $model): Translate
+    public function save(Translate $model): void
     {
         $id      = $model->getId();
         $phrases = $model->getPhrases();
@@ -92,23 +85,21 @@ final class Repository implements RepositoryInterface
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         }
-        return $this->getById($id);
     }
 
-    /** @throws CouldNotSaveException */
-    public function add(Translate $model): Translate
+    public function add(Translate $model): void
     {
         $id      = $model->getId();
         $phrases = $model->getPhrases();
@@ -132,22 +123,24 @@ final class Repository implements RepositoryInterface
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         }
-        return $this->getById($id);
     }
 
-    /** @return array<int,Phrase> */
+    /**
+     * @throws RepositoryException
+     * @return array<int,Phrase>
+     * */
     private function createPhrases(Identifier $id): array
     {
         $query  = $this->querySelectPhrases();
@@ -170,9 +163,15 @@ final class Repository implements RepositoryInterface
             if ($rawPhrase === null) {
                 throw new RepositoryException('Translate phrase is invalid');
             }
+            try {
+                $language = new LanguageId($rawLanguage);
+                $phrase   = new VOPhrase($rawPhrase);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
             $phrases[] = new Phrase(
-                new LanguageId($rawLanguage),
-                new VOPhrase($rawPhrase)
+                $language,
+                $phrase
             );
         }
 
