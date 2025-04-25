@@ -2,6 +2,7 @@
 
 ## Current
 
+- @todo
 - move config to const
 - refactor folder structure
 
