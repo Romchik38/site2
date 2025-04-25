@@ -153,8 +153,9 @@ final class Audio
 
     /**
      * - Requirements to become active:
-     *   - id is set
-     *
+     *  - id is set
+     *  - all translates
+     *  - content is loaded
      * @throws CouldNotChangeActivityException
      * */
     public function activate(): void

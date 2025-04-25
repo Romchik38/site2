@@ -7,6 +7,5 @@ Represents an Audio.
   - id is set
   - content present in the storage (loaded)
   - all translates
-  - author is active
 - Cannot be *deactivated* when:
   - has references from article
