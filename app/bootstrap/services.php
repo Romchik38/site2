@@ -92,21 +92,21 @@ return function (Container $container) {
     );
 
     // DYNAMIC ROOT
-    $configDynamicRoot = require_once(__DIR__ . '/../config/shared/dynamic_root.php');
-    $defaultDynamicRoot = $configDynamicRoot[DynamicRootInterface::DEFAULT_ROOT_FIELD] ??
-        throw new RuntimeException('Missing config field: '
-            . DynamicRootInterface::DEFAULT_ROOT_FIELD);
-    $DynamicRootList = $configDynamicRoot[DynamicRootInterface::ROOT_LIST_FIELD] ??
-        throw new RuntimeException('Missing config field: '
-            . DynamicRootInterface::ROOT_LIST_FIELD);
+    // $configDynamicRoot = require_once(__DIR__ . '/../config/shared/dynamic_root.php');
+    // $defaultDynamicRoot = $configDynamicRoot[DynamicRootInterface::DEFAULT_ROOT_FIELD] ??
+    //     throw new RuntimeException('Missing config field: '
+    //         . DynamicRootInterface::DEFAULT_ROOT_FIELD);
+    // $DynamicRootList = $configDynamicRoot[DynamicRootInterface::ROOT_LIST_FIELD] ??
+    //     throw new RuntimeException('Missing config field: '
+    //         . DynamicRootInterface::ROOT_LIST_FIELD);
 
     $container->multi(
         '\Romchik38\Server\Services\DynamicRoot\DynamicRoot',
         '\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface',
         true,
         [
-            $defaultDynamicRoot,
-            $DynamicRootList
+            new Promise(DynamicRootInterface::DEFAULT_ROOT_FIELD),//$defaultDynamicRoot,
+            new Promise(DynamicRootInterface::ROOT_LIST_FIELD) //$DynamicRootList
         ]
     );
 

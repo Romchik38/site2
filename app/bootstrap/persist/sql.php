@@ -7,14 +7,17 @@ use Romchik38\Container\Promise;
 
 return function (Container $container) {
 
-    $configDatabase = require_once(__DIR__ . '/../../config/private/database.php');
+    //$configDatabase = require_once(__DIR__ . '/../../config/private/database.php');
 
     // DATABASES
     $container->multi(
         '\Romchik38\Server\Models\Sql\DatabasePostgresql',
         '\Romchik38\Server\Models\Sql\DatabaseSqlInterface',
         true,
-        [$configDatabase]
+        [
+            //$configDatabase
+            new Promise('database.postgres.connect.main')
+        ]
     );
 
     // ADMIN USER
