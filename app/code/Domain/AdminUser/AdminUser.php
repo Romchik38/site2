@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\AdminUser;
 
-use Romchik38\Site2\Domain\AdminUser\VO\Active;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
@@ -20,7 +19,7 @@ final class AdminUser implements AdminUserInterface
         private Identifier $identifier,
         private Username $username,
         private PasswordHash $passwordHash,
-        private Active $active,
+        private bool $active,
         private Email $email,
         private Roles $roles
     ) {
@@ -43,7 +42,7 @@ final class AdminUser implements AdminUserInterface
 
     public function isActive(): bool
     {
-        return ($this->active)();
+        return $this->active;
     }
 
     public function username(): Username

@@ -16,6 +16,7 @@ use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Application\Language\ListView\ListViewService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
 use Romchik38\Site2\Application\Translate\View\Exceptions\CouldNotFindException;
@@ -70,8 +71,13 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             return new RedirectResponse($uriRedirect);
         }
 
-        /** @todo add try/catch and test it */
-        $languages = $this->languageService->getAll();
+        try {
+            $languages = $this->languageService->getAll();
+        } catch (LanguageRepositoryException $e) {
+            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $messageError);
+            $this->logger->error($e->getMessage());
+            return new RedirectResponse($uriRedirect);
+        }
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);

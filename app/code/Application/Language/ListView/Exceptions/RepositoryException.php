@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Language\ListView;
+namespace Romchik38\Site2\Application\Language\ListView\Exceptions;
 
 use RuntimeException;
 

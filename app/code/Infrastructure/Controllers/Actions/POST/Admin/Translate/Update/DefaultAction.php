@@ -74,7 +74,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             );
         } catch (CouldNotSaveException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
-            /** @todo check this when Repo exc occures and id not found */
             $uri = $this->urlbuilder->fromArray(
                 ['root', 'admin', 'translate', $command->id]
             );

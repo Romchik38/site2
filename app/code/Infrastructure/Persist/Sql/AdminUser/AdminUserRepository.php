@@ -12,7 +12,6 @@ use Romchik38\Site2\Domain\AdminUser\AdminUser;
 use Romchik38\Site2\Domain\AdminUser\AdminUserInterface;
 use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
-use Romchik38\Site2\Domain\AdminUser\VO\Active;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
@@ -108,7 +107,7 @@ final class AdminUserRepository implements AdminUserRepositoryInterface
             new Identifier((int) $firstRow[$this::ADMIN_USER_C_IDENTIFIER]),
             new Username($firstRow[$this::ADMIN_USER_C_USERNAME]),
             new PasswordHash($firstRow[$this::ADMIN_USER_C_PASSWORD_HASH]),
-            new Active($firstRow[$this::ADMIN_USER_C_ACTIVE] === 'f' ? false : true),
+            $firstRow[$this::ADMIN_USER_C_ACTIVE] === 'f' ? false : true,
             new Email($firstRow[$this::ADMIN_USER_C_EMAIL]),
             new Roles($roles)
         );
