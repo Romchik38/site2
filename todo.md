@@ -3,7 +3,6 @@
 ## Current
 
 - admin user
-  - app refactor check password
   - domain tests
   
 - repositories must *catch* `InvalidArgimentException` error on entity creation and *throws* Repository error, because this is a problem of the database consistency.

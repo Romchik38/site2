@@ -9,6 +9,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
@@ -16,6 +17,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckPasswordException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\InvalidPasswordException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -26,19 +28,21 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const string NOT_ACTIVE_MESSAGE_KEY        = 'auth.not-active';
-    public const string WRONG_PASSWORD_MESSAGE_KEY    = 'auth.wrong-password';
-    public const string WRONG_USERNAME_MESSAGE_KEY    = 'auth.wrong-username';
-    public const string SUCCESS_LOGGED_IN             = 'auth.success-logged-in';
-    public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    public const NOT_ACTIVE_MESSAGE_KEY        = 'auth.not-active';
+    public const WRONG_PASSWORD_MESSAGE_KEY    = 'auth.wrong-password';
+    public const WRONG_USERNAME_MESSAGE_KEY    = 'auth.wrong-username';
+    public const SUCCESS_LOGGED_IN_KEY         = 'auth.success-logged-in';
+    public const BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    public const SERVER_ERROR_KEY              = 'server-error.message';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ServerRequestInterface $request,
-        protected readonly AdminUserService $adminUserCheck,
-        protected readonly Site2SessionInterface $session,
-        protected readonly UrlbuilderInterface $urlbuilder
+        private readonly ServerRequestInterface $request,
+        private readonly AdminUserService $adminUserCheck,
+        private readonly Site2SessionInterface $session,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly LoggerServerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -83,10 +87,18 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY)
             );
             return new RedirectResponse($urlLogin);
+        } catch (CouldNotCheckPasswordException $e) {
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::SERVER_ERROR_KEY)
+            );
+            $this->logger->error($e->getMessage());
+            return new RedirectResponse($urlLogin);
         }
+
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD,
-            $this->translateService->t($this::SUCCESS_LOGGED_IN)
+            $this->translateService->t($this::SUCCESS_LOGGED_IN_KEY)
         );
         $this->session->setData(
             Site2SessionInterface::ADMIN_USER_FIELD,

@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckRoles;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckPasswordException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\RepositoryException;
@@ -24,8 +25,8 @@ final class AdminUserService
     }
 
     /**
-     * @todo refactor app, repo, action
      * @throws AdminUserNotActiveException
+     * @throws CouldNotCheckPasswordException
      * @throws InvalidPasswordException
      * @throws InvalidArgumentException
      * @throws NoSuchAdminUserException
@@ -35,12 +36,17 @@ final class AdminUserService
         $username = new Username($command->username);
         $password = new Password($command->password);
 
-        $user   = $this->adminUserRepository->findByUsername($username);
+        try {
+            $user = $this->adminUserRepository->findByUsername($username);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCheckPasswordException($e->getMessage());
+        }
+
         $result = $user->checkPassword($password);
         if ($result === true) {
             if ($user->isActive() === false) {
                 throw new AdminUserNotActiveException(
-                    sprintf('Admin use with username %s not active', $username())
+                    sprintf('Admin user with username %s not active', $username())
                 );
             }
             return $user->getUsername();
