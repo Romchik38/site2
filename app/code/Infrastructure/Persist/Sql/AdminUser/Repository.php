@@ -14,11 +14,10 @@ use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier as RoleId;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 use Romchik38\Site2\Domain\AdminUser\AdminUser;
+use Romchik38\Site2\Domain\AdminUser\Entities\Role;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
-use Romchik38\Site2\Domain\AdminUser\VO\Role;
-use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 use function count;
@@ -88,15 +87,13 @@ final class Repository implements RepositoryInterface
         $roles = $this->createRoles($rawIdentifier);
 
         try {
-            /** @todo fromString */
             $id           = Identifier::fromString($rawIdentifier);
             $passwordHash = new PasswordHash($rawPasswordHash);
             $email        = new Email($rawEmail);
-            $roles        = new Roles($roles);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
-        return new AdminUser(
+        return AdminUser::load(
             $id,
             $username,
             $passwordHash,

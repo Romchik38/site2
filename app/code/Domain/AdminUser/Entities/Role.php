@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\AdminUser\VO;
+namespace Romchik38\Site2\Domain\AdminUser\Entities;
 
 use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier;
@@ -11,23 +11,23 @@ use Romchik38\Site2\Domain\AdminRole\VO\Name;
 final class Role
 {
     public function __construct(
-        protected readonly Identifier $identifier,
-        protected readonly Name $name,
-        protected readonly Description $description
+        private readonly Identifier $id,
+        private readonly Name $name,
+        private readonly Description $description
     ) {
     }
 
-    public function name(): Name
+    public function getName(): Name
     {
         return $this->name;
     }
 
-    public function identifier(): Identifier
+    public function getId(): Identifier
     {
-        return $this->identifier;
+        return $this->id;
     }
 
-    public function description(): Description
+    public function getDescription(): Description
     {
         return $this->description;
     }

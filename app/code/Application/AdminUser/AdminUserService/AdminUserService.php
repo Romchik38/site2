@@ -43,7 +43,7 @@ final class AdminUserService
                     sprintf('Admin use with username %s not active', $username())
                 );
             }
-            return $user->username();
+            return $user->getUsername();
         }
         throw new InvalidPasswordException(
             sprintf('Password for username %s is incorrect', $username())
@@ -72,18 +72,18 @@ final class AdminUserService
             );
         }
 
-        $adminRoles = $user->roles();
+        //$adminRoles = $user->getRoles();
 
         if ($command->method === CheckRoles::FIRST_MATCH) {
             foreach ($command->roles as $role) {
-                if ($adminRoles->hasRole($role)) {
+                if ($user->hasRole($role)) {
                     return true;
                 }
             }
             return false;
         } elseif ($command->method === CheckRoles::ALL) {
             foreach ($command->roles as $role) {
-                if (! $adminRoles->hasRole($role)) {
+                if (! $user->hasRole($role)) {
                     return false;
                 }
             }
