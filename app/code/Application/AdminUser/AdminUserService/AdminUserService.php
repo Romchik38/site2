@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckRoles;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\RepositoryException;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
@@ -59,12 +60,15 @@ final class AdminUserService
     {
         $username = new Username($command->username);
 
-        /** @todo try/catch */
-        $user = $this->adminUserRepository->findByUsername($username);
+        try {
+            $user = $this->adminUserRepository->findByUsername($username);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCheckRolesException($e->getMessage());
+        }
 
         if ($user->isActive() === false) {
             throw new AdminUserNotActiveException(
-                sprintf('Admin use with username %s not active', $username())
+                sprintf('Admin user with username %s not active', $username())
             );
         }
 

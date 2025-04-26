@@ -21,7 +21,6 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {
     protected const NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY = 'admin.roles.you-do-not-have-enough-permissions';
-    public const MUST_BE_LOGGED_IN_MESSAGE_KEY         = 'logout.you-must-login-first';
 
     /** @param array<int,string> $allowedRoles*/
     public function __construct(
@@ -41,13 +40,8 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
         $urlAdmin = $this->urlbuilder->fromArray(['root', 'admin']);
 
         $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        /** @todo check */
         if ($adminUser === null) {
             // not admin user
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translate->t($this::MUST_BE_LOGGED_IN_MESSAGE_KEY)
-            );
             return new RedirectResponse($urlRoot);
         }
 
@@ -65,25 +59,21 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
                 return new RedirectResponse($urlAdmin);
             }
         } catch (AdminUserNotActiveException $e) {
-            /** @todo check */
             // user is logged in, but was deactivated
             $this->session->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (NoSuchAdminUserException $e) {
-            /** @todo check */
             // user is logged in, but it username was changed or deleted
             $this->session->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (CouldNotCheckRolesException $e) {
-            /** @todo check */
             // problem with database etc.
             $this->session->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (InvalidArgumentException $e) {
-            /** @todo check */
             // problem with command data (session etc)
             $this->session->logout();
             $this->logger->error($e->getMessage());

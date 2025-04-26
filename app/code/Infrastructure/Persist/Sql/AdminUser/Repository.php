@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
+use InvalidArgumentException;
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface;
 use Romchik38\Site2\Domain\AdminRole\VO\Description;
-use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
+use Romchik38\Site2\Domain\AdminRole\VO\Identifier as RoleId;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 use Romchik38\Site2\Domain\AdminUser\AdminUser;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
@@ -19,26 +22,10 @@ use Romchik38\Site2\Domain\AdminUser\VO\Roles;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 use function count;
-use function implode;
 use function sprintf;
 
-/** @todo refactor */
 final class Repository implements RepositoryInterface
 {
-    /** admin_users */
-    public const ADMIN_USER_T               = 'admin_users';
-    public const ADMIN_USER_C_IDENTIFIER    = 'identifier';
-    public const ADMIN_USER_C_USERNAME      = 'username';
-    public const ADMIN_USER_C_PASSWORD_HASH = 'password_hash';
-    public const ADMIN_USER_C_ACTIVE        = 'active';
-    public const ADMIN_USER_C_EMAIL         = 'email';
-
-    /** admin_users_with_roles */
-    public const ADMIN_ROLES_T             = 'admin_roles';
-    public const ADMIN_ROLES_C_IDENTIFIER  = 'identifier';
-    public const ADMIN_ROLES_C_NAME        = 'name';
-    public const ADMIN_ROLES_C_DESCRIPTION = 'description';
-
     public function __construct(
         protected readonly DatabaseSqlInterface $database
     ) {
@@ -46,111 +33,144 @@ final class Repository implements RepositoryInterface
 
     public function findByUsername(Username $username): AdminUser
     {
-        $expression = sprintf(
-            'WHERE %s.%s = $1',
-            $this::ADMIN_USER_T,
-            $this::ADMIN_USER_C_USERNAME
-        );
+        $query  = $this->getByNameQuery();
+        $params = [$username()];
 
-        /** 2. Entity rows */
-        $rows = $this->listRows(
-            [sprintf('%s.*', $this::ADMIN_USER_T)],
-            [$this::ADMIN_USER_T],
-            $expression,
-            [$username()]
-        );
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         if (count($rows) === 0) {
-            throw new NoSuchAdminUserException(
-                sprintf('Admin user with username %s not exist', $username())
-            );
+            throw new NoSuchAdminUserException(sprintf(
+                'Admin user with username %s not exist',
+                $username()
+            ));
+        } elseif (count($rows) > 1) {
+            throw new RepositoryException(sprintf(
+                'Admim user %s has duplicates',
+                $username()
+            ));
+        } else {
+            return $this->createFromRow($rows[0], $username);
         }
-
-        /** 3. Create an Entity */
-        return $this->createSingleAdminUserFromRows($rows);
-    }
-
-     /**
-      * SELECT
-      * used to select rows from all tables by given expression
-      *
-      * @param string[] $params
-      * @param string[] $selectedFields
-      * @param string[] $selectedTables
-      * @return array<int,array<string,string>>
-      */
-    protected function listRows(
-        array $selectedFields,
-        array $selectedTables,
-        string $expression,
-        array $params
-    ): array {
-        $query = 'SELECT ' . implode(', ', $selectedFields)
-            . ' FROM ' . implode(', ', $selectedTables) . ' ' . $expression;
-
-        return $this->database->queryParams($query, $params);
     }
 
     /**
-     * Create an AdminUser entity from rows with the same username
-     *
-     * @param array<int,array<string,string>> $rows
+     * @throws RepositoryException
+     * @param array<string,string> $row
      */
-    protected function createSingleAdminUserFromRows(array $rows): AdminUser
+    private function createFromRow(array $row, Username $username): AdminUser
     {
-        // 1. create roles
-        $roles = $this->createRolesFromRows($rows);
+        $rawIdentifier = $row['identifier'] ?? null;
+        if ($rawIdentifier === null) {
+            throw new RepositoryException('Admin user identifier is invalid');
+        }
+        $rawActive = $row['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Admin user active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+        $rawPasswordHash = $row['password_hash'] ?? null;
+        if ($rawPasswordHash === null) {
+            throw new RepositoryException('Admin user password hash is invalid');
+        }
+        $rawEmail = $row['email'] ?? null;
+        if ($rawEmail === null) {
+            throw new RepositoryException('Admin user email is invalid');
+        }
 
-        // 2. create an entity
-        $firstRow = $rows[0];
+        $roles = $this->createRoles($rawIdentifier);
+
+        try {
+            /** @todo fromString */
+            $id           = Identifier::fromString($rawIdentifier);
+            $passwordHash = new PasswordHash($rawPasswordHash);
+            $email        = new Email($rawEmail);
+            $roles        = new Roles($roles);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
         return new AdminUser(
-            new Identifier((int) $firstRow[$this::ADMIN_USER_C_IDENTIFIER]),
-            new Username($firstRow[$this::ADMIN_USER_C_USERNAME]),
-            new PasswordHash($firstRow[$this::ADMIN_USER_C_PASSWORD_HASH]),
-            $firstRow[$this::ADMIN_USER_C_ACTIVE] === 'f' ? false : true,
-            new Email($firstRow[$this::ADMIN_USER_C_EMAIL]),
-            new Roles($roles)
+            $id,
+            $username,
+            $passwordHash,
+            $active,
+            $email,
+            $roles
         );
     }
 
     /**
-     * Create all roles for AdminUser
-     *
-     * @param array<int,array<string,string>> $adminUserRows
-     *  - Rows of a single model, all admin user ids must be the same
+     * @throws RepositoryException
      * @return array<int,Role> - A list of Roles or empty array.
      * */
-    protected function createRolesFromRows(array $adminUserRows): array
+    private function createRoles(string $rawAdminUserId): array
     {
         $roles = [];
-        if (count($adminUserRows) === 0) {
-            return $roles;
+
+        $query  = $this->getRolesQuery();
+        $params = [$rawAdminUserId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
         }
 
-        $firstRow    = $adminUserRows[0];
-        $adminUserId = $firstRow[$this::ADMIN_USER_C_IDENTIFIER] ?? null;
-        if ($adminUserId === null) {
-            return $roles;
+        foreach ($rows as $row) {
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Admin user role identifier is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Admin user role name is invalid');
+            }
+            $rawDescription = $row['description'] ?? null;
+            if ($rawDescription === null) {
+                throw new RepositoryException('Admin user role description is invalid');
+            }
+            try {
+                $name        = new Name($rawName);
+                $description = new Description($rawDescription);
+                $identifier  = RoleId::fromString($rawIdentifier);
+                $role        = new Role($identifier, $name, $description);
+                $roles[]     = $role;
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         }
+        return $roles;
+    }
 
-        $expression = <<<'SQL'
+    private function getByNameQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT admin_users.identifier,
+            admin_users.username,
+            admin_users.password_hash,
+            admin_users.active,
+            admin_users.email
+        FROM admin_users
+        WHERE admin_users.username = $1
+        QUERY;
+    }
+
+    private function getRolesQuery(): string
+    {
+        return <<<'QUERY'
         SELECT admin_roles.identifier,
             admin_roles.name,
             admin_roles.description
         FROM admin_roles, admin_users_with_roles
         WHERE admin_roles.identifier = admin_users_with_roles.role_id
             AND admin_users_with_roles.user_id = $1
-        SQL;
-
-        $rows = $this->database->queryParams($expression, [$adminUserId]);
-
-        foreach ($rows as $row) {
-            $name        = new Name($row[$this::ADMIN_ROLES_C_NAME]);
-            $description = new Description($row[$this::ADMIN_ROLES_C_DESCRIPTION]);
-            $identifier  = new VOIdentifier((int) $row[$this::ADMIN_ROLES_C_IDENTIFIER]);
-            $role        = new Role($identifier, $name, $description);
-            $roles[]     = $role;
-        }
-        return $roles;
+        QUERY;
     }
 }
