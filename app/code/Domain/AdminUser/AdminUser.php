@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Domain\AdminUser;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\AdminUser\Entities\Role;
+use Romchik38\Site2\Domain\AdminUser\Exceptions\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
@@ -13,6 +14,7 @@ use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 use function array_values;
+use function count;
 use function password_verify;
 
 /** @todo tests */
@@ -23,7 +25,7 @@ final class AdminUser
 
     /** @param array<int,mixed|Role> $roles*/
     private function __construct(
-        private ?Identifier $identifier,
+        private ?Identifier $id,
         private Username $username,
         private PasswordHash $passwordHash,
         private bool $active,
@@ -51,7 +53,7 @@ final class AdminUser
 
     public function getId(): ?Identifier
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     public function getRole(string $roleName): ?Role
@@ -124,5 +126,37 @@ final class AdminUser
             $email,
             $roles
         );
+    }
+
+    /**
+     * Requirements:
+     *   - id is set
+     *   - has roles
+     *
+     * @throws CouldNotChangeActivityException
+     */
+    public function activate(): void
+    {
+        if ($this->active === true) {
+            return;
+        }
+
+        if ($this->id === null) {
+            throw new CouldNotChangeActivityException('Admin user id is not set. Set it first');
+        }
+
+        if (count($this->roles) === 0) {
+            throw new CouldNotChangeActivityException('Admin user has not roles. Set at least one');
+        }
+
+        $this->active = true;
+    }
+
+    public function deactivate(): void
+    {
+        if ($this->active === false) {
+            return;
+        }
+        $this->active = false;
     }
 }
