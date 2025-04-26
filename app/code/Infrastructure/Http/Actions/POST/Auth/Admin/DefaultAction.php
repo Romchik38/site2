@@ -13,9 +13,9 @@ use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService;
-use Romchik38\Site2\Application\AdminUserCheck\CheckPassword;
-use Romchik38\Site2\Application\AdminUserCheck\InvalidPasswordException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\InvalidPasswordException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -36,7 +36,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly ServerRequestInterface $request,
-        protected readonly AdminUserCheckService $adminUserCheck,
+        protected readonly AdminUserService $adminUserCheck,
         protected readonly Site2SessionInterface $session,
         protected readonly UrlbuilderInterface $urlbuilder
     ) {

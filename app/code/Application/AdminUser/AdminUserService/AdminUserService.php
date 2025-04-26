@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\AdminUserCheck;
+namespace Romchik38\Site2\Application\AdminUser\AdminUserService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
@@ -10,10 +10,11 @@ use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
 use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Domain\AdminUser\VO\Password;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 
 use function sprintf;
 
-final class AdminUserCheckService
+final class AdminUserService
 {
     public function __construct(
         protected readonly AdminUserRepositoryInterface $adminUserRepository

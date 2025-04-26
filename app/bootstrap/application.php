@@ -107,9 +107,9 @@ return function (Container $container) {
         ]
     );
 
-    // ADMIN USER CHECK
+    // ADMIN USER
     $container->shared(
-        '\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService',
+        '\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService',
         [
             new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface')
         ]

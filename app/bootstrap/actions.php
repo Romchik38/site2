@@ -745,7 +745,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
-            new Promise('\Romchik38\Site2\Application\AdminUserCheck\AdminUserCheckService'),
+            new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
         ]
