@@ -13,7 +13,7 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminLoginMiddleware implements RequestMiddlewareInterface
 {
-    protected const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
+    public const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
 
     public function __construct(
         protected readonly Site2SessionInterface $session,
@@ -22,6 +22,7 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
     ) {
     }
 
+    /** @todo refacor - user must have LOGIN permission (is active etc)  */
     public function __invoke(): ?ResponseInterface
     {
         $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);

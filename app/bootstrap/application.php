@@ -111,15 +111,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService',
         [
-            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface')
-        ]
-    );
-
-    // ADMIN USER ROLES
-    $container->shared(
-        '\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService',
-        [
-            new Promise('\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface')
         ]
     );
 

@@ -15,9 +15,9 @@ use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\InvalidPasswordException;
-use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
-use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 

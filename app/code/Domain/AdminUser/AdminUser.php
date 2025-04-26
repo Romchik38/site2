@@ -13,7 +13,8 @@ use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
 use function password_verify;
 
-final class AdminUser implements AdminUserInterface
+/** @todo tests */
+final class AdminUser
 {
     public function __construct(
         private Identifier $identifier,
@@ -21,6 +22,7 @@ final class AdminUser implements AdminUserInterface
         private PasswordHash $passwordHash,
         private bool $active,
         private Email $email,
+        /** @todo refactor - array of Roles */
         private Roles $roles
     ) {
     }
@@ -50,6 +52,7 @@ final class AdminUser implements AdminUserInterface
         return $this->username;
     }
 
+    /** @todo refactor */
     public function roles(): Roles
     {
         return $this->roles;

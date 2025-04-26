@@ -4,62 +4,90 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService;
-use Romchik38\Site2\Application\AdminUserRoles\ListRoles;
-use Romchik38\Site2\Domain\AdminUser\AdminUserNotActiveException;
-use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckRoles;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {
     protected const NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY = 'admin.roles.you-do-not-have-enough-permissions';
+    public const MUST_BE_LOGGED_IN_MESSAGE_KEY         = 'logout.you-must-login-first';
 
     /** @param array<int,string> $allowedRoles*/
     public function __construct(
-        protected readonly array $allowedRoles,
-        protected readonly Site2SessionInterface $session,
-        protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly AdminUserRolesService $adminUserRoles,
-        protected readonly TranslateInterface $translate
+        private readonly array $allowedRoles,
+        private readonly Site2SessionInterface $session,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly AdminUserService $adminUserService,
+        private readonly TranslateInterface $translate,
+        private readonly LoggerServerInterface $logger
     ) {
     }
 
     public function __invoke(): ?ResponseInterface
     {
-        $adminUser = (string) $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        $urlLogin  = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
-        $urlAdmin  = $this->urlbuilder->fromArray(['root', 'admin']);
+        $urlRoot  = $this->urlbuilder->fromArray(['root']);
+        $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+        $urlAdmin = $this->urlbuilder->fromArray(['root', 'admin']);
 
-        $command = new ListRoles($adminUser);
-        try {
-            $adminRoles = $this->adminUserRoles->listRolesByUsername($command);
-            foreach ($this->allowedRoles as $role) {
-                if ($adminRoles->hasRole($role)) {
-                    return null;
-                }
-            }
+        $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
+        /** @todo check */
+        if ($adminUser === null) {
+            // not admin user
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
-                $this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY)
+                $this->translate->t($this::MUST_BE_LOGGED_IN_MESSAGE_KEY)
             );
-            return new RedirectResponse($urlAdmin);
-        } catch (NoSuchAdminUserException) {
-            // user is logged in, but it username was changed or deleted
-            $this->session->logout();
-            return new RedirectResponse($urlLogin);
-        } catch (AdminUserNotActiveException) {
+            return new RedirectResponse($urlRoot);
+        }
+
+        $command = CheckRoles::firstMatch($this->allowedRoles, $adminUser);
+
+        try {
+            $checkResult = $this->adminUserService->checkRoles($command);
+            if ($checkResult === true) {
+                return null;
+            } else {
+                $this->session->setData(
+                    Site2SessionInterface::MESSAGE_FIELD,
+                    $this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY)
+                );
+                return new RedirectResponse($urlAdmin);
+            }
+        } catch (AdminUserNotActiveException $e) {
+            /** @todo check */
             // user is logged in, but was deactivated
             $this->session->logout();
+            $this->logger->error($e->getMessage());
+            return new RedirectResponse($urlLogin);
+        } catch (NoSuchAdminUserException $e) {
+            /** @todo check */
+            // user is logged in, but it username was changed or deleted
+            $this->session->logout();
+            $this->logger->error($e->getMessage());
+            return new RedirectResponse($urlLogin);
+        } catch (CouldNotCheckRolesException $e) {
+            /** @todo check */
+            // problem with database etc.
+            $this->session->logout();
+            $this->logger->error($e->getMessage());
+            return new RedirectResponse($urlLogin);
+        } catch (InvalidArgumentException $e) {
+            /** @todo check */
+            // problem with command data (session etc)
+            $this->session->logout();
+            $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         }
-        /**
-         * InvalidArgumentException must be catched later and logged to file
-         * There is nothing to show the admin user. It will see common server error page
-         */
     }
 }

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface;
 use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier as VOIdentifier;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 use Romchik38\Site2\Domain\AdminUser\AdminUser;
-use Romchik38\Site2\Domain\AdminUser\AdminUserInterface;
-use Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface;
-use Romchik38\Site2\Domain\AdminUser\NoSuchAdminUserException;
 use Romchik38\Site2\Domain\AdminUser\VO\Email;
 use Romchik38\Site2\Domain\AdminUser\VO\Identifier;
 use Romchik38\Site2\Domain\AdminUser\VO\PasswordHash;
@@ -23,7 +22,8 @@ use function count;
 use function implode;
 use function sprintf;
 
-final class AdminUserRepository implements AdminUserRepositoryInterface
+/** @todo refactor */
+final class Repository implements RepositoryInterface
 {
     /** admin_users */
     public const ADMIN_USER_T               = 'admin_users';
@@ -44,7 +44,7 @@ final class AdminUserRepository implements AdminUserRepositoryInterface
     ) {
     }
 
-    public function findByUsername(Username $username): AdminUserInterface
+    public function findByUsername(Username $username): AdminUser
     {
         $expression = sprintf(
             'WHERE %s.%s = $1',
@@ -96,7 +96,7 @@ final class AdminUserRepository implements AdminUserRepositoryInterface
      *
      * @param array<int,array<string,string>> $rows
      */
-    protected function createSingleAdminUserFromRows(array $rows): AdminUserInterface
+    protected function createSingleAdminUserFromRows(array $rows): AdminUser
     {
         // 1. create roles
         $roles = $this->createRolesFromRows($rows);

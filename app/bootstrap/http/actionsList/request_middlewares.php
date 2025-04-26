@@ -14,7 +14,7 @@ return function (Container $container): void {
         [
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
         ]
     );
 
@@ -25,8 +25,9 @@ return function (Container $container): void {
             ['ADMIN_ROOT'],
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\AdminUserRoles\AdminUserRolesService'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface')
+            new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
+            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 
@@ -39,7 +40,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Path(['root', 'login']),
-            Site2SessionInterface::CSRF_TOKEN_FIELD
+            Site2SessionInterface::CSRF_TOKEN_FIELD,
         ]
     );
 

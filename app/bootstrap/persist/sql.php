@@ -18,8 +18,8 @@ return function (Container $container) {
 
     // ADMIN USER
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\AdminUserRepository',
-        '\Romchik38\Site2\Domain\AdminUser\AdminUserRepositoryInterface',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser\Repository',
+        '\Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')
