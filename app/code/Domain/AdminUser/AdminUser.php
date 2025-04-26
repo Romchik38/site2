@@ -17,9 +17,12 @@ use function array_values;
 use function count;
 use function password_verify;
 
-/** @todo tests */
 final class AdminUser
 {
+    public const ERROR_INVALID_ROLE = 'param admin user role is invalid';
+    public const ERROR_ID_NOT_SET   = 'Admin user id is not set. Set it first';
+    public const ERROR_NO_ROLES     = 'Admin user has not roles. Set at least one';
+
     /** @var array<string,Role>*/
     private array $roles = [];
 
@@ -34,7 +37,7 @@ final class AdminUser
     ) {
         foreach ($roles as $role) {
             if (! $role instanceof Role) {
-                throw new InvalidArgumentException('param admin user role is invalid');
+                throw new InvalidArgumentException(self::ERROR_INVALID_ROLE);
             }
             $roleName                 = $role->getName();
             $this->roles[$roleName()] = $role;
@@ -54,6 +57,11 @@ final class AdminUser
     public function getId(): ?Identifier
     {
         return $this->id;
+    }
+
+    public function getPasswordHash(): PasswordHash
+    {
+        return $this->passwordHash;
     }
 
     public function getRole(string $roleName): ?Role
@@ -142,11 +150,11 @@ final class AdminUser
         }
 
         if ($this->id === null) {
-            throw new CouldNotChangeActivityException('Admin user id is not set. Set it first');
+            throw new CouldNotChangeActivityException(self::ERROR_ID_NOT_SET);
         }
 
         if (count($this->roles) === 0) {
-            throw new CouldNotChangeActivityException('Admin user has not roles. Set at least one');
+            throw new CouldNotChangeActivityException(self::ERROR_NO_ROLES);
         }
 
         $this->active = true;
