@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\ArticleView\View;
+namespace Romchik38\Site2\Application\Article\View\View;
 
 use function sprintf;
 use function str_ends_with;
@@ -10,7 +10,7 @@ use function str_starts_with;
 use function strlen;
 use function substr;
 
-final class AudioDTOFactory
+final class ImageDTOFactory
 {
     protected readonly string $pathPrefix;
 
@@ -25,18 +25,22 @@ final class AudioDTOFactory
     }
 
     public function create(
+        string $imgId,
         string $path,
-        string $description
-    ): AudioDTO {
+        string $description,
+        string $author
+    ): ImageDTO {
         if (str_starts_with($path, '/')) {
             $fullPath = $this->pathPrefix . $path;
         } else {
             $fullPath = sprintf('%s/%s', $this->pathPrefix, $path);
         }
 
-        return new AudioDTO(
+        return new ImageDTO(
+            $imgId,
             $fullPath,
-            $description
+            $description,
+            $author
         );
     }
 }

@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Article\ArticleView\Find;
-use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
-use Romchik38\Site2\Application\Article\ArticleView\RepositoryException;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleIdNameDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface;
-use Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory;
-use Romchik38\Site2\Application\Article\ArticleView\View\AuthorDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory;
+use Romchik38\Site2\Application\Article\View\Find;
+use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\View\RepositoryException;
+use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface;
+use Romchik38\Site2\Application\Article\View\View\AudioDTOFactory;
+use Romchik38\Site2\Application\Article\View\View\AuthorDTO;
+use Romchik38\Site2\Application\Article\View\View\ImageDTOFactory;
 
 use function count;
 use function json_decode;

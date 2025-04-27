@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\ArticleView;
+namespace Romchik38\Site2\Application\Article\View;
 
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleIdNameDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTO;
-use Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface;
+use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface;
 
-final class ArticleViewService
+final class ViewService
 {
     public function __construct(
         protected readonly ArticleViewRepositoryInterface $articleViewRepository

@@ -41,13 +41,13 @@ return function (Container $container) {
     // ARTICLE VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View\ArticleViewRepository',
-        '\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface',
+        '\Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),
-            new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory'),
-            new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory'),
-            new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory')
+            new Promise('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\Article\View\View\ImageDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\Article\View\View\AudioDTOFactory')
         ]
     );
 

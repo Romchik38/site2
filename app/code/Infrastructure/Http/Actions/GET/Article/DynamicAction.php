@@ -14,9 +14,9 @@ use Romchik38\Server\Controllers\Errors\DynamicActionLogicException;
 use Romchik38\Server\Models\DTO\DynamicRoute\DynamicRouteDTO;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Article\ArticleView\ArticleViewService;
-use Romchik38\Site2\Application\Article\ArticleView\Find;
-use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\View\Find;
+use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 
 use function sprintf;
@@ -28,7 +28,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         protected DynamicRootInterface $dynamicRootService,
         protected TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly ArticleViewService $articleViewService
+        protected readonly ViewService $articleViewService
     ) {
     }
 

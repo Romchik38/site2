@@ -28,21 +28,21 @@ return function (Container $container) {
 
     // ARTICLE VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\Article\ArticleView\ArticleViewService',
+        '\Romchik38\Site2\Application\Article\View\ViewService',
         [
-            new Promise('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface')
         ]
     );
 
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ArticleViewDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory', [
         new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
         new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
     ]);
     
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\ImageDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\View\View\ImageDTOFactory', [
         new Promise('img-folder-frontend')
     ]);
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleView\View\AudioDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\View\View\AudioDTOFactory', [
         new Promise('audio-folder-frontend'),
     ]);
 

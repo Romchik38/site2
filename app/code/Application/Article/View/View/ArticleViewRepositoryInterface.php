@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\ArticleView\View;
+namespace Romchik38\Site2\Application\Article\View\View;
 
-use Romchik38\Site2\Application\Article\ArticleView\Find;
-use Romchik38\Site2\Application\Article\ArticleView\NoSuchArticleException;
-use Romchik38\Site2\Application\Article\ArticleView\RepositoryException;
+use Romchik38\Site2\Application\Article\View\Find;
+use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\View\RepositoryException;
 
 interface ArticleViewRepositoryInterface
 {
