@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Author;
 
+use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
@@ -235,10 +236,17 @@ final class Repository implements RepositoryInterface
         // translates
         $translates = $this->createTranslates($rawIdentifier);
 
+        try {
+            $id   = new AuthorId($rawIdentifier);
+            $name = new Name($rawName);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         // create a model
         return Author::load(
-            new AuthorId($rawIdentifier),
-            new Name($rawName),
+            $id,
+            $name,
             $active,
             $articles,
             $images,
@@ -266,10 +274,13 @@ final class Repository implements RepositoryInterface
             if ($rawDescription === null) {
                 throw new RepositoryException('Author translates description param is invalid');
             }
-            $translates[] = new Translate(
-                new LanguageId($rawLanguage),
-                new Description($rawDescription)
-            );
+            try {
+                $languageId  = new LanguageId($rawLanguage);
+                $description = new Description($rawDescription);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $translates[] = new Translate($languageId, $description);
         }
 
         return $translates;
@@ -285,7 +296,11 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedImages as $image) {
-            $data[] = new ImageId($image);
+            try {
+                $data[] = new ImageId($image);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         }
         return $data;
     }
@@ -300,7 +315,11 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedArticles as $article) {
-            $data[] = new ArticleId($article);
+            try {
+                $data[] = new ArticleId($article);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         }
         return $data;
     }
@@ -315,7 +334,11 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedLanguages as $language) {
-            $data[] = new LanguageId($language);
+            try {
+                $data[] = new LanguageId($language);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         }
         return $data;
     }

@@ -60,7 +60,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioStorageInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
         ]
     );
 
@@ -121,7 +121,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Site2\Domain\Image\ImageRepositoryInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\CreateContentServiceInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageStorageInterface')
         ]
     );
@@ -199,7 +199,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Author\AuthorService\AuthorService',
         [
             new Promise('\Romchik38\Site2\Domain\Author\RepositoryInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService')
         ]
     );
 
@@ -208,15 +208,15 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Category\CategoryService\CategoryService',
         [
             new Promise('\Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService')
         ]
     );
 
     // LANGUAGE LIST VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\Language\ListView\ListViewService',
+        '\Romchik38\Site2\Application\Language\List\ListViewService',
         [
-            new Promise('\Romchik38\Site2\Application\Language\ListView\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Language\List\RepositoryInterface')
         ]
     );
 

@@ -15,7 +15,7 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListViewService;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto;

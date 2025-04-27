@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAct
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\Image\AdminView\View\Dto as ImageDto;
 use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
-use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
+use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {

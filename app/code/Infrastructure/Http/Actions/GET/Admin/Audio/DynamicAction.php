@@ -21,7 +21,7 @@ use Romchik38\Site2\Application\Audio\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminView\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\Update;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListViewService;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;

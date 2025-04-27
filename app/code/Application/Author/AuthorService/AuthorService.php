@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListViewService;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;

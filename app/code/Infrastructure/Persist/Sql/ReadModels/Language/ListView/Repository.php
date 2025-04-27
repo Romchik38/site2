@@ -7,9 +7,9 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\ListVie
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException;
-use Romchik38\Site2\Application\Language\ListView\RepositoryInterface;
-use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
+use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Language\List\RepositoryInterface;
+use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
 final class Repository implements RepositoryInterface

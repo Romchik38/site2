@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAc
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
-use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
+use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {

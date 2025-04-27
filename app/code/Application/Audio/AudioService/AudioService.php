@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Audio\AudioService;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Language\ListView\ListViewService;
+use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
+use Romchik38\Site2\Application\Language\List\ListViewService;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;

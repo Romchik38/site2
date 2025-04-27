@@ -127,7 +127,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Audio\AdminView\AdminView'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('audio-folder-frontend')
@@ -241,7 +241,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Category\AdminView\ViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
         ]
@@ -256,7 +256,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
         ]
@@ -300,7 +300,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Image\AdminView\AdminViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
         ]
@@ -315,7 +315,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Image\AdminView\AdminViewService')
@@ -346,7 +346,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService')
         ]
     );
 
@@ -357,7 +357,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('admin_view'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService')
         ]
     );
 
@@ -370,7 +370,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Author\AdminView\AdminViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService')
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService')
         ]
     );
 
@@ -400,7 +400,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Translate\View\ViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
@@ -415,7 +415,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
-            new Promise('\Romchik38\Site2\Application\Language\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListViewService'),
         ]
     );
 

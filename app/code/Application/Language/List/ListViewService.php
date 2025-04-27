@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Language\ListView;
+namespace Romchik38\Site2\Application\Language\List;
 
-use Romchik38\Site2\Application\Language\ListView\Exceptions\RepositoryException;
-use Romchik38\Site2\Application\Language\ListView\View\LanguageDto;
+use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
 final class ListViewService
 {
