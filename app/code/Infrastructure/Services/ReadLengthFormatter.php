@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Services;
 
 use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Article\List\View\ReadLengthFormatterInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ReadLengthFormatterInterface;
 
 use function sprintf;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\List\View;
+namespace Romchik38\Site2\Application\Article\List\Commands\Pagination;
 
 use RuntimeException;
 

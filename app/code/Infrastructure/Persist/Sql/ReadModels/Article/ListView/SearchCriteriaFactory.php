@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\List\View\SearchCriteriaFactoryInterface;
-use Romchik38\Site2\Application\Article\List\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaFactoryInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
 
 use function in_array;
 use function sprintf;

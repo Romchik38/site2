@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
-use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\CreatePaginationInterface;
 
 final class ViewDTO extends DefaultViewDTO

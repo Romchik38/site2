@@ -29,12 +29,12 @@ return function (Container $container) {
     // ARTICLE LIST VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\ArticleListViewRepository',
-        '\Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface',
+        '\Romchik38\Site2\Application\Article\List\View\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),
-            new Promise('\Romchik38\Site2\Application\Article\List\View\ArticleDTOFactory'),
-            new Promise('\Romchik38\Site2\Application\Article\List\View\ImageDTOFactory')
+            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory')
         ]
     );
 

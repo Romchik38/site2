@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\List\View;
+namespace Romchik38\Site2\Application\Article\List;
 
-use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
 
-interface ArticleListViewRepositoryInterface
+interface RepositoryInterface
 {
     /** list active article by language
      *

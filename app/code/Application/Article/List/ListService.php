@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\List;
 
-use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface;
-use Romchik38\Site2\Application\Article\List\View\SearchCriteriaFactoryInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\Pagination;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaFactoryInterface;
+use Romchik38\Site2\Application\Article\List\RepositoryInterface;
 
-final class ArticleListViewService
+final class ListService
 {
     public function __construct(
-        private readonly ArticleListViewRepositoryInterface $articleListViewRepository,
+        private readonly RepositoryInterface $articleListViewRepository,
         private readonly SearchCriteriaFactoryInterface $searchCriteriaFactory
     ) {
     }

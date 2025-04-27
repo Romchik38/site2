@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView;
 
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\View\ArticleDTOFactory;
-use Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface;
-use Romchik38\Site2\Application\Article\List\View\ImageDTOFactory;
-use Romchik38\Site2\Application\Article\List\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\RepositoryInterface;
 
 use function implode;
 use function json_decode;
 use function sprintf;
 
-final class ArticleListViewRepository implements ArticleListViewRepositoryInterface
+final class ArticleListViewRepository implements RepositoryInterface
 {
     public function __construct(
         protected DatabaseSqlInterface $database,

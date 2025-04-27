@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView
 use Romchik38\Server\Models\Sql\SearchCriteria\Limit;
 use Romchik38\Server\Models\Sql\SearchCriteria\Offset;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\List\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
 
 final class SearchCriteria implements SearchCriteriaInterface
 {

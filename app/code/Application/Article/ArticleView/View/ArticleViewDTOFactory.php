@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\Article\ArticleView\View;
 
 use DateTime;
 use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Article\List\View\DateFormatterInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\DateFormatterInterface;
 
 use function sprintf;
 

@@ -16,8 +16,8 @@ use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Article\List\ArticleListViewService;
-use Romchik38\Site2\Application\Article\List\Pagination as ArticleListViewPagination;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\Pagination as ArticleListViewPagination;
+use Romchik38\Site2\Application\Article\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
@@ -33,7 +33,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         protected readonly ViewInterface $view,
-        protected readonly ArticleListViewService $articleListViewService,
+        protected readonly ListService $listService,
         protected readonly ServerRequestInterface $request,
         protected readonly UrlbuilderInterface $urlbuilder,
     ) {
@@ -48,14 +48,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             $pagination = Pagination::fromRequest(
                 $requestData,
-                $this->articleListViewService->listTotal()
+                $this->listService->listTotal()
             );
         } catch (InvalidArgumentException $e) {
             throw new ActionNotFoundException('Check requested parameters.' . $e->getMessage());
         }
 
         /** 2. Do request to app service */
-        $articleList = $this->articleListViewService->list(
+        $articleList = $this->listService->list(
             new ArticleListViewPagination(
                 $pagination->limit(),
                 $pagination->offset,
