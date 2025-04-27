@@ -13,6 +13,9 @@ use Romchik38\Site2\Application\Article\List\Commands\Pagination\VO\Offset;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\VO\OrderByDirection;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\VO\OrderByField;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\VO\Page;
+use Romchik38\Site2\Application\Article\List\Exceptions\CouldNotCountException;
+use Romchik38\Site2\Application\Article\List\Exceptions\CouldNotFilterException;
+use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\List\RepositoryInterface;
 
 final class ListService
@@ -23,6 +26,7 @@ final class ListService
     }
 
     /**
+     * @throws CouldNotFilterException
      * @throws InvalidArgumentException
      * */
     public function list(Filter $command, string $language): FilterResult
@@ -41,14 +45,26 @@ final class ListService
             $language
         );
 
-        $list = $this->articleListViewRepository->list($searchCriteria);
+        try {
+            $list = $this->articleListViewRepository->list($searchCriteria);
+        } catch (RepositoryException $e) {
+            throw new CouldNotFilterException($e->getMessage());
+        }
 
         return new FilterResult($searchCriteria, $page, $list);
     }
 
-    /** count of all active article */
+    /**
+     * count of all active article
+     *
+     * @throws CouldNotCountException
+     * */
     public function listTotal(): int
     {
-        return $this->articleListViewRepository->totalCount();
+        try {
+            return $this->articleListViewRepository->totalCount();
+        } catch (RepositoryException $e) {
+            throw new CouldNotCountException($e->getMessage());
+        }
     }
 }
