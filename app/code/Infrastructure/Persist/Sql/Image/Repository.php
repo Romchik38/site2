@@ -280,16 +280,22 @@ final class Repository implements ImageRepositoryInterface
         }
         $languages = $this->createLanguages($rawLanguages);
 
-        $articles = $this->createArticles($id);
-
+        $articles   = $this->createArticles($id);
         $translates = $this->createTranslates($id);
+
+        try {
+            $name = new Name($rawName);
+            $path = new Path($rawPath);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         return Image::load(
             $id,
             $active,
-            new Name($rawName),
+            $name,
             $author,
-            new Path($rawPath),
+            $path,
             $languages,
             $articles,
             $translates
@@ -321,10 +327,13 @@ final class Repository implements ImageRepositoryInterface
             if ($rawLanguage === null) {
                 throw new RepositoryException('Image translate language is invalid');
             }
-            $translates[] = new Translate(
-                new LanguageId($rawLanguage),
-                new Description($rawDescription)
-            );
+            try {
+                $languageId  = new LanguageId($rawLanguage);
+                $description = new Description($rawDescription);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $translates[] = new Translate($languageId, $description);
         }
         return $translates;
     }
@@ -359,10 +368,12 @@ final class Repository implements ImageRepositoryInterface
             } else {
                 $active = false;
             }
-            $articles[] = new Article(
-                new ArticleId($rawIdentifier),
-                $active
-            );
+            try {
+                $articleId = new ArticleId($rawIdentifier);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $articles[] = new Article($articleId, $active);
         }
         return $articles;
     }
@@ -377,7 +388,11 @@ final class Repository implements ImageRepositoryInterface
 
         $data = [];
         foreach ($decodedLanguages as $language) {
-            $data[] = new LanguageId($language);
+            try {
+                $data[] = new LanguageId($language);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         }
         return $data;
     }
@@ -403,7 +418,12 @@ final class Repository implements ImageRepositoryInterface
             $active = false;
         }
 
-        return new Author(new AuthorId($rawId), $active);
+        try {
+            $authorId = new AuthorId($rawId);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+        return new Author($authorId, $active);
     }
 
     private function getByIdQuery(): string
