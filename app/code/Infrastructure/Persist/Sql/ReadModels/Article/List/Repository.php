@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List;
 
 use InvalidArgumentException;
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
@@ -64,7 +65,11 @@ final class Repository implements RepositoryInterface
             implode(' ', $expression)
         );
 
-        $rows = $this->database->queryParams($query, $params);
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $models = [];
 
@@ -82,7 +87,11 @@ final class Repository implements RepositoryInterface
         WHERE article.active = 'true'
         QUERY;
 
-        $rows = $this->database->queryParams($query, []);
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $firstElem = $rows[0];
         $count     = $firstElem['count'];
@@ -90,21 +99,57 @@ final class Repository implements RepositoryInterface
         return (int) $count;
     }
 
-    /** @param array<string,string> $row */
+    /**
+     * @throws RepositoryException
+     * @param array<string,string> $row
+     * */
     protected function createFromRow(array $row): ArticleDTO
     {
+        $rawIdentifier = $row['identifier'] ?? null;
+        if ($rawIdentifier === null) {
+            throw new RepositoryException('Article id is invalid');
+        }
+        $rawName = $row['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Article name is invalid');
+        }
+        $rawShortDescription = $row['short_description'] ?? null;
+        if ($rawShortDescription === null) {
+            throw new RepositoryException('Article short description is invalid');
+        }
+        $rawDescription = $row['description'] ?? null;
+        if ($rawDescription === null) {
+            throw new RepositoryException('Article description is invalid');
+        }
+        $rawCreatedAt = $row['created_at'] ?? null;
+        if ($rawCreatedAt === null) {
+            throw new RepositoryException('Article created at is invalid');
+        }
+        $rawCategory = $row['category'] ?? null;
+        if ($rawCategory === null) {
+            throw new RepositoryException('Article category at is invalid');
+        }
+        $rawImgId = $row['img_id'] ?? null;
+        if ($rawImgId === null) {
+            throw new RepositoryException('Article img id at is invalid');
+        }
+        $rawImgPath = $row['img_path'] ?? null;
+        if ($rawImgPath === null) {
+            throw new RepositoryException('Article img path at is invalid');
+        }
+        $rawImgDescription = $row['img_description'] ?? null;
+        if ($rawImgDescription === null) {
+            throw new RepositoryException('Article img description at is invalid');
+        }
+
         return $this->articleDtoFactory->create(
-            $row['identifier'],
-            $row['name'],
-            $row['short_description'],
-            $row['description'],
-            $row['created_at'],
-            json_decode($row['category']),
-            $this->imageDtoFactory->create(
-                $row['img_id'],
-                $row['img_path'],
-                $row['img_description']
-            )
+            $rawIdentifier,
+            $rawName,
+            $rawShortDescription,
+            $rawDescription,
+            $rawCreatedAt,
+            json_decode($rawCategory),
+            $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
         );
     }
 
