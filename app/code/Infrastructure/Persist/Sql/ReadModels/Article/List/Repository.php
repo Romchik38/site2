@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List;
 
+use InvalidArgumentException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteria;
+use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\List\RepositoryInterface;
 
 use function implode;
 use function json_decode;
 use function sprintf;
 
-final class ArticleListViewRepository implements RepositoryInterface
+final class Repository implements RepositoryInterface
 {
     public function __construct(
         protected DatabaseSqlInterface $database,
@@ -24,14 +27,21 @@ final class ArticleListViewRepository implements RepositoryInterface
     ) {
     }
 
-    public function list(SearchCriteriaInterface $searchCriteria): array
+    public function list(SearchCriteria $searchCriteria): array
     {
         $expression = [];
-        $params     = [$searchCriteria->language()];
+        $params     = [$searchCriteria->language];
         $paramCount = 1;
 
-    /** ORDER BY */
-        $orderBy = $searchCriteria->orderBy();
+        /** ORDER BY */
+        try {
+            $orderBy = new OrderBy(
+                ($searchCriteria->orderByField)(),
+                ($searchCriteria->orderByDirection)()
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $expression[] = sprintf(
             'ORDER BY %s %s %s',
@@ -40,21 +50,21 @@ final class ArticleListViewRepository implements RepositoryInterface
             $orderBy->getNulls()
         );
 
-    /** LIMIT */
-        $limit        = $searchCriteria->limit();
+        /** LIMIT */
         $expression[] = sprintf('LIMIT $%s', ++$paramCount);
-        $params[]     = $limit();
+        $params[]     = ($searchCriteria->limit)();
 
-    /** OFFSET */
-        $offset       = $searchCriteria->offset();
+        /** OFFSET */
         $expression[] = sprintf('OFFSET $%s', ++$paramCount);
-        $params[]     = $offset->toString();
+        $params[]     = (string) $searchCriteria->offset;
 
-        $rows = $this->listRows(
+        $query = sprintf(
+            '%s %s',
             $this->defaultQuery(),
-            implode(' ', $expression),
-            $params
+            implode(' ', $expression)
         );
+
+        $rows = $this->database->queryParams($query, $params);
 
         $models = [];
 
@@ -78,23 +88,6 @@ final class ArticleListViewRepository implements RepositoryInterface
         $count     = $firstElem['count'];
 
         return (int) $count;
-    }
-
-    /**
-     * SELECT
-     * used to select rows from all tables by given expression
-     *
-     * @param array<int,string> $params
-     * @return array<int,array<string,string>>
-     */
-    protected function listRows(
-        string $queryBody,
-        string $expression,
-        array $params
-    ): array {
-        $query = sprintf('%s %s', $queryBody, $expression);
-
-        return $this->database->queryParams($query, $params);
     }
 
     /** @param array<string,string> $row */

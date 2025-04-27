@@ -28,7 +28,7 @@ return function (Container $container) {
 
     // ARTICLE LIST VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\ArticleListViewRepository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List\Repository',
         '\Romchik38\Site2\Application\Article\List\View\RepositoryInterface',
         true,
         [

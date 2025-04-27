@@ -10,6 +10,7 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
 use function in_array;
 use function sprintf;
 
+/** @todo remove */
 final class Pagination implements PaginationInterface
 {
     public const DEFAULT_LIMIT  = '15';

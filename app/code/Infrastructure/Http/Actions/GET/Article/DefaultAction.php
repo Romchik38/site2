@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article;
 
-use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Controllers\Errors\ActionNotFoundException;
 use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\Pagination as ArticleListViewPagination;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\Filter;
 use Romchik38\Site2\Application\Article\List\ListService;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\Pagination;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
 
 use function count;
 
@@ -44,32 +42,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $requestData = $this->request->getQueryParams();
 
-        /** 1. Create pagination DTO */
-        try {
-            $pagination = Pagination::fromRequest(
-                $requestData,
-                $this->listService->listTotal()
-            );
-        } catch (InvalidArgumentException $e) {
-            throw new ActionNotFoundException('Check requested parameters.' . $e->getMessage());
-        }
+        $command        = Filter::fromRequest($requestData);
+        $filterResult   = $this->listService->list($command, $this->getLanguage());
+        $searchCriteria = $filterResult->searchCriteria;
+        $articleList    = $filterResult->list;
+        $page           = $filterResult->page;
+        $totalCount     = $this->listService->listTotal();
 
-        /** 2. Do request to app service */
-        $articleList = $this->listService->list(
-            new ArticleListViewPagination(
-                $pagination->limit(),
-                $pagination->offset,
-                $pagination->orderByField(),
-                $pagination->orderByDirection()
-            ),
-            $this->getLanguage()
+        $path       = new Path($this->getPath());
+        $pagination = new Pagination(
+            (string) ($searchCriteria->limit)(),
+            (string) ($page)(),
+            ($searchCriteria->orderByField)(),
+            ($searchCriteria->orderByDirection)(),
+            $totalCount
         );
 
-        /** 3. prepare a page view */
-        $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
-        $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
-
-        $path           = new Path($this->getPath());
         $paginationView = new CreatePagination(
             $path,
             $this->urlbuilder,
@@ -77,7 +65,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             count($articleList)
         );
 
-        /** 4. create a view dto */
+        $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
+        $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
+
         $dto = new ViewDTO(
             $translatedPageName,
             $translatedPageDescription,
@@ -86,7 +76,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->urlbuilder->fromPath($path)
         );
 
-        /** 5. create a view */
         $result = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)

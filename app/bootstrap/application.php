@@ -12,11 +12,8 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\List\ListService',
         [
             new Promise('\Romchik38\Site2\Application\Article\List\View\RepositoryInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory')
         ]
     );
-
-    $container->shared('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory', []);
 
     $container->shared(
         '\Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory',

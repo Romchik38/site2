@@ -5,16 +5,23 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\List;
 
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteria;
+use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 
 interface RepositoryInterface
 {
-    /** list active article by language
+    /**
+     * List active article by language
      *
+     * @throws RepositoryException
      * @return array<int,ArticleDTO>
      */
-    public function list(SearchCriteriaInterface $searchCriteria): array;
+    public function list(SearchCriteria $searchCriteria): array;
 
-    /** count of all active article */
+    /**
+     * count of all active article
+     *
+     * @throws RepositoryException
+     * */
     public function totalCount(): int;
 }
