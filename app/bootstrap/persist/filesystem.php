@@ -19,8 +19,12 @@ return function (Container $container) {
 
     // IMG CONVERTER
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImgConverter\ImgConverter',
-        '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface'
+        '\Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImgConverter\ImageStorage',
+        '\Romchik38\Site2\Application\Image\ImgConverter\ImageStorageInterface',
+        true,
+        [
+            new Promise('img-folder-backend'),
+        ]
     );
 
     // IMAGE METADATA LOADER

@@ -91,7 +91,7 @@ try {
     echo 'Request parameters are invalid. Please check and try again';
 } catch (NoSuchEntityException) {
     try {
-        $commandStub = StubData::fromRequest($data, __DIR__ . '/404_1080_1080.webp');
+        $commandStub = StubData::fromRequest($data, 'common/404_1080_1080.webp');
         $result = $imgConverterService->createStub($commandStub);
         header(sprintf(
             'Content-Type: image/' . $result->type

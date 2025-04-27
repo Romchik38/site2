@@ -131,8 +131,7 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService',
         [
             new Promise('\Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface'),
-            new Promise('img-folder-backend'),
-            new Promise('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface')
+            new Promise('\Romchik38\Site2\Application\Image\ImgConverter\ImageStorageInterface'),
         ]
     );
 

@@ -10,16 +10,14 @@ use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgViewRepositoryInterface;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
 use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Image\VO\Type;
-
-use function sprintf;
 
 final class ImgConverterService
 {
     public function __construct(
         protected readonly ImgViewRepositoryInterface $imgViewRepository,
-        protected readonly string $imgPathPrefix,
-        protected readonly ImgConverterInterface $imgConverter
+        protected readonly ImageStorageInterface $imgConverter
     ) {
     }
 
@@ -30,18 +28,13 @@ final class ImgConverterService
     public function createImg(ImgData $command): ImgResult
     {
         try {
-            $img = $this->imgViewRepository->getById(new Id((int) $command->id));
+            $image = $this->imgViewRepository->getById(Id::fromString($command->id));
         } catch (RepositoryException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
         }
-        $imgFullPath = sprintf(
-            '%s/%s',
-            $this->imgPathPrefix,
-            ($img->path())()
-        );
 
         return $this->imgConverter->makeCopy(
-            $imgFullPath,
+            $image->path(),
             Width::fromString($command->width),
             Height::fromString($command->height),
             new Type($command->type)
@@ -50,8 +43,9 @@ final class ImgConverterService
 
     public function createStub(StubData $command): ImgResult
     {
+        $path = new Path($command->filePath);
         return $this->imgConverter->makeCopy(
-            $command->filePath,
+            $path,
             Width::fromString($command->width),
             Height::fromString($command->height),
             new Type($command->type)

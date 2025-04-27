@@ -6,10 +6,11 @@ namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\ImgConverter;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
-use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterInterface;
+use Romchik38\Site2\Application\Image\ImgConverter\ImageStorageInterface;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Height;
 use Romchik38\Site2\Application\Image\ImgConverter\View\ImgResult;
 use Romchik38\Site2\Application\Image\ImgConverter\View\Width;
+use Romchik38\Site2\Domain\Image\VO\Path;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\AbstractImageStorageUseGd;
 use Romchik38\Site2\Infrastructure\Persist\Filesystem\Image\CopyImage;
@@ -23,16 +24,22 @@ use function sprintf;
 
 use const PHP_ROUND_HALF_DOWN;
 
-class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInterface
+class ImageStorage extends AbstractImageStorageUseGd implements ImageStorageInterface
 {
+    public function __construct(
+        protected readonly string $imgPathPrefix
+    ) {
+    }
+
     public function makeCopy(
-        string $filePath,
+        Path $path,
         Width $copyWidth,
         Height $copyHeight,
         Type $copyType,
         int $quality = 90
     ): ImgResult {
         // 1. Create an image with all data
+        $filePath = $this->createFullPath($path);
         try {
             $demensions = $this->getDemensionsFromFile($filePath);
         } catch (RuntimeException $e) {
@@ -157,5 +164,14 @@ class ImgConverter extends AbstractImageStorageUseGd implements ImgConverterInte
         }
 
         return new ImgResult($image->copyType, $imgAsString);
+    }
+
+    private function createFullPath(Path $path): string
+    {
+        return sprintf(
+            '%s/%s',
+            $this->imgPathPrefix,
+            $path()
+        );
     }
 }
