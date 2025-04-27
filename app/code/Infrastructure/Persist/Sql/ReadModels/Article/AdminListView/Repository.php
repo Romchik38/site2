@@ -8,10 +8,10 @@ use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\AdminArticleListView\Commands\Filter\SearchCriteria;
-use Romchik38\Site2\Application\Article\AdminArticleListView\Exceptions\RepositoryException;
-use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
+use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\SearchCriteria;
+use Romchik38\Site2\Application\Article\AdminList\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Article\AdminList\RepositoryInterface;
+use Romchik38\Site2\Application\Article\AdminList\View\ArticleDto;
 use Romchik38\Site2\Domain\Image\VO\Id;
 
 use function implode;

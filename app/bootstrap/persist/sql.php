@@ -114,7 +114,7 @@ return function (Container $container) {
     // ADMIN ARTICLE LIST VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView\Repository',
-        '\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface',
+        '\Romchik38\Site2\Application\Article\AdminList\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction;
 
 use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
+use Romchik38\Site2\Application\Article\AdminList\View\ArticleDto;
 
 final class ViewDto extends DefaultViewDTO
 {

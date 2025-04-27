@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\AdminArticleListView\Commands\Filter;
+namespace Romchik38\Site2\Application\Article\AdminList\Commands\Filter;
 
-use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
-use Romchik38\Site2\Application\Article\AdminArticleListView\VO\Page;
+use Romchik38\Site2\Application\Article\AdminList\View\ArticleDto;
+use Romchik38\Site2\Application\Article\AdminList\VO\Page;
 
 final class FilterResult
 {

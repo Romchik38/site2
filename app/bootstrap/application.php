@@ -176,9 +176,9 @@ return function (Container $container) {
  
     // ADMIN ARTICLE LIST VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService',
+        '\Romchik38\Site2\Application\Article\AdminList\AdminListService',
         [
-            new Promise('\Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Article\AdminList\RepositoryInterface')
         ]
     );
 

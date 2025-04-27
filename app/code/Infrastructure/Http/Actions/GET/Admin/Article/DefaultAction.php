@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Article\AdminArticleListView\AdminArticleListViewService;
-use Romchik38\Site2\Application\Article\AdminArticleListView\Commands\Filter\Filter;
+use Romchik38\Site2\Application\Article\AdminList\AdminListService;
+use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\Filter;
+use Romchik38\Site2\Application\Article\AdminList\Exceptions\CouldNotListException;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
 
@@ -25,13 +30,17 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    public const SERVER_ERROR = 'server-error.message';
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly AdminArticleListViewService $articleService,
-        protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderInterface $urlbuilder
+        private readonly ViewInterface $view,
+        private readonly AdminListService $articleService,
+        private readonly ServerRequestInterface $request,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly LoggerServerInterface $logger,
+        private readonly Site2SessionInterface $session
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -41,7 +50,26 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $requestData = $this->request->getQueryParams();
         $command     = Filter::fromRequest($requestData);
 
-        $filterResult   = $this->articleService->list($command);
+        $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
+
+        try {
+            $filterResult = $this->articleService->list($command);
+        } catch (CouldNotListException $e) {
+            $this->logger->error($e->getMessage());
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::SERVER_ERROR)
+            );
+            return new RedirectResponse($uriRedirect);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->error($e->getMessage());
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::SERVER_ERROR)
+            );
+            return new RedirectResponse($uriRedirect);
+        }
+
         $searchCriteria = $filterResult->searchCriteria;
         $articleList    = $filterResult->list;
         $page           = $filterResult->page;
