@@ -9,9 +9,9 @@ return function (Container $container) {
 
     // ARTICLE LIST VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService',
+        '\Romchik38\Site2\Application\Article\List\ArticleListViewService',
         [
-            new Promise('\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory')
         ]
     );
@@ -19,13 +19,13 @@ return function (Container $container) {
     $container->shared('\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView\SearchCriteriaFactory', []);
 
     $container->shared(
-        '\Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTOFactory',
+        '\Romchik38\Site2\Application\Article\List\View\ArticleDTOFactory',
         [
             new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter')
         ]
     );
-    $container->shared('\Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\List\View\ImageDTOFactory', [
         new Promise('img-folder-frontend')
     ]);
 

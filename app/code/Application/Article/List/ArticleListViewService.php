@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\ArticleListView;
+namespace Romchik38\Site2\Application\Article\List;
 
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface;
-use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaFactoryInterface;
+use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface;
+use Romchik38\Site2\Application\Article\List\View\SearchCriteriaFactoryInterface;
 
 final class ArticleListViewService
 {

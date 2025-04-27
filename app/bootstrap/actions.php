@@ -78,7 +78,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Site2\Application\Article\ArticleListView\ArticleListViewService'),
+            new Promise('\Romchik38\Site2\Application\Article\List\ArticleListViewService'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
         ]

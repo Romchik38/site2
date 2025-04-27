@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ListView;
 
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTOFactory;
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleListViewRepositoryInterface;
-use Romchik38\Site2\Application\Article\ArticleListView\View\ImageDTOFactory;
-use Romchik38\Site2\Application\Article\ArticleListView\View\SearchCriteriaInterface;
+use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\View\ArticleDTOFactory;
+use Romchik38\Site2\Application\Article\List\View\ArticleListViewRepositoryInterface;
+use Romchik38\Site2\Application\Article\List\View\ImageDTOFactory;
+use Romchik38\Site2\Application\Article\List\View\SearchCriteriaInterface;
 
 use function implode;
 use function json_decode;

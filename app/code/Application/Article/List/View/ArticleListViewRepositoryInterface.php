@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\ArticleListView\View;
+namespace Romchik38\Site2\Application\Article\List\View;
 
-use Romchik38\Site2\Application\Article\ArticleListView\View\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\View\ArticleDTO;
 
 interface ArticleListViewRepositoryInterface
 {
