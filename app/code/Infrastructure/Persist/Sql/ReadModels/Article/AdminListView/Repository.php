@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView;
 
+use InvalidArgumentException;
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryException;
+use Romchik38\Site2\Application\Article\AdminArticleListView\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminArticleListView\RepositoryInterface;
 use Romchik38\Site2\Application\Article\AdminArticleListView\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminArticleListView\View\ArticleDto;
@@ -29,10 +31,14 @@ final class Repository implements RepositoryInterface
         $paramCount = 0;
 
         /** ORDER BY */
-        $orderBy = new OrderBy(
-            ($searchCriteria->orderByField)(),
-            ($searchCriteria->orderByDirection)()
-        );
+        try {
+            $orderBy = new OrderBy(
+                ($searchCriteria->orderByField)(),
+                ($searchCriteria->orderByDirection)()
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $expression[] = sprintf(
             'ORDER BY %s %s %s',
@@ -51,7 +57,11 @@ final class Repository implements RepositoryInterface
 
         $query = sprintf('%s %s', $this->defaultQuery(), implode(' ', $expression));
 
-        $rows = $this->database->queryParams($query, $params);
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         $models = [];
 
@@ -61,7 +71,26 @@ final class Repository implements RepositoryInterface
         return $models;
     }
 
-    /** @param array<string,string> $row */
+    public function totalCount(): int
+    {
+        $query = 'SELECT count(article.identifier) as count FROM article';
+
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $firstElem = $rows[0];
+        $count     = $firstElem['count'];
+
+        return (int) $count;
+    }
+
+    /**
+     * @throws RepositoryException
+     * @param array<string,string> $row
+     * */
     protected function createFromRow(array $row): ArticleDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
@@ -108,7 +137,11 @@ final class Repository implements RepositoryInterface
 
         $rawImageId = $row['img_id'] ?? null;
         if ($rawImageId !== null) {
-            $imageId = new Id((int) $rawImageId);
+            try {
+                $imageId = Id::fromString($rawImageId);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
         } else {
             $imageId = $rawImageId;
         }
@@ -140,17 +173,5 @@ final class Repository implements RepositoryInterface
             ) as author_name
         FROM article 
         QUERY;
-    }
-
-    public function totalCount(): int
-    {
-        $query = 'SELECT count(article.identifier) as count FROM article';
-
-        $rows = $this->database->queryParams($query, []);
-
-        $firstElem = $rows[0];
-        $count     = $firstElem['count'];
-
-        return (int) $count;
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\AdminArticleListView;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Article\AdminArticleListView\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminArticleListView\VO\Limit;
 use Romchik38\Site2\Application\Article\AdminArticleListView\VO\Offset;
 use Romchik38\Site2\Application\Article\AdminArticleListView\VO\OrderByDirection;
