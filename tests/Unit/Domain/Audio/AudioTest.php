@@ -6,7 +6,7 @@ namespace Romchik38\Tests\Unit\Domain\Audio;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\CouldNotDeleteTranslateException;

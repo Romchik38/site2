@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article;
+namespace Romchik38\Site2\Domain\Article\Entities;
 
 use InvalidArgumentException;
 
 use function strlen;
 
-final class ArticleCategory
+final class Category
 {
     public function __construct(
         protected string $articleId,

@@ -8,9 +8,9 @@ use InvalidArgumentException;
 
 use function strlen;
 
-final class ArticleId
+final class Identifier
 {
-    /** @throws InvalidArgumentException - When string is empty. */
+    /** @throws InvalidArgumentException */
     public function __construct(
         private string $id
     ) {

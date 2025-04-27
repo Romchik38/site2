@@ -12,7 +12,7 @@ use Romchik38\Site2\Application\Audio\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface;
 use Romchik38\Site2\Application\Audio\AdminView\View\AudioDto;
 use Romchik38\Site2\Application\Audio\AdminView\View\Translate;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Audio\VO\Description;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;

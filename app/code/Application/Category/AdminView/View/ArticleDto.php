@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Category\AdminView\View;
 
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 
 final class ArticleDto
 {

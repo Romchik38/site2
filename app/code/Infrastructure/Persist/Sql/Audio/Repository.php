@@ -11,7 +11,7 @@ use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Application\Audio\AudioService\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AudioService\RepositoryException;
 use Romchik38\Site2\Application\Audio\AudioService\RepositoryInterface;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\Entities\Article;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;

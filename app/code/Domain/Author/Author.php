@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Author;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;

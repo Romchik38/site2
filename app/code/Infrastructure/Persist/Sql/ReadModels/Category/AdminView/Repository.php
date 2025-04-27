@@ -13,7 +13,7 @@ use Romchik38\Site2\Application\Category\AdminView\RepositoryInterface;
 use Romchik38\Site2\Application\Category\AdminView\View\ArticleDto;
 use Romchik38\Site2\Application\Category\AdminView\View\CategoryDto;
 use Romchik38\Site2\Application\Category\AdminView\View\TranslateDto;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Category\VO\Description;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Category\VO\Name;

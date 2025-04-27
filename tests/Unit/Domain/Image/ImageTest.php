@@ -6,7 +6,7 @@ namespace Romchik38\Tests\Unit\Domain\Image;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Image\Entities\Article;

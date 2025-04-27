@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Article;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\Entities\Category;
+use Romchik38\Site2\Domain\Article\Entities\Translates;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 
 use function array_values;
 use function sprintf;
@@ -13,8 +15,8 @@ use function sprintf;
 final class Article
 {
     /**
-     * @param array<string|int,ArticleTranslates> $translates
-     * @param array<string|int,ArticleCategory> $categories
+     * @param array<string|int,Translates> $translates
+     * @param array<string|int,Category> $categories
      */
     public function __construct(
         protected ArticleId $articleId,
@@ -35,7 +37,7 @@ final class Article
     }
 
     /** @throws InvalidArgumentException - When translate is missing. */
-    public function getTranslate(string $language): ArticleTranslates
+    public function getTranslate(string $language): Translates
     {
         $translate = $this->translates[$language] ?? null;
         if ($translate === null) {
@@ -51,18 +53,18 @@ final class Article
         return $translate;
     }
 
-    /** @return ArticleTranslates[] */
+    /** @return Translates[] */
     public function getAllTranslates(): array
     {
         return array_values($this->translates);
     }
 
-    public function getCategory(string $categoryId): ArticleCategory|null
+    public function getCategory(string $categoryId): ?Category
     {
         return $this->categories[$categoryId] ?? null;
     }
 
-    /** @return ArticleCategory[] */
+    /** @return Category[] */
     public function getAllCategories(): array
     {
         return array_values($this->categories);

@@ -12,7 +12,7 @@ use Romchik38\Site2\Application\Image\AdminView\View\ArticleDto;
 use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
 use Romchik38\Site2\Application\Image\AdminView\View\Dto;
 use Romchik38\Site2\Application\Image\AdminView\View\TranslateDto;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;

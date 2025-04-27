@@ -11,7 +11,7 @@ use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface;
-use Romchik38\Site2\Domain\Article\VO\ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Category\Category;
 use Romchik38\Site2\Domain\Category\Entities\Article;
 use Romchik38\Site2\Domain\Category\Entities\Translate;

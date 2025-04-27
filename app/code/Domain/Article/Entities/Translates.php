@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Article;
+namespace Romchik38\Site2\Domain\Article\Entities;
 
 use DateTime;
 use InvalidArgumentException;
@@ -12,7 +12,7 @@ use function explode;
 use function round;
 use function strlen;
 
-final class ArticleTranslates
+final class Translates
 {
     public function __construct(
         protected string $articleId,
