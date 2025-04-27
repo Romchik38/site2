@@ -6,12 +6,11 @@ namespace Romchik38\Site2\Application\Article\View;
 
 use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
-use Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface;
 
 final class ViewService
 {
     public function __construct(
-        protected readonly ArticleViewRepositoryInterface $articleViewRepository
+        protected readonly RepositoryInterface $articleViewRepository
     ) {
     }
 
@@ -28,6 +27,7 @@ final class ViewService
     /**
      * all active article ids
      *
+     * @throws RepositoryException
      * @return string[]
      */
     public function listIds(): array
@@ -44,6 +44,8 @@ final class ViewService
     }
 
     /**
+     * @throws NoSuchArticleException
+     * @throws RepositoryException
      * @return string Article name
      */
     public function getArticleName(Find $command): string

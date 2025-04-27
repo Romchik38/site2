@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\View\View;
+namespace Romchik38\Site2\Application\Article\View;
 
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\RepositoryException;
+use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
+use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
 
-interface ArticleViewRepositoryInterface
+interface RepositoryInterface
 {
     /**
      * @throws NoSuchArticleException

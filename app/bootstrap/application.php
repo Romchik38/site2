@@ -30,7 +30,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Article\View\ViewService',
         [
-            new Promise('\Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Article\View\View\RepositoryInterface')
         ]
     );
 

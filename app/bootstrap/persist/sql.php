@@ -40,8 +40,8 @@ return function (Container $container) {
 
     // ARTICLE VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View\ArticleViewRepository',
-        '\Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View\Repository',
+        '\Romchik38\Site2\Application\Article\View\View\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface'),

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\RepositoryException;
+use Romchik38\Site2\Application\Article\View\RepositoryInterface;
 use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory;
-use Romchik38\Site2\Application\Article\View\View\ArticleViewRepositoryInterface;
 use Romchik38\Site2\Application\Article\View\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AuthorDTO;
 use Romchik38\Site2\Application\Article\View\View\ImageDTOFactory;
@@ -20,7 +21,7 @@ use function count;
 use function json_decode;
 use function sprintf;
 
-final class ArticleViewRepository implements ArticleViewRepositoryInterface
+final class Repository implements RepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseSqlInterface $database,
@@ -36,7 +37,11 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         $language  = $command->language();
         $params    = [$language, $articleId];
 
-        $rows = $this->database->queryParams($this->getByIdQuery(), $params);
+        try {
+            $rows = $this->database->queryParams($this->getByIdQuery(), $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
 
         if (count($rows) === 0) {
             throw new NoSuchArticleException(sprintf(
@@ -65,10 +70,19 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
         WHERE article.active = 'true'
         QUERY;
 
-        $rows = $this->database->queryParams($query, []);
-        $ids  = [];
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $ids = [];
         foreach ($rows as $row) {
-            $ids[] = $row['identifier'];
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Article id is invalid');
+            }
+            $ids[] = $rawIdentifier;
         }
         return $ids;
     }
@@ -83,13 +97,23 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             AND article_translates.language = $1
         QUERY;
 
-        $rows = $this->database->queryParams($query, [$language]);
+        try {
+            $rows = $this->database->queryParams($query, [$language]);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         $dtos = [];
         foreach ($rows as $row) {
-            $dtos[] = new ArticleIdNameDTO(
-                $row['identifier'],
-                $row['name'],
-            );
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Article id is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Article name is invalid');
+            }
+            $dtos[] = new ArticleIdNameDTO($rawIdentifier, $rawName);
         }
         return $dtos;
     }
@@ -97,26 +121,84 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
     /** @param array<string,string> $row */
     protected function createFromRow(array $row): ArticleViewDTO
     {
+        $rawIdentifier = $row['identifier'] ?? null;
+        if ($rawIdentifier === null) {
+            throw new RepositoryException('Article id is invalid');
+        }
+        $rawName = $row['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Article name is invalid');
+        }
+        $rawShortDescription = $row['short_description'] ?? null;
+        if ($rawShortDescription === null) {
+            throw new RepositoryException('Article short description is invalid');
+        }
+        $rawDescription = $row['description'] ?? null;
+        if ($rawDescription === null) {
+            throw new RepositoryException('Article description is invalid');
+        }
+        $rawCategory = $row['category'] ?? null;
+        if ($rawCategory === null) {
+            throw new RepositoryException('Article category at is invalid');
+        }
+        $rawCreatedAt = $row['created_at'] ?? null;
+        if ($rawCreatedAt === null) {
+            throw new RepositoryException('Article created at is invalid');
+        }
+        $rawAuthorId = $row['author_id'] ?? null;
+        if ($rawAuthorId === null) {
+            throw new RepositoryException('Article author id at is invalid');
+        }
+        $rawAuthorDescription = $row['author_description'] ?? null;
+        if ($rawAuthorDescription === null) {
+            throw new RepositoryException('Article author description at is invalid');
+        }
+        $rawImgId = $row['img_id'] ?? null;
+        if ($rawImgId === null) {
+            throw new RepositoryException('Article img id at is invalid');
+        }
+        $rawImgPath = $row['img_path'] ?? null;
+        if ($rawImgPath === null) {
+            throw new RepositoryException('Article img path at is invalid');
+        }
+        $rawImgDescription = $row['img_description'] ?? null;
+        if ($rawImgDescription === null) {
+            throw new RepositoryException('Article img description at is invalid');
+        }
+        $rawImgAuthorDescription = $row['img_author_description'] ?? null;
+        if ($rawImgAuthorDescription === null) {
+            throw new RepositoryException('Article img author description at is invalid');
+        }
+
+        $rawAudioPath = $row['audio_path'] ?? null;
+        if ($rawAudioPath === null) {
+            throw new RepositoryException('Article audio path at is invalid');
+        }
+        $rawAudioDescription = $row['audio_description'] ?? null;
+        if ($rawAudioDescription === null) {
+            throw new RepositoryException('Article audio description at is invalid');
+        }
+
         return $this->factory->create(
-            $row['identifier'],
-            $row['name'],
-            $row['short_description'],
-            $row['description'],
-            json_decode($row['category']),
-            $row['created_at'],
+            $rawIdentifier,
+            $rawName,
+            $rawShortDescription,
+            $rawDescription,
+            json_decode($rawCategory),
+            $rawCreatedAt,
             new AuthorDTO(
-                $row['author_id'],
-                $row['author_description']
+                $rawAuthorId,
+                $rawAuthorDescription
             ),
             $this->imageDtoFactory->create(
-                $row['img_id'],
-                $row['img_path'],
-                $row['img_description'],
-                $row['img_author_description']
+                $rawImgId,
+                $rawImgPath,
+                $rawImgDescription,
+                $rawImgAuthorDescription
             ),
             $this->audioDtoFactory->create(
-                $row['audio_path'],
-                $row['audio_description'],
+                $rawAudioPath,
+                $rawAudioDescription,
             )
         );
     }
@@ -159,10 +241,8 @@ final class ArticleViewRepository implements ArticleViewRepositoryInterface
             img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description,
-
             audio_translates.description as audio_description,
             audio_translates.path as audio_path,
-
             img_authors.description as img_author_description
         FROM
             article,
