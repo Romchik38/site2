@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\Audio\AudioService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Audio\Audio;
 use Romchik38\Site2\Domain\Audio\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Audio\Entities\Translate;
@@ -29,7 +29,7 @@ final class AudioService
     public function __construct(
         private readonly RepositoryInterface $repository,
         private readonly AudioStorageInterface $audioStorage,
-        private readonly ListViewService $languagesService
+        private readonly ListService $languagesService
     ) {
     }
 

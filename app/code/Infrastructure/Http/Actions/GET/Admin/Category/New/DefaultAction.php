@@ -16,7 +16,7 @@ use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -31,7 +31,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService,
+        private readonly ListService $languageService,
         private readonly LoggerServerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder
     ) {

@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\Image\ImageService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
@@ -33,7 +33,7 @@ final class ImageService
     public function __construct(
         private readonly ImageRepositoryInterface $repository,
         private readonly CreateContentServiceInterface $contentService,
-        private readonly ListViewService $languagesService,
+        private readonly ListService $languagesService,
         private readonly ImageStorageInterface $imageStorage
     ) {
     }

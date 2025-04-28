@@ -11,7 +11,7 @@ use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -27,7 +27,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService
+        private readonly ListService $languageService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

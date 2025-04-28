@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Application\Language\List;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
-final class ListViewService
+final class ListService
 {
     public function __construct(
         private readonly RepositoryInterface $repository

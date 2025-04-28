@@ -17,7 +17,7 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
 use Romchik38\Site2\Application\Translate\View\Exceptions\CouldNotFindException;
 use Romchik38\Site2\Application\Translate\View\Exceptions\NoSuchTranslateException;
@@ -41,7 +41,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewService $viewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService,
+        private readonly ListService $languageService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerServerInterface $logger
     ) {

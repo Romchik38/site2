@@ -18,7 +18,7 @@ use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Image\AdminView\RepositoryException as ImageViewRepositoryException;
 use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -35,7 +35,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService,
+        private readonly ListService $languageService,
         private readonly LoggerServerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminViewService $adminViewService

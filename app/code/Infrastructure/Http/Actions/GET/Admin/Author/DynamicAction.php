@@ -15,7 +15,7 @@ use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto;
@@ -33,7 +33,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly AdminViewService $adminViewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService
+        private readonly ListService $languageService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

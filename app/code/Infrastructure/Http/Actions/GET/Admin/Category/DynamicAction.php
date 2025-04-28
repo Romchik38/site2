@@ -21,7 +21,7 @@ use Romchik38\Site2\Application\Category\AdminView\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\AdminView\ViewService;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Update;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageException;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -41,7 +41,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewService $viewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService,
+        private readonly ListService $languageService,
         private readonly LoggerServerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder
     ) {

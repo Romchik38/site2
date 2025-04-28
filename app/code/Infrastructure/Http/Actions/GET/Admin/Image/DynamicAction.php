@@ -19,7 +19,7 @@ use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Image\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Image\ImageService\Update;
-use Romchik38\Site2\Application\Language\List\ListViewService;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction\ViewDto;
@@ -39,7 +39,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly AdminViewService $adminViewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly ListViewService $languageService,
+        private readonly ListService $languageService,
         private readonly LoggerServerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder
     ) {
