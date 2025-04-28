@@ -17,10 +17,10 @@ use Romchik38\Server\Controllers\Path;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotCountException;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotFilterException;
-use Romchik38\Site2\Application\Translate\ListView\Filter;
-use Romchik38\Site2\Application\Translate\ListView\ListViewService;
+use Romchik38\Site2\Application\Translate\List\Exceptions\CouldNotCountException;
+use Romchik38\Site2\Application\Translate\List\Exceptions\CouldNotFilterException;
+use Romchik38\Site2\Application\Translate\List\Filter;
+use Romchik38\Site2\Application\Translate\List\ListService;
 use Romchik38\Site2\Application\Translate\TranslateService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\ViewDto;
@@ -41,7 +41,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly ServerRequestInterface $request,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly ListViewService $translateList,
+        private readonly ListService $translateList,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerServerInterface $logger

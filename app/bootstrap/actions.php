@@ -385,7 +385,7 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\Translate\ListView\ListViewService'),
+            new Promise('\Romchik38\Site2\Application\Translate\List\ListService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),

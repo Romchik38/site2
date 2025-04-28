@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction;
 
-use Romchik38\Site2\Application\Translate\ListView\VO\Limit;
-use Romchik38\Site2\Application\Translate\ListView\VO\OrderByDirection;
-use Romchik38\Site2\Application\Translate\ListView\VO\OrderByField;
+use Romchik38\Site2\Application\Translate\List\VO\Limit;
+use Romchik38\Site2\Application\Translate\List\VO\OrderByDirection;
+use Romchik38\Site2\Application\Translate\List\VO\OrderByField;
 
 final class PaginationForm
 {

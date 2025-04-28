@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Translate\ListView;
+namespace Romchik38\Site2\Application\Translate\List;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotCountException;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\CouldNotFilterException;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\RepositoryException;
-use Romchik38\Site2\Application\Translate\ListView\VO\Limit;
-use Romchik38\Site2\Application\Translate\ListView\VO\Offset;
-use Romchik38\Site2\Application\Translate\ListView\VO\OrderByDirection;
-use Romchik38\Site2\Application\Translate\ListView\VO\OrderByField;
-use Romchik38\Site2\Application\Translate\ListView\VO\Page;
+use Romchik38\Site2\Application\Translate\List\Exceptions\CouldNotCountException;
+use Romchik38\Site2\Application\Translate\List\Exceptions\CouldNotFilterException;
+use Romchik38\Site2\Application\Translate\List\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Translate\List\VO\Limit;
+use Romchik38\Site2\Application\Translate\List\VO\Offset;
+use Romchik38\Site2\Application\Translate\List\VO\OrderByDirection;
+use Romchik38\Site2\Application\Translate\List\VO\OrderByField;
+use Romchik38\Site2\Application\Translate\List\VO\Page;
 
-final class ListViewService
+final class ListService
 {
     public function __construct(
         private readonly RepositoryInterface $repository

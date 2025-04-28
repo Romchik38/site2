@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Translate\ListView;
+namespace Romchik38\Site2\Application\Translate\List;
 
-use Romchik38\Site2\Application\Translate\ListView\View\TranslateDto;
-use Romchik38\Site2\Application\Translate\ListView\VO\Page;
+use Romchik38\Site2\Application\Translate\List\View\TranslateDto;
+use Romchik38\Site2\Application\Translate\List\VO\Page;
 
 final class FilterResult
 {

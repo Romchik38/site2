@@ -251,8 +251,8 @@ return function (Container $container) {
     
     // TRANSLATE LIST VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\ListView\Repository',
-        '\Romchik38\Site2\Application\Translate\ListView\RepositoryInterface',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\List\Repository',
+        '\Romchik38\Site2\Application\Translate\List\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')

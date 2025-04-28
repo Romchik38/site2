@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Translate\ListView;
+namespace Romchik38\Site2\Application\Translate\List;
 
 use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
 

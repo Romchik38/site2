@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Translate\ListView\View;
+namespace Romchik38\Site2\Application\Translate\List\View;
 
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 

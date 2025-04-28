@@ -222,9 +222,9 @@ return function (Container $container) {
 
     // TRANSLATE LIST VIEW
     $container->shared(
-        '\Romchik38\Site2\Application\Translate\ListView\ListViewService',
+        '\Romchik38\Site2\Application\Translate\List\ListService',
         [
-            new Promise('\Romchik38\Site2\Application\Translate\ListView\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Translate\List\RepositoryInterface')
         ]
     );
 

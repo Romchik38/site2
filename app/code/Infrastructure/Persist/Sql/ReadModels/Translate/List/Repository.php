@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\ListView;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\List;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Translate\ListView\Exceptions\RepositoryException;
-use Romchik38\Site2\Application\Translate\ListView\RepositoryInterface;
-use Romchik38\Site2\Application\Translate\ListView\SearchCriteria;
-use Romchik38\Site2\Application\Translate\ListView\View\TranslateDto;
+use Romchik38\Site2\Application\Translate\List\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Translate\List\RepositoryInterface;
+use Romchik38\Site2\Application\Translate\List\SearchCriteria;
+use Romchik38\Site2\Application\Translate\List\View\TranslateDto;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 
 use function implode;
