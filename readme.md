@@ -44,3 +44,7 @@ See docs in [doc folder](./doc/)
   - tested partially
 - laminas-coding-standard
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`65 / 65 (100%)`
+- deptrac levels
+  - domain
+  - application
+  - infrastructure
