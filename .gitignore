@@ -5,3 +5,4 @@ app/var
 vendor/
 testsomecode/
 temp/
+compose.override.yaml
