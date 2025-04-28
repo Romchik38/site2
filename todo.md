@@ -2,10 +2,11 @@
 
 ## Current
 
-- Package qossmic/deptrac is abandoned, you should avoid using it. Use deptrac/deptrac instead.
+- deptrac check.
 
 - make public
 - php 8.4
+- pagination
 
 ## Next
 
