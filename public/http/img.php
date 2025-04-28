@@ -12,6 +12,8 @@ use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Application\ImageCache\ImageCacheView\Find;
 use Romchik38\Site2\Application\ImageCache\ImageCacheView\NoSuchImageCacheException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Cache;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\CouldNotSaveException;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
@@ -24,6 +26,8 @@ try {
     $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService');
     /** @var ImageCacheViewService $imgCacheViewService */
     $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheView\ImageCacheViewService');
+    /** @var LoggerServerInterface $logger */
+    $logger = $container->get('\Romchik38\Server\Api\Services\LoggerServerInterface');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
@@ -58,7 +62,7 @@ try {
 } catch (NoSuchImageCacheException) {
     // create new image (see Case 2 below)
 } catch (\Exception $e) {
-    // do error log
+    $logger->error($e->getMessage());
     exit('We are sorry, there is an error on our side, please try later');
 }
 
@@ -83,8 +87,10 @@ try {
     );
     try {
         $imgCacheService->save($cache);
-    } catch (\Exception $e) {
-        // do log because image was not cached
+    } catch (CouldNotSaveException $e) {
+        $logger->error($e->getMessage());
+    } catch (InvalidArgumentException $e) {
+        $logger->error($e->getMessage());
     }
 } catch (InvalidArgumentException) {
     http_response_code(400);
@@ -103,14 +109,12 @@ try {
     }
 } catch(CouldNotCreateImageException $e){
     http_response_code(500);
-    /** 
-     * This is a public message, so we can\'t display it to user
-     * Do log instead $e->getMessage();
-     * */ 
+    $logger->error($e->getMessage());
     echo 'Server error, please try again later';
 } catch (\Exception) {
     http_response_code(500);
     echo 'Server error, please try again later';
 } finally {
+    $logger->sendAllLogs();
     exit();
 }

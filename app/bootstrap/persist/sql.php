@@ -93,8 +93,8 @@ return function (Container $container) {
 
     // IMAGE CACHE
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\ImageCacheRepository',
-        '\Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache\Repository',
+        '\Romchik38\Site2\Domain\ImageCache\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Models\Sql\DatabaseSqlInterface')

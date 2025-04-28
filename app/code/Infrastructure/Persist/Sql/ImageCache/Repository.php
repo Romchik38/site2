@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache;
 
+use Romchik38\Server\Models\Errors\QueryException;
 use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\RepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\ImageCache;
-use Romchik38\Site2\Domain\ImageCache\ImageCacheRepositoryInterface;
 
-final class ImageCacheRepository implements ImageCacheRepositoryInterface
+final class Repository implements RepositoryInterface
 {
     public function __construct(
         protected readonly DatabaseSqlInterface $database
@@ -25,7 +27,11 @@ final class ImageCacheRepository implements ImageCacheRepositoryInterface
             ($model->createdAt())->toString(),
         ];
 
-        $this->database->queryParams($query, $params);
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     public function totalCount(): int
