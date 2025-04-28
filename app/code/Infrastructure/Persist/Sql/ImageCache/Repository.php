@@ -38,7 +38,12 @@ final class Repository implements RepositoryInterface
     {
         $query = 'SELECT count(key) FROM img_cache';
 
-        $rows   = $this->database->queryParams($query, []);
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         $result = $rows[0]['count'];
 
         return (int) $result;
@@ -47,8 +52,11 @@ final class Repository implements RepositoryInterface
     public function totalSize(): int
     {
         $query = 'SELECT pg_total_relation_size (\'img_cache\')';
-
-        $rows   = $this->database->queryParams($query, []);
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
         $result = $rows[0]['pg_total_relation_size'];
 
         return (int) $result;
@@ -57,15 +65,21 @@ final class Repository implements RepositoryInterface
     public function totalPrettySize(): string
     {
         $query = 'SELECT pg_size_pretty (pg_total_relation_size(\'img_cache\'))';
-
-        $rows = $this->database->queryParams($query, []);
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
         return $rows[0]['pg_size_pretty'];
     }
 
     public function deleteAll(): void
     {
         $query = 'DELETE FROM img_cache';
-
-        $this->database->queryParams($query, []);
+        try {
+            $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 }

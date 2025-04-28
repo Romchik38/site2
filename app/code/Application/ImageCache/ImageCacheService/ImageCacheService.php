@@ -37,21 +37,25 @@ final class ImageCacheService
         }
     }
 
+    /** @throws RepositoryException */
     public function totalCount(): int
     {
         return $this->imageCacheRepository->totalCount();
     }
 
+    /** @throws RepositoryException */
     public function totalSize(): int
     {
         return $this->imageCacheRepository->totalSize();
     }
 
+    /** @throws RepositoryException */
     public function totalPrettySize(): string
     {
         return $this->imageCacheRepository->totalPrettySize();
     }
 
+    /** @throws RepositoryException */
     public function clear(): void
     {
         $this->imageCacheRepository->deleteAll();

@@ -7,30 +7,44 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clea
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
 use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public const SUCCESS_MESSAGE_KEY = 'admin.image-cache.cache-cleared';
+    public const ERROR_MESSAGE_KEY   = 'server-error.message';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly ImageCacheService $imageCacheService,
-        protected readonly UrlbuilderInterface $urlbuilder
+        private readonly Site2SessionInterface $session,
+        private readonly ImageCacheService $imageCacheService,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly LoggerServerInterface $logger,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface
     {
-        $this->imageCacheService->clear();
+        try {
+            $this->imageCacheService->clear();
+        } catch (RepositoryException $e) {
+            $this->logger->error($e->getMessage());
+            $uri = $this->urlbuilder->fromArray(['root', 'admin']);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::ERROR_MESSAGE_KEY)
+            );
+            return new RedirectResponse($uri);
+        }
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD,
             $this->translateService->t($this::SUCCESS_MESSAGE_KEY)

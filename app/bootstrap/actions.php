@@ -272,7 +272,9 @@ return function (Container $container) {
             new Promise('admin_view'),
             new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface')
+            new Promise('\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
         ]
     );
 
@@ -671,7 +673,7 @@ return function (Container $container) {
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
 
@@ -683,7 +685,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface')
+            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
         ]
     );
     

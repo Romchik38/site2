@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Imagecache;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
+use Romchik38\Server\Api\Services\LoggerServerInterface;
 use Romchik38\Server\Api\Views\ViewInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Translate\TranslateInterface;
+use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Imagecache\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -18,20 +22,35 @@ use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorIn
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    public const ERROR_MESSAGE_KEY = 'server-error.message';
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly ImageCacheService $imageCacheService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
+        private readonly ViewInterface $view,
+        private readonly ImageCacheService $imageCacheService,
+        private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly LoggerServerInterface $logger,
+        private readonly UrlbuilderInterface $urlbuilder
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface
     {
-        $totalPrettySize = $this->imageCacheService->totalPrettySize();
+        try {
+            $totalPrettySize = $this->imageCacheService->totalPrettySize();
+            $totalCount      = $this->imageCacheService->totalCount();
+        } catch (RepositoryException $e) {
+            $this->logger->error($e->getMessage());
+            $uri = $this->urlbuilder->fromArray(['root', 'admin']);
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this->translateService->t($this::ERROR_MESSAGE_KEY)
+            );
+            return new RedirectResponse($uri);
+        }
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
@@ -39,7 +58,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $dto = new ViewDto(
             'Image cache',
             'Image cache page',
-            $this->imageCacheService->totalCount(),
+            $totalCount,
             $totalPrettySize,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken
