@@ -2,8 +2,6 @@
 
 ## Current
 
-- deptrac check.
-
 - make public
 - php 8.4
 - pagination

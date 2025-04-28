@@ -61,7 +61,8 @@
         "tests": [
             "vendor/bin/phpunit",
             "composer cs-check",
-            "vendor/bin/phpstan --memory-limit=1G"
+            "vendor/bin/phpstan --memory-limit=1G",
+            "vendor/bin/deptrac"
         ]
     }
 }
