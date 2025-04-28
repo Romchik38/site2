@@ -2,8 +2,6 @@
 
 ## Current
 
-- repositories must *catch* `InvalidArgimentException` error on entity creation and *throws* Repository error, because this is a problem of the database consistency.
-
 - Package qossmic/deptrac is abandoned, you should avoid using it. Use deptrac/deptrac instead.
 
 - make public
