@@ -23,15 +23,24 @@ Additional:
 - [Docker](./doc/docker/00_readme.md) package for developing only
 - User and admin user login (authentication and authorization)
 - [DI Container](./doc/bootstrap/Container.md)
+- Code architectural layers
 
-The only dependency is *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
+## Dependencies
 
-Programming:
+1. *twig/twig*. You can replace it with any other template engine. All what you must do in this case - replace twig templates with new ones. Core logic will no change.
 
-- Site was writen with OOP and based on DDD.
-- Phpstan with level 8
-- deptrac
-- Only PHP with minimum JS on frontend
+2. *laminas/laminas-diactoros* - psr-7 implementation
+
+3. *wapmorgan/mp3info* - mp3 file checker (forked and refactored)
+
+4. Boostrap 5 as css framework
+
+## Programming
+
+- Site was writen with OOP.
+- Phpstan with level 8.
+- Code based on architectural layers: domain, application and infrastructure.
+- Only PHP with minimum JS on frontend.
 
 See docs in [doc folder](./doc/)
 
