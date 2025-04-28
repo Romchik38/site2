@@ -143,7 +143,7 @@ return function (Container $container) {
 
     // LANGUAGE LIST VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\ListView\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Language\List\Repository',
         '\Romchik38\Site2\Application\Language\List\RepositoryInterface',
         true,
         [
