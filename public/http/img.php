@@ -64,6 +64,7 @@ try {
     // create new image (see Case 2 below)
 } catch (CacheRepositoryException $e) {
     $logger->error($e->getMessage());
+    $logger->sendAllLogs();
     exit('We are sorry, there is an error on our side, please try later');
 }
 
