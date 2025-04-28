@@ -9,8 +9,9 @@ use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgData;
 use Romchik38\Site2\Application\Image\ImgConverter\StubData;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
-use Romchik38\Site2\Application\ImageCache\ImageCacheView\Find;
-use Romchik38\Site2\Application\ImageCache\ImageCacheView\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImageCache\View\Commands\Find\Find;
+use Romchik38\Site2\Application\ImageCache\View\Exceptions\NoSuchImageCacheException;
+use Romchik38\Site2\Application\ImageCache\View\Exceptions\RepositoryException as CacheRepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Cache;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\CouldNotSaveException;
 use Romchik38\Server\Api\Services\LoggerServerInterface;
@@ -24,8 +25,8 @@ try {
     $imgConverterService = $container->get('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService');
     /** @var ImageCacheService $imgCacheService */
     $imgCacheService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService');
-    /** @var ImageCacheViewService $imgCacheViewService */
-    $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\ImageCacheView\ImageCacheViewService');
+    /** @var ViewService $imgCacheViewService */
+    $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\View\ViewService');
     /** @var LoggerServerInterface $logger */
     $logger = $container->get('\Romchik38\Server\Api\Services\LoggerServerInterface');
 } catch (\Exception $e) {
@@ -61,7 +62,7 @@ try {
     exit(0);
 } catch (NoSuchImageCacheException) {
     // create new image (see Case 2 below)
-} catch (\Exception $e) {
+} catch (CacheRepositoryException $e) {
     $logger->error($e->getMessage());
     exit('We are sorry, there is an error on our side, please try later');
 }

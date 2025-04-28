@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ImageCache\ImageCacheView;
+namespace Romchik38\Site2\Application\ImageCache\View\Exceptions;
 
 use RuntimeException;
 
