@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html\Classes;
 
-use Romchik38\Server\Controllers\PathInterface;
-use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use InvalidArgumentException;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\CreatePaginationInterface;
-use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\UrlGeneratorInterface;
 
+use function array_merge;
 use function ceil;
 use function htmlspecialchars;
 use function sprintf;
@@ -18,21 +18,55 @@ use function sprintf;
  * */
 final class CreatePagination implements CreatePaginationInterface
 {
-    private readonly int $page;
-    private readonly int $limit;
-    private readonly int $totalCount;
+    /** @var array<int,Query> */
+    private array $queries;
 
+    /**
+     * @param array<int,mixed|Query> $queries
+     * @throws InvalidArgumentException
+     * */
     public function __construct(
-        private readonly PathInterface $path,
-        private readonly UrlbuilderInterface $urlBuilder,
-        private readonly PaginationInterface $pagination,
+        private readonly UrlGeneratorInterface $urlGenerator,
         private readonly int $displayed,
+        private readonly int $limit,
+        private readonly string $limitFieldName,
+        private readonly int $page,
+        private readonly string $pageFieldName,
+        private readonly int $totalCount,
+        array $queries,
         private readonly int $maxPageToShow = 5,
         private readonly string $marker = '...'
     ) {
-        $this->page       = (int) $pagination->page();
-        $this->limit      = (int) $pagination->limit();
-        $this->totalCount = $pagination->totalCount();
+        if ($displayed < 0) {
+            throw new InvalidArgumentException(sprintf(
+                'Pagination param displayed %s is invalid',
+                $displayed
+            ));
+        }
+        if ($limit < 0) {
+            throw new InvalidArgumentException(sprintf(
+                'Pagination param limit %s is invalid',
+                $limit
+            ));
+        }
+        if ($page < 0) {
+            throw new InvalidArgumentException(sprintf(
+                'Pagination param page %s is invalid',
+                $page
+            ));
+        }
+        if ($totalCount < 0) {
+            throw new InvalidArgumentException(sprintf(
+                'Pagination param totalCount %s is invalid',
+                $totalCount
+            ));
+        }
+        foreach ($queries as $query) {
+            if (! $query instanceof Query) {
+                throw new InvalidArgumentException('Parm query is invalid');
+            }
+        }
+        $this->queries = $queries;
     }
 
     public function create(): string
@@ -150,14 +184,13 @@ final class CreatePagination implements CreatePaginationInterface
 
     private function glueLink(string $part): string
     {
-        return $this->urlBuilder->fromPath(
-            $this->path,
+        $queryArr = array_merge(
             [
-                'page'                                      => $part,
-                $this->pagination::LIMIT_FIELD              => $this->pagination->limit(),
-                $this->pagination::ORDER_BY_FIELD           => $this->pagination->orderByField(),
-                $this->pagination::ORDER_BY_DIRECTION_FIELD => $this->pagination->orderByDirection(),
-            ]
+                new Query($this->pageFieldName, $part),
+                new Query($this->limitFieldName, (string) $this->limit),
+            ],
+            $this->queries
         );
+        return $this->urlGenerator->generateUrl($queryArr);
     }
 }

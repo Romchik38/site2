@@ -2,7 +2,6 @@
 
 ## Current
 
-- pagination
 - remove
   - `Romchik38\Server\Models\Sql\SearchCriteria\Limit`
   - `Romchik38\Server\Models\Sql\SearchCriteria\Offset`

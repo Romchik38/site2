@@ -26,7 +26,8 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultActio
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
-use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function count;
@@ -85,20 +86,21 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translateList  = $filterResult->list;
         $page           = $filterResult->page;
 
-        $path       = new Path($this->getPath());
-        $pagination = new Pagination(
-            (string) ($searchCriteria->limit)(),
-            (string) ($page)(),
-            ($searchCriteria->orderByField)(),
-            ($searchCriteria->orderByDirection)(),
-            $totalCount
-        );
-
-        $paginationView = new CreatePagination(
-            $path,
-            $this->urlbuilder,
-            $pagination,
-            count($translateList)
+        $path              = new Path($this->getPath());
+        $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
+        $additionalQueries = [
+            new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
+            new Query(Filter::ORDER_BY_DIRECTION_FIELD, ($searchCriteria->orderByDirection)()),
+        ];
+        $paginationView    = new CreatePagination(
+            $urlGenerator,
+            count($translateList),
+            ($searchCriteria->limit)(),
+            Filter::LIMIT_FIELD,
+            ($page)(),
+            Filter::PAGE_FIELD,
+            $totalCount,
+            $additionalQueries
         );
 
         $paginationHtml = $paginationView->create();

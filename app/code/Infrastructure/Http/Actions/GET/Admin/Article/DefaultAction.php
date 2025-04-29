@@ -24,7 +24,8 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
-use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 
 use function count;
 
@@ -75,20 +76,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $page           = $filterResult->page;
         $totalCount     = $this->articleService->totalCount();
 
-        $path       = new Path($this->getPath());
-        $pagination = new Pagination(
-            (string) ($searchCriteria->limit)(),
-            (string) ($page)(),
-            ($searchCriteria->orderByField)(),
-            ($searchCriteria->orderByDirection)(),
-            $totalCount
-        );
+        $path              = new Path($this->getPath());
+        $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
+        $additionalQueries = [
+            new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
+            new Query(Filter::ORDER_BY_DIRECTION_FIELD, ($searchCriteria->orderByDirection)()),
+        ];
 
         $paginationView = new CreatePagination(
-            $path,
-            $this->urlbuilder,
-            $pagination,
-            count($articleList)
+            $urlGenerator,
+            count($articleList),
+            ($searchCriteria->limit)(),
+            Filter::LIMIT_FIELD,
+            ($page)(),
+            Filter::PAGE_FIELD,
+            $totalCount,
+            $additionalQueries
         );
 
         $paginationHtml = $paginationView->create();

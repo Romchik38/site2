@@ -20,9 +20,9 @@ use Romchik38\Site2\Application\Category\CategoryService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination2;
-use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Pagination2;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function count;
@@ -54,27 +54,21 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $page           = $filterResult->page;
         $totalCount     = $this->categoryList->totalCount();
 
-        $path = new Path($this->getPath());
-
-        /** @todo replace name 2 */
-        $pagination = new Pagination2(
-            /** @todo implement limit 0 (all) in actions */
+        $path              = new Path($this->getPath());
+        $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
+        $additionalQueries = [
+            new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
+            new Query(Filter::ORDER_BY_DIRECTION_FIELD, ($searchCriteria->orderByDirection)()),
+        ];
+        $paginationView    = new CreatePagination(
+            $urlGenerator,
+            count($categoryList),
             ($searchCriteria->limit)(),
             Filter::LIMIT_FIELD,
             ($page)(),
             Filter::PAGE_FIELD,
             $totalCount,
-            [
-                new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
-                new Query(Filter::ORDER_BY_DIRECTION_FIELD, ($searchCriteria->orderByDirection)()),
-            ]
-        );
-
-        $paginationView = new CreatePagination2(
-            $path,
-            $this->urlbuilder,
-            $pagination,
-            count($categoryList)
+            $additionalQueries
         );
 
         $paginationHtml = $paginationView->create();
