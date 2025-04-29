@@ -25,11 +25,12 @@ use function urldecode;
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly ViewService $articleViewService
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        private readonly ViewInterface $view,
+        private readonly ViewService $articleViewService
     ) {
+        parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(string $dynamicRoute): ResponseInterface

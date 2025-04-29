@@ -24,8 +24,8 @@ use function sprintf;
 final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 {
     public function __construct(
-        protected ControllerTreeInterface $controllerTreeService,
-        protected LinkTreeInterface $linkTreeService
+        private ControllerTreeInterface $controllerTreeService,
+        private LinkTreeInterface $linkTreeService
     ) {
     }
 
@@ -41,7 +41,7 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
         return $this->buildHtml($linkTreeDto);
     }
 
-    protected function buildHtml(LinkTreeDTOInterface $linkTreeDto): string
+    private function buildHtml(LinkTreeDTOInterface $linkTreeDto): string
     {
         return '<ul>' . $this->createRow($linkTreeDto) . '</ul>';
     }
@@ -51,7 +51,7 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
      *
      * @return string <li>inner html</li>
      */
-    protected function createRow(LinkTreeDTOInterface $element): string
+    private function createRow(LinkTreeDTOInterface $element): string
     {
         $children    = $element->getChildren();
         $description = $element->getDescription();

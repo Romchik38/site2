@@ -13,12 +13,6 @@ use function sprintf;
 
 final class CopyImage extends Image
 {
-    /**
-     * Types to convert.
-     * The loaded from storage image must be in array to be converted
-     * */
-    //protected const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
     public readonly int $copyWidth;
     public readonly int $copyHeight;
     public readonly string $copyType;

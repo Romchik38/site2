@@ -342,7 +342,7 @@ final class Repository implements ImageRepositoryInterface
      * @throws RepositoryException
      * @return array<int,Article>
      */
-    protected function createArticles(Id $id): array
+    private function createArticles(Id $id): array
     {
         $query  = $this->articlesQuery();
         $params = [$id()];
@@ -382,7 +382,7 @@ final class Repository implements ImageRepositoryInterface
      * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
-    protected function createLanguages(string $rawLanguages): array
+    private function createLanguages(string $rawLanguages): array
     {
         $decodedLanguages = json_decode($rawLanguages);
 
@@ -487,7 +487,7 @@ final class Repository implements ImageRepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryDelete(): string
+    private function translatesSaveQueryDelete(): string
     {
         return <<<'QUERY'
         DELETE FROM img_translates 
@@ -495,7 +495,7 @@ final class Repository implements ImageRepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryInsert(): string
+    private function translatesSaveQueryInsert(): string
     {
         return <<<'QUERY'
         INSERT INTO img_translates (img_id, language, description)

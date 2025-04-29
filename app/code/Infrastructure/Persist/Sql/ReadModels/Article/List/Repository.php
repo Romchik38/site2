@@ -22,9 +22,9 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        protected DatabaseSqlInterface $database,
-        protected ArticleDTOFactory $articleDtoFactory,
-        protected ImageDTOFactory $imageDtoFactory
+        private DatabaseSqlInterface $database,
+        private ArticleDTOFactory $articleDtoFactory,
+        private ImageDTOFactory $imageDtoFactory
     ) {
     }
 
@@ -103,7 +103,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string> $row
      * */
-    protected function createFromRow(array $row): ArticleDTO
+    private function createFromRow(array $row): ArticleDTO
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -153,7 +153,7 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<'QUERY'
         WITH categories AS

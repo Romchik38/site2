@@ -26,7 +26,7 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseSqlInterface $database
+        private readonly DatabaseSqlInterface $database
     ) {
     }
 

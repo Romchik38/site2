@@ -19,16 +19,16 @@ use function gettype;
 
 final class CsrfMiddleware implements RequestMiddlewareInterface
 {
-    protected const OUTDATED_MESSAGE_KEY   = 'middleware.form-data-is-outdated';
-    protected const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
+    private const OUTDATED_MESSAGE_KEY   = 'middleware.form-data-is-outdated';
+    private const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
 
     public function __construct(
-        protected readonly ServerRequestInterface $request,
-        protected readonly Site2SessionInterface $session,
-        protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly TranslateInterface $translate,
-        protected readonly Path $redirectPath,
-        protected readonly string $tokenFieldName
+        private readonly ServerRequestInterface $request,
+        private readonly Site2SessionInterface $session,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly TranslateInterface $translate,
+        private readonly Path $redirectPath,
+        private readonly string $tokenFieldName
     ) {
         if ($tokenFieldName === '') {
             throw new InvalidArgumentException('csrf tocken field is empty');

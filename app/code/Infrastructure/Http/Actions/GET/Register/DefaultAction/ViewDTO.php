@@ -11,7 +11,7 @@ final class ViewDTO extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        protected readonly ?string $adminUser
+        public readonly ?string $adminUser
     ) {
         parent::__construct($name, $description);
     }

@@ -12,7 +12,7 @@ use function sprintf;
 final class ReadLengthFormatter implements ReadLengthFormatterInterface
 {
     public function __construct(
-        protected readonly TranslateInterface $translate
+        private readonly TranslateInterface $translate
     ) {
     }
 

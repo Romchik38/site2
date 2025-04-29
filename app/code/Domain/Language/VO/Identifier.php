@@ -12,7 +12,7 @@ final class Identifier
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $id
+        private readonly string $id
     ) {
         if (strlen($id) === 0) {
             throw new InvalidArgumentException('param language id is empty');

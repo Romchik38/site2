@@ -60,7 +60,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @param array<string,string> $row */
-    protected function createFromRow(array $row): AuthorDto
+    private function createFromRow(array $row): AuthorDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -110,7 +110,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawImages - Json encoded array of strings
      * @return array<int,ImageId>
      */
-    protected function prepareRawImages(string $rawImages): array
+    private function prepareRawImages(string $rawImages): array
     {
         $decodedImages = json_decode($rawImages);
 
@@ -125,7 +125,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawArticles - Json encoded array of strings
      * @return array<int,ArticleId>
      */
-    protected function prepareRawArticles(string $rawArticles): array
+    private function prepareRawArticles(string $rawArticles): array
     {
         $decodedArticles = json_decode($rawArticles);
 
@@ -140,7 +140,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,Translate>
      * */
-    protected function createTranslates(string $rawId): array
+    private function createTranslates(string $rawId): array
     {
         $translates = [];
 
@@ -171,7 +171,7 @@ final class Repository implements RepositoryInterface
         return $translates;
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<'QUERY'
         SELECT author.identifier,
@@ -194,7 +194,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesQuery(): string
+    private function translatesQuery(): string
     {
         return <<<'QUERY'
         SELECT author_translates.language,

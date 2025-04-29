@@ -7,10 +7,10 @@ namespace Romchik38\Site2\Application\Article\List\Commands\Pagination;
 final class Pagination
 {
     public function __construct(
-        protected string $limit,
-        protected string $offset,
-        protected string $orderByField,
-        protected string $orderByDirection
+        private string $limit,
+        private string $offset,
+        private string $orderByField,
+        private string $orderByDirection
     ) {
     }
 

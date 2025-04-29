@@ -12,7 +12,7 @@ final class Description
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $description
+        private readonly string $description
     ) {
         if (strlen($description) === 0) {
             throw new InvalidArgumentException('param image description is empty');

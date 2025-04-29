@@ -14,7 +14,7 @@ use Romchik38\Site2\Domain\ImageCache\VO\Key;
 final class ViewService
 {
     public function __construct(
-        protected readonly RepositoryInterface $imageCacheViewRepository
+        private readonly RepositoryInterface $imageCacheViewRepository
     ) {
     }
 

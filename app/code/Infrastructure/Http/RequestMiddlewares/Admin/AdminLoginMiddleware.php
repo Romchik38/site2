@@ -13,12 +13,12 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminLoginMiddleware implements RequestMiddlewareInterface
 {
-    public const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
+    private const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
 
     public function __construct(
-        protected readonly Site2SessionInterface $session,
-        protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly TranslateInterface $translate
+        private readonly Site2SessionInterface $session,
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly TranslateInterface $translate
     ) {
     }
 

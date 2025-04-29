@@ -96,7 +96,7 @@ final class Repository implements RepositoryInterface
         return $phrases;
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<'QUERY'
         SELECT translate_keys.identifier
@@ -105,7 +105,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function phrasesQuery(): string
+    private function phrasesQuery(): string
     {
         return <<<'QUERY'
         SELECT translate_entities.language,

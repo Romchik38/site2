@@ -18,7 +18,7 @@ use function sprintf;
 final class ImgViewRepository implements ImgViewRepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseSqlInterface $database,
+        private readonly DatabaseSqlInterface $database,
     ) {
     }
 

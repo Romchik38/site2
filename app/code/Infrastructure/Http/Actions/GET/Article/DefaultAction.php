@@ -24,16 +24,16 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    protected const PAGE_NAME_KEY        = 'article.page_name';
-    protected const PAGE_DESCRIPTION_KEY = 'article.description';
+    private const PAGE_NAME_KEY        = 'article.page_name';
+    private const PAGE_DESCRIPTION_KEY = 'article.description';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly ListService $listService,
-        protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderInterface $urlbuilder,
+        private readonly ViewInterface $view,
+        private readonly ListService $listService,
+        private readonly ServerRequestInterface $request,
+        private readonly UrlbuilderInterface $urlbuilder,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

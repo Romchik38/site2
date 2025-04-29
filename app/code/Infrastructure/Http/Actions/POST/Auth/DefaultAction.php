@@ -25,19 +25,18 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const string NOT_ACTIVE_MESSAGE_KEY        = 'auth.not-active';
-    public const string WRONG_PASSWORD_MESSAGE_KEY    = 'auth.wrong-password';
-    public const string WRONG_USERNAME_MESSAGE_KEY    = 'auth.wrong-username';
-    public const string SUCCESS_LOGGED_IN             = 'auth.success-logged-in';
-    public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    private const string WRONG_PASSWORD_MESSAGE_KEY    = 'auth.wrong-password';
+    private const string WRONG_USERNAME_MESSAGE_KEY    = 'auth.wrong-username';
+    private const string SUCCESS_LOGGED_IN             = 'auth.success-logged-in';
+    private const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ServerRequestInterface $request,
-        protected readonly UserCheckService $adminUserCheck,
-        protected readonly Site2SessionInterface $session,
-        protected readonly UrlbuilderInterface $urlbuilder
+        private readonly ServerRequestInterface $request,
+        private readonly UserCheckService $adminUserCheck,
+        private readonly Site2SessionInterface $session,
+        private readonly UrlbuilderInterface $urlbuilder
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

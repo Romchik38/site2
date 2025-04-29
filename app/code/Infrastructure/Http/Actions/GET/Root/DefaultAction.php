@@ -15,14 +15,15 @@ use Romchik38\Server\Services\Translate\TranslateInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const DEFAULT_VIEW_NAME = 'root.page_name';
+    private const DEFAULT_VIEW_NAME = 'root.page_name';
 
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        private readonly ViewInterface $view,
+        private readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
     ) {
+        parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface

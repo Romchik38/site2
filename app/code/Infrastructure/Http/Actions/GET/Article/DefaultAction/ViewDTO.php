@@ -14,8 +14,8 @@ final class ViewDTO extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        protected array $articleList,
-        protected readonly CreatePaginationInterface $paginationView,
+        private array $articleList,
+        private readonly CreatePaginationInterface $paginationView,
         public readonly string $articlePageUrl
     ) {
         parent::__construct($name, $description);

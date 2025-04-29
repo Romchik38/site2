@@ -12,12 +12,12 @@ use Romchik38\Site2\Domain\ImageCache\VO\Type;
 
 final class ImageCache
 {
-    protected CreatedAt $createdAt;
+    private CreatedAt $createdAt;
 
     public function __construct(
-        protected Key $key,
-        protected Data $data,
-        protected Type $type
+        private Key $key,
+        private Data $data,
+        private Type $type
     ) {
         $this->createdAt = new CreatedAt(new DateTime());
     }

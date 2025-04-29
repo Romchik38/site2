@@ -12,7 +12,7 @@ final class Name
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $name
+        private readonly string $name
     ) {
         if (strlen($name) === 0) {
             throw new InvalidArgumentException('param category name is empty');

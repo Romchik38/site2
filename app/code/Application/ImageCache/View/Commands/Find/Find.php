@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Application\ImageCache\View\Commands\Find;
 final class Find
 {
     public function __construct(
-        protected readonly string $key
+        private readonly string $key
     ) {
     }
 

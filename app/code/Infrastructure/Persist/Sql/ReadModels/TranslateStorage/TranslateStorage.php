@@ -60,7 +60,7 @@ final class TranslateStorage implements TranslateStorageInterface
         return new TranslateEntityDTO($key, $data);
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<'QUERY'
         SELECT translate_entities.language,

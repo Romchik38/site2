@@ -9,11 +9,11 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\PaginationInterface;
 final class Pagination implements PaginationInterface
 {
     public function __construct(
-        protected string $limit,
-        protected string $page,
-        protected string $orderByField,
-        protected string $orderByDirection,
-        protected int $totalCount
+        private string $limit,
+        private string $page,
+        private string $orderByField,
+        private string $orderByDirection,
+        private int $totalCount
     ) {
     }
 

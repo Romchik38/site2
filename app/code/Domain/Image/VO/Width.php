@@ -14,7 +14,7 @@ final class Width
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly int $width
+        private readonly int $width
     ) {
         if ($width < 1085) {
             throw new InvalidArgumentException(sprintf(

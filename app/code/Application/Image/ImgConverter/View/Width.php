@@ -11,10 +11,10 @@ use function is_numeric;
 
 final class Width
 {
-    protected const ALLOWED_VALUES = [100, 200, 576, 720, 768, 1080];
+    public const ALLOWED_VALUES = [100, 200, 576, 720, 768, 1080];
 
-    protected function __construct(
-        protected readonly int $width
+    private function __construct(
+        private readonly int $width
     ) {
     }
 

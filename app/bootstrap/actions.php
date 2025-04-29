@@ -99,7 +99,6 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction',
         [
             new Promise('admin_view'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface')
         ]
     );
 

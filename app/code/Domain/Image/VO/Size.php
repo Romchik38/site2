@@ -17,7 +17,7 @@ final class Size
      * @throws InvalidArgumentException
      * */
     public function __construct(
-        protected readonly int $size
+        private readonly int $size
     ) {
         if ($size > self::MAX_VALUE) {
             throw new InvalidArgumentException(sprintf(

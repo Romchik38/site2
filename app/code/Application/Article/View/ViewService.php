@@ -10,7 +10,7 @@ use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
 final class ViewService
 {
     public function __construct(
-        protected readonly RepositoryInterface $articleViewRepository
+        private readonly RepositoryInterface $articleViewRepository
     ) {
     }
 

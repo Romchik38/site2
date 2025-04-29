@@ -12,7 +12,7 @@ final class Path
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $path
+        private readonly string $path
     ) {
         if (strlen($path) === 0) {
             throw new InvalidArgumentException('param image path is empty');

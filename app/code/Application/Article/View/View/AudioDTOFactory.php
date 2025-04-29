@@ -12,7 +12,7 @@ use function substr;
 
 final class AudioDTOFactory
 {
-    protected readonly string $pathPrefix;
+    private readonly string $pathPrefix;
 
     public function __construct(
         string $pathPrefix

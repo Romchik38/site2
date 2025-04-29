@@ -16,8 +16,8 @@ use Romchik38\Site2\Domain\Image\VO\Type;
 final class ImgConverterService
 {
     public function __construct(
-        protected readonly ImgViewRepositoryInterface $imgViewRepository,
-        protected readonly ImageStorageInterface $imgConverter
+        private readonly ImgViewRepositoryInterface $imgViewRepository,
+        private readonly ImageStorageInterface $imgConverter
     ) {
     }
 

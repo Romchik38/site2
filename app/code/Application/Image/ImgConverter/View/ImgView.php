@@ -10,8 +10,8 @@ use Romchik38\Site2\Domain\Image\VO\Path;
 final class ImgView
 {
     public function __construct(
-        protected readonly Id $id,
-        protected readonly Path $path
+        private readonly Id $id,
+        private readonly Path $path
     ) {
     }
 

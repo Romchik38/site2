@@ -28,11 +28,11 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
-    public const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
-    public const string AUDIO_TRANSLATE_NOT_EXIST     = 'admin.audio-translate-with-language-not-exist';
-    public const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
+    private const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    private const string SUCCESS_UPDATE_KEY            = 'admin.data-success-update';
+    private const string AUDIO_NOT_EXIST_KEY           = 'admin.audio-with-id-not-exist';
+    private const string AUDIO_TRANSLATE_NOT_EXIST     = 'admin.audio-translate-with-language-not-exist';
+    private const string COULD_NOT_SAVE_KEY            = 'admin.could-not-save';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -40,8 +40,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ServerRequestInterface $request,
         private readonly AudioService $audioService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly LoggerServerInterface $logger
+        private readonly Site2SessionInterface $session,
+        private readonly LoggerServerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -106,7 +106,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         return 'Admin Audio Translate update point';
     }
 
-    protected function createUriWithId(string $id): string
+    private function createUriWithId(string $id): string
     {
         return $this->urlbuilder->fromArray(
             ['root', 'admin', 'audio', $id]

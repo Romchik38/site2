@@ -14,7 +14,7 @@ final class Height
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly int $height
+        private readonly int $height
     ) {
         if ($height < 1085) {
             throw new InvalidArgumentException(sprintf(

@@ -12,7 +12,7 @@ final class Data
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $data
+        private readonly string $data
     ) {
         if (strlen($data) === 0) {
             throw new InvalidArgumentException('param data is empty');

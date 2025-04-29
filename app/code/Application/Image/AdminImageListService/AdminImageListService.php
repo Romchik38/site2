@@ -14,7 +14,7 @@ use Romchik38\Site2\Application\Image\AdminImageListService\VO\Page;
 final class AdminImageListService
 {
     public function __construct(
-        protected readonly RepositoryInterface $repository,
+        private readonly RepositoryInterface $repository,
     ) {
     }
 

@@ -16,14 +16,14 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';
-    public const API_NAME                = 'Admin api username point';
-    public const API_DESCRIPTION         = 'Information about auth admin user';
+    private const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';
+    private const API_NAME                = 'Admin api username point';
+    private const API_DESCRIPTION         = 'Information about auth admin user';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly Site2SessionInterface $session
+        private readonly Site2SessionInterface $session
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

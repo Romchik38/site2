@@ -13,10 +13,10 @@ use function strlen;
 
 final class CreatedAt
 {
-    protected const DEFAULT_FORMAT = 'Y-m-d H:i:s';
+    public const DEFAULT_FORMAT = 'Y-m-d H:i:s';
 
     public function __construct(
-        protected readonly DateTime $createdAt
+        private readonly DateTime $createdAt
     ) {
     }
 

@@ -18,17 +18,17 @@ use function sprintf;
  * */
 final class CreatePagination implements CreatePaginationInterface
 {
-    protected readonly int $page;
-    protected readonly int $limit;
-    protected readonly int $totalCount;
+    private readonly int $page;
+    private readonly int $limit;
+    private readonly int $totalCount;
 
     public function __construct(
-        protected readonly PathInterface $path,
-        protected readonly UrlbuilderInterface $urlBuilder,
-        protected readonly PaginationInterface $pagination,
-        protected readonly int $displayed,
-        protected readonly int $maxPageToShow = 5,
-        protected readonly string $marker = '...'
+        private readonly PathInterface $path,
+        private readonly UrlbuilderInterface $urlBuilder,
+        private readonly PaginationInterface $pagination,
+        private readonly int $displayed,
+        private readonly int $maxPageToShow = 5,
+        private readonly string $marker = '...'
     ) {
         $this->page       = (int) $pagination->page();
         $this->limit      = (int) $pagination->limit();
@@ -122,7 +122,7 @@ final class CreatePagination implements CreatePaginationInterface
         return sprintf('%s%s%s', $first, $middle, $last);
     }
 
-    protected function activeLink(int $pageNumber): string
+    private function activeLink(int $pageNumber): string
     {
         return sprintf(
             '<li class="page-item active disabled"><a class="page-link" href="#">%s</a></li>',
@@ -130,7 +130,7 @@ final class CreatePagination implements CreatePaginationInterface
         );
     }
 
-    protected function link(int $pageNumber): string
+    private function link(int $pageNumber): string
     {
         $link = $this->glueLink((string) $pageNumber);
         return sprintf(
@@ -140,7 +140,7 @@ final class CreatePagination implements CreatePaginationInterface
         );
     }
 
-    protected function chainBreak(): string
+    private function chainBreak(): string
     {
         return sprintf(
             '<li class="page-item"><a class="page-link" href="#">%s</a></li>',
@@ -148,7 +148,7 @@ final class CreatePagination implements CreatePaginationInterface
         );
     }
 
-    protected function glueLink(string $part): string
+    private function glueLink(string $part): string
     {
         return $this->urlBuilder->fromPath(
             $this->path,

@@ -11,8 +11,8 @@ use function strlen;
 final class Category
 {
     public function __construct(
-        protected string $articleId,
-        protected string $categoryId,
+        private string $articleId,
+        private string $categoryId,
     ) {
     }
 

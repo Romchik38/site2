@@ -31,10 +31,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly AdminImageListService $adminImageListService,
-        protected readonly ServerRequestInterface $request,
-        protected readonly UrlbuilderInterface $urlbuilder,
+        private readonly ViewInterface $view,
+        private readonly AdminImageListService $adminImageListService,
+        private readonly ServerRequestInterface $request,
+        private readonly UrlbuilderInterface $urlbuilder,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {

@@ -19,11 +19,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public const DEFAULT_VIEW_DESCRIPTION = '404.description';
 
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        private readonly ViewInterface $view,
+        private readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
     ) {
+        parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface

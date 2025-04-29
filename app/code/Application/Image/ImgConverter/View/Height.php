@@ -11,10 +11,10 @@ use function is_numeric;
 
 final class Height
 {
-    protected const ALLOWED_VALUES = [100, 384, 480, 576, 720, 768, 1080];
+    public const ALLOWED_VALUES = [100, 384, 480, 576, 720, 768, 1080];
 
-    protected function __construct(
-        protected readonly int $height
+    private function __construct(
+        private readonly int $height
     ) {
     }
 

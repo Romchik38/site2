@@ -16,18 +16,19 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\Sitema
 /**
  * Creates a sitemap tree of public actions
  */
-class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
+final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const DEFAULT_VIEW_NAME        = 'sitemap.page_name';
-    public const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
+    private const DEFAULT_VIEW_NAME        = 'sitemap.page_name';
+    private const DEFAULT_VIEW_DESCRIPTION = 'sitemap.description';
 
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        protected readonly SitemapDTOFactory $sitemapDtoFactory
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        private readonly ViewInterface $view,
+        private readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
+        private readonly SitemapDTOFactory $sitemapDtoFactory
     ) {
+        parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface

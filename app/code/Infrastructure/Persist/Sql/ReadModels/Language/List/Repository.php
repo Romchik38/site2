@@ -40,7 +40,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string> $row
      * */
-    protected function createFromRow(array $row): LanguageDto
+    private function createFromRow(array $row): LanguageDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -71,7 +71,7 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<'QUERY'
         SELECT language.identifier,

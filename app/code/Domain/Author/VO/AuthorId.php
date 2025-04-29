@@ -12,7 +12,7 @@ final class AuthorId
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $authorId
+        private readonly string $authorId
     ) {
         if (strlen($authorId) === 0) {
             throw new InvalidArgumentException('param authorId is empty');

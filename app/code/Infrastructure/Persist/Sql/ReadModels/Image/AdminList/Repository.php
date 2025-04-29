@@ -17,7 +17,7 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseSqlInterface $database
+        private readonly DatabaseSqlInterface $database
     ) {
     }
 
@@ -61,7 +61,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @param array<string,string> $row */
-    protected function createFromRow(array $row): ImageDto
+    private function createFromRow(array $row): ImageDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -102,7 +102,7 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    protected function defaultQuery(): string
+    private function defaultQuery(): string
     {
         return <<<QUERY
         SELECT img.identifier,

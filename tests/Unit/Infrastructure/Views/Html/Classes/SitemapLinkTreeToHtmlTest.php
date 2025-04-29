@@ -12,10 +12,10 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\SitemapLinkTreeToHtml
 
 use function sprintf;
 
-class SitemapLinkTreeToHtmlTest extends TestCase
+final class SitemapLinkTreeToHtmlTest extends TestCase
 {
-    protected ControllerTree $sitemap;
-    protected LinkTree $linkTreeMapper;
+    private ControllerTree $sitemap;
+    private LinkTree $linkTreeMapper;
 
     public function setUp(): void
     {

@@ -20,7 +20,7 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {
-    protected const NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY = 'admin.roles.you-do-not-have-enough-permissions';
+    private const NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY = 'admin.roles.you-do-not-have-enough-permissions';
 
     /** @param array<int,string> $allowedRoles*/
     public function __construct(

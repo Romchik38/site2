@@ -15,13 +15,13 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    protected const LOGOUT_MESSAGE_KEY = 'logout.you-must-login-first';
+    private const LOGOUT_MESSAGE_KEY = 'logout.you-must-login-first';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly Site2SessionInterface $session
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly Site2SessionInterface $session
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

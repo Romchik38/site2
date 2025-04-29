@@ -15,13 +15,13 @@ use function strlen;
 final class Translates
 {
     public function __construct(
-        protected string $articleId,
-        protected string $language,
-        protected string $name,
-        protected string $shortDescription,
-        protected string $description,
-        protected DateTime $createdAt,
-        protected DateTime $updatedAt
+        private string $articleId,
+        private string $language,
+        private string $name,
+        private string $shortDescription,
+        private string $description,
+        private DateTime $createdAt,
+        private DateTime $updatedAt
     ) {
     }
 

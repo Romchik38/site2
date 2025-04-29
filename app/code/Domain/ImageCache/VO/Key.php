@@ -12,7 +12,7 @@ final class Key
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $key
+        private readonly string $key
     ) {
         if (strlen($key) === 0) {
             throw new InvalidArgumentException('param key is empty');

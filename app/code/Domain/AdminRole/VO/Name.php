@@ -16,7 +16,7 @@ final class Name
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $name
+        private readonly string $name
     ) {
         if (! in_array($name, self::ALLOWED_ROLES)) {
             throw new InvalidArgumentException(sprintf(

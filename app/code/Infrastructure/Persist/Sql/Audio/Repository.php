@@ -348,7 +348,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,Article>
      */
-    protected function createArticles(Id $id): array
+    private function createArticles(Id $id): array
     {
         $query  = $this->articlesQuery();
         $params = [$id()];
@@ -386,7 +386,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
-    protected function createLanguages(string $rawLanguages): array
+    private function createLanguages(string $rawLanguages): array
     {
         $decodedLanguages = json_decode($rawLanguages);
 
@@ -443,7 +443,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryDelete(): string
+    private function translatesSaveQueryDelete(): string
     {
         return <<<'QUERY'
         DELETE FROM audio_translates 
@@ -451,7 +451,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesAddQuery(): string
+    private function translatesAddQuery(): string
     {
         return <<<'QUERY'
         INSERT INTO audio_translates (audio_id, language, description, path)

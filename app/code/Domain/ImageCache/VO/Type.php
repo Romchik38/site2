@@ -11,11 +11,11 @@ use function sprintf;
 
 final class Type
 {
-    protected const ALLOWED_TYPES = ['webp'];
+    public const ALLOWED_TYPES = ['webp'];
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly string $type
+        private readonly string $type
     ) {
         if (in_array($type, self::ALLOWED_TYPES) === false) {
             throw new InvalidArgumentException(

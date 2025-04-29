@@ -128,7 +128,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,Translate>
      * */
-    protected function createTranslates(string $rawAudioId): array
+    private function createTranslates(string $rawAudioId): array
     {
         $translates = [];
 

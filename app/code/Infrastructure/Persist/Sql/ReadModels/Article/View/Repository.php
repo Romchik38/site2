@@ -24,10 +24,10 @@ use function sprintf;
 final class Repository implements RepositoryInterface
 {
     public function __construct(
-        protected readonly DatabaseSqlInterface $database,
-        protected readonly ArticleViewDTOFactory $factory,
-        protected readonly ImageDTOFactory $imageDtoFactory,
-        protected readonly AudioDTOFactory $audioDtoFactory
+        private readonly DatabaseSqlInterface $database,
+        private readonly ArticleViewDTOFactory $factory,
+        private readonly ImageDTOFactory $imageDtoFactory,
+        private readonly AudioDTOFactory $audioDtoFactory
     ) {
     }
 
@@ -119,7 +119,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @param array<string,string> $row */
-    protected function createFromRow(array $row): ArticleViewDTO
+    private function createFromRow(array $row): ArticleViewDTO
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -203,7 +203,7 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    protected function getByIdQuery(): string
+    private function getByIdQuery(): string
     {
         return <<<'QUERY'
         WITH categories AS

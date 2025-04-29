@@ -7,8 +7,8 @@ namespace Romchik38\Site2\Application\Article\View;
 final class Find
 {
     public function __construct(
-        protected readonly string $articleId,
-        protected readonly string $language
+        private readonly string $articleId,
+        private readonly string $language
     ) {
     }
 

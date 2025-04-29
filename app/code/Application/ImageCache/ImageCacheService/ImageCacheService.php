@@ -15,7 +15,7 @@ use Romchik38\Site2\Domain\ImageCache\VO\Type;
 final class ImageCacheService
 {
     public function __construct(
-        protected readonly RepositoryInterface $imageCacheRepository
+        private readonly RepositoryInterface $imageCacheRepository
     ) {
     }
 

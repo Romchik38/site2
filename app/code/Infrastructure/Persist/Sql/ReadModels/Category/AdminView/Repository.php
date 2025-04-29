@@ -133,7 +133,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,TranslateDto>
      * */
-    protected function createTranslates(CategoryId $id): array
+    private function createTranslates(CategoryId $id): array
     {
         $translates = [];
 

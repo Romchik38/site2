@@ -27,11 +27,11 @@ final class Pagination implements PaginationInterface
     public readonly string $offset;
 
     public function __construct(
-        protected string $limit,
-        protected string $page,
-        protected string $orderByField,
-        protected string $orderByDirection,
-        protected int $totalCount
+        private string $limit,
+        private string $page,
+        private string $orderByField,
+        private string $orderByDirection,
+        private int $totalCount
     ) {
         // Limit for now 15 or 30
         if ($limit === '') {

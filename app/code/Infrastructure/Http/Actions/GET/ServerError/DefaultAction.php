@@ -30,12 +30,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public const DEFAULT_VIEW_DESCRIPTION_KEY = 'server-error.description';
 
     public function __construct(
-        protected DynamicRootInterface $dynamicRootService,
-        protected TranslateInterface $translateService,
-        protected readonly ViewInterface $view,
-        protected readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory,
-        protected readonly string $outputFile = ''
+        DynamicRootInterface $dynamicRootService,
+        TranslateInterface $translateService,
+        private readonly ViewInterface $view,
+        private readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory,
+        private readonly string $outputFile = ''
     ) {
+        parent::__construct($dynamicRootService, $translateService);
     }
 
     public function execute(): ResponseInterface
@@ -65,7 +66,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
      * @throws RuntimeException - Problem to read the file.
      * @return string content of the server error file
      */
-    protected function getOutput(): string
+    private function getOutput(): string
     {
         if (file_exists($this->outputFile) === false) {
             throw new RuntimeException(

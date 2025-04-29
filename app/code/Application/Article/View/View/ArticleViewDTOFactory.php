@@ -12,13 +12,13 @@ use function sprintf;
 
 final class ArticleViewDTOFactory
 {
-    protected const DATE_FORMAT_DAY       = 'j';
-    protected const DATE_FORMAT_MONTH     = 'F';
-    protected const DATE_FORMAT_YEAR_TIME = 'y G:i';
+    private const DATE_FORMAT_DAY       = 'j';
+    private const DATE_FORMAT_MONTH     = 'F';
+    private const DATE_FORMAT_YEAR_TIME = 'y G:i';
 
     public function __construct(
-        protected readonly DateFormatterInterface $dateFormatter,
-        protected readonly TranslateInterface $translate
+        private readonly DateFormatterInterface $dateFormatter,
+        private readonly TranslateInterface $translate
     ) {
     }
 

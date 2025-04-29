@@ -19,7 +19,7 @@ use Romchik38\Site2\Application\Article\AdminList\VO\Page;
 final class AdminListService
 {
     public function __construct(
-        protected readonly RepositoryInterface $repository,
+        private readonly RepositoryInterface $repository,
     ) {
     }
 

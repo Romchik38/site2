@@ -11,10 +11,10 @@ use ValueError;
 use function base64_encode;
 use function random_bytes;
 
-class CsrfTokenGeneratorUseRandomBytes implements CsrfTokenGeneratorInterface
+final class CsrfTokenGeneratorUseRandomBytes implements CsrfTokenGeneratorInterface
 {
     public function __construct(
-        protected readonly int $length
+        private readonly int $length
     ) {
         if ($length <= 0) {
             throw new InvalidArgumentException('Length must be greater than 0');

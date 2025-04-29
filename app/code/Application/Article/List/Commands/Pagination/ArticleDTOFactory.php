@@ -12,12 +12,12 @@ use function round;
 
 final class ArticleDTOFactory
 {
-    protected const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
-    protected const int READING_SPEED         = 200;
+    private const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
+    private const int READING_SPEED         = 200;
 
     public function __construct(
-        protected readonly DateFormatterInterface $dateFormatter,
-        protected readonly ReadLengthFormatterInterface $readLengthFormatter
+        private readonly DateFormatterInterface $dateFormatter,
+        private readonly ReadLengthFormatterInterface $readLengthFormatter
     ) {
     }
 

@@ -14,8 +14,8 @@ final class Limit
     public const DEFAULT_LIMIT  = 60;
     public const ALLOWED_LIMITS = [15, 30, 60];
 
-    protected function __construct(
-        protected readonly int $limit
+    private function __construct(
+        private readonly int $limit
     ) {
     }
 

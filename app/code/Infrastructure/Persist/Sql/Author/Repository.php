@@ -133,7 +133,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @throws CouldNotSaveException */
-    protected function add(Author $model): Author
+    private function add(Author $model): Author
     {
         $authorName = $model->getName();
         if ($model->isActive()) {
@@ -190,7 +190,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @param array<string,string> $row */
-    protected function createFromRow(array $row): Author
+    private function createFromRow(array $row): Author
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -256,7 +256,7 @@ final class Repository implements RepositoryInterface
     }
 
     /** @return array<int,Translate> */
-    protected function createTranslates(string $authorId): array
+    private function createTranslates(string $authorId): array
     {
         $translates = [];
 
@@ -290,7 +290,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawImages - Json encoded array of strings
      * @return array<int,ImageId>
      */
-    protected function prepareRawImages(string $rawImages): array
+    private function prepareRawImages(string $rawImages): array
     {
         $decodedImages = json_decode($rawImages);
 
@@ -309,7 +309,7 @@ final class Repository implements RepositoryInterface
          * @param string $rawArticles - Json encoded array of strings
          * @return array<int,ArticleId>
          */
-    protected function prepareRawArticles(string $rawArticles): array
+    private function prepareRawArticles(string $rawArticles): array
     {
         $decodedArticles = json_decode($rawArticles);
 
@@ -328,7 +328,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
-    protected function prepareRawLanguages(string $rawLanguages): array
+    private function prepareRawLanguages(string $rawLanguages): array
     {
         $decodedLanguages = json_decode($rawLanguages);
 
@@ -343,7 +343,7 @@ final class Repository implements RepositoryInterface
         return $data;
     }
 
-    protected function defaultSelectQuery(): string
+    private function defaultSelectQuery(): string
     {
         return <<<'QUERY'
         SELECT author.identifier,
@@ -371,7 +371,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesQuery(): string
+    private function translatesQuery(): string
     {
         return <<<'QUERY'
         SELECT author_translates.language,
@@ -381,7 +381,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function mainSaveQuery(): string
+    private function mainSaveQuery(): string
     {
         return <<<'QUERY'
         UPDATE author 
@@ -390,7 +390,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryDelete(): string
+    private function translatesSaveQueryDelete(): string
     {
         return <<<'QUERY'
         DELETE FROM author_translates 
@@ -398,7 +398,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function translatesSaveQueryInsert(): string
+    private function translatesSaveQueryInsert(): string
     {
         return <<<'QUERY'
         INSERT INTO author_translates (author_id, language, description)
@@ -406,7 +406,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function mainAddQuery(): string
+    private function mainAddQuery(): string
     {
         return <<<'QUERY'
         INSERT INTO author (name, active)
@@ -415,7 +415,7 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    protected function mainDeleteQuery(): string
+    private function mainDeleteQuery(): string
     {
         return <<<'QUERY'
         DELETE FROM author 

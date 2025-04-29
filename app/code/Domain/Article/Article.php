@@ -19,10 +19,10 @@ final class Article
      * @param array<string|int,Category> $categories
      */
     public function __construct(
-        protected ArticleId $articleId,
-        protected bool $active,
-        protected readonly array $translates = [],
-        protected readonly array $categories = []
+        private ArticleId $articleId,
+        private bool $active,
+        private readonly array $translates = [],
+        private readonly array $categories = []
     ) {
     }
 

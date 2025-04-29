@@ -320,7 +320,7 @@ final class Repository implements RepositoryInterface
      * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
-    protected function createLanguages(string $rawLanguages): array
+    private function createLanguages(string $rawLanguages): array
     {
         $decodedLanguages = json_decode($rawLanguages);
 
@@ -335,7 +335,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,Translate>
      * */
-    protected function createTranslates(Identifier $id): array
+    private function createTranslates(Identifier $id): array
     {
         $translates = [];
 

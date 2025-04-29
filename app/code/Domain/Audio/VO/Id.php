@@ -12,7 +12,7 @@ final class Id
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        protected readonly int $id
+        private readonly int $id
     ) {
         if ($id <= 0) {
             throw new InvalidArgumentException('param audio id must be greater than 0');

@@ -20,7 +20,7 @@ use function sprintf;
 final class AdminUserService
 {
     public function __construct(
-        protected readonly RepositoryInterface $adminUserRepository
+        private readonly RepositoryInterface $adminUserRepository
     ) {
     }
 

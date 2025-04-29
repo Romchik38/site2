@@ -28,11 +28,11 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    public const string SUCCESS_DELETE_KEY            = 'admin.data-was-deleted-successfully';
-    public const string COULD_NOT_DELETE_KEY          = 'admin.data-could-not-delete';
-    public const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
-    public const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
+    private const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
+    private const string SUCCESS_DELETE_KEY            = 'admin.data-was-deleted-successfully';
+    private const string COULD_NOT_DELETE_KEY          = 'admin.data-could-not-delete';
+    private const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
+    private const string AUTHOR_NOT_EXIST_KEY          = 'admin.author-with-id-not-exist';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -40,8 +40,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ServerRequestInterface $request,
         private readonly AuthorService $authorService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly LoggerServerInterface $logger
+        private readonly Site2SessionInterface $session,
+        private readonly LoggerServerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

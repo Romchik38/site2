@@ -19,8 +19,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        protected readonly Site2SessionInterface $session,
-        protected readonly ViewInterface $view
+        private readonly Site2SessionInterface $session,
+        private readonly ViewInterface $view
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
