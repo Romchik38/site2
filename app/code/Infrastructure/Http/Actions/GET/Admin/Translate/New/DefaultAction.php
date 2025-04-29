@@ -15,7 +15,7 @@ use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Application\Translate\TranslateService\Update;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 

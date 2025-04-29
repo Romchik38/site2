@@ -15,7 +15,7 @@ use Romchik38\Site2\Domain\User\VO\Email;
 use Romchik38\Site2\Domain\User\VO\Password;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {

@@ -18,8 +18,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory',
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
-            new Promise('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter')
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\DateFormatterUsesDateFormat'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\ReadLengthFormatter')
         ]
     );
     $container->shared('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory', [
@@ -35,7 +35,7 @@ return function (Container $container) {
     );
 
     $container->shared('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory', [
-        new Promise('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat'),
+        new Promise('\Romchik38\Site2\Infrastructure\Utils\DateFormatterUsesDateFormat'),
         new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
     ]);
     

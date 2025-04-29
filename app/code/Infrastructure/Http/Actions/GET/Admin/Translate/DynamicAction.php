@@ -25,7 +25,7 @@ use Romchik38\Site2\Application\Translate\View\ViewService;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 use function urldecode;

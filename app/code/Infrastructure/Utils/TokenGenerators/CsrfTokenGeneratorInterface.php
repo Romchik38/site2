@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Services\TokenGenerators;
+namespace Romchik38\Site2\Infrastructure\Utils\TokenGenerators;
 
 interface CsrfTokenGeneratorInterface
 {

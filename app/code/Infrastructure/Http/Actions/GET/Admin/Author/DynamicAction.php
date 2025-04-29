@@ -20,7 +20,7 @@ use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 

@@ -34,16 +34,16 @@ return function (Container $container) {
     ]);
 
     // DateFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Services\DateFormatterUsesDateFormat', []);
+    $container->shared('\Romchik38\Site2\Infrastructure\Utils\DateFormatterUsesDateFormat', []);
     // ReadLengthFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Services\ReadLengthFormatter', [
+    $container->shared('\Romchik38\Site2\Infrastructure\Utils\ReadLengthFormatter', [
         new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
     ]);
 
     // CSRF TOKEN GENERATOR
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',
-        '\Romchik38\Site2\Infrastructure\Services\TokenGenerators\CsrfTokenGeneratorInterface',
+        '\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',
+        '\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface',
         true,
         [32]
     );
