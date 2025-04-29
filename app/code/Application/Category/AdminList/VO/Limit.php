@@ -12,7 +12,7 @@ use function sprintf;
 final class Limit
 {
     public const DEFAULT_LIMIT  = 30;
-    public const ALLOWED_LIMITS = [15, 30, 60];
+    public const ALLOWED_LIMITS = [5, 15, 30, 60];
 
     private function __construct(
         private readonly int $limit
