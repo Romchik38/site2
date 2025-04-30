@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Server\Models\Sql\SearchCriteria;
 
 use InvalidArgumentException;
-use Romchik38\Server\Api\Models\SearchCriteria\OrderByInterface;
 
-/** @api */
 class OrderBy implements OrderByInterface
 {
 
