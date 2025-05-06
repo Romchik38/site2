@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
-use Romchik38\Server\Controllers\Path;
+use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 return function (Container $container): void {

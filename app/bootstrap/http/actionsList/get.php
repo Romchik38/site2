@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
-use Romchik38\Server\Api\Controllers\ControllerInterface;
-use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
-use Romchik38\Server\Controllers\Controller;
+use Romchik38\Server\Http\Controller\ControllerInterface;
+use Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTreeInterface;
+use Romchik38\Server\Http\Controller\Controller;
 
 return function (Container $container): ControllerInterface {
     /** API */
@@ -201,7 +201,7 @@ return function (Container $container): ControllerInterface {
     
     /** ROOT */
     $root = new Controller(
-        ControllerTreeInterface::ROOT_NAME,
+        ControllerInterface::ROOT_NAME,
         true,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction'),

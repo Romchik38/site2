@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Tests\Unit\Infrastructure\Views\Html\Classes;
 
 use PHPUnit\Framework\TestCase;
-use Romchik38\Server\Controllers\Controller;
+use Romchik38\Server\Http\Controller\Controller;
 use Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTree;
 use Romchik38\Server\Http\Controller\Mappers\LinkTree\LinkTree;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\SitemapLinkTreeToHtml;

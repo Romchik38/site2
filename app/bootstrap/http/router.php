@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
-use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
+use Romchik38\Server\Http\Routers\HttpRouterInterface;
 
 return function (Container $container) {
 
     // CONTROLLERS COLLECTION
     $container->multi(
-        '\Romchik38\Server\Routers\Http\ControllersCollection',
-        '\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface',
+        '\Romchik38\Server\Http\Controller\ControllersCollection',
+        '\Romchik38\Server\Http\Controller\ControllersCollectionInterface',
         true,
         []
     );
 
     // ROUTER NOT FOUND CONTROLLER
     $container->multi(
-        '\Romchik38\Server\Controllers\Controller',
+        '\Romchik38\Server\Http\Controller\Controller',
         HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME,
         true,
         [
@@ -33,14 +33,14 @@ return function (Container $container) {
 
     // ROUTER
     $container->multi(
-        '\Romchik38\Server\Routers\Http\DynamicRootRouter',
-        '\Romchik38\Server\Api\Routers\Http\HttpRouterInterface',
+        '\Romchik38\Server\Http\Routers\DynamicRootRouter',
+        '\Romchik38\Server\Http\Routers\HttpRouterInterface',
         true,
         [
             new Promise('\Laminas\Diactoros\ResponseFactory'),
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface'),
+            new Promise('\Romchik38\Server\Http\Controller\ControllersCollectionInterface'),
             new Promise(HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME),
             null
         ]

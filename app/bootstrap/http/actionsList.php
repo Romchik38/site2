@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
-use Romchik38\Server\Api\Routers\Http\HttpRouterInterface;
+use Romchik38\Server\Http\Routers\HttpRouterInterface;
 
 return function (Container $container) {
-    /** @var Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface $collection*/
-    $collection = $container->get('\Romchik38\Server\Api\Routers\Http\ControllersCollectionInterface');
+    /** @var Romchik38\Server\Http\Controller\ControllersCollectionInterface $collection*/
+    $collection = $container->get('\Romchik38\Server\Http\Controller\ControllersCollectionInterface');
 
     (include_once(__DIR__ . '/actionsList/request_middlewares.php'))($container);
     $rootGet = (include_once(__DIR__ . '/actionsList/get.php'))($container);

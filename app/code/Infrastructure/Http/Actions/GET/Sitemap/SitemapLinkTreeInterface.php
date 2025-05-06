@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap;
 
-use Romchik38\Server\Api\Controllers\ControllerInterface;
+use Romchik38\Server\Http\Controller\ControllerInterface;
 
 /**
  * Converts controller tree to output format

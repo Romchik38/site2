@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
-use Romchik38\Server\Api\Controllers\ControllerInterface;
-use Romchik38\Server\Api\Services\Mappers\ControllerTreeInterface;
-use Romchik38\Server\Controllers\Controller;
+use Romchik38\Server\Http\Controller\ControllerInterface;
+use Romchik38\Server\Http\Controller\Controller;
 
 return function (Container $container): ControllerInterface {
     /** POST */
-    $root = new Controller(ControllerTreeInterface::ROOT_NAME);
+    $root = new Controller(ControllerInterface::ROOT_NAME);
 
     // Auth
     $auth = new Controller(
