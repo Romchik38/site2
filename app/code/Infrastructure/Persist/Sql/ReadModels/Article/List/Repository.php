@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory;

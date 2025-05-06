@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminLis
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminList\Exceptions\RepositoryException;

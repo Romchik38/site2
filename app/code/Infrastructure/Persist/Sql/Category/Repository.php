@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Category;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\DatabaseTransactionException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;

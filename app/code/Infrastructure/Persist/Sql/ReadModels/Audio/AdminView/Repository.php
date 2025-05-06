@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminView;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Audio\AdminView\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface;

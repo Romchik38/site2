@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\AdminUser;
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface;

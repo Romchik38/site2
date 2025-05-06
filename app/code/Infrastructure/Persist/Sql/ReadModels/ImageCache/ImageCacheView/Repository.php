@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\ImageCache\Image
 
 use InvalidArgumentException;
 use Romchik38\Server\Models\Errors\QueryException;
-use Romchik38\Server\Models\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\ImageCache\View\Commands\Find\ViewDTO;
 use Romchik38\Site2\Application\ImageCache\View\Exceptions\NoSuchImageCacheException;
 use Romchik38\Site2\Application\ImageCache\View\Exceptions\RepositoryException;
