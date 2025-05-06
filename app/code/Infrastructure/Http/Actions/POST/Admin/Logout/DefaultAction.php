@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Logout;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
+use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;

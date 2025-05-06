@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction;
 
-use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Image\AdminView\View\Dto as ImageDto;
 use Romchik38\Site2\Application\Image\AdminView\View\MetadataDto;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;

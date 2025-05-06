@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
+use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;

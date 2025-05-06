@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
-use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;

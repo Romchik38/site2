@@ -7,8 +7,8 @@ namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
-use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
+use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
+use Psr\Log\LoggerInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
@@ -29,7 +29,7 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminUserService $adminUserService,
         private readonly TranslateInterface $translate,
-        private readonly LoggerServerInterface $logger
+        private readonly LoggerInterface $logger
     ) {
     }
 

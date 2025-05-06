@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage;
 
-use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
-use Romchik38\Server\Services\Translate\NoSuchTranslateException;
-use Romchik38\Server\Services\Translate\TranslateEntityDTO;
-use Romchik38\Server\Services\Translate\TranslateEntityDTOInterface;
-use Romchik38\Server\Services\Translate\TranslateStorageException;
+use Romchik38\Server\Utils\Translate\NoSuchTranslateException;
+use Romchik38\Server\Utils\Translate\TranslateEntityDTO;
+use Romchik38\Server\Utils\Translate\TranslateEntityDTOInterface;
+use Romchik38\Server\Utils\Translate\TranslateStorageException;
 use Romchik38\Server\Utils\Translate\TranslateStorageInterface;
 
 use function count;

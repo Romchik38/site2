@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Services\Session;
 
-use Romchik38\Server\Api\Services\SessionInterface;
+use Romchik38\Server\Http\Utils\Session\SessionInterface;
 
 interface Site2SessionInterface extends SessionInterface
 {

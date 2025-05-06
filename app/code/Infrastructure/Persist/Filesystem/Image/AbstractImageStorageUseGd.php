@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Filesystem\Image;
 
 use GdImage;
 use InvalidArgumentException;
-use Romchik38\Server\Services\Streams\TempStream;
+use Romchik38\Server\Utils\Streams\TempStream;
 use RuntimeException;
 
 use function extension_loaded;

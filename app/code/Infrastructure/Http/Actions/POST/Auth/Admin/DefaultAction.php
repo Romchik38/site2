@@ -8,9 +8,9 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
-use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
+use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Psr\Log\LoggerInterface;
+use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
@@ -42,7 +42,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminUserService $adminUserCheck,
         private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly LoggerServerInterface $logger
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

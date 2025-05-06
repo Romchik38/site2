@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html\Classes;
 
 use Romchik38\Server\Http\Controller\ControllerInterface;
-use Romchik38\Server\Api\Models\DTO\Http\LinkTree\LinkTreeDTOInterface;
+use Romchik38\Server\Http\Controller\Mappers\LinkTree\LinkTreeDTOInterface;
 use Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTreeInterface;
 use Romchik38\Server\Http\Controller\Mappers\LinkTree\LinkTreeInterface;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\SitemapLinkTreeInterface;

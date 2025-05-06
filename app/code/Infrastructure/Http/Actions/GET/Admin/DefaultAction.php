@@ -6,9 +6,9 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Controllers\Actions\AbstractAction;
+use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Views\ViewInterface;
+use Romchik38\Server\Http\Controller\Actions\AbstractAction;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction\ViewDTO;
 
 final class DefaultAction extends AbstractAction implements DefaultActionInterface

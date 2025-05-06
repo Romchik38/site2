@@ -19,5 +19,8 @@ if ($expectedTimezone !== ini_get('date.timezone')) {
 }
 
 /** run app */
-$server = $container->get('\Romchik38\Server\Api\Servers\Http\HttpServerInterface');
-$server->run()->log();
+$server = $container->get('\Romchik38\Server\Http\Servers\HttpServerInterface');
+$server->run();
+
+/** @todo do log with deffered logger */
+// logger->sendAllLogs()

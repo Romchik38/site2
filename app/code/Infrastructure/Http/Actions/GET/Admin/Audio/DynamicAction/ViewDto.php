@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction;
 
-use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Audio\AdminView\View\AudioDto;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 

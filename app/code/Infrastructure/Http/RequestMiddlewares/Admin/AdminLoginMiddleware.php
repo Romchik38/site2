@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Api\Controllers\Middleware\RequestMiddlewareInterface;
+use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;

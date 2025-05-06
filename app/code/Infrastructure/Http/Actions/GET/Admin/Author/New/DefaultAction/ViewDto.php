@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\New\DefaultAction;
 
-use Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTO;
+use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO

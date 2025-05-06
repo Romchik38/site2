@@ -7,10 +7,10 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
-use Romchik38\Server\Api\Views\ViewInterface;
-use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
+use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Psr\Log\LoggerInterface;
+use Romchik38\Server\Http\Views\ViewInterface;
+use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
@@ -36,7 +36,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListService $languageService,
-        private readonly LoggerServerInterface $logger,
+        private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminViewService $adminViewService
     ) {

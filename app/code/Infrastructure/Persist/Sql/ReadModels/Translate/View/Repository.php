@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Translate\View;
 
 use InvalidArgumentException;
-use Romchik38\Server\Models\Errors\QueryException;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Translate\View\Exceptions\NoSuchTranslateException;
 use Romchik38\Site2\Application\Translate\View\Exceptions\RepositoryException;

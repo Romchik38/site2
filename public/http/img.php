@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Romchik38\Server\Api\Services\Request\Http\ServerRequestInterface;
 use Romchik38\Server\Models\Errors\NoSuchEntityException;
 use Romchik38\Site2\Application\Image\ImgConverter\CouldNotCreateImageException;
 use Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService;
