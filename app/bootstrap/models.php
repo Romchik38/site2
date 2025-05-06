@@ -8,7 +8,7 @@ return function (Container $container) {
     
     // MODEL FACTORIES
     $container->multi(
-        '\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory',
+        '\Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactory',
         '\Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface',
         true,
         []
