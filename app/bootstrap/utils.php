@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
-use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 
 return function (Container $container) {
     // LOGGER
     $container->multi(
         '\Romchik38\Server\Services\Logger\Loggers\FileLogger',
-        '\Romchik38\Server\Api\Services\LoggerServerInterface',
+        '\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface',
         true,
         [
             __DIR__ . '/../var/file.log',
@@ -21,7 +21,7 @@ return function (Container $container) {
     // URLBUILDER
     $container->multi(
         '\Romchik38\Server\Services\Urlbuilder\Urlbuilder',
-        '\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface',
+        '\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface',
         true,
         [
             new Promise('\Psr\Http\Message\ServerRequestInterface'),
@@ -30,14 +30,14 @@ return function (Container $container) {
     );
 
     $container->shared('\Romchik38\Server\Services\Urlbuilder\DynamicTarget', [
-        new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+        new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
     ]);
 
     // DateFormatter
     $container->shared('\Romchik38\Site2\Infrastructure\Utils\DateFormatterUsesDateFormat', []);
     // ReadLengthFormatter
     $container->shared('\Romchik38\Site2\Infrastructure\Utils\ReadLengthFormatter', [
-        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+        new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
     ]);
 
     // CSRF TOKEN GENERATOR
@@ -53,7 +53,7 @@ return function (Container $container) {
         '\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb',
         [
             new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
-            new promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
         ]
     );
 
@@ -66,7 +66,7 @@ return function (Container $container) {
         '\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
         ]
     );
 
@@ -92,7 +92,7 @@ return function (Container $container) {
 
     $container->multi(
         '\Romchik38\Server\Services\DynamicRoot\DynamicRoot',
-        '\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface',
+        '\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface',
         true,
         [
             new Promise(DynamicRootInterface::DEFAULT_ROOT_FIELD),
@@ -103,12 +103,12 @@ return function (Container $container) {
     // TRANSLATE
     $container->multi(
         '\Romchik38\Server\Services\Translate\TranslateUseDynamicRoot',
-        '\Romchik38\Server\Services\Translate\TranslateInterface',
+        '\Romchik38\Server\Utils\Translate\TranslateInterface',
         true,
         [
             new Promise('\Romchik38\Server\Services\Translate\TranslateStorageInterface'),
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
 

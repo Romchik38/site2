@@ -10,8 +10,8 @@ use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
 use Romchik38\Server\Api\Models\DTO\Api\ApiDTOInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Models\DTO\Api\ApiDTO;
-use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Services\Translate\TranslateInterface;
+use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface

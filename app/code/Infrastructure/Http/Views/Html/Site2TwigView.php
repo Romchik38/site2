@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
-use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb;
-use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Twig\Environment;
 

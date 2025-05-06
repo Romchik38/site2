@@ -36,7 +36,7 @@ return function (Container $container) {
 
     $container->shared('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory', [
         new Promise('\Romchik38\Site2\Infrastructure\Utils\DateFormatterUsesDateFormat'),
-        new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
+        new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
     ]);
     
     $container->shared('\Romchik38\Site2\Application\Article\View\View\ImageDTOFactory', [

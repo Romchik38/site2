@@ -15,10 +15,10 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView',
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             'base.twig'
         ]
@@ -31,10 +31,10 @@ return function (Container $container) {
         true,
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Services\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Services\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Services\Mappers\Breadcrumb\Http\Breadcrumb'),
-            new Promise('\Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             'base_admin.twig'
         ]

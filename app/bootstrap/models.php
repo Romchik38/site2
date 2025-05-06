@@ -9,7 +9,7 @@ return function (Container $container) {
     // MODEL FACTORIES
     $container->multi(
         '\Romchik38\Server\Models\DTO\DefaultView\DefaultViewDTOFactory',
-        '\Romchik38\Server\Api\Models\DTO\DefaultView\DefaultViewDTOFactoryInterface',
+        '\Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface',
         true,
         []
     );

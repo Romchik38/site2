@@ -14,7 +14,7 @@ use Romchik38\Site2\Application\ImageCache\View\Exceptions\NoSuchImageCacheExcep
 use Romchik38\Site2\Application\ImageCache\View\Exceptions\RepositoryException as CacheRepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Cache;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\CouldNotSaveException;
-use Romchik38\Server\Api\Services\LoggerServerInterface;
+use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
@@ -28,7 +28,7 @@ try {
     /** @var ViewService $imgCacheViewService */
     $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\View\ViewService');
     /** @var LoggerServerInterface $logger */
-    $logger = $container->get('\Romchik38\Server\Api\Services\LoggerServerInterface');
+    $logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';

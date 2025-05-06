@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clea
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Romchik38\Server\Api\Controllers\Actions\DefaultActionInterface;
-use Romchik38\Server\Api\Services\LoggerServerInterface;
+use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
 use Romchik38\Server\Controllers\Actions\AbstractMultiLanguageAction;
-use Romchik38\Server\Services\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Services\Translate\TranslateInterface;
-use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;

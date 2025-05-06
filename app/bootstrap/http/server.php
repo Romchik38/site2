@@ -25,7 +25,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Api\Routers\Http\HttpRouterInterface'),
             new Promise(ServerInterface::SERVER_ERROR_CONTROLLER_NAME),
-            new Promise('\Romchik38\Server\Api\Services\LoggerServerInterface')
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]
     );
 

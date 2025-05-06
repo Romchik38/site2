@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html\Classes;
 
 use Romchik38\Server\Controllers\PathInterface;
-use Romchik38\Server\Services\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\UrlGeneratorInterface;
 
 final class UrlGeneratorUseUrlBuilder implements UrlGeneratorInterface
