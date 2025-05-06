@@ -10,7 +10,7 @@ use Romchik38\Server\Services\Translate\NoSuchTranslateException;
 use Romchik38\Server\Services\Translate\TranslateEntityDTO;
 use Romchik38\Server\Services\Translate\TranslateEntityDTOInterface;
 use Romchik38\Server\Services\Translate\TranslateStorageException;
-use Romchik38\Server\Services\Translate\TranslateStorageInterface;
+use Romchik38\Server\Utils\Translate\TranslateStorageInterface;
 
 use function count;
 use function sprintf;

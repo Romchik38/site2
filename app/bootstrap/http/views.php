@@ -46,8 +46,8 @@ return function (Container $container) {
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\SitemapLinkTreeInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Services\Mappers\ControllerTree\ControllerTree'),
-            new Promise('\Romchik38\Server\Api\Services\Mappers\LinkTree\Http\LinkTreeInterface')
+            new Promise('\Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTree'),
+            new Promise('\Romchik38\Server\Http\Controller\Mappers\LinkTree\LinkTreeInterface')
         ]
     );
 
