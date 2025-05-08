@@ -49,7 +49,7 @@ See docs in [doc folder](./doc/)
 - phpstan level 8
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`[OK] No errors`  
 - phpunit
-  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (6 tests, 8 assertions)`
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (77 tests, 134 assertions)`
   - tested partially
 - laminas-coding-standard
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`65 / 65 (100%)`
