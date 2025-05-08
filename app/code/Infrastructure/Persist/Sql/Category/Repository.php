@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Category;
 
 use InvalidArgumentException;
-use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\CategoryService\RepositoryInterface;

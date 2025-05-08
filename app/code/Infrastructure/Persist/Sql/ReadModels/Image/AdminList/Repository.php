@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList;
 
-use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
+use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryException;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\SearchCriteria;

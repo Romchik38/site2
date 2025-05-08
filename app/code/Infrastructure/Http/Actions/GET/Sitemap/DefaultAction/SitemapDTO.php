@@ -19,10 +19,9 @@ final class SitemapDTO extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        string $output
+        private string $output
     ) {
         parent::__construct($name, $description);
-        $this->data[$this::OUTPUT_FIELD] = $output;
     }
 
     /**
@@ -30,6 +29,6 @@ final class SitemapDTO extends DefaultViewDTO
      */
     public function getOutput(): string
     {
-        return $this->data[$this::OUTPUT_FIELD];
+        return $this->output;
     }
 }

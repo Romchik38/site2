@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ImageCache;
 
-use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\RepositoryInterface;
 use Romchik38\Site2\Domain\ImageCache\ImageCache;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage;
 
-use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Utils\Translate\NoSuchTranslateException;
 use Romchik38\Server\Utils\Translate\TranslateEntityDTO;
 use Romchik38\Server\Utils\Translate\TranslateEntityDTOInterface;

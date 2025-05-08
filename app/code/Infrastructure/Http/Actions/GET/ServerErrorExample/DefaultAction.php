@@ -6,8 +6,8 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
+use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 
 /** Tries to show nice answer */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface

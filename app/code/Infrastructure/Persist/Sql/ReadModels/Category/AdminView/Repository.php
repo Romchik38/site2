@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\AdminView;
 
 use InvalidArgumentException;
-use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Category\AdminView\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Category\AdminView\RepositoryInterface;
