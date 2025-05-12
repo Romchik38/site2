@@ -42,9 +42,13 @@ final class ImgViewRepository implements ImgViewRepositoryInterface
             if ($rawId === null) {
                 throw new RepositoryException('image identifier is invalid');
             }
+            $rawPath = $row['path'] ?? null;
+            if ($rawPath === null) {
+                throw new RepositoryException('image path is invalid');
+            }
             return new ImgView(
-                new Id((int) $rawId),
-                new Path($row['path'])
+                Id::fromString($rawId),
+                new Path($rawPath)
             );
         } elseif ($count === 0) {
             throw new NoSuchEntityException(

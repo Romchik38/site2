@@ -240,7 +240,7 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(Identifier $id, array $row): Category
     {
         $rawActive = $row['active'] ?? null;

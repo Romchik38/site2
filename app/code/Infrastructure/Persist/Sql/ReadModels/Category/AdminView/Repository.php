@@ -61,7 +61,7 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($id, $row);
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(CategoryId $id, array $row): CategoryDto
     {
         $rawActive = $row['active'] ?? null;

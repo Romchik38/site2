@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView;
 
 use InvalidArgumentException;
-use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
+use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\AdminList\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminList\RepositoryInterface;
@@ -89,7 +89,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      * */
     private function createFromRow(array $row): ArticleDto
     {

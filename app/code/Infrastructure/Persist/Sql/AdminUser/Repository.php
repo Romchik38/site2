@@ -58,7 +58,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      */
     private function createFromRow(array $row, Username $username): AdminUser
     {

@@ -60,7 +60,7 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($rawAudio);
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(array $row): AudioDto
     {
         $rawIdentifier = $row['identifier'] ?? null;

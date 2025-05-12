@@ -118,7 +118,7 @@ final class Repository implements RepositoryInterface
         return $dtos;
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(array $row): ArticleViewDTO
     {
         $rawIdentifier = $row['identifier'] ?? null;

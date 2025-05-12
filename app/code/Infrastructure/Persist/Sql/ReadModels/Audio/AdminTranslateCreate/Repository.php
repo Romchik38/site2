@@ -72,7 +72,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws InvalidArgumentException
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      * */
     private function createFromRow(
         AudioId $audioId,

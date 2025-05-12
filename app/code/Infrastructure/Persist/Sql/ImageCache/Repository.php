@@ -43,10 +43,12 @@ final class Repository implements RepositoryInterface
         } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
+        $rawCount = $rows[0]['count'];
+        if ($rawCount === null) {
+            throw new RepositoryException('Param image cache count is invalid');
+        }
 
-        $result = $rows[0]['count'];
-
-        return (int) $result;
+        return (int) $rawCount;
     }
 
     public function totalSize(): int
@@ -57,9 +59,12 @@ final class Repository implements RepositoryInterface
         } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
-        $result = $rows[0]['pg_total_relation_size'];
+        $rawSize = $rows[0]['pg_total_relation_size'];
+        if ($rawSize === null) {
+            throw new RepositoryException('Param image cache total relation size is invalid');
+        }
 
-        return (int) $result;
+        return (int) $rawSize;
     }
 
     public function totalPrettySize(): string
@@ -70,7 +75,13 @@ final class Repository implements RepositoryInterface
         } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
-        return $rows[0]['pg_size_pretty'];
+
+        $rawSize = $rows[0]['pg_size_pretty'];
+        if ($rawSize === null) {
+            throw new RepositoryException('Param image cache size pretty is invalid');
+        }
+
+        return $rawSize;
     }
 
     public function deleteAll(): void

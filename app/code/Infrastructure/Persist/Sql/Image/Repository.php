@@ -246,7 +246,7 @@ final class Repository implements ImageRepositoryInterface
     }
 
     /**
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      * @throws InvalidArgumentException
      * @throws RepositoryException
      * */
@@ -398,7 +398,7 @@ final class Repository implements ImageRepositoryInterface
     }
 
     /**
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      * @throws RepositoryException
      * */
     private function createAuthor(array $row): Author

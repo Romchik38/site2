@@ -189,7 +189,7 @@ final class Repository implements RepositoryInterface
         return $this->getById(new AuthorId($rawAuthorId));
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(array $row): Author
     {
         $rawIdentifier = $row['identifier'] ?? null;

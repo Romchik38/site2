@@ -59,7 +59,7 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($firstRow);
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(array $row): AuthorDto
     {
         $rawIdentifier = $row['identifier'] ?? null;

@@ -264,7 +264,7 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @param array<string,string> $row
+     * @param array<string,string|null> $row
      * @throws InvalidArgumentException
      * @throws RepositoryException
      * */

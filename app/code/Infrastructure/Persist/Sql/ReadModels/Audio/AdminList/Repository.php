@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Audio\AdminList;
 
-use Romchik38\Server\Models\Sql\SearchCriteria\OrderBy;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Audio\AdminList\RepositoryException;
 use Romchik38\Site2\Application\Audio\AdminList\RepositoryInterface;
 use Romchik38\Site2\Application\Audio\AdminList\SearchCriteria;
@@ -62,7 +62,7 @@ final class Repository implements RepositoryInterface
         return $models;
     }
 
-    /** @param array<string,string> $row */
+    /** @param array<string,string|null> $row */
     private function createFromRow(array $row): AudioDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
