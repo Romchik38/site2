@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2550a92535b9a29c29474d8f31b39a74",
+    "content-hash": "b321c058202c78a61fc59d6f18132c95",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -256,6 +256,62 @@
             "time": "2023-04-04T09:54:51+00:00"
         },
         {
+            "name": "psr/http-server-handler",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-server-handler.git",
+                "reference": "84c4fb66179be4caaf8e97bd239203245302e7d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-server-handler/zipball/84c4fb66179be4caaf8e97bd239203245302e7d4",
+                "reference": "84c4fb66179be4caaf8e97bd239203245302e7d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Server\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP server-side request handler",
+            "keywords": [
+                "handler",
+                "http",
+                "http-interop",
+                "psr",
+                "psr-15",
+                "psr-7",
+                "request",
+                "response",
+                "server"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-server-handler/tree/1.0.2"
+            },
+            "time": "2023-04-10T20:06:20+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "3.0.2",
             "source": {
@@ -370,22 +426,23 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.19.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "e43977e340e5efec3cb7d2aa042c956612ca7f08"
+                "reference": "ef5b189ce2e08a75b7e2174cb2c22f0e30f14e02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/e43977e340e5efec3cb7d2aa042c956612ca7f08",
-                "reference": "e43977e340e5efec3cb7d2aa042c956612ca7f08",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/ef5b189ce2e08a75b7e2174cb2c22f0e30f14e02",
+                "reference": "ef5b189ce2e08a75b7e2174cb2c22f0e30f14e02",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.3",
                 "psr/http-factory": "^1.1",
                 "psr/http-message": "2.0",
+                "psr/http-server-handler": "^1.0",
                 "psr/log": "^3.0"
             },
             "require-dev": {
@@ -425,10 +482,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.19.1",
+                "source": "https://github.com/Romchik38/server/tree/v1.20.0",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-05-11T10:22:01+00:00"
+            "time": "2025-05-14T09:20:35+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
