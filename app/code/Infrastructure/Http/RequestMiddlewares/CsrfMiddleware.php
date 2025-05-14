@@ -23,7 +23,6 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
     private const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
 
     public function __construct(
-        private readonly ServerRequestInterface $request,
         private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly TranslateInterface $translate,
@@ -35,11 +34,11 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         }
     }
 
-    public function __invoke(): ?ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ?ResponseInterface
     {
         $urlLogin = $this->urlbuilder->fromPath($this->redirectPath);
 
-        $requestData = $this->request->getParsedBody();
+        $requestData = $request->getParsedBody();
         if (gettype($requestData) !== 'array') {
             throw new RuntimeException('Incoming data is invalid');
         }

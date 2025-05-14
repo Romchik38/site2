@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
@@ -33,7 +34,7 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
     ) {
     }
 
-    public function __invoke(): ?ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ?ResponseInterface
     {
         $urlRoot  = $this->urlbuilder->fromArray(['root']);
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);

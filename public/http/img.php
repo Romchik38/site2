@@ -19,7 +19,13 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 
 try {
     $container = (require_once(__DIR__ . '/../../app/bootstrap_img.php'))();
-    $request = $container->get('\Psr\Http\Message\ServerRequestInterface');
+    $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+        $_SERVER,
+        $_GET,
+        $_POST,
+        $_COOKIE,
+        $_FILES
+    );
     /** @var ImgConverterService $imgConverterService */
     $imgConverterService = $container->get('\Romchik38\Site2\Application\Image\ImgConverter\ImgConverterService');
     /** @var ImageCacheService $imgCacheService */

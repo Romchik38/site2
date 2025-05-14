@@ -18,11 +18,13 @@ if ($expectedTimezone !== ini_get('date.timezone')) {
     exit(1);
 }
 
-/** 
- * @todo replace with new one created there 
- * @var \Psr\Http\Message\ServerRequestInterface $request
- * */
-$request = $container->get('\Psr\Http\Message\ServerRequestInterface');
+$request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+    $_SERVER,
+    $_GET,
+    $_POST,
+    $_COOKIE,
+    $_FILES
+);
 
 /** 
  * run app 

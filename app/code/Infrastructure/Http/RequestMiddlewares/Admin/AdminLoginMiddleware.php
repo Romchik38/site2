@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin;
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -23,7 +24,7 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
     }
 
     /** @todo refacor - user must have LOGIN permission (is active etc)  */
-    public function __invoke(): ?ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ?ResponseInterface
     {
         $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
         $urlLogin  = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
