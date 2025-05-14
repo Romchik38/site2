@@ -7,9 +7,11 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
+use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -38,10 +40,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(string $dynamicRoute): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
         try {
-            $authorId = new AuthorId($dynamicRoute);
+            $authorId = new AuthorId($dynamicRoute());
         } catch (InvalidArgumentException $e) {
             throw new ActionNotFoundException($e->getMessage());
         }
@@ -78,7 +81,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $html = $this->view
-            ->setController($this->getController(), $dynamicRoute)
+            ->setController($this->getController(), $dynamicRoute())
             ->setControllerData($dto)
             ->toString();
 

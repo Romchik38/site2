@@ -39,7 +39,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly ServerRequestInterface $request,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminList $audioList,
         private readonly Site2SessionInterface $session,
@@ -49,9 +48,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $this->request->getQueryParams();
+        $requestData = $request->getQueryParams();
         $command     = Filter::fromRequest($requestData);
 
         try {

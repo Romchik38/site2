@@ -38,7 +38,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly ServerRequestInterface $request,
         private readonly CategoryService $categoryService,
         private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger
@@ -46,9 +45,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $this->request->getParsedBody();
+        $requestData = $request->getParsedBody();
         if (gettype($requestData) !== 'array') {
             throw new RuntimeException('Incoming data is invalid');
         }

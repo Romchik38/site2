@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clea
 
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
@@ -32,7 +33,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
             $this->imageCacheService->clear();

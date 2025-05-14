@@ -34,7 +34,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly AdminImageListService $adminImageListService,
-        private readonly ServerRequestInterface $request,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
@@ -42,9 +41,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $this->request->getQueryParams();
+        $requestData = $request->getQueryParams();
         $command     = Filter::fromRequest($requestData);
 
         $filterResult   = $this->adminImageListService->list($command);

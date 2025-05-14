@@ -38,7 +38,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly ServerRequestInterface $request,
         private readonly AdminUserService $adminUserCheck,
         private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -47,10 +46,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         // check password
-        $requestData = $this->request->getParsedBody();
+        $requestData = $request->getParsedBody();
         if (gettype($requestData) !== 'array') {
             throw new RuntimeException('Incoming data is invalid');
         }

@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 
@@ -14,7 +15,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 {
     public const DEFAULT_VIEW_NAME = 'server-error-example.page_name';
 
-    public function execute(): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         throw new Exception('Example server error occurred');
     }

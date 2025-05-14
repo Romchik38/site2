@@ -38,7 +38,6 @@ return function (Container $container) {
         true,
         [
             new Promise('\Laminas\Diactoros\ResponseFactory'),
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Http\Controller\ControllersCollectionInterface'),
             new Promise(HttpRouterInterface::NOT_FOUND_CONTROLLER_NAME),

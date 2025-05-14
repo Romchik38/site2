@@ -6,11 +6,13 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
+use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -33,9 +35,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(string $dynamicRoute): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $decodedRoute = urldecode($dynamicRoute);
+        $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
+        $decodedRoute = urldecode($dynamicRoute());
         try {
             $article = $this->articleViewService->getArticle(new Find(
                 $decodedRoute,
@@ -43,7 +46,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             ));
         } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException(
-                sprintf('Route %s not found. Error message: %s', $dynamicRoute, $e->getMessage())
+                sprintf('Route %s not found. Error message: %s', $dynamicRoute(), $e->getMessage())
             );
         }
 
@@ -56,7 +59,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $result = $this->view
-        ->setController($this->getController(), $dynamicRoute)
+        ->setController($this->getController(), $dynamicRoute())
         ->setControllerData($dto)
         ->toString();
 

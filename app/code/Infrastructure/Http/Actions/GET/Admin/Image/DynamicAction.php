@@ -8,10 +8,12 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
+use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
@@ -46,10 +48,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(string $dynamicRoute): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
         try {
-            $imageId = Id::fromString($dynamicRoute);
+            $imageId = Id::fromString($dynamicRoute());
         } catch (InvalidArgumentException $e) {
             throw new ActionNotFoundException($e->getMessage());
         }
@@ -99,7 +102,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $html = $this->view
-            ->setController($this->getController(), $dynamicRoute)
+            ->setController($this->getController(), $dynamicRoute())
             ->setControllerData($dto)
             ->toString();
 

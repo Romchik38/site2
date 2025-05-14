@@ -6,11 +6,13 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Root;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
+use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
@@ -35,12 +37,13 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    public function execute(string $dynamicRoute): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $messageKey = $this->actions[$dynamicRoute] ?? null;
+        $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
+        $messageKey   = $this->actions[$dynamicRoute()] ?? null;
 
         if ($messageKey === null) {
-            throw new ActionNotFoundException('action ' . $dynamicRoute . ' not found');
+            throw new ActionNotFoundException('action ' . $dynamicRoute() . ' not found');
         }
 
         $translatedMessage = $this->translateService->t($messageKey);
@@ -51,7 +54,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $result = $this->view
-            ->setController($this->getController(), $dynamicRoute)
+            ->setController($this->getController(), $dynamicRoute())
             ->setControllerData($dto)
             ->toString();
 
