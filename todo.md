@@ -2,9 +2,6 @@
 
 ## Current
 
-- remove request from container
-  - urbuilder uses
-
 ## Next
 
 - move to server

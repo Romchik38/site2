@@ -24,7 +24,6 @@ return function (Container $container) {
         '\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface',
         true,
         [
-            new Promise('\Psr\Http\Message\ServerRequestInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\DynamicTarget'),
         ]
     );
@@ -68,18 +67,6 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
         ]
-    );
-
-    // REQUEST
-    $container->add(
-        '\Psr\Http\Message\ServerRequestInterface',
-        Laminas\Diactoros\ServerRequestFactory::fromGlobals(
-            $_SERVER,
-            $_GET,
-            $_POST,
-            $_COOKIE,
-            $_FILES
-        )
     );
 
     // SESSION
