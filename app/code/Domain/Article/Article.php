@@ -5,39 +5,58 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Article;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Domain\Article\Entities\Audio;
+use Romchik38\Site2\Domain\Article\Entities\Author;
 use Romchik38\Site2\Domain\Article\Entities\Category;
-use Romchik38\Site2\Domain\Article\Entities\Translates;
+use Romchik38\Site2\Domain\Article\Entities\Image;
+use Romchik38\Site2\Domain\Article\Entities\Translate;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_values;
 use function sprintf;
 
 final class Article
 {
+    /** @var array<int,Category> $categories */
+    private array $categories = [];
+
+    /** @var array<int,LanguageId> $languages */
+    private readonly array $languages;
+
+    /** @var array<string,Translate> $translates */
+    private array $translates = [];
+
     /**
-     * @param array<string|int,Translates> $translates
-     * @param array<string|int,Category> $categories
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translates> $translates
+     * @throws InvalidArgumentException
      */
     public function __construct(
         private ArticleId $articleId,
         private bool $active,
-        private readonly array $translates = [],
-        private readonly array $categories = []
+        private Author $author,
+        private ?Image $image,
+        private ?Audio $audio,
+        array $languages,
+        array $translates,
+        array $categories
     ) {
     }
 
+    /** @todo all methods below must be reviewed */
     public function getId(): ArticleId
     {
         return $this->articleId;
     }
 
-    public function getActive(): bool
+    public function isActive(): bool
     {
         return $this->active;
     }
 
     /** @throws InvalidArgumentException - When translate is missing. */
-    public function getTranslate(string $language): Translates
+    public function getTranslate(string $language): Translate
     {
         $translate = $this->translates[$language] ?? null;
         if ($translate === null) {

@@ -12,10 +12,9 @@ use function explode;
 use function round;
 use function strlen;
 
-final class Translates
+final class Translate
 {
     public function __construct(
-        private string $articleId,
         private string $language,
         private string $name,
         private string $shortDescription,
@@ -23,11 +22,6 @@ final class Translates
         private DateTime $createdAt,
         private DateTime $updatedAt
     ) {
-    }
-
-    public function getArticleId(): string
-    {
-        return $this->articleId;
     }
 
     public function getLanguage(): string
@@ -58,16 +52,6 @@ final class Translates
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
-    }
-
-    /** @throws InvalidArgumentException - When string is empty. */
-    public function setArticleId(string $id): self
-    {
-        if (strlen($id) === 0) {
-            throw new InvalidArgumentException('Article id field can\'t be empty');
-        }
-        $this->articleId = $id;
-        return $this;
     }
 
     /** @throws InvalidArgumentException - When string is empty. */
