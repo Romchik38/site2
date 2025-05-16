@@ -25,7 +25,7 @@ use function strlen;
 use function trim;
 
 /**
- * @todo move to server error handler
+ * @todo remove
  */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
