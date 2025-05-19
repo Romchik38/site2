@@ -20,9 +20,6 @@ use function trim;
 
 final class ServerErrorHandler implements RequestHandlerInterface
 {
-    public const DEFAULT_VIEW_NAME_KEY        = 'server-error.header';
-    public const DEFAULT_VIEW_DESCRIPTION_KEY = 'server-error.description';
-
     public function __construct(
         private readonly string $outputFile
     ) {

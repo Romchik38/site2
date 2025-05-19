@@ -96,8 +96,6 @@ INSERT INTO translate_entities (key, language, phrase) VALUES
     ('root.about', 'uk', 'Сторінка про компанію'),
     ('root.contacts', 'en', 'Contacts Page'),
     ('root.contacts', 'uk', 'Наші контакти'),    
-    ('server-error.header', 'en', 'Server error page'),
-    ('server-error.header', 'uk', 'Сторінка помилки серверу'),
     ('server-error.description', 'en', 'This page is now works as expected'),
     ('server-error.description', 'uk', 'Ця сторінка не працює як очікувалося, сталася помилка серверу'),
     ('server-error.message', 'en', 'Sorry, we have an error on our side. Please try again later'), 

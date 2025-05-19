@@ -48,7 +48,6 @@ INSERT INTO translate_keys (identifier) VALUES
     ('root.page_name'),
     ('root.about'),
     ('root.contacts'),
-    ('server-error.header'),
     ('server-error.description'),
     ('server-error.message'),
     ('server-error-example.page_name'),

@@ -27,17 +27,6 @@ return function (Container $container) {
         ]
     );
 
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerError\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface'),
-            new Promise('server-error-page'),
-        ]
-    );
-
     // Sitemap
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction',

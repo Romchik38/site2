@@ -33,5 +33,5 @@ $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
 $server = $container->get('\Romchik38\Server\Http\Servers\HttpServerInterface');
 $server->handle($request);
 
-/** @todo do log with deffered logger */
-// logger->sendAllLogs()
+$logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
+$logger->sendAllLogs();
