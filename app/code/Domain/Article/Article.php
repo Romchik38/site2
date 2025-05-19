@@ -15,6 +15,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_values;
 use function count;
+use function sprintf;
 
 final class Article
 {
@@ -85,11 +86,51 @@ final class Article
         }
     }
 
-    /** @todo implement */
-    public function activate(): self
+    /** @throws CouldNotChangeActivityException */
+    public function activate(): void
     {
+        if ($this->active === true) {
+            return;
+        }
+
+        if ($this->image === null) {
+            throw new CouldNotChangeActivityException('Could not activate article: image not set');
+        } else {
+            if ($this->image->active === false) {
+                throw new CouldNotChangeActivityException(
+                    'Could not activate article: image is not active'
+                );
+            }
+        }
+
+        if ($this->audio === null) {
+            throw new CouldNotChangeActivityException('Could not activate article: audio not set');
+        } else {
+            if ($this->audio->active === false) {
+                throw new CouldNotChangeActivityException(
+                    'Could not activate article: audio is not active'
+                );
+            }
+        }
+
+        if (count($this->languages) > count($this->translates)) {
+            throw new CouldNotChangeActivityException('Article has missing translates');
+        }
+
+        foreach ($this->languages as $language) {
+            $check = $this->translates[$language()] ?? null;
+            if ($check === null) {
+                throw new CouldNotChangeActivityException(
+                    sprintf('Article has missing translates %s', $language())
+                );
+            }
+        }
+
+        if (count($this->categories) === 0) {
+            throw new CouldNotChangeActivityException('Article must be at least in one category');
+        }
+
         $this->active = true;
-        return $this;
     }
 
     /** @throws InvalidArgumentException */
@@ -133,11 +174,9 @@ final class Article
         $this->image = $image;
     }
 
-    /** @todo implement */
-    public function dectivate(): self
+    public function dectivate(): void
     {
         $this->active = false;
-        return $this;
     }
 
     /** @return array<int,Category> */
