@@ -33,9 +33,9 @@ final class Article
      * @throws InvalidArgumentException
      */
     public function __construct(
-        private ArticleId $articleId,
-        private bool $active,
-        private Author $author,
+        private(set) ArticleId $articleId,
+        private(set) bool $active,
+        private(set) Author $author,
         private ?Image $image,
         private ?Audio $audio,
         array $categories,
@@ -98,15 +98,13 @@ final class Article
         return $found;
     }
 
-    /** @todo all methods below must be reviewed */
-    public function getId(): ArticleId
+    /** @throws InvalidArgumentException */
+    public function changeAuthor(Author $author): void
     {
-        return $this->articleId;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
+        if ($this->active === true && $author->active === false) {
+            throw new InvalidArgumentException('Article author not active');
+        }
+        $this->author = $author;
     }
 
     /** @throws InvalidArgumentException - When translate is missing. */
