@@ -3,8 +3,6 @@
 ## Current
 
 - article model
-  - methods
-  - translate
   - tests
 
 ## Next

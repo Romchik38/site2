@@ -28,13 +28,14 @@ final class Article
     /** @var array<string,Translate> $translates */
     private array $translates = [];
 
+    /** @todo test */
     /**
      * @param array<int,mixed|Category> $categories
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translates> $translates
      * @throws InvalidArgumentException
      */
-    private function __construct(
+    public function __construct(
         private(set) ArticleId $articleId,
         private(set) bool $active,
         private(set) ?Audio $audio,
@@ -85,7 +86,8 @@ final class Article
             }
         }
     }
-
+    
+    /** @todo test */
     /** @throws CouldNotChangeActivityException */
     public function activate(): void
     {
@@ -132,7 +134,8 @@ final class Article
 
         $this->active = true;
     }
-
+    
+    /** @todo test */
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
@@ -146,7 +149,8 @@ final class Article
             $this->translates[$languageId()] = $translate;
         }
     }
-
+    
+    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeAudio(Audio $audio): void
     {
@@ -155,7 +159,8 @@ final class Article
         }
         $this->audio = $audio;
     }
-
+    
+    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeAuthor(Author $author): void
     {
@@ -164,7 +169,8 @@ final class Article
         }
         $this->author = $author;
     }
-
+    
+    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeImage(Image $image): void
     {
@@ -174,26 +180,58 @@ final class Article
         $this->image = $image;
     }
 
+    /** @todo test */
     public function dectivate(): void
     {
         $this->active = false;
     }
 
+    /** @todo test */
     /** @return array<int,Category> */
     public function getCategories(): array
     {
         return $this->categories;
     }
-
+    
+    /** @todo test */
     public function getTranslate(string $language): ?Translate
     {
         return $this->translates[$language] ?? null;
     }
-
+    
+    /** @todo test */
     /** @return array<int,Translate> */
     public function getTranslates(): array
     {
         return array_values($this->translates);
+    }
+    
+    /** @todo test */
+    /**
+     * @param array<int,mixed|Category> $categories
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translates> $translates
+     * @throws InvalidArgumentException
+     * */
+    public static function create(
+        ArticleId $articleId,
+        Author $author,
+        array $languages,
+        ?Audio $audio = null,
+        ?Image $image = null,
+        array $categories = [],
+        array $translates = []
+    ): self {
+        return new self(
+            $articleId,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
     }
 
     /** @param array<int,mixed|LanguageId> $languages */
