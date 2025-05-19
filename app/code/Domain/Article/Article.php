@@ -35,9 +35,9 @@ final class Article
     private function __construct(
         private(set) ArticleId $articleId,
         private(set) bool $active,
+        private(set) ?Audio $audio,
         private(set) Author $author,
         private(set) ?Image $image,
-        private ?Audio $audio,
         array $categories,
         array $languages,
         array $translates
@@ -103,6 +103,15 @@ final class Article
     {
         $this->active = true;
         return $this;
+    }
+
+    /** @throws InvalidArgumentException */
+    public function changeAudio(Audio $audio): void
+    {
+        if ($this->active === true && $audio->active === false) {
+            throw new InvalidArgumentException('Article audio not active');
+        }
+        $this->audio = $audio;
     }
 
     /** @throws InvalidArgumentException */
