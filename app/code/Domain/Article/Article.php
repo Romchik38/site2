@@ -38,10 +38,64 @@ final class Article
         private Author $author,
         private ?Image $image,
         private ?Audio $audio,
+        array $categories,
         array $languages,
-        array $translates,
-        array $categories
+        array $translates
     ) {
+        foreach ($categories as $category) {
+            if (! $category instanceof Category) {
+                throw new InvalidArgumentException('param article category is invalid');
+            }
+        }
+        $this->categories = $categories;
+
+        foreach ($languages as $language) {
+            if (! $language instanceof LanguageId) {
+                throw new InvalidArgumentException('param article language id is invalid');
+            }
+        }
+        $this->languages = $languages;
+
+        foreach ($translates as $translate) {
+            if (! $translate instanceof Translate) {
+                throw new InvalidArgumentException('param article translate is invalid');
+            } else {
+                if ($this->languageCheck($translate, $languages) === false) {
+                    throw new InvalidArgumentException(
+                        'param article translate language has non expected language'
+                    );
+                } else {
+                    $languageId                      = $translate->getLanguage();
+                    $this->translates[$languageId()] = $translate;
+                }
+            }
+        }
+
+        if ($active === true) {
+            if ($image === null) {
+                throw new InvalidArgumentException('param article image is invalid');
+            }
+            if ($audio === null) {
+                throw new InvalidArgumentException('param article audio is invalid');
+            }
+            if (count($categories) === 0) {
+                throw new InvalidArgumentException('param article categories is empty');
+            }
+        }
+    }
+
+    /** @param array<int,mixed|LanguageId> $languages */
+    private function languageCheck(Translate $translate, array $languages): bool
+    {
+        $languageId = $translate->getLanguage();
+        $found      = false;
+        foreach ($languages as $language) {
+            if ($languageId() === $language()) {
+                $found = true;
+                break;
+            }
+        }
+        return $found;
     }
 
     /** @todo all methods below must be reviewed */
