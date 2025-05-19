@@ -19,7 +19,7 @@ use function sprintf;
 final class Article
 {
     /** @var array<int,Category> $categories */
-    private array $categories = [];
+    private(set) array $categories = [];
 
     /** @var array<int,LanguageId> $languages */
     private readonly array $languages;
@@ -84,25 +84,25 @@ final class Article
         }
     }
 
-    /** @param array<int,mixed|LanguageId> $languages */
-    private function languageCheck(Translate $translate, array $languages): bool
-    {
-        $languageId = $translate->getLanguage();
-        $found      = false;
-        foreach ($languages as $language) {
-            if ($languageId() === $language()) {
-                $found = true;
-                break;
-            }
-        }
-        return $found;
-    }
-
     /** @todo implement */
     public function activate(): self
     {
         $this->active = true;
         return $this;
+    }
+    
+    /** @throws InvalidArgumentException */
+    public function addTranslate(Translate $translate): void
+    {
+        $checkResult = $this->languageCheck($translate, $this->languages);
+        if ($checkResult === false) {
+            throw new InvalidArgumentException(
+                'param article translate language has non expected language'
+            );
+        } else {
+            $languageId                      = $translate->getLanguage();
+            $this->translates[$languageId()] = $translate;
+        }
     }
 
     /** @throws InvalidArgumentException */
@@ -137,5 +137,30 @@ final class Article
     {
         $this->active = false;
         return $this;
+    }
+
+    public function getTranslate(string $language): ?Translate
+    {
+        return $this->translates[$language] ?? null;
+    }
+
+    /** @return array<int,Translate> */
+    public function getTranslates(): array
+    {
+        return array_values($this->translates);
+    }
+
+    /** @param array<int,mixed|LanguageId> $languages */
+    private function languageCheck(Translate $translate, array $languages): bool
+    {
+        $languageId = $translate->getLanguage();
+        $found      = false;
+        foreach ($languages as $language) {
+            if ($languageId() === $language()) {
+                $found = true;
+                break;
+            }
+        }
+        return $found;
     }
 }
