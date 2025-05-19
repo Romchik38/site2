@@ -32,11 +32,11 @@ final class Article
      * @param array<int,mixed|Translates> $translates
      * @throws InvalidArgumentException
      */
-    public function __construct(
+    private function __construct(
         private(set) ArticleId $articleId,
         private(set) bool $active,
         private(set) Author $author,
-        private ?Image $image,
+        private(set) ?Image $image,
         private ?Audio $audio,
         array $categories,
         array $languages,
@@ -98,6 +98,13 @@ final class Article
         return $found;
     }
 
+    /** @todo implement */
+    public function activate(): self
+    {
+        $this->active = true;
+        return $this;
+    }
+
     /** @throws InvalidArgumentException */
     public function changeAuthor(Author $author): void
     {
@@ -107,52 +114,16 @@ final class Article
         $this->author = $author;
     }
 
-    /** @throws InvalidArgumentException - When translate is missing. */
-    public function getTranslate(string $language): Translate
+    /** @throws InvalidArgumentException */
+    public function changeImage(Image $image): void
     {
-        $translate = $this->translates[$language] ?? null;
-        if ($translate === null) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Translate %s for Article id %s is missing',
-                    $language,
-                    ($this->articleId)(),
-                )
-            );
+        if ($this->active === true && $image->active === false) {
+            throw new InvalidArgumentException('Article image not active');
         }
-
-        return $translate;
+        $this->image = $image;
     }
 
-    /** @return Translates[] */
-    public function getAllTranslates(): array
-    {
-        return array_values($this->translates);
-    }
-
-    public function getCategory(string $categoryId): ?Category
-    {
-        return $this->categories[$categoryId] ?? null;
-    }
-
-    /** @return Category[] */
-    public function getAllCategories(): array
-    {
-        return array_values($this->categories);
-    }
-
-    public function setId(ArticleId $id): self
-    {
-        $this->articleId = $id;
-        return $this;
-    }
-
-    public function activate(): self
-    {
-        $this->active = true;
-        return $this;
-    }
-
+    /** @todo implement */
     public function dectivate(): self
     {
         $this->active = false;
