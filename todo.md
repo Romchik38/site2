@@ -3,11 +3,13 @@
 ## Current
 
 - article model
-  - __construct
   - methods
+  - translate
   - tests
 
 ## Next
+
+- return check "vendor/bin/deptrac"
 
 - move to server
   - TwigView

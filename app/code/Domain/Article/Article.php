@@ -14,12 +14,12 @@ use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_values;
-use function sprintf;
+use function count;
 
 final class Article
 {
     /** @var array<int,Category> $categories */
-    private(set) array $categories = [];
+    private array $categories = [];
 
     /** @var array<int,LanguageId> $languages */
     private readonly array $languages;
@@ -28,6 +28,7 @@ final class Article
     private array $translates = [];
 
     /**
+     * @param array<int,mixed|Category> $categories
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translates> $translates
      * @throws InvalidArgumentException
@@ -65,7 +66,7 @@ final class Article
                         'param article translate language has non expected language'
                     );
                 } else {
-                    $languageId                      = $translate->getLanguage();
+                    $languageId                      = $translate->language;
                     $this->translates[$languageId()] = $translate;
                 }
             }
@@ -90,7 +91,7 @@ final class Article
         $this->active = true;
         return $this;
     }
-    
+
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
@@ -100,7 +101,7 @@ final class Article
                 'param article translate language has non expected language'
             );
         } else {
-            $languageId                      = $translate->getLanguage();
+            $languageId                      = $translate->language;
             $this->translates[$languageId()] = $translate;
         }
     }
@@ -139,6 +140,12 @@ final class Article
         return $this;
     }
 
+    /** @return array<int,Category> */
+    public function getCategories(): array
+    {
+        return $this->categories;
+    }
+
     public function getTranslate(string $language): ?Translate
     {
         return $this->translates[$language] ?? null;
@@ -153,7 +160,7 @@ final class Article
     /** @param array<int,mixed|LanguageId> $languages */
     private function languageCheck(Translate $translate, array $languages): bool
     {
-        $languageId = $translate->getLanguage();
+        $languageId = $translate->language;
         $found      = false;
         foreach ($languages as $language) {
             if ($languageId() === $language()) {
