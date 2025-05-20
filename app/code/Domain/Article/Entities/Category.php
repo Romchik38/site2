@@ -9,8 +9,9 @@ use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 final class Category
 {
     public function __construct(
-        public readonly CategoryId $categoryId,
-        public readonly bool $active
+        public readonly CategoryId $id,
+        public readonly bool $active,
+        public readonly int $articleCount
     ) {
     }
 }

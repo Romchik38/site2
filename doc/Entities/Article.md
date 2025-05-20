@@ -7,4 +7,5 @@
     - audio (active)
     - all translates
     - be at least in one category
-  - diactivate - no
+  - diactivate
+    - active categories must have more than 1 article

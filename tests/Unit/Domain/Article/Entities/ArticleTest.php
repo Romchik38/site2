@@ -150,7 +150,11 @@ final class ArticleTest extends TestCase
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
-            new Category(new CategoryId('cat-1'), true),
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
         ];
 
         $languages = [

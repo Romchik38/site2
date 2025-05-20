@@ -180,9 +180,24 @@ final class Article
         $this->image = $image;
     }
 
-    /** @todo test */
+    /**
+     * @todo test
+     * @throws CouldNotChangeActivityException
+     */
     public function dectivate(): void
     {
+        if ($this->active === false) {
+            return;
+        }
+
+        foreach ($this->categories as $category) {
+            if ($category->active === true && $category->articleCount === 1) {
+                throw new CouldNotChangeActivityException(sprintf(
+                    'Category %s is active and has only one article',
+                    (string) $category->id
+                ));
+            }
+        }
         $this->active = false;
     }
 
