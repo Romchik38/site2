@@ -85,12 +85,16 @@ final class Article
             if ($audio === null) {
                 throw new InvalidArgumentException('param article audio is invalid');
             } else {
-                    if ($audio->active === false) {
+                if ($audio->active === false) {
                     throw new InvalidArgumentException('param article audio is not active');
                 }
             }
             if (count($categories) === 0) {
                 throw new InvalidArgumentException('param article categories is empty');
+            }
+
+            if (count($translates) < count($languages)) {
+                throw new InvalidArgumentException('Article has missing translates');
             }
         }
     }

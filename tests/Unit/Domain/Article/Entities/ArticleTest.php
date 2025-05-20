@@ -22,6 +22,7 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use stdClass;
 
 final class ArticleTest extends TestCase
 {
@@ -202,7 +203,7 @@ final class ArticleTest extends TestCase
         $this->assertSame($translates, $article->getTranslates());
     }
 
-        public function testConstructThrowsErrorInvalidImageNotActive(): void
+    public function testConstructThrowsErrorInvalidImageNotActive(): void
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
@@ -243,7 +244,7 @@ final class ArticleTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('param article image is not active');
-        
+
         new Article(
             $id,
             true,
@@ -297,7 +298,7 @@ final class ArticleTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('param article image is invalid');
-        
+
         new Article(
             $id,
             true,
@@ -364,7 +365,7 @@ final class ArticleTest extends TestCase
         );
     }
 
-        public function testConstructThrowsErrorInvalidAudioNull(): void
+    public function testConstructThrowsErrorInvalidAudioNull(): void
     {
         $id     = new ArticleId('some-id');
         $audio  = null;
@@ -418,5 +419,143 @@ final class ArticleTest extends TestCase
         );
     }
 
-    
+    public function testConstructThrowsErrorMissingTranslate(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Article has missing translates');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorWrongTranslateInstance(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new stdClass(),
+            new stdClass(),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article translate is invalid');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorWrongTranslateLanguage(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('fr'),
+                new Name('Article sur quelque chose'),
+                new ShortDescription('Une brève description d\'un article sur quelque chose'),
+                new Description('Une description complète d\'un article sur quelque chose'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article translate language has non expected language');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
 }
