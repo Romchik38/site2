@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Tests\Unit\Domain\Article\Entities;
 
 use DateTime;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\Entities\Audio;
@@ -142,7 +143,7 @@ final class ArticleTest extends TestCase
         $this->assertSame($audio, $article->audio);
     }
 
-    public function testConstractValidArticle(): void
+    public function testConstructValidArticle(): void
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
@@ -200,4 +201,222 @@ final class ArticleTest extends TestCase
         $this->assertSame($categories, $article->getCategories());
         $this->assertSame($translates, $article->getTranslates());
     }
+
+        public function testConstructThrowsErrorInvalidImageNotActive(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), false);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article image is not active');
+        
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorInvalidImageNull(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = null;
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article image is invalid');
+        
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorInvalidAudioNotActive(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), false);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article audio is not active');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+        public function testConstructThrowsErrorInvalidAudioNull(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = null;
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article audio is invalid');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    
 }

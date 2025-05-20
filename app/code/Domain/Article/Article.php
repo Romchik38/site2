@@ -77,9 +77,17 @@ final class Article
         if ($active === true) {
             if ($image === null) {
                 throw new InvalidArgumentException('param article image is invalid');
+            } else {
+                if ($image->active === false) {
+                    throw new InvalidArgumentException('param article image is not active');
+                }
             }
             if ($audio === null) {
                 throw new InvalidArgumentException('param article audio is invalid');
+            } else {
+                    if ($audio->active === false) {
+                    throw new InvalidArgumentException('param article audio is not active');
+                }
             }
             if (count($categories) === 0) {
                 throw new InvalidArgumentException('param article categories is empty');
