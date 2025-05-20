@@ -177,7 +177,6 @@ final class Article
         $this->audio = $audio;
     }
 
-    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeAuthor(Author $author): void
     {
