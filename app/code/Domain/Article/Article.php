@@ -186,7 +186,6 @@ final class Article
         $this->author = $author;
     }
 
-    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeImage(Image $image): void
     {

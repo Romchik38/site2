@@ -1426,6 +1426,118 @@ final class ArticleTest extends TestCase
         $article->changeAuthor($author2);
     }
 
+    public function testChangeImage(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+        $image2 = new Image(new ImageId(2), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $article->changeImage($image2);
+        $this->assertSame($image2, $article->image);
+    }
+
+    public function testChangeImageThrowsErrorImageNotActive(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+        $image2 = new Image(new ImageId(2), false);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $article = new Article(
+            $id,
+            true, // the article must be active to pass this check
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Article image not active');
+
+        $article->changeImage($image2);
+    }
+
     // public function testActivateThrowsErrorImageNotSet(): void
     // {
     //     $id     = new ArticleId('some-id');
