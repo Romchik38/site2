@@ -2,8 +2,10 @@
 
 ## Current
 
-- article model
-  - tests
+- article
+  - new
+  - update
+  - delete
 
 - author id must be int
 
