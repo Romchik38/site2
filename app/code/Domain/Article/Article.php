@@ -194,10 +194,7 @@ final class Article
         $this->image = $image;
     }
 
-    /**
-     * @todo test
-     * @throws CouldNotChangeActivityException
-     */
+    /** @throws CouldNotChangeActivityException */
     public function dectivate(): void
     {
         if ($this->active === false) {

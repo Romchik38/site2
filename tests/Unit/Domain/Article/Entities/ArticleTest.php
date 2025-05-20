@@ -1650,6 +1650,117 @@ final class ArticleTest extends TestCase
         $article->changeAudio($audio2);
     }
 
+    public function testDeactivate(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                2
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $article = new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame(true, $article->active);
+        $article->dectivate();
+        $this->assertSame(false, $article->active);
+    }
+
+    public function testDeactivateThrowErrorOnlyOneInCategory(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime(),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime(),
+                new DateTime()
+            ),
+        ];
+
+        $article = new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage('Category cat-1 is active and has only one article');
+
+        $article->dectivate();
+    }
+
     // public function testActivateThrowsErrorImageNotSet(): void
     // {
     //     $id     = new ArticleId('some-id');
