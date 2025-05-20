@@ -218,20 +218,17 @@ final class Article
         return $this->categories;
     }
 
-    /** @todo test */
     public function getTranslate(string $language): ?Translate
     {
         return $this->translates[$language] ?? null;
     }
 
-    /** @todo test */
     /** @return array<int,Translate> */
     public function getTranslates(): array
     {
         return array_values($this->translates);
     }
 
-    /** @todo test */
     /**
      * @param array<int,mixed|Category> $categories
      * @param array<int,mixed|LanguageId> $languages

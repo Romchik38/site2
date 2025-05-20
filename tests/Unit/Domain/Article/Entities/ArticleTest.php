@@ -1811,6 +1811,107 @@ final class ArticleTest extends TestCase
         $this->assertSame($categories, $article->getCategories());
     }
 
+    public function testGetTranslate(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(new CategoryId('cat-1'), true, 1),
+            new Category(new CategoryId('cat-2'), true, 5),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime(),
+            new DateTime()
+        );
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime(),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($translateEn, $article->getTranslate('en'));
+        $this->assertSame($translateUk, $article->getTranslate('uk'));
+    }
+
+    public function testGetTranslates(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(new CategoryId('cat-1'), true, 1),
+            new Category(new CategoryId('cat-2'), true, 5),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime(),
+            new DateTime()
+        );
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime(),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($translates, $article->getTranslates());
+    }
+
     // public function testActivateThrowsErrorImageNotSet(): void
     // {
     //     $id     = new ArticleId('some-id');
