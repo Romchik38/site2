@@ -167,7 +167,6 @@ final class Article
         }
     }
 
-    /** @todo test */
     /** @throws InvalidArgumentException */
     public function changeAudio(Audio $audio): void
     {
