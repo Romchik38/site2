@@ -212,7 +212,6 @@ final class Article
         $this->active = false;
     }
 
-    /** @todo test */
     /** @return array<int,Category> */
     public function getCategories(): array
     {
