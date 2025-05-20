@@ -5,6 +5,7 @@
   - activate
     - image (active)
     - audio (active)
+    - author (active)
     - all translates
     - be at least in one category
   - diactivate

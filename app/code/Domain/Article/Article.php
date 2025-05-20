@@ -95,10 +95,13 @@ final class Article
             if (count($translates) < count($languages)) {
                 throw new InvalidArgumentException('Article has missing translates');
             }
+
+            if ($author->active === false) {
+                throw new InvalidArgumentException('param article author is not active');
+            }
         }
     }
 
-    /** @todo test */
     /** @throws CouldNotChangeActivityException */
     public function activate(): void
     {
@@ -141,6 +144,10 @@ final class Article
 
         if (count($this->categories) === 0) {
             throw new CouldNotChangeActivityException('Article must be at least in one category');
+        }
+
+        if ($this->author->active === false) {
+            throw new CouldNotChangeActivityException('Could not activate article: author is not active');
         }
 
         $this->active = true;
