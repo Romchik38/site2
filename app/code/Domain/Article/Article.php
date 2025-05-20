@@ -28,7 +28,6 @@ final class Article
     /** @var array<string,Translate> $translates */
     private array $translates = [];
 
-    /** @todo test */
     /**
      * @param array<int,mixed|Category> $categories
      * @param array<int,mixed|LanguageId> $languages
