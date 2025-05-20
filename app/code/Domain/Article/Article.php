@@ -153,7 +153,6 @@ final class Article
         $this->active = true;
     }
 
-    /** @todo test */
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {

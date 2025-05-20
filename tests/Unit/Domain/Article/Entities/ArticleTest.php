@@ -1199,6 +1199,121 @@ final class ArticleTest extends TestCase
         $article->activate();
     }
 
+    /**
+     * Tested:
+     *   - addTranslate
+     *   - getTranslate
+     */
+    public function testAddTranslate(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime(),
+            new DateTime()
+        );
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime(),
+            new DateTime()
+        );
+
+        $translates = [$translateEn];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $article->addTranslate($translateUk);
+        $this->assertSame($translateUk, $article->getTranslate('uk'));
+    }
+
+    public function testAddTranslateThrowsErrorWrongLanguage(): void
+    {
+        $id     = new ArticleId('some-id');
+        $audio  = new Audio(new AudioId(1), true);
+        $author = new Author(new AuthorId('1'), true);
+        $image  = new Image(new ImageId(1), true);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateFr = new Translate(
+            new LanguageId('fr'),
+            new Name('Article sur quelque chose'),
+            new ShortDescription('Une brève description d\'un article sur quelque chose'),
+            new Description('Une description complète d\'un article sur quelque chose'),
+            new DateTime(),
+            new DateTime()
+        );
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime(),
+            new DateTime()
+        );
+
+        $translates = [$translateEn];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article translate language has non expected language');
+
+        $article->addTranslate($translateFr);
+    }
+
     // public function testActivateThrowsErrorImageNotSet(): void
     // {
     //     $id     = new ArticleId('some-id');
