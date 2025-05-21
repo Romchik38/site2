@@ -2,10 +2,16 @@
 
 ## Current
 
+- article update
+  - action
+  - service
+  - repository
+
 - article
   - new
-  - update
   - delete
+
+- test and refactor `getDescription` of dynamic actions with urlencode/decode
 
 - author id must be int
 
