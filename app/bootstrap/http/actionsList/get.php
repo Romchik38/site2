@@ -77,7 +77,8 @@ return function (Container $container): ControllerInterface {
     $adminArticle = new Controller(
         'article',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction')
     );
 
     $adminAuthor = new Controller(
