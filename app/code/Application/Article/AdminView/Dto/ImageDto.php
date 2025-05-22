@@ -8,10 +8,11 @@ use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Image\VO\Name as ImageName;
 use Romchik38\Site2\Domain\Image\VO\Path as ImagePath;
 
-final class Image
+final class ImageDto
 {
     public function __construct(
         public readonly ImageId $id,
+        public readonly bool $active,
         public readonly ImageName $name,
         public readonly ImagePath $path
     ) {

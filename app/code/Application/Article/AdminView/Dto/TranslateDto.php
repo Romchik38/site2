@@ -10,7 +10,7 @@ use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-final class Translate
+final class TranslateDto
 {
     public const DATE_FORMAT = 'G:i  d-m-y';
 
