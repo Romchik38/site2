@@ -27,7 +27,8 @@
                                     {% set articleId = article.id.__toString() %}
                                     <th>{{ articleId }}</th>
                                     <td class="{{ activeColorArticle }}">{{ activeArticle }}</td>
-                                    <td><a href="#">Edit</a></td>
+                                    {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
+                                    <td><a href="{{ articleEditUrl }}">Edit</a></td>
                                     <td><a href="{{ u.fromArray(['root', 'article', articleId|url_encode ]) }}" target="_blank">Preview</a></td>
                                 </tr>
                         {% endfor %}

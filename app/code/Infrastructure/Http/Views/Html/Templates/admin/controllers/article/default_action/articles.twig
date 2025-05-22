@@ -77,7 +77,8 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                <th scope="row">{{ article.identifier }}</th>
+                {% set articleId = article.identifier.__toString() %}
+                <th scope="row">{{ articleId }}</th>
                 
                 <td class="{{ activeColor }}">{{ active }}</td>
 
@@ -121,8 +122,8 @@
                 <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
 
                 <td>{{ article.authorName }}</td>
-
-                <td><a href="#">edit</a></td>
+                {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId ]) %}
+                <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
                     <form action="#" method="post">
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
