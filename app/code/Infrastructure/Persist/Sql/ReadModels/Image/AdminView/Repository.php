@@ -68,8 +68,8 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @throws RepositoryException 
-     * @param array<string,string|null> $row 
+     * @throws RepositoryException
+     * @param array<string,string|null> $row
      * */
     private function createFromRow(array $row): Dto
     {
