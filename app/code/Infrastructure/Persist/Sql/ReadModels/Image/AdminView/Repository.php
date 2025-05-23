@@ -67,7 +67,10 @@ final class Repository implements RepositoryInterface
         return $this->createAuthors();
     }
 
-    /** @param array<string,string|null> $row */
+    /**
+     * @throws RepositoryException 
+     * @param array<string,string|null> $row 
+     * */
     private function createFromRow(array $row): Dto
     {
         $rawIdentifier = $row['identifier'] ?? null;
