@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminView;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -13,10 +14,14 @@ use Romchik38\Site2\Application\Article\AdminView\Dto\AudioTranslateDto;
 use Romchik38\Site2\Application\Article\AdminView\Dto\AuthorDto;
 use Romchik38\Site2\Application\Article\AdminView\Dto\CategoryDto;
 use Romchik38\Site2\Application\Article\AdminView\Dto\ImageDto;
+use Romchik38\Site2\Application\Article\AdminView\Dto\TranslateDto;
 use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminView\RepositoryInterface;
+use Romchik38\Site2\Domain\Article\VO\Description as ArticleDescription;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
+use Romchik38\Site2\Domain\Article\VO\ShortDescription as ArticleShortDescription;
 use Romchik38\Site2\Domain\Audio\VO\Description as AudioDescription;
 use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Audio\VO\Name as AudioName;
@@ -106,6 +111,70 @@ final class Repository implements RepositoryInterface
             $categories,
             $translates
         );
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,CategoryDto>
+     */
+    private function createTranslates(ArticleId $articleId): array
+    {
+        $translates = [];
+
+        $query  = $this->getTranslatesQuery();
+        $params = [$articleId()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $rawLanguage = $row['language'] ?? null;
+            if ($rawLanguage === null) {
+                throw new RepositoryException('Article language is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Article name is invalid');
+            }
+            $rawShortDescription = $row['short_description'] ?? null;
+            if ($rawShortDescription === null) {
+                throw new RepositoryException('Article short description is invalid');
+            }
+            $rawDescription = $row['description'] ?? null;
+            if ($rawDescription === null) {
+                throw new RepositoryException('Article description is invalid');
+            }
+            $rawCreatedAt = $row['created_at'] ?? null;
+            if ($rawCreatedAt === null) {
+                throw new RepositoryException('Article created at is invalid');
+            }
+            $rawUpdatedAt = $row['updated_at'] ?? null;
+            if ($rawUpdatedAt === null) {
+                throw new RepositoryException('Article updated at is invalid');
+            }
+
+            try {
+                $languageId       = new LanguageId($rawLanguage);
+                $name             = new ArticleName($rawName);
+                $shortDescription = new ArticleShortDescription($rawShortDescription);
+                $description      = new ArticleDescription($rawDescription);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $translates[] = new TranslateDto(
+                $languageId,
+                $name,
+                $shortDescription,
+                $description,
+                new DateTime($rawCreatedAt),
+                new DateTime($rawUpdatedAt)
+            );
+        }
+
+        return $translates;
     }
 
     /**
@@ -389,6 +458,20 @@ final class Repository implements RepositoryInterface
                 article_category
             WHERE article_category.article_id = $1
                 AND article_category.category_id = category.identifier
+        QUERY;
+    }
+
+    private function getTranslatesQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT article_translates.language,
+                article_translates.name,
+                article_translates.short_description,
+                article_translates.description,
+                article_translates.created_at,
+                article_translates.updated_at
+            FROM article_translates
+            WHERE article_translates.article_id = $1
         QUERY;
     }
 }
