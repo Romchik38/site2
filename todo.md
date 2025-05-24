@@ -4,9 +4,6 @@
 
 - article update
   - action
-  - service
-    - dtos
-  - repository
 
 - article
   - new
