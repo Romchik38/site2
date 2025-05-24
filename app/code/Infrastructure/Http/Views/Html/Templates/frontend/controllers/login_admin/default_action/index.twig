@@ -12,7 +12,7 @@
                     <h2 class="text-center">Provide Login Credentials</h2>
                     <form class="border rounded-3 p-4" action="{{ data.authUrl }}" method="post">
                         <label for="{{ data.userNameField }}">Enter your user name: </label>
-                        <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required /><br>
+                        <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required autofocus /><br>
                         <label for="{{ data.passwordField }}">Enter password: </label>
                         <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
                         <input class="btn btn-secondary" type="submit" value="Log In" />
