@@ -47,7 +47,17 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
             new Promise('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory'),
             new Promise('\Romchik38\Site2\Application\Article\View\View\ImageDTOFactory'),
-            new Promise('\Romchik38\Site2\Application\Article\View\View\AudioDTOFactory')
+            new Promise('\Romchik38\Site2\Application\Article\View\View\AudioDTOFactory'),
+        ]
+    );
+
+    // ADMIN ARTICLE VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminView\Repository',
+        '\Romchik38\Site2\Application\Article\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
         ]
     );
 

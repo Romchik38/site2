@@ -14,8 +14,7 @@ $container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))(new 
 $currentTimazone = ini_get('date.timezone');
 $expectedTimezone = $container->get('date.timezone');
 if ($expectedTimezone !== ini_get('date.timezone')) {
-    echo (sprintf('check timezone, expected %s, current %s', $expectedTimezone, $currentTimazone));
-    exit(1);
+    ini_set('date.timezone', $expectedTimezone);
 }
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(

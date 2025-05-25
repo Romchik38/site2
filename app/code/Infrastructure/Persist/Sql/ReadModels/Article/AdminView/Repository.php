@@ -427,7 +427,7 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             SELECT audio.active,
-                audio.name
+                audio.name,
                 audio_translates.language,
                 audio_translates.description,
                 audio_translates.path

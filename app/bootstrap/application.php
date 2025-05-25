@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
+use Romchik38\Container\Shared;
 
 return function (Container $container) {
 
@@ -45,6 +46,14 @@ return function (Container $container) {
     $container->shared('\Romchik38\Site2\Application\Article\View\View\AudioDTOFactory', [
         new Promise('audio-folder-frontend'),
     ]);
+
+    // ADMIN ARTICLE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\AdminView\AdminView',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\AdminView\RepositoryInterface')
+        ]
+    );
 
     // ADMIN AUDIO LIST
     $container->shared(
