@@ -18,14 +18,15 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Language\List\ListService;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Application\Article\AdminView\AdminView;
 use Romchik38\Site2\Application\Article\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
+use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
+use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 use function urldecode;
@@ -56,18 +57,18 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $decodedRoute = urldecode($dynamicRoute());
 
         try {
-            $id = new ArticleId($decodedRoute);
+            $id         = new ArticleId($decodedRoute);
             $articleDto = $this->articleViewService->find($id);
-        } catch(NoSuchArticleException $e) {
+        } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException('Article with id %s not exist');
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $uri = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
                 $this->translateService->t($this::ERROR_MESSAGE_KEY)
             );
             return new RedirectResponse($uri);
-        } catch(CouldNotFindException $e) {
+        } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
             $this->session->setData(
@@ -87,7 +88,16 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
             $languages,
-            $articleDto
+            $articleDto,
+            Update::ID_FIELD,
+            Update::CHANGE_ACTIVITY_FIELD,
+            Update::CHANGE_ACTIVITY_YES_FIELD,
+            Update::CHANGE_ACTIVITY_NO_FIELD,
+            Update::TRANSLATES_FIELD,
+            Update::LANGUAGE_FIELD,
+            Update::NAME_FIELD,
+            Update::SHORT_DESCRIPTION_FIELD,
+            Update::DESCRIPTION_FIELD
         );
 
         $html = $this->view
