@@ -2,16 +2,14 @@
 
 ## Current
 
-- database up
-
-## Next
-
 - article update
   - action
 
 - article
   - new
   - delete
+
+## Next
 
 - test and refactor `getDescription` of dynamic actions with urlencode/decode
 
