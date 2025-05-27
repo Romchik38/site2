@@ -78,7 +78,8 @@ return function (Container $container): ControllerInterface {
         'article',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction'),
+        'admin_article'
     );
 
     $adminAuthor = new Controller(
