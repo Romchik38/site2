@@ -13,4 +13,9 @@ final class LanguageDto
         public readonly bool $active
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->identifier;
+    }
 }

@@ -22,7 +22,7 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $changeActivityField,
         public readonly string $yesField,
         public readonly string $noField,
-        public readonly string $translatesField,
+        public readonly string $translateField,
         public readonly string $languageField,
         public readonly string $nameField,
         public readonly string $shortDescriptionField,
