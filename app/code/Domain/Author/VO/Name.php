@@ -13,7 +13,7 @@ final class Name
         public readonly string $name
     ) {
         if ($name === '') {
-            throw new InvalidArgumentException('Authir name is empty');
+            throw new InvalidArgumentException('Author name is empty');
         }
     }
 

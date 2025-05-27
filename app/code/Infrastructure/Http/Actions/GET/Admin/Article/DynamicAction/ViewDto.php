@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicA
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;
+use Romchik38\Site2\Application\Article\AdminView\Dto\ArticleDto;
 
 final class ViewDto extends DefaultViewDTO
 {
@@ -15,7 +16,8 @@ final class ViewDto extends DefaultViewDTO
         string $description,
         public readonly string $csrfTokenField,
         public string $csrfToken,
-        public readonly array $languages
+        public readonly array $languages,
+        public readonly ArticleDto $article
     ) {
         parent::__construct($name, $description);
     }

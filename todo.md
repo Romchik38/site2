@@ -9,6 +9,8 @@
   - new
   - delete
 
+- entities tests
+
 ## Next
 
 - test and refactor `getDescription` of dynamic actions with urlencode/decode

@@ -86,7 +86,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             sprintf('Article view page with id %s', $decodedRoute),
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
-            $languages
+            $languages,
+            $articleDto
         );
 
         $html = $this->view
