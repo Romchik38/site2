@@ -22,4 +22,9 @@ final class ArticleDto
         public readonly array $translates
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
 }
