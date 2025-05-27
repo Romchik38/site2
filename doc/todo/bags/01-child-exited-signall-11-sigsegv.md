@@ -8,11 +8,15 @@
   - on [?]9 tries is fails
 - occures in `admin` and `frontend` area
 
-## Versions to fix
+## Result
 
-1. [-] Check on blank `twig` area
-2. [-] get a string which `twig` is rendering and then failing
+Problem appears
 
-## 1. Check on blank `twig` area
+- using twig 
+- `{% include 'path/to/template' %}` (template does not exist)
+- `ignore missing` does not helps
+- x-debug is enabled
 
-...
+So what to do?
+
+`Use only existing templates` OR  `Turn off X-debug`

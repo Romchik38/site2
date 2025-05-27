@@ -2,15 +2,10 @@
 
 ## Current
 
-- bug - child process exit `child 1073 exited on signal 11 (SIGSEGV - core dumped)`. [See](./doc/todo/bags/01-child-exited-signall-11-sigsegv.mds)
-
-- remove include ignore missimg
-  - frontend
-  - admin
+- database up
 
 ## Next
 
-- database up
 - article update
   - action
 
