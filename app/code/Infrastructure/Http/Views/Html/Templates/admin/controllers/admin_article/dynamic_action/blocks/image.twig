@@ -1,0 +1,36 @@
+{% set i = data.article.image %}
+
+<!-- Inside a form -->
+<h2 class="text-center">Image</h2>
+
+{% if i is null %}
+    Article does not have image
+{% else %}
+    {% set imageUrl = u.fromArray(['root', 'admin', 'image', i.getId()]) %}
+    <div class="text-center">
+        <img class="img-fluid" src="/img.php?id={{ i.getId() }}&type=webp&width=576&height=384" alt="">
+    </div>
+    <div class="text-center">
+        <a href="{{ imageUrl }}">Image view page</a>.
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ i.getId() }}</td>
+            </tr>
+            <tr>
+                <th>Activity</th>
+                {% if i.active == true %}
+                    <td>Active</td>
+                {% else %}
+                    <td>Not active</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ i.getName() }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endif %}

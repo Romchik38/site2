@@ -26,7 +26,7 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $languageField,
         public readonly string $nameField,
         public readonly string $shortDescriptionField,
-        public readonly string $descriptionField
+        public readonly string $descriptionField,
     ) {
         parent::__construct($name, $description);
     }

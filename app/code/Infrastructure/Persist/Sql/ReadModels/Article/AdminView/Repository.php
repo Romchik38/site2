@@ -115,7 +115,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @return array<int,CategoryDto>
+     * @return array<int,TranslateDto>
      */
     private function createTranslates(ArticleId $articleId): array
     {
@@ -340,10 +340,6 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article audio translate path is invalid');
         }
 
-        $rawLanguage;
-        $rawDescription;
-        $rawPath;
-
         try {
             $language    = new LanguageId($rawLanguage);
             $description = new AudioDescription($rawDescription);
@@ -356,7 +352,7 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @param array<string,string|null> $row
+     * @param array<string,string|null> $articleRow
      * @throws RepositoryException
      * */
     private function createImage(array $articleRow): ?ImageDto

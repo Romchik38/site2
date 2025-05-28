@@ -56,25 +56,26 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
         $decodedRoute = urldecode($dynamicRoute());
 
+        $uriList = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
+
         try {
             $id         = new ArticleId($decodedRoute);
             $articleDto = $this->articleViewService->find($id);
         } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException('Article with id %s not exist');
         } catch (InvalidArgumentException $e) {
-            $uri = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
                 $this->translateService->t($this::ERROR_MESSAGE_KEY)
             );
-            return new RedirectResponse($uri);
+            return new RedirectResponse($uriList);
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $uri = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
                 $this->translateService->t($this::ERROR_MESSAGE_KEY)
             );
+            return new RedirectResponse($uriList);
         }
 
         $languages = $this->languageService->getAll();
@@ -97,7 +98,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::LANGUAGE_FIELD,
             Update::NAME_FIELD,
             Update::SHORT_DESCRIPTION_FIELD,
-            Update::DESCRIPTION_FIELD
+            Update::DESCRIPTION_FIELD,
         );
 
         $html = $this->view
