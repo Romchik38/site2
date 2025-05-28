@@ -2,6 +2,9 @@
 
 ## Current
 
+- admin image list
+  - can respond with json
+
 - article update
   - action
 
