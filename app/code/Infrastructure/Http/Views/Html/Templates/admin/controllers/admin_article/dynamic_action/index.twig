@@ -4,6 +4,8 @@
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto
 #}
 
+{% include controller_template_dir ~ '/wysiwyg/index.twig' %}
+
 {% set articleListUrl = u.fromArray(['root', 'admin', 'article']) %}
 {% set deleteUrl = u.fromArray(['root', 'admin', 'article', 'delete']) %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'article', 'update']) %}
