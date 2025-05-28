@@ -28,4 +28,14 @@ final class ImageDto
         $this->authorName = new AuthorName($authorName);
         $this->path       = new Path($path);
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'image_id'          => ($this->identifier)(),
+            'image_name'        => ($this->name)(),
+            'image_author_name' => ($this->authorName)(),
+            'image_path'        => ($this->path)(),
+        ];
+    }
 }

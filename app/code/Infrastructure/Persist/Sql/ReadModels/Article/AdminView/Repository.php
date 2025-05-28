@@ -31,7 +31,6 @@ use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Image\VO\Name as ImageName;
-use Romchik38\Site2\Domain\Image\VO\Path as ImagePath;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_key_exists;

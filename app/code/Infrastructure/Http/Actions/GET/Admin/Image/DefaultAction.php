@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
@@ -12,11 +13,13 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Application\Image\ImageService\Delete;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -29,6 +32,9 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    public const RESPONSE_TYPE_FIELD = 'response_type';
+    public const RESPONSE_JSON_FIELD = 'json';
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -52,6 +58,27 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $page           = $filterResult->page;
         $totalCount     = $this->adminImageListService->totalCount();
 
+        // JSON
+        $isJsonRequest = $requestData[self::RESPONSE_TYPE_FIELD] ?? null;
+        if ($isJsonRequest === self::RESPONSE_JSON_FIELD) {
+            return new JsonResponse(new JsonViewDto(
+                'Images list api',
+                'Uses to get filter result of existing images',
+                ApiDTOInterface::STATUS_SUCCESS,
+                $imagesList,
+                $totalCount,
+                ($searchCriteria->limit)(),
+                Filter::LIMIT_FIELD,
+                ($page)(),
+                Filter::PAGE_FIELD,
+                ($searchCriteria->orderByField)(),
+                Filter::ORDER_BY_FIELD,
+                ($searchCriteria->orderByDirection)(),
+                Filter::ORDER_BY_DIRECTION_FIELD
+            ));
+        }
+
+        // HTML
         $path              = new Path($this->getPath());
         $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
         $additionalQueries = [
