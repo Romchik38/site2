@@ -389,18 +389,13 @@ final class Repository implements RepositoryInterface
         if ($rawName === null) {
             throw new RepositoryException('Article image name is invalid');
         }
-        $rawPath = $firstRow['path'] ?? null;
-        if ($rawPath === null) {
-            throw new RepositoryException('Article image path is invalid');
-        }
         try {
             $id   = ImageId::fromString($rawId);
             $name = new ImageName($rawName);
-            $path = new ImagePath($rawPath);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
-        return new ImageDto($id, $active, $name, $path);
+        return new ImageDto($id, $active, $name);
     }
 
     private function getByIdQuery(): string
@@ -438,8 +433,7 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             SELECT img.active,
-                img.name,
-                img.path
+                img.name
             FROM img
             WHERE img.identifier = $1
         QUERY;

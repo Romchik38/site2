@@ -4,7 +4,6 @@
 
 - article update
   - action
-  - ? imageDto path
 
 - article
   - new
