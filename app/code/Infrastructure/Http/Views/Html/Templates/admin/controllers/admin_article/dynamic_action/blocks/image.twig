@@ -1,4 +1,5 @@
 {% set i = data.article.image %}
+{% set iF = data.imageFilters %}
 
 <!-- Inside a form -->
 <h2 class="text-center">Image</h2>
@@ -6,6 +7,7 @@
 {% if i is null %}
     Article does not have image
 {% else %}
+    <div class="image-init" data-id="{{ i.getId() }}"></div>
     {% set imageUrl = u.fromArray(['root', 'admin', 'image', i.getId()]) %}
     <div class="text-center">
         <img class="img-fluid" src="/img.php?id={{ i.getId() }}&type=webp&width=576&height=384" alt="">
@@ -34,3 +36,52 @@
         </tbody>
     </table>
 {% endif %}
+<div>
+    <button class="btn btn-secondary image-button-change" type="button">Change</button>
+</div>
+<div class="image-filter" style="display: none">
+    <div class="image-message text-warning">User message</div>
+    <div class="image-error-message text-danger">Error Message</div>
+    <div class="image-filters d-sm-flex">
+        <label class="me-2">Limit</label>
+        <div class="me-2">
+            <select class="form-select form-select-sm image-select-limit">
+                {% for limit in iF.getLimits() %}
+                    {% if limit == iF.getDefaultLimit() %}
+                        <option value="{{ limit }}" selected>{{ limit }}</option>
+                    {% else %}
+                        <option value="{{ limit }}">{{ limit }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <label class="me-2">Order By</label>
+        <div class="me-2">
+            <select class="form-select form-select-sm image-select-orderby">
+                {% for orderBy in iF.getOrderBys() %}
+                    {% if orderBy == iF.getDefaultOrderBy() %}
+                        <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                    {% else %}
+                        <option value="{{ orderBy }}">{{ orderBy }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <label class="me-2">Order By Direction</label>
+        <div class="me-2">
+            <select class="form-select form-select-sm image-select-orderbydirection">
+                {% for orderByDirection in iF.getOrderByDirections() %}
+                    {% if orderByDirection == iF.getDefaultOrderByDirection() %}
+                        <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                    {% else %}
+                        <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm py-0 image-button-filter">filter</button>
+    </div>
+    <div class="image-container"></div>
+    <div class="image-pages">
+</div>
+<script type="module" src="/media/js/admin/article/image.js"></script>

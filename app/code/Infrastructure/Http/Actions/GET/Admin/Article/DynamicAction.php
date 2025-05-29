@@ -24,6 +24,7 @@ use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ImageFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -99,6 +100,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::NAME_FIELD,
             Update::SHORT_DESCRIPTION_FIELD,
             Update::DESCRIPTION_FIELD,
+            new ImageFiltersDto()
         );
 
         $html = $this->view
