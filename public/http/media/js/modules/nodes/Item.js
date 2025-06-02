@@ -107,7 +107,7 @@ export default class Item{
         if (collection.length === 0) {
             throw new Error(`element ${className} not found on the page`);
         }
-        return new Item(collection);
+        return new this(collection);
     }
 
     // Run registered events
