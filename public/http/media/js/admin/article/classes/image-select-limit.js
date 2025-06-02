@@ -1,8 +1,8 @@
 'use strict';
 
-import { default as Item } from '/media/js/modules/nodes/Item.js';
+import { default as Component } from '/media/js/modules/components/component.js';
 
-class ImageSelectLimit extends Item {
+class ImageSelectLimit extends Component {
 }
 
 var imageSelectLimit = ImageSelectLimit.fromClass('image-select-limit');

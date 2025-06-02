@@ -1,8 +1,8 @@
 'use strict';
 
-import { default as Item } from '/media/js/modules/nodes/Item.js';
+import { default as Component } from '/media/js/modules/components/component.js';
 
-class ImageButtonChange extends Item {}
+class ImageButtonChange extends Component {};
 
 var imageButtonChange = ImageButtonChange.fromClass('image-button-change');
 

@@ -1,22 +1,13 @@
 'use strict';
 
-export default class Item{
+export default class Component {
     
-    constructor(nodes) {
-        // Nodes
-        this.nodes = [];
-        if (!nodes instanceof Array) {
-            throw new Error('Param nodes is invalid');
-        }    
-        if (nodes.length === 0) {
-            throw new Error('Param nodes is epmty');
-        }
-        for (var item of nodes) {
-            if (! item instanceof HTMLElement) {
-                throw new Error('Wrong node type. Expected Html element');
-            } else {
-                this.nodes.push(item);
-            }
+    constructor(node) {
+        // Node
+        if (! node instanceof HTMLElement) {
+            throw new Error('Wrong node type. Expected HtmlElement');
+        } else {
+            this.node = node;
         }
         // user functions
         this.fnHide = null;
@@ -41,11 +32,9 @@ export default class Item{
 
         var existingEvents = this.registeredEvents[name] || [];
         if (existingEvents.length === 0) {
-            for (var item of this.nodes) {
-                item.addEventListener(name, (...params) => {
-                    this._event(name, ...params);
-                });
-            }
+            this.node.addEventListener(name, (...params) => {
+                this._event(name, ...params);
+            });
         }
         existingEvents.push(callback);
         this.registeredEvents[name] = existingEvents;
@@ -53,21 +42,21 @@ export default class Item{
     }
     
     hide() {
-        for (var node of this.nodes) {
-            if (this.fnHide !== null) {
-                this.fnHide(node);
-            } else {
-                node.style.display = 'none';
-            }
+        if (this.fnHide !== null) {
+            this.fnHide(this.node);
+        } else {
+            this.node.style.display = 'none';
         }
     }
 
-    show() {
-        for (var node of this.nodes) {
-            if (this.fnShow !== null) {
-                this.fnShow(node);
+    show(type) {
+        if (this.fnShow !== null) {
+            this.fnShow(this.node);
+        } else {
+            if (typeof type === 'string') {
+                this.node.style.display = type;
             } else {
-                node.style.display = '';
+                this.node.style.display = '';
             }
         }
     }
@@ -76,9 +65,7 @@ export default class Item{
         if (typeof newText !== 'string') {
             throw new Error('Param text is invalid');
         }
-        for (var item of this.nodes) {
-            item.innerText = newText;
-        }
+        this.node.innerText = newText;
     }
 
     onHide(callback) {      
@@ -100,13 +87,11 @@ export default class Item{
     }
 
     getValue() {
-        var item = this.nodes[0];
-        return item.value;
+        return this.node.value;
     }
 
     setValue(val) {
-        var item = this.nodes[0];
-        item.value = val;
+        this.node.value = val;
     }
 
     static fromClass(className) {
@@ -114,10 +99,14 @@ export default class Item{
             throw new Error('Param className is invalid');
         }
         var collection = document.getElementsByClassName(className);
-        if (collection.length === 0) {
-            throw new Error(`element ${className} not found on the page`);
+        var len = collection.length;
+        if ( len === 0) {
+            throw new Error(`element ${className} not found`);
+        } else if (len > 1) {
+            throw new Error(`element ${className} is more than one`);
         }
-        return new this(collection);
+        var node = collection[0];
+        return new this(node);
     }
 
     // Run registered events
