@@ -2,6 +2,8 @@
 
 import { default as Item } from '/media/js/modules/nodes/Item.js';
 
-export default class ImageButtonChange extends Item {
+class ImageButtonChange extends Item {}
 
-}
+var imageButtonChange = ImageButtonChange.fromClass('image-button-change');
+
+export default imageButtonChange;

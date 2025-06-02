@@ -72,6 +72,15 @@ export default class Item{
         }
     }
 
+    text(newText) {
+        if (typeof newText !== 'string') {
+            throw new Error('Param text is invalid');
+        }
+        for (var item of this.nodes) {
+            item.innerText = newText;
+        }
+    }
+
     onHide(callback) {      
         if  (typeof callback === 'function') {
             this.fnHide = callback;
