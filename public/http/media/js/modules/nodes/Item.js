@@ -99,6 +99,16 @@ export default class Item{
         }
     }
 
+    getValue() {
+        var item = this.nodes[0];
+        return item.value;
+    }
+
+    setValue(val) {
+        var item = this.nodes[0];
+        item.value = val;
+    }
+
     static fromClass(className) {
         if (typeof className !== 'string') {
             throw new Error('Param className is invalid');
