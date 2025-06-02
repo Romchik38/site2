@@ -11,13 +11,13 @@ export default class Item{
         if (nodes.length === 0) {
             throw new Error('Param nodes is epmty');
         }
-        nodes.forEach(elem => {
-            if (! elem instanceof HTMLElement) {
+        for (var item of nodes) {
+            if (! item instanceof HTMLElement) {
                 throw new Error('Wrong node type. Expected Html element');
             } else {
-                this.nodes.push(elem);
+                this.nodes.push(item);
             }
-        });
+        }
     }
     
     static fromClass(className) {
@@ -28,5 +28,6 @@ export default class Item{
         if (collection.length === 0) {
             throw new Error(`element ${className} not found on the page`);
         }
+        return new Item(collection);
     }
 };

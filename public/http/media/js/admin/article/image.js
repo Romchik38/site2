@@ -1,6 +1,6 @@
 'use strict';
 
-import { default as Item } from '/media/js/modules/nodes/Item.js';
+import ImageButtonChange from './classes/image-button-change.js';
 
 /* Image Filter App for admin article page
 
@@ -22,4 +22,4 @@ image-button-filter             filter images
 
 */
 
-var ibc = Item.fromClass('image-button-change');
+var ibc = ImageButtonChange.fromClass('image-button-change');
