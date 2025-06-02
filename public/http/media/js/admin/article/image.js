@@ -1,8 +1,10 @@
 'use strict';
 
+import { default as Item } from '/media/js/modules/nodes/Item.js';
+
 /* Image Filter App for admin article page
 
-image-button-change             show/hide filter block
+image-button-change (ibc)       show/hide filter block
 
 image-init                      holds image id if exist
 image-message                   display message to user
@@ -20,4 +22,4 @@ image-button-filter             filter images
 
 */
 
-console.log('hello image');
+var ibc = Item.fromClass('image-button-change');

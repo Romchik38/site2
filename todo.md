@@ -3,7 +3,7 @@
 ## Current
 
 - admin image list
-  - can respond with json
+  - show hide filter
 
 - article update
   - action
