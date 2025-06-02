@@ -23,3 +23,6 @@ image-button-filter             filter images
 */
 
 var ibc = ImageButtonChange.fromClass('image-button-change');
+ibc.onEvent('click', (e) => {
+    console.log(e);
+});

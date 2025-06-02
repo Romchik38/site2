@@ -21,6 +21,35 @@ export default class Item{
         // user functions
         this.fnHide = null;
         this.fnShow = null;
+
+        // events
+        this.events = ['click'];
+        this.registeredEvents = [];
+    }
+
+    onEvent(name, callback) {
+        if (typeof name !== 'string') {
+            throw new Error('Param event name is invalid');
+        } else {
+            if (!this.events.find((v) => v === name)) {
+                throw new Error('Param event name has non expected value: ' + name);
+            }
+        }
+        if (typeof callback !== 'function') {
+            throw new Error('Param event callback is invalid');
+        }
+
+        var existingEvents = this.registeredEvents[name] || [];
+        if (existingEvents.length === 0) {
+            for (var item of this.nodes) {
+                item.addEventListener(name, (...params) => {
+                    this._event(name, ...params);
+                });
+            }
+        }
+        existingEvents.push(callback);
+        this.registeredEvents[name] = existingEvents;
+        return this;
     }
     
     hide() {
@@ -70,5 +99,17 @@ export default class Item{
             throw new Error(`element ${className} not found on the page`);
         }
         return new Item(collection);
+    }
+
+    // Run registered events
+    _event(name, ...params) {
+        var existingEvents = this.registeredEvents[name] || [];
+        
+        if (existingEvents.length === 0) {
+            throw new Error(`Event with name ${name} is not registered`);
+        }
+        for (var callback of existingEvents) {
+            callback(...params);
+        }
     }
 };
