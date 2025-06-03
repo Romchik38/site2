@@ -7,6 +7,7 @@ import { default as iso } from './classes/image-select-orderby.js';
 import { default as isod } from './classes/image-select-orderbydirection.js';
 import imageFilter from './classes/image-filter.js';
 import { default as ic } from './classes/image-container.js';
+import { default as Query } from '/media/js/modules/request/query.js';
 
 /* Image Filter App for admin article page
 
@@ -47,13 +48,11 @@ ibf.onEvent('click', () => {
     // clear rows
     ic.clear();
     // make a request
-    console.log('make a request');
-    console.log(isl.getValue());
-    console.log(isl.getDataName());
-    console.log(iso.getValue());
-    console.log(iso.getDataName());
-    console.log(isod.getValue())
-    console.log(isod.getDataName());
+    // @todo implement a page
+    var limit = new Query(isl.getDataName(), isl.getValue());
+    var orderBy = new Query(iso.getDataName(), iso.getValue());
+    var orderByDirection = new Query(isod.getDataName(), isod.getValue());
+
     var images = [
         {
             'image_id': 85,
