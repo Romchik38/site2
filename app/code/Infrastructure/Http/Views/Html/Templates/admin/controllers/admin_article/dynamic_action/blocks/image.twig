@@ -36,54 +36,56 @@
         </tbody>
     </table>
 {% endif %}
-<div>
-    <button class="btn btn-secondary image-button-change" type="button">Change</button>
-</div>
-
-<!-- Filters -->
-<div class="image-filter" style="display: none">
-    <div class="image-message text-warning">User message</div>
-    <div class="image-error-message text-danger">Error Message</div>
-    <div class="image-filters d-sm-flex">
-        <label class="me-2">Limit</label>
-        <div class="me-2">
-            <select class="form-select form-select-sm image-select-limit">
-                {% for limit in iF.getLimits() %}
-                    {% if limit == iF.getDefaultLimit() %}
-                        <option value="{{ limit }}" selected>{{ limit }}</option>
-                    {% else %}
-                        <option value="{{ limit }}">{{ limit }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <label class="me-2">Order By</label>
-        <div class="me-2">
-            <select class="form-select form-select-sm image-select-orderby">
-                {% for orderBy in iF.getOrderBys() %}
-                    {% if orderBy == iF.getDefaultOrderBy() %}
-                        <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
-                    {% else %}
-                        <option value="{{ orderBy }}">{{ orderBy }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <label class="me-2">Order By Direction</label>
-        <div class="me-2">
-            <select class="form-select form-select-sm image-select-orderbydirection">
-                {% for orderByDirection in iF.getOrderByDirections() %}
-                    {% if orderByDirection == iF.getDefaultOrderByDirection() %}
-                        <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
-                    {% else %}
-                        <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <button type="button" class="btn btn-secondary btn-sm py-0 image-button-filter">filter</button>
+<div class="border bg-light p-2">
+    <div>
+        <button class="btn btn-secondary my-2 image-button-change" type="button">Change</button>
     </div>
-    <div class="image-container"></div>
-    <div class="image-pages">
-</div>
+
+    <!-- Filters -->
+    <div class="image-filter" style="display: none">
+        <div class="image-message text-warning" style="display: none">User message</div>
+        <div class="image-error-message text-danger" style="display: none">Error Message</div>
+        <div class="image-filters d-sm-flex">
+            <label class="me-2">Limit</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-limit">
+                    {% for limit in iF.getLimits() %}
+                        {% if limit == iF.getDefaultLimit() %}
+                            <option value="{{ limit }}" selected>{{ limit }}</option>
+                        {% else %}
+                            <option value="{{ limit }}">{{ limit }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderby">
+                    {% for orderBy in iF.getOrderBys() %}
+                        {% if orderBy == iF.getDefaultOrderBy() %}
+                            <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                        {% else %}
+                            <option value="{{ orderBy }}">{{ orderBy }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By Direction</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderbydirection">
+                    {% for orderByDirection in iF.getOrderByDirections() %}
+                        {% if orderByDirection == iF.getDefaultOrderByDirection() %}
+                            <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                        {% else %}
+                            <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm py-0 image-button-filter">filter</button>
+        </div>
+        <div class="image-container"></div>
+        <div class="image-pages">
+    </div>
+</div>    
 <script type="module" src="/media/js/admin/article/image.js"></script>

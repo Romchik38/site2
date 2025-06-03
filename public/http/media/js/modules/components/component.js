@@ -120,4 +120,25 @@ export default class Component {
             callback(...params);
         }
     }
+
+
+    _createElement (tagName, attributes = {}, text) {
+        if (typeof tagName !== 'string') {
+            throw new Error('Invalid param create element tag name');
+        }
+        if (typeof attributes !== 'object') {
+            throw new Error('Invalid param create element attributes');
+        }
+        if (typeof text !== 'string') {
+            throw new Error('Invalid param create element text');
+        }
+
+        var element = document.createElement(tagName);
+        var keys = Object.keys(attributes);
+        for (var key of keys) {
+            element.setAttribute(key, attributes[key]);
+        }
+        element.innerText = text;
+        return element;
+    };
 };

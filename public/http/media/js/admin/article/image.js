@@ -1,10 +1,12 @@
 'use strict';
 
 import { default as ibc } from './classes/image-button-change.js';
+import { default as ibf } from './classes/image-button-filter.js';
 import { default as isl } from './classes/image-select-limit.js';
 import { default as iso } from './classes/image-select-orderby.js';
 import { default as isod } from './classes/image-select-orderbydirection.js';
 import imageFilter from './classes/image-filter.js';
+import { default as ic } from './classes/image-container.js';
 
 /* Image Filter App for admin article page
 
@@ -22,7 +24,7 @@ image-pages                                     page buttons
 image-select-limit              isl             limit select
 image-select-orderby            iso             order by select
 image-select-orderbydirection   isod            order direction select
-image-button-filter                             filter images
+image-button-filter             ibf             filter images
 
 */
 
@@ -41,6 +43,15 @@ ibc.onEvent('click', () => {
 });
 
 // make filter
-console.log(isl.getValue());
-console.log(iso.getValue());
-console.log(isod.getValue());
+ibf.onEvent('click', () => {
+    // clear rows
+    console.log('clear rows');
+    // make a request
+    console.log('make a request');
+    
+    console.log(isl.getValue());
+    console.log(iso.getValue());
+    console.log(isod.getValue())
+    // fill rows;
+    ic.fill();
+});
