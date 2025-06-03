@@ -48,7 +48,7 @@
         <div class="image-filters d-sm-flex">
             <label class="me-2">Limit</label>
             <div class="me-2">
-                <select class="form-select form-select-sm image-select-limit">
+                <select class="form-select form-select-sm image-select-limit" data-name="{{ iF.getLimitFiled() }}">
                     {% for limit in iF.getLimits() %}
                         {% if limit == iF.getDefaultLimit() %}
                             <option value="{{ limit }}" selected>{{ limit }}</option>
@@ -60,7 +60,7 @@
             </div>
             <label class="me-2">Order By</label>
             <div class="me-2">
-                <select class="form-select form-select-sm image-select-orderby">
+                <select class="form-select form-select-sm image-select-orderby" data-name="{{ iF.getOrderByFiled() }}">
                     {% for orderBy in iF.getOrderBys() %}
                         {% if orderBy == iF.getDefaultOrderBy() %}
                             <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
@@ -72,7 +72,7 @@
             </div>
             <label class="me-2">Order By Direction</label>
             <div class="me-2">
-                <select class="form-select form-select-sm image-select-orderbydirection">
+                <select class="form-select form-select-sm image-select-orderbydirection" data-name="{{ iF.getOrderByDirectionFiled() }}">
                     {% for orderByDirection in iF.getOrderByDirections() %}
                         {% if orderByDirection == iF.getDefaultOrderByDirection() %}
                             <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>

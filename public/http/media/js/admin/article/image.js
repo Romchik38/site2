@@ -49,8 +49,11 @@ ibf.onEvent('click', () => {
     // make a request
     console.log('make a request');
     console.log(isl.getValue());
+    console.log(isl.getDataName());
     console.log(iso.getValue());
+    console.log(iso.getDataName());
     console.log(isod.getValue())
+    console.log(isod.getDataName());
     var images = [
         {
             'image_id': 85,
