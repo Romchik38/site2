@@ -1,12 +1,12 @@
 'use strict';
 
-import { default as ibc } from './classes/image-button-change.js';
-import { default as ibf } from './classes/image-button-filter.js';
-import { default as isl } from './classes/image-select-limit.js';
-import { default as iso } from './classes/image-select-orderby.js';
-import { default as isod } from './classes/image-select-orderbydirection.js';
-import imageFilter from './classes/image-filter.js';
-import { default as ic } from './classes/image-container.js';
+import { default as ibc } from './image/image-button-change.js';
+import { default as ibf } from './image/image-button-filter.js';
+import { default as isl } from './image/image-select-limit.js';
+import { default as iso } from './image/image-select-orderby.js';
+import { default as isod } from './image/image-select-orderbydirection.js';
+import imageFilter from './image/image-filter.js';
+import { default as ic } from './image/image-container.js';
 import { default as Query } from '/media/js/modules/request/query.js';
 
 /* Image Filter App for admin article page
