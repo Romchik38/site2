@@ -45,13 +45,19 @@ ibc.onEvent('click', () => {
 // make filter
 ibf.onEvent('click', () => {
     // clear rows
-    console.log('clear rows');
+    ic.clear();
     // make a request
     console.log('make a request');
-    
     console.log(isl.getValue());
     console.log(iso.getValue());
     console.log(isod.getValue())
+    var images = [
+        {
+            'image_id': 85,
+            'image_name': 'some name',
+            'image_author_name': 'Some author name'
+        }
+    ];
     // fill rows;
-    ic.fill();
+    ic.fill(images);
 });

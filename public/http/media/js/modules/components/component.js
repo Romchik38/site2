@@ -122,15 +122,12 @@ export default class Component {
     }
 
 
-    _createElement (tagName, attributes = {}, text) {
+    _createElement (tagName, attributes = {}, text = '') {
         if (typeof tagName !== 'string') {
             throw new Error('Invalid param create element tag name');
         }
         if (typeof attributes !== 'object') {
             throw new Error('Invalid param create element attributes');
-        }
-        if (typeof text !== 'string') {
-            throw new Error('Invalid param create element text');
         }
 
         var element = document.createElement(tagName);

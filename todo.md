@@ -19,6 +19,7 @@
 
 ## Next
 
+- why error - `http://localhost:8000/uk/adminimage?type=json`
 - test and refactor `getDescription` of dynamic actions with urlencode/decode
 
 - author id must be int
