@@ -7,7 +7,8 @@ import { default as iso } from './image/image-select-orderby.js';
 import { default as isod } from './image/image-select-orderbydirection.js';
 import imageFilter from './image/image-filter.js';
 import { default as ic } from './image/image-container.js';
-import { default as Query } from '/media/js/modules/request/query.js';
+import { default as filter } from './image/make-request.js';
+import { default as FilterRequest } from './image/filter-request.js';
 
 /* Image Filter App for admin article page
 
@@ -49,17 +50,25 @@ ibf.onEvent('click', () => {
     ic.clear();
     // make a request
     // @todo implement a page
-    var limit = new Query(isl.getDataName(), isl.getValue());
-    var orderBy = new Query(iso.getDataName(), iso.getValue());
-    var orderByDirection = new Query(isod.getDataName(), isod.getValue());
+    var filterRequest = new FilterRequest(
+        isl.getDataName(),
+        isl.getValue(),
+        iso.getDataName(),
+        iso.getValue(),
+        isod.getDataName(),
+        isod.getValue()
+    );
 
-    var images = [
-        {
-            'image_id': 85,
-            'image_name': 'some name',
-            'image_author_name': 'Some author name'
+    filter(filterRequest, (err, data) => {
+        if (err !== null) {
+            // @ todo show error            
+        } else {
+            var images = data['image_list'];          
+            if (typeof images !== 'object') {
+                // @ todo show error
+            } else {
+                ic.fill(images);
+            }
         }
-    ];
-    // fill rows;
-    ic.fill(images);
+    });
 });
