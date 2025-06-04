@@ -2,10 +2,18 @@
 
 ## Current
 
-- article update
-  - action
+- author admin list can hold json request
+
+- article author
+  - template
+  - html structure
+  - js module
 
 - article
+  - author
+  - audio
+  - category
+  - update
   - new
   - delete
 
