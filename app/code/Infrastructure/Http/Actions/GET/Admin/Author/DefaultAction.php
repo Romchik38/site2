@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
@@ -29,6 +31,12 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    public const acceptHeaderSerializer = [
+        '*/*' => 'html',
+        'text/html' => 'html',
+        'application/json' => 'json'
+    ];
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -43,15 +51,38 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $request->getQueryParams();
-        $command     = Filter::fromRequest($requestData);
+        $responseType = $this->serializeAcceptHeader($request->getHeaderLine('Accept'));
 
-        $filterResult   = $this->adminAuthorList->list($command);
-        $searchCriteria = $filterResult->searchCriteria;
-        $authorList     = $filterResult->list;
-        $page           = $filterResult->page;
-        $totalCount     = $this->adminAuthorList->totalCount();
+        try {
+            $requestData = $request->getQueryParams();
+            $command     = Filter::fromRequest($requestData);
 
+            $filterResult   = $this->adminAuthorList->list($command);
+            $searchCriteria = $filterResult->searchCriteria;
+            $authorList     = $filterResult->list;
+            $page           = $filterResult->page;
+            $totalCount     = $this->adminAuthorList->totalCount();
+        } catch (\Exception $e) {
+            /** @todo test */
+            if ($responseType === 'json') {
+                return new JsonResponse(['error' => 'some error here']);    
+            } elseif ($responseType === null) {
+                return new TextResponse('Error, try later');
+            } else {
+                throw $e;
+            }
+        }
+
+        /** @todo test */
+        if ($responseType === null) {
+            return new TextResponse('Author admin list page');
+        }
+
+        if ($responseType === 'json') {
+            return new JsonResponse(['hello' => 'world']);
+        }
+
+        // HTML
         $path              = new Path($this->getPath());
         $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
         $additionalQueries = [
@@ -100,5 +131,35 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function getDescription(): string
     {
         return 'Authors page';
+    }
+
+    /** @todo move to trait */
+    private function serializeAcceptHeader(string $headerLine): ?string
+    {
+        if ($headerLine === '') {
+            return null;
+        }
+
+        $preferedType = '';
+        $preferedValue = 0;
+        $values = explode(',', $headerLine);
+        foreach ($values as $value) {
+            $parts = explode(';', $value);
+            $type = $parts[0];
+            $cost = (float) ($parts[1] ?? 1);
+            $serializedType = self::acceptHeaderSerializer[$type] ?? null;
+            if ($serializedType === null) {
+                continue;
+            } else {
+                if ($cost > $preferedValue) {
+                    $preferedType = $serializedType;
+                }
+            }
+        }
+        if ($preferedType !== '') {
+            return $preferedType;
+        } else {
+            return null;
+        }
     }
 }

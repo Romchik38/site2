@@ -2,8 +2,6 @@
 
 ## Current
 
-- author admin list can hold json request
-
 - article author
   - template
   - html structure

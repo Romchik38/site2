@@ -58,6 +58,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $page           = $filterResult->page;
         $totalCount     = $this->adminImageListService->totalCount();
 
+        $acceptHeaderLine = $request->getHeaderLine('Accept');
+
         // JSON
         $isJsonRequest = $requestData[self::RESPONSE_TYPE_FIELD] ?? null;
         if ($isJsonRequest === self::RESPONSE_JSON_FIELD) {
