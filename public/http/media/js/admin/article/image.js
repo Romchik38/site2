@@ -17,12 +17,10 @@ import { default as FilterRequest } from './image/filter-request.js';
 /* Image Filter App for admin article page. 
    Components:
 image-button-change             ibc             show/hide filter block
-image-button-clear                              discard selected image
-image-init                                      holds image id if exist
+image-button-clear              ibcl            discard selected image
 image-message                   im              display message to user
 image-message-error             ime             display error message
 image-filter                    imageFilter     filter block
-image-filters                                   filter select, button
 image-container                 ic              images
 image-page                      ip              page input filed
 image-select-limit              isl             limit select
@@ -32,7 +30,7 @@ image-button-filter             ibf             filter images
 
 */
 
-// show filter
+// Show filter
 var isFilterOpen = false;
 ibc.onEvent('click', () => {
     if (isFilterOpen === false) {
@@ -46,15 +44,14 @@ ibc.onEvent('click', () => {
     }
 });
 
-// make filter
+// Make filter
 ibf.onEvent('click', () => {
-    // clear rows
     ic.clear();
     im.text('');
     im.hide();
     ime.hide();
     ibcl.hide();
-    // make a request
+
     var filterRequest = new FilterRequest(
         isl.getDataName(),
         isl.getValue(),
@@ -67,15 +64,17 @@ ibf.onEvent('click', () => {
     );
 
     filter(filterRequest, (err, data) => {
-        if (err !== null) {
-            // @ todo show error            
+        if (err !== null) {       
             ime.text('Request error. See more details in the console')
             ime.show();
             console.log(err);                    
         } else {
             var images = data['image_list'];          
             if (typeof images !== 'object') {
-                // @ todo show error
+                ime.text('Data not resieved. See more details in the console');
+                ime.show();
+                console.error('Filed image_list not found in resieved data');
+                console.log({ data });
             } else {
                 ic.fill(images);
             }
