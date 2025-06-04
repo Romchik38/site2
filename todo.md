@@ -2,11 +2,13 @@
 
 ## Current
 
-- Item
-  - add event
-
 - admin image list
-  - show hide filter
+  - add image to row
+  - page component
+  - clear rows
+  - display errors
+  - display message on image select
+  - @todo
 
 - article update
   - action
