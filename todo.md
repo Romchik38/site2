@@ -2,8 +2,8 @@
 
 ## Current
 
-- admin image list
-  - @todo
+- article image
+  - check unused components
 
 - article update
   - action
