@@ -6,6 +6,7 @@ class ImageContainer extends Component {
     constructor(node) {
         super(node);
         this.children = [];
+        this.onSelect = null;
     }
     clear() {
         for (var child of this.children) {       
@@ -40,6 +41,9 @@ class ImageContainer extends Component {
                     'value': imageId
                 }
             );
+            if (typeof this.onSelect === 'function') {
+                radio.addEventListener('change', this.onSelect, 1);
+            }
             var imgContainer = this._createElement(
                 'div', 
                 {

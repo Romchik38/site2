@@ -3,9 +3,7 @@
 ## Current
 
 - admin image list
-  - clear rows
   - display errors
-  - display message on image select
   - @todo
 
 - article update
