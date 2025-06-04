@@ -7,7 +7,9 @@ export default class FilterRequest {
         orderByField,
         orderByValue,
         orderByDirectionField,
-        orderByDirectionValue
+        orderByDirectionValue,
+        pageField,
+        pageValue
     ) {
         this.limitField = this._checkParm(limitField);
         this.limitValue = this._checkParm(limitValue);
@@ -15,6 +17,8 @@ export default class FilterRequest {
         this.orderByValue = this._checkParm(orderByValue);
         this.orderByDirectionField = this._checkParm(orderByDirectionField);
         this.orderByDirectionValue = this._checkParm(orderByDirectionValue);
+        this.pageField = this._checkParm(pageField);
+        this.pageValue = this._checkParm(pageValue);
     }
 
     _checkParm(param) {

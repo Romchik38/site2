@@ -3,7 +3,6 @@
 ## Current
 
 - admin image list
-  - page component
   - clear rows
   - display errors
   - display message on image select

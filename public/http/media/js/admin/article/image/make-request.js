@@ -14,6 +14,7 @@ export default function(filterRequest, callback) {
             new Query(filterRequest.limitField, filterRequest.limitValue),
             new Query(filterRequest.orderByField, filterRequest.orderByValue),
             new Query(filterRequest.orderByDirectionField, filterRequest.orderByDirectionValue),
+            new Query(filterRequest.pageField, filterRequest.pageValue),
             new Query('response_type', 'json')
         ]
     );

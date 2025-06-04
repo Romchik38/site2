@@ -2,6 +2,7 @@
 
 import { default as ibc } from './image/image-button-change.js';
 import { default as ibf } from './image/image-button-filter.js';
+import { default as ip } from './image/image-page.js';
 import { default as isl } from './image/image-select-limit.js';
 import { default as iso } from './image/image-select-orderby.js';
 import { default as isod } from './image/image-select-orderbydirection.js';
@@ -19,7 +20,7 @@ image-error-message                             display error message
 image-filter                    imageFilter     filter block
 image-filters                                   filter select, button
 image-container                 ic              images
-image-pages                                     page buttons
+image-page                      ip              page input filed
 image-select-limit              isl             limit select
 image-select-orderby            iso             order by select
 image-select-orderbydirection   isod            order direction select
@@ -46,14 +47,15 @@ ibf.onEvent('click', () => {
     // clear rows
     ic.clear();
     // make a request
-    // @todo implement a page
     var filterRequest = new FilterRequest(
         isl.getDataName(),
         isl.getValue(),
         iso.getDataName(),
         iso.getValue(),
         isod.getDataName(),
-        isod.getValue()
+        isod.getValue(),
+        ip.getDataName(),
+        ip.getValue()
     );
 
     filter(filterRequest, (err, data) => {

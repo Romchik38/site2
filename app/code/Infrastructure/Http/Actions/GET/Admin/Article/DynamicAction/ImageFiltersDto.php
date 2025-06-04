@@ -8,6 +8,7 @@ use Romchik38\Site2\Application\Image\AdminImageListService\VO\Limit;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByDirection;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
+use Romchik38\Site2\Application\Image\AdminImageListService\VO\Page;
 
 final class ImageFiltersDto
 {
@@ -61,5 +62,15 @@ final class ImageFiltersDto
     public function getOrderByDirectionFiled(): string
     {
         return Filter::ORDER_BY_DIRECTION_FIELD;
+    }
+
+    public function getDefaultPage(): string
+    {
+        return (string) Page::DEFAULT_PAGE;
+    }
+
+    public function getPageField(): string
+    {
+        return (string) Filter::PAGE_FIELD;
     }
 }
