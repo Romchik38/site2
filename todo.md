@@ -2,9 +2,6 @@
 
 ## Current
 
-- admin image list
-  - @todo
-
 - article update
   - action
 

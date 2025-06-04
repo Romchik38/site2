@@ -34,10 +34,8 @@ use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
-    /** @todo usage */
     public const ERROR_MESSAGE_KEY = 'server-error.message';
 
-    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
