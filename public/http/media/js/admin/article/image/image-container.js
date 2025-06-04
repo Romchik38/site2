@@ -19,6 +19,7 @@ class ImageContainer extends Component {
         }
         // @todo escape attr and text
         for (var i of images) {
+            var imageId = i['image_id'];
             var child = this._createElement(
                 'div', 
                 {
@@ -36,15 +37,28 @@ class ImageContainer extends Component {
                 {
                     'type': 'radio',
                     'name': 'image_row',
-                    'value': i['image_id']
+                    'value': imageId
                 }
             );
+            var imgContainer = this._createElement(
+                'div', 
+                {
+                    'class': 'col-2'
+                }
+            );
+            var img = this._createElement(
+                'img', 
+                {
+                    'class': 'img-fluid',
+                    'src': `/img.php?id=${imageId}&type=webp&width=200&height=100`
+                }
+            );            
             var id = this._createElement(
                 'div', 
                 {
                     'class': 'col-1'
                 }, 
-                i['image_id']
+                imageId
             );
             var name = this._createElement(
                 'div', 
@@ -62,6 +76,8 @@ class ImageContainer extends Component {
             );
             radioContainer.appendChild(radio);
             child.appendChild(radioContainer);
+            imgContainer.appendChild(img);
+            child.appendChild(imgContainer);
             child.appendChild(id);
             child.appendChild(name);
             child.appendChild(author);

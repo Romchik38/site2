@@ -10,19 +10,16 @@ import { default as ic } from './image/image-container.js';
 import { default as filter } from './image/make-request.js';
 import { default as FilterRequest } from './image/filter-request.js';
 
-/* Image Filter App for admin article page
-
+/* Image Filter App for admin article page. 
+   Components:
 image-button-change             ibc             show/hide filter block
-
 image-init                                      holds image id if exist
 image-message                                   display message to user
 image-error-message                             display error message
-
 image-filter                    imageFilter     filter block
 image-filters                                   filter select, button
-image-container                                 images
+image-container                 ic              images
 image-pages                                     page buttons
-
 image-select-limit              isl             limit select
 image-select-orderby            iso             order by select
 image-select-orderbydirection   isod            order direction select

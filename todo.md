@@ -3,7 +3,6 @@
 ## Current
 
 - admin image list
-  - add image to row
   - page component
   - clear rows
   - display errors
