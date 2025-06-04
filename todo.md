@@ -3,7 +3,6 @@
 ## Current
 
 - admin image list
-  - display errors
   - @todo
 
 - article update

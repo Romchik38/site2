@@ -4,6 +4,7 @@ import { default as ibc } from './image/image-button-change.js';
 import { default as ibcl } from './image/image-button-clear.js';
 import { default as ibf } from './image/image-button-filter.js';
 import { default as im } from './image/image-message.js';
+import { default as ime } from './image/image-message-error.js';
 import { default as ip } from './image/image-page.js';
 import { default as isl } from './image/image-select-limit.js';
 import { default as iso } from './image/image-select-orderby.js';
@@ -18,8 +19,8 @@ import { default as FilterRequest } from './image/filter-request.js';
 image-button-change             ibc             show/hide filter block
 image-button-clear                              discard selected image
 image-init                                      holds image id if exist
-image-message                                   display message to user
-image-error-message                             display error message
+image-message                   im              display message to user
+image-message-error             ime             display error message
 image-filter                    imageFilter     filter block
 image-filters                                   filter select, button
 image-container                 ic              images
@@ -51,6 +52,7 @@ ibf.onEvent('click', () => {
     ic.clear();
     im.text('');
     im.hide();
+    ime.hide();
     ibcl.hide();
     // make a request
     var filterRequest = new FilterRequest(
@@ -67,6 +69,9 @@ ibf.onEvent('click', () => {
     filter(filterRequest, (err, data) => {
         if (err !== null) {
             // @ todo show error            
+            ime.text('Request error. See more details in the console')
+            ime.show();
+            console.log(err);                    
         } else {
             var images = data['image_list'];          
             if (typeof images !== 'object') {

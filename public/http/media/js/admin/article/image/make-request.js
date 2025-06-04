@@ -46,6 +46,9 @@ export default function(filterRequest, callback) {
             }, (err) => {
                 callback(err, null);
             })
+        } else {
+            var statusError = new Error(`Server response with status: ${response.status}`);
+            callback(statusError, null);
         }
     }, function (error) {
         callback(error, null);
