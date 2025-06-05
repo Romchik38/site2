@@ -1,0 +1,116 @@
+{% set audio = data.article.audio %}
+{% set audioF = data.audioFilters %}
+{% set translates = audio.translates %}
+{% set audioPathPrefix = data.audioPathPrefix %}
+
+<!-- Inside a form -->
+<h2 class="text-center audios">Audio</h2>
+ {% if audio is null %}
+    Article does not have audio
+{% else %}
+    {% set audioUrl = u.fromArray(['root', 'admin', 'audio', audio.getId()]) %}
+    <div class="text-center">
+        <a href="{{ audioUrl }}">audio view page</a>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th width="15%">Id</th>
+                <td>{{ audio.getId() }}</td>
+            </tr>
+            <tr>
+                <th>Activity</th>
+                {% if audio.active == true %}
+                    <td>Active</td>
+                {% else %}
+                    <td>Not active</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ audio.getName() }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead class="table-secondary">
+          <tr>
+            <th scope="col">Language</th>
+            <th scope="col">Description</th>
+            <th scope="col">Play</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for t in translates  %}
+            <tr>
+                <td>{{ t.getLanguage }}</td>
+                <td>{{ t.getDescription }}</td>
+                <td>
+                    <audio src="{{ audioPathPrefix ~ '/' ~ t.getPath }}" controls crossorigin="anonymous">{{ t.getDescription() }}</audio>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+<div class="border bg-light p-2">
+    <div>
+        <button class="btn btn-secondary my-2 audio-button-change" type="button">Change</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="audio-filter" style="display: none">
+        <div class="audio-message text-warning" style="display: none"></div>
+        <div class="audio-message-error text-danger" style="display: none"></div>
+
+        <button type="button" class="btn btn-warning btn-sm py-2 audio-button-clear" style="display: none;">Clear</button>
+
+        <div class="d-sm-flex">
+            <label class="me-2">Limit</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm audio-select-limit" data-name="{{ audioF.getLimitFiled() }}">
+                    {% for limit in audioF.getLimits() %}
+                        {% if limit == audioF.getDefaultLimit() %}
+                            <option value="{{ limit }}" selected>{{ limit }}</option>
+                        {% else %}
+                            <option value="{{ limit }}">{{ limit }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm audio-select-orderby" data-name="{{ audioF.getOrderByFiled() }}">
+                    {% for orderBy in audioF.getOrderBys() %}
+                        {% if orderBy == audioF.getDefaultOrderBy() %}
+                            <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                        {% else %}
+                            <option value="{{ orderBy }}">{{ orderBy }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By Direction</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm audio-select-orderbydirection" data-name="{{ audioF.getOrderByDirectionFiled() }}">
+                    {% for orderByDirection in audioF.getOrderByDirections() %}
+                        {% if orderByDirection == audioF.getDefaultOrderByDirection() %}
+                            <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                        {% else %}
+                            <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Page</label>
+            <div class="me-2">
+                <input type="number" class="form-control p-1 audio-page" value="{{ audioF.getDefaultPage() }}" min="1" max="255" size="3" data-name="{{ audioF.getPageField() }}">
+            </div>    
+            <div class="ms-2">
+                <button type="button" class="btn btn-secondary btn-sm py-2 audio-button-filter">Filter</button>
+            </div>
+        </div>
+        <div class="audio-container my-2"></div>
+    </div>
+</div>    
+<!-- <script type="module" src="/media/js/admin/article/audio.js"></script> -->

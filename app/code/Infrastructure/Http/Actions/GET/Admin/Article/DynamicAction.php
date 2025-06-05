@@ -29,6 +29,7 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
 
 use function sprintf;
 use function urldecode;
@@ -46,7 +47,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly string $audioPathPrefix
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -99,8 +101,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::NAME_FIELD,
             Update::SHORT_DESCRIPTION_FIELD,
             Update::DESCRIPTION_FIELD,
+            $this->audioPathPrefix,
             new ImageFiltersDto(),
-            new AuthorFiltersDto()
+            new AuthorFiltersDto(),
+            new AudioFiltersDto()
         );
 
         $html = $this->view

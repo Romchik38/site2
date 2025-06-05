@@ -27,8 +27,10 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $nameField,
         public readonly string $shortDescriptionField,
         public readonly string $descriptionField,
+        public readonly string $audioPathPrefix,
         public readonly ImageFiltersDto $imageFilters,
         public readonly AuthorFiltersDto $authorFilters,
+        public readonly AudioFiltersDto $audioFilters,
     ) {
         parent::__construct($name, $description);
     }
