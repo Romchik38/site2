@@ -47,6 +47,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /** @todo implement accept header like admin author list action */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $requestData = $request->getQueryParams();
@@ -57,8 +58,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $imagesList     = $filterResult->list;
         $page           = $filterResult->page;
         $totalCount     = $this->adminImageListService->totalCount();
-
-        $acceptHeaderLine = $request->getHeaderLine('Accept');
 
         // JSON
         $isJsonRequest = $requestData[self::RESPONSE_TYPE_FIELD] ?? null;

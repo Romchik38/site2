@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author;
 
+use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\TextResponse;
@@ -14,6 +15,8 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
+use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AdminList\AdminAuthorList;
@@ -21,17 +24,22 @@ use Romchik38\Site2\Application\Author\AdminList\Filter;
 use Romchik38\Site2\Application\Author\AuthorService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\ViewDto;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
+use function array_search;
 use function count;
+use function explode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const acceptHeader = ['text/html', 'application/json'];
+    public const ACCEPTHEADER     = ['text/html', 'application/json'];
+    public const JSON_NAME        = 'Authors list api';
+    public const JSON_DESCRIPTION = 'Uses to get filter result of existing authors';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -48,7 +56,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $responseType = $this->serializeAcceptHeader(
-            $this::acceptHeader,
+            $this::ACCEPTHEADER,
             $request->getHeaderLine('Accept')
         );
 
@@ -66,16 +74,35 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $authorList     = $filterResult->list;
             $page           = $filterResult->page;
             $totalCount     = $this->adminAuthorList->totalCount();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if ($responseType === 'application/json') {
-                return new JsonResponse(['error' => 'some error here']);    
+                return new JsonResponse(new ApiDTO(
+                    $this::JSON_NAME,
+                    $this::JSON_DESCRIPTION,
+                    ApiDTOInterface::STATUS_ERROR,
+                    'Error while execution request. Please try later.'
+                ));
             } else {
                 throw $e;
             }
         }
 
         if ($responseType === 'application/json') {
-            return new JsonResponse(['hello' => 'world']);
+            return new JsonResponse(new JsonViewDto(
+                $this::JSON_NAME,
+                $this::JSON_DESCRIPTION,
+                ApiDTOInterface::STATUS_SUCCESS,
+                $authorList,
+                $totalCount,
+                ($searchCriteria->limit)(),
+                Filter::LIMIT_FIELD,
+                ($page)(),
+                Filter::PAGE_FIELD,
+                ($searchCriteria->orderByField)(),
+                Filter::ORDER_BY_FIELD,
+                ($searchCriteria->orderByDirection)(),
+                Filter::ORDER_BY_DIRECTION_FIELD
+            ));
         }
 
         // HTML
@@ -129,31 +156,29 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         return 'Authors page';
     }
 
-    /** 
-     * @todo move to trait 
-     * 
+    /**
+     * @todo move to trait
      * @param array<int,string> $expectedHeaders - Example ['text/html', 'application/json']
      * */
     private function serializeAcceptHeader(
-        array $expectedHeaders, 
+        array $expectedHeaders,
         string $headerLine,
         string $all = 'text/html'
-    ): ?string
-    {
+    ): ?string {
         if ($headerLine === '') {
             return null;
         }
 
-        $preferedType = '';
+        $preferedType  = '';
         $preferedValue = 0;
-        $values = explode(',', $headerLine);
+        $values        = explode(',', $headerLine);
         foreach ($values as $value) {
             $parts = explode(';', $value);
-            $type = $parts[0];
+            $type  = $parts[0];
             if ($type === '*/*') {
                 $type = $all;
             }
-            $cost = (float) ($parts[1] ?? 1);
+            $cost           = (float) ($parts[1] ?? 1);
             $serializedType = array_search($type, $expectedHeaders);
             if ($serializedType === false) {
                 continue;
