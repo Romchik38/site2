@@ -31,11 +31,7 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const acceptHeaderSerializer = [
-        '*/*' => 'html',
-        'text/html' => 'html',
-        'application/json' => 'json'
-    ];
+    public const acceptHeader = ['text/html', 'application/json'];
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -51,7 +47,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $responseType = $this->serializeAcceptHeader($request->getHeaderLine('Accept'));
+        $responseType = $this->serializeAcceptHeader(
+            $this::acceptHeader,
+            $request->getHeaderLine('Accept')
+        );
 
         try {
             $requestData = $request->getQueryParams();
@@ -64,7 +63,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $totalCount     = $this->adminAuthorList->totalCount();
         } catch (\Exception $e) {
             /** @todo test */
-            if ($responseType === 'json') {
+            if ($responseType === 'application/json') {
                 return new JsonResponse(['error' => 'some error here']);    
             } elseif ($responseType === null) {
                 return new TextResponse('Error, try later');
@@ -78,7 +77,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new TextResponse('Author admin list page');
         }
 
-        if ($responseType === 'json') {
+        if ($responseType === 'application/json') {
             return new JsonResponse(['hello' => 'world']);
         }
 
@@ -133,8 +132,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         return 'Authors page';
     }
 
-    /** @todo move to trait */
-    private function serializeAcceptHeader(string $headerLine): ?string
+    /** 
+     * @todo move to trait 
+     * 
+     * @param array<int,string> $expectedHeaders - Example ['text/html', 'application/json']
+     * */
+    private function serializeAcceptHeader(
+        array $expectedHeaders, 
+        string $headerLine,
+        string $all = 'text/html'
+    ): ?string
     {
         if ($headerLine === '') {
             return null;
@@ -146,13 +153,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         foreach ($values as $value) {
             $parts = explode(';', $value);
             $type = $parts[0];
+            if ($type === '*/*') {
+                $type = $all;
+            }
             $cost = (float) ($parts[1] ?? 1);
-            $serializedType = self::acceptHeaderSerializer[$type] ?? null;
-            if ($serializedType === null) {
+            $serializedType = array_search($type, $expectedHeaders);
+            if ($serializedType === false) {
                 continue;
             } else {
                 if ($cost > $preferedValue) {
-                    $preferedType = $serializedType;
+                    $preferedType = $type;
                 }
             }
         }
