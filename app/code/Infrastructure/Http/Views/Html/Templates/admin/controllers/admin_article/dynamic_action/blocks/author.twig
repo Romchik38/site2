@@ -1,0 +1,90 @@
+{% set author = data.article.author %}
+{% set authorF = data.authorFilters %}
+{% set authorUrl = u.fromArray(['root', 'admin', 'author', author.getId()]) %}
+
+<!-- Inside a form -->
+<h2 class="text-center">Author</h2>
+<div class="text-center">
+    <a href="{{ authorUrl }}">Author view page</a>
+</div>
+<table class="table">
+    <tbody>
+        <tr>
+            <th width="15%">Id</th>
+            <td>{{ author.getId() }}</td>
+        </tr>
+        <tr>
+            <th>Activity</th>
+            {% if author.active == true %}
+                <td>Active</td>
+            {% else %}
+                <td>Not active</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ author.getName() }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="border bg-light p-2">
+    <div>
+        <button class="btn btn-secondary my-2 author-button-change" type="button">Change</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="author-filter" style="display: none">
+        <div class="author-message text-warning" style="display: none"></div>
+        <div class="author-message-error text-danger" style="display: none"></div>
+
+        <button type="button" class="btn btn-warning btn-sm py-2 author-button-clear" style="display: none;">Clear</button>
+
+        <div class="d-sm-flex">
+            <label class="me-2">Limit</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm author-select-limit" data-name="{{ authorF.getLimitFiled() }}">
+                    {% for limit in authorF.getLimits() %}
+                        {% if limit == authorF.getDefaultLimit() %}
+                            <option value="{{ limit }}" selected>{{ limit }}</option>
+                        {% else %}
+                            <option value="{{ limit }}">{{ limit }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm author-select-orderby" data-name="{{ authorF.getOrderByFiled() }}">
+                    {% for orderBy in authorF.getOrderBys() %}
+                        {% if orderBy == authorF.getDefaultOrderBy() %}
+                            <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                        {% else %}
+                            <option value="{{ orderBy }}">{{ orderBy }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By Direction</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm author-select-orderbydirection" data-name="{{ authorF.getOrderByDirectionFiled() }}">
+                    {% for orderByDirection in authorF.getOrderByDirections() %}
+                        {% if orderByDirection == authorF.getDefaultOrderByDirection() %}
+                            <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                        {% else %}
+                            <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Page</label>
+            <div class="me-2">
+                <input type="number" class="form-control p-1 author-page" value="{{ authorF.getDefaultPage() }}" min="1" max="255" size="3" data-name="{{ authorF.getPageField() }}">
+            </div>    
+            <div class="ms-2">
+                <button type="button" class="btn btn-secondary btn-sm py-2 author-button-filter">Filter</button>
+            </div>
+        </div>
+        <div class="author-container my-2"></div>
+    </div>
+</div>    
+<script type="module" src="/media/js/admin/article/author.js"></script>

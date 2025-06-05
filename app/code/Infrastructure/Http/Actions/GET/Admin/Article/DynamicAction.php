@@ -28,6 +28,7 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
 
 use function sprintf;
 use function urldecode;
@@ -98,7 +99,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::NAME_FIELD,
             Update::SHORT_DESCRIPTION_FIELD,
             Update::DESCRIPTION_FIELD,
-            new ImageFiltersDto()
+            new ImageFiltersDto(),
+            new AuthorFiltersDto()
         );
 
         $html = $this->view
