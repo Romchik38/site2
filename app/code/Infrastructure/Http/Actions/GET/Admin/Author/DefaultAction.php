@@ -12,6 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Controller\Actions\RequestHandlerTrait;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
@@ -24,19 +25,19 @@ use Romchik38\Site2\Application\Author\AdminList\Filter;
 use Romchik38\Site2\Application\Author\AuthorService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\JsonViewDto;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
-use function array_search;
 use function count;
-use function explode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    use RequestHandlerTrait;
+
     public const ACCEPTHEADER     = ['text/html', 'application/json'];
     public const JSON_NAME        = 'Authors list api';
     public const JSON_DESCRIPTION = 'Uses to get filter result of existing authors';
@@ -154,44 +155,5 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function getDescription(): string
     {
         return 'Authors page';
-    }
-
-    /**
-     * @todo move to trait
-     * @param array<int,string> $expectedHeaders - Example ['text/html', 'application/json']
-     * */
-    private function serializeAcceptHeader(
-        array $expectedHeaders,
-        string $headerLine,
-        string $all = 'text/html'
-    ): ?string {
-        if ($headerLine === '') {
-            return null;
-        }
-
-        $preferedType  = '';
-        $preferedValue = 0;
-        $values        = explode(',', $headerLine);
-        foreach ($values as $value) {
-            $parts = explode(';', $value);
-            $type  = $parts[0];
-            if ($type === '*/*') {
-                $type = $all;
-            }
-            $cost           = (float) ($parts[1] ?? 1);
-            $serializedType = array_search($type, $expectedHeaders);
-            if ($serializedType === false) {
-                continue;
-            } else {
-                if ($cost > $preferedValue) {
-                    $preferedType = $type;
-                }
-            }
-        }
-        if ($preferedType !== '') {
-            return $preferedType;
-        } else {
-            return null;
-        }
     }
 }
