@@ -15,4 +15,13 @@ final class AudioDto
         public readonly Name $name
     ) {
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'audio_id'   => ($this->id)(),
+            'audio_active' => $this->active,
+            'audio_name' => ($this->name)(),
+        ];
+    }
 }
