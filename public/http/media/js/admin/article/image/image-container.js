@@ -91,6 +91,4 @@ class ImageContainer extends Component {
     }
 }
 
-var imageContainer = ImageContainer.fromClass('image-container');
-
-export default imageContainer;
+export default ImageContainer;
