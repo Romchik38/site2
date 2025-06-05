@@ -178,7 +178,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             if ($type === '*/*') {
                 $type = $all;
             }
-            $cost           = (float) ($parts[1] ?? 1);
+            $q = $parts[1] ?? null;
+            if ($q === null) {
+                $cost = 1;    
+            } else {
+                $cost = (float) substr($q, 2);
+            }
             $serializedType = array_search($type, $expectedHeaders);
             if ($serializedType === false) {
                 continue;
