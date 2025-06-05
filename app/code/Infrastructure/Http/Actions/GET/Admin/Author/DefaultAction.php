@@ -52,6 +52,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $request->getHeaderLine('Accept')
         );
 
+        if ($responseType === null) {
+            $response = new TextResponse('The requested content type is not acceptable');
+            return $response->withStatus(406);
+        }
+
         try {
             $requestData = $request->getQueryParams();
             $command     = Filter::fromRequest($requestData);
@@ -62,19 +67,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $page           = $filterResult->page;
             $totalCount     = $this->adminAuthorList->totalCount();
         } catch (\Exception $e) {
-            /** @todo test */
             if ($responseType === 'application/json') {
                 return new JsonResponse(['error' => 'some error here']);    
-            } elseif ($responseType === null) {
-                return new TextResponse('Error, try later');
             } else {
                 throw $e;
             }
-        }
-
-        /** @todo test */
-        if ($responseType === null) {
-            return new TextResponse('Author admin list page');
         }
 
         if ($responseType === 'application/json') {
