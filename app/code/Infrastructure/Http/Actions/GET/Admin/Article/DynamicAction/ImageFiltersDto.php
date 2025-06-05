@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction;
 
+use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Limit;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByDirection;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\OrderByField;
-use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Application\Image\AdminImageListService\VO\Page;
 
 final class ImageFiltersDto
@@ -16,7 +16,7 @@ final class ImageFiltersDto
     public function getLimits(): array
     {
         $arr = [];
-        foreach(Limit::ALLOWED_LIMITS as $limit) {
+        foreach (Limit::ALLOWED_LIMITS as $limit) {
             $arr[] = (string) $limit;
         }
         return $arr;

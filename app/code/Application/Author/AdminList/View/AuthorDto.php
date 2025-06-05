@@ -20,4 +20,12 @@ final class AuthorDto
         $this->identifier = new AuthorId($id);
         $this->name       = new Name($name);
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'author_id'   => ($this->identifier)(),
+            'author_name' => ($this->name)(),
+        ];
+    }
 }

@@ -2,10 +2,16 @@
 
 ## Current
 
-- article update
-  - action
+- article author
+  - template
+  - html structure
+  - js module
 
 - article
+  - author
+  - audio
+  - category
+  - update
   - new
   - delete
 

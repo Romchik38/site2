@@ -73,7 +73,7 @@ ibf.onEvent('click', () => {
             if (typeof images !== 'object') {
                 ime.text('Data not resieved. See more details in the console');
                 ime.show();
-                console.error('Filed image_list not found in resieved data');
+                console.error('Field image_list not found in recieved data');
                 console.log({ data });
             } else {
                 ic.fill(images);

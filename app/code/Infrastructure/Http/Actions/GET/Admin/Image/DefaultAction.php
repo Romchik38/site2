@@ -47,6 +47,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
+    /** @todo implement accept header like admin author list action */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $requestData = $request->getQueryParams();
