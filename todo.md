@@ -2,7 +2,8 @@
 
 ## Current
 
-- article author
+- audio admin list response with json
+- article audio
   - template
   - html structure
   - js module

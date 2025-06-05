@@ -8,9 +8,6 @@ import { default as SelectOrderBy } from './common/select-orderby.js';
 import { default as SelectOrderByDirection } from './common/select-orderbydirection.js';
 import { default as ImageContainer } from './image/image-container.js';
 import { default as FilterRequest } from './common/filter-request.js';
-
-// @todo replace with new
-//import { default as filter } from './image/make-request.js';
 import { default as filter } from './common/make-request.js';
 
 var bc = Component.fromClass('image-button-change');
