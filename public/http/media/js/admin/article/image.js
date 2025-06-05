@@ -10,8 +10,8 @@ import { default as ImageContainer } from './image/image-container.js';
 import { default as FilterRequest } from './common/filter-request.js';
 
 // @todo replace with new
-import { default as filter } from './image/make-request.js';
-// import { default as filter } from './common/make-request.js';
+//import { default as filter } from './image/make-request.js';
+import { default as filter } from './common/make-request.js';
 
 var bc = Component.fromClass('image-button-change');
 var bcl = ButtonClear.fromClass('image-button-clear');
@@ -74,7 +74,8 @@ bf.onEvent('click', () => {
         p.getValue()
     );
 
-    filter(filterRequest, (err, data) => {
+    var path = ['root', 'admin', 'image'];
+    filter(path, filterRequest, (err, data) => {
         if (err !== null) {       
             me.text('Request error. See more details in the console')
             me.show();

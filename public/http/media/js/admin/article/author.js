@@ -71,7 +71,6 @@ bf.onEvent('click', () => {
     );
 
     var path = ['root', 'admin', 'author'];
-
     filter(path, filterRequest, (err, data) => {
         if (err !== null) {       
             me.text('Request error. See more details in the console')

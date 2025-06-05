@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image;
 
+use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Controller\Actions\RequestHandlerTrait;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -32,8 +36,11 @@ use function count;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    public const RESPONSE_TYPE_FIELD = 'response_type';
-    public const RESPONSE_JSON_FIELD = 'json';
+    use RequestHandlerTrait;
+
+    public const ACCEPTHEADER     = ['text/html', 'application/json'];
+    public const JSON_NAME        = 'Images list api';
+    public const JSON_DESCRIPTION = 'Uses to get filter result of existing images';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -47,24 +54,46 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo implement accept header like admin author list action */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $request->getQueryParams();
-        $command     = Filter::fromRequest($requestData);
+        $responseType = $this->serializeAcceptHeader(
+            $this::ACCEPTHEADER,
+            $request->getHeaderLine('Accept')
+        );
 
-        $filterResult   = $this->adminImageListService->list($command);
-        $searchCriteria = $filterResult->searchCriteria;
-        $imagesList     = $filterResult->list;
-        $page           = $filterResult->page;
-        $totalCount     = $this->adminImageListService->totalCount();
+        if ($responseType === null) {
+            $response = new TextResponse('The requested content type is not acceptable');
+            return $response->withStatus(406);
+        }
 
+        try {
+            $requestData = $request->getQueryParams();
+            $command     = Filter::fromRequest($requestData);
+
+            $filterResult   = $this->adminImageListService->list($command);
+            $searchCriteria = $filterResult->searchCriteria;
+            $imagesList     = $filterResult->list;
+            $page           = $filterResult->page;
+            $totalCount     = $this->adminImageListService->totalCount();
+        }
+        catch (Exception $e) {
+            if ($responseType === 'application/json') {
+                return new JsonResponse(new ApiDTO(
+                    $this::JSON_NAME,
+                    $this::JSON_DESCRIPTION,
+                    ApiDTOInterface::STATUS_ERROR,
+                    'Error while execution request. Please try later.'
+                ));
+            } else {
+                throw $e;
+            }
+        }
+        
         // JSON
-        $isJsonRequest = $requestData[self::RESPONSE_TYPE_FIELD] ?? null;
-        if ($isJsonRequest === self::RESPONSE_JSON_FIELD) {
+        if ($responseType === 'application/json') {
             return new JsonResponse(new JsonViewDto(
-                'Images list api',
-                'Uses to get filter result of existing images',
+                $this::JSON_NAME,
+                $this::JSON_DESCRIPTION,
                 ApiDTOInterface::STATUS_SUCCESS,
                 $imagesList,
                 $totalCount,
