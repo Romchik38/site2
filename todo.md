@@ -16,6 +16,8 @@
   - delete
 
 - entities tests
+- move to server
+  - `RequestHandlerTrait`
 
 ## Next
 
