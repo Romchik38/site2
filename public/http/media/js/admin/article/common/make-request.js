@@ -20,17 +20,17 @@ export default function(path, filterRequest, callback) {
             new Query(filterRequest.orderByField, filterRequest.orderByValue),
             new Query(filterRequest.orderByDirectionField, filterRequest.orderByDirectionValue),
             new Query(filterRequest.pageField, filterRequest.pageValue),
-            // @todo remove after image list action can serilize accept header
-            new Query('response_type', 'json')
         ]
     );
 
     var request = new Request(url, {
-        method: "GET"
+        method: "GET",
+        headers: {
+          "Accept": "application/json;q=1.0",
+        },
       });
 
     fetch(request).then(function (response) {
-
         if (response.status === 200) {
             response.json().then((data) => {
                 var dataKeys = Object.keys(data);
