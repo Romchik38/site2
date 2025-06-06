@@ -1,17 +1,18 @@
 {% set i = data.article.image %}
 {% set iF = data.imageFilters %}
+{% set imageNewUrl = u.fromArray(['root', 'admin', 'image', 'new']) %}
 
 <!-- Inside a form -->
 <h2 class="text-center image">Image</h2>
 {% if i is null %}
-    Article does not have image
+    Article does not have image. <a href="{{ imageNewUrl }}" target="_self">Create new</a>.
 {% else %}
     {% set imageUrl = u.fromArray(['root', 'admin', 'image', i.getId()]) %}
     <div class="text-center">
         <img class="img-fluid" src="/img.php?id={{ i.getId() }}&type=webp&width=576&height=384" alt="">
     </div>
     <div class="text-center">
-        <a href="{{ imageUrl }}">Image view page</a>
+        <a href="{{ imageUrl }}">Edit</a>
     </div>
     <table class="table">
         <tbody>

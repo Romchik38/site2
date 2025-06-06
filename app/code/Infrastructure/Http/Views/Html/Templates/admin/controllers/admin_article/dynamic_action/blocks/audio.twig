@@ -2,11 +2,12 @@
 {% set audioF = data.audioFilters %}
 {% set translates = audio.translates %}
 {% set audioPathPrefix = data.audioPathPrefix %}
+{% set audioNewUrl = u.fromArray(['root', 'admin', 'audio', 'new']) %}
 
 <!-- Inside a form -->
 <h2 class="text-center audios">Audio</h2>
  {% if audio is null %}
-    Article does not have audio
+    Article does not have audio. <a href="{{ audioNewUrl }}" target="_self">Create new</a>.
 {% else %}
     {% set audioUrl = u.fromArray(['root', 'admin', 'audio', audio.getId()]) %}
     <div class="text-center">
