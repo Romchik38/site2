@@ -75,8 +75,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $imagesList     = $filterResult->list;
             $page           = $filterResult->page;
             $totalCount     = $this->adminImageListService->totalCount();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             if ($responseType === 'application/json') {
                 return new JsonResponse(new ApiDTO(
                     $this::JSON_NAME,
@@ -88,7 +87,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 throw $e;
             }
         }
-        
+
         // JSON
         if ($responseType === 'application/json') {
             return new JsonResponse(new JsonViewDto(

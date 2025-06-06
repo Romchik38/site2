@@ -101,7 +101,7 @@ final class Repository implements RepositoryInterface
         }
         return $models;
     }
-    
+
     /**
      * @throws RepositoryException
      * @param array<string,string|null> $row

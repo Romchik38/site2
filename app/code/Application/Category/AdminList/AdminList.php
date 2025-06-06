@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Category\AdminList;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Category\AdminList\View\CategoryDto;
 use Romchik38\Site2\Application\Category\AdminList\VO\Limit;
 use Romchik38\Site2\Application\Category\AdminList\VO\Offset;
 use Romchik38\Site2\Application\Category\AdminList\VO\OrderByDirection;
 use Romchik38\Site2\Application\Category\AdminList\VO\OrderByField;
 use Romchik38\Site2\Application\Category\AdminList\VO\Page;
-use Romchik38\Site2\Application\Category\AdminList\View\CategoryDto;
 
 final class AdminList
 {

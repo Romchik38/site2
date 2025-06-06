@@ -22,15 +22,15 @@ use Romchik38\Site2\Application\Article\AdminView\AdminView;
 use Romchik38\Site2\Application\Article\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
+use Romchik38\Site2\Application\Category\AdminList\AdminList;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ImageFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
-use Romchik38\Site2\Application\Category\AdminList\AdminList;
 
 use function sprintf;
 use function urldecode;
@@ -82,7 +82,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             return new RedirectResponse($uriList);
         }
 
-        $languages = $this->languageService->getAll();
+        $languages  = $this->languageService->getAll();
         $categories = $this->categoryService->listAll();
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();

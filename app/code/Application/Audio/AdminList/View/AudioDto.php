@@ -19,9 +19,9 @@ final class AudioDto
     public function jsonSerialize(): mixed
     {
         return [
-            'audio_id'   => ($this->id)(),
+            'audio_id'     => ($this->id)(),
             'audio_active' => $this->active,
-            'audio_name' => ($this->name)(),
+            'audio_name'   => ($this->name)(),
         ];
     }
 }

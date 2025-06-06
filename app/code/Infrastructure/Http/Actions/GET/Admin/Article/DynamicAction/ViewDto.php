@@ -6,13 +6,13 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicA
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Article\AdminView\Dto\ArticleDto;
-use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 use Romchik38\Site2\Application\Category\AdminList\View\CategoryDto;
+use Romchik38\Site2\Application\Language\List\View\LanguageDto;
 
 final class ViewDto extends DefaultViewDTO
 {
     /**
-     * @param array<int,CategoryDto> $categories 
+     * @param array<int,CategoryDto> $categories
      * @param array<int,LanguageDto> $languages
      * */
     public function __construct(
