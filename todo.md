@@ -2,15 +2,13 @@
 
 ## Current
 
-- audio admin list response with json
-- article audio
+- category admin list response with json
+- article category
   - template
   - html structure
   - js module
 
 - article
-  - author
-  - audio
   - category
   - update
   - new
