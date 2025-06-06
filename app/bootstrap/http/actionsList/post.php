@@ -47,6 +47,19 @@ return function (Container $container): ControllerInterface {
     $admin = new Controller('admin');
     $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
+    // Admin Article
+    $adminArticle = new Controller('article', false, null, null, 'admin_article');
+    $adminArticleUpdate = new Controller(
+        'update', 
+        false, 
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Article\Update\DefaultAction'),
+        null, 
+        'article_update'
+    );
+    $adminArticle
+    ->setChild($adminArticleUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
+
     // Admin Api
     $adminApi = new Controller('api');
     $adminApiUserunfo = new Controller(
@@ -249,6 +262,7 @@ return function (Container $container): ControllerInterface {
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     $admin->setChild($adminLogout)
+    ->setChild($adminArticle)
     ->setChild($adminApi)
     ->setChild($adminAudio)
     ->setChild($adminAuthor)
