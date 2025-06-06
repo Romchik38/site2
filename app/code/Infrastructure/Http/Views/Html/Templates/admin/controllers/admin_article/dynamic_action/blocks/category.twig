@@ -5,8 +5,9 @@
 <!-- Inside a form -->
 <h2 class="text-center categories">Categories</h2>
 {% if categories|length == 0 %}
-    Article does not included in any category. Change on existing category below or <a href="{{ categoryNewUrl }}" target="_self">Create new</a>.
+    <p>Article does not included in any category.</p>
 {% else %}
+    <p>The article is in the following categories:</p>
     <table class="table">
         <thead class="table-secondary">
           <tr>
@@ -36,11 +37,12 @@
     </table>
 {% endif %}
 <div class="border bg-light p-2">
+    <div>Сhange existing categories by clicking the button below or <a href="{{ categoryNewUrl }}" target="_self">сreate new</a>.</div>
     <div>
         <button class="btn btn-secondary my-2 category-button-change" type="button">Change</button>
     </div>
     <!-- Select -->
-    <select class="form-select category-select" name="{{ data.categoriesField }}" multiple>
+    <select class="form-select category-select" name="{{ data.categoriesField }}" style="display:none;" multiple>
         {% for cat in allCategories %}
             {% set found = false %}
             {% for existinCat in categories %}
@@ -55,4 +57,5 @@
             {% endif %}
         {% endfor %}
     </select>
-</div>    
+</div>
+<script type="module" src="/media/js/admin/article/category.js"></script>
