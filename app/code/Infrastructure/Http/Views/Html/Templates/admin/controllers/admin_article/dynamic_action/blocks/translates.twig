@@ -6,7 +6,7 @@
 {% set availableLanguages = data.languages %}
 {% set translates = data.article.translates %}
 <!-- Inside a form -->
-<h2 class="text-center">Translates</h2>
+<h2 class="text-center translates">Translates</h2>
 {% for availableLanguageVo in availableLanguages  %}
     {% set availableLanguage = availableLanguageVo.getId() %}
     {% set name = '' %}
