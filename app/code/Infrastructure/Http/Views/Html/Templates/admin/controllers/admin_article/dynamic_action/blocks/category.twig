@@ -1,0 +1,44 @@
+{% set categories = data.article.categories %}
+{% set allCategories = data.categories %}
+{% set categoryNewUrl = u.fromArray(['root', 'admin', 'category', 'new']) %}
+
+<!-- Inside a form -->
+<h2 class="text-center categories">Categories</h2>
+{% if categories|length == 0 %}
+    Article does not included in any category. Change on existing category below or <a href="{{ categoryNewUrl }}" target="_self">Create new</a>.
+{% else %}
+    <table class="table">
+        <thead class="table-secondary">
+          <tr>
+            <th>Id</th>
+            <th>Activity</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in categories %}
+            <!-- category.getId()|url_encode -->
+            {% set categoryId = c.getId() %} 
+            {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId ]) %}
+            <tr>
+                <td>{{ categoryId }}</td>
+                {% if c.active == true %}
+                    <td class="text-success">Active</td>
+                {% else %}
+                    <td class="text-danger">Not active</td>
+                {% endif %}
+                <td>
+                    <a href="{{ categoryUrl }}" target="_self">Edit</audio>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+<div class="border bg-light p-2">
+    <div>
+        <button class="btn btn-secondary my-2 category-button-change" type="button">Change</button>
+    </div>
+    <!-- Select -->
+    
+</div>    
