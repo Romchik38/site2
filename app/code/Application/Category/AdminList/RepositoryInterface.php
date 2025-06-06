@@ -16,4 +16,10 @@ interface RepositoryInterface
 
     /** @throws RepositoryException */
     public function totalCount(): int;
+
+    /** 
+     * @throws RepositoryException 
+     * @return array<int,CategoryDto>
+     * */
+    public function listAll(): array;
 }

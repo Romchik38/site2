@@ -70,6 +70,38 @@ final class Repository implements RepositoryInterface
         return $models;
     }
 
+    public function totalCount(): int
+    {
+        $query = 'SELECT count(category.identifier) as count FROM category';
+
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $firstElem = $rows[0];
+        $count     = $firstElem['count'];
+
+        return (int) $count;
+    }
+
+    public function listAll(): array
+    {
+        $query = $this->defaultQuery();
+        try {
+            $rows = $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $models = [];
+        foreach ($rows as $row) {
+            $models[] = $this->createFromRow($row);
+        }
+        return $models;
+    }
+    
     /**
      * @throws RepositoryException
      * @param array<string,string|null> $row
@@ -110,21 +142,5 @@ final class Repository implements RepositoryInterface
             category.active
         FROM category
         QUERY;
-    }
-
-    public function totalCount(): int
-    {
-        $query = 'SELECT count(category.identifier) as count FROM category';
-
-        try {
-            $rows = $this->database->queryParams($query, []);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-
-        $firstElem = $rows[0];
-        $count     = $firstElem['count'];
-
-        return (int) $count;
     }
 }

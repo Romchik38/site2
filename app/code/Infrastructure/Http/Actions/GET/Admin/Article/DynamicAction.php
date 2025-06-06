@@ -30,6 +30,7 @@ use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
+use Romchik38\Site2\Application\Category\AdminList\AdminList;
 
 use function sprintf;
 use function urldecode;
@@ -48,7 +49,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly string $audioPathPrefix
+        private readonly string $audioPathPrefix,
+        private readonly AdminList $categoryService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -81,6 +83,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         }
 
         $languages = $this->languageService->getAll();
+        $categories = $this->categoryService->listAll();
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
@@ -104,7 +107,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $this->audioPathPrefix,
             new ImageFiltersDto(),
             new AuthorFiltersDto(),
-            new AudioFiltersDto()
+            new AudioFiltersDto(),
+            $categories
         );
 
         $html = $this->view

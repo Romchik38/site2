@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\Category\AdminList\VO\Offset;
 use Romchik38\Site2\Application\Category\AdminList\VO\OrderByDirection;
 use Romchik38\Site2\Application\Category\AdminList\VO\OrderByField;
 use Romchik38\Site2\Application\Category\AdminList\VO\Page;
+use Romchik38\Site2\Application\Category\AdminList\View\CategoryDto;
 
 final class AdminList
 {
@@ -55,6 +56,19 @@ final class AdminList
             return $this->repository->totalCount();
         } catch (RepositoryException $e) {
             throw new CouldNotCountException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws CouldNotListAllException
+     * @return array<int,CategoryDto>
+     */
+    public function listAll(): array
+    {
+        try {
+            return $this->repository->listAll();
+        } catch (RepositoryException $e) {
+            throw new CouldNotListAllException($e->getMessage());
         }
     }
 }

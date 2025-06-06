@@ -7,10 +7,14 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicA
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Article\AdminView\Dto\ArticleDto;
 use Romchik38\Site2\Application\Language\List\View\LanguageDto;
+use Romchik38\Site2\Application\Category\AdminList\View\CategoryDto;
 
 final class ViewDto extends DefaultViewDTO
 {
-    /** @param array<int,LanguageDto> $languages */
+    /**
+     * @param array<int,CategoryDto> $categories 
+     * @param array<int,LanguageDto> $languages
+     * */
     public function __construct(
         string $name,
         string $description,
@@ -31,6 +35,7 @@ final class ViewDto extends DefaultViewDTO
         public readonly ImageFiltersDto $imageFilters,
         public readonly AuthorFiltersDto $authorFilters,
         public readonly AudioFiltersDto $audioFilters,
+        public readonly array $categories
     ) {
         parent::__construct($name, $description);
     }

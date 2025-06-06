@@ -2,7 +2,6 @@
 
 ## Current
 
-- category admin list response with json
 - article category
   - template
   - html structure
