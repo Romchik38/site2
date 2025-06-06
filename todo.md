@@ -3,9 +3,7 @@
 ## Current
 
 - article category
-  - template
   - html structure
-  - js module
 
 - article
   - category
