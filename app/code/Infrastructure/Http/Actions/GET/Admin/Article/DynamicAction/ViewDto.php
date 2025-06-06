@@ -31,6 +31,7 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $nameField,
         public readonly string $shortDescriptionField,
         public readonly string $descriptionField,
+        public readonly string $categoriesField,
         public readonly string $audioPathPrefix,
         public readonly ImageFiltersDto $imageFilters,
         public readonly AuthorFiltersDto $authorFilters,

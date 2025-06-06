@@ -40,5 +40,19 @@
         <button class="btn btn-secondary my-2 category-button-change" type="button">Change</button>
     </div>
     <!-- Select -->
-    
+    <select class="form-select category-select" name="{{ data.categoriesField }}" multiple>
+        {% for cat in allCategories %}
+            {% set found = false %}
+            {% for existinCat in categories %}
+                {% if cat.getId() == existinCat.getId() %}
+                    {% set found = true %}
+                {% endif %}
+            {% endfor %}
+            {% if found == true %}
+                <option value="{{ cat.getId() }}" selected>{{ cat.getId() }}</option>
+            {% else %}
+                <option value="{{ cat.getId() }}">{{ cat.getId() }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
 </div>    

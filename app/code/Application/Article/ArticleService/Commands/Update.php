@@ -21,12 +21,12 @@ final class Update
     public const NAME_FIELD                = 'name';
     public const SHORT_DESCRIPTION_FIELD   = 'short_description';
     public const DESCRIPTION_FIELD         = 'description';
+    public const CATEGORIES_FIELD          = 'categories';
 
     /** @todo implement */
     // audio
     // author
     // image
-    // cagories
 
     /** @param array<int,Translate> $translates */
     private function __construct(

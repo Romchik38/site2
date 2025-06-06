@@ -104,6 +104,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::NAME_FIELD,
             Update::SHORT_DESCRIPTION_FIELD,
             Update::DESCRIPTION_FIELD,
+            Update::CATEGORIES_FIELD,
             $this->audioPathPrefix,
             new ImageFiltersDto(),
             new AuthorFiltersDto(),
