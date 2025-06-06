@@ -2,11 +2,13 @@
 
 ## Current
 
-- article category
-  - html structure
+- article update
+  - service
+  - repository
+    - getById
+  - action
 
 - article
-  - category
   - update
   - new
   - delete
