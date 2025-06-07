@@ -30,7 +30,6 @@ final class ArticleService
 
     /**
      * @todo test all paths
-     * 
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
      * @throws InvalidArgumentException
@@ -46,22 +45,34 @@ final class ArticleService
             throw new CouldNotUpdateException($e->getMessage());
         }
 
-        
         // translates
         foreach ($command->translates as $translate) {
             $existingTranslate = $model->getTranslate($translate->language);
+            $language          = new LanguageId($translate->language);
+            $name              = new Name($translate->name);
+            $shortDescription  = new ShortDescription($translate->shortDescription);
+            $description       = new Description($translate->description);
             if ($existingTranslate === null) {
                 $createdAt = new DateTime();
                 $updatedAt = new DateTime();
             } else {
-
+                $createdAt = $existingTranslate->createdAt;
+                $updatedAt = $existingTranslate->updatedAt;
+                if (
+                    $translate->name !== ($existingTranslate->name)() ||
+                    $translate->shortDescription !== ($existingTranslate->shortDescription)() ||
+                    $translate->description !== ($existingTranslate->description)()
+                ) {
+                    $updatedAt = new DateTime();
+                }
             }
             $model->addTranslate(new Translate(
-                new LanguageId($translate->language),
-                new Name($translate->name),
-                new ShortDescription($translate->shortDescription),
-                new Description($translate->description),
-
+                $language,
+                $name,
+                $shortDescription,
+                $description,
+                $createdAt,
+                $updatedAt
             ));
         }
 
