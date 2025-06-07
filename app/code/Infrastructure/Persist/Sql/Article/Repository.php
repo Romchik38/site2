@@ -133,7 +133,19 @@ final class Repository implements RepositoryInterface
         // Author
         $author = $this->createAuthor($row);
         // Audio
-        $audio = $this->createAudio($row);
+        $audio = null;
+        if (! array_key_exists('audio_id', $row)) {
+            throw new RepositoryException('Article audio id is invalid');
+        }
+        $rawAudioId = $row['audio_id'];
+        if ($rawAudioId !== null) {
+            try {
+                $audioId = AudioId::fromString($rawAudioId);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $audio = $this->createAudio($audioId);
+        }
         // Image
         $image = null;
         if (! array_key_exists('img_id', $row)) {
@@ -167,53 +179,32 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @param array<string,string|null> $articleRow
      * @throws RepositoryException
      * */
-    private function createAudio(array $articleRow): ?Audio
+    public function createAudio(AudioId $id): Audio
     {
-        $audio = null;
-        if (! array_key_exists('audio_id', $articleRow)) {
-            throw new RepositoryException('Article audio id is invalid');
-        } else {
-            $rawId = $articleRow['audio_id'];
-            if ($rawId === null) {
-                return $audio;
-            }
-
-            $query  = $this->getAudioQuery();
-            $params = [$rawId];
-
-            try {
-                $rows = $this->database->queryParams($query, $params);
-            } catch (QueryException $e) {
-                throw new RepositoryException($e->getMessage());
-            }
-
-            if (count($rows) === 0) {
-                throw new RepositoryException('Article audio data is invalid');
-            }
-
-            $firstRow = $rows[0];
-
-            $rawActive = $firstRow['active'] ?? null;
-            if ($rawActive === null) {
-                throw new RepositoryException('Article audio active is invalid');
-            }
-            if ($rawActive === 't') {
-                $active = true;
-            } else {
-                $active = false;
-            }
-
-            try {
-                $id = AudioId::fromString($rawId);
-            } catch (InvalidArgumentException $e) {
-                throw new RepositoryException($e->getMessage());
-            }
-
-            return new Audio($id, $active);
+        $query  = $this->getAudioQuery();
+        $params = [$id()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
         }
+        if (count($rows) !== 1) {
+            throw new RepositoryException('Article audio data is invalid');
+        }
+        $firstRow  = $rows[0];
+        $rawActive = $firstRow['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Article audio active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        return new Audio($id, $active);
     }
 
     /**

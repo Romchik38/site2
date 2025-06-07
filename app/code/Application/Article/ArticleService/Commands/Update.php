@@ -21,21 +21,22 @@ final class Update
     public const NAME_FIELD                = 'name';
     public const SHORT_DESCRIPTION_FIELD   = 'short_description';
     public const DESCRIPTION_FIELD         = 'description';
+    public const AUDIO_FIELD               = 'audio_row';
     public const AUTHOR_FIELD              = 'author_row';
     public const IMAGE_FIELD               = 'image_row';
     public const CATEGORIES_FIELD          = 'categories';
 
     /** @todo implement */
     // categories
-    // audio
 
     /** @param array<int,Translate> $translates */
     private function __construct(
         public readonly string $id,
         public readonly string $changeActivity,
         public readonly array $translates,
-        public readonly string $imageId,
+        public readonly string $audioId,
         public readonly string $authorId,
+        public readonly string $imageId,
     ) {
     }
 
@@ -98,12 +99,19 @@ final class Update
             $authorId = $rawAuthorId;
         }
 
+        $audioId    = '';
+        $rawAudioId = $hash[self::AUDIO_FIELD] ?? '';
+        if (is_string($rawAudioId)) {
+            $audioId = $rawAudioId;
+        }
+
         return new self(
             $id,
             $changeActivity,
             $rawTranslates,
-            $imageId,
-            $authorId
+            $audioId,
+            $authorId,
+            $imageId
         );
     }
 }

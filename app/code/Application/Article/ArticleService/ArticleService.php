@@ -22,6 +22,7 @@ use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 
 final class ArticleService
 {
@@ -98,6 +99,17 @@ final class ArticleService
                 throw new CouldNotUpdateException($e->getMessage());
             }
             $model->changeAuthor($author);
+        }
+
+        // Audio
+        if ($command->audioId !== '') {
+            $audioId = AudioId::fromString($command->audioId);
+            try {
+                $audio = $this->repository->createAudio($audioId);
+            } catch (RepositoryException $e) {
+                throw new CouldNotUpdateException($e->getMessage());
+            }
+            $model->changeAudio($audio);
         }
 
         $model;
