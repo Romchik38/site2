@@ -21,6 +21,7 @@ use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
 final class ArticleService
 {
@@ -86,6 +87,17 @@ final class ArticleService
                 throw new CouldNotUpdateException($e->getMessage());
             }
             $model->changeImage($image);
+        }
+
+        // Author
+        if ($command->authorId !== '') {
+            $authorId = new AuthorId($command->authorId);
+            try {
+                $author = $this->repository->findAuthor($authorId);
+            } catch (RepositoryException $e) {
+                throw new CouldNotUpdateException($e->getMessage());
+            }
+            $model->changeAuthor($author);
         }
 
         $model;

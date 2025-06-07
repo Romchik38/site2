@@ -75,6 +75,28 @@ final class Repository implements RepositoryInterface
     {
     }
 
+    public function findAuthor(AuthorId $id): Author
+    {
+        $query = $this->getAuthorQuery();
+        $param = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $param);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count !== 1) {
+            throw new RepositoryException(sprintf(
+                'Article author find returns invalid row count %d',
+                $count
+            ));
+        }
+
+        return $this->createAuthor($rows[0]);
+    }
+
     /** @todo implement */
     public function save(Article $model): void
     {
@@ -413,6 +435,17 @@ final class Repository implements RepositoryInterface
             SELECT audio.active
             FROM audio
             WHERE audio.identifier = $1
+        QUERY;
+    }
+
+    private function getAuthorQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT author.identifier as author_id,
+                author.name as author_name,
+                author.active as author_active
+            FROM author
+            WHERE author.identifier = $1
         QUERY;
     }
 
