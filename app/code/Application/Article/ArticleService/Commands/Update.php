@@ -24,6 +24,7 @@ final class Update
     public const CATEGORIES_FIELD          = 'categories';
 
     /** @todo implement */
+    // categories
     // audio
     // author
     // image

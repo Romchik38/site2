@@ -413,7 +413,7 @@ final class Repository implements RepositoryInterface
     private function getAudioQuery(): string
     {
         return <<<'QUERY'
-            SELECT audio.active,
+            SELECT audio.active
             FROM audio
             WHERE audio.identifier = $1
         QUERY;
@@ -432,7 +432,7 @@ final class Repository implements RepositoryInterface
                 (
                     SELECT count(article_id) 
                     FROM article_category
-                    WHERE article_category.category_id = $1
+                    WHERE article_category.category_id = category.identifier
                 ) as article_count
             FROM category,
                 article_category

@@ -26,6 +26,16 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Article\Repository',
+        '\Romchik38\Site2\Application\Article\ArticleService\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')
+        ]
+    );
+
     // ARTICLE LIST VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List\Repository',

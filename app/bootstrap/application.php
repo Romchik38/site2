@@ -8,6 +8,14 @@ use Romchik38\Container\Shared;
 
 return function (Container $container) {
 
+    // ARTICLE
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\ArticleService\ArticleService',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\ArticleService\RepositoryInterface')
+        ]
+    );
+        
     // ARTICLE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\List\ListService',

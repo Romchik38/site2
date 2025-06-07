@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ArticleService;
 
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
-use Romchik38\Site2\Application\Category\CategoryService\Exceptions\{
+use Romchik38\Site2\Application\Article\ArticleService\Exceptions\{
     CouldNotCreateException,
     CouldNotDeleteException,
     CouldNotUpdateException,
@@ -13,6 +13,7 @@ use Romchik38\Site2\Application\Category\CategoryService\Exceptions\{
     RepositoryException
 };
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
 
 final class ArticleService
 {
@@ -22,6 +23,7 @@ final class ArticleService
     }
 
     /**
+     * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
      * @throws InvalidArgumentException
      * @throws NoSuchArticleException
