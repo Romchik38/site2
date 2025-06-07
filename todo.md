@@ -12,6 +12,7 @@
   - update
   - new
   - delete
+  - add active to image and author to template
 
 - entities tests
 - move to server
