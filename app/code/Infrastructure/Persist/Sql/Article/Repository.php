@@ -113,7 +113,19 @@ final class Repository implements RepositoryInterface
         // Audio
         $audio = $this->createAudio($row);
         // Image
-        $image = $this->createImage($row);
+        $image = null;
+        if (! array_key_exists('img_id', $row)) {
+            throw new RepositoryException('Article image id is invalid');
+        }
+        $rawImageId = $row['img_id'];
+        if ($rawImageId !== null) {
+            try {
+                $imageId = ImageId::fromString($rawImageId);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $image = $this->createImage($imageId);
+        }
         // Categories
         $categories = $this->createCategories($id);
         // Translates
@@ -268,22 +280,11 @@ final class Repository implements RepositoryInterface
         return $categories;
     }
 
-    /**
-     * @param array<string,string|null> $articleRow
-     * @throws RepositoryException
-     * */
-    private function createImage(array $articleRow): ?Image
+    /**  @throws RepositoryException */
+    public function createImage(ImageId $imageId): Image
     {
-        if (! array_key_exists('img_id', $articleRow)) {
-            throw new RepositoryException('Article image id is invalid');
-        }
-        $rawId = $articleRow['img_id'];
-        if ($rawId === null) {
-            return null;
-        }
-
         $query  = $this->getImageQuery();
-        $params = [$rawId];
+        $params = [$imageId()];
         try {
             $rows = $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
@@ -302,12 +303,8 @@ final class Repository implements RepositoryInterface
         } else {
             $active = false;
         }
-        try {
-            $id = ImageId::fromString($rawId);
-        } catch (InvalidArgumentException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-        return new Image($id, $active);
+
+        return new Image($imageId, $active);
     }
 
     /**

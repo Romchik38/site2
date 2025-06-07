@@ -21,6 +21,7 @@ final class Update
     public const NAME_FIELD                = 'name';
     public const SHORT_DESCRIPTION_FIELD   = 'short_description';
     public const DESCRIPTION_FIELD         = 'description';
+    public const IMAGE_FIELD               = 'image_row';
     public const CATEGORIES_FIELD          = 'categories';
 
     /** @todo implement */
@@ -33,7 +34,8 @@ final class Update
     private function __construct(
         public readonly string $id,
         public readonly string $changeActivity,
-        public readonly array $translates
+        public readonly array $translates,
+        public readonly string $imageId
     ) {
     }
 
@@ -84,6 +86,17 @@ final class Update
             $rawTranslates = $translates;
         }
 
-        return new self($id, $changeActivity, $rawTranslates);
+        $imageId    = '';
+        $rawImageId = $hash[self::IMAGE_FIELD] ?? '';
+        if (is_string($rawImageId)) {
+            $imageId = $rawImageId;
+        }
+
+        return new self(
+            $id,
+            $changeActivity,
+            $rawTranslates,
+            $imageId
+        );
     }
 }

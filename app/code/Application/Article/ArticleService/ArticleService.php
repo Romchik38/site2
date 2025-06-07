@@ -20,6 +20,7 @@ use Romchik38\Site2\Domain\Article\VO\Description;
 use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 final class ArticleService
 {
@@ -74,6 +75,17 @@ final class ArticleService
                 $createdAt,
                 $updatedAt
             ));
+        }
+
+        // Image
+        if ($command->imageId !== '') {
+            $imageId = ImageId::fromString($command->imageId);
+            try {
+                $image = $this->repository->createImage($imageId);
+            } catch (RepositoryException $e) {
+                throw new CouldNotUpdateException($e->getMessage());
+            }
+            $model->changeImage($image);
         }
 
         $model;
