@@ -29,7 +29,10 @@ final class Update
     /** @todo implement */
     // categories
 
-    /** @param array<int,Translate> $translates */
+    /**
+     * @param array<int, string> $categories
+     * @param array<int,Translate> $translates
+     * */
     private function __construct(
         public readonly string $id,
         public readonly string $changeActivity,
@@ -37,6 +40,7 @@ final class Update
         public readonly string $audioId,
         public readonly string $authorId,
         public readonly string $imageId,
+        public readonly array $categories
     ) {
     }
 
@@ -105,13 +109,26 @@ final class Update
             $audioId = $rawAudioId;
         }
 
+        $categories    = [];
+        $rawCategories = $hash[self::CATEGORIES_FIELD] ?? null;
+        if (is_array($rawCategories)) {
+            foreach ($rawCategories as $rawCategory) {
+                $category = '';
+                if (is_string($rawCategory)) {
+                    $category = $rawCategory;
+                }
+                $categories[] = $category;
+            }
+        }
+
         return new self(
             $id,
             $changeActivity,
             $rawTranslates,
             $audioId,
             $authorId,
-            $imageId
+            $imageId,
+            $categories
         );
     }
 }

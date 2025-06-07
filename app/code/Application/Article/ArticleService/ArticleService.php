@@ -112,6 +112,11 @@ final class ArticleService
             $model->changeAudio($audio);
         }
 
+        // Categories
+        $categories = [];
+        foreach ($command->categories as $category) {
+        }
+
         $model;
     }
 }

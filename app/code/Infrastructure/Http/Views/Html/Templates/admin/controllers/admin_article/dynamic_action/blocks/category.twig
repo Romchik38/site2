@@ -42,7 +42,7 @@
         <button class="btn btn-secondary my-2 category-button-change" type="button">Change</button>
     </div>
     <!-- Select -->
-    <select class="form-select category-select" name="{{ data.categoriesField }}" style="display:none;" multiple>
+    <select class="form-select category-select" name="{{ data.categoriesField }}[]" style="display:none;" multiple>
         {% for cat in allCategories %}
             {% set found = false %}
             {% for existinCat in categories %}
