@@ -14,6 +14,12 @@ use Romchik38\Site2\Application\Article\ArticleService\Exceptions\{
 };
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Article\Entities\Translate;
+use DateTime;
+use Romchik38\Site2\Domain\Article\VO\Description;
+use Romchik38\Site2\Domain\Article\VO\Name;
+use Romchik38\Site2\Domain\Article\VO\ShortDescription;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class ArticleService
 {
@@ -23,6 +29,8 @@ final class ArticleService
     }
 
     /**
+     * @todo test all paths
+     * 
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
      * @throws InvalidArgumentException
@@ -36,6 +44,25 @@ final class ArticleService
             $model = $this->repository->getById($id);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
+        }
+
+        
+        // translates
+        foreach ($command->translates as $translate) {
+            $existingTranslate = $model->getTranslate($translate->language);
+            if ($existingTranslate === null) {
+                $createdAt = new DateTime();
+                $updatedAt = new DateTime();
+            } else {
+
+            }
+            $model->addTranslate(new Translate(
+                new LanguageId($translate->language),
+                new Name($translate->name),
+                new ShortDescription($translate->shortDescription),
+                new Description($translate->description),
+
+            ));
         }
 
         $model;
