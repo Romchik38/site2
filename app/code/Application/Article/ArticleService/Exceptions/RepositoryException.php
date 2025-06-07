@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Category\CategoryService\Exceptions;
+namespace Romchik38\Site2\Application\Article\ArticleService\Exceptions;
 
 use RuntimeException;
 
