@@ -33,26 +33,30 @@
             </tr>
         </tbody>
     </table>
-    <table class="table">
-        <thead class="table-secondary">
-          <tr>
-            <th scope="col">Language</th>
-            <th scope="col">Description</th>
-            <th scope="col">Play</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for t in translates  %}
-            <tr>
-                <td>{{ t.getLanguage }}</td>
-                <td>{{ t.getDescription }}</td>
-                <td>
-                    <audio src="{{ audioPathPrefix ~ '/' ~ t.getPath }}" controls crossorigin="anonymous">{{ t.getDescription() }}</audio>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if translates|length == 0 %}
+        <p>Audio does not have tracks. <a href="{{ audioUrl }}">Add</a>.</p>
+    {% else %}
+        <table class="table">
+            <thead class="table-secondary">
+              <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Description</th>
+                <th scope="col">Play</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for t in translates  %}
+                <tr>
+                    <td>{{ t.getLanguage }}</td>
+                    <td>{{ t.getDescription }}</td>
+                    <td>
+                        <audio src="{{ audioPathPrefix ~ '/' ~ t.getPath }}" controls crossorigin="anonymous">{{ t.getDescription() }}</audio>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endif %}
 <div class="border bg-light p-2">
     <div>

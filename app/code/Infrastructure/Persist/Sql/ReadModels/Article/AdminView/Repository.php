@@ -273,7 +273,7 @@ final class Repository implements RepositoryInterface
             }
 
             $query  = $this->getAudioQuery();
-            $params = [$rawId];
+            $params = [(int) $rawId];
 
             try {
                 $rows = $this->database->queryParams($query, $params);
@@ -304,7 +304,11 @@ final class Repository implements RepositoryInterface
 
             $translates = [];
             foreach ($rows as $row) {
-                $translates[] = $this->createAudioTranslates($row);
+                $translate = $this->createAudioTranslates($row);
+                if ($translate === null) {
+                    continue;
+                }
+                $translates[] = $translate;
             }
 
             try {
@@ -322,19 +326,24 @@ final class Repository implements RepositoryInterface
      * @param array<string,string|null> $row
      * @throws RepositoryException
      * */
-    private function createAudioTranslates(array $row): AudioTranslateDto
+    private function createAudioTranslates(array $row): ?AudioTranslateDto
     {
-        $rawLanguage = $row['language'] ?? null;
+        $rawLanguage    = $row['language'] ?? null;
+        $rawDescription = $row['description'] ?? null;
+        $rawPath        = $row['path'] ?? null;
+
+        if ($rawLanguage === null && $rawDescription === null && $rawPath === null) {
+            return null;
+        }
+
         if ($rawLanguage === null) {
             throw new RepositoryException('Article audio translate language is invalid');
         }
 
-        $rawDescription = $row['description'] ?? null;
         if ($rawDescription === null) {
             throw new RepositoryException('Article audio translate description is invalid');
         }
 
-        $rawPath = $row['path'] ?? null;
         if ($rawPath === null) {
             throw new RepositoryException('Article audio translate path is invalid');
         }
@@ -421,10 +430,9 @@ final class Repository implements RepositoryInterface
                 audio_translates.language,
                 audio_translates.description,
                 audio_translates.path
-            FROM audio,
-                audio_translates
+            FROM audio LEFT JOIN audio_translates
+                ON audio.identifier = audio_translates.audio_id 
             WHERE audio.identifier = $1
-                AND audio.identifier = audio_translates.audio_id
         QUERY;
     }
 

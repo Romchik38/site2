@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Persist\Sql\Article;
 use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
+use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\RepositoryException;
@@ -98,9 +99,96 @@ final class Repository implements RepositoryInterface
         return $this->createAuthor($rows[0]);
     }
 
-    /** @todo implement */
     public function save(Article $model): void
     {
+        $articleId = $model->id;
+        $authorId  = ($model->author->id)();
+        $audioId   = $model->audio;
+        if ($audioId !== null) {
+            $audioId = ($audioId->id)();
+        }
+        $imageId = $model->image;
+        if ($imageId !== null) {
+            $imageId = ($imageId->id)();
+        }
+
+        if ($model->active) {
+            $articleActive = 't';
+        } else {
+            $articleActive = 'f';
+        }
+
+        $mainSaveQuery = $this->mainSaveQuery();
+        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId];
+
+        // $translates = $model->getTranslates();
+
+        try {
+            $this->database->transactionStart();
+            $this->database->transactionQueryParams(
+                $mainSaveQuery,
+                $params
+            );
+
+            // $this->database->transactionQueryParams(
+            //     $this->translatesSaveQueryDelete(),
+            //     [$categoryId()]
+            // );
+
+            // if (count($translates) > 0) {
+            //     foreach ($translates as $translate) {
+            //         $this->database->transactionQueryParams(
+            //             $this->translatesSaveQueryInsert(),
+            //             [
+            //                 $categoryId(),
+            //                 (string) $translate->getLanguage(),
+            //                 (string) $translate->getName(),
+            //                 (string) $translate->getDescription(),
+            //             ]
+            //         );
+            //     }
+            // }
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Transaction error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (QueryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, transaction rollback success',
+                    $e->getMessage()
+                ));
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Query error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        } catch (RepositoryException $e) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($e->getMessage());
+            } catch (DatabaseTransactionException $e2) {
+                throw new RepositoryException(sprintf(
+                    'Repository error: %s, tried to rollback with error: %s',
+                    $e->getMessage(),
+                    $e2->getMessage()
+                ));
+            }
+        }
     }
 
     /** @todo implement */
@@ -508,6 +596,18 @@ final class Repository implements RepositoryInterface
                 article_translates.updated_at
             FROM article_translates
             WHERE article_translates.article_id = $1
+        QUERY;
+    }
+
+    private function mainSaveQuery(): string
+    {
+        return <<<'QUERY'
+            UPDATE article
+            SET active = $2,
+                author_id = $3,
+                img_id = $4,
+                audio_id = $5
+            WHERE article.identifier = $1
         QUERY;
     }
 }

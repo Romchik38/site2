@@ -132,6 +132,10 @@ final class ArticleService
             }
         }
 
-        $model;
+        try {
+            $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        }
     }
 }
