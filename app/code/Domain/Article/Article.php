@@ -185,23 +185,28 @@ final class Article
         $this->author = $author;
     }
 
+    /** * @todo test */
     /**
-     * @todo implement
-     * @todo test */
-    /** @throws InvalidArgumentException */
+     * @param array<int, Category> $newCategories
+     * @throws InvalidArgumentException
+     * */
     public function changeCategories(array $newCategories): void
     {
-        if ($this->active === false) {
-            $this->categories = $newCategories;
-            return;
-        }
-
-        $oldCategories = $this->categories;
-        $hasActive     = false;
+        $hasActive = false;
         foreach ($newCategories as $newCategory) {
-            if ($newCategory) {
+            if (! $newCategory instanceof Category) {
+                throw new InvalidArgumentException('Article category is invalid');
+            }
+            if ($newCategory->active === true) {
+                $hasActive = true;
             }
         }
+
+        if ($this->active === true && $hasActive === false) {
+            throw new InvalidArgumentException('Active article must have at least on active category');
+        }
+
+        $this->categories = $newCategories;
     }
 
     /** @throws InvalidArgumentException */

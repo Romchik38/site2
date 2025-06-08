@@ -110,6 +110,94 @@ final class Repository implements RepositoryInterface
     }
 
     /**
+     * @throws RepositoryException
+     * */
+    public function createAudio(AudioId $id): Audio
+    {
+        $query  = $this->getAudioQuery();
+        $params = [$id()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+        if (count($rows) !== 1) {
+            throw new RepositoryException('Article audio data is invalid');
+        }
+        $firstRow  = $rows[0];
+        $rawActive = $firstRow['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Article audio active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        return new Audio($id, $active);
+    }
+
+    /**
+     * @param array<int,CategoryId> $categoryIds
+     * @throws RepositoryException
+     * @return array<int,Category>
+     */
+    public function createCategories(array $categoryIds): array
+    {
+        $categories = [];
+
+        $query   = $this->getCategoriesQuery();
+        $counter = 1;
+        $counts  = [];
+        foreach ($categoryIds as $id) {
+            $params[] = $id();
+            $counts[] = '$' . $counter;
+            $counter++;
+        }
+
+        $query .= sprintf('(%s)', implode(',', $counts));
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $rawId = $row['identifier'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Article category id is invalid');
+            }
+
+            $rawActive = $row['active'] ?? null;
+            if ($rawActive === null) {
+                throw new RepositoryException('Article category active is invalid');
+            }
+            if ($rawActive === 't') {
+                $active = true;
+            } else {
+                $active = false;
+            }
+
+            $rawCount = $row['article_count'] ?? null;
+            if ($rawCount === null) {
+                throw new RepositoryException('Article category count is invalid');
+            }
+
+            try {
+                $id = new CategoryId($rawId);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+
+            $categories[] = new Category($id, $active, (int) $rawCount);
+        }
+
+        return $categories;
+    }
+
+    /**
      * @param array<string,string|null> $row
      * @throws RepositoryException
      * */
@@ -193,35 +281,6 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @throws RepositoryException
-     * */
-    public function createAudio(AudioId $id): Audio
-    {
-        $query  = $this->getAudioQuery();
-        $params = [$id()];
-        try {
-            $rows = $this->database->queryParams($query, $params);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-        if (count($rows) !== 1) {
-            throw new RepositoryException('Article audio data is invalid');
-        }
-        $firstRow  = $rows[0];
-        $rawActive = $firstRow['active'] ?? null;
-        if ($rawActive === null) {
-            throw new RepositoryException('Article audio active is invalid');
-        }
-        if ($rawActive === 't') {
-            $active = true;
-        } else {
-            $active = false;
-        }
-
-        return new Audio($id, $active);
-    }
-
-    /**
      * @param array<string,string|null> $row
      * @throws RepositoryException
      * */
@@ -255,65 +314,6 @@ final class Repository implements RepositoryInterface
         }
 
         return new Author($id, $active, $name);
-    }
-
-    /**
-     * @param array<int,CategoryId> $categoryIds
-     * @throws RepositoryException
-     * @return array<int,Category>
-     */
-    private function createCategories(array $categoryIds): array
-    {
-        $categories = [];
-
-        $query   = $this->getCategoriesQuery();
-        $counter = 1;
-        $counts  = [];
-        foreach ($categoryIds as $id) {
-            $params[] = $id();
-            $counts[] = '$' . $counter;
-            $counter++;
-        }
-
-        $query .= sprintf('(%s)', implode(',', $counts));
-
-        try {
-            $rows = $this->database->queryParams($query, $params);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-
-        foreach ($rows as $row) {
-            $rawId = $row['identifier'] ?? null;
-            if ($rawId === null) {
-                throw new RepositoryException('Article category id is invalid');
-            }
-
-            $rawActive = $row['active'] ?? null;
-            if ($rawActive === null) {
-                throw new RepositoryException('Article category active is invalid');
-            }
-            if ($rawActive === 't') {
-                $active = true;
-            } else {
-                $active = false;
-            }
-
-            $rawCount = $row['article_count'] ?? null;
-            if ($rawCount === null) {
-                throw new RepositoryException('Article category count is invalid');
-            }
-
-            try {
-                $id = new CategoryId($rawId);
-            } catch (InvalidArgumentException $e) {
-                throw new RepositoryException($e->getMessage());
-            }
-
-            $categories[] = new Category($id, $active, (int) $rawCount);
-        }
-
-        return $categories;
     }
 
     /**  @throws RepositoryException */

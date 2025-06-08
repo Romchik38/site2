@@ -15,6 +15,16 @@ use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 interface RepositoryInterface
 {
+    /** @throws RepositoryException */
+    public function createAudio(AudioId $id): Audio;
+
+    /**
+     * @param array<int,CategoryId> $categoryIds
+     * @throws RepositoryException
+     * @return array<int,Category>
+     */
+    public function createCategories(array $categoryIds): array;
+
     public function createImage(ImageId $imageId): Image;
 
     /** @throws RepositoryException */
@@ -25,9 +35,6 @@ interface RepositoryInterface
      * @throws RepositoryException
      * */
     public function getById(Identifier $id): Article;
-
-    /** @throws RepositoryException */
-    public function createAudio(AudioId $id): Audio;
 
     /** @throws RepositoryException */
     public function findAuthor(AuthorId $id): Author;

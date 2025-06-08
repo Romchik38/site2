@@ -41,6 +41,7 @@
     <div>
         <button class="btn btn-secondary my-2 category-button-change" type="button">Change</button>
     </div>
+    <p>Use <strong>Ctrl</strong> key to set/unset value. You can select multiple values. Refresh the page without push update button to cancel select on change.</p>
     <!-- Select -->
     <select class="form-select category-select" name="{{ data.categoriesField }}[]" style="display:none;" multiple>
         {% for cat in allCategories %}

@@ -114,10 +114,18 @@ final class ArticleService
         }
 
         // Categories
-        $categories = [];
+        $categoryIds = [];
         foreach ($command->categories as $category) {
-            $categories[] = new CategoryId($category);
+            $categoryIds[] = new CategoryId($category);
         }
+
+        try {
+            $categories = $this->repository->createCategories($categoryIds);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        }
+
+        $model->changeCategories($categories);
 
         $model;
     }
