@@ -482,8 +482,11 @@ final class Repository implements RepositoryInterface
                 category.active,
                 (
                     SELECT count(article_id) 
-                    FROM article_category
+                    FROM article_category,
+                        article
                     WHERE article_category.category_id = category.identifier
+                        AND article.active = 't'
+                        AND article_category.article_id = article.identifier
                 ) as article_count
             FROM category  
             WHERE category.identifier in 

@@ -7,5 +7,4 @@ Represents a Category of articles.
   - id is set
   - all translates
   - has at least one active article
-- Cannot be *deactivated* if has referencies from:
-  - Article
+- No requirements to be *deactivated*.

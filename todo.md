@@ -2,6 +2,9 @@
 
 ## Current
 
+- diactivate article when active cat has only 1 active article - `X`
+- diactivate category when it contain active articles - `+`
+
 - article update
   - service
   - repository
@@ -30,4 +33,5 @@
 - move to server
   - TwigView
   - Image storage
-  
+
+- monitoring
