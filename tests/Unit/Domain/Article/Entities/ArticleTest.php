@@ -1702,7 +1702,7 @@ final class ArticleTest extends TestCase
         );
 
         $this->assertSame(true, $article->active);
-        $article->dectivate();
+        $article->deactivate();
         $this->assertSame(false, $article->active);
     }
 
@@ -1759,7 +1759,7 @@ final class ArticleTest extends TestCase
         $this->expectException(CouldNotChangeActivityException::class);
         $this->expectExceptionMessage('Category cat-1 is active and has only one article');
 
-        $article->dectivate();
+        $article->deactivate();
     }
 
     public function testGetCategories(): void

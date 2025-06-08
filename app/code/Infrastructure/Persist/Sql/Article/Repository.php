@@ -150,6 +150,7 @@ final class Repository implements RepositoryInterface
         $query   = $this->getCategoriesQuery();
         $counter = 1;
         $counts  = [];
+        $params  = [];
         foreach ($categoryIds as $id) {
             $params[] = $id();
             $counts[] = '$' . $counter;

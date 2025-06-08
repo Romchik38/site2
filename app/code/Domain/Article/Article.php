@@ -187,7 +187,7 @@ final class Article
 
     /** * @todo test */
     /**
-     * @param array<int, Category> $newCategories
+     * @param array<int,mixed|Category> $newCategories
      * @throws InvalidArgumentException
      * */
     public function changeCategories(array $newCategories): void
@@ -219,7 +219,7 @@ final class Article
     }
 
     /** @throws CouldNotChangeActivityException */
-    public function dectivate(): void
+    public function deactivate(): void
     {
         if ($this->active === false) {
             return;

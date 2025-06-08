@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ArticleService;
 
 use DateTime;
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\NoSuchArticleException;
@@ -120,8 +121,16 @@ final class ArticleService
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         }
-
         $model->changeCategories($categories);
+
+        // Activity
+        if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
+            if ($model->active) {
+                $model->deactivate();
+            } else {
+                $model->activate();
+            }
+        }
 
         $model;
     }
