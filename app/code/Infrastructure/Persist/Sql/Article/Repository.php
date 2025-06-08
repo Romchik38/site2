@@ -147,6 +147,10 @@ final class Repository implements RepositoryInterface
     {
         $categories = [];
 
+        if (count($categoryIds) === 0) {
+            return $categories;
+        }
+
         $query   = $this->getCategoriesQuery();
         $counter = 1;
         $counts  = [];

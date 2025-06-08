@@ -188,22 +188,13 @@ final class Article
     /** * @todo test */
     /**
      * @param array<int,mixed|Category> $newCategories
-     * @throws InvalidArgumentException
      * */
     public function changeCategories(array $newCategories): void
     {
-        $hasActive = false;
         foreach ($newCategories as $newCategory) {
             if (! $newCategory instanceof Category) {
                 throw new InvalidArgumentException('Article category is invalid');
             }
-            if ($newCategory->active === true) {
-                $hasActive = true;
-            }
-        }
-
-        if ($this->active === true && $hasActive === false) {
-            throw new InvalidArgumentException('Active article must have at least on active category');
         }
 
         $this->categories = $newCategories;
