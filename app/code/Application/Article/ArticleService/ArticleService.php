@@ -23,6 +23,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
+use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 
 final class ArticleService
 {
@@ -115,6 +116,7 @@ final class ArticleService
         // Categories
         $categories = [];
         foreach ($command->categories as $category) {
+            $categories[] = new CategoryId($category);
         }
 
         $model;

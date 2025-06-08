@@ -185,6 +185,25 @@ final class Article
         $this->author = $author;
     }
 
+    /**
+     * @todo implement
+     * @todo test */
+    /** @throws InvalidArgumentException */
+    public function changeCategories(array $newCategories): void
+    {
+        if ($this->active === false) {
+            $this->categories = $newCategories;
+            return;
+        }
+
+        $oldCategories = $this->categories;
+        $hasActive     = false;
+        foreach ($newCategories as $newCategory) {
+            if ($newCategory) {
+            }
+        }
+    }
+
     /** @throws InvalidArgumentException */
     public function changeImage(Image $image): void
     {

@@ -30,6 +30,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_key_exists;
 use function count;
+use function implode;
 use function json_decode;
 use function sprintf;
 
@@ -161,7 +162,20 @@ final class Repository implements RepositoryInterface
             $image = $this->createImage($imageId);
         }
         // Categories
-        $categories = $this->createCategories($id);
+        $rawCategories = $row['categories'] ?? null;
+        if ($rawCategories === null) {
+            throw new RepositoryException('Article categories param is invalid');
+        }
+        $decodedCategories = json_decode($rawCategories);
+        $categoriesIds     = [];
+        foreach ($decodedCategories as $decodedCategory) {
+            try {
+                $categoriesIds[] = new CategoryId($decodedCategory);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+        $categories = $this->createCategories($categoriesIds);
         // Translates
         $translates = $this->createTranslates($id);
 
@@ -244,15 +258,24 @@ final class Repository implements RepositoryInterface
     }
 
     /**
+     * @param array<int,CategoryId> $categoryIds
      * @throws RepositoryException
      * @return array<int,Category>
      */
-    private function createCategories(ArticleId $articleId): array
+    private function createCategories(array $categoryIds): array
     {
         $categories = [];
 
-        $query  = $this->getCategoriesQuery();
-        $params = [$articleId()];
+        $query   = $this->getCategoriesQuery();
+        $counter = 1;
+        $counts  = [];
+        foreach ($categoryIds as $id) {
+            $params[] = $id();
+            $counts[] = '$' . $counter;
+            $counter++;
+        }
+
+        $query .= sprintf('(%s)', implode(',', $counts));
 
         try {
             $rows = $this->database->queryParams($query, $params);
@@ -412,7 +435,13 @@ final class Repository implements RepositoryInterface
                     array (SELECT language.identifier 
                         FROM language
                     ) 
-                ) as languages
+                ) as languages,
+                array_to_json (
+                    array (SELECT article_category.category_id 
+                        FROM article_category
+                        WHERE article_category.article_id = $1
+                    ) 
+                ) as categories
             FROM article,
                 author
             WHERE article.identifier = $1
@@ -455,10 +484,8 @@ final class Repository implements RepositoryInterface
                     FROM article_category
                     WHERE article_category.category_id = category.identifier
                 ) as article_count
-            FROM category,
-                article_category
-            WHERE article_category.article_id = $1
-                AND article_category.category_id = category.identifier
+            FROM category  
+            WHERE category.identifier in 
         QUERY;
     }
 
