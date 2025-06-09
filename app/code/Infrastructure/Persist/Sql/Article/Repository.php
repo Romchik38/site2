@@ -121,7 +121,8 @@ final class Repository implements RepositoryInterface
         $mainSaveQuery = $this->mainSaveQuery();
         $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId];
 
-        // $translates = $model->getTranslates();
+        $translates = $model->getTranslates();
+        // $categories
 
         try {
             $this->database->transactionStart();
@@ -130,24 +131,29 @@ final class Repository implements RepositoryInterface
                 $params
             );
 
-            // $this->database->transactionQueryParams(
-            //     $this->translatesSaveQueryDelete(),
-            //     [$categoryId()]
-            // );
+            $this->database->transactionQueryParams(
+                $this->translatesSaveQueryDelete(),
+                [$articleId()]
+            );
 
-            // if (count($translates) > 0) {
-            //     foreach ($translates as $translate) {
-            //         $this->database->transactionQueryParams(
-            //             $this->translatesSaveQueryInsert(),
-            //             [
-            //                 $categoryId(),
-            //                 (string) $translate->getLanguage(),
-            //                 (string) $translate->getName(),
-            //                 (string) $translate->getDescription(),
-            //             ]
-            //         );
-            //     }
-            // }
+            if (count($translates) > 0) {
+                foreach ($translates as $translate) {
+                    $this->database->transactionQueryParams(
+                        $this->translatesSaveQueryInsert(),
+                        [
+                            $articleId(),
+                            (string) $translate->language,
+                            (string) $translate->name,
+                            (string) $translate->shortDescription,
+                            (string) $translate->description,
+                            $translate->formatCreatedAt(),
+                            $translate->formatUpdatedAt(),
+                        ]
+                    );
+                }
+            }
+            // categories
+
             $this->database->transactionEnd();
         } catch (DatabaseTransactionException $e) {
             try {
@@ -608,6 +614,29 @@ final class Repository implements RepositoryInterface
                 img_id = $4,
                 audio_id = $5
             WHERE article.identifier = $1
+        QUERY;
+    }
+
+    private function translatesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+            DELETE FROM article_translates
+            WHERE article_translates.article_id = $1
+        QUERY;
+    }
+
+    private function translatesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO article_translates (
+                article_id,
+                language,
+                name,
+                short_description,
+                description,
+                created_at,
+                updated_at
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
         QUERY;
     }
 }

@@ -12,6 +12,8 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class Translate
 {
+    public const SAVE_DATE_FORMAT = 'Y-m-d G:i:s';
+
     public function __construct(
         public readonly LanguageId $language,
         public readonly Name $name,
@@ -20,5 +22,15 @@ final class Translate
         public readonly DateTime $createdAt,
         public readonly DateTime $updatedAt
     ) {
+    }
+
+    public function formatCreatedAt(): string
+    {
+        return $this->createdAt->format(self::SAVE_DATE_FORMAT);
+    }
+
+    public function formatUpdatedAt(): string
+    {
+        return $this->updatedAt->format(self::SAVE_DATE_FORMAT);
     }
 }
