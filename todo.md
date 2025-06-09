@@ -15,7 +15,11 @@
   - update
   - new
   - delete
-  - add active to image and author to template
+  - add to template:
+    - active to image
+    - active to author
+    - created at
+    - updated at
 
 - entities tests
 - move to server
