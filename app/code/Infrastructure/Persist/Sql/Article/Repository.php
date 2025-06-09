@@ -122,7 +122,7 @@ final class Repository implements RepositoryInterface
         $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId];
 
         $translates = $model->getTranslates();
-        // $categories
+        $categories = $model->getCategories();
 
         try {
             $this->database->transactionStart();
@@ -152,7 +152,23 @@ final class Repository implements RepositoryInterface
                     );
                 }
             }
-            // categories
+
+            $this->database->transactionQueryParams(
+                $this->categoriesSaveQueryDelete(),
+                [$articleId()]
+            );
+
+            if (count($categories) > 0) {
+                foreach ($categories as $category) {
+                    $this->database->transactionQueryParams(
+                        $this->categoriesSaveQueryInsert(),
+                        [
+                            $articleId(),
+                            (string) $category->id,
+                        ]
+                    );
+                }
+            }
 
             $this->database->transactionEnd();
         } catch (DatabaseTransactionException $e) {
@@ -637,6 +653,22 @@ final class Repository implements RepositoryInterface
                 created_at,
                 updated_at
             ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+        QUERY;
+    }
+
+    private function categoriesSaveQueryDelete(): string
+    {
+        return <<<'QUERY'
+            DELETE FROM article_category
+            WHERE article_category.article_id = $1
+        QUERY;
+    }
+
+    private function categoriesSaveQueryInsert(): string
+    {
+        return <<<'QUERY'
+            INSERT INTO article_category (article_id, category_id) 
+                VALUES ($1, $2)
         QUERY;
     }
 }
