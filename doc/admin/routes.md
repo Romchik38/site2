@@ -4,6 +4,8 @@
 
 - root login admin                  admin login page
 - root admin                        admin panel
+- root admin article                article list (default)
+                                    article view (dynamic)
 - root admin audio                  audio list page
 - root admin audio new              create new audio
 - root admin audio translate        view audio translate
@@ -26,6 +28,7 @@
 
 - root auth admin                   admin authentication
 - root admin logout                 admin logout
+- root admin article update         update article
 - root admin api userinfo           admin userinfo api point
 - root admin audio new              create new audio
 - root admin audio update           update audio

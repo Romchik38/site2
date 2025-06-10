@@ -41,6 +41,22 @@ return function (Container $container): ControllerInterface {
     );
     $admin->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminLoginMiddleware'));
 
+    $adminArticle = new Controller(
+        'article',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction'),
+        'admin_article'
+    );
+    $adminArticleNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\New\DefaultAction'),
+        null,
+        'article_new'
+    );
+    $adminArticle->setChild($adminArticleNew);
+
     $adminAudio = new Controller(
         'audio',
         false,
@@ -73,14 +89,6 @@ return function (Container $container): ControllerInterface {
     $adminAudio
     ->setChild($adminAudioNew)
     ->setChild($adminAudioTranslate);
-
-    $adminArticle = new Controller(
-        'article',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction'),
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction'),
-        'admin_article'
-    );
 
     $adminAuthor = new Controller(
         'author',
