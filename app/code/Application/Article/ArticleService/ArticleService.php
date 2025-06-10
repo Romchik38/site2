@@ -6,10 +6,15 @@ namespace Romchik38\Site2\Application\Article\ArticleService;
 
 use DateTime;
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Article\ArticleService\Commands\Create;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
+use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotCreateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
+use Romchik38\Site2\Application\Language\List\ListService as LanguageListService;
+use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Article\Entities\Translate;
 use Romchik38\Site2\Domain\Article\VO\Description;
@@ -25,12 +30,41 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 final class ArticleService
 {
     public function __construct(
-        private readonly RepositoryInterface $repository
+        private readonly RepositoryInterface $repository,
+        private readonly LanguageListService $languagesService
     ) {
     }
 
+    public function create(Create $command): void
+    {
+        $id       = new ArticleId($command->id);
+        $authorId = new AuthorId($command->authorId);
+
+        try {
+            $author = $this->repository->findAuthor($authorId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        try {
+            $languages = [];
+            foreach ($this->languagesService->getAll() as $language) {
+                $languages[] = $language->identifier;
+            }
+        } catch (LanguageRepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+
+        $model = Article::create($id, $author, $languages);
+
+        try {
+            $this->repository->add($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+    }
+
     /**
-     * @todo test all paths
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
      * @throws InvalidArgumentException

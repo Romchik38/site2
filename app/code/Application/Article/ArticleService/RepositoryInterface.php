@@ -47,5 +47,5 @@ interface RepositoryInterface
     public function save(Article $model): void;
 
     /** @throws RepositoryException */
-    public function add(Article $model): Identifier;
+    public function add(Article $model): void;
 }
