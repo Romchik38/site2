@@ -1,7 +1,7 @@
 CREATE table
     article (
         identifier text UNIQUE NOT NULL PRIMARY KEY,
-        active boolean DEFAULT false,
+        active boolean NOT NULL DEFAULT false,
         author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         img_id int REFERENCES img (identifier) ON UPDATE CASCADE,
         audio_id int REFERENCES audio (identifier) ON UPDATE CASCADE
