@@ -35,6 +35,11 @@ final class ArticleService
     ) {
     }
 
+    /** @todo test after delete */
+    /**
+     * @throws CouldNotCreateException
+     * @throws InvalidArgumentException
+     */
     public function create(Create $command): void
     {
         $id       = new ArticleId($command->id);

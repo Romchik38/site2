@@ -13,7 +13,7 @@ final class ViewDto extends DefaultViewDTO
         string $description,
         public readonly string $csrfTokenField,
         public string $csrfToken,
-        public readonly string $idFiled,
+        public readonly string $idField,
         public readonly string $authorField,
         public readonly AuthorFiltersDto $authorFilters
     ) {

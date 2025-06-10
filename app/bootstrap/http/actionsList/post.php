@@ -49,6 +49,13 @@ return function (Container $container): ControllerInterface {
 
     // Admin Article
     $adminArticle = new Controller('article', false, null, null, 'admin_article');
+    $adminArticleNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Article\New\DefaultAction'),
+        null,
+        'article_new'
+    );
     $adminArticleUpdate = new Controller(
         'update', 
         false, 
@@ -57,6 +64,7 @@ return function (Container $container): ControllerInterface {
         'article_update'
     );
     $adminArticle
+    ->setChild($adminArticleNew)
     ->setChild($adminArticleUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
 

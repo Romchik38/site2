@@ -3,7 +3,7 @@
 ## Current
 
 - article new
-  - post action
+  - test service when the delete method is ready.
 
 - article
   - new
