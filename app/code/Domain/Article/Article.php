@@ -88,9 +88,6 @@ final class Article
                     throw new InvalidArgumentException('param article audio is not active');
                 }
             }
-            if (count($categories) === 0) {
-                throw new InvalidArgumentException('param article categories is empty');
-            }
 
             if (count($translates) < count($languages)) {
                 throw new InvalidArgumentException('Article has missing translates');

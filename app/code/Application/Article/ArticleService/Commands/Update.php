@@ -26,9 +26,6 @@ final class Update
     public const IMAGE_FIELD               = 'image_row';
     public const CATEGORIES_FIELD          = 'categories';
 
-    /** @todo implement */
-    // categories
-
     /**
      * @param array<int, string> $categories
      * @param array<int,Translate> $translates

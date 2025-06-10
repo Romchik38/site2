@@ -611,54 +611,6 @@ final class ArticleTest extends TestCase
         );
     }
 
-    public function testConstructThrowsErrorNotInCategory(): void
-    {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
-
-        $categories = [];
-
-        $languages = [
-            new LanguageId('en'),
-            new LanguageId('uk'),
-        ];
-
-        $translates = [
-            new Translate(
-                new LanguageId('en'),
-                new Name('some name'),
-                new ShortDescription('Some article short description'),
-                new Description('Some article description'),
-                new DateTime(),
-                new DateTime()
-            ),
-            new Translate(
-                new LanguageId('uk'),
-                new Name('Стаття про щось'),
-                new ShortDescription('Короткий опис статті про щось'),
-                new Description('Повний опис статті про щось'),
-                new DateTime(),
-                new DateTime()
-            ),
-        ];
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('param article categories is empty');
-
-        new Article(
-            $id,
-            true,
-            $audio,
-            $author,
-            $image,
-            $categories,
-            $languages,
-            $translates
-        );
-    }
-
     public function testConstructThrowsErrorNotValidLanguage(): void
     {
         $id     = new ArticleId('some-id');
