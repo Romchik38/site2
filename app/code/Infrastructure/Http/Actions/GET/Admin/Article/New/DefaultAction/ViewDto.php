@@ -14,7 +14,8 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $csrfTokenField,
         public string $csrfToken,
         public readonly string $idFiled,
-        public readonly string $authorField
+        public readonly string $authorField,
+        public readonly AuthorFiltersDto $authorFilters
     ) {
         parent::__construct($name, $description);
     }

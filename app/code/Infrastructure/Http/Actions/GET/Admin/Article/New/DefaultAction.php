@@ -16,6 +16,7 @@ use Romchik38\Site2\Application\Article\ArticleService\Commands\Create;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\New\DefaultAction\AuthorFiltersDto;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -40,7 +41,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
             Create::ID_FIELD,
-            Create::AUTHOR_FIELD
+            Create::AUTHOR_FIELD,
+            new AuthorFiltersDto()
         );
 
         $html = $this->view

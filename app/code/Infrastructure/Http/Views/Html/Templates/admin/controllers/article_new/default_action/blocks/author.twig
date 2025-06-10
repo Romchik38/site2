@@ -1,44 +1,11 @@
-{% set author = data.article.author %}
 {% set authorF = data.authorFilters %}
-{% set authorUrl = u.fromArray(['root', 'admin', 'author', author.getId()]) %}
 
 <!-- Inside a form -->
 <h2 class="text-center authors">Author</h2>
-<div class="text-center">
-    <a href="{{ authorUrl }}">Author view page</a>
-</div>
-<table class="table">
-    <tbody>
-        <tr>
-            <th width="15%">Id</th>
-            <td>{{ author.getId() }}</td>
-        </tr>
-        <tr>
-            <th>Activity</th>
-            {% if author.active == true %}
-                <td class="text-success">Active</td>
-            {% else %}
-                <td class="text-danger">Not active</td>
-            {% endif %}
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ author.getName() }}</td>
-        </tr>
-    </tbody>
-</table>
 <div class="border bg-light p-2">
-    <div>
-        <button class="btn btn-secondary my-2 author-button-change" type="button">Change</button>
-    </div>
-
     <!-- Filters -->
-    <div class="author-filter" style="display: none">
-        <div class="author-message text-warning" style="display: none"></div>
+    <div class="author-filter">
         <div class="author-message-error text-danger" style="display: none"></div>
-
-        <button type="button" class="btn btn-warning btn-sm py-2 author-button-clear" style="display: none;">Clear</button>
-
         <div class="d-sm-flex">
             <label class="me-2">Limit</label>
             <div class="me-2">
@@ -87,4 +54,4 @@
         <div class="author-container my-2"></div>
     </div>
 </div>    
-<script type="module" src="/media/js/admin/article/author.js"></script>
+<script type="module" src="/media/js/admin/article_new/author.js"></script>
