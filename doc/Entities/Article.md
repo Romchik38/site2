@@ -9,4 +9,4 @@
     - all translates
     - be at least in one category
   - diactivate
-    - active categories must have more than 1 article
+    - active category must have at least 1 active article

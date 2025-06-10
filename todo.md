@@ -2,17 +2,12 @@
 
 ## Current
 
-- diactivate article when active cat has only 1 active article - `X`
-- diactivate category when it contain active articles - `+`
-
-- article update
-  - service
-  - repository
-    - getById
+- article new
+  - service `create`
+  - repository `add`
   - action
 
 - article
-  - update
   - new
   - delete
   - add to template:
@@ -21,7 +16,7 @@
     - created at
     - updated at
 
-- show only active cat on frontend
+- show only active categories on the frontend
   - article page
   - article list page
 
