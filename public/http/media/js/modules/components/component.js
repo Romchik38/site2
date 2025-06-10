@@ -1,8 +1,11 @@
 'use strict';
 
-export default class Component {
+import { default as EE } from '/media/js/modules/utils/eventEmitter.js';
+
+export default class Component extends EE {
     
     constructor(node) {
+        super();
         // Node
         if (! node instanceof HTMLElement) {
             throw new Error('Wrong node type. Expected HtmlElement');
@@ -14,7 +17,7 @@ export default class Component {
         this.fnShow = null;
 
         // events
-        this.events = ['click'];
+        this.domEvents = ['click'];
         this.registeredEvents = [];
     }
 
@@ -22,7 +25,7 @@ export default class Component {
         if (typeof name !== 'string') {
             throw new Error('Param event name is invalid');
         } else {
-            if (!this.events.find((v) => v === name)) {
+            if (!this.domEvents.find((v) => v === name)) {
                 throw new Error('Param event name has non expected value: ' + name);
             }
         }

@@ -1,5 +1,6 @@
 'use strict';
 
+import { default as EE } from '/media/js/modules/utils/eventEmitter.js';
 import { default as Component } from '/media/js/modules/components/component.js';
 import { default as Page } from './common/page.js';
 import { default as SelectLimit } from './common/select-limit.js';
@@ -9,6 +10,7 @@ import { default as AuthorContainer } from './author/author-container.js';
 import { default as filter } from './common/make-request.js';
 import { default as FilterRequest } from './common/filter-request.js';
 
+var ee = new EE();
 var bf = Component.fromClass('author-button-filter');
 var me = Component.fromClass('author-message-error');
 var p = Page.fromClass('author-page');
@@ -30,7 +32,7 @@ author-container                 c               rows container
 */
 
 // Make filter
-bf.onEvent('click', () => {
+var filterFn = () => {
     c.clear();
     me.hide();
 
@@ -50,7 +52,8 @@ bf.onEvent('click', () => {
         if (err !== null) {       
             me.text('Request error. See more details in the console')
             me.show();
-            console.log(err);                    
+            console.log(err);
+            ee.emit('error', 'author');
         } else {
             var entities = data['author_list'];          
             if (typeof entities !== 'object') {
@@ -58,9 +61,14 @@ bf.onEvent('click', () => {
                 me.show();
                 console.error('Field author_list not found in recieved data');
                 console.log({ data });
+                ee.emit('error', 'author');
             } else {
                 c.fill(entities);
+                ee.emit('success', 'author');
             }
         }
     });
-});
+};
+bf.onEvent('click', filterFn);
+filterFn();
+export { ee };

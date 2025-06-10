@@ -3,9 +3,7 @@
 ## Current
 
 - article new
-  - service `create`
-  - repository `add`
-  - action
+  - post action
 
 - article
   - new
