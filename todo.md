@@ -21,6 +21,10 @@
     - created at
     - updated at
 
+- show only active cat on frontend
+  - article page
+  - article list page
+
 - entities tests
 - move to server
   - `RequestHandlerTrait`
