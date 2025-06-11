@@ -7,8 +7,10 @@ namespace Romchik38\Site2\Application\Article\ArticleService;
 use DateTime;
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Create;
+use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotCreateException;
+use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\RepositoryException;
@@ -66,6 +68,31 @@ final class ArticleService
             $this->repository->add($model);
         } catch (RepositoryException $e) {
             throw new CouldNotCreateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws CouldNotChangeActivityException
+     * @throws CouldNotDeleteException
+     * @throws InvalidArgumentException
+     * @throws NoSuchArticleException
+     */
+    public function delete(Delete $command): void
+    {
+        $id = new ArticleId($command->id);
+
+        try {
+            $model = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
+        }
+
+        $model->deactivate();
+
+        try {
+            $this->repository->delete($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
         }
     }
 
