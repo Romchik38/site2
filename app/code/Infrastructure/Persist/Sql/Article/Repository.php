@@ -72,9 +72,20 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($id, $rawArticle);
     }
 
-    /** @todo implement */
+    /**
+     * rows from tables article_translates and article_category will be deleted auto by postgres
+     */
     public function delete(Article $model): void
     {
+        $id = (string) $model->id;
+
+        $query  = $this->deleteQuery();
+        $params = [$id];
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     public function add(Article $model): void
@@ -687,6 +698,14 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
             INSERT INTO article (identifier, active, author_id)
                 VALUES ($1, $2, $3)
+        QUERY;
+    }
+
+    private function deleteQuery(): string
+    {
+        return <<<'QUERY'
+            DELETE FROM article
+            WHERE article.identifier = $1
         QUERY;
     }
 }

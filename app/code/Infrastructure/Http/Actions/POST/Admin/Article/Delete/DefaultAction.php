@@ -31,7 +31,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 {
     /** @todo usage */
     private const string BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
-    private const string SUCCESS_DELETE_KEY            = 'admin.could-not-delete';
+    private const string SUCCESS_DELETE_KEY            = 'admin.data-success-delete';
     private const string ARTICLE_NOT_EXIST_KEY         = 'admin.article-with-id-not-exist';
     private const string COULD_NOT_CHANGE_ACTIVITY_KEY = 'admin.could-not-change-activity';
     private const string COULD_NOT_DELETE_KEY          = 'admin.could-not-delete';
@@ -62,7 +62,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             $this->articleService->delete($command);
             $message = $this->translateService->t($this::SUCCESS_DELETE_KEY);
-            $uri     = $this->createUriWithId($command->id);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
