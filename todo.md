@@ -12,6 +12,7 @@
     - remove from `server` folder
     - remove `use` from some action, which use it
   - refactor not found controller to request handler
+    - move not found controller to not found handler
     - change in bootstrap (router)
     - test how it works
 
