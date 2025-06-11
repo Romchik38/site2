@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Tests\Unit\Domain\Article\Entities;
+namespace Romchik38\Tests\Unit\Domain\Article;
 
 use DateTime;
 use InvalidArgumentException;

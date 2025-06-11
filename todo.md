@@ -2,7 +2,6 @@
 
 ## Current
 
-- article entities tests
 - move to server
   - `RequestHandlerTrait`
 
