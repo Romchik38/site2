@@ -158,10 +158,15 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
         WITH categories AS
         (
-            SELECT category_translates.category_id,
+            SELECT category.active, 
+                category_translates.category_id,
                 category_translates.name
-            FROM category_translates
-            WHERE category_translates.language = $1
+            FROM category_translates,
+                category
+            WHERE category_translates.language = $1 AND
+                category.identifier = category_translates.category_id AND
+                category.active ='t'
+
         )
         SELECT article.identifier,
         article_translates.name,

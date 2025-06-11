@@ -2,10 +2,6 @@
 
 ## Current
 
-- show only active categories on the frontend
-  - article page
-  - article list page
-
 - article entities tests
 - move to server
   - `RequestHandlerTrait`
