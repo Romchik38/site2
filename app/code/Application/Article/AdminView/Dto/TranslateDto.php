@@ -12,7 +12,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class TranslateDto
 {
-    public const DATE_FORMAT = 'G:i  d-m-y';
+    public const DATE_FORMAT = 'd.m.y - G:i';
 
     public function __construct(
         public readonly LanguageId $language,

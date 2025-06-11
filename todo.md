@@ -2,11 +2,6 @@
 
 ## Current
 
-- article
-  - add to template:
-    - created at
-    - updated at
-
 - show only active categories on the frontend
   - article page
   - article list page

@@ -12,6 +12,8 @@
     {% set name = '' %}
     {% set shortDescription = '' %}
     {% set description = '' %}
+    {% set createdAt = '' %}
+    {% set updatedAt = '' %}
     {% for item in translates %}
         {% if item.getLanguage() == availableLanguage %}
             {% set name = item.getName() %}
@@ -22,7 +24,7 @@
         {% endif %}
     {% endfor %}
 
-    <div class="form-group p-2 mb-4">
+    <div class="form-group p-2 mb-5">
         <div class="mb-1">
             <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguage }}</label>
             <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
@@ -44,6 +46,13 @@
         <div class="mb-1">
             <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
             <textarea class="form-control summernote" form="article-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required maxlength="255" rows="7">{{ description }}</textarea>
+        </div>
+
+        <div class="mb-1">
+            <p>Created at: {{ createdAt }}</p>
+        </div>
+        <div class="mb-1">
+            <p>Updated at: {{ updatedAt }}</p>
         </div>
     </div>
 {% endfor %}
