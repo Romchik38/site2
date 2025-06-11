@@ -59,7 +59,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $result = $this->view
-        ->setController($this->getController(), $dynamicRoute())
+        ->setController($this->getController(), $decodedRoute)
         ->setControllerData($dto)
         ->toString();
 
@@ -79,18 +79,15 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     public function getDescription(string $dynamicRoute): string
     {
         try {
-            return $this->articleViewService
-            ->getArticleName(new Find(
+            return $this->articleViewService->getArticleName(new Find(
                 $dynamicRoute,
                 $this->getLanguage()
             ));
-        } catch (NoSuchArticleException $e) {
-            throw new DynamicActionLogicException(
-                sprintf(
-                    'Description not found in action %s',
-                    $dynamicRoute
-                )
-            );
+        } catch (NoSuchArticleException) {
+            throw new DynamicActionLogicException(sprintf(
+                'Description not found in action %s',
+                $dynamicRoute
+            ));
         }
     }
 }

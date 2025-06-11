@@ -2,7 +2,6 @@
 
 ## Current
 
-- test and refactor `getDescription` of dynamic actions with urlencode/decode
 - author id must be int
 - update server
 - refactor twig from include to extends
@@ -15,6 +14,7 @@
     - move not found controller to not found handler
     - change in bootstrap (router)
     - test how it works
+  - check sipemap - must form encoded urls (LinkTree)
 
 ## Next
 
