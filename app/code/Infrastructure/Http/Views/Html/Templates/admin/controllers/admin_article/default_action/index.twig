@@ -8,7 +8,7 @@
         {% if data.articleList|length == 0 %} 
             {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate, 'createUrl': createUrl} only %}
         {% else %}
-            {% include controller_template_dir ~ '/articles.twig' with {'articleList': data.articleList, 't': translate, 'u': u, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'createUrl': createUrl} only %}
+            {% include controller_template_dir ~ '/articles.twig' with {'data': data, 't': translate, 'u': u, 'createUrl': createUrl} only %}
             <!-- refactor -->
         {% endif %}
 

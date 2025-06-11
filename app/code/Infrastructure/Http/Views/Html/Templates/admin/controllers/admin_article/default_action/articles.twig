@@ -4,6 +4,9 @@
     object              paginationForm              Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm
 #}
 
+{% set paginationForm = data.paginationForm %}
+{% set articleList = data.articleList %}
+
 <div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="{{ createUrl }}" role="button">New</a>
 </div>
@@ -125,7 +128,9 @@
                 {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
-                    <form action="#" method="post">
+                    <form action="{{ u.fromArray(['root', 'admin', 'article', 'delete' ]) }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.idField }}" value="{{ articleId }}" hidden>
+                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
                 </td>

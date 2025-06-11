@@ -15,7 +15,10 @@ final class ViewDto extends DefaultViewDTO
         string $description,
         public readonly array $articleList,
         public readonly string $paginationHtml,
-        public readonly PaginationForm $paginationForm
+        public readonly PaginationForm $paginationForm,
+        public readonly string $idField,
+        public readonly string $csrfTokenField,
+        public readonly string $csrfToken,
     ) {
         parent::__construct($name, $description);
     }
