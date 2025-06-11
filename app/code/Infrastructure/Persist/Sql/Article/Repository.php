@@ -42,52 +42,6 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    public function getById(ArticleId $id): Article
-    {
-        $query  = $this->getByIdQuery();
-        $params = [$id()];
-
-        try {
-            $rows = $this->database->queryParams($query, $params);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-
-        $count = count($rows);
-        if ($count === 0) {
-            throw new NoSuchArticleException(sprintf(
-                'Article with id %s not exist',
-                (string) $id
-            ));
-        }
-        if ($count > 1) {
-            throw new RepositoryException(sprintf(
-                'Article with id %s has duplicates',
-                (string) $id
-            ));
-        }
-
-        $rawArticle = $rows[0];
-
-        return $this->createFromRow($id, $rawArticle);
-    }
-
-    /**
-     * rows from tables article_translates and article_category will be deleted auto by postgres
-     */
-    public function delete(Article $model): void
-    {
-        $id = (string) $model->id;
-
-        $query  = $this->deleteQuery();
-        $params = [$id];
-        try {
-            $this->database->queryParams($query, $params);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-    }
-
     public function add(Article $model): void
     {
         $id       = (string) $model->id;
@@ -196,6 +150,101 @@ final class Repository implements RepositoryInterface
 
         return $categories;
     }
+
+    /**  @throws RepositoryException */
+    public function createImage(ImageId $imageId): Image
+    {
+        $query  = $this->getImageQuery();
+        $params = [$imageId()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+        if (count($rows) !== 1) {
+            throw new RepositoryException('Article image data is invalid');
+        }
+        $firstRow  = $rows[0];
+        $rawActive = $firstRow['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Article image active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        return new Image($imageId, $active);
+    }
+
+    /**
+     * rows from tables article_translates and article_category will be deleted auto by postgres
+     */
+    public function delete(Article $model): void
+    {
+        $id = (string) $model->id;
+
+        $query  = $this->deleteQuery();
+        $params = [$id];
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
+    public function findAuthor(AuthorId $id): Author
+    {
+        $query = $this->getAuthorQuery();
+        $param = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $param);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count !== 1) {
+            throw new RepositoryException(sprintf(
+                'Article author find returns invalid row count %d',
+                $count
+            ));
+        }
+
+        return $this->createAuthor($rows[0]);
+    }
+
+    public function getById(ArticleId $id): Article
+    {
+        $query  = $this->getByIdQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count === 0) {
+            throw new NoSuchArticleException(sprintf(
+                'Article with id %s not exist',
+                (string) $id
+            ));
+        }
+        if ($count > 1) {
+            throw new RepositoryException(sprintf(
+                'Article with id %s has duplicates',
+                (string) $id
+            ));
+        }
+
+        $rawArticle = $rows[0];
+
+        return $this->createFromRow($id, $rawArticle);
+    }    
 
     public function save(Article $model): void
     {
@@ -311,54 +360,6 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /**  @throws RepositoryException */
-    public function createImage(ImageId $imageId): Image
-    {
-        $query  = $this->getImageQuery();
-        $params = [$imageId()];
-        try {
-            $rows = $this->database->queryParams($query, $params);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-        if (count($rows) !== 1) {
-            throw new RepositoryException('Article image data is invalid');
-        }
-        $firstRow  = $rows[0];
-        $rawActive = $firstRow['active'] ?? null;
-        if ($rawActive === null) {
-            throw new RepositoryException('Article image active is invalid');
-        }
-        if ($rawActive === 't') {
-            $active = true;
-        } else {
-            $active = false;
-        }
-
-        return new Image($imageId, $active);
-    }
-
-    public function findAuthor(AuthorId $id): Author
-    {
-        $query = $this->getAuthorQuery();
-        $param = [$id()];
-
-        try {
-            $rows = $this->database->queryParams($query, $param);
-        } catch (QueryException $e) {
-            throw new RepositoryException($e->getMessage());
-        }
-
-        $count = count($rows);
-        if ($count !== 1) {
-            throw new RepositoryException(sprintf(
-                'Article author find returns invalid row count %d',
-                $count
-            ));
-        }
-
-        return $this->createAuthor($rows[0]);
-    }
 
     /**
      * @param array<string,string|null> $row

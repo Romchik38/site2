@@ -2,12 +2,7 @@
 
 ## Current
 
-- article new
-  - test service when the delete method is ready.
-
 - article
-  - new
-  - delete
   - add to template:
     - active to image
     - active to author

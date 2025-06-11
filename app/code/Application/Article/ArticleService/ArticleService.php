@@ -37,7 +37,6 @@ final class ArticleService
     ) {
     }
 
-    /** @todo test after delete */
     /**
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
@@ -71,7 +70,6 @@ final class ArticleService
         }
     }
 
-    /** @todo test after create */
     /**
      * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
