@@ -13,7 +13,7 @@
   - article page
   - article list page
 
-- entities tests
+- article entities tests
 - move to server
   - `RequestHandlerTrait`
 
@@ -21,8 +21,9 @@
 
 - why error - `http://localhost:8000/uk/adminimage?type=json`
 - test and refactor `getDescription` of dynamic actions with urlencode/decode
-
 - author id must be int
+- update server
+- refactor twig from include to extends
 
 - return check "vendor/bin/deptrac"
 
