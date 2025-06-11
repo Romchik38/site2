@@ -4,8 +4,6 @@
 
 - article
   - add to template:
-    - active to image
-    - active to author
     - created at
     - updated at
 

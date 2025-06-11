@@ -25,6 +25,7 @@ final class AuthorDto
     {
         return [
             'author_id'   => ($this->identifier)(),
+            'author_active'   => $this->active,
             'author_name' => ($this->name)(),
         ];
     }

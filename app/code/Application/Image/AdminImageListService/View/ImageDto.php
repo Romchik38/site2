@@ -33,6 +33,7 @@ final class ImageDto
     {
         return [
             'image_id'          => ($this->identifier)(),
+            'image_active'      => $this->active,
             'image_name'        => ($this->name)(),
             'image_author_name' => ($this->authorName)(),
             'image_path'        => ($this->path)(),

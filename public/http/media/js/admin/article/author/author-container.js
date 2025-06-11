@@ -51,6 +51,25 @@ class AuthorContainer extends Component {
                 }, 
                 authorId
             );
+            var active = item['author_active'];
+            if (active === undefined) {
+                throw new Error('Param article author active is invalid');
+            }
+            var classActive = '';
+            if (active === true) {
+                classActive = 'text-success';
+                active = 'active';
+            } else {
+                classActive = 'text-danger';
+                active = 'not active';
+            } 
+            var activeChild = this._createElement(
+                'div', 
+                {
+                    'class': `col ${classActive}`
+                }, 
+                active
+            ); 
             var name = this._createElement(
                 'div', 
                 {
@@ -61,6 +80,7 @@ class AuthorContainer extends Component {
             radioContainer.appendChild(radio);
             child.appendChild(radioContainer);
             child.appendChild(id);
+            child.appendChild(activeChild);
             child.appendChild(name);
             this.node.appendChild(child);
             this.children.push(child);

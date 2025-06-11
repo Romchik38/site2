@@ -64,6 +64,25 @@ class ImageContainer extends Component {
                 }, 
                 imageId
             );
+            var active = i['image_active'];
+            if (active === undefined) {
+                throw new Error('Param article image active is invalid');
+            }
+            var classActive = '';
+            if (active === true) {
+                classActive = 'text-success';
+                active = 'active';
+            } else {
+                classActive = 'text-danger';
+                active = 'not active';
+            } 
+            var activeChild = this._createElement(
+                'div', 
+                {
+                    'class': `col ${classActive}`
+                }, 
+                active
+            );            
             var name = this._createElement(
                 'div', 
                 {
@@ -83,6 +102,7 @@ class ImageContainer extends Component {
             imgContainer.appendChild(img);
             child.appendChild(imgContainer);
             child.appendChild(id);
+            child.appendChild(activeChild);
             child.appendChild(name);
             child.appendChild(author);
             this.node.appendChild(child);
