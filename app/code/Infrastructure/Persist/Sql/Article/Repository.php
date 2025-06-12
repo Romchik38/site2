@@ -244,7 +244,7 @@ final class Repository implements RepositoryInterface
         $rawArticle = $rows[0];
 
         return $this->createFromRow($id, $rawArticle);
-    }    
+    }
 
     public function save(Article $model): void
     {
@@ -359,7 +359,6 @@ final class Repository implements RepositoryInterface
             }
         }
     }
-
 
     /**
      * @param array<string,string|null> $row

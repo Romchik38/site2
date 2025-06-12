@@ -54,7 +54,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         } catch (NoSuchAuthorException) {
             throw new ActionNotFoundException(sprintf(
                 'Author with id %s not exist',
-                (string)$authorId
+                (string) $authorId
             ));
         }
 
@@ -64,8 +64,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDto(
-            sprintf('Author view id %s', (string)$authorId),
-            sprintf('Authors view page with id %s', (string)$authorId),
+            sprintf('Author view id %s', (string) $authorId),
+            sprintf('Authors view page with id %s', (string) $authorId),
             $authorDto,
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,

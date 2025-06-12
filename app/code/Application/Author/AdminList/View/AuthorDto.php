@@ -24,9 +24,9 @@ final class AuthorDto
     public function jsonSerialize(): mixed
     {
         return [
-            'author_id'   => ($this->identifier)(),
-            'author_active'   => $this->active,
-            'author_name' => ($this->name)(),
+            'author_id'     => ($this->identifier)(),
+            'author_active' => $this->active,
+            'author_name'   => ($this->name)(),
         ];
     }
 }

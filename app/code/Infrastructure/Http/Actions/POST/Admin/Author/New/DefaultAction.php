@@ -60,7 +60,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $authorId = $this->authorService->update($command);
             $message  = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uri      = $this->urlbuilder->fromArray(
-                ['root', 'admin', 'author', (string)$authorId]
+                ['root', 'admin', 'author', (string) $authorId]
             );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(

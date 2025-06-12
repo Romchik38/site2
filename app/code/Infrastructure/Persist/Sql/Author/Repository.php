@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Author;
 
 use InvalidArgumentException;
-use LogicException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -188,7 +187,6 @@ final class Repository implements RepositoryInterface
                 throw new CouldNotSaveException($e2->getMessage());
             }
         }
-        throw new CouldNotSaveException('Unreachable code');
     }
 
     /** @param array<string,string|null> $row */

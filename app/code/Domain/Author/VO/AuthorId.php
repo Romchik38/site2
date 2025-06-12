@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Domain\Author\VO;
 
 use InvalidArgumentException;
 
-use function strlen;
+use function sprintf;
 
 final class AuthorId
 {
@@ -26,7 +26,7 @@ final class AuthorId
 
     public function __toString(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     /** @throws InvalidArgumentException */
