@@ -1,0 +1,162 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    Object      translate                   Translate service
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto
+    Object      image                       Romchik38\Site2\Application\Image\AdminView\View\Dto
+    Object      metadata                    Romchik38\Site2\Application\Image\AdminView\View\MetadataDto
+#}
+
+{% set image = data.imageDto %}
+{% set author = image.author %}
+{% set metadata = data.MetadataDto %}
+{% set updateUrl = u.fromArray(['root', 'admin', 'image', 'update']) %}
+{% set translates = data.imageDto.translates %}
+{% set articles = data.imageDto.articles %}
+{% set authors = data.imageDto.authors %}
+{% set authorAdminUrl = u.fromArray(['root', 'admin', 'author', author.id.__toString()]) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        {% include controller_template_dir ~ '/blocks/image.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+        <!-- Form -->
+        <form action="{{ updateUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ image.identifier }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ image.identifier }}" hidden>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ image.name }}">
+                </div>
+            </div>
+
+            <!-- Author -->
+            <div class="form-group mb-2 p-2">
+                <h2 class="text-center">Author</h2>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.authorIdFiled }}"><a href="{{ authorAdminUrl }}">Id: {{ author.id }}</a></label>
+                    <input type="text" class="form-control" name="{{ data.authorIdFiled }}" value="{{ author.id }}" id="author_id" hidden>
+                </div>
+                <div class="mb-3">
+                    <p>Name: {{ author.name }}</p>
+                </div>
+                <div class="mb-3">
+                    <p>Activity: 
+                        {% if author.active == true %} 
+                            <span class="text-success">is active</span>
+                        {% else %}
+                            <span class="text-danger">not active</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeAuthorField }}" value="{{ data.noField }}" id="checkbox_change_author">
+                    <label class="form-check-label" for="{{ data.changeAuthorField }}">Change author</label>
+                </div>
+                <div class="me-2">
+                    <select disabled class="form-select form-select-sm" id ="select_author" name="{{ data.changeAuthorIdFiled }}" aria-label="select {{ data.changeAuthorIdFiled }}">
+                        {% for a in authors %}
+                            {% if a.id.__toString() != author.id.__toString() %}
+                                <option value="{{ a.id }}" {{ selectedAuthor }}>{{ a.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group p-2">
+                <div class="mb-3">                
+                    <h2 class="text-center">Activity</h2>
+                    {% if image.active == true %} 
+                        <span class="text-success">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityField }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityField }}">
+                    {% if image.active == false %}
+                        Activate
+                    {% elseif image.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <!-- Translates -->
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Update</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger my-2" id="delete-button">Delete</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ u.fromArray(['root', 'admin', 'image', 'delete']) }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ image.identifier }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+        </form>
+        <script>
+            var activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
+            var deleteButton = document.getElementById('delete-button');
+            var deleteForm = document.getElementById('delete-form');
+            if(deleteButton !== null && deleteForm !== null) {
+                deleteButton.addEventListener("click", function (e) {
+                    deleteForm.submit();
+                });
+            } else {
+                console.error('Delete button or form not found'); 
+            }
+        </script>
+        <!-- Author -->
+        <script>
+            var changeAuthorCheckbox = document.getElementById('checkbox_change_author');
+            var selectAuthor = document.getElementById('select_author');
+            var authorId = document.getElementById('author_id');
+            if(changeAuthorCheckbox !== null && selectAuthor !== null && authorId !== null) {
+
+                changeAuthorCheckbox.addEventListener("click", function (e) {
+                    if (e.target.value === '{{ data.noField }}') {
+                         selectAuthor.removeAttribute('disabled');
+                         e.target.value = '{{ data.yesField }}';
+                    } else {
+                         selectAuthor.setAttribute('disabled', true);
+                         e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Select author checkbox or field or author id not found'); 
+            }
+        </script>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'image']) }}">Images list</a> page</div>
+        
+        <!-- Articles -->
+        {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': articles} only %}
+    </div>
+</div>
+

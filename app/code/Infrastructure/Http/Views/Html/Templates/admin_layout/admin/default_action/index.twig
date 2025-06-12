@@ -1,0 +1,23 @@
+{#
+    Object      u                       urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir path to this folder
+
+#}
+
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
+    <div class="container-sm">
+        <div class="row">
+            {% set blockPath = template_full_prefix ~ '/blocks/' %}
+            {% include blockPath ~ 'articles.twig' %}
+            {% include blockPath ~ 'audios.twig' %}
+            {% include blockPath ~ 'authors.twig' %}
+            {% include blockPath ~ 'categories.twig' %}
+            {% include blockPath ~ 'images.twig' %}
+            {% include blockPath ~ 'languages.twig' %}
+            {% include blockPath ~ 'translates.twig' %}
+            {% include blockPath ~ 'users.twig' %}
+        </div>    
+    </div>
+{% endblock %}

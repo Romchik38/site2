@@ -1,0 +1,102 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto
+    Object      author                      Romchik38\Site2\Application\Author\AdminView\View\AuthorDto
+#}
+
+{% set author = data.authorDto %}
+{% set updateUrl = u.fromArray(['root', 'admin', 'author', 'update']) %}
+{% set translates = data.authorDto.translates %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">Author view page</h1>
+        <p>On this page you can view and edit information about author.</p>
+        <!-- Form -->
+        <form action="{{ updateUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ author.identifier }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ author.name }}">
+                </div>
+            </div>
+            <div class="form-group p-2">
+                <div class="mb-3">                
+                    <p>Activity</p>
+                    {% if author.active == true %} 
+                        <span class="text-success bg-white">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityFiled }}">
+                    {% if author.active == false %}
+                        Activate
+                    {% elseif author.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <!-- Translates -->
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Update</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger my-2" id="delete-button">Delete</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ u.fromArray(['root', 'admin', 'author', 'delete']) }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ author.identifier }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+        </form>
+        <script>
+            activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
+            deleteButton = document.getElementById('delete-button');
+            deleteForm = document.getElementById('delete-form');
+            if(deleteButton !== null && deleteForm !== null) {
+                deleteButton.addEventListener("click", function (e) {
+                    deleteForm.submit();
+                });
+            } else {
+                console.error('Delete button or form not found'); 
+            }
+        </script>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
+        
+        <!-- Articles -->
+        {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': author.articles} only %}
+        
+        <!-- Images -->
+        {% include controller_template_dir ~ '/blocks/images.twig' with {'translate': t, 'u': u, 'images': author.images} only %}
+    </div>
+</div>
+

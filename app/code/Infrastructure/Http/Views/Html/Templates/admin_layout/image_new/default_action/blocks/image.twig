@@ -1,0 +1,49 @@
+{% set r = data.imageRequirements %}
+
+<!-- Inside a form -->
+<div class="col-md-6 m-auto">
+    <h2 class="text-center">Image</h2>
+
+    <table class="table">
+       <thead>
+            <tr>
+                <th scope="col">Min width</th>
+                <th scope="col">Min height</th>
+                <th scope="col">Types</th>
+                <th scope="col">Max size</th>
+            </tr>
+       </thead>
+       <tbody>
+           <tr>
+               <td>{{ r.width }}</td>
+               <td>{{ r.height }}</td>
+               <td>
+                {% for type in r.types %}
+                    <span class="me-1">{{ type }}</span>
+                {% endfor %}
+               </td>
+               <td>{{ r.prettySize() }}</td>
+           </tr>
+       </tbody>
+    </table>
+
+
+    <div class="form-group mb-2 p-2">
+        <div class="mb-3">
+            <label class="form-label" for="{{ data.fileField }}">Image</label>
+            <input type="file" class="form-control" name="{{ data.fileField }}" required>
+        </div>
+
+    </div>
+        <div class="form-group mb-2 p-2">
+        <div class="mb-3">
+            <label class="form-label" for="{{ data.folderField }}">Folder</label>
+            <select class="form-select form-select-sm" name="{{ data.folderField }}" aria-label="select {{ data.folderField }}" required>
+                <option value="">{{ translate.t('global.please-select') }}</option>
+                {% for folder in data.folders %}
+                    <option value="{{ folder }}">{{ folder }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>

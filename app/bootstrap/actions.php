@@ -75,7 +75,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction',
         [
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
         ]
     );
 

@@ -1,0 +1,28 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\New\DefaultAction\ViewDto
+#}
+
+{% set newUrl = u.fromArray(['root', 'admin', 'audio', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ newUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <button type="submit" class="btn btn-primary my-2">Create</button>
+        </form>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'audio']) }}">Audio list</a> page</div>
+    </div>
+</div>
+

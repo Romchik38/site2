@@ -1,0 +1,46 @@
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+    </div>
+
+<div class="text-end">
+      <a class="btn btn-primary" href="#" role="button">New</a>
+</div>
+
+<table class="table table-bordered my-3">
+    <thead>
+          <tr>
+                <th scope="col">Identifier</th>
+                <th scope="col">Active</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+          </tr>
+    </thead>
+    <tbody>
+        {% for language in data.languages %}
+            {% set activeColor = '' %}
+            {% if language.active == false %}
+                {% set activeColor = 'text-warning bg-secondary' %}
+                {% set active = 'not active' %}
+            {% elseif language.active == true %}
+                {% set activeColor = 'text-success' %}
+                {% set active = 'active' %}
+            {% endif %}
+            <tr>
+                <!-- 1. Id -->
+                <th scope="row">{{ language.identifier }}</th>
+                <!-- 3. Active -->
+                <td class="{{ activeColor }}">{{ active }}</td>
+                <td><a href="#">edit</a></td>
+                <td>
+                    <form>
+                        <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>

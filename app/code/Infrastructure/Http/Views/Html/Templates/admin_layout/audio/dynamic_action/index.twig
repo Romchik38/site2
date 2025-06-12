@@ -1,0 +1,101 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction\ViewDto
+#}
+
+{% set audio = data.audioDto %}
+{% set articles = audio.articles %}
+{% set deleteUrl = u.fromArray(['root', 'admin', 'audio', 'delete']) %}
+{% set listUrl = u.fromArray(['root', 'admin', 'audio']) %}
+{% set updateUrl = u.fromArray(['root', 'admin', 'audio', 'update']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ updateUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ audio.id }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audio.id }}" hidden>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ audio.name }}">
+                </div>
+            </div>
+            <div class="form-group p-2">
+                <div class="mb-3">                
+                    <p>Activity</p>
+                    {% if audio.active == true %} 
+                        <span class="text-success bg-white">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityFiled }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityFiled }}">
+                    {% if audio.active == false %}
+                        Activate
+                    {% elseif audio.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Update</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger my-2" id="delete-button">Delete</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ deleteUrl }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audio.id }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+        </form>
+        <script>
+            activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
+            deleteButton = document.getElementById('delete-button');
+            deleteForm = document.getElementById('delete-form');
+            if(deleteButton !== null && deleteForm !== null) {
+                deleteButton.addEventListener("click", function (e) {
+                    deleteForm.submit();
+                });
+            } else {
+                console.error('Delete button or form not found'); 
+            }
+        </script>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ listUrl }}">Audio list</a> page</div>
+        
+         <!-- Translates -->
+        {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+
+        <!-- Articles -->
+        {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': articles} only %}
+    </div>
+</div>
+

@@ -1,17 +1,25 @@
 {#
     string              paginationHtml              html to display
-    ArticleDto[]        articleList                 Romchik38\Site2\Application\Article\AdminList\View\ArticleDto
-    object              paginationForm              Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm
+    ImageDto[]          imagesList                  Romchik38\Site2\Application\Image\AdminImageListService\View\ImageDto
+    object              paginationForm              Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\PaginationForm
+    object              t                           Translate Service
+    object              u                           Urlbuilder
+    string              newUrl                      url to create a new image
+
 #}
 
+{% set deleteUrl = u.fromArray(['root', 'admin', 'image', 'delete' ]) %}
+{% set imagesList = data.imagesList %}
+{% set paginationHtml = data.paginationHtml %}
 {% set paginationForm = data.paginationForm %}
-{% set articleList = data.articleList %}
 
 <div class="col-12 text-end mb-2">
-      <a class="btn btn-primary" href="{{ createUrl }}" role="button">New</a>
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
 </div>
 <div class="col-12 mb-2">
     <form class="d-sm-flex" action="" method="get">
+
+
         <!-- Limits -->
         <label class="me-2" for="limit">Limit</label>
         <div class="me-2">
@@ -44,6 +52,8 @@
                 {% endfor %}
             </select>
         </div>
+
+
         <button type="submit" class="btn btn-secondary btn-sm py-0">filter</button>
     </form>
 </div>
@@ -56,80 +66,53 @@
     </nav>
 </div>
 
+<!-- Image List -->
 <table class="table table-bordered">
     <thead>
           <tr>
+                <th scope="col">Image</th>
                 <th scope="col">Identifier</th>
                 <th scope="col">Active</th>
-                <th scope="col">Image Active</th>
-                <th scope="col">Image</th>
-                <th scope="col">Audio Active</th>
+                <th scope="col">Name</th>
                 <th scope="col">Author Name</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
           </tr>
     </thead>
     <tbody>
-        {% for article in articleList %}
+        {% for image in imagesList %}
             {% set activeColor = '' %}
-            {% if article.active == false %}
+            {% if image.active == false %}
                 {% set activeColor = 'text-warning bg-secondary' %}
                 {% set active = 'not active' %}
-            {% elseif article.active == true %}
+            {% elseif image.active == true %}
                 {% set activeColor = 'text-success' %}
                 {% set active = 'active' %}
             {% endif %}
+
+            {% set imageId = image.identifier.__toString() %}
             <tr>
-                {% set articleId = article.identifier.__toString() %}
-                <th scope="row">{{ articleId }}</th>
-                
+
+                <!-- 1. Display image -->
+                <td>
+                    <img class="img-fluid" 
+                        src="/img.php?id={{imageId}}&type=webp&width=200&height=100" 
+                        alt=""
+                    >
+                </td>
+                <!-- 2. Id -->
+                <th scope="row">{{ imageId }}</th>
+                <!-- 3. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
-
-                <!-- Show image activity -->
-                {% if article.imgActive == null %}
-                    {% set imgActive = 'not active' %}
-                    {% set activeColorImage = 'text-warning bg-secondary' %}
-                {% elseif article.imgActive == true %}
-                    {% set imgActive = 'active' %}
-                    {% set activeColorImage = 'text-success' %}
-                {% elseif article.imgActive == false %}
-                    {% set imgActive = 'not active' %}
-                    {% set activeColorImage = 'text-warning bg-secondary' %}
-                {% endif %}
-                <td class="{{ activeColorImage }}">{{ imgActive }}</td>
-
-                <!-- Display image -->
-                {% set imageIdentifier = article.imgIdentifier %}
-                {% if imageIdentifier == null %}
-                    <td class="{{ activeColorImage }}">no image</td>
-                {% else %}
-                    <td>          
-                        <img class="img-fluid" 
-                            src="/img.php?id={{ imageIdentifier }}&type=webp&width=200&height=100" 
-                            alt=""
-                        >
-                    </td>
-                {% endif %}
-
-                <!-- Show audio activity -->
-                {% if article.audioActive == null %}
-                    {% set audioActive = 'no audio' %}
-                    {% set activeColorAudio = 'text-warning bg-secondary' %}
-                {% elseif article.audioActive == true %}
-                    {% set audioActive = 'active' %}
-                    {% set activeColorAudio = 'text-success' %}
-                {% elseif article.audioActive == false %}
-                    {% set audioActive = 'not active' %}
-                    {% set activeColorAudio = 'text-warning bg-secondary' %}
-                {% endif %}
-                <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
-
-                <td>{{ article.authorName }}</td>
-                {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
+                <!-- 4. Name -->
+                <td>{{ image.name }}</td> 
+                <!-- 5. Author Name -->
+                <td>{{ image.authorName }}</td>
+                {% set editUrl = u.fromArray(['root', 'admin', 'image', imageId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
-                    <form action="{{ u.fromArray(['root', 'admin', 'article', 'delete' ]) }}" method="post">
-                        <input type="text" class="form-control" name="{{ data.idField }}" value="{{ articleId }}" hidden>
+                    <form action="{{ deleteUrl }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.imageIdField }}" value="{{ imageId }}" hidden>
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
@@ -138,8 +121,9 @@
         {% endfor %}
     </tbody>
 </table>
+
 <div class="text-end">
-      <a class="btn btn-primary" href="{{ createUrl }}" role="button">New</a>
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
 </div>
 
 <!-- Pagination -->

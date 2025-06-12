@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+{# 
+    Object      data                        controller DTO
+    []          meta_data                   TwigView->metaData
+    Object      translate                   Translate service
+    Object      urlbuilder                  Urlbuilder class
+    string      message                     a message to display to user
+#}
+
+{% set language = meta_data.language %}
+{% set u = urlbuilder %}
+
+<html lang="{{ language }}">
+    <head>
+        {% block head %}
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{{ data.getName() }} | {{ translate.t('header.logo') }}</title>
+            <meta name="description" content="{{ data.getDescription() }}">
+            <link rel="stylesheet" href="/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="/media/css/admin_main.css" />
+            <script src="/media/js/opt/fa.bootstrap.bundle.js" crossorigin="anonymous"></script>
+            <script>
+                var currentLanguage ='{{ language }}';
+            </script>
+        {% endblock %}
+    </head>
+
+    <body class="container-fluid p-0">     
+        <header class="container-fluid bg-primary text-white">
+            <div class="row">
+                <div class="col-sm">
+                    <span class="me-2">
+                        <a class="link-none-white" href="{{ u.fromArray(['root']) }}" target="_blank">Frontend</a>
+                    </span>
+                    <span class="me-2">
+                        <a class="link-none-white" href="{{ u.fromArray(['root', 'admin']) }}" target="_self">Admin</a>
+                    </span>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-center">
+                        <div class="header-user-loggedin justify-content-center">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <span>Hello,&nbsp;</span><span class="user-name-field me-3">User_name</span>
+                                </div>
+                                <div class="col-6 text-start">
+                                    <form action="{{ u.fromArray(['root', 'admin', 'logout']) }}" method="post">
+                                        <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Display a message -->
+        <div class="text-center mb-3" style="height: 9px">
+            <span class="message bg-warning px-2 d-none">{{ message }}</span>
+        </div>
+        {% if message != null %}
+            <script>
+                (function name(params) {
+                    var messageElements = document.getElementsByClassName('message');
+                    if (messageElements.length === 0 ) {
+                        console.error('Message elements not found on the page, pls check it by class name "message"');
+                        return;
+                    }
+                    for (var elem of messageElements) {
+                        elem.classList.remove("d-none");
+                        elem.classList.add("d-inline-flex");
+                        setTimeout(() => {
+                            elem.classList.remove("d-inline-flex");
+                            elem.classList.add("d-none");    
+                        }, 4000);
+                    }
+                })()
+            </script>
+        {% endif %}
+
+        <!-- Dynamic content start -->
+        {% block content %}{% endblock %}
+        <!-- Dynamic content end -->
+
+        <!-- Footer -->
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-sm text-center">
+                    © 2025 Copyrights Romanenko Serhii 
+                </div>
+            </div>
+        </div>
+
+        <!-- Before body close tag -->
+        <script src="/media/js/popper.min.js"></script>
+        <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+        <script type="module" src="/media/js/admin/userinfo.js"></script>
+    </body>
+</html>

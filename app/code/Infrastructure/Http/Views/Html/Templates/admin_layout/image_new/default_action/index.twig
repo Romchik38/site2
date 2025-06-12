@@ -1,0 +1,51 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    Object      translate                   Translate service
+    string      controller_template_dir     path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction\ViewDto
+#}
+
+{% set newUrl = u.fromArray(['root', 'admin', 'image', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ updateUrl }}" method="post" enctype="multipart/form-data">
+            <div class="form-group mb-2 p-2">
+                <div class="mb-3">
+                    <label class="form-label" for="{{ data.nameFiled }}">Name</label>
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ image.name }}">
+                </div>
+            </div>
+
+            <!-- Author -->
+            <div class="form-group mb-2 p-2">
+                <h2 class="text-center">Author</h2>
+
+                <div class="me-2">
+                    <select class="form-select form-select-sm" name="{{ data.authorIdFiled }}" aria-label="select {{ data.authorIdFiled }}" required>
+                        <option value="">{{ translate.t('global.please-select') }}</option>
+                        {% for author in data.authors %}
+                            <option value="{{ author.id }}">{{ author.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <!-- Translates -->
+            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+            {% include controller_template_dir ~ '/blocks/image.twig' with {'translate': translate, 'u': u, 'data': data} only %}
+            <div class="d-flex ">
+                <div>
+                    <button type="submit" class="btn btn-primary my-2">Create</button>
+                </div>
+            </div>
+        </form>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'image']) }}">Images list</a> page</div>
+    </div>
+</div>
+

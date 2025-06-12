@@ -1,0 +1,98 @@
+{% set i = data.article.image %}
+{% set iF = data.imageFilters %}
+{% set imageNewUrl = u.fromArray(['root', 'admin', 'image', 'new']) %}
+
+<!-- Inside a form -->
+<h2 class="text-center image">Image</h2>
+{% if i is null %}
+    Article does not have image. <a href="{{ imageNewUrl }}" target="_self">Create new</a>.
+{% else %}
+    {% set imageUrl = u.fromArray(['root', 'admin', 'image', i.getId()]) %}
+    <div class="text-center">
+        <img class="img-fluid" src="/img.php?id={{ i.getId() }}&type=webp&width=576&height=384" alt="">
+    </div>
+    <div class="text-center">
+        <a href="{{ imageUrl }}">Edit</a>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th width="15%">Id</th>
+                <td>{{ i.getId() }}</td>
+            </tr>
+            <tr>
+                <th>Activity</th>
+                {% if i.active == true %}
+                    <td class="text-success">Active</td>
+                {% else %}
+                    <td class="text-danger">Not active</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ i.getName() }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endif %}
+<div class="border bg-light p-2">
+    <div>
+        <button class="btn btn-secondary my-2 image-button-change" type="button">Change</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="image-filter" style="display: none">
+        <div class="image-message text-warning" style="display: none">User message</div>
+        <div class="image-message-error text-danger" style="display: none">Error Message</div>
+
+        <button type="button" class="btn btn-warning btn-sm py-2 image-button-clear" style="display: none;">Clear</button>
+
+        <div class="d-sm-flex">
+            <label class="me-2">Limit</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-limit" data-name="{{ iF.getLimitFiled() }}">
+                    {% for limit in iF.getLimits() %}
+                        {% if limit == iF.getDefaultLimit() %}
+                            <option value="{{ limit }}" selected>{{ limit }}</option>
+                        {% else %}
+                            <option value="{{ limit }}">{{ limit }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderby" data-name="{{ iF.getOrderByFiled() }}">
+                    {% for orderBy in iF.getOrderBys() %}
+                        {% if orderBy == iF.getDefaultOrderBy() %}
+                            <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                        {% else %}
+                            <option value="{{ orderBy }}">{{ orderBy }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By Direction</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderbydirection" data-name="{{ iF.getOrderByDirectionFiled() }}">
+                    {% for orderByDirection in iF.getOrderByDirections() %}
+                        {% if orderByDirection == iF.getDefaultOrderByDirection() %}
+                            <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                        {% else %}
+                            <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Page</label>
+            <div class="me-2">
+                <input type="number" class="form-control p-1 image-page" value="{{ iF.getDefaultPage() }}" min="1" max="255" size="3" data-name="{{ iF.getPageField() }}">
+            </div>    
+            <div class="ms-2">
+                <button type="button" class="btn btn-secondary btn-sm py-2 image-button-filter">Filter</button>
+            </div>
+        </div>
+        <div class="image-container my-2"></div>
+    </div>
+</div>    
+<script type="module" src="/media/js/admin/article/image.js"></script>
