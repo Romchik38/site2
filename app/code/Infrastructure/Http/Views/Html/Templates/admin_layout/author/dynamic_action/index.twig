@@ -1,10 +1,13 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix        path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto
     Object      author                      Romchik38\Site2\Application\Author\AdminView\View\AuthorDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set author = data.authorDto %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'author', 'update']) %}
 {% set translates = data.authorDto.translates %}
@@ -49,7 +52,7 @@
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
-            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
+            {% include template_full_prefix    ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
             <div class="d-flex ">
                 <div class="me-auto">
                     <button type="submit" class="btn btn-primary my-2">Update</button>
@@ -93,10 +96,10 @@
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
         
         <!-- Articles -->
-        {% include controller_template_dir ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': author.articles} only %}
+        {% include template_full_prefix    ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': author.articles} only %}
         
         <!-- Images -->
-        {% include controller_template_dir ~ '/blocks/images.twig' with {'translate': t, 'u': u, 'images': author.images} only %}
+        {% include template_full_prefix    ~ '/blocks/images.twig' with {'translate': t, 'u': u, 'images': author.images} only %}
     </div>
 </div>
-
+{% endblock %}

@@ -2,6 +2,9 @@
     string          urlNew                  url to create new author
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {%  set  urlNew = u.fromArray(['root', 'admin', 'author', 'new']) %}
 
 <div class="container-md my-3">
@@ -10,10 +13,11 @@
         <p>{{ data.description }}</p>
 
         {% if data.authorList|length == 0 %} 
-            {% include controller_template_dir ~ '/zero_authors.twig' with {'translate': translate, 'urlNew': urlNew} only %}
+            {% include template_full_prefix ~ '/zero_authors.twig' with {'translate': translate, 'urlNew': urlNew} only %}
         {% else %}
-            {% include controller_template_dir ~ '/authors.twig' with {'data': data, 'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u, 'urlNew': urlNew } only %}
+            {% include template_full_prefix ~ '/authors.twig' with {'data': data, 'authorList': data.authorList, 'translate': translate, 'paginationHtml': data.paginationHtml, 'paginationForm': data.paginationForm, 'u': u, 'urlNew': urlNew } only %}
         {% endif %}
 
     </div>
 </div>
+{% endblock %}

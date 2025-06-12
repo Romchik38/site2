@@ -1,9 +1,12 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix        path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set newUrl = u.fromArray(['root', 'admin', 'author', 'new']) %}
 
 <div class="container-md my-3">
@@ -32,7 +35,7 @@
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
-            {% include controller_template_dir ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'data': data} only %}
+            {% include template_full_prefix ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'data': data} only %}
             <button type="submit" class="btn btn-primary my-2">Create</button>
         </form>
         <script>
@@ -54,4 +57,4 @@
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'author']) }}">Author list</a> page</div>
     </div>
 </div>
-
+{% endblock %}
