@@ -1,9 +1,12 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix        path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\New\DefaultAction\ViewDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set newUrl = u.fromArray(['root', 'admin', 'audio', 'new']) %}
 
 <div class="container-md my-3">
@@ -25,4 +28,4 @@
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'audio']) }}">Audio list</a> page</div>
     </div>
 </div>
-
+{% endblock %}

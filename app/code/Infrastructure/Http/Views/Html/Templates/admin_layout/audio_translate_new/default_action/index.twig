@@ -1,9 +1,12 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix        path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set dto = data.translateDto %}
 
 {% set audioId = dto.audioId.__toString() %}
@@ -41,7 +44,7 @@
             </div>
 
             <!-- File select -->
-            {% include controller_template_dir ~ '/blocks/audio.twig' with {'translate': translate, 'u': u, 'data': data} only %}
+            {% include template_full_prefix    ~ '/blocks/audio.twig' with {'translate': translate, 'u': u, 'data': data} only %}
 
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <div class="d-flex">
@@ -54,4 +57,4 @@
         <div class="my-3">⬅️ Back to <a href="{{ audioUrl }}">Audio id {{ audioId }}</a> page</div>
     </div>
 </div>
-
+{% endblock %}
