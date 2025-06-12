@@ -194,7 +194,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
             new Promise('\Romchik38\Site2\Application\Article\AdminView\AdminView'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
