@@ -13,7 +13,11 @@
     - move not found controller to not found handler
     - change in bootstrap (router)
     - test how it works
-  - check sipemap - must form encoded urls (LinkTree)
+  - check sitemap - must form encoded urls (LinkTree)
+  - check `Fileloader`
+    - refactor if used
+    - use in server error handler
+  - `DatabaseSqlInterface` methods `queryParams` and `transactionQueryParams` accept array with null
 
 ## Next
 
