@@ -12,20 +12,36 @@ final class AuthorId
 {
     /** @throws InvalidArgumentException */
     public function __construct(
-        private readonly string $authorId
+        public readonly int $id
     ) {
-        if (strlen($authorId) === 0) {
-            throw new InvalidArgumentException('param authorId is empty');
+        if ($id <= 0) {
+            throw new InvalidArgumentException('param author id must be greater than 0');
         }
     }
 
-    public function __invoke(): string
+    public function __invoke(): int
     {
-        return $this->authorId;
+        return $this->id;
     }
 
     public function __toString(): string
     {
-        return $this->authorId;
+        return (string)$this->id;
+    }
+
+    /** @throws InvalidArgumentException */
+    public static function fromString(string $id): self
+    {
+        $oldValue = $id;
+        $intId    = (int) $id;
+        $strId    = (string) $intId;
+        if ($oldValue !== $strId) {
+            throw new InvalidArgumentException(sprintf(
+                'param image id %s is invalid',
+                $id
+            ));
+        }
+
+        return new self($intId);
     }
 }

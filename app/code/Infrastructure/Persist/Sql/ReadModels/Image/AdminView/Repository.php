@@ -119,8 +119,9 @@ final class Repository implements RepositoryInterface
             $activeAuthor = false;
         }
 
+        /** @todo try/catch */
         $author = new AuthorDto(
-            new AuthorId($rawAuthorId),
+            AuthorId::fromString($rawAuthorId),
             new AuthorName($rawAuthorName),
             $activeAuthor
         );
@@ -130,7 +131,7 @@ final class Repository implements RepositoryInterface
         $authors    = $this->createAuthors();
 
         return new Dto(
-            new Id((int) $rawIdentifier),
+            Id::fromString($rawIdentifier),
             $active,
             new Name($rawName),
             new Path($rawPath),
@@ -238,7 +239,7 @@ final class Repository implements RepositoryInterface
                 $active = false;
             }
             $authors[] = new AuthorDto(
-                new AuthorId($rawIdentifier),
+                AuthorId::fromString($rawIdentifier),
                 new AuthorName($rawName),
                 $active
             );

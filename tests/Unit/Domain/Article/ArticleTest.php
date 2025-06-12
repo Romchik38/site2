@@ -31,7 +31,7 @@ final class ArticleTest extends TestCase
     public function testCreate(): void
     {
         $id        = new ArticleId('some-id');
-        $author    = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
@@ -55,7 +55,7 @@ final class ArticleTest extends TestCase
     public function testCreateWithTranslates(): void
     {
         $id        = new ArticleId('some-id');
-        $author    = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
@@ -94,7 +94,7 @@ final class ArticleTest extends TestCase
     public function testCreateWithImage(): void
     {
         $id        = new ArticleId('some-id');
-        $author    = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
@@ -122,7 +122,7 @@ final class ArticleTest extends TestCase
     public function testCreateWithAudio(): void
     {
         $id        = new ArticleId('some-id');
-        $author    = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
@@ -150,7 +150,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -209,7 +209,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), false);
 
         $categories = [
@@ -263,7 +263,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = null;
 
         $categories = [
@@ -317,7 +317,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), false);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -371,7 +371,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = null;
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -425,7 +425,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -471,7 +471,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -511,7 +511,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -565,7 +565,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -615,7 +615,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -669,7 +669,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), false, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -723,7 +723,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -778,7 +778,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = null;
 
         $categories = [
@@ -834,7 +834,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), false);
 
         $categories = [
@@ -890,7 +890,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = null;
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -946,7 +946,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), false);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1002,7 +1002,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), false, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1058,7 +1058,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1106,7 +1106,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [];
@@ -1161,7 +1161,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1215,7 +1215,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1271,8 +1271,8 @@ final class ArticleTest extends TestCase
     {
         $id      = new ArticleId('some-id');
         $audio   = new Audio(new AudioId(1), true);
-        $author  = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
-        $author2 = new Author(new AuthorId('2'), true, new AuthorName('Author 2'));
+        $author  = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $author2 = new Author(new AuthorId(2), true, new AuthorName('Author 2'));
         $image   = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1326,8 +1326,8 @@ final class ArticleTest extends TestCase
     {
         $id      = new ArticleId('some-id');
         $audio   = new Audio(new AudioId(1), true);
-        $author  = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
-        $author2 = new Author(new AuthorId('2'), false, new AuthorName('Author 2'));
+        $author  = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $author2 = new Author(new AuthorId(2), false, new AuthorName('Author 2'));
         $image   = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1383,7 +1383,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
         $image2 = new Image(new ImageId(2), true);
 
@@ -1438,7 +1438,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
         $image2 = new Image(new ImageId(2), false);
 
@@ -1496,7 +1496,7 @@ final class ArticleTest extends TestCase
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
         $audio2 = new Audio(new AudioId(2), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1551,7 +1551,7 @@ final class ArticleTest extends TestCase
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
         $audio2 = new Audio(new AudioId(2), false);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1607,7 +1607,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1662,7 +1662,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1718,7 +1718,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1768,7 +1768,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1819,7 +1819,7 @@ final class ArticleTest extends TestCase
     {
         $id     = new ArticleId('some-id');
         $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image  = new Image(new ImageId(1), true);
 
         $categories = [
@@ -1864,60 +1864,4 @@ final class ArticleTest extends TestCase
 
         $this->assertSame($translates, $article->getTranslates());
     }
-
-    // public function testActivateThrowsErrorImageNotSet(): void
-    // {
-    //     $id     = new ArticleId('some-id');
-    //     $audio  = new Audio(new AudioId(1), true);
-    //     $author = new Author(new AuthorId('1'), true, new AuthorName('Author 1'));
-    //     $image  = new Image(new ImageId(1), true);
-
-    //     $categories = [
-    //         new Category(
-    //             new CategoryId('cat-1'),
-    //             true,
-    //             1
-    //         ),
-    //     ];
-
-    //     $languages = [
-    //         new LanguageId('en'),
-    //         new LanguageId('uk'),
-    //     ];
-
-    //     $translates = [
-    //         new Translate(
-    //             new LanguageId('en'),
-    //             new Name('some name'),
-    //             new ShortDescription('Some article short description'),
-    //             new Description('Some article description'),
-    //             new DateTime(),
-    //             new DateTime()
-    //         ),
-    //         new Translate(
-    //             new LanguageId('uk'),
-    //             new Name('Стаття про щось'),
-    //             new ShortDescription('Короткий опис статті про щось'),
-    //             new Description('Повний опис статті про щось'),
-    //             new DateTime(),
-    //             new DateTime()
-    //         ),
-    //     ];
-
-    //     $article = new Article(
-    //         $id,
-    //         false,
-    //         $audio,
-    //         $author,
-    //         $image,
-    //         $categories,
-    //         $languages,
-    //         $translates
-    //     );
-
-    //     $this->expectException(CouldNotChangeActivityException::class);
-    //     $this->expectExceptionMessage('');
-
-    //     $article->activate();
-    // }
 }

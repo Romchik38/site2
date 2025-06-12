@@ -2,7 +2,6 @@
 
 ## Current
 
-- author id must be int
 - update server
 - refactor twig from include to extends
 

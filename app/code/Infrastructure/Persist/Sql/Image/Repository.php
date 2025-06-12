@@ -419,7 +419,7 @@ final class Repository implements ImageRepositoryInterface
         }
 
         try {
-            $authorId = new AuthorId($rawId);
+            $authorId = AuthorId::fromString($rawId);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }

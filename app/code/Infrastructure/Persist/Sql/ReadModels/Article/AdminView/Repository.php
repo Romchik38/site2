@@ -248,7 +248,7 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $id   = new AuthorId($rawId);
+            $id   = AuthorId::fromString($rawId);
             $name = new AuthorName($rawName);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());

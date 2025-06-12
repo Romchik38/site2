@@ -45,7 +45,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -89,7 +89,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -118,7 +118,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -150,7 +150,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -183,7 +183,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -221,7 +221,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -249,7 +249,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -290,7 +290,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -337,7 +337,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -373,7 +373,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -409,7 +409,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -456,7 +456,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -501,7 +501,7 @@ final class ImageTest extends TestCase
     {
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -540,7 +540,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -577,7 +577,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             false
         );
         $path       = new Path('/images/img1.webp');
@@ -624,7 +624,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -661,7 +661,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -698,7 +698,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -736,7 +736,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -773,7 +773,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -810,7 +810,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -840,7 +840,7 @@ final class ImageTest extends TestCase
 
         // 1. Success
         $newAuthor = new Author(
-            new AuthorId('26'),
+            new AuthorId(26),
             true
         );
         $image->changeAuthor($newAuthor);
@@ -848,7 +848,7 @@ final class ImageTest extends TestCase
 
         // 2. Exception
         $newAuthor2 = new Author(
-            new AuthorId('27'),
+            new AuthorId(27),
             false
         );
         $this->expectException(InvalidArgumentException::class);
@@ -860,7 +860,7 @@ final class ImageTest extends TestCase
         $id         = new Id(1);
         $name       = new Name('image-name-1');
         $author     = new Author(
-            new AuthorId('25'),
+            new AuthorId(25),
             true
         );
         $path       = new Path('/images/img1.webp');
@@ -890,7 +890,7 @@ final class ImageTest extends TestCase
 
         // 1. Success
         $newAuthor = new Author(
-            new AuthorId('26'),
+            new AuthorId(26),
             true
         );
         $image->changeAuthor($newAuthor);
@@ -898,7 +898,7 @@ final class ImageTest extends TestCase
 
         // 2. Also success
         $newAuthor2 = new Author(
-            new AuthorId('27'),
+            new AuthorId(27),
             false
         );
         $image->changeAuthor($newAuthor2);

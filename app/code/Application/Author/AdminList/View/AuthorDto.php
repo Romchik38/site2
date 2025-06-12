@@ -17,7 +17,7 @@ final class AuthorDto
         string $name,
         public readonly bool $active
     ) {
-        $this->identifier = new AuthorId($id);
+        $this->identifier = AuthorId::fromString($id);
         $this->name       = new Name($name);
     }
 

@@ -62,7 +62,7 @@ final class ImageService
         // author
         // 1 change key
         if ($command->changeAuthor === Update::CHANGE_ACTIVITY_YES_FIELD) {
-            $newAuthorId = new AuthorId($command->changeAuthorId);
+            $newAuthorId = AuthorId::fromString($command->changeAuthorId);
             try {
                 $author = $this->repository->findAuthor($newAuthorId);
             } catch (NoSuchAuthorException $e) {
@@ -120,7 +120,7 @@ final class ImageService
             throw new CouldNotCreateException($e->getMessage());
         }
 
-        $authorId = new AuthorId($command->authorId);
+        $authorId = AuthorId::fromString($command->authorId);
 
         try {
             $author = $this->repository->findAuthor($authorId);

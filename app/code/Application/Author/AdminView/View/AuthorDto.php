@@ -27,7 +27,7 @@ final class AuthorDto
         public readonly array $articles,
         public readonly array $images,
     ) {
-        $this->identifier = new AuthorId($id);
+        $this->identifier = AuthorId::fromString($id);
         $this->name       = new Name($name);
     }
 }

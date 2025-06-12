@@ -39,7 +39,7 @@ final class AuthorService
 
         if ($command->id !== '') {
             try {
-                $authorId = new AuthorId($command->id);
+                $authorId = AuthorId::fromString($command->id);
                 $model    = $this->repository->getById($authorId);
                 $model->reName($name);
             } catch (RepositoryException $e) {
@@ -87,7 +87,7 @@ final class AuthorService
      */
     public function delete(Delete $command): void
     {
-        $authorId = new AuthorId($command->id);
+        $authorId = AuthorId::fromString($command->id);
 
         try {
             $model = $this->repository->getById($authorId);

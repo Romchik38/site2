@@ -44,7 +44,7 @@ final class ArticleService
     public function create(Create $command): void
     {
         $id       = new ArticleId($command->id);
-        $authorId = new AuthorId($command->authorId);
+        $authorId = AuthorId::fromString($command->authorId);
 
         try {
             $author = $this->repository->findAuthor($authorId);
@@ -155,7 +155,7 @@ final class ArticleService
 
         // Author
         if ($command->authorId !== '') {
-            $authorId = new AuthorId($command->authorId);
+            $authorId = AuthorId::fromString($command->authorId);
             try {
                 $author = $this->repository->findAuthor($authorId);
             } catch (RepositoryException $e) {

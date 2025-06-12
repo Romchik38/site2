@@ -96,6 +96,7 @@ final class Repository implements RepositoryInterface
         }
         $images = $this->prepareRawImages($rawImages);
 
+        /** @todo change raw on vo */
         return new AuthorDto(
             $rawIdentifier,
             $rawName,

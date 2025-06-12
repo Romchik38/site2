@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\Author;
 
 use InvalidArgumentException;
+use LogicException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -171,6 +172,7 @@ final class Repository implements RepositoryInterface
                 );
             }
             $this->database->transactionEnd();
+            return $this->getById(AuthorId::fromString($rawAuthorId));
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
@@ -186,7 +188,7 @@ final class Repository implements RepositoryInterface
                 throw new CouldNotSaveException($e2->getMessage());
             }
         }
-        return $this->getById(new AuthorId($rawAuthorId));
+        throw new CouldNotSaveException('Unreachable code');
     }
 
     /** @param array<string,string|null> $row */
@@ -237,7 +239,7 @@ final class Repository implements RepositoryInterface
         $translates = $this->createTranslates($rawIdentifier);
 
         try {
-            $id   = new AuthorId($rawIdentifier);
+            $id   = AuthorId::fromString($rawIdentifier);
             $name = new Name($rawName);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
