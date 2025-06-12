@@ -40,17 +40,6 @@ return function (Container $container) {
     );
     $container->shared('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory');
 
-    // Not found
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\PageNotFound\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView'),
-            new Promise('\Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface')
-        ]
-    );
-
     // Server Error Example
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction',
