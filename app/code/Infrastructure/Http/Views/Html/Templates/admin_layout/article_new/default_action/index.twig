@@ -1,9 +1,12 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix     path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\New\DefaultAction\ViewDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set articleListUrl = u.fromArray(['root', 'admin', 'article']) %}
 {% set createUrl = u.fromArray(['root', 'admin', 'article', 'new']) %}
 
@@ -23,7 +26,7 @@
 
             <!-- Author -->
             <div class="mb-5">
-                {% include controller_template_dir ~ '/blocks/author.twig' with {'t': t, 'u': u, 'data': data } only %}
+                {% include template_full_prefix ~ '/blocks/author.twig' with {'t': t, 'u': u, 'data': data } only %}
             </div>            
 
             <div class="d-flex">
@@ -37,4 +40,4 @@
     </div>
 </div>
 <script type="module" src="/media/js/admin/article_new/index.js"></script>
-
+{% endblock %}
