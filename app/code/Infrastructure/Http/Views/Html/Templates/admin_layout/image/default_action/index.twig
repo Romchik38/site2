@@ -2,6 +2,9 @@
     object          data            Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\ViewDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set newUrl = u.fromArray(['root', 'admin', 'image', 'new' ]) %}
 
 <div class="container-md my-3">
@@ -10,10 +13,11 @@
         <p>{{ data.description }}</p>
 
         {% if data.imagesList|length == 0 %} 
-            {% include controller_template_dir ~ '/zero_images.twig' with {'t': translate, 'newUrl': newUrl} only %}
+            {% include template_full_prefix ~ '/zero_images.twig' with {'t': translate, 'newUrl': newUrl} only %}
         {% else %}
-            {% include controller_template_dir ~ '/images.twig' with {'data': data, 't': translate, 'u': u, 'newUrl': newUrl } only %}
+            {% include template_full_prefix ~ '/images.twig' with {'data': data, 't': translate, 'u': u, 'newUrl': newUrl } only %}
         {% endif %}
 
     </div>
 </div>
+{% endblock %}
