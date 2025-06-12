@@ -2,6 +2,9 @@
     string          urlNew                  url to create new category
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {%  set  urlNew = u.fromArray(['root', 'admin', 'category', 'new']) %}
 
 <div class="container-md my-3">
@@ -10,10 +13,11 @@
         <p>{{ data.description }}</p>
 
         {% if data.categoryList|length == 0 %} 
-            {% include controller_template_dir ~ '/zero_categories.twig' with {'t': translate, 'urlNew': urlNew} only %}
+            {% include template_full_prefix ~ '/zero_categories.twig' with {'t': translate, 'urlNew': urlNew} only %}
         {% else %}
-            {% include controller_template_dir ~ '/categories.twig' with {'data': data, 't': translate, 'u': u, 'urlNew': urlNew } only %}
+            {% include template_full_prefix ~ '/categories.twig' with {'data': data, 't': translate, 'u': u, 'urlNew': urlNew } only %}
         {% endif %}
 
     </div>
 </div>
+{% endblock %}

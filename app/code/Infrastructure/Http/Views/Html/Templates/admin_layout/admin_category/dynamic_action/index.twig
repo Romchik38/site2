@@ -1,10 +1,13 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix     path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction\ViewDto
     Object      category                    Romchik38\Site2\Application\Category\AdminView\View\CategoryDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set category = data.categoryDto %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'category', 'update']) %}
 {% set articles = category.articles %}
@@ -45,7 +48,7 @@
                 </div>
             </div>
             <!-- Translates -->
-            {% include controller_template_dir ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
+            {% include template_full_prefix ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
             <div class="d-flex ">
                 <div class="me-auto">
                     <button type="submit" class="btn btn-primary my-2">Update</button>
@@ -88,7 +91,7 @@
         <!-- Back link -->
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'category']) }}">Category list</a> page</div>
 
-        {% include controller_template_dir ~ '/blocks/articles.twig' with {'t': t, 'u': u, 'articles': articles } only %}
+        {% include template_full_prefix ~ '/blocks/articles.twig' with {'t': t, 'u': u, 'articles': articles } only %}
     </div>
 </div>
-
+{% endblock %}
