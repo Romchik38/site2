@@ -165,16 +165,6 @@ return function (Container $container) {
         ]
     );
 
-    // Admin Users
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Users\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
-        ]
-    );
-
     // Admin Article
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction',
@@ -369,7 +359,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService')
         ]
     );
@@ -380,7 +370,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\List\ListService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
@@ -395,7 +385,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Application\Translate\View\ViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
@@ -411,13 +401,23 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('admin_view'),
+            new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
         ]
     );
 
+    // Admin Users
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Users\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('admin_view_layout'),
+        ]
+    );
+        
     // Register
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction',

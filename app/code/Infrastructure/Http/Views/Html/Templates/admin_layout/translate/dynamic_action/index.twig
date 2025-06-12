@@ -1,10 +1,13 @@
 {#
     Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
-    string      controller_template_dir     path to this folder
+    string      template_full_prefix        path to this folder
     Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction\ViewDto
     Object      translate                   Romchik38\Site2\Application\Translate\View\View\TranslateDto
 #}
 
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
 {% set translate = data.translateDto %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'translate', 'update']) %}
 {% set phrases = translate.phrases %}
@@ -23,7 +26,7 @@
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
             <!-- Translates -->
-            {% include controller_template_dir ~ '/blocks/phrases.twig' with {'t': t, 'u': u, 'data': data } only %}
+            {% include template_full_prefix ~ '/blocks/phrases.twig' with {'t': t, 'u': u, 'data': data } only %}
             <div class="d-flex ">
                 <div class="me-auto">
                     <button type="submit" class="btn btn-primary my-2">Update</button>
@@ -52,4 +55,4 @@
         <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'translate']) }}">Translate list</a> page</div>
     </div>
 </div>
-
+{% endblock %}
