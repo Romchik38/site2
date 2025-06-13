@@ -2,9 +2,9 @@
 
 ## Current
 
-- implement 404 page
-  - use not found handler
-  - look at `not-found` template folder
+- error on url
+  - `/uk/`
+  - `/uk/ukasdf;`
 
 ## Next
 

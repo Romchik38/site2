@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
-use Romchik38\Server\Http\Routers\HttpRouterInterface;
 
 return function (Container $container) {
 
     // NOT FOUND HANDLER
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler'
+        '\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler',
+        [
+            new Promise('frontend_404_page')
+        ]
     );
 
     // CONTROLLERS COLLECTION

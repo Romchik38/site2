@@ -24,6 +24,21 @@ return function (Container $container) {
         ]
     );
 
+    // Frontend 404
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigSingleView',
+        'frontend_404_page',
+        true,
+        [
+            new Promise('\Twig\Environment'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            'not-found/index.twig'
+        ]
+    );
+
     // ADMIN VIEW LAYOUT
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout',
