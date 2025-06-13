@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+{# 
+    Object      data                        controller DTO
+    []          meta_data                   TwigView->metaData
+    string      template_controller_name    controller name
+    string      template_action_type        dynamic_action or action
+    string      template_action_name        dynamic action route name
+    Object      translate                   Translate service
+    Object      urlbuilder                  Urlbuilder class
+    string      message                     a message to display to user
+#}
+
+{% set language = meta_data.language %}
+{% set u = urlbuilder %}
+
+<html lang="{{ language }}">
+
+    <head>
+        {% block head %}
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{{ data.getName() }} | {{ translate.t('header.logo') }}</title>
+            <meta name="description" content="{{ data.getDescription() }}">
+            <link rel="stylesheet" href="/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="/media/css/main.css" />
+            <script src="/media/js/opt/fa.bootstrap.bundle.js" crossorigin="anonymous"></script>
+            <script>
+                var currentLanguage ='{{ language }}';
+            </script>
+            <script src="/media/js/language.js"></script>
+        {% endblock %}
+    </head>
+
+
+    <body class="container-fluid p-0">
+
+        <!-- Header -->
+        <div id="header" class="container-fluid p-0">
+            {% include 'frontend_layout/layouts/header/infoline.twig' %}
+            {% include 'frontend_layout/layouts/header/logo.twig' %}
+            {% include 'frontend_layout/layouts/header/nav.twig' %}
+            {% include 'frontend_layout/layouts/header/breadcrumbs.twig' %}
+        </div>  
+
+        <!-- Display a message -->
+        {% if message != null %}
+            <div class="message text-center">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        <!-- Dynamic content start -->
+        {% block content %}{% endblock %} 
+        <!-- Dynamic content end -->
+
+        <!-- Footer -->
+        <div id="footer" class="container-fluid mt-3 p-0">
+            <div class="container-fluid">
+                {% include 'frontend_layout/layouts/footer/infoline.twig' %}
+                {% include 'frontend_layout/layouts/footer/links.twig' %}
+                {% include 'frontend_layout/layouts/footer/social-links.twig' %}
+                {% include 'frontend_layout/layouts/footer/policy.twig' %}
+                {% include 'frontend_layout/layouts/footer/copyrights.twig' %}
+            </div>
+        </div>
+        
+        <!-- Before body close tag -->
+        <script src="/media/js/popper.min.js"></script>
+        <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+        <script type="module" src="/media/js/frontend/userinfo.js"></script>
+
+    </body>
+</html>

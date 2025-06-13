@@ -1,0 +1,14 @@
+{# 
+    Object      data                    Controller DTO
+    string      template_full_prefix    path to this folder
+#}
+
+{% extends "base_layouts.twig" %}
+
+{% block content %}
+{% set sitemapHtmlTree = data.output %}
+<div class="container">
+    <p>{{ data.getDescription() }}.</p>
+    {{sitemapHtmlTree|raw}}
+</div>
+{% endblock %}

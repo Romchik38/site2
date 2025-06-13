@@ -1,13 +1,16 @@
 {#
-    Object          u           Urlbuilder
-    Object          data        Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO
+    Object          u                       Urlbuilder
+    Object          data                    Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO
+    string          template_full_prefix    path to this folder
 #}
 
+{% extends "base_layouts.twig" %}
+
+{% block content %}
 {% set urlRegister = u.fromArray(['root', 'register']) %}
 {% set urlArticles = u.fromArray(['root', 'article']) %}
 {% set urlAuth = u.fromArray(['root', 'auth']) %}
 {% set urlLogout = u.fromArray(['root', 'logout']) %}
-
 <div class="container-sm">
     <div class="row justify-content-center">
         <h1 class="text-center">{{ data.name }}</h1>
@@ -37,3 +40,4 @@
             {% endif %}
     </div>
 </div>
+{% endblock %}

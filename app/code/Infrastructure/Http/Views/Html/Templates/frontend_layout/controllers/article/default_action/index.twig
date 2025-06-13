@@ -1,11 +1,11 @@
 {# 
-    data                        - Controller DTO
-    data.getArticles()          - a list of ArticleDTO
-    controller_template_dir     - path to the file's folder
+    Object      data                    Controller DTO
+    string      template_full_prefix    path to this folder
 #}
 
-{% include controller_template_dir ~ '/css/index.twig' %}
+{% extends "base_layouts.twig" %}
 
+{% block content %}
 <div id="content" class="container-fluid p-0 mt-2">
     <div class="container-xxl p-0">
         <!-- Banner -->
@@ -32,10 +32,10 @@
                         <h2 class="h5">{{ translate.t('article.h2.publications') }}</h2>
                         {% set articles = data.getArticles() %}
                         {% if articles|length == 0 %} 
-                            {% include controller_template_dir ~ '/zero_articles.twig' with {'translate': translate} only %}
+                            {% include template_full_prefix ~ '/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
                         <!-- refactor -->
-                            {% include controller_template_dir ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'article_page_url': data.articlePageUrl } only %}
+                            {% include template_full_prefix ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'article_page_url': data.articlePageUrl } only %}
                         {% endif %}
                     </div>
                     <hr>
@@ -94,3 +94,4 @@
 
     </div>
 </div>
+{% endblock %}

@@ -12,7 +12,7 @@ return function (Container $container) {
 
     // Frontend View
     $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout',
         [
             new Promise('\Twig\Environment'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
@@ -20,23 +20,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            'base.twig'
-        ]
-    );
-
-    // Admin View
-    $container->multi(
-        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigView',
-        'admin_view',
-        true,
-        [
-            new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
-            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            'base_admin.twig'
+            'frontend_layout/controllers'
         ]
     );
 
