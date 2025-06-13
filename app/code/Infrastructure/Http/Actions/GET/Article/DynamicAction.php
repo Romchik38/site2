@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,7 +38,12 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
+        $dynamicAttribute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
+        try {
+            $dynamicRoute = new Name($dynamicAttribute);
+        } catch (InvalidArgumentException) {
+            throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
+        }
         $decodedRoute = urldecode($dynamicRoute());
         try {
             $article = $this->articleViewService->getArticle(new Find(
