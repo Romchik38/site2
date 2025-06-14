@@ -1,0 +1,106 @@
+{#    null|Object             translate                   Translate service #}
+{#    ArticleDTO[]            articles                    A list of article DOTs #}
+{#    string                  article_page_url            used to create urls #}
+
+{% set firstArticle = articles|first %}
+<!-- Primary publication start -->
+<div class="col">
+    <div class="row">
+        <div class="col-md-8">
+            <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
+                <picture>
+                    <source media="(max-width: 636px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
+                    <source media="(max-width: 992px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480">
+                    <source media="(min-width: 992px)"
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720">
+                    <img class="img-fluid"
+                        src="{{ firstArticle.image.path }}" 
+                        alt="{{ firstArticle.image.description }}">
+                </picture>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <h2>
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
+                    {{ firstArticle.name }}
+                </a>
+            </h2>
+            <p>
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
+                    {{ firstArticle.shortDescription }}
+                </a>
+            </p>
+
+            {% set categories = firstArticle.categories %}
+            {% if categories|length > 0 %}
+                <ul class="text-muted list-inline">
+                {% for category in categories %}
+                    <li class="list-inline-item"><span class="text-decoration-underline">{{ category }}</span></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            <footer class="row text-secondary">
+                <div class="col-6 font-monospace comments">{{ firstArticle.readLength }} {{ translate.t('article.read') }}</div>
+                <div class="col-6 font-monospace comments">{{ firstArticle.formattedCreatedAt }}</div>
+            </footer>
+        </div>
+    </div>
+</div>
+<!-- Primary publication end -->
+
+<!-- publication start -->     
+<div class="col mt-3">
+    {% set articleLength = articles|length %}
+    {% for article in articles|slice(1,articleLength) %}
+
+    <div class="row my-4">
+        <div class="col-sm-3">
+            <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
+                <picture>
+                    <source media="(max-width: 636px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
+                    <source media="(max-width: 992px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480">
+                    <source media="(min-width: 992px)"
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720">
+                    <img class="img-fluid"
+                        src="{{ article.image.path }}" 
+                        alt="{{ article.image.description }}">
+                </picture>
+            </a>
+        </div>
+        <div class="col-sm-9">
+            <h3>
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
+                    {{ article.name }}
+                </a>
+            </h3>
+            <p>
+                <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
+                    {{ article.shortDescription }}
+                </a>
+            </p>
+
+            {% set categories = article.categories %}
+            {% if categories|length > 0 %}
+                <ul class="text-muted list-inline">
+                {% for category in categories %}
+                    <li class="list-inline-item"><span class="text-decoration-underline">{{ category }}</span></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            <footer class="row text-secondary">
+                <div class="col-6 font-monospace comments">{{ article.readLength }} {{ translate.t('article.read') }}</div>
+                <div class="col-6 font-monospace comments">{{ article.formattedCreatedAt }}</div>
+            </footer>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+<!-- publication end -->

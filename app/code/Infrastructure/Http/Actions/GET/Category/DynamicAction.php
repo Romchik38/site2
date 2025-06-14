@@ -12,13 +12,20 @@ use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Name;
+use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\ViewService;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 
+use function count;
 use function sprintf;
 use function urldecode;
 
@@ -28,7 +35,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly ViewService $categoryService
+        private readonly ViewService $categoryService,
+        private readonly UrlbuilderInterface $urlbuilder,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -59,7 +67,42 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             ));
         }
 
-        return new HtmlResponse('hello world');
+        $searchCriteria = $findResult->searchCriteria;
+        $category       = $findResult->category;
+        $page           = $findResult->page;
+        $totalCount     = $category->totalCount;
+
+        $path              = new Path(['root', 'article']);
+        $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
+        $additionalQueries = [
+            new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
+            new Query(Filter::ORDER_BY_DIRECTION_FIELD, ($searchCriteria->orderByDirection)()),
+        ];
+        $paginationView    = new CreatePagination(
+            $urlGenerator,
+            count($category->articles),
+            ($searchCriteria->limit)(),
+            Filter::LIMIT_FIELD,
+            ($page)(),
+            Filter::PAGE_FIELD,
+            $totalCount,
+            $additionalQueries
+        );
+
+        $dto = new ViewDTO(
+            $category->getName(),
+            $category->getDescription(),
+            $category,
+            $paginationView,
+            $this->urlbuilder->fromPath($path)
+        );
+
+        $result = $this->view
+            ->setController($this->getController(), $decodedRoute)
+            ->setControllerData($dto)
+            ->toString();
+
+        return new HtmlResponse($result);
     }
 
     /** @todo implement */
