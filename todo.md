@@ -4,6 +4,9 @@
 
 - category view
   - remove `Pagination` from filter
+  - repository
+  - action
+  - template
 
 ## Next
 
