@@ -10,7 +10,7 @@ use function str_starts_with;
 use function strlen;
 use function substr;
 
-final class ImageDTOFactory
+final class ImageDtoFactory
 {
     private readonly string $pathPrefix;
 
@@ -28,14 +28,14 @@ final class ImageDTOFactory
         string $imgId,
         string $path,
         string $description
-    ): ImageDTO {
+    ): ImageDto {
         if (str_starts_with($path, '/')) {
             $fullPath = $this->pathPrefix . $path;
         } else {
             $fullPath = sprintf('%s/%s', $this->pathPrefix, $path);
         }
 
-        return new ImageDTO(
+        return new ImageDto(
             $imgId,
             $fullPath,
             $description

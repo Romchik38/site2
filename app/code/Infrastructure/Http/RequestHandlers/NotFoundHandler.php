@@ -16,11 +16,11 @@ final class NotFoundHandler implements RequestHandlerInterface
     public function __construct(
         private readonly SingleViewInterface $view
     ) {
-        
     }
+
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dto = new DefaultViewDTO(
+        $dto  = new DefaultViewDTO(
             '404 Page',
             'Page not found'
         );

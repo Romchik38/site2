@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Category\View\View;
 
-final class ArticleDTO
+final class ArticleDto
 {
     /** @param string[] $categories */
     public function __construct(
@@ -14,7 +14,7 @@ final class ArticleDTO
         public readonly array $categories,
         public readonly string $formattedCreatedAt,
         public readonly string $readLength,
-        public readonly ImageDTO $image
+        public readonly ImageDto $image
     ) {
     }
 }

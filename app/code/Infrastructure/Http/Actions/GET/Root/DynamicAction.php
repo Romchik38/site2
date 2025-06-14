@@ -47,7 +47,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
         }
 
-        $messageKey   = $this->actions[$dynamicRoute()] ?? null;
+        $messageKey = $this->actions[$dynamicRoute()] ?? null;
 
         if ($messageKey === null) {
             throw new ActionNotFoundException('action ' . $dynamicRoute() . ' not found');

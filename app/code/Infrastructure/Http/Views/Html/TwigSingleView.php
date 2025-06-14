@@ -49,8 +49,8 @@ class TwigSingleView extends AbstractSingleView
         /** 4. render */
         try {
             $context = [
-                'data'                     => $this->handlerData,
-                'meta_data'                => $this->metaData,
+                'data'      => $this->handlerData,
+                'meta_data' => $this->metaData,
             ];
 
             $this->beforeRender($context);

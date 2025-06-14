@@ -10,7 +10,7 @@ use function count;
 use function explode;
 use function round;
 
-final class ArticleDTOFactory
+final class ArticleDtoFactory
 {
     private const DATE_FORMAT_CATEGORY_PAGE = 'j-n-y';
     private const int READING_SPEED         = 200;
@@ -29,8 +29,8 @@ final class ArticleDTOFactory
         string $description,
         string $createdAt,
         array $categories,
-        ImageDTO $image
-    ): ArticleDTO {
+        ImageDto $image
+    ): ArticleDto {
         $formattedCreatedAt = $this->dateFormatter->formatByString(
             new DateTime($createdAt),
             $this::DATE_FORMAT_CATEGORY_PAGE
@@ -40,7 +40,7 @@ final class ArticleDTOFactory
         $minutesToRead = (int) round($words / $this::READING_SPEED);
         $readLength    = $this->readLengthFormatter->formatByMinutes($minutesToRead);
 
-        return new ArticleDTO(
+        return new ArticleDto(
             $articleId,
             $name,
             $shortDescription,

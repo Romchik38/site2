@@ -8,6 +8,7 @@ use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\Limit;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\Offset;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\OrderByDirection;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\OrderByField;
+use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 
 final class SearchCriteria
 {
@@ -16,7 +17,8 @@ final class SearchCriteria
         public readonly Limit $limit,
         public readonly OrderByField $orderByField,
         public readonly OrderByDirection $orderByDirection,
-        public readonly string $language
+        public readonly string $language,
+        public readonly CategoryId $id
     ) {
     }
 }
