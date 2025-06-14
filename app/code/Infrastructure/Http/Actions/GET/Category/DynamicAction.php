@@ -59,17 +59,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             ));
         }
 
-        // $dto = new ViewDTO(
-        //     $article->name,
-        //     $article->shortDescription,
-        //     $article
-        // );
-
-        // $result = $this->view
-        // ->setController($this->getController(), $decodedRoute)
-        // ->setControllerData($dto)
-        // ->toString();
-
         return new HtmlResponse('hello world');
     }
 

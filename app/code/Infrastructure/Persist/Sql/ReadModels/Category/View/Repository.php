@@ -80,6 +80,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Category description is invalid');
         }
 
+        $rawTotalCount = $rowCategory['total_count'] ?? null;
+        if ($rawTotalCount === null) {
+            throw new RepositoryException('Category total count is invalid');
+        }
+
         try {
             $name        = new CategoryName($rawName);
             $description = new CategoryDescription($rawDescription);
@@ -93,7 +98,8 @@ final class Repository implements RepositoryInterface
             $searchCriteria->categoryId,
             $name,
             $description,
-            $articles
+            $articles,
+            (int) $rawTotalCount
         );
     }
 
@@ -214,7 +220,15 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             SELECT category_translates.name,
-                category_translates.description
+                category_translates.description,
+                (
+                    SELECT count(article_category.article_id)
+                    FROM article_category,
+                        category 
+                    WHERE article_category.category_id = $2 AND
+                        article_category.category_id = category.identifier AND
+                        category.active = 't'
+                ) as total_count
             FROM category_translates,
                 category
             WHERE category_translates.language = $1 AND

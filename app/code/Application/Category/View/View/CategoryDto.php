@@ -17,7 +17,8 @@ final class CategoryDto
         public readonly Identifier $id,
         public readonly Name $name,
         public readonly Description $description,
-        public readonly array $articles
+        public readonly array $articles,
+        public readonly int $totalCount
     ) {
     }
 
