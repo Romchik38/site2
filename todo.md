@@ -3,6 +3,7 @@
 ## Current
 
 - category view
+  - remove `Pagination` from filter
 
 ## Next
 
