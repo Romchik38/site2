@@ -27,6 +27,17 @@ return function (Container $container) {
         ]
     );
 
+    // Category
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
+            new Promise('\Romchik38\Site2\Application\Category\View\ViewService')
+        ]
+    );
+
     // Sitemap
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction',

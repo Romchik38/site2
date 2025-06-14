@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Utils;
+namespace Romchik38\Site2\Infrastructure\Utils\Article;
 
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ReadLengthFormatterInterface;

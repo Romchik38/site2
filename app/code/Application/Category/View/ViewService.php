@@ -13,7 +13,7 @@ use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\Offset;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\OrderByDirection;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\OrderByField;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\Page;
-use Romchik38\Site2\Application\Category\View\Exceptions\CouldNotFilterException;
+use Romchik38\Site2\Application\Category\View\Exceptions\CouldNotFindException;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
@@ -27,11 +27,11 @@ final class ViewService
     }
 
     /**
-     * @throws CouldNotFilterException
+     * @throws CouldNotFindException
      * @throws InvalidArgumentException
      * @throws NoSuchCategoryException
      * */
-    public function list(Filter $command, LanguageId $language, CategoryId $id): FilterResult
+    public function find(Filter $command, string $languageId, string $categoryId): FilterResult
     {
         $limit            = Limit::fromString($command->limit);
         $page             = Page::fromString($command->page);
@@ -39,19 +39,22 @@ final class ViewService
         $orderByDirection = new OrderByDirection($command->orderByDirection);
         $offset           = new Offset(($page() - 1) * $limit());
 
+        $languageId = new LanguageId($languageId);
+        $categoryId = new CategoryId($categoryId);
+
         $searchCriteria = new SearchCriteria(
             $offset,
             $limit,
             $orderByField,
             $orderByDirection,
-            $language,
-            $id
+            $languageId,
+            $categoryId
         );
 
         try {
             $category = $this->articleListViewRepository->find($searchCriteria);
         } catch (RepositoryException $e) {
-            throw new CouldNotFilterException($e->getMessage());
+            throw new CouldNotFindException($e->getMessage());
         }
 
         return new FilterResult($searchCriteria, $page, $category);

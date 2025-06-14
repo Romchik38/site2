@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Utils;
+namespace Romchik38\Site2\Infrastructure\Utils\Category;
 
 use DateTime;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\DateFormatterInterface;
+use Romchik38\Site2\Application\Category\View\View\DateFormatterInterface;
 
 use function date_format;
 

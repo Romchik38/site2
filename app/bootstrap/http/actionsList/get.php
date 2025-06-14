@@ -187,6 +187,14 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminTranslate)
     ->setChild($adminUsers);
     
+    /** CATEGORY */
+    $category = new Controller(
+        'category',
+        true,
+        null,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction')
+    );
+
     /** REGISTER */
     $register = new Controller(
         'register', 
@@ -219,11 +227,12 @@ return function (Container $container): ControllerInterface {
 
     $root
         ->setChild($api)
-        ->setChild($sitemap)
-        ->setChild($serverErrorExample)
         ->setChild($article)
         ->setChild($admin)
+        ->setChild($category)
+        ->setChild($login)
         ->setChild($register)
-        ->setChild($login);
+        ->setChild($sitemap)
+        ->setChild($serverErrorExample);
     return $root;
 };

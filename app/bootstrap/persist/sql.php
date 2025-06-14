@@ -71,6 +71,18 @@ return function (Container $container) {
         ]
     );
 
+    // CATEGORY VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\View\Repository',
+        '\Romchik38\Site2\Application\Category\View\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+            new Promise('\Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory'),
+            new Promise('\Romchik38\Site2\Application\Category\View\View\ImageDtoFactory')
+        ]
+    );
+
     // IMAGE
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\Image\Repository',

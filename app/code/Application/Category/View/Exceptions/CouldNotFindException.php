@@ -6,6 +6,6 @@ namespace Romchik38\Site2\Application\Category\View\Exceptions;
 
 use Twig\Error\RuntimeError;
 
-final class CouldNotFilterException extends RuntimeError
+final class CouldNotFindException extends RuntimeError
 {
 }
