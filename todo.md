@@ -4,12 +4,13 @@
 
 - category view
   - remove `Pagination` from filter
-  - repository
   - action
   - template
+  - add filter block
 
 ## Next
 
+- category list
 - banner
 - home page
 - menu
