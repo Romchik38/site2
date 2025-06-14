@@ -12,10 +12,14 @@ use Romchik38\Site2\Application\Category\View\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\View\RepositoryInterface;
-use Romchik38\Site2\Application\Category\View\View\CategoryDto;
+use Romchik38\Site2\Application\Category\View\View\ArticleDto;
 use Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory;
+use Romchik38\Site2\Application\Category\View\View\CategoryDto;
 use Romchik38\Site2\Application\Category\View\View\ImageDtoFactory;
+use Romchik38\Site2\Domain\Category\VO\Description as CategoryDescription;
+use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
 
+use function count;
 use function implode;
 use function json_decode;
 use function sprintf;
@@ -31,10 +35,10 @@ final class Repository implements RepositoryInterface
 
     public function find(SearchCriteria $searchCriteria): CategoryDto
     {
-        $languageParam = (string)$searchCriteria->languageId;
-        $categoryParam = (string)$searchCriteria->categoryId;
-        $query = $this->categoryQuery();
-        $params     = [$languageParam, $categoryParam];
+        $languageParam = (string) $searchCriteria->languageId;
+        $categoryParam = (string) $searchCriteria->categoryId;
+        $query         = $this->categoryQuery();
+        $params        = [$languageParam, $categoryParam];
 
         try {
             $rows = $this->database->queryParams($query, $params);
@@ -60,20 +64,50 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($rows[0], $searchCriteria);
     }
 
-    /** 
-     * @todo implement 
-     * 
+    /**
+     * @todo implement
      * @param array<string,string|null> $row
-     * 
-    */
+     */
     private function createFromRow(array $rowCategory, SearchCriteria $searchCriteria): CategoryDto
+    {
+        $rawName = $rowCategory['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Category name is invalid');
+        }
+
+        $rawDescription = $rowCategory['description'] ?? null;
+        if ($rawDescription === null) {
+            throw new RepositoryException('Category description is invalid');
+        }
+
+        try {
+            $name        = new CategoryName($rawName);
+            $description = new CategoryDescription($rawDescription);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $articles = $this->createArticles($searchCriteria);
+
+        return new CategoryDto(
+            $searchCriteria->categoryId,
+            $name,
+            $description,
+            $articles
+        );
+    }
+
+    /**
+     * @return array<int,ArticleDTO>
+     * */
+    private function createArticles(SearchCriteria $searchCriteria): array
     {
         $expression = [];
         $params     = [
-            (string)$searchCriteria->languageId,
-            (string)$searchCriteria->categoryId
+            (string) $searchCriteria->languageId,
+            (string) $searchCriteria->categoryId,
         ];
-        $paramCount = 1;
+        $paramCount = 2;
 
         /** ORDER BY */
         try {
@@ -102,22 +136,23 @@ final class Repository implements RepositoryInterface
 
         $query = sprintf(
             '%s %s',
-            $this->defaultQuery(),
+            $this->articlesQuery(),
             implode(' ', $expression)
         );
 
         try {
-            $rows = $this->database->queryParams($query, $params);
+            $articleRows = $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
 
-        $models = [];
+        $articles = [];
 
-        foreach ($rows as $row) {
-            $models[] = $this->createFromRow($row);
+        foreach ($articleRows as $articleRow) {
+            $articles[] = $this->createArticle($articleRow);
         }
-        return $models;
+
+        return $articles;
     }
 
     /** @todo refactor */
@@ -125,7 +160,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string|null> $row
      * */
-    private function createArticles(array $row): ArticleDTO
+    private function createArticle(array $row): ArticleDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -186,7 +221,7 @@ final class Repository implements RepositoryInterface
                 category.identifier = category_translates.category_id AND
                 category.active ='t' AND
                 category.identifier = $2
-        QUERY;                
+        QUERY;
     }
 
     /** @todo implement */
@@ -227,7 +262,8 @@ final class Repository implements RepositoryInterface
             article,
             article_translates,
             img,
-            img_translates
+            img_translates,
+            article_category
         WHERE 
             article.identifier = article_translates.article_id
             AND article.active = 'true'
@@ -235,6 +271,8 @@ final class Repository implements RepositoryInterface
             AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
+            AND article_category.article_id = article.identifier
+            AND article_category.category_id = $2
         QUERY;
     }
 }
