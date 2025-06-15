@@ -1,0 +1,32 @@
+{# 
+    Object      data                    Controller DTO
+    string      template_full_prefix    path to this folder
+#}
+
+{% extends "base_layouts.twig" %}
+
+{% block content %}
+{% set categories = data.categories %}
+<div id="content" class="container-fluid p-0 mt-2">
+    <div class="container-xxl p-0">
+        <!-- Banner -->
+        <div class="container-fluid border border-info">
+            Banner
+        </div>
+        <!-- Banner -->
+
+        <!-- H1 Start -->
+        <div class="container my-4">
+            <div class="row">
+                <h1 class="text-center">{{ data.getName() }}</h1>
+                <p class="col-11 mx-auto lead my-3">{{ data.getDescription() }}</p>
+            </div>
+        </div>
+        <!-- H1 end -->
+
+        <!-- Categories -->
+        {% include template_full_prefix ~ '/blocks/categories.twig' with {'translate': translate, 'categories': categories, 'u': urlbuilder} only %}
+
+    </div>
+</div>
+{% endblock %}

@@ -20,7 +20,7 @@
         {% for c in categories %}
             <!-- category.getId()|url_encode -->
             {% set categoryId = c.getId() %} 
-            {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId ]) %}
+            {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId|url_encode ]) %}
             <tr>
                 <td>{{ categoryId }}</td>
                 {% if c.active == true %}

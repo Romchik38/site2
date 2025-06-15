@@ -54,7 +54,7 @@ final class Repository implements RepositoryInterface
             try {
                 $id          = new CategoryId($rawId);
                 $name        = new CategoryName($rawName);
-                $description = new CategoryDescription($rawName);
+                $description = new CategoryDescription($rawDescription);
                 $dtos[]      = new CategoryDto($id, $name, $description, (int) $rawTotalCount);
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());

@@ -191,7 +191,7 @@ return function (Container $container): ControllerInterface {
     $category = new Controller(
         'category',
         true,
-        null,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction')
     );
 

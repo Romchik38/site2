@@ -57,7 +57,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->translateModelService->create($command);
             $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uri     = $this->urlbuilder->fromArray(
-                ['root', 'admin', 'translate', $command->id]
+                ['root', 'admin', 'translate', urlencode($command->id)]
             );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(

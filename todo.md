@@ -2,15 +2,17 @@
 
 ## Current
 
-- category list
-  - service
-  - repository
-  - action
-  - template
+- banner
+  - sql
+  - domain
+  - tests
+  - admin list
+    - service
+    - repository
+    - action
 
 ## Next
 
-- banner
 - home page
 - menu
 - article list most visited
