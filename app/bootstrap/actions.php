@@ -39,6 +39,16 @@ return function (Container $container) {
         ]
     );
 
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
+            new Promise('\Romchik38\Site2\Application\Category\List\ListService')
+        ]
+    );
+
     // Sitemap
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction',
