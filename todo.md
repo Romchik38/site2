@@ -3,9 +3,6 @@
 ## Current
 
 - category view
-  - remove `Pagination` from filter
-  - template
-    - link to article not correct
   - add filter block
 
 ## Next

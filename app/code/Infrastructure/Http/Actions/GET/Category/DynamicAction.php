@@ -74,7 +74,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $page           = $findResult->page;
         $totalCount     = $category->totalCount;
 
-        $path              = new Path(['root', 'article']);
+        $path              = new Path(['root', 'category', $dynamicRoute()]);
         $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
         $additionalQueries = [
             new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
