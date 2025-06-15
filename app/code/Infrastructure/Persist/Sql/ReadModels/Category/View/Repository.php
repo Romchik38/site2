@@ -15,9 +15,12 @@ use Romchik38\Site2\Application\Category\View\RepositoryInterface;
 use Romchik38\Site2\Application\Category\View\View\ArticleDto;
 use Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory;
 use Romchik38\Site2\Application\Category\View\View\CategoryDto;
+use Romchik38\Site2\Application\Category\View\View\CategoryIdNameDto;
 use Romchik38\Site2\Application\Category\View\View\ImageDtoFactory;
 use Romchik38\Site2\Domain\Category\VO\Description as CategoryDescription;
+use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function count;
 use function implode;
@@ -64,8 +67,40 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($rows[0], $searchCriteria);
     }
 
+    public function listIdNames(LanguageId $languageId): array
+    {
+        $query  = $this->listIdNameQuery();
+        $params = [(string) $languageId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $dtos = [];
+        foreach ($rows as $row) {
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Category name is invalid');
+            }
+            $rawId = $row['identifier'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Category id is invalid');
+            }
+
+            try {
+                $id     = new CategoryId($rawId);
+                $name   = new CategoryName($rawName);
+                $dtos[] = new CategoryIdNameDto($id, $name);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+        return $dtos;
+    }
+
     /**
-     * @todo implement
      * @param array<string,string|null> $row
      */
     private function createFromRow(array $rowCategory, SearchCriteria $searchCriteria): CategoryDto
@@ -238,7 +273,6 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo implement */
     private function articlesQuery(): string
     {
         return <<<'QUERY'
@@ -287,6 +321,18 @@ final class Repository implements RepositoryInterface
             AND img_translates.language = $1
             AND article_category.article_id = article.identifier
             AND article_category.category_id = $2
+        QUERY;
+    }
+
+    private function listIdNameQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT category.identifier,
+                category_translates.name
+            FROM category_translates,
+                category
+            WHERE category_translates.language = $1 AND
+                category.identifier = category_translates.category_id
         QUERY;
     }
 }

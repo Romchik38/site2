@@ -16,13 +16,14 @@ use Romchik38\Site2\Application\Category\View\Commands\Filter\VO\Page;
 use Romchik38\Site2\Application\Category\View\Exceptions\CouldNotFindException;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Category\View\View\CategoryIdNameDto;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class ViewService
 {
     public function __construct(
-        private readonly RepositoryInterface $articleListViewRepository
+        private readonly RepositoryInterface $repository
     ) {
     }
 
@@ -52,11 +53,22 @@ final class ViewService
         );
 
         try {
-            $category = $this->articleListViewRepository->find($searchCriteria);
+            $category = $this->repository->find($searchCriteria);
         } catch (RepositoryException $e) {
             throw new CouldNotFindException($e->getMessage());
         }
 
         return new FilterResult($searchCriteria, $page, $category);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws RepositoryException
+     * @return array<int,CategoryIdNameDto>
+     * */
+    public function listIdNames(string $language): array
+    {
+        $languageId = new LanguageId($language);
+        return $this->repository->listIdNames($languageId);
     }
 }

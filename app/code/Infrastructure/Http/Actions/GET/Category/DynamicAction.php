@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
+use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Controller\Path;
@@ -105,16 +106,14 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         return new HtmlResponse($result);
     }
 
-    /** @todo implement */
     public function getDynamicRoutes(): array
     {
-        // $articles = $this->articleViewService->listIdsNames($this->getLanguage());
-        // $routes   = [];
-        // foreach ($articles as $article) {
-        //     $routes[] = new DynamicRouteDTO($article->articleId, $article->name);
-        // }
-        // return $routes;
-        return [];
+        $categories = $this->categoryService->listIdNames($this->getLanguage());
+        $routes     = [];
+        foreach ($categories as $category) {
+            $routes[] = new DynamicRouteDTO($category->getId(), $category->getName());
+        }
+        return $routes;
     }
 
     /** @todo implement */
