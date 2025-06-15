@@ -12,6 +12,7 @@ use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
+use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
 use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
@@ -116,21 +117,19 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         return $routes;
     }
 
-    /** @todo implement */
     public function getDescription(string $dynamicRoute): string
     {
-        // try {
-        //     return $this->articleViewService->getArticleName(new Find(
-        //         $dynamicRoute,
-        //         $this->getLanguage()
-        //     ));
-        // } catch (NoSuchArticleException) {
-        //     throw new DynamicActionLogicException(sprintf(
-        //         'Description not found in action %s',
-        //         $dynamicRoute
-        //     ));
-        // }
-
-        return $dynamicRoute . ' description';
+        try {
+            $name = $this->categoryService->findName(
+                urldecode($dynamicRoute),
+                $this->getLanguage()
+            );
+            return $name();
+        } catch (NoSuchCategoryException) {
+            throw new DynamicActionLogicException(sprintf(
+                'Description not found in action %s',
+                $dynamicRoute
+            ));
+        }
     }
 }

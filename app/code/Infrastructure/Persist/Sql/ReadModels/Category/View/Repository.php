@@ -67,6 +67,49 @@ final class Repository implements RepositoryInterface
         return $this->createFromRow($rows[0], $searchCriteria);
     }
 
+    public function findName(CategoryId $categoryId, LanguageId $languageId): CategoryName
+    {
+        $categoryParam = (string) $categoryId;
+        $languageParam = (string) $languageId;
+        $query         = $this->findNameQuery();
+        $params        = [
+            $languageParam,
+            $categoryParam,
+        ];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $rowCount = count($rows);
+        if ($rowCount === 0) {
+            throw new NoSuchCategoryException(sprintf(
+                'Active category with id %s and language %s not exist',
+                $categoryParam,
+                $languageParam
+            ));
+        }
+        if ($rowCount > 1) {
+            throw new RepositoryException(sprintf(
+                'Category with id %s has more than one count',
+                $categoryParam
+            ));
+        }
+
+        $firstRow = $rows[0];
+        $rawName  = $firstRow['name'] ?? null;
+        if ($rawName === null) {
+            throw new RepositoryException('Category name is invalid');
+        }
+        try {
+            return new CategoryName($rawName);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
     public function listIdNames(LanguageId $languageId): array
     {
         $query  = $this->listIdNameQuery();
@@ -101,7 +144,7 @@ final class Repository implements RepositoryInterface
     }
 
     /**
-     * @param array<string,string|null> $row
+     * @param array<string,string|null> $rowCategory
      */
     private function createFromRow(array $rowCategory, SearchCriteria $searchCriteria): CategoryDto
     {
@@ -324,6 +367,19 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
+    private function findNameQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT category_translates.name
+            FROM category_translates,
+                category
+            WHERE category_translates.language = $1 AND
+                category.identifier = category_translates.category_id AND
+                category.identifier = $2 AND
+                category.active = 't'
+        QUERY;
+    }
+
     private function listIdNameQuery(): string
     {
         return <<<'QUERY'
@@ -332,7 +388,8 @@ final class Repository implements RepositoryInterface
             FROM category_translates,
                 category
             WHERE category_translates.language = $1 AND
-                category.identifier = category_translates.category_id
+                category.identifier = category_translates.category_id AND
+                category.active = 't'
         QUERY;
     }
 }

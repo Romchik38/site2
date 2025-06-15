@@ -18,6 +18,7 @@ use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException
 use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\View\View\CategoryIdNameDto;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
+use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class ViewService
@@ -32,7 +33,7 @@ final class ViewService
      * @throws InvalidArgumentException
      * @throws NoSuchCategoryException
      * */
-    public function find(Filter $command, string $languageId, string $categoryId): FilterResult
+    public function find(Filter $command, string $languageId, string $id): FilterResult
     {
         $limit            = Limit::fromString($command->limit);
         $page             = Page::fromString($command->page);
@@ -41,7 +42,7 @@ final class ViewService
         $offset           = new Offset(($page() - 1) * $limit());
 
         $languageId = new LanguageId($languageId);
-        $categoryId = new CategoryId($categoryId);
+        $categoryId = new CategoryId($id);
 
         $searchCriteria = new SearchCriteria(
             $offset,
@@ -59,6 +60,17 @@ final class ViewService
         }
 
         return new FilterResult($searchCriteria, $page, $category);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws RepositoryException
+     * */
+    public function findName(string $id, string $language): CategoryName
+    {
+        $categoryId = new CategoryId($id);
+        $languageId = new LanguageId($language);
+        return $this->repository->findName($categoryId, $languageId);
     }
 
     /**
