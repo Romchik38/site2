@@ -4,8 +4,8 @@
 
 - category view
   - remove `Pagination` from filter
-  - action
   - template
+    - link to article not correct
   - add filter block
 
 ## Next
