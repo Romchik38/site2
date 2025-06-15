@@ -3,6 +3,11 @@
 {#    string                  article_page_url            used to create urls #}
 
 {% set firstArticle = articles|first %}
+{% set articlesCount = articles|length %}
+<!-- Filters -->
+<div class="col my-3">
+    {% include template_full_prefix ~ '/blocks/filters.twig' %}
+</div>
 <!-- Primary publication start -->
 <div class="col">
     <div class="row">

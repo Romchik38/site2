@@ -2,12 +2,14 @@
 
 ## Current
 
-- category view
-  - add filter block
+- category list
+  - service
+  - repository
+  - action
+  - template
 
 ## Next
 
-- category list
 - banner
 - home page
 - menu

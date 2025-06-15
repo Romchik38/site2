@@ -26,6 +26,7 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\ViewD
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\PaginationForm;
 
 use function count;
 use function sprintf;
@@ -91,12 +92,21 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $additionalQueries
         );
 
+        $paginationForm = new PaginationForm(
+                $searchCriteria->limit,
+                $searchCriteria->orderByField,
+                $searchCriteria->orderByDirection
+        );
+
+        $articlePageUrl = $this->urlbuilder->fromArray(['root', 'article']);
+
         $dto = new ViewDTO(
             $category->getName(),
             $category->getDescription(),
             $category,
             $paginationView,
-            $this->urlbuilder->fromPath($path)
+            $paginationForm,
+            $articlePageUrl
         );
 
         $result = $this->view

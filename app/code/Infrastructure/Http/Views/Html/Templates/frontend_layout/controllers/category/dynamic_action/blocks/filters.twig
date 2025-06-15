@@ -1,0 +1,34 @@
+<form class="d-sm-flex justify-content-center" action="" method="get">
+    <!-- Limits -->
+    <label class="me-2" for="limit">{{ translate.t('filter.limit') }}</label>
+    <div class="me-2">
+        <select class="form-select form-select-sm" name="limit" aria-label="select limit">
+            <option value="{{ paginationForm.currentLimit() }}" selected>{{ paginationForm.currentLimit() }}</option>
+            {% for limit in paginationForm.limits() %}
+                <option value="{{ limit }}">{{ limit }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <!-- OrderBy -->
+    <label class="me-2" for="order_by">{{ translate.t('filter.order-by') }}</label>
+    <div class="me-2">
+        <select class="form-select form-select-sm" name="order_by" aria-label="select order_by">
+            <option value="{{ paginationForm.currentOrderBy() }}" selected>{{ translate.t(paginationForm.currentOrderBy()) }}</option>
+            {% for orderBy in paginationForm.orderBys() %}
+                <option value="{{ orderBy }}">{{ translate.t(orderBy) }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <!-- Order By Direction -->
+    <label class="me-2" for="orderorder_direction_by">{{ translate.t('filter.direction') }}</label>
+    <div class="me-2">
+        <select class="form-select form-select-sm" name="order_direction" aria-label="select order_direction">
+            <option valu="{{ paginationForm.currentOrderByDirection() }}" selected>{{ translate.t(paginationForm.currentOrderByDirection()) }}</option>
+            {% for direction in paginationForm.orderByDirections() %}
+                <option value="{{ direction }}">{{ translate.t(direction) }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-secondary btn-sm py-0">filter</button>
+</form>
