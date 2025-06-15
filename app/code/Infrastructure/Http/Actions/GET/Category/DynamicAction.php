@@ -22,11 +22,11 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\ViewService;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction\PaginationForm;
 
 use function count;
 use function sprintf;
@@ -93,9 +93,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $paginationForm = new PaginationForm(
-                $searchCriteria->limit,
-                $searchCriteria->orderByField,
-                $searchCriteria->orderByDirection
+            $searchCriteria->limit,
+            $searchCriteria->orderByField,
+            $searchCriteria->orderByDirection
         );
 
         $articlePageUrl = $this->urlbuilder->fromArray(['root', 'article']);

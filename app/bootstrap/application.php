@@ -130,7 +130,7 @@ return function (Container $container) {
         ]
     );
 
-    // CATEGORY
+    // CATEGORY VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Category\View\ViewService',
         [
@@ -148,6 +148,14 @@ return function (Container $container) {
     $container->shared('\Romchik38\Site2\Application\Category\View\View\ImageDtoFactory', [
         new Promise('img-folder-frontend')
     ]);
+
+    // CATEGORY LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Category\List\ListService',
+        [
+            new Promise('\Romchik38\Site2\Application\Category\List\RepositoryInterface')
+        ]
+    );
 
     // USER CHECK
     $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
