@@ -11,6 +11,10 @@ use Romchik38\Site2\Domain\Banner\VO\Name;
 
 final class Banner
 {
+    public const ERROR_IMAGE_NOT_ACTIVE          = 'Image is not active';
+    public const ERROR_CHANGE_IMAGE_NOT_ACTIVE   = 'Could not change image, it is not active';
+    public const ERROR_ACTIVATE_IMAGE_NOT_ACTIVE = 'Could not activate banner, image is not active';
+
     /** @throws InvalidArgumentException */
     public function __construct(
         private(set) Identifier $id,
@@ -20,7 +24,7 @@ final class Banner
     ) {
         if ($active === true) {
             if ($image->active === false) {
-                throw new InvalidArgumentException('Image is not active');
+                throw new InvalidArgumentException(self::ERROR_IMAGE_NOT_ACTIVE);
             }
         }
     }
@@ -29,8 +33,9 @@ final class Banner
     public function changeImage(Image $image): void
     {
         if ($this->active === true && $image->active === false) {
-            throw new InvalidArgumentException('Could not change image, it is not active');
+            throw new InvalidArgumentException(self::ERROR_CHANGE_IMAGE_NOT_ACTIVE);
         }
+        $this->image = $image;
     }
 
     /** @throws CouldNotChangeActivityException */
@@ -40,8 +45,9 @@ final class Banner
             return;
         }
         if ($this->image->active === false) {
-            throw new InvalidArgumentException('Could not activate banner, image is not active');
+            throw new CouldNotChangeActivityException(self::ERROR_ACTIVATE_IMAGE_NOT_ACTIVE);
         }
+        $this->active = true;
     }
 
     public function deactivate(): void
