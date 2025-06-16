@@ -19,17 +19,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 {
     private const PAGE_NAME_KEY        = 'category.page.name';
     private const PAGE_DESCRIPTION_KEY = 'category.page.description';
-    /**
-     * category.page.name
-     * Article categories
-     * Категорії статей
-     * 
-     * category.page.description
-     * A page with a list of all categories in which articles are located. Choose the one that interests you and start reading the materials.
-     * Сторінка зі списком усіх категорій, в яких знаходяться статті. Оберіть, яка Вас цікавить і перейдіть до читання матеріалів.
-     */
 
-    /** @todo usage */
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -41,7 +31,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $categories   = $this->listService->list($this->getLanguage());
+        $categories = $this->listService->list($this->getLanguage());
 
         $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);

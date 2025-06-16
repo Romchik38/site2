@@ -3,6 +3,15 @@
 ## Current
 
 - banner
+<<<<<<< HEAD
+=======
+  - domain
+  - tests
+  - admin list
+    - service
+    - repository
+    - action
+>>>>>>> testing
 
 ## Next
 
