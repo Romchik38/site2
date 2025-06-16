@@ -23,6 +23,7 @@ use RuntimeException;
 
 use function gettype;
 use function sprintf;
+use function urlencode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Author\VO;
+namespace Romchik38\Site2\Domain\Banner\VO;
 
 use InvalidArgumentException;
 
 use function sprintf;
 
-final class AuthorId
+final class Identifier
 {
     /** @throws InvalidArgumentException */
     public function __construct(
         public readonly int $id
     ) {
         if ($id <= 0) {
-            throw new InvalidArgumentException('param author id must be greater than 0');
+            throw new InvalidArgumentException('param banner id must be greater than 0');
         }
     }
 
@@ -37,7 +37,7 @@ final class AuthorId
         $strId    = (string) $intId;
         if ($oldValue !== $strId) {
             throw new InvalidArgumentException(sprintf(
-                'param author id %s is invalid',
+                'param banner id %s is invalid',
                 $id
             ));
         }
