@@ -4,9 +4,8 @@
 
 - banner
   - admin list
-    - service
-    - repository
     - action
+    - template
   - admin
     - view
     - new
