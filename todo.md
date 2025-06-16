@@ -2,15 +2,17 @@
 
 ## Current
 
+- banner view
+  - service
+  - repository
+  - action
+  - template
 - banner
-  - admin list
-    - action
-    - template
   - admin
     - view
-    - new
     - delete
     - update
+  - frontend
 
 ## Next
 
