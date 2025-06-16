@@ -109,7 +109,8 @@ return function (Container $container): ControllerInterface {
     $adminBanner = new Controller(
         'banner',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction')
     );
 
     // Admin Category
