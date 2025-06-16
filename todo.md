@@ -3,7 +3,6 @@
 ## Current
 
 - banner
-  - sql
   - domain
   - tests
   - admin list
