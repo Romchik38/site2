@@ -46,39 +46,6 @@ final class BannerTest extends TestCase
         );
     }
 
-    public function testChangeImage(): void
-    {
-        $image  = new Image(new ImageId(1), true);
-        $image2 = new Image(new ImageId(2), true);
-        $banner = new Banner(
-            new BannerId(1),
-            true,
-            new Name('some banner'),
-            $image
-        );
-
-        $this->assertSame($image, $banner->image);
-        $banner->changeImage($image2);
-        $this->assertSame($image2, $banner->image);
-    }
-
-    public function testChangeImageThrowsErrrorOnNonActiveImage(): void
-    {
-        $image  = new Image(new ImageId(1), true);
-        $image2 = new Image(new ImageId(2), false);  // the problem
-        $banner = new Banner(
-            new BannerId(1),
-            true,
-            new Name('some banner'),
-            $image
-        );
-
-        $this->assertSame($image, $banner->image);
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Banner::ERROR_CHANGE_IMAGE_NOT_ACTIVE);
-        $banner->changeImage($image2);
-    }
-
     public function testActivate(): void
     {
         $image  = new Image(new ImageId(1), true);
