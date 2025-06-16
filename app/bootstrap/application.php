@@ -132,7 +132,7 @@ return function (Container $container) {
 
     // BANNER ADMIN LIST
     $container->shared(
-        '\Romchik38\Site2\Application\Banner\AdminList\AdminListServise',
+        '\Romchik38\Site2\Application\Banner\AdminList\AdminListService',
         [
             new Promise('\Romchik38\Site2\Application\Banner\AdminList\RepositoryInterface')
         ]

@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Application\Banner\AdminList;
 use Romchik38\Site2\Application\Banner\AdminList\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Banner\AdminList\View\BannerDto;
 
-final class AdminListServise
+final class AdminListService
 {
     public function __construct(
         private readonly RepositoryInterface $repository

@@ -73,7 +73,7 @@ return function (Container $container) {
 
     // BANNER ADMIN LIST
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminList\Repository',
         '\Romchik38\Site2\Application\Banner\AdminList\RepositoryInterface',
         true,
         [

@@ -105,6 +105,13 @@ return function (Container $container): ControllerInterface {
     );
     $adminAuthor->setChild($adminAuthorNew);
 
+    // Admin Banner
+    $adminBanner = new Controller(
+        'banner',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction')
+    );
+
     // Admin Category
     $adminCategory = new Controller(
         'category',
@@ -180,6 +187,7 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAudio)
     ->setChild($adminArticle)
     ->setChild($adminAuthor)
+    ->setChild($adminBanner)
     ->setChild($adminCategory)
     ->setChild($adminImagecache)
     ->setChild($adminImage)

@@ -13,4 +13,9 @@ final class ImageDto
         public readonly bool $active
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
 }

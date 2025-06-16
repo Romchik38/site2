@@ -1,0 +1,68 @@
+{#
+    BannerDto[]         banners                     Romchik38\Site2\Application\Banner\AdminList\View\BannerDto
+    object              t                           Translate Service
+    object              u                           Urlbuilder
+    string              newUrl                      url to create a new image
+#}
+
+{% set deleteUrl = u.fromArray(['root', 'admin', 'banners', 'delete' ]) %}
+{% set banners = data.banners %}
+
+<div class="col-12 text-end mb-2">
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
+</div>
+<!-- Banners List -->
+<table class="table table-bordered">
+    <thead>
+          <tr>
+                <th scope="col">Identifier</th>
+                <th scope="col">Active</th>
+                <th scope="col">Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+          </tr>
+    </thead>
+    <tbody>
+        {% for b in banners %}
+            {% set activeColor = '' %}
+            {% if b.active == false %}
+                {% set activeColor = 'text-warning bg-secondary' %}
+                {% set active = 'not active' %}
+            {% elseif b.active == true %}
+                {% set activeColor = 'text-success' %}
+                {% set active = 'active' %}
+            {% endif %}
+
+            {% set bannerId = b.getId() %}
+            <tr>
+                <!-- Id -->
+                <th scope="row">{{ bannerId }}</th>
+                <!-- Active -->
+                <td class="{{ activeColor }}">{{ active }}</td>
+                <!-- Name -->
+                <td>{{ b.getName() }}</td> 
+                <!-- Image -->
+                {% set imageId = b.image.getId() %}
+                <td>
+                    <img src="/img.php?id={{imageId}}&type=webp&width=200&height=100" >
+                </td>        
+                <!-- Edit         -->
+                {% set editUrl = u.fromArray(['root', 'admin', 'banner', bannerId ]) %}
+                <td><a href="{{ editUrl }}">edit</a></td>
+                <!-- Delete -->
+                <td>
+                    <form action="{{ deleteUrl }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.bannerIdField }}" value="{{ bannerId }}" hidden>
+                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+                        <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="text-end">
+      <a class="btn btn-primary" href="{{ newUrl }}" role="button">New</a>
+</div>

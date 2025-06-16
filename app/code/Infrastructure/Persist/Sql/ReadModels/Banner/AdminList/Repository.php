@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminList;
 
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
@@ -82,7 +82,7 @@ final class Repository implements RepositoryInterface
         try {
             $id      = BannerId::fromString($rawIdentifier);
             $name    = new Name($rawName);
-            $imageId = ImageId::fromString($rawIdentifier);
+            $imageId = ImageId::fromString($rawImageIdentifier);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
