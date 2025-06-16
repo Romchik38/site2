@@ -106,6 +106,22 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN BANNER LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Banner\AdminList\AdminListService',
+        [
+            new Promise('\Romchik38\Site2\Application\Banner\AdminList\RepositoryInterface')
+        ]
+    );
+    
+    // ADMIN BANNER VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Banner\AdminView\AdminView',
+        [
+            new Promise('\Romchik38\Site2\Application\Banner\AdminView\RepositoryInterface')
+        ]
+    );
+
     // ADMIN CATEGORY LIST
     $container->shared(
         '\Romchik38\Site2\Application\Category\AdminList\AdminList',
@@ -127,14 +143,6 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService',
         [
             new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\RepositoryInterface')
-        ]
-    );
-
-    // BANNER ADMIN LIST
-    $container->shared(
-        '\Romchik38\Site2\Application\Banner\AdminList\AdminListService',
-        [
-            new Promise('\Romchik38\Site2\Application\Banner\AdminList\RepositoryInterface')
         ]
     );
 

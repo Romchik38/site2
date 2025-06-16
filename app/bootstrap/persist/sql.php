@@ -71,7 +71,7 @@ return function (Container $container) {
         ]
     );
 
-    // BANNER ADMIN LIST
+    // ADMIN BANNER LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminList\Repository',
         '\Romchik38\Site2\Application\Banner\AdminList\RepositoryInterface',
@@ -79,6 +79,16 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
         ] 
+    );
+
+    // ADMIN BANNER VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminView\Repository',
+        '\Romchik38\Site2\Application\Banner\AdminView\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+        ]
     );
 
     // CATEGORY LIST
