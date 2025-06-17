@@ -644,6 +644,7 @@ COPY public.author_translates (author_id, language, description) FROM stdin;
 --
 
 COPY public.banner (identifier, active, name, img_id) FROM stdin;
+1	f	some banner	85
 \.
 
 
@@ -1056,7 +1057,7 @@ SELECT pg_catalog.setval('public.author_identifier_seq', 53, true);
 -- Name: banner_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.banner_identifier_seq', 1, false);
+SELECT pg_catalog.setval('public.banner_identifier_seq', 1, true);
 
 
 --
