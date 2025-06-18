@@ -71,6 +71,16 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN BANNER SERVICE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\Banner\Repository',
+        '\Romchik38\Site2\Application\Banner\BannerService\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+        ]
+    );
+
     // ADMIN BANNER LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminList\Repository',

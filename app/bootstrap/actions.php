@@ -668,6 +668,19 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN BANNER UPDATE
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Banner\Update\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Application\Banner\BannerService\BannerService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
+        ]
+    );
+
     // ADMIN CATEGORY DELETE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Category\Delete\DefaultAction',

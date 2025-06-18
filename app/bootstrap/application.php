@@ -106,6 +106,14 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN BANNER SERVISE
+    $container->shared(
+        '\Romchik38\Site2\Application\Banner\BannerService\BannerService',
+        [
+            new Promise('\Romchik38\Site2\Application\Banner\BannerService\RepositoryInterface')
+        ]
+    );
+
     // ADMIN BANNER LIST
     $container->shared(
         '\Romchik38\Site2\Application\Banner\AdminList\AdminListService',
