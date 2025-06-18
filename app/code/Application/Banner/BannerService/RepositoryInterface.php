@@ -11,6 +11,12 @@ use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 
 interface RepositoryInterface
 {
+    /** @throws RepositoryException */
+    public function add(Banner $model): BannerId;
+
+    /** @throws RepositoryException */
+    public function delete(Banner $model): void;
+
     /**
      * @throws NoSuchBannerException
      * @throws RepositoryException

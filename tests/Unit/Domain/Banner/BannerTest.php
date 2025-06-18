@@ -48,19 +48,19 @@ final class BannerTest extends TestCase
 
     public function testConstructThrowsErrorOnEmptyId(): void
     {
-        $image  = new Image(new ImageId(1), true);
-        $name = new Name('some banner');
+        $image = new Image(new ImageId(1), true);
+        $name  = new Name('some banner');
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Banner::ERROR_ID_IS_NULL);
 
         new Banner(
             null,
-            true,               // wrong, active banner must have an id
-            $name, 
+            true, // wrong, active banner must have an id
+            $name,
             $image
         );
-    }    
+    }
 
     public function testActivate(): void
     {
@@ -109,8 +109,8 @@ final class BannerTest extends TestCase
 
     public function testCreate(): void
     {
-        $image  = new Image(new ImageId(1), true);
-        $name = new Name('some banner');
+        $image = new Image(new ImageId(1), true);
+        $name  = new Name('some banner');
 
         $model = Banner::create($name, $image);
 

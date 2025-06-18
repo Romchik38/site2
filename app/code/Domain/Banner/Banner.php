@@ -13,7 +13,7 @@ final class Banner
 {
     public const ERROR_IMAGE_NOT_ACTIVE          = 'Image is not active';
     public const ERROR_ACTIVATE_IMAGE_NOT_ACTIVE = 'Could not activate banner, image is not active';
-    public const ERROR_ID_IS_NULL = 'Active banner could not have empty id';
+    public const ERROR_ID_IS_NULL                = 'Active banner could not have empty id';
 
     /** @throws InvalidArgumentException */
     public function __construct(
@@ -46,7 +46,7 @@ final class Banner
         }
         $this->active = true;
     }
-    
+
     /** @throws InvalidArgumentException */
     public static function create(Name $name, Image $image): self
     {
