@@ -6,8 +6,10 @@ namespace Romchik38\Site2\Application\Banner\BannerService;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Create;
+use Romchik38\Site2\Application\Banner\BannerService\Commands\Delete;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Update;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\CouldNotCreateException;
+use Romchik38\Site2\Application\Banner\BannerService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\NoSuchBannerException;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\RepositoryException;
@@ -80,6 +82,29 @@ final class BannerService
             return $this->repository->add($model);
         } catch (RepositoryException $e) {
             throw new CouldNotCreateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws CouldNotDeleteException
+     * @throws InvalidArgumentException
+     */
+    public function delete(Delete $command): void
+    {
+        $id = BannerId::fromString($command->id);
+
+        try {
+            $model = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
+        }
+
+        $model->deactivate();
+
+        try {
+            $this->repository->delete($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotDeleteException($e->getMessage());
         }
     }
 }

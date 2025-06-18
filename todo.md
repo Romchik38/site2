@@ -2,12 +2,6 @@
 
 ## Current
 
-- banner new
-  - service
-  - action
-  - template
-- banner
-  - delete
 - banner frontend
 
 ## Next

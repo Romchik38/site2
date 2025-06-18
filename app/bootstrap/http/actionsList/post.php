@@ -173,6 +173,13 @@ return function (Container $container): ControllerInterface {
     
     // Admin Banner
     $adminBanner = new Controller('banner');
+    $adminBannerDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Banner\Delete\DefaultAction'),
+        null,
+        'banner_delete'
+    );
     $adminBannerUpdate = new Controller(
         'update',
         false,
@@ -188,6 +195,7 @@ return function (Container $container): ControllerInterface {
         'banner_new'
     );
     $adminBanner
+    ->setChild($adminBannerDelete)
     ->setChild($adminBannerNew)
     ->setChild($adminBannerUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
