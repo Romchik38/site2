@@ -2,10 +2,11 @@
 
 ## Current
 
-- banner update
+- banner new
+  - service
   - action
+  - template
 - banner
-  - view
   - delete
 - banner frontend
 
