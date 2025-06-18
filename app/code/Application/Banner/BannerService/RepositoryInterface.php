@@ -7,7 +7,9 @@ namespace Romchik38\Site2\Application\Banner\BannerService;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\NoSuchBannerException;
 use Romchik38\Site2\Application\Banner\BannerService\Exceptions\RepositoryException;
 use Romchik38\Site2\Domain\Banner\Banner;
+use Romchik38\Site2\Domain\Banner\Entities\Image;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 interface RepositoryInterface
 {
@@ -16,6 +18,9 @@ interface RepositoryInterface
 
     /** @throws RepositoryException */
     public function delete(Banner $model): void;
+
+    /** @throws RepositoryException */
+    public function createImage(ImageId $id): Image;
 
     /**
      * @throws NoSuchBannerException

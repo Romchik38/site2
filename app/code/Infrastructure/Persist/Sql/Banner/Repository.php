@@ -26,6 +26,40 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
+    public function createImage(ImageId $id): Image
+    {
+        $paramId = (string) $id;
+        $query   = $this->imageCreateQuery();
+        $params  = [$paramId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count === 0) {
+            throw new RepositoryException(sprintf('Banner image with id %s does not exist', $paramId));
+        }
+
+        if ($count > 1) {
+            throw new RepositoryException(sprintf('Banner image with id %s has duplicates', $paramId));
+        }
+
+        $rawActive = $row['active'] ?? null;
+        if ($rawActive === null) {
+            throw new RepositoryException('Banner image active is invalid');
+        }
+        if ($rawActive === 't') {
+            $active = true;
+        } else {
+            $active = false;
+        }
+
+        return new Image($id, $active);
+    }
+
     public function getById(BannerId $id): Banner
     {
         $paramId = (string) $id;
@@ -185,7 +219,15 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo refactor */
+    private function imageCreateQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT img.active
+        FROM img
+        WHERE img.identifier = $1
+        QUERY;
+    }
+
     private function mainSaveQuery(): string
     {
         return <<<'QUERY'
