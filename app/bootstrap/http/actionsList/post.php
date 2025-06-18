@@ -180,7 +180,15 @@ return function (Container $container): ControllerInterface {
         null,
         'banner_update'
     );
+    $adminBannerNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Banner\New\DefaultAction'),
+        null,
+        'banner_new'
+    );
     $adminBanner
+    ->setChild($adminBannerNew)
     ->setChild($adminBannerUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 

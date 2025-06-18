@@ -47,7 +47,7 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException(sprintf('Banner image with id %s has duplicates', $paramId));
         }
 
-        $rawActive = $row['active'] ?? null;
+        $rawActive = $rows[0]['active'] ?? null;
         if ($rawActive === null) {
             throw new RepositoryException('Banner image active is invalid');
         }
