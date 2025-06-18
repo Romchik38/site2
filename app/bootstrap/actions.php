@@ -200,6 +200,18 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN BANNER NEW 
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('admin_view_layout'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
+        ]
+    );
+
     // Admin Login
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction',

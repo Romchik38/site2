@@ -1,0 +1,43 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      template_full_prefix        path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\New\DefaultAction\ViewDto;
+#}
+
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
+{% set bannerListUrl = u.fromArray(['root', 'admin', 'banner']) %}
+{% set createUrl = u.fromArray(['root', 'admin', 'banner', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center banners">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ createUrl }}" method="post" id="banner-update-form">
+            <div class="form-group mb-2 p-2">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.nameField }}">Name:</label>
+                    <input type="text" class="form-control" name="{{ data.nameField }}" value="" required>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+
+            <!-- Image -->
+            <div class="mb-5">
+                {% include template_full_prefix ~ '/blocks/image.twig' with {'t': t, 'u': u, 'data': data } only %}
+            </div>            
+
+            <div class="d-flex">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2 index-button-create" style="display:none;">Create</button>
+                </div>
+            </div>
+        </form>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ bannerListUrl }}">Banner list</a> page</div>
+    </div>
+</div>
+<script type="module" src="/media/js/admin/banner_new/index.js"></script>
+{% endblock %}

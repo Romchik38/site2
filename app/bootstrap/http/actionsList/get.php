@@ -112,6 +112,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction')
     );
+    $adminBannerNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\New\DefaultAction'),
+        null,
+        'banner_new'
+    );
+    $adminBanner->setChild($adminBannerNew);
 
     // Admin Category
     $adminCategory = new Controller(

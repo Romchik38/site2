@@ -1,0 +1,56 @@
+{% set imageF = data.imageFilters %}
+
+<!-- Inside a form -->
+<h2 class="text-center images">Image</h2>
+<div class="border bg-light p-2">
+    <!-- Filters -->
+    <div class="image-filter">
+        <div class="image-message-error text-danger" style="display: none"></div>
+        <div class="d-sm-flex">
+            <label class="me-2">Limit</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-limit" data-name="{{ imageF.getLimitFiled() }}">
+                    {% for limit in imageF.getLimits() %}
+                        {% if limit == imageF.getDefaultLimit() %}
+                            <option value="{{ limit }}" selected>{{ limit }}</option>
+                        {% else %}
+                            <option value="{{ limit }}">{{ limit }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderby" data-name="{{ imageF.getOrderByFiled() }}">
+                    {% for orderBy in imageF.getOrderBys() %}
+                        {% if orderBy == imageF.getDefaultOrderBy() %}
+                            <option value="{{ orderBy }}" selected>{{ orderBy }}</option>
+                        {% else %}
+                            <option value="{{ orderBy }}">{{ orderBy }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Order By Direction</label>
+            <div class="me-2">
+                <select class="form-select form-select-sm image-select-orderbydirection" data-name="{{ imageF.getOrderByDirectionFiled() }}">
+                    {% for orderByDirection in imageF.getOrderByDirections() %}
+                        {% if orderByDirection == imageF.getDefaultOrderByDirection() %}
+                            <option value="{{ orderByDirection }}" selected>{{ orderByDirection }}</option>
+                        {% else %}
+                            <option value="{{ orderByDirection }}">{{ orderByDirection }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="me-2">Page</label>
+            <div class="me-2">
+                <input type="number" class="form-control p-1 image-page" value="{{ imageF.getDefaultPage() }}" min="1" max="255" size="3" data-name="{{ imageF.getPageField() }}">
+            </div>    
+            <div class="ms-2">
+                <button type="button" class="btn btn-secondary btn-sm py-2 image-button-filter">Filter</button>
+            </div>
+        </div>
+        <div class="image-container my-2"></div>
+    </div>
+</div>    
