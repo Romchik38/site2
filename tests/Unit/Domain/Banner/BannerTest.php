@@ -46,6 +46,22 @@ final class BannerTest extends TestCase
         );
     }
 
+    public function testConstructThrowsErrorOnEmptyId(): void
+    {
+        $image  = new Image(new ImageId(1), true);
+        $name = new Name('some banner');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Banner::ERROR_ID_IS_NULL);
+
+        new Banner(
+            null,
+            true,               // wrong, active banner must have an id
+            $name, 
+            $image
+        );
+    }    
+
     public function testActivate(): void
     {
         $image  = new Image(new ImageId(1), true);
@@ -89,5 +105,18 @@ final class BannerTest extends TestCase
         $this->assertSame(true, $banner->active);
         $banner->deactivate();
         $this->assertSame(false, $banner->active);
+    }
+
+    public function testCreate(): void
+    {
+        $image  = new Image(new ImageId(1), true);
+        $name = new Name('some banner');
+
+        $model = Banner::create($name, $image);
+
+        $this->assertSame(null, $model->id);
+        $this->assertSame(false, $model->active);
+        $this->assertSame($name, $model->name);
+        $this->assertSame($image, $model->image);
     }
 }

@@ -4,3 +4,4 @@
 - Requirements:
   - activate
     - image (active)
+    - has id
