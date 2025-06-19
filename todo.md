@@ -3,7 +3,8 @@
 ## Current
 
 - banner frontend
-  - js components
+  - create a few banners
+  - add duraction
 
 ## Next
 
