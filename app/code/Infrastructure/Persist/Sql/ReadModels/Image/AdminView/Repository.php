@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminView;
 
+use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Image\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Image\AdminView\RepositoryInterface;
 use Romchik38\Site2\Application\Image\AdminView\View\ArticleDto;
 use Romchik38\Site2\Application\Image\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Image\AdminView\View\BannerDto;
 use Romchik38\Site2\Application\Image\AdminView\View\Dto;
 use Romchik38\Site2\Application\Image\AdminView\View\TranslateDto;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
+use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
+use Romchik38\Site2\Domain\Banner\VO\Name as BannerName;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Image\VO\Id;
@@ -129,6 +133,7 @@ final class Repository implements RepositoryInterface
         $translates = $this->createTranslates($rawIdentifier);
         $articles   = $this->createArticles($rawIdentifier);
         $authors    = $this->createAuthors();
+        $banners    = $this->createBanners($rawIdentifier);
 
         return new Dto(
             Id::fromString($rawIdentifier),
@@ -138,7 +143,8 @@ final class Repository implements RepositoryInterface
             $author,
             $translates,
             $articles,
-            $authors
+            $authors,
+            $banners
         );
     }
 
@@ -247,6 +253,51 @@ final class Repository implements RepositoryInterface
         return $authors;
     }
 
+    /** @return array<int,BannerDto> */
+    private function createBanners(string $id): array
+    {
+        $query  = $this->bannersQuery();
+        $params = [$id];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $banners = [];
+        foreach ($rows as $row) {
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Image banner identifier is invalid');
+            }
+            $rawActive = $row['active'] ?? null;
+            if ($rawActive === null) {
+                throw new RepositoryException('Image banner active is invalid');
+            }
+            if ($rawActive === 't') {
+                $active = true;
+            } else {
+                $active = false;
+            }
+
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Image banner name is invalid');
+            }
+
+            try {
+                $bannerId   = BannerId::fromString($rawIdentifier);
+                $bannerName = new BannerName($rawName);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+
+            $banners[] = new BannerDto($bannerId, $active, $bannerName);
+        }
+        return $banners;
+    }
+
     private function getByIdQuery(): string
     {
         return <<<'QUERY'
@@ -291,6 +342,17 @@ final class Repository implements RepositoryInterface
                 author.name,
                 author.active
             FROM author
+        QUERY;
+    }
+
+    private function bannersQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT banner.identifier,
+                banner.active,
+                banner.name
+            FROM banner
+            WHERE banner.img_id = $1
         QUERY;
     }
 }

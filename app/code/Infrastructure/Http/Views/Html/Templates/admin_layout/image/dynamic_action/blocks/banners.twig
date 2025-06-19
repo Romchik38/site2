@@ -1,35 +1,35 @@
-<h2 class="text-center articles">Articles</h2>
+<h2 class="text-center banners">Banners</h2>
 
-{% if articles|length == 0 %}
-    <p>Image do not used in any article</p>
+{% if banners|length == 0 %}
+    <p>Image do not used in any Banner</p>
 {% else %}
-    <ul>The image is used in articles:
+    <ul>The image is used in banners:
             <table class="table table-bordered">
                     <thead>
                           <tr>
                                 <th scope="col">Identifier</th>
                                 <th scope="col">Activity</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Edit</th>
-                                <th scope="col">Preview</th>
                           </tr>
                     </thead>
                     <tbody>
-                        {% for article in articles %}  
+                        {% for banner in banners %}  
                                 {% set activeColorArticle = '' %}
-                                {% if article.active == false %}
+                                {% if banner.active == false %}
                                     {% set activeColorArticle = 'text-warning bg-secondary' %}
                                     {% set activeArticle = 'not active' %}
-                                {% elseif article.active == true %}
+                                {% elseif banner.active == true %}
                                     {% set activeColorArticle = 'text-success' %}
                                     {% set activeArticle = 'active' %}
                                 {% endif %}           
                                 <tr>
-                                    {% set articleId = article.id.__toString() %}
-                                    <th>{{ articleId }}</th>
+                                    {% set bannerId = banner.getId() %}
+                                    <th>{{ bannerId }}</th>
                                     <td class="{{ activeColorArticle }}">{{ activeArticle }}</td>
-                                    {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
-                                    <td><a href="{{ articleEditUrl }}">Edit</a></td>
-                                    <td><a href="{{ u.fromArray(['root', 'article', articleId|url_encode ]) }}" target="_blank">Preview</a></td>
+                                    <th>{{ banner.getName() }}</th>
+                                    {% set bannerEditUrl = u.fromArray(['root', 'admin', 'banner', bannerId ]) %}
+                                    <td><a href="{{ bannerEditUrl }}">Edit</a></td>
                                 </tr>
                         {% endfor %}
                     <tbody>

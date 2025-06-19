@@ -2,8 +2,9 @@
 
 ## Current
 
-- add banner block to admin image view
 - banner frontend
+  - service
+  - repository
 
 ## Next
 

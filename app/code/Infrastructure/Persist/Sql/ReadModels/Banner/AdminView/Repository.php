@@ -102,7 +102,7 @@ final class Repository implements RepositoryInterface
 
     private function defaultQuery(): string
     {
-        return <<<QUERY
+        return <<<'QUERY'
         SELECT banner.active,
             banner.name,
             banner.img_id,

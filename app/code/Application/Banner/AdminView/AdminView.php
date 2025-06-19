@@ -22,7 +22,6 @@ final class AdminView
      * @throws CouldNotFindException
      * @throws InvalidArgumentException
      * @throws NoSuchBannerException
-     * @throws RepositoryException
      * */
     public function find(string $id): BannerDto
     {

@@ -13,6 +13,7 @@ final class Dto
     /**
      * @param array<int,ArticleDto> $articles
      * @param array<int,AuthorDto> $authors
+     * @param array<int,BannerDto> $banners
      * @param array<int,TranslateDto> $translates
      * */
     public function __construct(
@@ -23,7 +24,8 @@ final class Dto
         public readonly AuthorDto $author,
         public readonly array $translates,
         public readonly array $articles,
-        public readonly array $authors
+        public readonly array $authors,
+        public readonly array $banners,
     ) {
     }
 }

@@ -16,12 +16,13 @@
 {% set updateUrl = u.fromArray(['root', 'admin', 'image', 'update']) %}
 {% set translates = data.imageDto.translates %}
 {% set articles = data.imageDto.articles %}
+{% set banners = data.imageDto.banners %}
 {% set authors = data.imageDto.authors %}
 {% set authorAdminUrl = u.fromArray(['root', 'admin', 'author', author.id.__toString()]) %}
 
 <div class="container-md my-3">
     <div class="row">
-        <h1 class="text-center">{{ data.name }}</h1>
+        <h1 class="text-center image">{{ data.name }}</h1>
         <p>{{ data.description }}</p>
         {% include template_full_prefix ~ '/blocks/image.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
         <!-- Form -->
@@ -160,6 +161,8 @@
         
         <!-- Articles -->
         {% include template_full_prefix ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': articles} only %}
+        <!-- Banners -->
+        {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banners': banners} only %}
     </div>
 </div>
 {% endblock %}
