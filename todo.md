@@ -3,7 +3,6 @@
 ## Current
 
 - banner frontend
-  - image path
   - js components
 
 ## Next

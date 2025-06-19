@@ -7,13 +7,15 @@ namespace Romchik38\Site2\Application\Banner\List\View;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class BannerDto
 {
     public function __construct(
         public readonly BannerId $id,
         public readonly Name $name,
-        public readonly ImageId $imageId
+        public readonly ImageId $imageId,
+        public readonly Path $imagePath
     ) {
     }
 
@@ -30,5 +32,10 @@ final class BannerDto
     public function getName(): string
     {
         return (string) $this->name;
+    }
+
+    public function getImagePath(): string
+    {
+        return (string) $this->imagePath;
     }
 }

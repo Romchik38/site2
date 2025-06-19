@@ -26,6 +26,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         protected Breadcrumb $breadcrumbService,
         protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly Site2SessionInterface $session,
+        protected readonly string $imageFrontendPath,
         string $layoutPath = 'base.twig'
     ) {
         parent::__construct($environment, $layoutPath);
@@ -36,6 +37,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         $this->prepareLanguages();
         $this->prepareBreadcrumbs();
         $this->prepareMessage();
+        $this->setMetadata('image-frontend-path', $this->imageFrontendPath);
     }
 
     /**

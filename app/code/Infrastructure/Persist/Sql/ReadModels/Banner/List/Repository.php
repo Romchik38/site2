@@ -13,6 +13,7 @@ use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class Repository implements RepositoryInterface
 {
@@ -58,15 +59,21 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Banner image id is invalid');
         }
 
+        $rawImagePath = $row['path'] ?? null;
+        if ($rawImagePath === null) {
+            throw new RepositoryException('Banner image path is invalid');
+        }
+
         try {
             $id      = BannerId::fromString($rawIdentifier);
             $name    = new Name($rawName);
             $imageId = ImageId::fromString($rawImageIdentifier);
+            $imagePath = new Path($rawImagePath);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
 
-        return new BannerDto($id, $name, $imageId);
+        return new BannerDto($id, $name, $imageId, $imagePath);
     }
 
     private function defaultQuery(): string
@@ -74,9 +81,12 @@ final class Repository implements RepositoryInterface
         return <<<QUERY
         SELECT banner.identifier,
             banner.name,
-            banner.img_id
-        FROM banner
-        WHERE banner.active = 't'
+            banner.img_id,
+            img.path
+        FROM banner,
+            img
+        WHERE banner.active = 't' AND
+            img.identifier = banner.img_id
         QUERY;
     }
 }
