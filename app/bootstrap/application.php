@@ -154,6 +154,14 @@ return function (Container $container) {
         ]
     );
 
+    // BANNER VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Banner\List\ListService',
+        [
+            new Promise('\Romchik38\Site2\Application\Banner\List\RepositoryInterface')
+        ]
+    );
+
     // CATEGORY VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Category\View\ViewService',

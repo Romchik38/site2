@@ -6,16 +6,10 @@
 {% extends "base_layouts.twig" %}
 
 {% block content %}
-<div id="content" class="container-fluid p-0 mt-2">
+<div id="content" class="container-fluid p-0 mt-2 text-center">
     <!-- 1st row start Banner-->
-    <div class="container-fluid p-0" style="max-height: 640px;overflow: hidden;">
-        <picture>
-            <source media="(max-width: 636px)" srcset="/media/img/banner/banner_1-scaled-636.jpeg">
-            <source media="(max-width: 844px)" srcset="/media/img/banner/banner_1-scaled-844.jpeg">
-            <source media="(min-width: 844px)" srcset="/media/img/banner/banner_1-scaled-1200.jpeg">
-            <img class="" src="/media/img/banner/banner_1.png" alt="" style="width: 100%">
-        </picture>
-    </div>
+    {% set banners = data.banners %}
+    {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banners': banners } only %}
     <!-- 1st row end -->
     <div class="container-xxl">
         <!-- 2nd row start News -->

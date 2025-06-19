@@ -7,12 +7,16 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Root;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
+use Romchik38\Site2\Application\Banner\List\Exceptions\RepositoryException as BannerRepositoryException;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -22,7 +26,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
+        private readonly BannerService $bannerService,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -31,9 +36,17 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
-        $dto = $this->defaultViewDtoFactory->create(
+        $banners = [];
+        try {
+            $banners = $this->bannerService->list();
+        } catch (BannerRepositoryException $e) {
+            $this->logger->log(LogLevel::ERROR, $e->getMessage());
+        }
+
+        $dto = new ViewDTO(
             $translatedMessage,
-            $translatedMessage
+            $translatedMessage,
+            $banners
         );
 
         $result = $this->view

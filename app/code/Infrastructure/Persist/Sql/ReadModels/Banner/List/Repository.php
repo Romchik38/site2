@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\AdminList;
+namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Banner\List;
 
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
@@ -76,7 +76,7 @@ final class Repository implements RepositoryInterface
             banner.name,
             banner.img_id
         FROM banner
-        WHERE banner.active = 't',
+        WHERE banner.active = 't'
         QUERY;
     }
 }

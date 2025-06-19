@@ -3,8 +3,8 @@
 ## Current
 
 - banner frontend
-  - service
-  - repository
+  - image path
+  - js components
 
 ## Next
 
