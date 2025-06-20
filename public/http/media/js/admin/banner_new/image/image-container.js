@@ -18,7 +18,6 @@ class ImageContainer extends Component {
         if (typeof images !== 'object') {
             throw new Error('Param images is invalid');
         }
-        // @todo escape attr and text
         for (var i of images) {
             var imageId = i['image_id'];
             var child = this._createElement(

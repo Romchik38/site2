@@ -43,7 +43,7 @@ export default function(path, filterRequest, callback) {
                             callback(new Error('Response result not found'), null);
                         }
                     } else {
-                        // @todo implement status error and error message
+                        console.error(data);
                         callback(new Error('Response status not success'), null);
                     }
                 } else {

@@ -2,7 +2,6 @@
 
 ## Current
 
-- todos
 - make category clickable from:
   - article view
   - article list

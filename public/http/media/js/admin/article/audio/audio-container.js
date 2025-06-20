@@ -18,7 +18,6 @@ class AudioContainer extends Component {
         if (typeof audios !== 'object') {
             throw new Error('Param audios is invalid');
         }
-        //@todo escape attr and text
         for (var item of audios) {
             var audioId = item['audio_id'];
             var child = this._createElement(

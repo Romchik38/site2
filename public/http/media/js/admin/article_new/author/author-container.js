@@ -18,7 +18,6 @@ class AuthorContainer extends Component {
         if (typeof authors !== 'object') {
             throw new Error('Param authors is invalid');
         }
-        // @todo escape attr and text
         for (var item of authors) {
             var authorId = item['author_id'];
             var child = this._createElement(
