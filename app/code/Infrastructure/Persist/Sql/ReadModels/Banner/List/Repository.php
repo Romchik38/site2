@@ -65,9 +65,9 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $id      = BannerId::fromString($rawIdentifier);
-            $name    = new Name($rawName);
-            $imageId = ImageId::fromString($rawImageIdentifier);
+            $id        = BannerId::fromString($rawIdentifier);
+            $name      = new Name($rawName);
+            $imageId   = ImageId::fromString($rawImageIdentifier);
             $imagePath = new Path($rawImagePath);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());

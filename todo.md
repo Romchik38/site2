@@ -3,7 +3,6 @@
 ## Current
 
 - banner frontend
-  - service return 1 banner
   - add priority
   - add logic to service
 

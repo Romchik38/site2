@@ -9,11 +9,10 @@ use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 
 final class ViewDTO extends DefaultViewDTO
 {
-    /** @param array<int,BannerDto> $banners */
     public function __construct(
         string $name,
         string $description,
-        public readonly array $banners
+        public readonly ?BannerDto $banner
     ) {
         parent::__construct($name, $description);
     }

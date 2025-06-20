@@ -8,8 +8,8 @@
 {% block content %}
 <div id="content" class="container-fluid p-0 mt-2 text-center">
     <!-- 1st row start Banner-->
-    {% set banners = data.banners %}
-    {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banners': banners, 'imageFrontendPath': imageFrontendPath } only %}
+    {% set banner = data.banner %}
+    {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banner': banner, 'imageFrontendPath': imageFrontendPath } only %}
     <!-- 1st row end -->
     <div class="container-xxl">
         <!-- 2nd row start News -->
