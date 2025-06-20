@@ -14,8 +14,8 @@ use Romchik38\Site2\Application\Banner\AdminView\View\BannerDto;
 use Romchik38\Site2\Application\Banner\AdminView\View\ImageDto;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
-use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Banner\VO\Priority;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 use function count;
 use function sprintf;
@@ -92,8 +92,8 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $name    = new Name($rawName);
-            $imageId = ImageId::fromString($rawImageIdentifier);
+            $name     = new Name($rawName);
+            $imageId  = ImageId::fromString($rawImageIdentifier);
             $priority = Priority::fromString($rawPriority);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());

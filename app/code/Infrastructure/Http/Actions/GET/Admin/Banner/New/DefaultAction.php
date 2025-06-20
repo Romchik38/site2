@@ -40,6 +40,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
             Create::NAME_FIELD,
+            Create::PRIORITY_FIELD,
             Create::IMAGE_FIELD
         );
 
