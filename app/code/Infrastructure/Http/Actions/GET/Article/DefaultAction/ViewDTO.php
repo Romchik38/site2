@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction;
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\CreatePaginationInterface;
+use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 
 final class ViewDTO extends DefaultViewDTO
 {
@@ -16,7 +17,8 @@ final class ViewDTO extends DefaultViewDTO
         string $description,
         private array $articleList,
         private readonly CreatePaginationInterface $paginationView,
-        public readonly string $articlePageUrl
+        public readonly string $articlePageUrl,
+        public readonly ?BannerDto $banner
     ) {
         parent::__construct($name, $description);
     }

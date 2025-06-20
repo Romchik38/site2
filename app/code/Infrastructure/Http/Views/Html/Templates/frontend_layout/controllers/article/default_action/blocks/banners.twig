@@ -1,5 +1,5 @@
 {% if banner is not null %}
-<div class="container-fluid p-0" style="height: 480px;overflow: hidden;">
+<div class="container-fluid p-0 text-center" style="height: 480px;overflow: hidden;">
         {% set imageId = banner.getImageId() %}
         {% set imageUrl = imageFrontendPath ~ '/' ~ banner.getImagePath() %}
         <picture class="banner_item">

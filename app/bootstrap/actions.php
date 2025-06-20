@@ -81,6 +81,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
             new Promise('\Romchik38\Site2\Application\Article\List\ListService'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Application\Banner\List\ListService')
         ]
     );
 

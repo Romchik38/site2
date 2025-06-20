@@ -20,6 +20,9 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDT
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
+use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
+use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 
 use function count;
 
@@ -34,6 +37,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly ListService $listService,
         private readonly UrlbuilderInterface $urlbuilder,
+        private readonly BannerService $bannerService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -69,12 +73,21 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
+        try {
+            $banner = $this->bannerService->priority();
+        } catch (PriorityException $e) {
+            $banner = null;
+        } catch (NoBannerToDisplayException $e) {
+            $banner = null;
+        }
+
         $dto = new ViewDTO(
             $translatedPageName,
             $translatedPageDescription,
             $articleList,
             $paginationView,
-            $this->urlbuilder->fromPath($path)
+            $this->urlbuilder->fromPath($path),
+            $banner
         );
 
         $result = $this->view

@@ -2,7 +2,7 @@
 
 import { default as Component } from '/media/js/modules/components/component.js';
 
-class BannerCollection {
+class ComponentCollection {
     constructor(nodes) {
         if (! nodes instanceof HTMLCollection ) {
             throw new Error('Param nodes is invalid. Expected HTMLCollection');
@@ -27,4 +27,4 @@ class BannerCollection {
     }
 };
 
-export default BannerCollection;
+export default ComponentCollection;
