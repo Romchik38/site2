@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Domain\Banner\Entities\Image;
 use Romchik38\Site2\Domain\Banner\VO\Identifier;
 use Romchik38\Site2\Domain\Banner\VO\Name;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 
 final class Banner
 {
@@ -20,7 +21,8 @@ final class Banner
         public readonly ?Identifier $id,
         private(set) bool $active,
         public Name $name,
-        public readonly Image $image
+        public readonly Image $image,
+        public Priority $priority
     ) {
         if ($active === true) {
             if ($image->active === false) {
@@ -48,13 +50,14 @@ final class Banner
     }
 
     /** @throws InvalidArgumentException */
-    public static function create(Name $name, Image $image): self
+    public static function create(Name $name, Image $image, Priority $priority): self
     {
         return new self(
             null,
             false,
             $name,
-            $image
+            $image,
+            $priority
         );
     }
 
