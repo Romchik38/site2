@@ -17,6 +17,7 @@ use Romchik38\Site2\Domain\Banner\Banner;
 use Romchik38\Site2\Domain\Banner\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 final class BannerService
@@ -34,8 +35,9 @@ final class BannerService
      */
     public function update(Update $command): void
     {
-        $id   = BannerId::fromString($command->id);
-        $name = new Name($command->name);
+        $id       = BannerId::fromString($command->id);
+        $name     = new Name($command->name);
+        $priority = Priority::fromString($command->priority);
 
         try {
             $model = $this->repository->getById($id);
@@ -52,7 +54,8 @@ final class BannerService
             }
         }
 
-        $model->name = $name;
+        $model->name     = $name;
+        $model->priority = $priority;
 
         try {
             $this->repository->save($model);
@@ -67,8 +70,9 @@ final class BannerService
      */
     public function create(Create $command): BannerId
     {
-        $name    = new Name($command->name);
-        $imageId = ImageId::fromString($command->imageId);
+        $name     = new Name($command->name);
+        $imageId  = ImageId::fromString($command->imageId);
+        $priority = Priority::fromString($command->priority);
 
         try {
             $image = $this->repository->createImage($imageId);
@@ -76,7 +80,7 @@ final class BannerService
             throw new CouldNotCreateException($e->getMessage());
         }
 
-        $model = Banner::create($name, $image);
+        $model = Banner::create($name, $image, $priority);
 
         try {
             return $this->repository->add($model);

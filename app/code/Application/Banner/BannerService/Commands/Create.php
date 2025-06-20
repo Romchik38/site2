@@ -8,12 +8,14 @@ use function is_string;
 
 final class Create
 {
-    public const NAME_FIELD  = 'name';
-    public const IMAGE_FIELD = 'image_row';
+    public const NAME_FIELD     = 'name';
+    public const IMAGE_FIELD    = 'image_row';
+    public const PRIORITY_FIELD = 'priority';
 
     private function __construct(
         public readonly string $name,
-        public readonly string $imageId
+        public readonly string $imageId,
+        public readonly string $priority,
     ) {
     }
 
@@ -32,6 +34,12 @@ final class Create
             $imageId = $rawImageId;
         }
 
-        return new self($name, $imageId);
+        $priority    = '';
+        $rawPriority = $hash[self::PRIORITY_FIELD] ?? '';
+        if (is_string($rawPriority)) {
+            $priority = $rawPriority;
+        }
+
+        return new self($name, $imageId, $priority);
     }
 }

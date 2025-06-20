@@ -14,6 +14,7 @@ use Romchik38\Site2\Domain\Banner\Banner;
 use Romchik38\Site2\Domain\Banner\Entities\Image;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 use function count;
@@ -107,7 +108,8 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Could not save banner, id is empty');
         }
 
-        $bannerName = $model->name;
+        $bannerName     = $model->name;
+        $bannerPriority = $model->priority;
 
         if ($model->active) {
             $bannerActive = 't';
@@ -116,7 +118,7 @@ final class Repository implements RepositoryInterface
         }
 
         $query  = $this->mainSaveQuery();
-        $params = [$bannerName(), $bannerActive, $bannerId()];
+        $params = [$bannerName(), $bannerActive, $bannerPriority(), $bannerId()];
 
         try {
             $this->database->queryParams($query, $params);
@@ -132,11 +134,12 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Could not add banner, id is not empty');
         }
 
-        $name    = $model->name;
-        $imageId = $model->image->id;
+        $name           = $model->name;
+        $imageId        = $model->image->id;
+        $bannerPriority = $model->priority;
 
         $query  = $this->mainAddQuery();
-        $params = [$name(), $imageId()];
+        $params = [$name(), $imageId(), $bannerPriority()];
 
         try {
             $rows = $this->database->queryParams($query, $params);
@@ -175,6 +178,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Banner name is invalid');
         }
 
+        $rawPriority = $row['priority'] ?? null;
+        if ($rawPriority === null) {
+            throw new RepositoryException('Banner priority is invalid');
+        }
+
         $rawImageIdentifier = $row['img_id'] ?? null;
         if ($rawImageIdentifier === null) {
             throw new RepositoryException('Banner image id is invalid');
@@ -191,8 +199,9 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $name    = new Name($rawName);
-            $imageId = ImageId::fromString($rawImageIdentifier);
+            $name     = new Name($rawName);
+            $imageId  = ImageId::fromString($rawImageIdentifier);
+            $priority = Priority::fromString($rawPriority);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
@@ -201,7 +210,8 @@ final class Repository implements RepositoryInterface
             $bannerId,
             $active,
             $name,
-            new Image($imageId, $imageActive)
+            new Image($imageId, $imageActive),
+            $priority
         );
     }
 
@@ -211,6 +221,7 @@ final class Repository implements RepositoryInterface
         SELECT banner.active,
             banner.name,
             banner.img_id,
+            banner.priority,
             img.active as image_active
         FROM banner,
             img
@@ -232,8 +243,8 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
         UPDATE banner 
-        SET name = $1, active = $2
-        WHERE identifier = $3
+        SET name = $1, active = $2, priority = $3
+        WHERE identifier = $4
         QUERY;
     }
 
@@ -241,8 +252,8 @@ final class Repository implements RepositoryInterface
     private function mainAddQuery(): string
     {
         return <<<'QUERY'
-        INSERT INTO banner (name, img_id)
-        VALUES ($1, $2)
+        INSERT INTO banner (name, img_id, priority)
+        VALUES ($1, $2, $3)
         RETURNING identifier;
         QUERY;
     }
