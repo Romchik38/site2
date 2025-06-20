@@ -10,13 +10,15 @@ use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTOFactory;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\CategoryDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\List\RepositoryInterface;
+use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
+use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
 
 use function implode;
-use function json_decode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
@@ -74,7 +76,7 @@ final class Repository implements RepositoryInterface
         $models = [];
 
         foreach ($rows as $row) {
-            $models[] = $this->createFromRow($row);
+            $models[] = $this->createFromRow($row, $searchCriteria->language);
         }
         return $models;
     }
@@ -103,8 +105,10 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string|null> $row
      * */
-    private function createFromRow(array $row): ArticleDTO
-    {
+    private function createFromRow(
+        array $row,
+        string $language
+    ): ArticleDTO {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
             throw new RepositoryException('Article id is invalid');
@@ -125,10 +129,6 @@ final class Repository implements RepositoryInterface
         if ($rawCreatedAt === null) {
             throw new RepositoryException('Article created at is invalid');
         }
-        $rawCategory = $row['category'] ?? null;
-        if ($rawCategory === null) {
-            throw new RepositoryException('Article category at is invalid');
-        }
         $rawImgId = $row['img_id'] ?? null;
         if ($rawImgId === null) {
             throw new RepositoryException('Article img id at is invalid');
@@ -142,48 +142,66 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article img description at is invalid');
         }
 
+        $categories = $this->createCategories($rawIdentifier, $language);
+
         return $this->articleDtoFactory->create(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
             $rawCreatedAt,
-            json_decode($rawCategory),
+            $categories,
             $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
         );
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,CategoryDTO>
+     */
+    private function createCategories(string $articleId, string $language): array
+    {
+        $categories = [];
+
+        $query  = $this->categoryQuery();
+        $params = [$language, $articleId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $rawId = $row['category_id'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Article category id is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Article category name is invalid');
+            }
+
+            try {
+                $id           = new CategoryId($rawId);
+                $name         = new CategoryName($rawName);
+                $categories[] = new CategoryDTO($id, $name);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+
+        return $categories;
     }
 
     private function defaultQuery(): string
     {
         return <<<'QUERY'
-        WITH categories AS
-        (
-            SELECT category.active, 
-                category_translates.category_id,
-                category_translates.name
-            FROM category_translates,
-                category
-            WHERE category_translates.language = $1 AND
-                category.identifier = category_translates.category_id AND
-                category.active ='t'
-
-        )
         SELECT article.identifier,
         article_translates.name,
         article_translates.short_description,
         article_translates.description,
         article_translates.created_at,
-        array_to_json (
-            array (
-                select
-                    categories.name
-                from
-                    categories, article_category
-                where
-                    article.identifier = article_category.article_id AND
-                    categories.category_id = article_category.category_id
-            )
-        ) as category,
         img.path as img_path,
         img_translates.img_id,
         img_translates.description as img_description
@@ -199,6 +217,19 @@ final class Repository implements RepositoryInterface
             AND article.img_id = img.identifier
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
+        QUERY;
+    }
+
+    private function categoryQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT category_translates.category_id,
+            category_translates.name
+        FROM category_translates,
+            article_category
+        WHERE category_translates.language = $1 AND
+            article_category.category_id = category_translates.category_id AND
+            article_category.article_id = $2
         QUERY;
     }
 }

@@ -127,8 +127,8 @@ final class Repository implements RepositoryInterface
      * */
     private function createFromRow(
         array $row,
-        string $language,
-        string $articleId
+        string $articleId,
+        string $language
     ): ArticleViewDTO {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -214,7 +214,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @return array<int,CategoryDTO>
      */
-    private function createCategories(string $language, string $articleId): array
+    private function createCategories(string $articleId, string $language): array
     {
         $categories = [];
 

@@ -3,7 +3,6 @@
 ## Current
 
 - make category clickable from:
-  - article list
   - category view
 
 ## Next

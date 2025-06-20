@@ -6,7 +6,7 @@ namespace Romchik38\Site2\Application\Article\List\Commands\Filter;
 
 final class ArticleDTO
 {
-    /** @param string[] $categories */
+    /** @param CategoryDTO[] $categories */
     public function __construct(
         public readonly string $articleId,
         public readonly string $name,

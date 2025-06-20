@@ -21,7 +21,7 @@ final class ArticleDTOFactory
     ) {
     }
 
-    /** @param string[] $categories */
+    /** @param CategoryDTO[] $categories */
     public function create(
         string $articleId,
         string $name,

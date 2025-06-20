@@ -55,7 +55,7 @@
                         <div class="text-secondary infoline">
                             <div class="p-0 d-flex">
                                 {% set author = data.article.author %}
-                                <div class="me-3">{{ translate.t('article.view.by') }} {{ author.description }} <a href="#">{{ translate.t('article.view.seeall') }}</a></div>
+                                <div class="me-3">{{ translate.t('article.view.by') }} {{ author.description }} <a class="link-none" href="#">{{ translate.t('article.view.seeall') }}</a></div>
                                 <div class="me-3">{{ translate.t('article.view.photo-by') }} {{ data.article.image.author }}</div>
                             </div>
                             <p>{{ data.article.createdAt }}</p>
@@ -65,7 +65,7 @@
                                 <ul class="list-inline">{{ translate.t('article.category') }}:
                                 {% for category in categories %}
                                     {% set categoryUrl = u.fromArray(['root', 'category', category.getId|url_encode]) %}
-                                    <li class="list-inline-item"><a href="{{ categoryUrl }}"><span class="text-decoration-underline">{{ category.getName() }}</span></a></li>
+                                    <li class="list-inline-item"><a class="link-none" href="{{ categoryUrl }}"><span class="text-decoration-underline">{{ category.getName() }}</span></a></li>
                                 {% endfor %}
                                 </ul>
                             {% endif %}
