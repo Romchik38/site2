@@ -64,7 +64,8 @@
                             {% if categories|length > 0 %}
                                 <ul class="list-inline">{{ translate.t('article.category') }}:
                                 {% for category in categories %}
-                                    <li class="list-inline-item"><span class="text-decoration-underline">{{ category }}</span></li>
+                                    {% set categoryUrl = u.fromArray(['root', 'category', category.getId|url_encode]) %}
+                                    <li class="list-inline-item"><a href="{{ categoryUrl }}"><span class="text-decoration-underline">{{ category.getName() }}</span></a></li>
                                 {% endfor %}
                                 </ul>
                             {% endif %}

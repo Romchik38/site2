@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
+use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Article\View\Find;
@@ -16,6 +17,10 @@ use Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AuthorDTO;
 use Romchik38\Site2\Application\Article\View\View\ImageDTOFactory;
+use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
+use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
+use Romchik38\Site2\Application\Article\View\View\CategoryDTO;
+
 
 use function count;
 use function json_decode;
@@ -59,7 +64,7 @@ final class Repository implements RepositoryInterface
 
         $row = $rows[0];
 
-        return $this->createFromRow($row);
+        return $this->createFromRow($row, $articleId, $language);
     }
 
     /** @return array<int,string> */
@@ -118,9 +123,15 @@ final class Repository implements RepositoryInterface
         return $dtos;
     }
 
-    /** @param array<string,string|null> $row */
-    private function createFromRow(array $row): ArticleViewDTO
-    {
+    /** 
+     * @param array<string,string|null> $row 
+     * @throws RepositoryException
+     * */
+    private function createFromRow(
+        array $row, 
+        string $language, 
+        string $articleId
+    ): ArticleViewDTO {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
             throw new RepositoryException('Article id is invalid');
@@ -136,10 +147,6 @@ final class Repository implements RepositoryInterface
         $rawDescription = $row['description'] ?? null;
         if ($rawDescription === null) {
             throw new RepositoryException('Article description is invalid');
-        }
-        $rawCategory = $row['category'] ?? null;
-        if ($rawCategory === null) {
-            throw new RepositoryException('Article category at is invalid');
         }
         $rawCreatedAt = $row['created_at'] ?? null;
         if ($rawCreatedAt === null) {
@@ -179,12 +186,14 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article audio description at is invalid');
         }
 
+        $categories = $this->createCategories($articleId, $language);
+
         return $this->factory->create(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
-            json_decode($rawCategory),
+            $categories,
             $rawCreatedAt,
             new AuthorDTO(
                 $rawAuthorId,
@@ -203,20 +212,49 @@ final class Repository implements RepositoryInterface
         );
     }
 
+    /**
+     * @throws RepositoryException
+     * @return array<int,CategoryDTO>
+     */
+    private function createCategories(string $language, string $articleId): array
+    {
+        $categories = [];
+
+        $query = $this->categoryQuery();
+        $params = [$language, $articleId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $rawId = $row['category_id'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Article category id is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Article category name is invalid');
+            }
+
+            try {
+                $id = new CategoryId($rawId);
+                $name = new CategoryName($rawName);
+                $categories[] = new CategoryDTO($id, $name);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+
+        return $categories;
+    }
+
     private function getByIdQuery(): string
     {
         return <<<'QUERY'
-        WITH categories AS
-        (
-            SELECT category.active, 
-                category_translates.category_id,
-                category_translates.name
-            FROM category_translates,
-                category
-            WHERE category_translates.language = $1 AND
-                category.identifier = category_translates.category_id AND
-                category.active ='t'
-        ), img_authors AS
+        WITH img_authors AS
         (
             SELECT author_translates.author_id,
                 author_translates.description
@@ -229,17 +267,6 @@ final class Repository implements RepositoryInterface
             article_translates.description,
             article_translates.created_at,
             article_translates.updated_at,
-            array_to_json (
-                array (
-                    select
-                        categories.name
-                    from
-                        categories, article_category
-                    where
-                        article.identifier = article_category.article_id AND
-                        categories.category_id = article_category.category_id
-                )
-            ) as category,
             author_translates.author_id,
             author_translates.description as author_description,
             img.path as img_path,
@@ -269,6 +296,19 @@ final class Repository implements RepositoryInterface
             AND audio_translates.audio_id = article.audio_id
             AND audio_translates.language = $1
             AND img_authors.author_id = img.author_id
+        QUERY;
+    }
+
+    private function categoryQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT category_translates.category_id,
+            category_translates.name
+        FROM category_translates,
+            article_category
+        WHERE category_translates.language = $1 AND
+            article_category.category_id = category_translates.category_id AND
+            article_category.article_id = $2
         QUERY;
     }
 }
