@@ -123,12 +123,17 @@ final class Repository implements RepositoryInterface
             $activeAuthor = false;
         }
 
-        /** @todo try/catch */
-        $author = new AuthorDto(
-            AuthorId::fromString($rawAuthorId),
-            new AuthorName($rawAuthorName),
-            $activeAuthor
-        );
+        try {
+            $authorId   = AuthorId::fromString($rawAuthorId);
+            $authorName = new AuthorName($rawAuthorName);
+            $imageId    = Id::fromString($rawIdentifier);
+            $imageName  = new Name($rawName);
+            $imagePath  = new Path($rawPath);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $author = new AuthorDto($authorId, $authorName, $activeAuthor);
 
         $translates = $this->createTranslates($rawIdentifier);
         $articles   = $this->createArticles($rawIdentifier);
@@ -136,10 +141,10 @@ final class Repository implements RepositoryInterface
         $banners    = $this->createBanners($rawIdentifier);
 
         return new Dto(
-            Id::fromString($rawIdentifier),
+            $imageId,
             $active,
-            new Name($rawName),
-            new Path($rawPath),
+            $imageName,
+            $imagePath,
             $author,
             $translates,
             $articles,

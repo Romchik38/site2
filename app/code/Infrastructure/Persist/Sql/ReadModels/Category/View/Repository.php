@@ -239,7 +239,6 @@ final class Repository implements RepositoryInterface
         return $articles;
     }
 
-    /** @todo refactor */
     /**
      * @throws RepositoryException
      * @param array<string,string|null> $row
