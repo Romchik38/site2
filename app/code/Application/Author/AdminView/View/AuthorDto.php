@@ -11,23 +11,18 @@ use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 final class AuthorDto
 {
-    public readonly AuthorId $identifier;
-    public readonly Name $name;
-
     /**
      * @param array<int,Translate> $translates
      * @param array<int,ArticleId> $articles
      * @param array<int,ImageId> $images
      * */
     public function __construct(
-        string $id,
-        string $name,
+        public readonly AuthorId $identifier,
+        public readonly Name $name,
         public readonly bool $active,
         public readonly array $translates,
         public readonly array $articles,
         public readonly array $images,
     ) {
-        $this->identifier = AuthorId::fromString($id);
-        $this->name       = new Name($name);
     }
 }

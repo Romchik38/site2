@@ -248,7 +248,6 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo refactor */
     private function mainAddQuery(): string
     {
         return <<<'QUERY'
@@ -258,7 +257,6 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo refactor */
     private function deleteQuery(): string
     {
         return <<<'QUERY'

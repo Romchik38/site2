@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Author\AdminView;
 
+use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
@@ -14,6 +15,7 @@ use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
+use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
@@ -96,10 +98,16 @@ final class Repository implements RepositoryInterface
         }
         $images = $this->prepareRawImages($rawImages);
 
-        /** @todo change raw on vo */
+        try {
+            $id   = AuthorId::fromString($rawIdentifier);
+            $name = new Name($rawName);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         return new AuthorDto(
-            $rawIdentifier,
-            $rawName,
+            $id,
+            $name,
             $active,
             $translates,
             $articles,
