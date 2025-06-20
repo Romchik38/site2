@@ -2,6 +2,8 @@
 
 ## Current
 
+- add banner to category and article list page
+
 ## Next
 
 - home page
