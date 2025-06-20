@@ -19,6 +19,9 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
+use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Application\Category\View\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\ViewService;
@@ -40,6 +43,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewInterface $view,
         private readonly ViewService $categoryService,
         private readonly UrlbuilderInterface $urlbuilder,
+        private readonly BannerService $bannerService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -100,13 +104,22 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $articlePageUrl = $this->urlbuilder->fromArray(['root', 'article']);
 
+        try {
+            $banner = $this->bannerService->priority();
+        } catch (PriorityException $e) {
+            $banner = null;
+        } catch (NoBannerToDisplayException $e) {
+            $banner = null;
+        }
+
         $dto = new ViewDTO(
             $category->getName(),
             $category->getDescription(),
             $category,
             $paginationView,
             $paginationForm,
-            $articlePageUrl
+            $articlePageUrl,
+            $banner
         );
 
         $result = $this->view

@@ -16,13 +16,13 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\List\Commands\Pagination\Filter;
 use Romchik38\Site2\Application\Article\List\ListService;
+use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
+use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
-use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
-use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
-use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 
 use function count;
 

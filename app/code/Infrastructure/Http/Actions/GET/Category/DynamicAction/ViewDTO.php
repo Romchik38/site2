@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction;
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
+use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 use Romchik38\Site2\Application\Category\View\View\CategoryDto;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\CreatePaginationInterface;
 
@@ -16,7 +17,8 @@ final class ViewDTO extends DefaultViewDTO
         public readonly CategoryDto $category,
         private readonly CreatePaginationInterface $paginationView,
         public readonly PaginationForm $paginationForm,
-        public readonly string $articlePageUrl
+        public readonly string $articlePageUrl,
+        public readonly ?BannerDto $banner
     ) {
         parent::__construct($name, $description);
     }

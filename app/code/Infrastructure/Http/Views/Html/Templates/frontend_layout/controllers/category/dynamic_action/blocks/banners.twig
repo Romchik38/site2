@@ -1,0 +1,12 @@
+{% if banner is not null %}
+<div class="container-fluid p-0 text-center" style="height: 480px;overflow: hidden;">
+        {% set imageId = banner.getImageId() %}
+        {% set imageUrl = imageFrontendPath ~ '/' ~ banner.getImagePath() %}
+        <picture class="banner_item">
+            <source media="(max-width: 636px)" srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480">
+            <source media="(max-width: 844px)" srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480">
+            <source media="(min-width: 844px)" srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480">
+            <img class="" src="{{ imageUrl }}" alt="" style="max-width: 100%">
+        </picture>
+</div>
+{% endif %}
