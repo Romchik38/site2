@@ -182,9 +182,9 @@ final class Article
         $this->author = $author;
     }
 
-    /** * @todo test */
     /**
      * @param array<int,mixed|Category> $newCategories
+     * @throws InvalidArgumentException
      * */
     public function changeCategories(array $newCategories): void
     {

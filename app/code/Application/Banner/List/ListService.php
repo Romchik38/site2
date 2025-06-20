@@ -63,7 +63,6 @@ final class ListService
      * */
     private function makeDesicion(array $banners): BannerDto
     {
-        /** @todo test */
         $bannersCount = count($banners);
         if ($bannersCount > $this::ALLOVED_BANNERS_COUNT) {
             throw new RuntimeException('Too many banners');
