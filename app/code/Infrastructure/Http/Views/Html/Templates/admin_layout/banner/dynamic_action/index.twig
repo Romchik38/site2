@@ -24,11 +24,19 @@
             </div>
             <div class="form-group mb-2 p-2">
                 <div class="mb">
-                    <label class="form-label" for="{{ data.nameField }}">Name: {{ banner.getName() }}</label>
+                    <label class="form-label" for="{{ data.nameField }}">Name:</label>
                     <input type="text" class="form-control" name="{{ data.nameField }}" value="{{ banner.getName() }}" required>
                 </div>
             </div>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+
+            <div class="form-group mb-2 p-2 d-flex">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.priorityField }}">Priority:</label>
+                    <!-- @todo replace min/max with placeholders -->
+                    <input type="number" class="form-control" name="{{ data.priorityField }}" value="{{ banner.getPriority() }}" min="1" max="100" required>
+                </div>
+            </div>
 
             <div class="form-group p-2">
                 <div class="mb-3">                

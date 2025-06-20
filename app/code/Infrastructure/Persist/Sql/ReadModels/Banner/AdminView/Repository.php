@@ -15,6 +15,7 @@ use Romchik38\Site2\Application\Banner\AdminView\View\ImageDto;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 
 use function count;
 use function sprintf;
@@ -70,6 +71,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Banner name is invalid');
         }
 
+        $rawPriority = $row['priority'] ?? null;
+        if ($rawPriority === null) {
+            throw new RepositoryException('Banner priority is invalid');
+        }
+
         $rawImageIdentifier = $row['img_id'] ?? null;
         if ($rawImageIdentifier === null) {
             throw new RepositoryException('Banner image id is invalid');
@@ -88,6 +94,7 @@ final class Repository implements RepositoryInterface
         try {
             $name    = new Name($rawName);
             $imageId = ImageId::fromString($rawImageIdentifier);
+            $priority = Priority::fromString($rawPriority);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
@@ -96,7 +103,8 @@ final class Repository implements RepositoryInterface
             $bannerId,
             $active,
             $name,
-            new ImageDto($imageId, $imageActive)
+            new ImageDto($imageId, $imageActive),
+            $priority
         );
     }
 
@@ -106,6 +114,7 @@ final class Repository implements RepositoryInterface
         SELECT banner.active,
             banner.name,
             banner.img_id,
+            banner.priority,
             img.active as image_active
         FROM banner,
             img

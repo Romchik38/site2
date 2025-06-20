@@ -17,6 +17,7 @@ final class ViewDto extends DefaultViewDTO
         public string $csrfToken,
         public readonly string $idField,
         public readonly string $nameField,
+        public readonly string $priorityField,
         public readonly string $changeActivityField,
         public readonly string $yesField,
         public readonly string $noField
