@@ -57,6 +57,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Images page';
+        return 'Banners page';
     }
 }

@@ -19,6 +19,7 @@
                 <th scope="col">Active</th>
                 <th scope="col">Name</th>
                 <th scope="col">Image</th>
+                <th scope="col">Priority</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
           </tr>
@@ -47,6 +48,7 @@
                 <td>
                     <img src="/img.php?id={{imageId}}&type=webp&width=200&height=100" >
                 </td>        
+                <td>{{ b.getPriority() }}</td>
                 <!-- Edit         -->
                 {% set editUrl = u.fromArray(['root', 'admin', 'banner', bannerId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
