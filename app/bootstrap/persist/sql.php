@@ -43,8 +43,8 @@ return function (Container $container) {
         true,
         [
             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
-            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory'),
-            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory')
+            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTOFactory'),
+            new Promise('\Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory')
         ]
     );
 

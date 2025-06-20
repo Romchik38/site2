@@ -26,13 +26,13 @@ return function (Container $container) {
     );
 
     $container->shared(
-        '\Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory',
+        '\Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTOFactory',
         [
             new Promise('\Romchik38\Site2\Infrastructure\Utils\Article\DateFormatterUsesDateFormat'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\Article\ReadLengthFormatter')
         ]
     );
-    $container->shared('\Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory', [
+    $container->shared('\Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory', [
         new Promise('img-folder-frontend')
     ]);
 

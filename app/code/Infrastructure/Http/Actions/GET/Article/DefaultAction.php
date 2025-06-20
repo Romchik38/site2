@@ -14,7 +14,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\Filter;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Article\List\ListService;
 use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;

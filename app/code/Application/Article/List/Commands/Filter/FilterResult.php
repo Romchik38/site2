@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\List\Commands\Pagination;
+namespace Romchik38\Site2\Application\Article\List\Commands\Filter;
 
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\VO\Page;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\VO\Page;
 
 final class FilterResult
 {

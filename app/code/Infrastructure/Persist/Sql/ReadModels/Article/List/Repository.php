@@ -8,10 +8,10 @@ use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTOFactory;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\ImageDTOFactory;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteria;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTOFactory;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\List\RepositoryInterface;
 

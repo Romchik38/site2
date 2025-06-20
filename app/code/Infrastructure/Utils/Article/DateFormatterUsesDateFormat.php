@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Utils\Article;
 
 use DateTime;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\DateFormatterInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\DateFormatterInterface;
 
 use function date_format;
 

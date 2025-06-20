@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\List;
 
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\Commands\Pagination\SearchCriteria;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 
 interface RepositoryInterface
