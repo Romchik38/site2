@@ -22,6 +22,7 @@ use Romchik38\Site2\Application\Banner\AdminView\AdminView;
 use Romchik38\Site2\Application\Banner\AdminView\Exceptions\CouldNotFindException;
 use Romchik38\Site2\Application\Banner\AdminView\Exceptions\NoSuchBannerException;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Update;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -84,7 +85,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             Update::PRIORITY_FIELD,
             Update::CHANGE_ACTIVITY_FIELD,
             Update::CHANGE_ACTIVITY_YES_FIELD,
-            Update::CHANGE_ACTIVITY_NO_FIELD
+            Update::CHANGE_ACTIVITY_NO_FIELD,
+            Priority::MIN_PRIORITY,
+            Priority::MAX_PRIORITY
         );
 
         $html = $this->view

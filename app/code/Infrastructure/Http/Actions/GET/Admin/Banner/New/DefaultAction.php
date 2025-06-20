@@ -13,6 +13,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Create;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -41,7 +42,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $csrfToken,
             Create::NAME_FIELD,
             Create::PRIORITY_FIELD,
-            Create::IMAGE_FIELD
+            Create::IMAGE_FIELD,
+            Priority::MIN_PRIORITY,
+            Priority::MAX_PRIORITY
         );
 
         $html = $this->view

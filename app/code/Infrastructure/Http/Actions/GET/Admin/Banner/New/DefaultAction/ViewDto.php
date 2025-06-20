@@ -17,7 +17,9 @@ final class ViewDto extends DefaultViewDTO
         public string $csrfToken,
         public readonly string $nameField,
         public readonly string $priorityField,
-        public readonly string $imageField
+        public readonly string $imageField,
+        public readonly int $priorityMin,
+        public readonly int $priorityMax,
     ) {
         parent::__construct($name, $description);
         $this->imageFilters = new ImageFiltersDto();

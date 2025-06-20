@@ -20,7 +20,9 @@ final class ViewDto extends DefaultViewDTO
         public readonly string $priorityField,
         public readonly string $changeActivityField,
         public readonly string $yesField,
-        public readonly string $noField
+        public readonly string $noField,
+        public readonly int $priorityMin,
+        public readonly int $priorityMax,
     ) {
         parent::__construct($name, $description);
     }

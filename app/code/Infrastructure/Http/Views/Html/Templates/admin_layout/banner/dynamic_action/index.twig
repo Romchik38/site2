@@ -33,8 +33,7 @@
             <div class="form-group mb-2 p-2 d-flex">
                 <div class="mb">
                     <label class="form-label" for="{{ data.priorityField }}">Priority:</label>
-                    <!-- @todo replace min/max with placeholders -->
-                    <input type="number" class="form-control" name="{{ data.priorityField }}" value="{{ banner.getPriority() }}" min="1" max="100" required>
+                    <input type="number" class="form-control" name="{{ data.priorityField }}" value="{{ banner.getPriority() }}" min="{{ data.priorityMin }}" max="{{ data.priorityMax }}" required>
                 </div>
             </div>
 
