@@ -2,9 +2,6 @@
 
 ## Current
 
-- banner frontend
-  - add logic to service
-
 ## Next
 
 - home page

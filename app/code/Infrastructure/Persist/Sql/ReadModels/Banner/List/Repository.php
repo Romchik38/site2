@@ -12,6 +12,7 @@ use Romchik38\Site2\Application\Banner\List\RepositoryInterface;
 use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
+use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
@@ -54,6 +55,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Banner name is invalid');
         }
 
+        $rawPriority = $row['priority'] ?? null;
+        if ($rawPriority === null) {
+            throw new RepositoryException('Banner priority is invalid');
+        }
+
         $rawImageIdentifier = $row['img_id'] ?? null;
         if ($rawImageIdentifier === null) {
             throw new RepositoryException('Banner image id is invalid');
@@ -69,11 +75,12 @@ final class Repository implements RepositoryInterface
             $name      = new Name($rawName);
             $imageId   = ImageId::fromString($rawImageIdentifier);
             $imagePath = new Path($rawImagePath);
+            $priority  = Priority::fromString($rawPriority);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
 
-        return new BannerDto($id, $name, $imageId, $imagePath);
+        return new BannerDto($id, $name, $priority, $imageId, $imagePath);
     }
 
     private function defaultQuery(): string
@@ -81,6 +88,7 @@ final class Repository implements RepositoryInterface
         return <<<QUERY
         SELECT banner.identifier,
             banner.name,
+            banner.priority,
             banner.img_id,
             img.path
         FROM banner,

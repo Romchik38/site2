@@ -15,7 +15,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
-use Romchik38\Site2\Application\Banner\List\Exceptions\RepositoryException as BannerRepositoryException;
+use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
 
@@ -40,7 +40,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $banner = null;
         try {
             $banner = $this->bannerService->priority();
-        } catch (BannerRepositoryException $e) {
+        } catch (PriorityException $e) {
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
         } catch (NoBannerToDisplayException $e) {
             $this->logger->log(LogLevel::INFO, $e->getMessage());
