@@ -6,7 +6,7 @@ import { default as Page } from './common/page.js';
 import { default as SelectLimit } from './common/select-limit.js';
 import { default as SelectOrderBy } from './common/select-orderby.js';
 import { default as SelectOrderByDirection } from './common/select-orderbydirection.js';
-import { default as ImageContainer } from './image/image-container.js.back';
+import { default as ImageContainer } from './image/image-container.js';
 import { default as filter } from './common/make-request.js';
 import { default as FilterRequest } from './common/filter-request.js';
 
