@@ -16,14 +16,12 @@ use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AuthorDTO;
+use Romchik38\Site2\Application\Article\View\View\CategoryDTO;
 use Romchik38\Site2\Application\Article\View\View\ImageDTOFactory;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
-use Romchik38\Site2\Application\Article\View\View\CategoryDTO;
-
 
 use function count;
-use function json_decode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
@@ -123,13 +121,13 @@ final class Repository implements RepositoryInterface
         return $dtos;
     }
 
-    /** 
-     * @param array<string,string|null> $row 
+    /**
+     * @param array<string,string|null> $row
      * @throws RepositoryException
      * */
     private function createFromRow(
-        array $row, 
-        string $language, 
+        array $row,
+        string $language,
         string $articleId
     ): ArticleViewDTO {
         $rawIdentifier = $row['identifier'] ?? null;
@@ -220,7 +218,7 @@ final class Repository implements RepositoryInterface
     {
         $categories = [];
 
-        $query = $this->categoryQuery();
+        $query  = $this->categoryQuery();
         $params = [$language, $articleId];
 
         try {
@@ -240,8 +238,8 @@ final class Repository implements RepositoryInterface
             }
 
             try {
-                $id = new CategoryId($rawId);
-                $name = new CategoryName($rawName);
+                $id           = new CategoryId($rawId);
+                $name         = new CategoryName($rawName);
                 $categories[] = new CategoryDTO($id, $name);
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());

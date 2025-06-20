@@ -12,7 +12,7 @@ final class CategoryDTO
     public function __construct(
         public readonly Identifier $id,
         public readonly Name $name
-    ) {  
+    ) {
     }
 
     public function getId(): string
