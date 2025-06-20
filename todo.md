@@ -3,8 +3,9 @@
 ## Current
 
 - banner frontend
-  - create a few banners
-  - add duraction
+  - service return 1 banner
+  - add priority
+  - add logic to service
 
 ## Next
 
