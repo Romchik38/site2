@@ -35,7 +35,7 @@
                             {% include template_full_prefix ~ '/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
                         <!-- refactor -->
-                            {% include template_full_prefix ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'article_page_url': data.articlePageUrl, 'totalCount': category.totalCount, 'template_full_prefix': template_full_prefix, 'paginationForm': data.paginationForm } only %}
+                            {% include template_full_prefix ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'u': u, 'article_page_url': data.articlePageUrl, 'totalCount': category.totalCount, 'template_full_prefix': template_full_prefix, 'paginationForm': data.paginationForm, 'categoryId': category.getId() } only %}
                         {% endif %}
                     </div>
                     <hr>

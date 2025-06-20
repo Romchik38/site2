@@ -12,6 +12,7 @@ use Romchik38\Site2\Application\Category\View\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Category\View\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\View\RepositoryInterface;
+use Romchik38\Site2\Application\Category\View\View\ArticleCategoryDto;
 use Romchik38\Site2\Application\Category\View\View\ArticleDto;
 use Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory;
 use Romchik38\Site2\Application\Category\View\View\CategoryDto;
@@ -24,7 +25,6 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function count;
 use function implode;
-use function json_decode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
@@ -186,9 +186,10 @@ final class Repository implements RepositoryInterface
      * */
     private function createArticles(SearchCriteria $searchCriteria): array
     {
+        $language   = (string) $searchCriteria->languageId;
         $expression = [];
         $params     = [
-            (string) $searchCriteria->languageId,
+            $language,
             (string) $searchCriteria->categoryId,
         ];
         $paramCount = 2;
@@ -233,7 +234,7 @@ final class Repository implements RepositoryInterface
         $articles = [];
 
         foreach ($articleRows as $articleRow) {
-            $articles[] = $this->createArticle($articleRow);
+            $articles[] = $this->createArticle($articleRow, $language);
         }
 
         return $articles;
@@ -243,7 +244,7 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string|null> $row
      * */
-    private function createArticle(array $row): ArticleDto
+    private function createArticle(array $row, string $language): ArticleDto
     {
         $rawIdentifier = $row['identifier'] ?? null;
         if ($rawIdentifier === null) {
@@ -265,10 +266,6 @@ final class Repository implements RepositoryInterface
         if ($rawCreatedAt === null) {
             throw new RepositoryException('Article created at is invalid');
         }
-        $rawCategory = $row['category'] ?? null;
-        if ($rawCategory === null) {
-            throw new RepositoryException('Article category at is invalid');
-        }
         $rawImgId = $row['img_id'] ?? null;
         if ($rawImgId === null) {
             throw new RepositoryException('Article img id at is invalid');
@@ -282,15 +279,56 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article img description at is invalid');
         }
 
+        $categories = $this->createCategories($rawIdentifier, $language);
+
         return $this->articleDtoFactory->create(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
             $rawCreatedAt,
-            json_decode($rawCategory),
+            $categories,
             $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
         );
+    }
+
+    /**
+     * @throws RepositoryException
+     * @return array<int,ArticleCategoryDto>
+     */
+    private function createCategories(string $articleId, string $language): array
+    {
+        $categories = [];
+
+        $query  = $this->articleCategoryQuery();
+        $params = [$language, $articleId];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $rawId = $row['category_id'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Article category id is invalid');
+            }
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Article category name is invalid');
+            }
+
+            try {
+                $id           = new CategoryId($rawId);
+                $name         = new CategoryName($rawName);
+                $categories[] = new ArticleCategoryDto($id, $name);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+
+        return $categories;
     }
 
     private function categoryQuery(): string
@@ -318,33 +356,11 @@ final class Repository implements RepositoryInterface
     private function articlesQuery(): string
     {
         return <<<'QUERY'
-        WITH categories AS
-        (
-            SELECT category.active, 
-                category_translates.category_id,
-                category_translates.name
-            FROM category_translates,
-                category
-            WHERE category_translates.language = $1 AND
-                category.identifier = category_translates.category_id AND
-                category.active ='t'
-        )
         SELECT article.identifier,
         article_translates.name,
         article_translates.short_description,
         article_translates.description,
         article_translates.created_at,
-        array_to_json (
-            array (
-                select
-                    categories.name
-                from
-                    categories, article_category
-                where
-                    article.identifier = article_category.article_id AND
-                    categories.category_id = article_category.category_id
-            )
-        ) as category,
         img.path as img_path,
         img_translates.img_id,
         img_translates.description as img_description
@@ -389,6 +405,19 @@ final class Repository implements RepositoryInterface
             WHERE category_translates.language = $1 AND
                 category.identifier = category_translates.category_id AND
                 category.active = 't'
+        QUERY;
+    }
+
+    private function articleCategoryQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT category_translates.category_id,
+            category_translates.name
+        FROM category_translates,
+            article_category
+        WHERE category_translates.language = $1 AND
+            article_category.category_id = category_translates.category_id AND
+            article_category.article_id = $2
         QUERY;
     }
 }

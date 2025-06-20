@@ -2,9 +2,6 @@
 
 ## Current
 
-- make category clickable from:
-  - category view
-
 ## Next
 
 - home page
