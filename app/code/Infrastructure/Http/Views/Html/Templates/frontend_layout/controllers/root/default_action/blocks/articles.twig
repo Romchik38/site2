@@ -1,0 +1,55 @@
+{% set firstArticle = articles[0] %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            {% for i in 1..articles|length - 1 %}
+                {% set article = articles[i] %}
+                {% set articleUrl = u.fromArray(['root', 'article', article.getId()|url_encode ]) %}
+                <div>
+                    <a class="link-none" href="{{ articleUrl }}">
+                        <h4>{{ article.getName() }}</h4>
+                    </a>
+                    <a class="link-none" href="{{ articleUrl }}">
+                        <p class="h6 text-start">{{ article.getShortDescription() }}</p>
+                    </a>
+                    <footer class="container p-0 text-secondary d-flex flex-wrap">
+                        <div class="font-monospace comments me-3">comments({{ random(5) }})</div>
+                        <div class="font-monospace comments">{{ article.formattedCreatedAt }}</div>
+                    </footer>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="col-sm-8">
+            <div class="medium-news">
+                {% set firstArticleUrl = u.fromArray(['root', 'article', firstArticle.getId()|url_encode ]) %}
+                <a class="link-none" href="{{ firstArticleUrl }}">
+                    <div class="img">
+                        <picture>
+                            <source media="(max-width: 576px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=576">
+                            <source media="(max-width: 768px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=768&height=768">
+                            <source media="(min-width: 768px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=1080">
+                            <img 
+                                class="card-img-top"
+                                src="{{ firstArticle.image.path }}" 
+                                alt="{{ firstArticle.image.description }}"
+                            >
+                        </picture>
+                        <!-- <img class="img-fluid"
+                            src="/media/img/articles/perevirka-documentiv/1.webp"
+                            alt=""> -->
+                    </div>
+                </a>
+                <a class="link-none" href="{{ firstArticleUrl }}">
+                    <h4 class="mt-1">{{ firstArticle.getName() }}</h4>
+                </a>
+                <a class="link-none" href="{{ firstArticleUrl }}">
+                    <p>{{ firstArticle.getShortDescription() }}</p>
+                </a>
+                <footer class="row text-secondary">
+                    <div class="col-6 font-monospace comments">{{ firstArticle.formattedCreatedAt }}</div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

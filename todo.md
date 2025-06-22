@@ -1,8 +1,8 @@
 # Todo
 
-## Current`
+## Current
 
-- home page
+- time formatter
 
 ## Next
 

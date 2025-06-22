@@ -18,6 +18,8 @@ use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayExceptio
 use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
+use Romchik38\Site2\Application\Article\List\ListService as ArticleListService;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\Filter;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -28,7 +30,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly BannerService $bannerService,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly ArticleListService $articleListService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -37,6 +40,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
+        // Banner
         $banner = null;
         try {
             $banner = $this->bannerService->priority();
@@ -46,10 +50,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->logger->log(LogLevel::INFO, $e->getMessage());
         }
 
+        // Articles
+        $command =  new Filter('5', '1', 'created_at', 'desc');
+        $filterResult   = $this->articleListService->list($command, $this->getLanguage());
+        $articleList    = $filterResult->list;
+
         $dto = new ViewDTO(
             $translatedMessage,
             $translatedMessage,
-            $banner
+            $banner,
+            $articleList
         );
 
         $result = $this->view

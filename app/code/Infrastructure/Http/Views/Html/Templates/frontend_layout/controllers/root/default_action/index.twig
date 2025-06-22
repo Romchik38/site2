@@ -14,100 +14,12 @@
     <div class="container-xxl">
         <!-- 2nd row start News -->
         <div class="container-fluid">
-            <h1 class="text-center my-4">Read the latest news today</h1>
+            <h1 class="text-center my-4">{{ translate.t('root.news-header') }}</h1>
             <div class="row">
                 <!-- Main start -->
                 <div class="col-sm-12 col-xxl-9">
                     <!-- News start -->
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div>
-                                    <a class="link-none" href="#">
-                                        <h4>News 1</h4>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit,
-                                            amet
-                                            consectetur.</p>
-                                    </a>
-                                    <footer class="container p-0 text-secondary d-flex flex-wrap">
-                                        <div class="font-monospace comments me-3">comments(2)</div>
-                                        <div class="font-monospace comments">6 hours ago</div>
-                                    </footer>
-                                </div>
-                                <hr>
-                                <div>
-                                    <a class="link-none" href="#">
-                                        <h4>News 1</h4>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit,
-                                            amet
-                                            consectetur.</p>
-                                    </a>
-                                    <footer class="container p-0 text-secondary d-flex flex-wrap">
-                                        <div class="font-monospace comments me-3">comments(2)</div>
-                                        <div class="font-monospace comments">6 hours ago</div>
-                                    </footer>
-                                </div>
-                                <hr>
-                                <div>
-                                    <a class="link-none" href="#">
-                                        <h4>News 1</h4>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit,
-                                            amet
-                                            consectetur.</p>
-                                    </a>
-                                    <footer class="container p-0 text-secondary d-flex flex-wrap">
-                                        <div class="font-monospace comments me-3">comments(2)</div>
-                                        <div class="font-monospace comments">6 hours ago</div>
-                                    </footer>
-                                </div>
-                                <hr>
-                                <div>
-                                    <a class="link-none" href="#">
-                                        <h4>News 1</h4>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <p class="h6">Somnis, cumque nihil sint corrupti. Lorem ipsum dolor sit,
-                                            amet
-                                            consectetur.</p>
-                                    </a>
-                                    <footer class="container p-0 text-secondary d-flex flex-wrap">
-                                        <div class="font-monospace comments me-3">comments(2)</div>
-                                        <div class="font-monospace comments">6 hours ago</div>
-                                    </footer>
-                                </div>
-                                <hr class="d-sm-none">
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="medium-news">
-                                    <a class="link-none" href="#">
-                                        <div class="img">
-                                            <img class="img-fluid"
-                                                src="/media/img/articles/perevirka-documentiv/1.webp"
-                                                alt="">
-                                        </div>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <h4 class="mt-1">Changes in driver document verification since the beginning
-                                            of
-                                            the year</h4>
-                                    </a>
-                                    <a class="link-none" href="#">
-                                        <p>Amendments have been made to the Law on the National Police, updating the
-                                            procedure for checking the documents of vehicle drivers.</p>
-                                    </a>
-                                    <footer class="row text-secondary">
-                                        <div class="col-6 font-monospace comments">yesterday</div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% include template_full_prefix ~ '/blocks/articles.twig' with {'translate': t, 'u': u, 'articles': data.articleList, 'imageFrontendPath': imageFrontendPath } only %}      
                     <!-- News end -->
                     <hr>
                 </div>

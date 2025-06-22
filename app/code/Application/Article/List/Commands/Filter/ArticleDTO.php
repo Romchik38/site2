@@ -17,4 +17,19 @@ final class ArticleDTO
         public readonly ImageDTO $image
     ) {
     }
+
+    public function getId(): string
+    {
+        return $this->articleId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
+    }
 }
