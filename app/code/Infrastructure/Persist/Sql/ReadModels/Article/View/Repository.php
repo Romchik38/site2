@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\View;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -13,7 +14,6 @@ use Romchik38\Site2\Application\Article\View\RepositoryException;
 use Romchik38\Site2\Application\Article\View\RepositoryInterface;
 use Romchik38\Site2\Application\Article\View\View\ArticleIdNameDTO;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
-use Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AudioDTOFactory;
 use Romchik38\Site2\Application\Article\View\View\AuthorDTO;
 use Romchik38\Site2\Application\Article\View\View\CategoryDTO;
@@ -28,7 +28,6 @@ final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly DatabaseSqlInterface $database,
-        private readonly ArticleViewDTOFactory $factory,
         private readonly ImageDTOFactory $imageDtoFactory,
         private readonly AudioDTOFactory $audioDtoFactory
     ) {
@@ -186,13 +185,13 @@ final class Repository implements RepositoryInterface
 
         $categories = $this->createCategories($articleId, $language);
 
-        return $this->factory->create(
+        return new ArticleViewDTO(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
             $categories,
-            $rawCreatedAt,
+            new DateTime($rawCreatedAt),
             new AuthorDTO(
                 $rawAuthorId,
                 $rawAuthorDescription

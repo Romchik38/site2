@@ -43,11 +43,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Article\View\View\RepositoryInterface')
         ]
     );
-
-    $container->shared('\Romchik38\Site2\Application\Article\View\View\ArticleViewDTOFactory', [
-        new Promise('\Romchik38\Site2\Infrastructure\Utils\Article\DateFormatterUsesDateFormat'),
-        new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-    ]);
     
     $container->shared('\Romchik38\Site2\Application\Article\View\View\ImageDTOFactory', [
         new Promise('img-folder-frontend')

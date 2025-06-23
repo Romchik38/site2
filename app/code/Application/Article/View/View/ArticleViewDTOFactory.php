@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\Article\List\Commands\Filter\DateFormatterInterf
 
 use function sprintf;
 
+/** @todo move logic to new date formatter */
 final class ArticleViewDTOFactory
 {
     private const DATE_FORMAT_DAY       = 'j';
