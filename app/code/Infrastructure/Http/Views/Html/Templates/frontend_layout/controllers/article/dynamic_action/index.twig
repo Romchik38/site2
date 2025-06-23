@@ -1,5 +1,5 @@
 {# 
-    Object      data                    Controller DTO
+    Object      data                    Romchik38\Site2\Application\Article\View\View\ArticleViewDTO        
     string      template_full_prefix    path to this folder
 #}
 
@@ -58,7 +58,8 @@
                                 <div class="me-3">{{ translate.t('article.view.by') }} {{ author.description }} <a class="link-none" href="#">{{ translate.t('article.view.seeall') }}</a></div>
                                 <div class="me-3">{{ translate.t('article.view.photo-by') }} {{ data.article.image.author }}</div>
                             </div>
-                            <p>{{ data.article.createdAt }}</p>
+                            <!-- @todo replace with new date formatter -->
+                            <p>{# data.article.createdAt #}</p>
 
                             {% set categories = data.article.categories %}
                             {% if categories|length > 0 %}

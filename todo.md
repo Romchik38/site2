@@ -3,7 +3,7 @@
 ## Current
 
 - time formatter article
-  - create template stub
+  - [+] create template stub
   - remove from dto
   - remove duplicate from utils
   - add to view
