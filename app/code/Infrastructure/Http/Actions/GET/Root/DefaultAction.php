@@ -14,12 +14,12 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Article\List\Commands\Filter\Filter;
+use Romchik38\Site2\Application\Article\List\ListService as ArticleListService;
 use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
-use Romchik38\Site2\Application\Article\List\ListService as ArticleListService;
-use Romchik38\Site2\Application\Article\List\Commands\Filter\Filter;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -51,9 +51,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         }
 
         // Articles
-        $command =  new Filter('5', '1', 'created_at', 'desc');
-        $filterResult   = $this->articleListService->list($command, $this->getLanguage());
-        $articleList    = $filterResult->list;
+        $command      = new Filter('5', '1', 'created_at', 'desc');
+        $filterResult = $this->articleListService->list($command, $this->getLanguage());
+        $articleList  = $filterResult->list;
 
         $dto = new ViewDTO(
             $translatedMessage,

@@ -31,10 +31,10 @@
                         <h2 class="h5">{{ translate.t('article.h2.publications') }}</h2>
                         {% set articles = data.getArticles() %}
                         {% if articles|length == 0 %} 
-                            {% include template_full_prefix ~ '/zero_articles.twig' with {'translate': translate} only %}
+                            {% include template_full_prefix ~ '/blocks/zero_articles.twig' with {'translate': translate} only %}
                         {% else %}
                         <!-- refactor -->
-                            {% include template_full_prefix ~ '/articles.twig' with {'articles': articles, 'translate': translate, 'u': u, 'article_page_url': data.articlePageUrl } only %}
+                            {% include template_full_prefix ~ '/blocks/articles.twig' with {'articles': articles, 'translate': translate, 'u': u, 'article_page_url': data.articlePageUrl, 'data': data } only %}
                         {% endif %}
                     </div>
                     <hr>

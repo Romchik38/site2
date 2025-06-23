@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\List;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
-use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTOFactory;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\CategoryDTO;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\SearchCriteria;
@@ -25,7 +25,6 @@ final class Repository implements RepositoryInterface
 {
     public function __construct(
         private DatabaseSqlInterface $database,
-        private ArticleDTOFactory $articleDtoFactory,
         private ImageDTOFactory $imageDtoFactory
     ) {
     }
@@ -144,13 +143,13 @@ final class Repository implements RepositoryInterface
 
         $categories = $this->createCategories($rawIdentifier, $language);
 
-        return $this->articleDtoFactory->create(
+        return new ArticleDTO(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
-            $rawCreatedAt,
             $categories,
+            new DateTime($rawCreatedAt),
             $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
         );
     }

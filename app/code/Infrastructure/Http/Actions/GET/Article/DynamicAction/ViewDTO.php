@@ -9,6 +9,9 @@ use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\View\View\ArticleViewDTO;
 
+use function date_format;
+use function sprintf;
+
 final class ViewDTO extends DefaultViewDTO
 {
     public function __construct(

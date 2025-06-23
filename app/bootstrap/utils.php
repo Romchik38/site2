@@ -32,13 +32,6 @@ return function (Container $container) {
         new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
     ]);
 
-    // ARTICLE 
-    // DateFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Utils\Article\DateFormatterUsesDateFormat', []);
-    // ReadLengthFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Utils\Article\ReadLengthFormatter', [
-        new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-    ]);
 
     // CATEGORY
     // DateFormatter

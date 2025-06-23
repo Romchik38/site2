@@ -87,7 +87,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $articleList,
             $paginationView,
             $this->urlbuilder->fromPath($path),
-            $banner
+            $banner,
+            $this->translateService
         );
 
         $result = $this->view

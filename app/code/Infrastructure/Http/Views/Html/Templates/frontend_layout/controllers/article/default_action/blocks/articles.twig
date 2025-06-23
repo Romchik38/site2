@@ -44,8 +44,8 @@
             {% endif %}
 
             <footer class="row text-secondary">
-                <div class="col-6 font-monospace comments">{{ firstArticle.readLength }} {{ translate.t('article.read') }}</div>
-                <div class="col-6 font-monospace comments">{{ firstArticle.formattedCreatedAt }}</div>
+                <div class="col-6 font-monospace comments">{{ data.calculateReadLength(firstArticle.description) }} {{ translate.t('article.read') }}</div>
+                <div class="col-6 font-monospace comments">{{ data.formatArticleDate(firstArticle.createdAt) }}</div>
             </footer>
         </div>
     </div>
@@ -96,8 +96,8 @@
             {% endif %}
 
             <footer class="row text-secondary">
-                <div class="col-6 font-monospace comments">{{ article.readLength }} {{ translate.t('article.read') }}</div>
-                <div class="col-6 font-monospace comments">{{ article.formattedCreatedAt }}</div>
+                <div class="col-6 font-monospace comments">{{ data.calculateReadLength(firstArticle.description) }} {{ translate.t('article.read') }}</div>
+                <div class="col-6 font-monospace comments">{{ data.formatArticleDate(article.createdAt) }}</div>
             </footer>
         </div>
     </div>
