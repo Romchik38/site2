@@ -8,7 +8,9 @@
   - [+] refactor factory
   - move format logic from factory to formatter
   - [+] remove factory from repository
-  - [-] delete factory class
+  - [-] delete when unused
+    - factory class
+    - `DateFormatterInterface`
   - add to view
 
 - time formatter category
