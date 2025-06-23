@@ -29,34 +29,34 @@ final class ArticleViewDTOFactory
         string $shortDescription,
         string $description,
         array $categories,
-        string $createdAt,
+        DateTime $createdAt,
         AuthorDTO $author,
         ImageDTO $image,
         AudioDTO $audio
     ): ArticleViewDTO {
-        $date = new DateTime($createdAt);
+        // $date = new DateTime($createdAt);
 
-        $formattedDay = $this->dateFormatter->formatByString(
-            $date,
-            $this::DATE_FORMAT_DAY
-        );
+        // $formattedDay = $this->dateFormatter->formatByString(
+        //     $date,
+        //     $this::DATE_FORMAT_DAY
+        // );
 
-        $formattedMonth = $this->dateFormatter->formatByString(
-            $date,
-            $this::DATE_FORMAT_MONTH
-        );
+        // $formattedMonth = $this->dateFormatter->formatByString(
+        //     $date,
+        //     $this::DATE_FORMAT_MONTH
+        // );
 
-        $formattedYearTime = $this->dateFormatter->formatByString(
-            $date,
-            $this::DATE_FORMAT_YEAR_TIME
-        );
+        // $formattedYearTime = $this->dateFormatter->formatByString(
+        //     $date,
+        //     $this::DATE_FORMAT_YEAR_TIME
+        // );
 
-        $formattedCreatedAt = sprintf(
-            '%s %s %s',
-            $formattedDay,
-            $this->translate->t('article.view.month.' . $formattedMonth),
-            $formattedYearTime
-        );
+        // $formattedCreatedAt = sprintf(
+        //     '%s %s %s',
+        //     $formattedDay,
+        //     $this->translate->t('article.view.month.' . $formattedMonth),
+        //     $formattedYearTime
+        // );
 
         return new ArticleViewDTO(
             $articleId,
@@ -64,7 +64,7 @@ final class ArticleViewDTOFactory
             $shortDescription,
             $description,
             $categories,
-            $formattedCreatedAt,
+            $createdAt,
             $author,
             $image,
             $audio

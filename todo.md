@@ -4,8 +4,10 @@
 
 - time formatter article
   - [+] create template stub
-  - remove from dto
-  - remove duplicate from utils
+  - refactor dto
+  - refactor factory
+  - move format logic from factory to formatter
+  - remove factory from repository
   - add to view
 
 - time formatter category

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\View\View;
 
+use DateTime;
+
 /** Full info about Article */
 final class ArticleViewDTO
 {
@@ -14,7 +16,7 @@ final class ArticleViewDTO
         public readonly string $shortDescription,
         public readonly string $description,
         public readonly array $categories,
-        public readonly string $createdAt,
+        public readonly DateTime $createdAt,
         public readonly AuthorDTO $author,
         public readonly ImageDTO $image,
         public readonly AudioDTO $audio
