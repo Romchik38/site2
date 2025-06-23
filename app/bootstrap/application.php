@@ -158,13 +158,6 @@ return function (Container $container) {
         ]
     );
 
-    $container->shared(
-        '\Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory',
-        [
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\Category\DateFormatterUsesDateFormat'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\Category\ReadLengthFormatter')
-        ]
-    );
     $container->shared('\Romchik38\Site2\Application\Category\View\View\ImageDtoFactory', [
         new Promise('img-folder-frontend')
     ]);

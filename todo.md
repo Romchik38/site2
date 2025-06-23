@@ -2,15 +2,6 @@
 
 ## Current
 
-- time formatter category
-  - [-] create template stub
-  - [-] refactor dto
-  - [-] refactor factory
-  - move format logic from factory to formatter
-  - [-] remove factory from repository
-  - [-] delete when unused factory class
-  - [-] add to view  
-
 ## Next
 
 - menu

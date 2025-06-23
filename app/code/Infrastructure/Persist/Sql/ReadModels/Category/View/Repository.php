@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\View;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -14,7 +15,6 @@ use Romchik38\Site2\Application\Category\View\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Category\View\RepositoryInterface;
 use Romchik38\Site2\Application\Category\View\View\ArticleCategoryDto;
 use Romchik38\Site2\Application\Category\View\View\ArticleDto;
-use Romchik38\Site2\Application\Category\View\View\ArticleDtoFactory;
 use Romchik38\Site2\Application\Category\View\View\CategoryDto;
 use Romchik38\Site2\Application\Category\View\View\CategoryIdNameDto;
 use Romchik38\Site2\Application\Category\View\View\ImageDtoFactory;
@@ -31,7 +31,6 @@ final class Repository implements RepositoryInterface
 {
     public function __construct(
         private DatabaseSqlInterface $database,
-        private ArticleDtoFactory $articleDtoFactory,
         private ImageDtoFactory $imageDtoFactory
     ) {
     }
@@ -281,13 +280,13 @@ final class Repository implements RepositoryInterface
 
         $categories = $this->createCategories($rawIdentifier, $language);
 
-        return $this->articleDtoFactory->create(
+        return new ArticleDto(
             $rawIdentifier,
             $rawName,
             $rawShortDescription,
             $rawDescription,
-            $rawCreatedAt,
             $categories,
+            new DateTime($rawCreatedAt),
             $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
         );
     }

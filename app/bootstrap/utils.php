@@ -32,15 +32,6 @@ return function (Container $container) {
         new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
     ]);
 
-
-    // CATEGORY
-    // DateFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Utils\Category\DateFormatterUsesDateFormat', []);
-    // ReadLengthFormatter
-    $container->shared('\Romchik38\Site2\Infrastructure\Utils\Category\ReadLengthFormatter', [
-        new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-    ]);
-
     // CSRF TOKEN GENERATOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',

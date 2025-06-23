@@ -119,7 +119,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $paginationView,
             $paginationForm,
             $articlePageUrl,
-            $banner
+            $banner,
+            $this->translateService
         );
 
         $result = $this->view
