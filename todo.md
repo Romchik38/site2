@@ -2,20 +2,18 @@
 
 ## Current
 
+- menu
+
 ## Next
 
-- menu
 - article list most visited
 - article view
-  - add link to category
   - Similar articles
   - Continue reading
-- video
 - footer menu
 - user home page
-- podcasts
-- courses
 - search in nav bar
+- add popup first time visitor - the site is a demo
 
 ## Later
 
