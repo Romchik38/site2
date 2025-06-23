@@ -59,7 +59,7 @@
                                 <div class="me-3">{{ translate.t('article.view.photo-by') }} {{ data.article.image.author }}</div>
                             </div>
                             <!-- @todo replace with new date formatter -->
-                            <p>{# data.article.createdAt #}</p>
+                            <p>{{ data.formatArticleDate(data.article.createdAt) }}</p>
 
                             {% set categories = data.article.categories %}
                             {% if categories|length > 0 %}

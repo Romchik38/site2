@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\Article\List\Commands\Filter;
 
 use DateTime;
 
+/** @todo remove when unused */
 interface DateFormatterInterface
 {
     /**

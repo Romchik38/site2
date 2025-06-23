@@ -61,7 +61,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $dto = new ViewDTO(
             $article->name,
             $article->shortDescription,
-            $article
+            $article,
+            $this->translateService
         );
 
         $result = $this->view
