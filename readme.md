@@ -17,6 +17,7 @@ Additional:
 - [Design](./doc/design/01-readme.md)
 - Sitemap system
 - Breadcrumbs on every page
+- Filtering
 - Logging
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/docker.md)
