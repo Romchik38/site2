@@ -11,7 +11,7 @@ use function sprintf;
 
 final class OrderByField
 {
-    public const DEFAULT_ORDER_BY = 'identifier';
+    public const DEFAULT_ORDER_BY = 'created_at';
     public const ALLOWED_ORDER_BY = ['identifier', 'created_at'];
 
     public readonly string $orderByField;

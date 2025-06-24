@@ -9,6 +9,8 @@
 
 {% block content %}
 {% set translate = data.translateDto %}
+{% set listUrl = u.fromArray(['root', 'admin', 'translate']) %}
+{% set newUrl = u.fromArray(['root', 'admin', 'translate', 'new']) %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'translate', 'update']) %}
 {% set phrases = translate.phrases %}
 
@@ -52,7 +54,7 @@
             }
         </script>
         <!-- Back link -->
-        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'translate']) }}">Translate list</a> page</div>
+        <div class="my-3">⬅️ Back to <a href="{{ listUrl }}">Translate list</a> page or <a href="{{ newUrl }}">create new</a>.</div>
     </div>
 </div>
 {% endblock %}
