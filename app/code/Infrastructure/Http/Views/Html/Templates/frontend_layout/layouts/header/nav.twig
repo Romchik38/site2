@@ -3,6 +3,7 @@
 {% set trafficLegislativeUrl = u.fromArray(['root', 'category', 'traffic-legislative-changes']) %}
 {% set trafficConsultationUrl = u.fromArray(['root', 'category', 'traffic-consultations']) %}
 {% set trafficJudicalUrl = u.fromArray(['root', 'category', 'traffic-judicial-practice']) %}
+{% set trafficLegalUrl = u.fromArray(['root', 'category', 'traffic-legal-framework']) %}
 <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -27,12 +28,12 @@
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ translate.t('menu.consultations') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ translate.t('menu.judicial-practice') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ translate.t('menu.legal-framework') }}</a></li>                        
                         <li><a class="dropdown-item" href="#">Common mistakes</a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
                         <li><a class="dropdown-item" href="#">Car accident</a></li>
                         <li><a class="dropdown-item" href="#">Vehicle stop</a></li>
                         <li><a class="dropdown-item" href="#">Imposed a fine</a></li>
-                        <li><a class="dropdown-item" href="#">Legal framework</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
