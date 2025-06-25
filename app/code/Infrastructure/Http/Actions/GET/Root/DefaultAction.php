@@ -53,7 +53,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         // Articles
         $command      = new Filter('5', '1', 'created_at', 'desc');
         $filterResult = $this->articleListService->list($command, $this->getLanguage());
-        $articleList  = $filterResult->list;
+        $articleList  = array_slice($filterResult->list, 0, 4);
 
         $dto = new ViewDTO(
             $translatedMessage,
