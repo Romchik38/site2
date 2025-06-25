@@ -11,7 +11,7 @@ use function sprintf;
 
 final class Limit
 {
-    public const DEFAULT_LIMIT  = 2;
+    public const DEFAULT_LIMIT  = 15;
     public const ALLOWED_LIMITS = [2, 5, 15, 30];
 
     private function __construct(
