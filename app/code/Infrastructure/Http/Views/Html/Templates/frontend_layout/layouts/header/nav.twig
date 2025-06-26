@@ -1,4 +1,5 @@
 {% set latestUrl = u.fromArray(['root', 'article']) %}
+<!-- Traffic -->
 {% set trafficUrl = u.fromArray(['root', 'category', 'traffic']) %}
 {% set trafficLegislativeUrl = u.fromArray(['root', 'category', 'traffic-legislative-changes']) %}
 {% set trafficConsultationUrl = u.fromArray(['root', 'category', 'traffic-consultations']) %}
@@ -6,6 +7,12 @@
 {% set trafficLegalUrl = u.fromArray(['root', 'category', 'traffic-legal-framework']) %}
 {% set trafficMistakesUrl = u.fromArray(['root', 'category', 'traffic-common-mistakes']) %}
 {% set trafficStopUrl = u.fromArray(['root', 'category', 'traffic-vehicle-stop']) %}
+<!-- Admin proc -->
+{% set adminUrl = u.fromArray(['root', 'category', 'administrative-process']) %}
+{% set adminLFUrl = u.fromArray(['root', 'category', 'administrative-process-legal-framework']) %}
+<!-- Translates -->
+{% set tAll = translate.t('menu.all') %}
+{% set tLf = translate.t('menu.legal-framework') %}
 <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -30,22 +37,23 @@
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ translate.t('menu.consultations') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ translate.t('menu.judicial-practice') }}</a></li>
-                        <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ translate.t('menu.legal-framework') }}</a></li>                        
+                        <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ tLf }}</a></li>                        
                         <li><a class="dropdown-item" href="{{ trafficMistakesUrl }}">{{ translate.t('menu.common-mistakes') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficStopUrl }}">{{ translate.t('menu.traffic-vehicle-stop') }}</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{{ trafficUrl }}">{{ translate.t('menu.all') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ trafficUrl }}">{{ tAll }}</a></li>
                     </ul>
                 </li>
-                <!-- Administrative -->
+                <!-- Administrative process -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Administrative
+                        {{ translate.t('menu.administrative-process') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
                         <li><a class="dropdown-item" href="#">Legislative changes</a></li>
                         <li><a class="dropdown-item" href="#">Consultations<small class="color-secondary">
                                     hot</small></a></li>
@@ -56,7 +64,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Legal framework</a></li>
+                        <li><a class="dropdown-item" href="{{ adminUrl }}">{{ tAll }}</a></li>
                     </ul>
                 </li>
                 <!-- Military -->
