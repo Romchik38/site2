@@ -8,6 +8,7 @@
 
 - article list most visited
 - article view
+  - all author articles
   - Similar articles
   - Continue reading
 - footer menu
