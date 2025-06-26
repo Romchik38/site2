@@ -6,6 +6,7 @@
 
 ## Next
 
+- admin article view pagination
 - article list most visited
 - article view
   - all author articles
