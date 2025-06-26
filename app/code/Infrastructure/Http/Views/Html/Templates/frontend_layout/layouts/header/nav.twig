@@ -10,9 +10,11 @@
 <!-- Admin proc -->
 {% set adminUrl = u.fromArray(['root', 'category', 'administrative-process']) %}
 {% set adminLFUrl = u.fromArray(['root', 'category', 'administrative-process-legal-framework']) %}
+{% set adminLCUrl = u.fromArray(['root', 'category', 'administrative-process-legislative-changes']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
+{% set tLc = translate.t('menu.legislative-changes') %}
 <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,7 +35,7 @@
                         {{ translate.t('menu.traffic') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ trafficLegislativeUrl }}">{{ translate.t('menu.legislative-changes') }}<small class="color-secondary">
+                        <li><a class="dropdown-item" href="{{ trafficLegislativeUrl }}">{{ tLc }}<small class="color-secondary">
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ translate.t('menu.consultations') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ translate.t('menu.judicial-practice') }}</a></li>
@@ -54,7 +56,7 @@
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="#">Legislative changes</a></li>
+                        <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
                         <li><a class="dropdown-item" href="#">Consultations<small class="color-secondary">
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
