@@ -11,10 +11,12 @@
 {% set adminUrl = u.fromArray(['root', 'category', 'administrative-process']) %}
 {% set adminLFUrl = u.fromArray(['root', 'category', 'administrative-process-legal-framework']) %}
 {% set adminLCUrl = u.fromArray(['root', 'category', 'administrative-process-legislative-changes']) %}
+{% set adminCUrl = u.fromArray(['root', 'category', 'administrative-process-consultations']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
 {% set tLc = translate.t('menu.legislative-changes') %}
+{% set tC = translate.t('menu.consultations') %}
 <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,7 +39,7 @@
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ trafficLegislativeUrl }}">{{ tLc }}<small class="color-secondary">
                                     hot</small></a></li>
-                        <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ translate.t('menu.consultations') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ tC }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ translate.t('menu.judicial-practice') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ tLf }}</a></li>                        
                         <li><a class="dropdown-item" href="{{ trafficMistakesUrl }}">{{ translate.t('menu.common-mistakes') }}</a></li>
@@ -57,7 +59,7 @@
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
                         <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="#">Consultations<small class="color-secondary">
+                        <li><a class="dropdown-item" href="{{ adminCUrl }}">{{ tC }}<small class="color-secondary">
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
                         <li><a class="dropdown-item" href="#">Imposed a fine</a></li>
