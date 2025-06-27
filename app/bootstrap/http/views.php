@@ -8,7 +8,12 @@ use Romchik38\Container\Promise;
 return function (Container $container) {
     // TWIG LOADER
     $container->shared('\Twig\Loader\FilesystemLoader', [new Promise('view.twig.path')]);
-    $container->shared('\Twig\Environment', [new Promise('\Twig\Loader\FilesystemLoader')]);
+    $container->shared('\Twig\Environment', 
+        [
+            new Promise('\Twig\Loader\FilesystemLoader'),
+            // ['cache' => __DIR__ . '/../../.twig_cache',]
+        ]
+    );
 
     // Frontend View
     $container->shared(
