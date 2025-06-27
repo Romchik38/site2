@@ -12,6 +12,7 @@
 {% set adminLFUrl = u.fromArray(['root', 'category', 'administrative-process-legal-framework']) %}
 {% set adminLCUrl = u.fromArray(['root', 'category', 'administrative-process-legislative-changes']) %}
 {% set adminCUrl = u.fromArray(['root', 'category', 'administrative-process-consultations']) %}
+{% set adminDUrl = u.fromArray(['root', 'category', 'administrative-process-administrative-detention']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
@@ -61,9 +62,9 @@
                         <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
                         <li><a class="dropdown-item" href="{{ adminCUrl }}">{{ tC }}<small class="color-secondary">
                                     hot</small></a></li>
+                        <li><a class="dropdown-item" href="{{ adminDUrl }}">{{ translate.t('menu.administrative-detention') }}</a></li>                                    
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
                         <li><a class="dropdown-item" href="#">Imposed a fine</a></li>
-                        <li><a class="dropdown-item" href="#">Administrative detention</a></li>
                         <li><a class="dropdown-item" href="#">Appeal</a></li>
                         <li>
                             <hr class="dropdown-divider">
