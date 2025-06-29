@@ -17,6 +17,7 @@
 <!-- Martial -->
 {% set martialUrl = u.fromArray(['root', 'category', 'military-law']) %}
 {% set martialLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
+{% set martialLcUrl = u.fromArray(['root', 'category', 'military-law-legislative-changes']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
@@ -82,7 +83,7 @@
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ martialLfUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="#">Legislative changes</a></li>
+                        <li><a class="dropdown-item" href="{{ martialLcUrl }}">{{ tLc }}</a></li>
                         <li><a class="dropdown-item" href="#">Consultations</a></li>
                         <li><a class="dropdown-item" href="#">Judicial practice</a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
