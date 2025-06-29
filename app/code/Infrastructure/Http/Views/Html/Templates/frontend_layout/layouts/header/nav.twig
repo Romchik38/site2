@@ -14,6 +14,9 @@
 {% set adminCUrl = u.fromArray(['root', 'category', 'administrative-process-consultations']) %}
 {% set adminDUrl = u.fromArray(['root', 'category', 'administrative-process-administrative-detention']) %}
 {% set adminEUrl = u.fromArray(['root', 'category', 'evidence']) %}
+<!-- Martial -->
+{% set martialUrl = u.fromArray(['root', 'category', 'military-law']) %}
+{% set martialLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
@@ -65,8 +68,6 @@
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="{{ adminDUrl }}">{{ translate.t('menu.administrative-detention') }}</a></li>                                    
                         <li><a class="dropdown-item" href="{{ adminEUrl }}">{{ translate.t('menu.evidence') }}</a></li>
-                        <li><a class="dropdown-item" href="#">Imposed a fine</a></li>
-                        <li><a class="dropdown-item" href="#">Appeal</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -77,22 +78,22 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                       Military
+                       {{ translate.t('menu.military-law') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                       <li><a class="dropdown-item" href="#">Legislative changes</a></li>
+                        <li><a class="dropdown-item" href="{{ martialLfUrl }}">{{ tLf }}</a></li>
+                        <li><a class="dropdown-item" href="#">Legislative changes</a></li>
                         <li><a class="dropdown-item" href="#">Consultations</a></li>
                         <li><a class="dropdown-item" href="#">Judicial practice</a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
-                        <li><a class="dropdown-item" href="#">Military registration document<small
-                                    class="color-secondary"> hot</small></a></li>
+                        <li><a class="dropdown-item" href="#">Military registration document<small class="color-secondary"> hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Reservation</a></li>
                         <li><a class="dropdown-item" href="#">Military deferment</a></li>
                         <li><a class="dropdown-item" href="#">Military medical commission</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Legal framework</a></li>
+                       <li><a class="dropdown-item" href="{{ martialUrl }}">{{ tAll }}</a></li>
                     </ul>
                 </li>
                 <!-- Martial law -->
