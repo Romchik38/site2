@@ -18,11 +18,14 @@
 {% set martialUrl = u.fromArray(['root', 'category', 'military-law']) %}
 {% set martialLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
 {% set martialLcUrl = u.fromArray(['root', 'category', 'military-law-legislative-changes']) %}
+{% set martialMmcUrl = u.fromArray(['root', 'category', 'military-law-mmc']) %}
+{% set martialJpUrl = u.fromArray(['root', 'category', 'military-law-judicial-practice']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
 {% set tLc = translate.t('menu.legislative-changes') %}
 {% set tC = translate.t('menu.consultations') %}
+{% set tJp = translate.t('menu.judicial-practice') %}
 <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,7 +49,7 @@
                         <li><a class="dropdown-item" href="{{ trafficLegislativeUrl }}">{{ tLc }}<small class="color-secondary">
                                     hot</small></a></li>
                         <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ tC }}</a></li>
-                        <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ translate.t('menu.judicial-practice') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ tJp }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ tLf }}</a></li>                        
                         <li><a class="dropdown-item" href="{{ trafficMistakesUrl }}">{{ translate.t('menu.common-mistakes') }}</a></li>
                         <li><a class="dropdown-item" href="{{ trafficStopUrl }}">{{ translate.t('menu.traffic-vehicle-stop') }}</a></li>
@@ -84,8 +87,8 @@
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ martialLfUrl }}">{{ tLf }}</a></li>
                         <li><a class="dropdown-item" href="{{ martialLcUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="#">Consultations</a></li>
-                        <li><a class="dropdown-item" href="#">Judicial practice</a></li>
+                        <li><a class="dropdown-item" href="{{ martialMmcUrl }}">{{ translate.t('menu.military-medical-commission') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ martialJpUrl }}">{{ tJp }}</a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
                         <li><a class="dropdown-item" href="#">Military registration document<small class="color-secondary"> hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Reservation</a></li>
