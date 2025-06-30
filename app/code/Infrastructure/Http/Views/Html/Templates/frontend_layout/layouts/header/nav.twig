@@ -14,12 +14,13 @@
 {% set adminCUrl = u.fromArray(['root', 'category', 'administrative-process-consultations']) %}
 {% set adminDUrl = u.fromArray(['root', 'category', 'administrative-process-administrative-detention']) %}
 {% set adminEUrl = u.fromArray(['root', 'category', 'evidence']) %}
-<!-- Martial -->
-{% set martialUrl = u.fromArray(['root', 'category', 'military-law']) %}
-{% set martialLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
-{% set martialLcUrl = u.fromArray(['root', 'category', 'military-law-legislative-changes']) %}
-{% set martialMmcUrl = u.fromArray(['root', 'category', 'military-law-mmc']) %}
-{% set martialJpUrl = u.fromArray(['root', 'category', 'military-law-judicial-practice']) %}
+<!-- military -->
+{% set militaryUrl = u.fromArray(['root', 'category', 'military-law']) %}
+{% set militaryLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
+{% set militaryLcUrl = u.fromArray(['root', 'category', 'military-law-legislative-changes']) %}
+{% set militaryMmcUrl = u.fromArray(['root', 'category', 'military-law-mmc']) %}
+{% set militaryJpUrl = u.fromArray(['root', 'category', 'military-law-judicial-practice']) %}
+{% set militaryDocUrl = u.fromArray(['root', 'category', 'military-registration-document']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
@@ -85,26 +86,26 @@
                        {{ translate.t('menu.military-law') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ martialLfUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="{{ martialLcUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="{{ martialMmcUrl }}">{{ translate.t('menu.military-medical-commission') }}</a></li>
-                        <li><a class="dropdown-item" href="{{ martialJpUrl }}">{{ tJp }}</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryLfUrl }}">{{ tLf }}</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryLcUrl }}">{{ tLc }}</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryMmcUrl }}">{{ translate.t('menu.military-medical-commission') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryJpUrl }}">{{ tJp }}</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryDocUrl }}">{{ translate.t('menu.military-registration-document') }}<small class="color-secondary"> hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Real proceedings</a></li>
-                        <li><a class="dropdown-item" href="#">Military registration document<small class="color-secondary"> hot</small></a></li>
                         <li><a class="dropdown-item" href="#">Reservation</a></li>
                         <li><a class="dropdown-item" href="#">Military deferment</a></li>
                         <li><a class="dropdown-item" href="#">Military medical commission</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                       <li><a class="dropdown-item" href="{{ martialUrl }}">{{ tAll }}</a></li>
+                       <li><a class="dropdown-item" href="{{ militaryUrl }}">{{ tAll }}</a></li>
                     </ul>
                 </li>
-                <!-- Martial law -->
+                <!-- military law -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Martial law
+                        military law
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">State</a></li>
