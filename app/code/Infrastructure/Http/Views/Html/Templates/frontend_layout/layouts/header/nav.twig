@@ -41,6 +41,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ latestUrl }}">{{ translate.t('menu.latest') }}</a>
                 </li>
+                <!-- Administrative process -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ translate.t('menu.administrative-process') }}
+                    </a>
+                    <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
+                        <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
+                        <li><a class="dropdown-item" href="{{ adminCUrl }}">{{ tC }}<small class="color-secondary">
+                                    hot</small></a></li>
+                        <li><a class="dropdown-item" href="{{ adminDUrl }}">{{ translate.t('menu.administrative-detention') }}</a></li>                                    
+                        <li><a class="dropdown-item" href="{{ adminEUrl }}">{{ translate.t('menu.evidence') }}</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{{ adminUrl }}">{{ tAll }}</a></li>
+                    </ul>
+                </li>
                 <!-- Trafic -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -61,25 +80,6 @@
                         <li><a class="dropdown-item" href="{{ trafficUrl }}">{{ tAll }}</a></li>
                     </ul>
                 </li>
-                <!-- Administrative process -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ translate.t('menu.administrative-process') }}
-                    </a>
-                    <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="{{ adminCUrl }}">{{ tC }}<small class="color-secondary">
-                                    hot</small></a></li>
-                        <li><a class="dropdown-item" href="{{ adminDUrl }}">{{ translate.t('menu.administrative-detention') }}</a></li>                                    
-                        <li><a class="dropdown-item" href="{{ adminEUrl }}">{{ translate.t('menu.evidence') }}</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ adminUrl }}">{{ tAll }}</a></li>
-                    </ul>
-                </li>
                 <!-- Military -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -97,28 +97,6 @@
                             <hr class="dropdown-divider">
                         </li>
                        <li><a class="dropdown-item" href="{{ militaryUrl }}">{{ tAll }}</a></li>
-                    </ul>
-                </li>
-                <!-- military law -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        military law
-                    </a>
-                    <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">State</a></li>
-                        <li><a class="dropdown-item" href="#">Citizen</a></li>
-                        <li><a class="dropdown-item" href="#">Organizations</a></li>
-                        <li><a class="dropdown-item" href="#">Military forces</a></li>
-                        <li><a class="dropdown-item" href="#">Police</a></li>
-                        <li><a class="dropdown-item" href="#">Security Service</a></li>
-                        <li><a class="dropdown-item" href="#">Military volunteer<small class="color-secondary">
-                                    hot</small></a></li>
-                        <li><a class="dropdown-item" href="#">Internally displaced person</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Legal framework</a></li>
                     </ul>
                 </li>
                 <div class=" nav-link">
