@@ -21,6 +21,7 @@
 {% set militaryMmcUrl = u.fromArray(['root', 'category', 'military-law-mmc']) %}
 {% set militaryJpUrl = u.fromArray(['root', 'category', 'military-law-judicial-practice']) %}
 {% set militaryDocUrl = u.fromArray(['root', 'category', 'military-registration-document']) %}
+{% set militaryReservUrl = u.fromArray(['root', 'category', 'military-reservation']) %}
 <!-- Translates -->
 {% set tAll = translate.t('menu.all') %}
 {% set tLf = translate.t('menu.legal-framework') %}
@@ -91,10 +92,7 @@
                         <li><a class="dropdown-item" href="{{ militaryMmcUrl }}">{{ translate.t('menu.military-medical-commission') }}</a></li>
                         <li><a class="dropdown-item" href="{{ militaryJpUrl }}">{{ tJp }}</a></li>
                         <li><a class="dropdown-item" href="{{ militaryDocUrl }}">{{ translate.t('menu.military-registration-document') }}<small class="color-secondary"> hot</small></a></li>
-                        <li><a class="dropdown-item" href="#">Real proceedings</a></li>
-                        <li><a class="dropdown-item" href="#">Reservation</a></li>
-                        <li><a class="dropdown-item" href="#">Military deferment</a></li>
-                        <li><a class="dropdown-item" href="#">Military medical commission</a></li>
+                        <li><a class="dropdown-item" href="{{ militaryReservUrl }}">{{ translate.t('menu.reservation') }}</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
