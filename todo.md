@@ -6,6 +6,7 @@
 
 ## Next
 
+- article - move created_at from translate to model
 - admin article view pagination
 - article list most visited
 - article view
