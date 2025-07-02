@@ -1570,6 +1570,14 @@ ALTER TABLE ONLY public.img_cache
 
 
 --
+-- Name: img img_path_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.img
+    ADD CONSTRAINT img_path_unique UNIQUE (path);
+
+
+--
 -- Name: img img_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
