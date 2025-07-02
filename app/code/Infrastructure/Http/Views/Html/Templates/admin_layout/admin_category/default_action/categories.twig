@@ -43,7 +43,7 @@
         <label class="me-2" for="orderorder_direction_by">Direction</label>
         <div class="me-2">
             <select class="form-select form-select-sm" name="order_direction" aria-label="select order_direction">
-                <option valu="{{ paginationForm.currentOrderByDirection() }}" selected>{{ paginationForm.currentOrderByDirection() }}</option>
+                <option value="{{ paginationForm.currentOrderByDirection() }}" selected>{{ paginationForm.currentOrderByDirection() }}</option>
                 {% for direction in paginationForm.orderByDirections() %}
                     <option value="{{ direction }}">{{ direction }}</option>
                 {% endfor %}
