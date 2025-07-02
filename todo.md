@@ -3,10 +3,19 @@
 ## Current
 
 - add more content
+- article - move created_at from translate to model
+  - add field to article table
+  - move data to new field
+  - refactor
+    - model
+    - tests
+    - service
+    - repository
+    - templates
+  - remove field from article_translates table
 
 ## Next
 
-- article - move created_at from translate to model
 - admin article view pagination
 - article list most visited
 - article view
