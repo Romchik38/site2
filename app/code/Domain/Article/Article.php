@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Article\Entities\Audio;
 use Romchik38\Site2\Domain\Article\Entities\Author;
@@ -19,6 +20,8 @@ use function sprintf;
 
 final class Article
 {
+    public const SAVE_DATE_FORMAT = 'Y-m-d G:i:s';
+
     /** @var array<int,Category> $categories */
     private array $categories = [];
 
@@ -40,6 +43,7 @@ final class Article
         private(set) ?Audio $audio,
         private(set) Author $author,
         private(set) ?Image $image,
+        public DateTime $createdAt,
         array $categories,
         array $languages,
         array $translates
@@ -224,6 +228,12 @@ final class Article
         $this->active = false;
     }
 
+    /** @todo test */
+    public function formatCreatedAt(): string
+    {
+        return $this->createdAt->format(self::SAVE_DATE_FORMAT);
+    }
+
     /** @return array<int,Category> */
     public function getCategories(): array
     {
@@ -253,6 +263,7 @@ final class Article
         array $languages,
         ?Audio $audio = null,
         ?Image $image = null,
+        DateTime $createdAt = new DateTime(),
         array $categories = [],
         array $translates = []
     ): self {
@@ -262,6 +273,7 @@ final class Article
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates

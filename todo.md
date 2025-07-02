@@ -4,11 +4,12 @@
 
 - add more content
 - article - move created_at from translate to model
-  - add field to article table
-  - move data to new field
+  - [+] add field to article table
+  - [+] move data to new field
+  - [+] add not null to new filed
   - refactor
-    - model
-    - tests
+    - [+] model
+    - [+] tests
     - service
     - repository
     - templates

@@ -56,16 +56,11 @@ final class ArticleTest extends TestCase
     {
         $id        = new ArticleId('some-id');
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $createdAt = new DateTime();
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
         ];
-
-        $article = Article::create(
-            $id,
-            $author,
-            $languages
-        );
 
         $translates = [
             new Translate(
@@ -84,6 +79,7 @@ final class ArticleTest extends TestCase
             $languages,
             null,
             null,
+            $createdAt,
             [],
             $translates
         );
@@ -148,10 +144,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructValidArticle(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -191,6 +188,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -207,10 +205,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorInvalidImageNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), false);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), false);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -253,6 +252,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -261,10 +261,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorInvalidImageNull(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = null;
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = null;
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -307,6 +308,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -315,10 +317,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorInvalidAudioNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), false);
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), false);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -361,6 +364,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -369,10 +373,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorInvalidAudioNull(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = null;
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = null;
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -415,6 +420,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -423,10 +429,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorMissingTranslate(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -461,6 +468,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -469,10 +477,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorWrongTranslateInstance(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -501,6 +510,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -509,10 +519,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorWrongTranslateLanguage(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -555,6 +566,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -563,10 +575,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorNotValidCategory(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new stdClass(),
@@ -605,6 +618,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -613,10 +627,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorNotValidLanguage(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -659,6 +674,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -667,10 +683,11 @@ final class ArticleTest extends TestCase
 
     public function testConstructThrowsErrorAuthorNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -713,6 +730,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -721,10 +739,11 @@ final class ArticleTest extends TestCase
 
     public function testActivate(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -764,6 +783,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -776,10 +796,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorImageNotSet(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = null;
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = null;
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -819,6 +840,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -832,10 +854,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorImageNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), false);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), false);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -875,6 +898,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -888,10 +912,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorAudioNotSet(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = null;
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = null;
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -931,6 +956,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -944,10 +970,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorAudioNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), false);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), false);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -987,6 +1014,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1000,10 +1028,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorAuthorNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1043,6 +1072,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1056,10 +1086,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorNotAllTranslates(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1091,6 +1122,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1104,10 +1136,11 @@ final class ArticleTest extends TestCase
 
     public function testActivateThrowsErrorNotInCategory(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [];
 
@@ -1141,6 +1174,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1159,10 +1193,11 @@ final class ArticleTest extends TestCase
      */
     public function testAddTranslate(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1202,6 +1237,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1213,10 +1249,11 @@ final class ArticleTest extends TestCase
 
     public function testAddTranslateThrowsErrorWrongLanguage(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1256,6 +1293,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1269,11 +1307,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeAuthor(): void
     {
-        $id      = new ArticleId('some-id');
-        $audio   = new Audio(new AudioId(1), true);
-        $author  = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $author2 = new Author(new AuthorId(2), true, new AuthorName('Author 2'));
-        $image   = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $author2   = new Author(new AuthorId(2), true, new AuthorName('Author 2'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1313,6 +1352,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1324,11 +1364,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeAuthorThrowsErrorNotActiveAuthor(): void
     {
-        $id      = new ArticleId('some-id');
-        $audio   = new Audio(new AudioId(1), true);
-        $author  = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $author2 = new Author(new AuthorId(2), false, new AuthorName('Author 2'));
-        $image   = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $author2   = new Author(new AuthorId(2), false, new AuthorName('Author 2'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1368,6 +1409,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1381,11 +1423,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeImage(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
-        $image2 = new Image(new ImageId(2), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $image2    = new Image(new ImageId(2), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1425,6 +1468,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1436,11 +1480,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeImageThrowsErrorImageNotActive(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
-        $image2 = new Image(new ImageId(2), false);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $image2    = new Image(new ImageId(2), false);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1480,6 +1525,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1493,11 +1539,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeAudio(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $audio2 = new Audio(new AudioId(2), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $audio2    = new Audio(new AudioId(2), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1537,6 +1584,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1548,11 +1596,12 @@ final class ArticleTest extends TestCase
 
     public function testChangeAudioThrowsErrorNotActiveAudio(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $audio2 = new Audio(new AudioId(2), false);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $audio2    = new Audio(new AudioId(2), false);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1592,6 +1641,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1605,10 +1655,11 @@ final class ArticleTest extends TestCase
 
     public function testDeactivate(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1648,6 +1699,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1660,10 +1712,11 @@ final class ArticleTest extends TestCase
 
     public function testDeactivateThrowErrorOnlyOneInCategory(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1703,6 +1756,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1716,10 +1770,11 @@ final class ArticleTest extends TestCase
 
     public function testGetCategories(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1756,6 +1811,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1766,10 +1822,11 @@ final class ArticleTest extends TestCase
 
     public function testGetTranslate(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1806,6 +1863,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1817,10 +1875,11 @@ final class ArticleTest extends TestCase
 
     public function testGetTranslates(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1857,6 +1916,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates
@@ -1867,10 +1927,11 @@ final class ArticleTest extends TestCase
 
     public function testChangeCategories(): void
     {
-        $id     = new ArticleId('some-id');
-        $audio  = new Audio(new AudioId(1), true);
-        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
-        $image  = new Image(new ImageId(1), true);
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1912,6 +1973,7 @@ final class ArticleTest extends TestCase
             $audio,
             $author,
             $image,
+            $createdAt,
             $categories,
             $languages,
             $translates

@@ -21,6 +21,8 @@ use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
 
+use function array_slice;
+
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     private const DEFAULT_VIEW_NAME = 'root.page_name';
