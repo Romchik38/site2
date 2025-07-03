@@ -51,9 +51,10 @@ final class Repository implements RepositoryInterface
             $active = 't';
         }
         $createdAt = $model->formatCreatedAt();
+        $updatedAt = $model->formatUpdatedAt();
 
         $query  = $this->addQuery();
-        $params = [$id, $active, $authorId, $createdAt];
+        $params = [$id, $active, $authorId, $createdAt, $updatedAt];
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
@@ -265,9 +266,10 @@ final class Repository implements RepositoryInterface
             $articleActive = 'f';
         }
         $createdAt = $model->formatCreatedAt();
+        $updatedAt = $model->formatUpdatedAt();
 
         $mainSaveQuery = $this->mainSaveQuery();
-        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt];
+        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt, $updatedAt];
 
         $translates = $model->getTranslates();
         $categories = $model->getCategories();
@@ -294,7 +296,6 @@ final class Repository implements RepositoryInterface
                             (string) $translate->name,
                             (string) $translate->shortDescription,
                             (string) $translate->description,
-                            $translate->formatUpdatedAt(),
                         ]
                     );
                 }
@@ -379,6 +380,10 @@ final class Repository implements RepositoryInterface
         if ($rawCreatedAt === null) {
             throw new RepositoryException('Article created_at is invalid');
         }
+        $rawUpdatedAt = $row['updated_at'] ?? null;
+        if ($rawUpdatedAt === null) {
+            throw new RepositoryException('Article updated_at is invalid');
+        }
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Article languages param is invalid');
@@ -441,6 +446,7 @@ final class Repository implements RepositoryInterface
             $author,
             $image,
             new DateTime($rawCreatedAt),
+            new DateTime($rawUpdatedAt),
             $categories,
             $languages,
             $translates
@@ -532,10 +538,6 @@ final class Repository implements RepositoryInterface
             if ($rawDescription === null) {
                 throw new RepositoryException('Article description is invalid');
             }
-            $rawUpdatedAt = $row['updated_at'] ?? null;
-            if ($rawUpdatedAt === null) {
-                throw new RepositoryException('Article updated at is invalid');
-            }
 
             try {
                 $languageId       = new LanguageId($rawLanguage);
@@ -545,13 +547,7 @@ final class Repository implements RepositoryInterface
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());
             }
-            $translates[] = new Translate(
-                $languageId,
-                $name,
-                $shortDescription,
-                $description,
-                new DateTime($rawUpdatedAt)
-            );
+            $translates[] = new Translate($languageId, $name, $shortDescription, $description);
         }
 
         return $translates;
@@ -565,6 +561,7 @@ final class Repository implements RepositoryInterface
                 article.img_id,
                 article.audio_id,
                 article.created_at,
+                article.updated_at,
                 author.name as author_name,
                 author.active as author_active,
                 array_to_json (
@@ -634,8 +631,7 @@ final class Repository implements RepositoryInterface
             SELECT article_translates.language,
                 article_translates.name,
                 article_translates.short_description,
-                article_translates.description,
-                article_translates.updated_at
+                article_translates.description
             FROM article_translates
             WHERE article_translates.article_id = $1
         QUERY;
@@ -649,7 +645,8 @@ final class Repository implements RepositoryInterface
                 author_id = $3,
                 img_id = $4,
                 audio_id = $5,
-                created_at = $6
+                created_at = $6,
+                updated_at = $7
             WHERE article.identifier = $1
         QUERY;
     }
@@ -670,9 +667,8 @@ final class Repository implements RepositoryInterface
                 language,
                 name,
                 short_description,
-                description,
-                updated_at
-            ) VALUES ($1, $2, $3, $4, $5, $6)
+                description
+            ) VALUES ($1, $2, $3, $4, $5)
         QUERY;
     }
 
@@ -695,8 +691,8 @@ final class Repository implements RepositoryInterface
     private function addQuery(): string
     {
         return <<<'QUERY'
-            INSERT INTO article (identifier, active, author_id, created_at)
-                VALUES ($1, $2, $3, $4)
+            INSERT INTO article (identifier, active, author_id, created_at, updated_at)
+                VALUES ($1, $2, $3, $4, $5)
         QUERY;
     }
 

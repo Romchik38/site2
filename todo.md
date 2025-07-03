@@ -9,7 +9,7 @@
   - refactor
     - [+] model
     - [+] tests
-    - [-] article service (srt)
+    - [+] article service (srt)
     - [-] admin list (srt)
     - [-] admin view (srt)
     - [-] list (srt)

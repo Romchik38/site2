@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\ArticleService;
 
-use DateTime;
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Create;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
@@ -113,32 +112,29 @@ final class ArticleService
 
         // translates
         foreach ($command->translates as $translate) {
-            $existingTranslate = $model->getTranslate($translate->language);
-            $language          = new LanguageId($translate->language);
-            $name              = new Name($translate->name);
-            $shortDescription  = new ShortDescription($translate->shortDescription);
-            $description       = new Description($translate->description);
-            if ($existingTranslate === null) {
-                // $createdAt = new DateTime();
-                $updatedAt = new DateTime();
-            } else {
-                // $createdAt = $existingTranslate->createdAt;
-                $updatedAt = $existingTranslate->updatedAt;
-                if (
-                    $translate->name !== ($existingTranslate->name)() ||
-                    $translate->shortDescription !== ($existingTranslate->shortDescription)() ||
-                    $translate->description !== ($existingTranslate->description)()
-                ) {
-                    $updatedAt = new DateTime();
-                }
-            }
+            /** @todo move to model */
+            // $existingTranslate = $model->getTranslate($translate->language);
+            $language         = new LanguageId($translate->language);
+            $name             = new Name($translate->name);
+            $shortDescription = new ShortDescription($translate->shortDescription);
+            $description      = new Description($translate->description);
+            // if ($existingTranslate === null) {
+            //     $updatedAt = new DateTime();
+            // } else {
+            //     $updatedAt = $existingTranslate->updatedAt;
+            //     if (
+            //         $translate->name !== ($existingTranslate->name)() ||
+            //         $translate->shortDescription !== ($existingTranslate->shortDescription)() ||
+            //         $translate->description !== ($existingTranslate->description)()
+            //     ) {
+            //         $updatedAt = new DateTime();
+            //     }
+            // }
             $model->addTranslate(new Translate(
                 $language,
                 $name,
                 $shortDescription,
-                $description,
-                // $createdAt,
-                $updatedAt
+                $description
             ));
         }
 

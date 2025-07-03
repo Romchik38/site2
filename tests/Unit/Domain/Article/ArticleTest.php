@@ -2050,7 +2050,6 @@ final class ArticleTest extends TestCase
         $id        = new ArticleId('some-id');
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $createdAt = new DateTime();
-        $updatedAt = new DateTime();
 
         $languages = [
             new LanguageId('en'),
@@ -2067,5 +2066,30 @@ final class ArticleTest extends TestCase
         );
 
         $this->assertSame($createdAt->format(Article::SAVE_DATE_FORMAT), $article->formatCreatedAt());
+    }
+
+    public function testFormatUpdatedAt(): void
+    {
+        $id        = new ArticleId('some-id');
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $article = Article::create(
+            $id,
+            $author,
+            $languages,
+            null,
+            null,
+            $createdAt,
+            $updatedAt
+        );
+
+        $this->assertSame($updatedAt->format(Article::SAVE_DATE_FORMAT), $article->formatUpdatedAt());
     }
 }

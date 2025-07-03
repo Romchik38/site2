@@ -238,6 +238,12 @@ final class Article
         return $this->createdAt->format(self::SAVE_DATE_FORMAT);
     }
 
+    /** @todo test */
+    public function formatUpdatedAt(): string
+    {
+        return $this->updatedAt->format(self::SAVE_DATE_FORMAT);
+    }
+
     /** @return array<int,Category> */
     public function getCategories(): array
     {
