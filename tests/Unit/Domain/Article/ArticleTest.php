@@ -68,7 +68,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -169,7 +168,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -177,7 +175,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -230,7 +227,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -238,7 +234,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -286,7 +281,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -294,7 +288,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -342,7 +335,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -350,7 +342,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -398,7 +389,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -406,7 +396,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -454,7 +443,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -544,7 +532,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -552,7 +539,6 @@ final class ArticleTest extends TestCase
                 new Name('Article sur quelque chose'),
                 new ShortDescription('Une brève description d\'un article sur quelque chose'),
                 new Description('Une description complète d\'un article sur quelque chose'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -596,7 +582,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -604,7 +589,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -652,7 +636,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -660,7 +643,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -708,7 +690,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -716,7 +697,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -764,7 +744,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -772,7 +751,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -821,7 +799,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -829,7 +806,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -879,7 +855,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -887,7 +862,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -937,7 +911,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -945,7 +918,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -995,7 +967,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1003,7 +974,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1053,7 +1023,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1061,7 +1030,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1111,7 +1079,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1155,7 +1122,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1163,7 +1129,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1217,7 +1182,6 @@ final class ArticleTest extends TestCase
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
             new Description('Повний опис статті про щось'),
-            new DateTime(),
             new DateTime()
         );
         $translateEn = new Translate(
@@ -1225,7 +1189,6 @@ final class ArticleTest extends TestCase
             new Name('some name'),
             new ShortDescription('Some article short description'),
             new Description('Some article description'),
-            new DateTime(),
             new DateTime()
         );
 
@@ -1273,7 +1236,6 @@ final class ArticleTest extends TestCase
             new Name('Article sur quelque chose'),
             new ShortDescription('Une brève description d\'un article sur quelque chose'),
             new Description('Une description complète d\'un article sur quelque chose'),
-            new DateTime(),
             new DateTime()
         );
         $translateEn = new Translate(
@@ -1281,7 +1243,6 @@ final class ArticleTest extends TestCase
             new Name('some name'),
             new ShortDescription('Some article short description'),
             new Description('Some article description'),
-            new DateTime(),
             new DateTime()
         );
 
@@ -1333,7 +1294,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1341,7 +1301,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1390,7 +1349,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1398,7 +1356,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1449,7 +1406,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1457,7 +1413,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1506,7 +1461,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1514,7 +1468,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1565,7 +1518,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1573,7 +1525,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1622,7 +1573,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1630,7 +1580,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1680,7 +1629,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1688,7 +1636,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1737,7 +1684,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1745,7 +1691,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1792,7 +1737,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1800,7 +1744,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1843,7 +1786,6 @@ final class ArticleTest extends TestCase
             new Name('some name'),
             new ShortDescription('Some article short description'),
             new Description('Some article description'),
-            new DateTime(),
             new DateTime()
         );
         $translateUk = new Translate(
@@ -1851,7 +1793,6 @@ final class ArticleTest extends TestCase
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
             new Description('Повний опис статті про щось'),
-            new DateTime(),
             new DateTime()
         );
 
@@ -1896,7 +1837,6 @@ final class ArticleTest extends TestCase
             new Name('some name'),
             new ShortDescription('Some article short description'),
             new Description('Some article description'),
-            new DateTime(),
             new DateTime()
         );
         $translateUk = new Translate(
@@ -1904,7 +1844,6 @@ final class ArticleTest extends TestCase
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
             new Description('Повний опис статті про щось'),
-            new DateTime(),
             new DateTime()
         );
 
@@ -1954,7 +1893,6 @@ final class ArticleTest extends TestCase
                 new Name('some name'),
                 new ShortDescription('Some article short description'),
                 new Description('Some article description'),
-                new DateTime(),
                 new DateTime()
             ),
             new Translate(
@@ -1962,7 +1900,6 @@ final class ArticleTest extends TestCase
                 new Name('Стаття про щось'),
                 new ShortDescription('Короткий опис статті про щось'),
                 new Description('Повний опис статті про щось'),
-                new DateTime(),
                 new DateTime()
             ),
         ];
@@ -1982,5 +1919,28 @@ final class ArticleTest extends TestCase
         $this->assertSame($categories, $article->getCategories());
         $article->changeCategories($newCategories);
         $this->assertSame($newCategories, $article->getCategories());
+    }
+
+    public function testFormatCreatedAt(): void
+    {
+        $id        = new ArticleId('some-id');
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $createdAt = new DateTime();
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $article = Article::create(
+            $id,
+            $author,
+            $languages,
+            null,
+            null,
+            $createdAt
+        );
+
+        $this->assertSame($createdAt->format(Article::SAVE_DATE_FORMAT), $article->formatCreatedAt());
     }
 }

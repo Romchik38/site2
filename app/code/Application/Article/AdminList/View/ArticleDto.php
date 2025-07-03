@@ -29,7 +29,7 @@ final class ArticleDto
 
         $this->authorName = new Name($authorName);
     }
-    
+
     public function formatCreatedAt(): string
     {
         return $this->createdAt->format(self::DATE_FORMAT);

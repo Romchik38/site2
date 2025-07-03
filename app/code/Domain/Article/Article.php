@@ -228,7 +228,6 @@ final class Article
         $this->active = false;
     }
 
-    /** @todo test */
     public function formatCreatedAt(): string
     {
         return $this->createdAt->format(self::SAVE_DATE_FORMAT);
