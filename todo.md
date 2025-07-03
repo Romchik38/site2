@@ -16,6 +16,7 @@
     - [-] view (srt)
     - [-] category view (srt)
   - [-] remove field from article_translates table
+  - [-] model can do update updateAt on event
 
 ## Next
 
