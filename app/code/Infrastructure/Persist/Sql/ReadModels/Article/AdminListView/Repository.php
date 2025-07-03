@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminListView;
 
+use DateTime;
 use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
@@ -108,6 +109,11 @@ final class Repository implements RepositoryInterface
             $active = false;
         }
 
+        $rawCreatedAt = $row['created_at'] ?? null;
+        if ($rawCreatedAt === null) {
+            throw new RepositoryException('Article created_at is invalid');
+        }
+
         $rawImgActive = $row['img_active'] ?? null;
         if ($rawImgActive === null) {
             $imageActive = null;
@@ -149,6 +155,7 @@ final class Repository implements RepositoryInterface
         return new ArticleDto(
             $rawIdentifier,
             $active,
+            new DateTime($rawCreatedAt),
             $imageActive,
             $imageId,
             $audioActive,
@@ -161,6 +168,7 @@ final class Repository implements RepositoryInterface
         return <<<QUERY
         SELECT article.identifier,
             article.active,
+            article.created_at,
             article.img_id,
             (SELECT img.active 
                 FROM img WHERE img.identifier = article.img_id
