@@ -227,6 +227,13 @@ final class Article
         if ($this->active === true && $image->active === false) {
             throw new InvalidArgumentException('Article image not active');
         }
+        if ($this->image !== null) {
+            if (($this->image->id)() !== ($image->id)()) {
+                $this->updatedAt = new DateTime();
+            }
+        } else {
+            $this->updatedAt = new DateTime();
+        }
         $this->image = $image;
     }
 

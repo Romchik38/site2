@@ -2,23 +2,10 @@
 
 ## Current
 
-- [-] article - move updated_at from translate to model
-  - [+] add field to article table
-  - [+] move data to new field
-  - [+] add not null to new filed
-  - refactor
-    - [+] model
-    - [+] tests
-    - [+] article service (srt)
-    - [+] admin view (srt)
-    - [+] view use created_at (srt)
-  - [+] remove field from article_translates table
-  - [-] model can do update updateAt on event
+- article list most visited
 
 ## Next
 
-- admin article view pagination
-- article list most visited
 - article view
   - all author articles
   - Similar articles

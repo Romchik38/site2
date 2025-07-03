@@ -112,24 +112,10 @@ final class ArticleService
 
         // translates
         foreach ($command->translates as $translate) {
-            /** @todo move to model */
-            // $existingTranslate = $model->getTranslate($translate->language);
             $language         = new LanguageId($translate->language);
             $name             = new Name($translate->name);
             $shortDescription = new ShortDescription($translate->shortDescription);
             $description      = new Description($translate->description);
-            // if ($existingTranslate === null) {
-            //     $updatedAt = new DateTime();
-            // } else {
-            //     $updatedAt = $existingTranslate->updatedAt;
-            //     if (
-            //         $translate->name !== ($existingTranslate->name)() ||
-            //         $translate->shortDescription !== ($existingTranslate->shortDescription)() ||
-            //         $translate->description !== ($existingTranslate->description)()
-            //     ) {
-            //         $updatedAt = new DateTime();
-            //     }
-            // }
             $model->addTranslate(new Translate(
                 $language,
                 $name,
