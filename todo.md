@@ -11,9 +11,7 @@
     - [+] tests
     - [+] article service (srt)
     - [+] admin view (srt)
-    - [-] list (srt)
-    - [-] view (srt)
-    - [-] category view (srt)
+    - [-] view use created_at (srt)
   - [-] remove field from article_translates table
   - [-] model can do update updateAt on event
 
