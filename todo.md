@@ -9,11 +9,11 @@
   - refactor
     - [+] model
     - [+] tests
-    - admin list
-    - admin view
-    - article service
-    - list
-    - view
+    - [+] article service (srt)
+    - admin list (srt)
+    - admin view (srt)
+    - list (srt)
+    - view (srt)
   - remove field from article_translates table
 
 ## Next

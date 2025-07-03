@@ -50,9 +50,10 @@ final class Repository implements RepositoryInterface
         if ($model->active) {
             $active = 't';
         }
+        $createdAt = $model->formatCreatedAt();
 
         $query  = $this->addQuery();
-        $params = [$id, $active, $authorId];
+        $params = [$id, $active, $authorId, $createdAt];
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
@@ -258,15 +259,15 @@ final class Repository implements RepositoryInterface
         if ($imageId !== null) {
             $imageId = ($imageId->id)();
         }
-
         if ($model->active) {
             $articleActive = 't';
         } else {
             $articleActive = 'f';
         }
+        $createdAt = $model->formatCreatedAt();
 
         $mainSaveQuery = $this->mainSaveQuery();
-        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId];
+        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt];
 
         $translates = $model->getTranslates();
         $categories = $model->getCategories();
@@ -368,14 +369,17 @@ final class Repository implements RepositoryInterface
     {
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Audio active is invalid');
+            throw new RepositoryException('Article active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
         } else {
             $active = false;
         }
-
+        $rawCreatedAt = $row['created_at'] ?? null;
+        if ($rawCreatedAt === null) {
+            throw new RepositoryException('Article created_at is invalid');
+        }
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Article languages param is invalid');
@@ -437,6 +441,7 @@ final class Repository implements RepositoryInterface
             $audio,
             $author,
             $image,
+            new DateTime($rawCreatedAt),
             $categories,
             $languages,
             $translates
@@ -565,6 +570,7 @@ final class Repository implements RepositoryInterface
                 article.author_id,
                 article.img_id,
                 article.audio_id,
+                article.created_at,
                 author.name as author_name,
                 author.active as author_active,
                 array_to_json (
@@ -649,7 +655,8 @@ final class Repository implements RepositoryInterface
             SET active = $2,
                 author_id = $3,
                 img_id = $4,
-                audio_id = $5
+                audio_id = $5,
+                created_at = $6
             WHERE article.identifier = $1
         QUERY;
     }
@@ -696,8 +703,8 @@ final class Repository implements RepositoryInterface
     private function addQuery(): string
     {
         return <<<'QUERY'
-            INSERT INTO article (identifier, active, author_id)
-                VALUES ($1, $2, $3)
+            INSERT INTO article (identifier, active, author_id, created_at)
+                VALUES ($1, $2, $3, $4)
         QUERY;
     }
 
