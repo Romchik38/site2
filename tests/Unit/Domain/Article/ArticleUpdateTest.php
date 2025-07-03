@@ -414,4 +414,119 @@ final class ArticleUpdateTest extends TestCase
         $article->changeAudio($audio);
         $this->assertNotEquals($oldUpdatedAt, $article->updatedAt);
     }
+
+    public function testChangeAuthorUpdate(): void
+    {
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $author2   = new Author(new AuthorId(2), true, new AuthorName('Author 2'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime()
+        );
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($updatedAt, $article->updatedAt);
+        $article->changeAuthor($author2);
+        $this->assertNotEquals($updatedAt, $article->updatedAt);
+    }
+
+    public function testChangeAuthorDoNotUpdate(): void
+    {
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime()
+        );
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($updatedAt, $article->updatedAt);
+        $article->changeAuthor($author);
+        $this->assertSame($updatedAt, $article->updatedAt);
+    }
 }

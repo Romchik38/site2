@@ -200,6 +200,9 @@ final class Article
         if ($this->active === true && $author->active === false) {
             throw new InvalidArgumentException('Article author not active');
         }
+        if (($this->author->id)() !== ($author->id)()) {
+            $this->updatedAt = new DateTime();
+        }
         $this->author = $author;
     }
 
