@@ -2,7 +2,7 @@
 
 ## Current
 
-- article list most visited
+- article most visited
   - [-] add new column to article table
   - [-] create new api point to collect data
     - [-] service
@@ -11,7 +11,10 @@
   - [-] create most visited article service
     - [-] service
     - [-] repository
-  - [-] show most visited on article view
+  - [-] show most visited on article list
+    - [-] action
+    - [-] template
+  - [-] show most visited on category
     - [-] action
     - [-] template
 
