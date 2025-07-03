@@ -12,14 +12,12 @@
     {% set name = '' %}
     {% set shortDescription = '' %}
     {% set description = '' %}
-    {% set createdAt = '' %}
     {% set updatedAt = '' %}
     {% for item in translates %}
         {% if item.getLanguage() == availableLanguage %}
             {% set name = item.getName() %}
             {% set shortDescription = item.getShortDescription() %}
             {% set description = item.getDescription() %}
-            {% set createdAt = item.getCreatedAt() %}
             {% set updatedAt = item.getUpdatedAt() %}
         {% endif %}
     {% endfor %}
@@ -48,9 +46,6 @@
             <textarea class="form-control summernote" form="article-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required maxlength="255" rows="15">{{ description }}</textarea>
         </div>
 
-        <div class="mb-1">
-            <p>Created at: {{ createdAt }}</p>
-        </div>
         <div class="mb-1">
             <p>Updated at: {{ updatedAt }}</p>
         </div>

@@ -119,10 +119,10 @@ final class ArticleService
             $shortDescription  = new ShortDescription($translate->shortDescription);
             $description       = new Description($translate->description);
             if ($existingTranslate === null) {
-                $createdAt = new DateTime();
+                // $createdAt = new DateTime();
                 $updatedAt = new DateTime();
             } else {
-                $createdAt = $existingTranslate->createdAt;
+                // $createdAt = $existingTranslate->createdAt;
                 $updatedAt = $existingTranslate->updatedAt;
                 if (
                     $translate->name !== ($existingTranslate->name)() ||
@@ -137,7 +137,7 @@ final class ArticleService
                 $name,
                 $shortDescription,
                 $description,
-                $createdAt,
+                // $createdAt,
                 $updatedAt
             ));
         }

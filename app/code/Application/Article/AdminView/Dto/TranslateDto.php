@@ -19,14 +19,8 @@ final class TranslateDto
         public readonly Name $name,
         public readonly ShortDescription $shortDescription,
         public readonly Description $description,
-        public readonly DateTime $createdAt,
         public readonly DateTime $updatedAt
     ) {
-    }
-
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt->format(self::DATE_FORMAT);
     }
 
     public function getDescription(): string

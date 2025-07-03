@@ -150,10 +150,6 @@ final class Repository implements RepositoryInterface
             if ($rawDescription === null) {
                 throw new RepositoryException('Article description is invalid');
             }
-            $rawCreatedAt = $row['created_at'] ?? null;
-            if ($rawCreatedAt === null) {
-                throw new RepositoryException('Article created at is invalid');
-            }
             $rawUpdatedAt = $row['updated_at'] ?? null;
             if ($rawUpdatedAt === null) {
                 throw new RepositoryException('Article updated at is invalid');
@@ -172,7 +168,6 @@ final class Repository implements RepositoryInterface
                 $name,
                 $shortDescription,
                 $description,
-                new DateTime($rawCreatedAt),
                 new DateTime($rawUpdatedAt)
             );
         }
@@ -470,7 +465,6 @@ final class Repository implements RepositoryInterface
                 article_translates.name,
                 article_translates.short_description,
                 article_translates.description,
-                article_translates.created_at,
                 article_translates.updated_at
             FROM article_translates
             WHERE article_translates.article_id = $1

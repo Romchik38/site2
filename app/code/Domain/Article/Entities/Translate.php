@@ -19,14 +19,8 @@ final class Translate
         public readonly Name $name,
         public readonly ShortDescription $shortDescription,
         public readonly Description $description,
-        public readonly DateTime $createdAt,
         public readonly DateTime $updatedAt
     ) {
-    }
-
-    public function formatCreatedAt(): string
-    {
-        return $this->createdAt->format(self::SAVE_DATE_FORMAT);
     }
 
     public function formatUpdatedAt(): string

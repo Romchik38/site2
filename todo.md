@@ -2,7 +2,7 @@
 
 ## Current
 
-- article - move created_at from translate to model
+- [+] article - move created_at from translate to model
   - [+] add field to article table
   - [+] move data to new field
   - [+] add not null to new filed
@@ -15,7 +15,7 @@
     - [+] list (srt)
     - [+] view (srt)
     - [+] category view (srt)
-  - remove field from article_translates table
+  - [+] remove field from article_translates table
 
 ## Next
 
