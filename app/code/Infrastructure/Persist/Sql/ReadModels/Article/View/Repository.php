@@ -263,7 +263,6 @@ final class Repository implements RepositoryInterface
             article_translates.name,
             article_translates.short_description,
             article_translates.description,
-            article_translates.updated_at,
             author_translates.author_id,
             author_translates.description as author_description,
             img.path as img_path,
