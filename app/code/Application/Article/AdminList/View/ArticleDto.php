@@ -20,6 +20,7 @@ final class ArticleDto
         string $identifier,
         public readonly bool $active,
         public readonly DateTime $createdAt,
+        public readonly DateTime $updatedAt,
         public readonly bool|null $imgActive,
         public readonly Id|null $imgIdentifier,
         public readonly bool|null $audioActive,
@@ -34,4 +35,9 @@ final class ArticleDto
     {
         return $this->createdAt->format(self::DATE_FORMAT);
     }
+
+    public function formatUpdatedAt(): string
+    {
+        return $this->updatedAt->format(self::DATE_FORMAT);
+    }    
 }

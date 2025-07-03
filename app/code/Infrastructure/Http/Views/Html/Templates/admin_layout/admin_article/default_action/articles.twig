@@ -63,6 +63,7 @@
                 <th scope="col">Identifier</th>
                 <th scope="col">Active</th>
                 <th scope="col">Created</th>
+                <th scope="col">Updated</th>
                 <th scope="col">Image Active</th>
                 <th scope="col">Image</th>
                 <th scope="col">Audio Active</th>
@@ -99,6 +100,7 @@
                     {% set activeColorImage = 'text-warning bg-secondary' %}
                 {% endif %}
                 <td>{{ article.formatCreatedAt() }}</td>
+                <td>{{ article.formatUpdatedAt() }}</td>
                 <td class="{{ activeColorImage }}">{{ imgActive }}</td>
 
                 <!-- Display image -->

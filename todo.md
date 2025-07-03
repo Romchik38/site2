@@ -2,9 +2,6 @@
 
 ## Current
 
-- admin list - add updated at
-  - to template
-  - to filter
 - article list most visited
 
 ## Next

@@ -114,6 +114,11 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Article created_at is invalid');
         }
 
+        $rawUpdatedAt = $row['updated_at'] ?? null;
+        if ($rawUpdatedAt === null) {
+            throw new RepositoryException('Article updated_at is invalid');
+        }
+
         $rawImgActive = $row['img_active'] ?? null;
         if ($rawImgActive === null) {
             $imageActive = null;
@@ -156,6 +161,7 @@ final class Repository implements RepositoryInterface
             $rawIdentifier,
             $active,
             new DateTime($rawCreatedAt),
+            new DateTime($rawUpdatedAt),
             $imageActive,
             $imageId,
             $audioActive,
@@ -169,6 +175,7 @@ final class Repository implements RepositoryInterface
         SELECT article.identifier,
             article.active,
             article.created_at,
+            article.updated_at,
             article.img_id,
             (SELECT img.active 
                 FROM img WHERE img.identifier = article.img_id
