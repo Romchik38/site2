@@ -12,7 +12,7 @@
     - [+] article service (srt)
     - [+] admin view (srt)
     - [+] view use created_at (srt)
-  - [-] remove field from article_translates table
+  - [+] remove field from article_translates table
   - [-] model can do update updateAt on event
 
 ## Next
