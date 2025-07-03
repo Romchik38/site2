@@ -356,13 +356,13 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
         SELECT article.identifier,
-        article_translates.name,
-        article_translates.short_description,
-        article_translates.description,
-        article_translates.created_at,
-        img.path as img_path,
-        img_translates.img_id,
-        img_translates.description as img_description
+            article.created_at,
+            article_translates.name,
+            article_translates.short_description,
+            article_translates.description,
+            img.path as img_path,
+            img_translates.img_id,
+            img_translates.description as img_description
         FROM
             article,
             article_translates,
