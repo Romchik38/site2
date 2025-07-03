@@ -96,7 +96,7 @@ final class Repository implements RepositoryInterface
         $rawUpdatedAt = $row['updated_at'] ?? null;
         if ($rawUpdatedAt === null) {
             throw new RepositoryException('Article updated_at is invalid');
-        }        
+        }
         // Author
         $author = $this->createAuthor($row);
         // Audio

@@ -167,10 +167,15 @@ final class Article
             throw new InvalidArgumentException(
                 'param article translate language has non expected language'
             );
+        } 
+        $languageId = (string) $translate->language;
+        $oldTranslate = $this->translates[$languageId] ?? null;
+        if ($oldTranslate !== null) {
+            $this->updateOnTranslate($oldTranslate, $translate);
         } else {
-            $languageId                      = $translate->language;
-            $this->translates[$languageId()] = $translate;
+            $this->updatedAt = new DateTime();
         }
+        $this->translates[$languageId] = $translate;
     }
 
     /** @throws InvalidArgumentException */
@@ -238,7 +243,6 @@ final class Article
         return $this->createdAt->format(self::SAVE_DATE_FORMAT);
     }
 
-    /** @todo test */
     public function formatUpdatedAt(): string
     {
         return $this->updatedAt->format(self::SAVE_DATE_FORMAT);
@@ -305,4 +309,15 @@ final class Article
         }
         return $found;
     }
+
+    private function updateOnTranslate(Translate $old, Translate $new): void
+    {
+        if (
+            ($old->name)() !== ($new->name)() ||
+            ($old->shortDescription)() !== ($new->shortDescription)() ||
+            ($old->description)() !== ($new->description)()
+        ) {
+            $this->updatedAt = new DateTime();
+        }
+    }    
 }
