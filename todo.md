@@ -2,24 +2,23 @@
 
 ## Current
 
-- [+] article - move created_at from translate to model
-  - [+] add field to article table
-  - [+] move data to new field
-  - [+] add not null to new filed
+- [-] article - move updated_at from translate to model
+  - [-] add field to article table
+  - [-] move data to new field
+  - [-] add not null to new filed
   - refactor
-    - [+] model
-    - [+] tests
-    - [+] article service (srt)
-    - [+] admin list (srt)
-    - [+] admin view (srt)
-    - [+] list (srt)
-    - [+] view (srt)
-    - [+] category view (srt)
-  - [+] remove field from article_translates table
+    - [-] model
+    - [-] tests
+    - [-] article service (srt)
+    - [-] admin list (srt)
+    - [-] admin view (srt)
+    - [-] list (srt)
+    - [-] view (srt)
+    - [-] category view (srt)
+  - [-] remove field from article_translates table
 
 ## Next
 
-- article - updated_at from translate to model
 - admin article view pagination
 - article list most visited
 - article view
