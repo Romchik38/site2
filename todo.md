@@ -14,6 +14,7 @@
     - [+] admin view (srt)
     - list (srt)
     - view (srt)
+    - category view (srt)
   - remove field from article_translates table
 
 ## Next
