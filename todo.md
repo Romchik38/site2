@@ -10,8 +10,7 @@
     - [+] model
     - [+] tests
     - [+] article service (srt)
-    - [-] admin list (srt)
-    - [-] admin view (srt)
+    - [+] admin view (srt)
     - [-] list (srt)
     - [-] view (srt)
     - [-] category view (srt)

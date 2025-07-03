@@ -93,6 +93,10 @@ final class Repository implements RepositoryInterface
         if ($rawCreatedAt === null) {
             throw new RepositoryException('Article created_at is invalid');
         }
+        $rawUpdatedAt = $row['updated_at'] ?? null;
+        if ($rawUpdatedAt === null) {
+            throw new RepositoryException('Article updated_at is invalid');
+        }        
         // Author
         $author = $this->createAuthor($row);
         // Audio
@@ -108,6 +112,7 @@ final class Repository implements RepositoryInterface
             $id,
             $active,
             new DateTime($rawCreatedAt),
+            new DateTime($rawUpdatedAt),
             $audio,
             $author,
             $image,
@@ -150,10 +155,6 @@ final class Repository implements RepositoryInterface
             if ($rawDescription === null) {
                 throw new RepositoryException('Article description is invalid');
             }
-            $rawUpdatedAt = $row['updated_at'] ?? null;
-            if ($rawUpdatedAt === null) {
-                throw new RepositoryException('Article updated at is invalid');
-            }
 
             try {
                 $languageId       = new LanguageId($rawLanguage);
@@ -163,13 +164,7 @@ final class Repository implements RepositoryInterface
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());
             }
-            $translates[] = new TranslateDto(
-                $languageId,
-                $name,
-                $shortDescription,
-                $description,
-                new DateTime($rawUpdatedAt)
-            );
+            $translates[] = new TranslateDto($languageId, $name, $shortDescription, $description);
         }
 
         return $translates;
@@ -410,6 +405,7 @@ final class Repository implements RepositoryInterface
         return <<<'QUERY'
             SELECT article.active,
                 article.created_at,
+                article.updated_at,
                 article.author_id,
                 article.img_id,
                 article.audio_id,
@@ -464,8 +460,7 @@ final class Repository implements RepositoryInterface
             SELECT article_translates.language,
                 article_translates.name,
                 article_translates.short_description,
-                article_translates.description,
-                article_translates.updated_at
+                article_translates.description
             FROM article_translates
             WHERE article_translates.article_id = $1
         QUERY;

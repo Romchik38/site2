@@ -45,9 +45,5 @@
             <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]">Description</label>
             <textarea class="form-control summernote" form="article-update-form" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.descriptionField }}]" required maxlength="255" rows="15">{{ description }}</textarea>
         </div>
-
-        <div class="mb-1">
-            <p>Updated at: {{ updatedAt }}</p>
-        </div>
     </div>
 {% endfor %}
