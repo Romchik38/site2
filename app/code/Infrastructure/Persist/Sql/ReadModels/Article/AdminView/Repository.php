@@ -82,14 +82,17 @@ final class Repository implements RepositoryInterface
     {
         $rawActive = $row['active'] ?? null;
         if ($rawActive === null) {
-            throw new RepositoryException('Audio active is invalid');
+            throw new RepositoryException('Article active is invalid');
         }
         if ($rawActive === 't') {
             $active = true;
         } else {
             $active = false;
         }
-
+        $rawCreatedAt = $row['created_at'] ?? null;
+        if ($rawCreatedAt === null) {
+            throw new RepositoryException('Article created_at is invalid');
+        }
         // Author
         $author = $this->createAuthor($row);
         // Audio
@@ -104,6 +107,7 @@ final class Repository implements RepositoryInterface
         return new ArticleDto(
             $id,
             $active,
+            new DateTime($rawCreatedAt),
             $audio,
             $author,
             $image,
@@ -410,6 +414,7 @@ final class Repository implements RepositoryInterface
     {
         return <<<'QUERY'
             SELECT article.active,
+                article.created_at,
                 article.author_id,
                 article.img_id,
                 article.audio_id,

@@ -50,6 +50,11 @@
                     </label>
                 </div>
             </div>
+            <div class="form-group my-2 p-2">
+                <div class="mb">
+                    <p>Created at: {{ article.formatCreatedAt() }}</p>
+                </div>
+            </div>
             <!-- Translates -->
             <div class="my-5">
                 {% include template_full_prefix ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
