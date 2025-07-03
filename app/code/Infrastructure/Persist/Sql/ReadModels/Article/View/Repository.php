@@ -259,10 +259,10 @@ final class Repository implements RepositoryInterface
             WHERE author_translates.language = $1
         )       
         SELECT article.identifier,
+            article.created_at,
             article_translates.name,
             article_translates.short_description,
             article_translates.description,
-            article_translates.created_at,
             article_translates.updated_at,
             author_translates.author_id,
             author_translates.description as author_description,

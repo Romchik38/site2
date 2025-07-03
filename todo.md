@@ -13,7 +13,7 @@
     - [+] admin list (srt)
     - [+] admin view (srt)
     - [+] list (srt)
-    - view (srt)
+    - [+] view (srt)
     - category view (srt)
   - remove field from article_translates table
 
