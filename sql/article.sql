@@ -5,7 +5,8 @@ CREATE table
         author_id int NOT NULL REFERENCES author (identifier) ON UPDATE CASCADE,
         img_id int REFERENCES img (identifier) ON UPDATE CASCADE,
         audio_id int REFERENCES audio (identifier) ON UPDATE CASCADE,
-        created_at timestamp NOT NULL DEFAULT current_timestamp
+        created_at timestamp NOT NULL DEFAULT current_timestamp,
+        updated_at timestamp NOT NULL DEFAULT current_timestamp
     );
 
 CREATE table

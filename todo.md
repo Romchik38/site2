@@ -3,12 +3,12 @@
 ## Current
 
 - [-] article - move updated_at from translate to model
-  - [-] add field to article table
-  - [-] move data to new field
-  - [-] add not null to new filed
+  - [+] add field to article table
+  - [+] move data to new field
+  - [+] add not null to new filed
   - refactor
     - [+] model
-    - [-] tests
+    - [+] tests
     - [-] article service (srt)
     - [-] admin list (srt)
     - [-] admin view (srt)

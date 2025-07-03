@@ -115,7 +115,8 @@ CREATE TABLE public.article (
     author_id integer NOT NULL,
     img_id integer,
     audio_id integer,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -541,34 +542,34 @@ COPY public.admin_users_with_roles (user_id, role_id) FROM stdin;
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.article (identifier, active, author_id, img_id, audio_id, created_at) FROM stdin;
-simplification-of-the-drivers-license-examination-process	t	1	1	1	2024-11-12 17:54:44
-passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10
-сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	96	54	2025-06-26 19:26:46
-impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47
-zakon-pro-dorojniy-ruh-ukraini	t	1	91	49	2025-06-25 16:29:19
-plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51
-the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22
-evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49
-the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16
-deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05
-laws-and-regulations-governing-the-field-of-military-law	t	1	99	57	2025-06-29 12:42:15
-code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54
-military-registration-document	t	1	103	61	2025-06-30 12:26:51
-traffic-rules	t	1	111	67	2025-07-02 11:42:18
-reservation-of-employees-for-the-period-of-mobilization	t	1	105	62	2025-06-30 17:35:55
-extension-of-the-guarantee-of-maintaining-a-servicemans-job	t	1	102	60	2025-06-29 19:45:28
-entering-a-road-with-a-lane-for-route-vehicles	t	1	90	48	2025-06-25 12:54:38
-сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01
-Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	95	53	2025-06-26 16:46:37
-evidence-in-administrative-offense-cases-key-aspects	t	1	3	3	2024-11-05 13:40:26
-amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38
-using-a-video-recorder	t	1	92	50	2025-06-25 19:24:20
-administrative-detention	t	1	97	55	2025-06-27 18:49:55
-grounds-for-stopping-a-vehicle-by-police-officers	t	1	93	51	2025-06-26 10:25:57
-increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03
-document-verification-for-drivers	t	1	2	2	2024-10-31 19:14:03
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54
+COPY public.article (identifier, active, author_id, img_id, audio_id, created_at, updated_at) FROM stdin;
+сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01	2025-06-26 13:24:15
+plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37
+evidence-in-administrative-offense-cases-key-aspects	t	1	3	3	2024-11-05 13:40:26	2025-06-10 12:10:06
+сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	96	54	2025-06-26 19:26:46	2025-06-26 19:29:25
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-07-02 14:52:03
+entering-a-road-with-a-lane-for-route-vehicles	t	1	90	48	2025-06-25 12:54:38	2025-06-25 14:14:33
+passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10	2025-06-29 17:50:58
+using-a-video-recorder	t	1	92	50	2025-06-25 19:24:20	2025-06-25 19:29:22
+zakon-pro-dorojniy-ruh-ukraini	t	1	91	49	2025-06-25 16:29:19	2025-06-25 16:39:06
+the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49
+Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	95	53	2025-06-26 16:46:37	2025-06-26 16:50:18
+increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03	2025-06-15 13:38:03
+military-registration-document	t	1	103	61	2025-06-30 12:26:51	2025-06-30 12:40:43
+evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51
+impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47
+traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42
+code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54	2025-06-30 19:20:16
+administrative-detention	t	1	97	55	2025-06-27 18:49:55	2025-06-27 18:57:37
+grounds-for-stopping-a-vehicle-by-police-officers	t	1	93	51	2025-06-26 10:25:57	2025-06-26 10:34:26
+the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16	2025-06-24 18:47:02
+reservation-of-employees-for-the-period-of-mobilization	t	1	105	62	2025-06-30 17:35:55	2025-06-30 17:47:08
+deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50
+extension-of-the-guarantee-of-maintaining-a-servicemans-job	t	1	102	60	2025-06-29 19:45:28	2025-06-29 19:49:24
+amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38	2025-06-29 14:59:54
+document-verification-for-drivers	t	1	2	2	2024-10-31 19:14:03	2024-10-27 11:48:50
+laws-and-regulations-governing-the-field-of-military-law	t	1	99	57	2025-06-29 12:42:15	2025-06-29 12:44:17
+simplification-of-the-drivers-license-examination-process	t	1	1	1	2024-11-12 17:54:44	2025-06-22 19:36:40
 \.
 
 
