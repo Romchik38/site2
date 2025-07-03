@@ -2,7 +2,6 @@
 
 ## Current
 
-- add more content
 - article - move created_at from translate to model
   - [+] add field to article table
   - [+] move data to new field
@@ -10,13 +9,16 @@
   - refactor
     - [+] model
     - [+] tests
-    - service
-    - repository
-    - templates
+    - admin list
+    - admin view
+    - article service
+    - list
+    - view
   - remove field from article_translates table
 
 ## Next
 
+- article - updated_at from translate to model
 - admin article view pagination
 - article list most visited
 - article view
@@ -28,6 +30,7 @@
 - search in nav bar
 - add popup first time visitor - the site is a demo
 - control image cache size
+- add more content
 
 ## Later
 
