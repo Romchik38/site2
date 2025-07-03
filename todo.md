@@ -7,7 +7,7 @@
   - [-] move data to new field
   - [-] add not null to new filed
   - refactor
-    - [-] model
+    - [+] model
     - [-] tests
     - [-] article service (srt)
     - [-] admin list (srt)

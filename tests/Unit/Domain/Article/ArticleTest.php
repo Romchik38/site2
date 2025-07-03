@@ -57,6 +57,7 @@ final class ArticleTest extends TestCase
         $id        = new ArticleId('some-id');
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
         $languages = [
             new LanguageId('en'),
             new LanguageId('uk'),
@@ -79,6 +80,7 @@ final class ArticleTest extends TestCase
             null,
             null,
             $createdAt,
+            $updatedAt,
             [],
             $translates
         );
@@ -148,6 +150,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -186,6 +189,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -200,6 +204,62 @@ final class ArticleTest extends TestCase
         $this->assertSame($translates, $article->getTranslates());
     }
 
+    public function testConstructThrowsErrorInvalidCreatedAt(): void
+    {
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $updatedAt = new DateTime();
+        $createdAt = new DateTime();
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime()
+            ),
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article created at is bigger than updated at');
+
+        new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
     public function testConstructThrowsErrorInvalidImageNotActive(): void
     {
         $id        = new ArticleId('some-id');
@@ -207,6 +267,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), false);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -248,6 +309,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -261,6 +323,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = null;
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -302,6 +365,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -315,6 +379,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -356,6 +421,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -369,6 +435,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -410,6 +477,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -423,6 +491,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(AuthorId::fromString('1'), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -457,6 +526,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -470,6 +540,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -499,6 +570,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -512,6 +584,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -553,6 +626,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -566,6 +640,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new stdClass(),
@@ -603,6 +678,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -616,6 +692,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -657,6 +734,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -670,6 +748,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -711,6 +790,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -724,6 +804,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -762,6 +843,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -779,6 +861,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = null;
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -817,6 +900,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -835,6 +919,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), false);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -873,6 +958,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -891,6 +977,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -929,6 +1016,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -947,6 +1035,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -985,6 +1074,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1003,6 +1093,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), false, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1041,6 +1132,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1059,6 +1151,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1090,6 +1183,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1108,6 +1202,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [];
 
@@ -1140,6 +1235,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1163,6 +1259,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1201,6 +1298,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1217,6 +1315,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1255,6 +1354,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1274,6 +1374,7 @@ final class ArticleTest extends TestCase
         $author2   = new Author(new AuthorId(2), true, new AuthorName('Author 2'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1312,6 +1413,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1329,6 +1431,7 @@ final class ArticleTest extends TestCase
         $author2   = new Author(new AuthorId(2), false, new AuthorName('Author 2'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1367,6 +1470,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1386,6 +1490,7 @@ final class ArticleTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $image2    = new Image(new ImageId(2), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1424,6 +1529,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1441,6 +1547,7 @@ final class ArticleTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $image2    = new Image(new ImageId(2), false);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1479,6 +1586,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1498,6 +1606,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1536,6 +1645,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1553,6 +1663,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1591,6 +1702,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1609,6 +1721,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1647,6 +1760,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1664,6 +1778,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(
@@ -1702,6 +1817,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1720,6 +1836,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1755,6 +1872,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1770,6 +1888,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1805,6 +1924,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1821,6 +1941,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1856,6 +1977,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1871,6 +1993,7 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $categories = [
             new Category(new CategoryId('cat-1'), true, 1),
@@ -1911,6 +2034,7 @@ final class ArticleTest extends TestCase
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
@@ -1926,6 +2050,7 @@ final class ArticleTest extends TestCase
         $id        = new ArticleId('some-id');
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $createdAt = new DateTime();
+        $updatedAt = new DateTime();
 
         $languages = [
             new LanguageId('en'),

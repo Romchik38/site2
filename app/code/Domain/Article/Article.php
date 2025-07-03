@@ -43,7 +43,8 @@ final class Article
         private(set) ?Audio $audio,
         private(set) Author $author,
         private(set) ?Image $image,
-        public DateTime $createdAt,
+        public readonly DateTime $createdAt,
+        private(set) DateTime $updatedAt,
         array $categories,
         array $languages,
         array $translates
@@ -100,6 +101,10 @@ final class Article
             if ($author->active === false) {
                 throw new InvalidArgumentException('param article author is not active');
             }
+        }
+
+        if ($createdAt > $updatedAt) {
+            throw new InvalidArgumentException('param article created at is bigger than updated at');
         }
     }
 
@@ -263,6 +268,7 @@ final class Article
         ?Audio $audio = null,
         ?Image $image = null,
         DateTime $createdAt = new DateTime(),
+        DateTime $updatedAt = new DateTime(),
         array $categories = [],
         array $translates = []
     ): self {
@@ -273,6 +279,7 @@ final class Article
             $author,
             $image,
             $createdAt,
+            $updatedAt,
             $categories,
             $languages,
             $translates
