@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Tests\Unit\Domain\Article;
 
 use DateTime;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\Article;
-use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Article\Entities\Audio;
 use Romchik38\Site2\Domain\Article\Entities\Author;
 use Romchik38\Site2\Domain\Article\Entities\Category;
@@ -24,7 +22,6 @@ use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use stdClass;
 
 final class ArticleUpdateTest extends TestCase
 {
@@ -107,7 +104,7 @@ final class ArticleUpdateTest extends TestCase
             new LanguageId('uk'),
         ];
 
-        $translateUk = new Translate(
+        $translateUk    = new Translate(
             new LanguageId('uk'),
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
@@ -121,7 +118,7 @@ final class ArticleUpdateTest extends TestCase
             new Description('Повний опис статті про щось'),
             new DateTime()
         );
-        $translateEn = new Translate(
+        $translateEn    = new Translate(
             new LanguageId('en'),
             new Name('some name'),
             new ShortDescription('Some article short description'),
@@ -171,7 +168,7 @@ final class ArticleUpdateTest extends TestCase
             new LanguageId('uk'),
         ];
 
-        $translateUk = new Translate(
+        $translateUk    = new Translate(
             new LanguageId('uk'),
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
@@ -185,7 +182,7 @@ final class ArticleUpdateTest extends TestCase
             new Description('Повний опис статті про щось'),
             new DateTime()
         );
-        $translateEn = new Translate(
+        $translateEn    = new Translate(
             new LanguageId('en'),
             new Name('some name'),
             new ShortDescription('Some article short description'),
@@ -235,7 +232,7 @@ final class ArticleUpdateTest extends TestCase
             new LanguageId('uk'),
         ];
 
-        $translateUk = new Translate(
+        $translateUk    = new Translate(
             new LanguageId('uk'),
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
@@ -247,6 +244,64 @@ final class ArticleUpdateTest extends TestCase
             new Name('Стаття про щось'),
             new ShortDescription('Короткий опис статті про щось'),
             new Description('Повний опис статті про щось 1'),
+            new DateTime()
+        );
+        $translateEn    = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($updatedAt, $article->updatedAt);
+        $article->addTranslate($translateUkNew);
+        $this->assertNotEquals($updatedAt, $article->updatedAt);
+    }
+
+    public function testChangeAudioUpdate(): void
+    {
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $audio2    = new Audio(new AudioId(2), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
             new DateTime()
         );
         $translateEn = new Translate(
@@ -273,7 +328,90 @@ final class ArticleUpdateTest extends TestCase
         );
 
         $this->assertSame($updatedAt, $article->updatedAt);
-        $article->addTranslate($translateUkNew);
+        $article->changeAudio($audio2);
         $this->assertNotEquals($updatedAt, $article->updatedAt);
-    }        
+    }
+
+    public function testChangeAudioDoNOtUpdate(): void
+    {
+        $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translateUk = new Translate(
+            new LanguageId('uk'),
+            new Name('Стаття про щось'),
+            new ShortDescription('Короткий опис статті про щось'),
+            new Description('Повний опис статті про щось'),
+            new DateTime()
+        );
+        $translateEn = new Translate(
+            new LanguageId('en'),
+            new Name('some name'),
+            new ShortDescription('Some article short description'),
+            new Description('Some article description'),
+            new DateTime()
+        );
+
+        $translates = [$translateEn, $translateUk];
+
+        $article = new Article(
+            $id,
+            false,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($updatedAt, $article->updatedAt);
+        $article->changeAudio($audio);
+        $this->assertSame($updatedAt, $article->updatedAt);
+    }
+
+    public function testChangeAudioWhenItWasNotSet(): void
+    {
+        $id        = new ArticleId('some-id');
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $createdAt = new DateTime();
+        $audio     = new Audio(new AudioId(1), true);
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $article = Article::create(
+            $id,
+            $author,
+            $languages,
+            null,
+            null,
+            $createdAt
+        );
+
+        $oldUpdatedAt = $article->updatedAt;
+        $article->changeAudio($audio);
+        $this->assertNotEquals($oldUpdatedAt, $article->updatedAt);
+    }
 }

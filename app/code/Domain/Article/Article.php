@@ -167,8 +167,8 @@ final class Article
             throw new InvalidArgumentException(
                 'param article translate language has non expected language'
             );
-        } 
-        $languageId = (string) $translate->language;
+        }
+        $languageId   = (string) $translate->language;
         $oldTranslate = $this->translates[$languageId] ?? null;
         if ($oldTranslate !== null) {
             $this->updateOnTranslate($oldTranslate, $translate);
@@ -183,6 +183,13 @@ final class Article
     {
         if ($this->active === true && $audio->active === false) {
             throw new InvalidArgumentException('Article audio not active');
+        }
+        if ($this->audio !== null) {
+            if (($this->audio->id)() !== ($audio->id)()) {
+                $this->updatedAt = new DateTime();
+            }
+        } else {
+            $this->updatedAt = new DateTime();
         }
         $this->audio = $audio;
     }
@@ -319,5 +326,5 @@ final class Article
         ) {
             $this->updatedAt = new DateTime();
         }
-    }    
+    }
 }
