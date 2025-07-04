@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Article\CouldNotIncrementViewsException;
 use Romchik38\Site2\Domain\Article\Entities\Audio;
 use Romchik38\Site2\Domain\Article\Entities\Author;
 use Romchik38\Site2\Domain\Article\Entities\Category;
@@ -2166,10 +2167,66 @@ final class ArticleTest extends TestCase
     public function testIncrementViews(): void
     {
         $id        = new ArticleId('some-id');
+        $audio     = new Audio(new AudioId(1), true);
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
         $views     = new Views(0);
+
+        $categories = [
+            new Category(
+                new CategoryId('cat-1'),
+                true,
+                1
+            ),
+        ];
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $translates = [
+            new Translate(
+                new LanguageId('en'),
+                new Name('some name'),
+                new ShortDescription('Some article short description'),
+                new Description('Some article description'),
+                new DateTime()
+            ),
+            new Translate(
+                new LanguageId('uk'),
+                new Name('Стаття про щось'),
+                new ShortDescription('Короткий опис статті про щось'),
+                new Description('Повний опис статті про щось'),
+                new DateTime()
+            ),
+        ];
+
+        $article = new Article(
+            $id,
+            true,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $views,
+            $categories,
+            $languages,
+            $translates
+        );
+
+        $this->assertSame($views, $article->views);
+        $article->incrementViews();
+        $this->assertSame(($views)() + 1, ($article->views)());
+    }
+
+    public function testIncrementViewsThrowErrorWhenNonActive(): void
+    {
+        $id     = new ArticleId('some-id');
+        $author = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
 
         $languages = [
             new LanguageId('en'),
@@ -2180,15 +2237,11 @@ final class ArticleTest extends TestCase
             $id,
             $author,
             $languages,
-            null,
-            null,
-            $createdAt,
-            $updatedAt,
-            $views
         );
 
-        $this->assertSame($views, $article->views);
+        $this->expectException(CouldNotIncrementViewsException::class);
+        $this->expectExceptionMessage('Increment can be applied only on active article');
+
         $article->incrementViews();
-        $this->assertSame(($views)() + 1, ($article->views)());
     }
 }

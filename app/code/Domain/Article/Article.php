@@ -46,7 +46,7 @@ final class Article
         private(set) ?Image $image,
         public readonly DateTime $createdAt,
         private(set) DateTime $updatedAt,
-        public Views $views,
+        private(set) Views $views,
         array $categories,
         array $languages,
         array $translates
@@ -272,8 +272,12 @@ final class Article
         );
     }
 
+    /** @throws CouldNotIncrementViewsException */
     public function incrementViews(): void
     {
+        if ($this->active === false) {
+            throw new CouldNotIncrementViewsException('Increment can be applied only on active article');
+        }
         $this->views = new Views(($this->views)() + 1);
     }
 
