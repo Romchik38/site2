@@ -22,6 +22,7 @@ use Romchik38\Site2\Domain\Article\VO\Description as ArticleDescription;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription as ArticleShortDescription;
+use Romchik38\Site2\Domain\Article\VO\Views;
 use Romchik38\Site2\Domain\Audio\VO\Description as AudioDescription;
 use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Audio\VO\Name as AudioName;
@@ -97,6 +98,10 @@ final class Repository implements RepositoryInterface
         if ($rawUpdatedAt === null) {
             throw new RepositoryException('Article updated_at is invalid');
         }
+        $rawViews = $row['views'] ?? null;
+        if ($rawViews === null) {
+            throw new RepositoryException('Article views is invalid');
+        }        
         // Author
         $author = $this->createAuthor($row);
         // Audio
@@ -113,6 +118,7 @@ final class Repository implements RepositoryInterface
             $active,
             new DateTime($rawCreatedAt),
             new DateTime($rawUpdatedAt),
+            Views::fromString($rawViews),
             $audio,
             $author,
             $image,
@@ -406,6 +412,7 @@ final class Repository implements RepositoryInterface
             SELECT article.active,
                 article.created_at,
                 article.updated_at,
+                article.views,
                 article.author_id,
                 article.img_id,
                 article.audio_id,

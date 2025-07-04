@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\Article\AdminView\Dto;
 
 use DateTime;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Views;
 
 final class ArticleDto
 {
@@ -19,6 +20,7 @@ final class ArticleDto
         public readonly bool $active,
         public readonly DateTime $createdAt,
         public readonly DateTime $updatedAt,
+        public readonly Views $views,
         public readonly ?AudioDto $audio,
         public readonly AuthorDto $author,
         public readonly ?ImageDto $image,
@@ -40,5 +42,10 @@ final class ArticleDto
     public function getId(): string
     {
         return (string) $this->id;
+    }
+
+    public function getViews(): string
+    {
+        return (string) $this->views;
     }
 }
