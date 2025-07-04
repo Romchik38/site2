@@ -2144,7 +2144,6 @@ final class ArticleTest extends TestCase
         $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
-        $views     = new Views(0);
 
         $languages = [
             new LanguageId('en'),
@@ -2162,5 +2161,34 @@ final class ArticleTest extends TestCase
         );
 
         $this->assertSame($updatedAt->format(Article::SAVE_DATE_FORMAT), $article->formatUpdatedAt());
+    }
+
+    public function testIncrementViews(): void
+    {
+        $id        = new ArticleId('some-id');
+        $author    = new Author(new AuthorId(1), true, new AuthorName('Author 1'));
+        $createdAt = new DateTime();
+        $updatedAt = new DateTime();
+        $views     = new Views(0);
+
+        $languages = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+
+        $article = Article::create(
+            $id,
+            $author,
+            $languages,
+            null,
+            null,
+            $createdAt,
+            $updatedAt,
+            $views
+        );
+
+        $this->assertSame($views, $article->views);
+        $article->incrementViews();
+        $this->assertSame(($views)() + 1, ($article->views)());
     }
 }

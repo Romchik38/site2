@@ -239,6 +239,44 @@ final class Article
         $this->image = $image;
     }
 
+    /**
+     * @param array<int,mixed|Category> $categories
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translates> $translates
+     * @throws InvalidArgumentException
+     * */
+    public static function create(
+        ArticleId $articleId,
+        Author $author,
+        array $languages,
+        ?Audio $audio = null,
+        ?Image $image = null,
+        DateTime $createdAt = new DateTime(),
+        DateTime $updatedAt = new DateTime(),
+        Views $views = new Views(0),
+        array $categories = [],
+        array $translates = []
+    ): self {
+        return new self(
+            $articleId,
+            false,
+            $audio,
+            $author,
+            $image,
+            $createdAt,
+            $updatedAt,
+            $views,
+            $categories,
+            $languages,
+            $translates
+        );
+    }
+
+    public function incrementViews(): void
+    {
+        $this->views = new Views(($this->views)() + 1);
+    }
+
     /** @throws CouldNotChangeActivityException */
     public function deactivate(): void
     {
@@ -282,39 +320,6 @@ final class Article
     public function getTranslates(): array
     {
         return array_values($this->translates);
-    }
-
-    /**
-     * @param array<int,mixed|Category> $categories
-     * @param array<int,mixed|LanguageId> $languages
-     * @param array<int,mixed|Translates> $translates
-     * @throws InvalidArgumentException
-     * */
-    public static function create(
-        ArticleId $articleId,
-        Author $author,
-        array $languages,
-        ?Audio $audio = null,
-        ?Image $image = null,
-        DateTime $createdAt = new DateTime(),
-        DateTime $updatedAt = new DateTime(),
-        Views $views = new Views(0),
-        array $categories = [],
-        array $translates = []
-    ): self {
-        return new self(
-            $articleId,
-            false,
-            $audio,
-            $author,
-            $image,
-            $createdAt,
-            $updatedAt,
-            $views,
-            $categories,
-            $languages,
-            $translates
-        );
     }
 
     /** @param array<int,mixed|LanguageId> $languages */
