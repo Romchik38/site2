@@ -7,7 +7,8 @@ CREATE table article
     audio_id int REFERENCES audio (identifier) ON UPDATE CASCADE,
     created_at timestamp NOT NULL DEFAULT current_timestamp,
     updated_at timestamp NOT NULL DEFAULT current_timestamp,
-    views int NOT NULL DEFAULT 0
+    views int NOT NULL CHECK (views >= 0),
+    CONSTRAINT views_check check (views >=0)
 );
 
 CREATE table article_translates 

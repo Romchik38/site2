@@ -22,6 +22,7 @@ use Romchik38\Site2\Domain\Article\VO\Description as ArticleDescription;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription as ArticleShortDescription;
+use Romchik38\Site2\Domain\Article\VO\Views;
 use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
@@ -52,9 +53,10 @@ final class Repository implements RepositoryInterface
         }
         $createdAt = $model->formatCreatedAt();
         $updatedAt = $model->formatUpdatedAt();
+        $views = ($model->views)();
 
         $query  = $this->addQuery();
-        $params = [$id, $active, $authorId, $createdAt, $updatedAt];
+        $params = [$id, $active, $authorId, $createdAt, $updatedAt, $views];
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
@@ -267,9 +269,10 @@ final class Repository implements RepositoryInterface
         }
         $createdAt = $model->formatCreatedAt();
         $updatedAt = $model->formatUpdatedAt();
+        $views = ($model->views)();
 
         $mainSaveQuery = $this->mainSaveQuery();
-        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt, $updatedAt];
+        $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt, $updatedAt, $views];
 
         $translates = $model->getTranslates();
         $categories = $model->getCategories();
@@ -384,6 +387,10 @@ final class Repository implements RepositoryInterface
         if ($rawUpdatedAt === null) {
             throw new RepositoryException('Article updated_at is invalid');
         }
+        $rawViews = $row['views'] ?? null;
+        if ($rawViews === null) {
+            throw new RepositoryException('Article views is invalid');
+        }        
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Article languages param is invalid');
@@ -447,6 +454,7 @@ final class Repository implements RepositoryInterface
             $image,
             new DateTime($rawCreatedAt),
             new DateTime($rawUpdatedAt),
+            Views::fromString($rawViews),
             $categories,
             $languages,
             $translates
@@ -562,6 +570,7 @@ final class Repository implements RepositoryInterface
                 article.audio_id,
                 article.created_at,
                 article.updated_at,
+                article.views,
                 author.name as author_name,
                 author.active as author_active,
                 array_to_json (
@@ -646,7 +655,8 @@ final class Repository implements RepositoryInterface
                 img_id = $4,
                 audio_id = $5,
                 created_at = $6,
-                updated_at = $7
+                updated_at = $7,
+                views = $8
             WHERE article.identifier = $1
         QUERY;
     }
@@ -691,8 +701,8 @@ final class Repository implements RepositoryInterface
     private function addQuery(): string
     {
         return <<<'QUERY'
-            INSERT INTO article (identifier, active, author_id, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO article (identifier, active, author_id, created_at, updated_at, views)
+                VALUES ($1, $2, $3, $4, $5, $6)
         QUERY;
     }
 
