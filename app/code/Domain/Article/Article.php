@@ -12,6 +12,7 @@ use Romchik38\Site2\Domain\Article\Entities\Category;
 use Romchik38\Site2\Domain\Article\Entities\Image;
 use Romchik38\Site2\Domain\Article\Entities\Translate;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Views;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 use function array_values;
@@ -45,6 +46,7 @@ final class Article
         private(set) ?Image $image,
         public readonly DateTime $createdAt,
         private(set) DateTime $updatedAt,
+        public Views $views,
         array $categories,
         array $languages,
         array $translates
@@ -296,6 +298,7 @@ final class Article
         ?Image $image = null,
         DateTime $createdAt = new DateTime(),
         DateTime $updatedAt = new DateTime(),
+        Views $views = new Views(0),
         array $categories = [],
         array $translates = []
     ): self {
@@ -307,6 +310,7 @@ final class Article
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates

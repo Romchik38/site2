@@ -39,5 +39,5 @@ final class ArticleDto
     public function formatUpdatedAt(): string
     {
         return $this->updatedAt->format(self::DATE_FORMAT);
-    }    
+    }
 }

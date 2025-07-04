@@ -16,6 +16,7 @@ use Romchik38\Site2\Domain\Article\VO\Description;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
+use Romchik38\Site2\Domain\Article\VO\Views;
 use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
@@ -33,6 +34,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -72,6 +74,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -90,6 +93,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -136,6 +140,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -154,6 +159,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -200,6 +206,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -218,6 +225,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -264,6 +272,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -283,6 +292,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -322,6 +332,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -340,6 +351,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -379,6 +391,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -424,6 +437,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -463,6 +477,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -481,6 +496,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -520,6 +536,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -539,6 +556,7 @@ final class ArticleUpdateTest extends TestCase
         $image2    = new Image(new ImageId(2), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -578,6 +596,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
@@ -596,6 +615,7 @@ final class ArticleUpdateTest extends TestCase
         $image     = new Image(new ImageId(1), true);
         $createdAt = new DateTime();
         $updatedAt = new DateTime();
+        $views     = new Views(0);
 
         $categories = [
             new Category(
@@ -635,6 +655,7 @@ final class ArticleUpdateTest extends TestCase
             $image,
             $createdAt,
             $updatedAt,
+            $views,
             $categories,
             $languages,
             $translates
