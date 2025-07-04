@@ -20,6 +20,9 @@ use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 interface RepositoryInterface
 {
     /** @throws RepositoryException */
+    public function add(Article $model): void;
+
+    /** @throws RepositoryException */
     public function createAudio(AudioId $id): Audio;
 
     /**
@@ -34,6 +37,9 @@ interface RepositoryInterface
     /** @throws RepositoryException */
     public function delete(Article $model): void;
 
+    /** @throws RepositoryException */
+    public function findAuthor(AuthorId $id): Author;
+
     /**
      * @throws NoSuchArticleException
      * @throws RepositoryException
@@ -41,11 +47,5 @@ interface RepositoryInterface
     public function getById(Identifier $id): Article;
 
     /** @throws RepositoryException */
-    public function findAuthor(AuthorId $id): Author;
-
-    /** @throws RepositoryException */
     public function save(Article $model): void;
-
-    /** @throws RepositoryException */
-    public function add(Article $model): void;
 }

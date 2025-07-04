@@ -10,6 +10,7 @@ use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotCreateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotDeleteException;
+use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotIncrementViewsException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\RepositoryException;
@@ -183,6 +184,30 @@ final class ArticleService
             $this->repository->save($model);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws NoSuchArticleException
+     * @throws CouldNotIncrementViewsException
+     * */
+    public function incrementViews(string $id): void
+    {
+        $id = new ArticleId($id);
+
+        try {
+            $model = $this->repository->getById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        }
+
+        $model->incrementViews();
+
+        try {
+            $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotIncrementViewsException($e->getMessage());
         }
     }
 }

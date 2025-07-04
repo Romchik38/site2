@@ -101,7 +101,7 @@ final class Repository implements RepositoryInterface
         $rawViews = $row['views'] ?? null;
         if ($rawViews === null) {
             throw new RepositoryException('Article views is invalid');
-        }        
+        }
         // Author
         $author = $this->createAuthor($row);
         // Audio

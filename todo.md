@@ -4,9 +4,9 @@
 
 - article most visited
   - [+] add new column to article table
-  - [-] update model
-    - [-] add properties and method
-    - [-] tests
+  - [+] update model
+    - [+] add properties and method
+    - [+] tests
   - [-] create new api point to collect data
     - [-] service
     - [-] repository

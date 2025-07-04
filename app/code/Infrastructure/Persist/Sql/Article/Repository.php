@@ -53,7 +53,7 @@ final class Repository implements RepositoryInterface
         }
         $createdAt = $model->formatCreatedAt();
         $updatedAt = $model->formatUpdatedAt();
-        $views = ($model->views)();
+        $views     = ($model->views)();
 
         $query  = $this->addQuery();
         $params = [$id, $active, $authorId, $createdAt, $updatedAt, $views];
@@ -269,7 +269,7 @@ final class Repository implements RepositoryInterface
         }
         $createdAt = $model->formatCreatedAt();
         $updatedAt = $model->formatUpdatedAt();
-        $views = ($model->views)();
+        $views     = ($model->views)();
 
         $mainSaveQuery = $this->mainSaveQuery();
         $params        = [$articleId(), $articleActive, $authorId, $imageId, $audioId, $createdAt, $updatedAt, $views];
@@ -390,7 +390,7 @@ final class Repository implements RepositoryInterface
         $rawViews = $row['views'] ?? null;
         if ($rawViews === null) {
             throw new RepositoryException('Article views is invalid');
-        }        
+        }
         $rawLanguages = $row['languages'] ?? null;
         if ($rawLanguages === null) {
             throw new RepositoryException('Article languages param is invalid');
