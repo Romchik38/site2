@@ -364,7 +364,6 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @throws RepositoryException */
     public function transactionEnd(): void
     {
         try {
@@ -379,7 +378,6 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @throws RepositoryException */
     public function transactionStart(): void
     {
         try {
@@ -389,9 +387,18 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /**  @todo implement */
     public function updateViews(Article $model): void
     {
+        $id     = (string) $model->id;
+        $views  = (string) $model->views;
+        $query  = 'UPDATE article SET views = $2 WHERE identifier = $1';
+        $params = [$id, $views];
+
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     /**

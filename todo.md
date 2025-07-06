@@ -5,7 +5,7 @@
 - article most visited
   - [-] create new api point to collect data
     - [+] service
-    - [-] repository
+    - [+] repository
     - [-] action
   - [-] create most visited article service
     - [-] service
