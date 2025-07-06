@@ -67,12 +67,12 @@ final class Repository implements RepositoryInterface
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->deletePhrasesQuery(),
                 [$id()]
             );
             foreach ($phrases as $phrase) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->phrasesSaveQueryInsert(),
                     [
                         $id(),
@@ -105,12 +105,12 @@ final class Repository implements RepositoryInterface
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->insertTranslateQuery(),
                 [$id()]
             );
             foreach ($phrases as $phrase) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->phrasesSaveQueryInsert(),
                     [
                         $id(),

@@ -96,19 +96,19 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $mainSaveQuery,
                 $params
             );
 
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->translatesSaveQueryDelete(),
                 [$audioId()]
             );
 
             if (count($translates) > 0) {
                 foreach ($translates as $translate) {
-                    $this->database->transactionQueryParams(
+                    $this->database->queryParams(
                         $this->translatesSaveQueryInsert(),
                         [
                             (string) $translate->getDescription(),
@@ -185,7 +185,7 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $rows = $this->database->transactionQueryParams(
+            $rows = $this->database->queryParams(
                 $mainAddQuery,
                 $params
             );
@@ -199,7 +199,7 @@ final class Repository implements RepositoryInterface
             }
             $audioId = Id::fromString($rawAudioId);
             foreach ($translates as $translate) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->translatesAddQuery(),
                     [
                         $audioId(),

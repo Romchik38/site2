@@ -95,16 +95,16 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $mainSaveQuery,
                 $mainParams
             );
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->translatesSaveQueryDelete(),
                 [$authorId()]
             );
             foreach ($translates as $translate) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->translatesSaveQueryInsert(),
                     [
                         $authorId(),
@@ -148,7 +148,7 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $rowsMainAdd = $this->database->transactionQueryParams(
+            $rowsMainAdd = $this->database->queryParams(
                 $this->mainAddQuery(),
                 $mainParams
             );
@@ -161,7 +161,7 @@ final class Repository implements RepositoryInterface
             }
 
             foreach ($translates as $translate) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->translatesSaveQueryInsert(),
                     [
                         $rawAuthorId,

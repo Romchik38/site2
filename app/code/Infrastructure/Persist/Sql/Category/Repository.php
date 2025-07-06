@@ -103,19 +103,19 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $mainSaveQuery,
                 $params
             );
 
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->translatesSaveQueryDelete(),
                 [$categoryId()]
             );
 
             if (count($translates) > 0) {
                 foreach ($translates as $translate) {
-                    $this->database->transactionQueryParams(
+                    $this->database->queryParams(
                         $this->translatesSaveQueryInsert(),
                         [
                             $categoryId(),
@@ -185,14 +185,14 @@ final class Repository implements RepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->mainAddQuery(),
                 [$id(), $categoryActive]
             );
 
             if (count($translates) > 0) {
                 foreach ($translates as $translate) {
-                    $this->database->transactionQueryParams(
+                    $this->database->queryParams(
                         $this->translatesSaveQueryInsert(),
                         [
                             $id(),

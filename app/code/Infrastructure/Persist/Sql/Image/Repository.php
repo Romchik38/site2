@@ -127,16 +127,16 @@ final class Repository implements ImageRepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $mainSaveQuery,
                 $mainParams
             );
-            $this->database->transactionQueryParams(
+            $this->database->queryParams(
                 $this->translatesSaveQueryDelete(),
                 [$imageId()]
             );
             foreach ($translates as $translate) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->translatesSaveQueryInsert(),
                     [
                         $imageId(),
@@ -188,7 +188,7 @@ final class Repository implements ImageRepositoryInterface
 
         try {
             $this->database->transactionStart();
-            $rows = $this->database->transactionQueryParams(
+            $rows = $this->database->queryParams(
                 $mainAddQuery,
                 $mainParams
             );
@@ -202,7 +202,7 @@ final class Repository implements ImageRepositoryInterface
             }
             $imageId = Id::fromString($rawImageId);
             foreach ($translates as $translate) {
-                $this->database->transactionQueryParams(
+                $this->database->queryParams(
                     $this->translatesSaveQueryInsert(),
                     [
                         $imageId(),

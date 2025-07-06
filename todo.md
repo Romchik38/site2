@@ -2,11 +2,6 @@
 
 ## Current
 
-- update to server v1.24.0
-- refactor repositories with `transactionQueryParams` - replace on `queryParams`
-
-## Stalled
-
 - article most visited
   - [-] create new api point to collect data
     - [-] service
