@@ -364,6 +364,36 @@ final class Repository implements RepositoryInterface
         }
     }
 
+    /** @throws RepositoryException */
+    public function transactionEnd(): void
+    {
+        try {
+            $this->database->transactionEnd();
+        } catch (DatabaseTransactionException $eEnd) {
+            try {
+                $this->database->transactionRollback();
+                throw new RepositoryException($eEnd->getMessage());
+            } catch (DatabaseTransactionException $eRol) {
+                throw new RepositoryException($eRol->getMessage());
+            }
+        }
+    }
+
+    /** @throws RepositoryException */
+    public function transactionStart(): void
+    {
+        try {
+            $this->database->transactionStart($this->database::ISOLATION_LEVEL_REPEATABLE_READ);
+        } catch (DatabaseTransactionException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
+    /**  @todo implement */
+    public function updateViews(Article $model): void
+    {
+    }
+
     /**
      * @param array<string,string|null> $row
      * @throws RepositoryException

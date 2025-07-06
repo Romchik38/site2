@@ -48,4 +48,13 @@ interface RepositoryInterface
 
     /** @throws RepositoryException */
     public function save(Article $model): void;
+
+    /** @throws RepositoryException */
+    public function transactionEnd(): void;
+
+    /** @throws RepositoryException */
+    public function transactionStart(): void;
+
+    /** @throws RepositoryException */
+    public function updateViews(Article $model): void;
 }

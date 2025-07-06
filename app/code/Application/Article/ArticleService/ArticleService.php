@@ -18,6 +18,7 @@ use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as 
 use Romchik38\Site2\Application\Language\List\ListService as LanguageListService;
 use Romchik38\Site2\Domain\Article\Article;
 use Romchik38\Site2\Domain\Article\CouldNotChangeActivityException;
+use Romchik38\Site2\Domain\Article\CouldNotIncrementViewsException as DomainCouldNotIncrementViewsException;
 use Romchik38\Site2\Domain\Article\Entities\Translate;
 use Romchik38\Site2\Domain\Article\VO\Description;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
@@ -197,15 +198,15 @@ final class ArticleService
         $id = new ArticleId($id);
 
         try {
+            $this->repository->transactionStart();
             $model = $this->repository->getById($id);
-        } catch (RepositoryException $e) {
-            throw new CouldNotUpdateException($e->getMessage());
-        }
-
-        $model->incrementViews();
-
-        try {
-            $this->repository->save($model);
+            try {
+                $model->incrementViews();
+            } catch (DomainCouldNotIncrementViewsException $e) {
+                throw new CouldNotIncrementViewsException($e->getMessage());
+            }
+            $this->repository->updateViews($model);
+            $this->repository->transactionEnd();
         } catch (RepositoryException $e) {
             throw new CouldNotIncrementViewsException($e->getMessage());
         }
