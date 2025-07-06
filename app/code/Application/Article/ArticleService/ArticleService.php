@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Application\Article\ArticleService;
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Create;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
+use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotCreateException;
 use Romchik38\Site2\Application\Article\ArticleService\Exceptions\CouldNotDeleteException;
@@ -193,9 +194,9 @@ final class ArticleService
      * @throws NoSuchArticleException
      * @throws CouldNotIncrementViewsException
      * */
-    public function incrementViews(string $id): void
+    public function incrementViews(IncrementViews $command): void
     {
-        $id = new ArticleId($id);
+        $id = new ArticleId($command->id);
 
         try {
             $this->repository->transactionStart();
