@@ -13,7 +13,7 @@ final class Count
     public const MAX_COUNT = '10';
 
     /** @throws InvalidArgumentException */
-    private function __construct(
+    public function __construct(
         private readonly int $count
     ) {
         if ($count < 0 || $count > self::MAX_COUNT) {

@@ -17,7 +17,8 @@ final class ArticleDTO
         public readonly Name $name,
         public readonly Description $description,
         public readonly DateTime $createdAt,
-        public readonly Views $views
+        public readonly Views $views,
+        public readonly ImageDTO $image
     ) {
     }
 

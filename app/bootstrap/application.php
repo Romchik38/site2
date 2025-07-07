@@ -44,6 +44,14 @@ return function (Container $container) {
         new Promise('audio-folder-frontend'),
     ]);
 
+    // ARTRICLE MOST VISITED
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\MostVisited\MostVisited',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\MostVisited\RepositoryInterface')
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\AdminView\AdminView',
