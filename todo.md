@@ -7,6 +7,8 @@
     - [+] service
     - [+] repository
     - [-] action
+    - [-] test with a request service
+    - [-] template + js
   - [-] create most visited article service
     - [-] service
     - [-] repository
