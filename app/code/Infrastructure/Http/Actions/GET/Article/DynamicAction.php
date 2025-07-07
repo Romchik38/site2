@@ -17,10 +17,13 @@ use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 use function urldecode;
@@ -31,7 +34,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly ViewService $articleViewService
+        private readonly ViewService $articleViewService,
+        private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -56,13 +61,17 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             );
         }
 
-    /** we pass all checks and can send translate to view */
+        $csrfToken = $this->csrfTokenGenerator->asBase64();
+        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto = new ViewDTO(
             $article->name,
             $article->shortDescription,
             $article,
-            $this->translateService
+            $this->translateService,
+            IncrementViews::ID_FIELD,
+            $this->session::CSRF_TOKEN_FIELD,
+            $csrfToken,
         );
 
         $result = $this->view

@@ -19,6 +19,9 @@ final class ViewDTO extends DefaultViewDTO
         string $description,
         public readonly ArticleViewDTO $article,
         private readonly TranslateInterface $translate,
+        public readonly string $idField,
+        public readonly string $csrfTokenField,
+        public string $csrfToken
     ) {
         parent::__construct($name, $description);
     }

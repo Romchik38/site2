@@ -1,0 +1,6 @@
+{% set articleViewsUrl = u.fromArray(['root', 'api', 'articleviews']) %}
+<form class="d-none api-articleviews-form" action="{{ deleteUrl }}" method="post">
+    <input type="text" class="form-control" name="{{ data.idField }}" value="{{ data.article.articleId }}">
+    <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+</form>
+
