@@ -43,8 +43,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo accept only json */
-    /** @todo tests all path */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         // Check article id param
