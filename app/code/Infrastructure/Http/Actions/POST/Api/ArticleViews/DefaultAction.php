@@ -6,10 +6,12 @@ namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleViews;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Controller\Actions\RequestHandlerTrait;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
@@ -28,11 +30,14 @@ use function unserialize;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    use RequestHandlerTrait;
+
     private const API_NAME            = 'Api article views point';
     private const API_DESCRIPTION     = 'Update article views count';
     private const API_ACCEPTED        = 'Accepted';
     private const API_BAD_REQUEST     = 'Bad request';
     private const API_NO_SUCH_ARTICLE = 'No such article';
+    public const ACCEPTHEADER         = ['application/json'];
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -45,6 +50,18 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        // Response only with Json
+        $responseType = $this->serializeAcceptHeader(
+            $this::ACCEPTHEADER,
+            $request->getHeaderLine('Accept'),
+            'application/json'
+        );
+
+        if ($responseType === null) {
+            $response = new TextResponse('The requested content type is not acceptable. Excpects application/json.');
+            return $response->withStatus(406);
+        }
+
         // Check article id param
         $requestData = $request->getParsedBody();
         if (gettype($requestData) !== 'array') {
@@ -66,7 +83,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         // 1 No articles visitied
         if ($articles === null || $articles === '') {
             $updateFlag = true;
-        // 2 Visit articles
+        // 2 Already visit some articles
         } else {
             $items = unserialize($articles);
             if (gettype($items) !== 'array') {
