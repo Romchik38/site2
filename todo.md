@@ -11,7 +11,7 @@
     - [+] template + js
     - [+] action accept only json
   - [-] create most visited article service
-    - [-] service
+    - [+] service
     - [-] repository
   - [-] show most visited on article list
     - [-] action
