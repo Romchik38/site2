@@ -1,14 +1,30 @@
 'use strict';
 
-import { default as Form } from '/media/js/frontend/articleviews/form.js';
+import { default as Data } from './data.js';
+import { default as RequestData } from './request-data.js';
+import { default as makeRequest } from './make-request.js';
 
-try {
-    var form = Form.fromClass('api-articleviews-form');
-    document.addEventListener('DOMContentLoaded', ()=>{
-        var res = form.submit();
-        console.log({ res });
-    });
-} catch (e) {
-    console.error('Article views does not work correctly');
-    console.error(e);
-}
+var path = ['root', 'api', 'articleviews'];
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    try {
+        var data = Data.fromClass('api-articleviews-data');
+        var requestData = new RequestData(
+            data.getDataIdField(),
+            data.getDataId(),
+            data.getTokenField(),
+            data.getToken()
+        );
+
+        makeRequest(path, requestData, (err, data) => {
+            if (err !== null) {       
+                console.log(err);
+            } else {
+                console.log({ 'article-views-api-response': data});
+            }
+        });
+    } catch (e) {
+        console.error('Article views does not work correctly');
+        console.error(e);
+    }
+});

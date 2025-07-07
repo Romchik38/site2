@@ -1,6 +1,8 @@
-{% set articleViewsUrl = u.fromArray(['root', 'api', 'articleviews']) %}
-<form class="d-none api-articleviews-form" action="{{ articleViewsUrl }}" method="post">
-    <input type="text" class="form-control" name="{{ data.idField }}" value="{{ data.article.articleId }}">
-    <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
-</form>
+<div class="d-none api-articleviews-data"
+    data-idfield="{{ data.idField }}"
+    data-id="{{ data.article.articleId }}"
+    data-tokenfield="{{ data.csrfTokenField }}"
+    data-token="{{ data.csrfToken }}"
+    data-url="{{ articleViewsUrl }}"
+></div>
 <script type="module" src="/media/js/frontend/articleviews/index.js"></script>

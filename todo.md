@@ -8,7 +8,7 @@
     - [+] repository
     - [-] action
     - [+] test with a request service
-    - [-] template + js
+    - [+] template + js
     - [-] action accept only json
   - [-] create most visited article service
     - [-] service
@@ -23,6 +23,8 @@
 - add csrf middware to api
   - userinfo
   - articleviews
+
+- clear article views
 
 ## Next
 
