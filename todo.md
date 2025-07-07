@@ -19,6 +19,10 @@
     - [-] action
     - [-] template
 
+- add csrf middware to api
+  - userinfo
+  - articleviews
+
 ## Next
 
 - article view

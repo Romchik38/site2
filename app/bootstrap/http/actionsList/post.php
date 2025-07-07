@@ -36,12 +36,19 @@ return function (Container $container): ControllerInterface {
 
     // Api
     $api = new Controller('api');
+    $apiArticleViews = new Controller(
+        'articleviews',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleViews\DefaultAction')
+    );    
     $apiUserinfo = new Controller(
         'userinfo',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\Userinfo\DefaultAction')
     );
-    $api->setChild($apiUserinfo);
+    $api
+    ->setChild($apiArticleViews)
+    ->setChild($apiUserinfo);
 
     // Admin
     $admin = new Controller('admin');

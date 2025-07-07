@@ -517,6 +517,17 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLEVIEWS
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleViews\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService'),
+        ]
+    );
+
     // ADMIN ARTICLE DELETE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Article\Delete\DefaultAction',
