@@ -2,10 +2,10 @@
 
 ## Current
 
+- fix admin image delete - if it used in banner
+
 ## Next
 
-- fix admin
-  - image delete - if it used in banner
 - article view
   - all author articles
   - Similar articles
