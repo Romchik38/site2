@@ -247,6 +247,15 @@ final class Image
             }
         }
 
+        foreach ($this->banners as $banner) {
+            if ($banner->active === true) {
+                throw new CouldNotChangeActivityException(sprintf(
+                    'Image is used in banner id %s. Change it first',
+                    (string) $banner->id
+                ));
+            }
+        }
+
         $this->active = false;
     }
 

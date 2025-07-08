@@ -831,6 +831,44 @@ final class ImageTest extends TestCase
         $image->deactivate();
     }
 
+    public function testDeactivateThrowsErrorOnExistingActiveBanner(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId(25),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [];
+        $banners  = [new Banner(new BannerId(1), true)];
+
+        $image = Image::load(
+            $id,
+            true,
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $banners,
+            $translates
+        );
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage('Image is used in banner id 1. Change it first');
+        $image->deactivate();
+    }
+
     public function testChangeAuthorWhenActive(): void
     {
         $id         = new Id(1);
