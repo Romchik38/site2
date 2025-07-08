@@ -2,21 +2,6 @@
 
 ## Current
 
-- article most visited
-  - [-] create new api point to collect data
-    - [+] service
-    - [+] repository
-    - [-] action
-    - [+] test with a request service
-    - [+] template + js
-    - [+] action accept only json
-  - [+] show most visited on article list
-    - [+] action
-    - [+] template
-  - [-] show most visited on category
-    - [-] action
-    - [-] template
-
 - add csrf middware to api
   - userinfo
   - articleviews

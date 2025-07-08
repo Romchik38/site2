@@ -1,0 +1,26 @@
+{# Object       data        Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DefaultAction\ViewDTO #}
+
+<h2 class="h4">{{ translate.t('most-visited.h1') }}</h2>
+{% for article in data.mostVisited %}
+    {% set articleMostVisitedUrl = data.articlePageUrl ~ '/' ~ article.getId() %}
+    <div class="row my-3">
+        <div class="col-9">
+            <a class="link-none" href="{{ articleMostVisitedUrl }}" target="_self">
+                <h5>{{ article.getName() }}</h5>
+            </a>
+            <footer class="container p-0 text-secondary d-flex">
+                <div class="font-monospace comments me-3">{{ data.calculateReadLength(article.getDescription()) }}</div>
+                <div class="font-monospace comments">{{ data.formatArticleDate(article.createdAt) }}</div>
+            </footer>
+        </div>
+        <div class="col-3 text-center">
+            <a class="link-none" href="{{ articleMostVisitedUrl }}" target="_self">
+                <img class="img-fluid"
+                    src="/img.php?id={{ article.image.getId() }}&type=webp&width=100&height=100" alt="{{ article.image.getDescription() }}"
+                    width="100px"
+                >
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
