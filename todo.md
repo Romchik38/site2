@@ -25,9 +25,10 @@
 
 ## Next
 
-- fix admin banner
-  - delete - redirect to category
-  - delete image if it used in banner
+- fix admin
+  - banner delete - redirect to category
+  - image delete - if it used in banner
+  - add translate admin.category-with-id-not-exist
 - article view
   - all author articles
   - Similar articles
