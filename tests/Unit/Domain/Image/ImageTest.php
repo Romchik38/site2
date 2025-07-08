@@ -8,9 +8,11 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Image\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Image\Entities\Author;
+use Romchik38\Site2\Domain\Image\Entities\Banner;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
@@ -931,5 +933,81 @@ final class ImageTest extends TestCase
         );
         $image->changeAuthor($newAuthor2);
         $this->assertSame($newAuthor2, $image->getAuthor());
+    }
+
+    public function testLoadThrowsErrorInvalidBanner(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId(25),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [];
+        $banners  = ['some string']; // wrong
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param image banner is invalid');
+
+        Image::load(
+            $id,
+            false,
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $banners,
+            $translates
+        );
+    }
+
+    public function testLoadThrowsErrorActiveBannerButNonActiveImage(): void
+    {
+        $id         = new Id(1);
+        $name       = new Name('image-name-1');
+        $author     = new Author(
+            new AuthorId(25),
+            true
+        );
+        $path       = new Path('/images/img1.webp');
+        $languages  = [
+            new LanguageId('en'),
+            new LanguageId('uk'),
+        ];
+        $translates = [
+            new Translate(new LanguageId('en'), new Description('Blue sky')),
+            new Translate(new LanguageId('uk'), new Description('Блакитне небо')),
+        ];
+
+        $articles = [];
+        $banners  = [
+            new Banner(new BannerId(1), true), //  wrong
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('params image banner active and image active are different');
+
+        Image::load(
+            $id,
+            false, // wrong
+            $name,
+            $author,
+            $path,
+            $languages,
+            $articles,
+            $banners,
+            $translates
+        );
     }
 }

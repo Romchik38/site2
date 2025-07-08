@@ -72,7 +72,6 @@ final class Image
         }
         $this->articles = $articles;
 
-        /** @todo 2 tests */
         foreach ($banners as $banner) {
             if (! $banner instanceof Banner) {
                 throw new InvalidArgumentException('param image banner is invalid');
