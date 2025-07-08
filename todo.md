@@ -2,10 +2,6 @@
 
 ## Current
 
-- add csrf middware to api
-  - userinfo
-  - articleviews
-
 - clear article views
 
 ## Next

@@ -40,7 +40,9 @@ return function (Container $container): ControllerInterface {
         'articleviews',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleViews\DefaultAction')
-    );    
+    );
+    $apiArticleViews->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware')); 
+
     $apiUserinfo = new Controller(
         'userinfo',
         false,
