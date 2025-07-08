@@ -25,6 +25,9 @@
 
 ## Next
 
+- fix admin banner
+  - delete - redirect to category
+  - delete image if it used in banner
 - article view
   - all author articles
   - Similar articles
