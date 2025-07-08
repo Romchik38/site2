@@ -2,8 +2,6 @@
 
 ## Current
 
-- fix admin image delete - if it used in banner
-
 ## Next
 
 - article view

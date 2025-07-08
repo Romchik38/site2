@@ -10,8 +10,10 @@ use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Image\Entities\Author;
+use Romchik38\Site2\Domain\Image\Entities\Banner;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\Image;
 use Romchik38\Site2\Domain\Image\ImageRepositoryInterface;
@@ -281,6 +283,7 @@ final class Repository implements ImageRepositoryInterface
         $languages = $this->createLanguages($rawLanguages);
 
         $articles   = $this->createArticles($id);
+        $banners    = $this->createBanners($id);
         $translates = $this->createTranslates($id);
 
         try {
@@ -298,6 +301,7 @@ final class Repository implements ImageRepositoryInterface
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
     }
@@ -379,6 +383,46 @@ final class Repository implements ImageRepositoryInterface
     }
 
     /**
+     * @throws RepositoryException
+     * @return array<int,Banner>
+     */
+    private function createBanners(Id $id): array
+    {
+        $query  = $this->bannersQuery();
+        $params = [$id()];
+
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $banners = [];
+        foreach ($rows as $row) {
+            $rawIdentifier = $row['identifier'] ?? null;
+            if ($rawIdentifier === null) {
+                throw new RepositoryException('Image banner identifier is invalid');
+            }
+            $rawActive = $row['active'] ?? null;
+            if ($rawActive === null) {
+                throw new RepositoryException('Image banner active is invalid');
+            }
+            if ($rawActive === 't') {
+                $active = true;
+            } else {
+                $active = false;
+            }
+            try {
+                $bannerId = BannerId::fromString($rawIdentifier);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+            $banners[] = new Banner($bannerId, $active);
+        }
+        return $banners;
+    }
+
+    /**
      * @param string $rawLanguages - Json encoded array of strings
      * @return array<int,LanguageId>
      */
@@ -453,6 +497,16 @@ final class Repository implements ImageRepositoryInterface
                 article.active
             FROM article
             WHERE article.img_id = $1
+        QUERY;
+    }
+
+    private function bannersQuery(): string
+    {
+        return <<<'QUERY'
+            SELECT banner.identifier,
+                banner.active
+            FROM banner
+            WHERE banner.img_id = $1
         QUERY;
     }
 
