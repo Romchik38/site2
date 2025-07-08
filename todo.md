@@ -2,10 +2,6 @@
 
 ## Current
 
-- article views
-  - template
-- clear article views
-
 ## Next
 
 - fix admin

@@ -12,6 +12,7 @@
 {% set articleListUrl = u.fromArray(['root', 'admin', 'article']) %}
 {% set deleteUrl = u.fromArray(['root', 'admin', 'article', 'delete']) %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'article', 'update']) %}
+{% set mostVisitedUrl = u.fromArray(['root', 'admin', 'article', 'most_visited']) %}
 {% set article = data.article %}
 {% set articleId = article.getId() %}
 
@@ -62,7 +63,7 @@
             </div>
             <div class="form-group my-2 p-2">
                 <div class="mb">
-                    <p>Views: {{ article.getViews() }}</p>
+                    <p>Views: <a href="{{ mostVisitedUrl }}">{{ article.getViews() }}</a></p>
                 </div>
             </div>            
             <!-- Translates -->
