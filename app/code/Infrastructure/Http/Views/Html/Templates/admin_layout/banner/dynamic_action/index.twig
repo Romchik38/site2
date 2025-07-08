@@ -80,7 +80,7 @@
                 </div>
             </div>
         </form>
-        <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post" id="delete-form">
+        <form action="{{ u.fromArray(['root', 'admin', 'banner', 'delete']) }}" method="post" id="delete-form">
             <input type="text" class="form-control" name="{{ data.idField }}" value="{{ banner.getId() }}" hidden>
             <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
         </form>
