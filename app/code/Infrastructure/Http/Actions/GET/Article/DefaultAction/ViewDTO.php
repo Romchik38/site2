@@ -8,9 +8,9 @@ use DateTime;
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\ArticleDTO;
+use Romchik38\Site2\Application\Article\MostVisited\Views\ArticleDTO as ArticleMostVisitedDto;
 use Romchik38\Site2\Application\Banner\List\View\BannerDto;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\CreatePaginationInterface;
-use Romchik38\Site2\Application\Article\MostVisited\Views\ArticleDTO as ArticleMostVisitedDto;
 
 use function count;
 use function date_format;
@@ -22,9 +22,9 @@ final class ViewDTO extends DefaultViewDTO
 {
     private const int READING_SPEED = 200;
 
-    /** 
-     * @param array<int,ArticleDTO> $articleList 
-     * @param array<int,ArticleMostVisitedDto> $mostVisited 
+    /**
+     * @param array<int,ArticleDTO> $articleList
+     * @param array<int,ArticleMostVisitedDto> $mostVisited
      * */
     public function __construct(
         string $name,
