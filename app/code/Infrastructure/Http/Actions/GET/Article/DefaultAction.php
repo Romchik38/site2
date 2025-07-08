@@ -16,6 +16,7 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Article\List\ListService;
+use Romchik38\Site2\Application\Article\MostVisited\MostVisited;
 use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
@@ -38,6 +39,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ListService $listService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly BannerService $bannerService,
+        private readonly MostVisited $mostVisitedService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -75,10 +77,18 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         try {
             $banner = $this->bannerService->priority();
-        } catch (PriorityException $e) {
+        } catch (PriorityException) {
             $banner = null;
-        } catch (NoBannerToDisplayException $e) {
+        } catch (NoBannerToDisplayException) {
             $banner = null;
+        }
+
+        try {
+            $mostVisited = $this->mostVisitedService->list(3, $this->getLanguage());
+        } catch (PriorityException) {
+            $mostVisited = [];
+        } catch (NoBannerToDisplayException) {
+            $mostVisited = [];
         }
 
         $dto = new ViewDTO(
@@ -88,7 +98,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $paginationView,
             $this->urlbuilder->fromPath($path),
             $banner,
-            $this->translateService
+            $this->translateService,
+            $mostVisited
         );
 
         $result = $this->view

@@ -10,9 +10,9 @@
     - [+] test with a request service
     - [+] template + js
     - [+] action accept only json
-  - [-] show most visited on article list
-    - [-] action
-    - [-] template
+  - [+] show most visited on article list
+    - [+] action
+    - [+] template
   - [-] show most visited on category
     - [-] action
     - [-] template
