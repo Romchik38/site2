@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\MostVisited\Exceptions;
+namespace Romchik38\Site2\Application\Article\AdminMostVisited\Exceptions;
 
 use RuntimeException;
 
