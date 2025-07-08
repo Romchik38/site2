@@ -2,10 +2,19 @@
 
 ## Current
 
+- author list
+  - service
+  - repository
+  - template
+- author view
+  - service
+  - repository
+  - template
+- add link from article to author page
+
 ## Next
 
 - article view
-  - all author articles
   - Similar articles
   - Continue reading
 - footer menu
