@@ -306,6 +306,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), true),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -315,6 +316,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -353,6 +355,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), true), // wrong
         ];
+        $banners  = [];
 
         $this->expectException(InvalidArgumentException::class);
 
@@ -364,6 +367,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
     }
@@ -389,6 +393,7 @@ final class ImageTest extends TestCase
         $articles = [
             'some string', // wrong
         ];
+        $banners  = [];
 
         $this->expectException(InvalidArgumentException::class);
 
@@ -400,6 +405,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
     }
@@ -425,6 +431,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -434,6 +441,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -471,6 +479,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -480,6 +489,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -556,6 +566,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -565,6 +576,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -593,6 +605,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -602,6 +615,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -639,6 +653,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -648,6 +663,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -676,6 +692,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -685,6 +702,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -713,6 +731,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -722,6 +741,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -752,6 +772,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -761,6 +782,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -789,6 +811,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), true),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -798,6 +821,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -826,6 +850,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -835,6 +860,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 
@@ -876,6 +902,7 @@ final class ImageTest extends TestCase
         $articles = [
             new Article(new ArticleId('article-1'), false),
         ];
+        $banners  = [];
 
         $image = Image::load(
             $id,
@@ -885,6 +912,7 @@ final class ImageTest extends TestCase
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
 

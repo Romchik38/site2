@@ -7,6 +7,7 @@ namespace Romchik38\Site2\Domain\Image;
 use InvalidArgumentException;
 use Romchik38\Site2\Domain\Image\Entities\Article;
 use Romchik38\Site2\Domain\Image\Entities\Author;
+use Romchik38\Site2\Domain\Image\Entities\Banner;
 use Romchik38\Site2\Domain\Image\Entities\Content;
 use Romchik38\Site2\Domain\Image\Entities\Translate;
 use Romchik38\Site2\Domain\Image\VO\Id;
@@ -23,6 +24,9 @@ final class Image
     /** @var array<int,Article> $articles */
     private readonly array $articles;
 
+    /** @var array<int,Banner> $banners */
+    public readonly array $banners;
+
     private Content $content;
 
     private bool $isLoaded = false;
@@ -35,6 +39,7 @@ final class Image
 
     /**
      * @param array<int,mixed|Article> $articles
+     * @param array<int,mixed|Banner> $banners
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
      * @throws InvalidArgumentException
@@ -47,6 +52,7 @@ final class Image
         private readonly Path $path,
         array $languages,
         array $articles,
+        array $banners,
         array $translates
     ) {
         foreach ($languages as $language) {
@@ -58,13 +64,24 @@ final class Image
 
         foreach ($articles as $article) {
             if (! $article instanceof Article) {
-                throw new InvalidArgumentException('param image article id is invalid');
+                throw new InvalidArgumentException('param image article is invalid');
             }
             if ($article->active === true && $active === false) {
-                throw new InvalidArgumentException('param image article active and image active are different');
+                throw new InvalidArgumentException('params image article active and image active are different');
             }
         }
         $this->articles = $articles;
+
+        /** @todo 2 tests */
+        foreach ($banners as $banner) {
+            if (! $banner instanceof Banner) {
+                throw new InvalidArgumentException('param image banner is invalid');
+            }
+            if ($banner->active === true && $active === false) {
+                throw new InvalidArgumentException('params image banner active and image active are different');
+            }
+        }
+        $this->banners = $banners;
 
         foreach ($translates as $translate) {
             if (! $translate instanceof Translate) {
@@ -254,12 +271,14 @@ final class Image
             $path,
             $languages,
             [],
+            [],
             $translates
         );
     }
 
     /**
      * @param array<int,mixed|Article> $articles
+     * @param array<int,mixed|Banner> $banners
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translate> $translates
      * @throws InvalidArgumentException
@@ -272,6 +291,7 @@ final class Image
         Path $path,
         array $languages,
         array $articles,
+        array $banners,
         array $translates
     ): self {
         return new self(
@@ -282,6 +302,7 @@ final class Image
             $path,
             $languages,
             $articles,
+            $banners,
             $translates
         );
     }
