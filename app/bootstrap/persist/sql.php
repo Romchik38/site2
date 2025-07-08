@@ -79,6 +79,16 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN ARTICLE MOST VISITED
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminMostVisited\Repository',
+        '\Romchik38\Site2\Application\Article\AdminMostVisited\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+        ]
+    );
+
     // ADMIN BANNER SERVICE
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\Banner\Repository',

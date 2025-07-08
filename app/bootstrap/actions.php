@@ -276,6 +276,21 @@ return function (Container $container) {
         ]
     );
 
+    // Admin Article Most Visited
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\MostVisited\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('admin_view_layout'),
+            new Promise('\Romchik38\Site2\Application\Article\AdminMostVisited\AdminMostVisited'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
+        ]
+    );
+
     // Admin Category
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DefaultAction',

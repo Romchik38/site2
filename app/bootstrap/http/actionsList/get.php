@@ -55,7 +55,16 @@ return function (Container $container): ControllerInterface {
         null,
         'article_new'
     );
-    $adminArticle->setChild($adminArticleNew);
+    $adminArticleMostVisited = new Controller(
+        'most_visited',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\MostVisited\DefaultAction'),
+        null,
+        'article_most_visited'
+    );
+    $adminArticle
+    ->setChild($adminArticleMostVisited)
+    ->setChild($adminArticleNew);
 
     $adminAudio = new Controller(
         'audio',

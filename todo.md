@@ -3,8 +3,6 @@
 ## Current
 
 - article views
-  - service
-  - repository
   - template
 - clear article views
 
