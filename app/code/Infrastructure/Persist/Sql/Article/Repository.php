@@ -64,6 +64,16 @@ final class Repository implements RepositoryInterface
         }
     }
 
+    public function clearViews(): void
+    {
+        $query = 'UPDATE article set views = 0';
+        try {
+            $this->database->queryParams($query, []);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
+
     /** @throws RepositoryException */
     public function createAudio(AudioId $id): Audio
     {

@@ -586,6 +586,19 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN ARTICLE MOST VISITED CLEAR
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Article\MostVisited\Clear\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService')
+        ]
+    );
+
     // ADMIN API
     // USERINFO
     $container->shared(

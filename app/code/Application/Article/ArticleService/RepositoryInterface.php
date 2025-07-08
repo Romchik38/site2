@@ -23,6 +23,9 @@ interface RepositoryInterface
     public function add(Article $model): void;
 
     /** @throws RepositoryException */
+    public function clearViews(): void;
+
+    /** @throws RepositoryException */
     public function createAudio(AudioId $id): Audio;
 
     /**

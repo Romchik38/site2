@@ -212,4 +212,10 @@ final class ArticleService
             throw new CouldNotIncrementViewsException($e->getMessage());
         }
     }
+
+    /** @throws RepositoryException */
+    public function clearViews(): void
+    {
+        $this->repository->clearViews();
+    }
 }

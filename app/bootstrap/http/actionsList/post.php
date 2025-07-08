@@ -79,8 +79,17 @@ return function (Container $container): ControllerInterface {
         null, 
         'article_update'
     );
+    $adminArticleMostVisited = new Controller('most_visited');
+    $adminArticleMostVisitedClear = new Controller(
+        'clear',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Article\MostVisited\Clear\DefaultAction')
+    );
+    $adminArticleMostVisited->setChild($adminArticleMostVisitedClear);
+
     $adminArticle
     ->setChild($adminArticleDelete)
+    ->setChild($adminArticleMostVisited)
     ->setChild($adminArticleNew)
     ->setChild($adminArticleUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;

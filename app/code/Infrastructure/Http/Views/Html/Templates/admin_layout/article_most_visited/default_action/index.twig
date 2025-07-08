@@ -8,6 +8,39 @@
 {% extends "base_admin_layouts.twig" %}
 
 {% block content %}
-    <h1 class="text-center">{{ data.getName() }}</h1>
-    <p>{{ data.getDescription() }}</p>
+    {% set articleUrl = u.fromArray(['root', 'article']) %}
+    {% set articleAdminUrl = u.fromArray(['root', 'admin', 'article']) %}
+    <div class="container">
+        <h1 class="text-center">{{ data.getName() }}</h1>
+        <p>{{ data.getDescription() }}</p>
+        <form class="my-3" action="{{ u.fromArray(['root', 'admin', 'article', 'most_visited', 'clear']) }}" method="post">
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <button class="btn btn-secondary py-0 align-top px-1" type="submit">Clear</button>
+        </form>
+        <table class="table table-striped border">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Views</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>    
+            </thead>
+            <tbody>
+                {% for article in data.articleList %}
+                    {% set id = article.getId() %}
+                    <tr>
+                        <td>{{ id }}</td>
+                        <td>{{ article.getName() }}</td>
+                        <td>{{ data.formatDate(article.createdAt) }}</td>
+                        <td class="text-center">{{ article.getViews() }}</td>
+                        <td><a href="{{ articleUrl ~ '/' ~ id }}" target="_blank">view</a></td>
+                        <td><a href="{{ articleAdminUrl ~ '/' ~ id }}">edit</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
