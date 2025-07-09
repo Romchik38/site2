@@ -21,7 +21,8 @@ final class SearchCriteria
     public function __construct(
         public readonly ArticleId $articleId,
         array $categories,
-        public readonly LanguageId $languageId
+        public readonly LanguageId $languageId,
+        public readonly Count $count
     ) {
         foreach ($categories as $category) {
             if (! $category instanceof CategoryId) {

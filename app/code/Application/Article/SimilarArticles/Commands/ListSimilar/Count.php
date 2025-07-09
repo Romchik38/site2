@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Article\MostVisited\Commands\List;
+namespace Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar;
 
 use InvalidArgumentException;
 
@@ -16,8 +16,8 @@ final class Count
     public function __construct(
         private readonly int $count
     ) {
-        if ($count < 0 || $count > self::MAX_COUNT) {
-            throw new InvalidArgumentException(sprintf('Param article views count is invalid %d', $count));
+        if ($count <= 0 || $count > self::MAX_COUNT) {
+            throw new InvalidArgumentException(sprintf('Param article similat count is invalid %d', $count));
         }
     }
 

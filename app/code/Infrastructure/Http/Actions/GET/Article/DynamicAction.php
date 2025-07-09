@@ -18,6 +18,8 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
+use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\ListSimilar;
+use Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\ViewService;
@@ -37,6 +39,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewService $articleViewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly SimilarArticles $similarArticles
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -50,6 +53,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
         }
         $decodedRoute = urldecode($dynamicRoute());
+
+        // Article
         try {
             $article = $this->articleViewService->getArticle(new Find(
                 $decodedRoute,
@@ -60,6 +65,20 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
                 sprintf('Route %s not found. Error message: %s', $dynamicRoute(), $e->getMessage())
             );
         }
+
+        // Similar
+        $categories = [];
+        foreach ($article->categories as $category) {
+            $categories[] = (string) $category->id;
+        }
+        $similarCommand = new ListSimilar(
+            $article->articleId,
+            $categories,
+            $this->getLanguage(),
+            3
+        );
+
+        $similarArticles = $this->similarArticles->list($similarCommand);
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
@@ -72,6 +91,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             IncrementViews::ID_FIELD,
             $this->session::CSRF_TOKEN_FIELD,
             $csrfToken,
+            $similarArticles
         );
 
         $result = $this->view

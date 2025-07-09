@@ -1,0 +1,55 @@
+{# string           articleUrl          like /en/article #}
+
+
+<div class="row my-3">
+    <div>
+        <h2 class="text-center mb-3 background-line">{{ translate.t('article.view.similar') }}</h2>
+        <div class="row">
+
+{% for article in data.similarArticles %}
+    {% set articleSimilarUrl = articleUrl ~ '/' ~ article.getId() %}
+            <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                <a class="link-none" href="{{ articleSimilarUrl }}">
+                    <img class="img-fluid"
+                        src="/img.php?id={{ article.image.getId() }}&type=webp&width=200&height=100" alt="{{ article.image.getDescription() }}"
+                        width="200px">
+                </a>
+                <h5><a class="link-none" href="{{ articleSimilarUrl }}">{{ article.getName() }}</a></h5>
+                <p class="h6"><a class="link-none" href="{{ articleSimilarUrl }}">{{ article.getShortDescription() }}</a></p>
+                <footer class="row text-secondary">
+                    <div class="col-12 font-monospace comments">{{ translate.t('comments') }}({{ random(5) }})</div>
+                    <div class="col-12 font-monospace comments">{{ data.formatArticleDate(article.createdAt) }}</div>
+                </footer>
+            </div>
+{% endfor %}            
+            <!-- <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                <img class="img-fluid"
+                    src="/img.php?id=4&type=webp&width=200&height=100" alt="Coming soon"
+                    width="200px">
+                <h5><a class="link-none" href="#">News 2</a></h5>
+                <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
+                        Lorem ipsum
+                        dolor sit, amet
+                        consectetur.</a></p>
+                <footer class="row text-secondary">
+                    <div class="col-12 font-monospace comments">comments(5)</div>
+                    <div class="col-12 font-monospace comments">yesterday</div>
+                </footer>
+            </div>
+            <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                <img class="img-fluid"
+                    src="/img.php?id=4&type=webp&width=200&height=100" alt="Coming soon"
+                    width="200px">
+                <h5><a class="link-none" href="#">News 3</a></h5>
+                <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
+                        Lorem ipsum
+                        dolor sit, amet
+                        consectetur.</a></p>
+                <footer class="row text-secondary">
+                    <div class="col-12 font-monospace comments">comments(0)</div>
+                    <div class="col-12 font-monospace comments">2 days ago</div>
+                </footer>
+            </div> -->
+        </div>
+    </div>
+</div>

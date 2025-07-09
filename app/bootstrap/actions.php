@@ -98,6 +98,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Article\View\ViewService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles')
         ]
     );
 

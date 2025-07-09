@@ -41,15 +41,19 @@ final class Repository implements RepositoryInterface
             $pointers[] = '$' . $count;
             $params[]   = (string) $category;
         }
-        $rowsQueryPart = sprintf(
+        $articleIdPoiner = '$' . ++$count;
+        $params[]        = (string) $searchCriteria->articleId;
+        $rowsQueryPart   = sprintf(
             $this->withQueryPart(),
             implode(',', $pointers),
-            (string) $searchCriteria->articleId
+            $articleIdPoiner
         );
         // default
-        $count++;
-        $defaultQueryPart = sprintf($this->defaultQueryPart(), '$' . $count);
+        $languagePoiner   = '$' . ++$count;
+        $countPoiner      = '$' . ++$count;
+        $defaultQueryPart = sprintf($this->defaultQueryPart(), $languagePoiner, $countPoiner);
         $params[]         = (string) $searchCriteria->languageId;
+        $params[]         = (string) $searchCriteria->count;
 
         // common
         $query = $rowsQueryPart . $defaultQueryPart;
@@ -132,7 +136,7 @@ final class Repository implements RepositoryInterface
             article_translates.short_description,
             img.path as img_path,
             img_translates.img_id,
-            img_translates.description as img_description,
+            img_translates.description as img_description
         FROM
             article,
             article_translates,
@@ -147,6 +151,8 @@ final class Repository implements RepositoryInterface
             AND img_translates.img_id = article.img_id
             AND img_translates.language = article_translates.language
             AND article.identifier = rows.identifier
+            ORDER BY article.created_at DESC
+            LIMIT %s
         QUERY;
     }
 
@@ -160,7 +166,7 @@ final class Repository implements RepositoryInterface
                 article_category
             WHERE  article.identifier = article_category.article_id
                 AND article_category.category_id IN (%s)
-                AND article.identifier <> '%s'
+                AND article.identifier <> %s
         )
         WITH_QUERY;
     }

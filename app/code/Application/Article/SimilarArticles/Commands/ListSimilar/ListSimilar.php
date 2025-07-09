@@ -18,7 +18,8 @@ final class ListSimilar
     public function __construct(
         public readonly string $articleId,
         array $categories,
-        public readonly string $language
+        public readonly string $language,
+        public readonly int $count
     ) {
         $arr = [];
         foreach ($categories as $category) {

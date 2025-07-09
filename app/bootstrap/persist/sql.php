@@ -69,6 +69,16 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE SIMILAR
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\SimilarArticles\Repository',
+        '\Romchik38\Site2\Application\Article\SimilarArticles\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminView\Repository',

@@ -19,6 +19,7 @@
 {% endblock %}
 
 {% block content %}
+{% set articleUrl = u.fromArray(['root', 'article']) %}
 <div id="content" class="container-fluid mt-2">
     <!-- Header start -->
     <div class="container-xxl">
@@ -94,56 +95,8 @@
                     </div>
                     <!-- Content body end -->
 
-                    <!-- Similar articles start -->
-                    <div class="row my-3">
-                        <div>
-                            <h2 class="text-center mb-3 background-line">{{ translate.t('article.view.similar') }}</h2>
-                            <div class="row">
-                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
-                                    <img class="img-fluid"
-                                        src="/img.php?id=4&type=webp&width=200&height=100" alt="Coming soon"
-                                        width="200px">
-                                    <h5><a class="link-none" href="#">News 1</a></h5>
-                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
-                                            Lorem ipsum
-                                            dolor sit, amet
-                                            consectetur.</a></p>
-                                    <footer class="row text-secondary">
-                                        <div class="col-12 font-monospace comments">comments(2)</div>
-                                        <div class="col-12 font-monospace comments">6 hours ago</div>
-                                    </footer>
-                                </div>
-                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
-                                    <img class="img-fluid"
-                                        src="/img.php?id=4&type=webp&width=200&height=100" alt="Coming soon"
-                                        width="200px">
-                                    <h5><a class="link-none" href="#">News 2</a></h5>
-                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
-                                            Lorem ipsum
-                                            dolor sit, amet
-                                            consectetur.</a></p>
-                                    <footer class="row text-secondary">
-                                        <div class="col-12 font-monospace comments">comments(5)</div>
-                                        <div class="col-12 font-monospace comments">yesterday</div>
-                                    </footer>
-                                </div>
-                                <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
-                                    <img class="img-fluid"
-                                        src="/img.php?id=4&type=webp&width=200&height=100" alt="Coming soon"
-                                        width="200px">
-                                    <h5><a class="link-none" href="#">News 3</a></h5>
-                                    <p class="h6"><a class="link-none" href="#">Somnis, cumque nihil sint corrupti.
-                                            Lorem ipsum
-                                            dolor sit, amet
-                                            consectetur.</a></p>
-                                    <footer class="row text-secondary">
-                                        <div class="col-12 font-monospace comments">comments(0)</div>
-                                        <div class="col-12 font-monospace comments">2 days ago</div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Similar articles start --> 
+                    {% include template_full_prefix ~ '/blocks/similar.twig' with {'translate': translate, 'u': u, 'data': data, 'articleUrl': articleUrl} only %}
                     <!-- Similar articles end -->
 
                     <!-- Continue reading start -->

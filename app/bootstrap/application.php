@@ -52,6 +52,14 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE SIMILAR
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\SimilarArticles\RepositoryInterface')
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\AdminView\AdminView',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\SimilarArticles;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\Count;
 use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\ListSimilar;
 use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\SearchCriteria;
 use Romchik38\Site2\Application\Article\SimilarArticles\Exceptions\CouldNotListSimilarException;
@@ -39,8 +40,14 @@ final class SimilarArticles
             $categories[] = new CategoryId($category);
         }
         $languageId = new LanguageId($command->language);
+        $count      = new Count($command->count);
 
-        $searchCriteria = new SearchCriteria($articleId, $categories, $languageId);
+        $searchCriteria = new SearchCriteria(
+            $articleId,
+            $categories,
+            $languageId,
+            $count
+        );
 
         try {
             return $this->repository->list($searchCriteria);

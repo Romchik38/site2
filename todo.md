@@ -2,9 +2,6 @@
 
 ## Current
 
-- Similar articles
-  - repository
-
 ## Next
 
 - article view
