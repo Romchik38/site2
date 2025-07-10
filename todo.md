@@ -2,7 +2,6 @@
 
 ## Current
 
-- replacing images
 - article view сontinue reading
 
 ## Next
