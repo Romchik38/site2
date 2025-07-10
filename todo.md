@@ -3,6 +3,11 @@
 ## Current
 
 - article view сontinue reading
+  - api point
+    - action
+    - csrf middleware
+    - template
+    - js
 
 - remove image path
   - similar
