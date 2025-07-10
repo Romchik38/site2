@@ -36,6 +36,11 @@ return function (Container $container): ControllerInterface {
 
     // Api
     $api = new Controller('api');
+    $apiContinueReading = new Controller(
+        'article_continue_reading',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\DefaultAction')
+    );
     $apiArticleViews = new Controller(
         'articleviews',
         false,
@@ -49,6 +54,7 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\Userinfo\DefaultAction')
     );
     $api
+    ->setChild($apiContinueReading)
     ->setChild($apiArticleViews)
     ->setChild($apiUserinfo);
 

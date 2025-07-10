@@ -79,6 +79,16 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE CONTINUE READING
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\ContinueReading\Repository',
+        '\Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface'),
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Article\AdminView\Repository',

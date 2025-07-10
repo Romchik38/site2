@@ -60,6 +60,14 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE CONTINUE READING
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading',
+        [
+            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface')
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\AdminView\AdminView',
