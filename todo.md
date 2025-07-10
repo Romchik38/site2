@@ -2,10 +2,11 @@
 
 ## Current
 
+- replacing images
+- article view сontinue reading
+
 ## Next
 
-- article view
-  - Continue reading
 - footer menu
 - user home page
 - search in nav bar
