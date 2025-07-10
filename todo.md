@@ -12,6 +12,7 @@
 - add popup first time visitor - the site is a demo
 - control image cache size
 - add more content
+- change links in infoline
 
 ## Later
 
