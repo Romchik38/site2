@@ -4,6 +4,10 @@
 
 - article view сontinue reading
 
+- remove image path
+  - similar
+  - most visited
+
 ## Next
 
 - footer menu
