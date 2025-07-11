@@ -2,11 +2,6 @@
 
 ## Current
 
-- article view сontinue reading
-  - api point
-    - template
-    - js
-
 - remove image path
   - similar
   - most visited

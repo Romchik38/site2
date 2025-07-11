@@ -1,10 +1,12 @@
 'use strict';
 
 import { default as Data } from './data.js';
+import { default as Article } from './article.js';
 import { default as RequestData } from '/media/js/modules/utils/make-request/request-data.js';
 import { default as makeRequest } from '/media/js/modules/utils/make-request/make-post-request.js';
 
 var path = ['root', 'api', 'article_continue_reading'];
+var a = Article.fromClass('api-continue-reading-article');
 
 document.addEventListener('DOMContentLoaded', ()=>{
     try {
@@ -17,7 +19,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (err !== null) {       
                 console.log({ 'article-continue-reading': err});
             } else {
-                console.log(data);
+                a.render(data);
+                a.show();
             }
         });
     } catch (e) {

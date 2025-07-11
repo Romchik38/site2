@@ -28,7 +28,7 @@ final class ArticleDto implements JsonSerializable
             'article_name'              => ($this->name)(),
             'article_short_description' => ($this->shortDescription)(),
             'article_created_at'        => $this->createdAt->format('j-n-y'),
-            'image_id'                  => ($this->image->id)(),
+            'image_id'                  => (string)$this->image->id,
             'image_description'         => ($this->image->description)(),
         ];
     }
