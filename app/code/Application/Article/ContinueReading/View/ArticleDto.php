@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ContinueReading\View;
 
 use DateTime;
+use JsonSerializable;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 
-final class ArticleDto
+final class ArticleDto implements JsonSerializable
 {
     public function __construct(
         public readonly ArticleId $id,

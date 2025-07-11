@@ -65,6 +65,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         if (gettype($requestData) !== 'array') {
             throw new RuntimeException('Incoming data is invalid');
         }
+
         $check = Check::formHash($requestData);
         try {
             $checkResult = $this->articleService->check($check);
