@@ -29,6 +29,7 @@ class Article extends Component {
 
         var article = new ArticleData(data);
         var articleFullurl = encodeURI(this.getUrl(article.id));
+        var comments = this.getComments() + '(' + Math.floor(Math.random() * 10) + ')';
     
         var mainContainer = this._createElement(
             'div', { 'class': 'row' }
@@ -72,7 +73,7 @@ class Article extends Component {
 
         var footerContainer = this._createElement('div', { 'class': 'col-12 text-secondary' });
         var footerRow = this._createElement('div', { 'class': 'row' });
-        var footerComments = this._createElement('div', { 'class': 'col-12 font-monospace comments'}, '+10 new comments(21)');
+        var footerComments = this._createElement('div', { 'class': 'col-12 font-monospace comments'}, comments);
         var footerData = this._createElement('div', { 'class': 'col-12 font-monospace comments'}, article.createdAt);
         footerRow.appendChild(footerComments);
         footerRow.appendChild(footerData);
@@ -86,6 +87,11 @@ class Article extends Component {
         this.node.appendChild(mainContainer);
     }
 
+    getComments() {
+        var comments = this._checkParm(this.node.dataset.comments);
+        return comments;
+    }
+    
     getRead() {
         var read = this._checkParm(this.node.dataset.read);
         return read;

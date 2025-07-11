@@ -4,7 +4,13 @@
     data-tokenfield="{{ data.csrfTokenField }}"
     data-token="{{ data.csrfToken }}"
 ></div>
-<div class="row my-3 api-continue-reading-article" style="display:none" data-url="{{ articleUrl }}" data-read="{{ translate.t('article.read') }}">
+<div 
+    class="row my-3 api-continue-reading-article" 
+    style="display:none" 
+    data-url="{{ articleUrl }}" 
+    data-read="{{ translate.t('article.read') }}"
+    data-comments="{{ translate.t('comments') }}"
+>
     <div class="col">
         <h2 class="text-center mb-3 background-line">{{ translate.t('article.view.continue.reading') }}</h2>
     </div>
