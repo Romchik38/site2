@@ -132,5 +132,8 @@
         </div>
         <!-- Main start -->
 </div>
-{% include template_full_prefix ~ '/blocks/views.twig' with {'translate': t, 'u': u, 'data': data} only %}
+<!-- Views Block -->
+{% include template_full_prefix ~ '/blocks/views.twig' with {'data': data} only %}
+<!-- Continue Reading Block -->
+{% include template_full_prefix ~ '/blocks/continue_reading.twig' with {'data': data} only %}
 {% endblock %}

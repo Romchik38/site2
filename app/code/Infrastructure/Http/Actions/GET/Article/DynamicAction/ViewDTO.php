@@ -24,7 +24,8 @@ final class ViewDTO extends DefaultViewDTO
         public readonly string $idField,
         public readonly string $csrfTokenField,
         public string $csrfToken,
-        public readonly array $similarArticles
+        public readonly array $similarArticles,
+        public readonly string $continueReadingIdField,
     ) {
         parent::__construct($name, $description);
     }

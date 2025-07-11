@@ -14,6 +14,6 @@
 ## POST
 
 - root logout
-- root auth                         user auth
-- root article_continue_reading     fetch last visited article
-- root articleviews                 increment article view
+- root auth                             user auth
+- root api article_continue_reading     fetch last visited article
+- root api articleviews                 increment article view

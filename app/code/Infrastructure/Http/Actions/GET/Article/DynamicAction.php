@@ -26,6 +26,7 @@ use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
 
 use function sprintf;
 use function urldecode;
@@ -91,7 +92,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             IncrementViews::ID_FIELD,
             $this->session::CSRF_TOKEN_FIELD,
             $csrfToken,
-            $similarArticles
+            $similarArticles,
+            Check::ID_FIELD
         );
 
         $result = $this->view
