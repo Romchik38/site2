@@ -4,8 +4,6 @@
 
 - article view сontinue reading
   - api point
-    - action
-    - csrf middleware
     - template
     - js
 

@@ -27,7 +27,6 @@ use function gettype;
 use function serialize;
 use function unserialize;
 
-/** @todo tests all path */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     use RequestHandlerTrait;
