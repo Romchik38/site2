@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -15,15 +16,15 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\Find;
 use Romchik38\Site2\Application\Article\ContinueReading\ContinueReading;
+use Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\DefaultAction\Item;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
-use function count;
 use function gettype;
-use function is_array;
-use function is_string;
+use function serialize;
 use function unserialize;
 
 /** @todo tests all path */
@@ -64,9 +65,18 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         if (gettype($requestData) !== 'array') {
             throw new RuntimeException('Incoming data is invalid');
         }
-        $articleId = $requestData[Find::ID_FIELD] ?? null;
-        // id not presend or invalid - bad request
-        if (! is_string($articleId)) {
+        $check = Check::formHash($requestData);
+        try {
+            $checkResult = $this->articleService->check($check);
+        } catch (InvalidArgumentException $e) {
+            return new JsonResponse(new ApiDTO(
+                $this::API_NAME,
+                $this::API_DESCRIPTION,
+                ApiDTOInterface::STATUS_ERROR,
+                $e->getMessage()
+            ));
+        }
+        if (! $checkResult) {
             return new JsonResponse(new ApiDTO(
                 $this::API_NAME,
                 $this::API_DESCRIPTION,
@@ -75,9 +85,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ));
         }
 
-        $articles = $this->session->getData(Site2SessionInterface::ARTICLE_LAST_VISITED);
+        $sessionItemData = $this->session->getData(Site2SessionInterface::ARTICLE_LAST_VISITED);
         // No articles visitied before, nothing no responde
-        if ($articles === null || $articles === '') {
+        if ($sessionItemData === null || $sessionItemData === '') {
+            $this->session->setData(Site2SessionInterface::ARTICLE_LAST_VISITED, serialize(new Item($check->id)));
             return new JsonResponse(new ApiDTO(
                 $this::API_NAME,
                 $this::API_DESCRIPTION,
@@ -86,37 +97,34 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ));
         }
         // Already visit some articles
-        $items = unserialize($articles);
-        if (! is_array($items)) {
+        $item = unserialize($sessionItemData);
+        if (! $item instanceof Item) {
             throw new RuntimeException('Session article data is invalid');
         }
-        $itemCount = count($items);
-        if ($itemCount === 0) {
-            throw new RuntimeException('Session article data is invalid - 0 artiles');
-            // Only one visited, nothing to responde
-        } elseif ($itemCount === 1) {
-            return new JsonResponse(new ApiDTO(
-                $this::API_NAME,
-                $this::API_DESCRIPTION,
-                ApiDTOInterface::STATUS_SUCCESS,
-                null
-            ));
-        }
-        // Articles found
+
+        // Decide what to do
         $articleIdToFind = '';
-        foreach ($items as $item) {
-            if (! is_string($item)) {
-                throw new RuntimeException('Session article data is invalid - id not a string');
-            }
-            if ($articleId === $item) {
-                continue;
+        if ($item->first === $check->id) {
+            if ($item->second === null) {
+                return new JsonResponse(new ApiDTO(
+                    $this::API_NAME,
+                    $this::API_DESCRIPTION,
+                    ApiDTOInterface::STATUS_SUCCESS,
+                    null
+                ));
             } else {
-                $articleIdToFind = $item;
+                $articleIdToFind = $item->second;
             }
+        } else {
+            $articleIdToFind = $item->first;
+            $item->first     = $check->id;
+            $item->second    = $articleIdToFind;
         }
 
         $command = new Find($articleIdToFind, $this->getLanguage());
         $article = $this->articleService->find($command);
+
+        $this->session->setData(Site2SessionInterface::ARTICLE_LAST_VISITED, serialize($item));
 
         return new JsonResponse(new ApiDTO(
             $this::API_NAME,
