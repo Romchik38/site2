@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ContinueReading;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\Find;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\SearchCriteria;
+use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotCheckException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotFindException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\RepositoryException;
@@ -19,6 +21,20 @@ final class ContinueReading
     public function __construct(
         private readonly RepositoryInterface $repository
     ) {
+    }
+
+    /**
+     * @throws CouldNotCheckException
+     * @throws InvalidArgumentException
+     * */
+    public function check(Check $command): bool
+    {
+        $id = new ArticleId($command->id);
+        try {
+            return $this->repository->checkById($id);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCheckException($e->getMessage());
+        }
     }
 
     /**

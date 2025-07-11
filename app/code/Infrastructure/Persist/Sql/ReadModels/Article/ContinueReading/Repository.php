@@ -30,6 +30,30 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
+    public function checkById(ArticleId $id): bool
+    {
+        $query  = $this->checkByIdQuery();
+        $params = [$id()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $count = count($rows);
+        if ($count === 0) {
+            return false;
+        }
+        if ($count > 1) {
+            throw new RepositoryException(sprintf(
+                'Article with given id %s has duplicates',
+                (string) $id
+            ));
+        }
+
+        return true;
+    }
+
     public function find(SearchCriteria $searchCriteria): ArticleDto
     {
         $paramArticleId  = ($searchCriteria->articleId)();
@@ -134,6 +158,17 @@ final class Repository implements RepositoryInterface
             AND img_translates.img_id = article.img_id
             AND img_translates.language = $1
             AND article.identifier = $2
+        QUERY;
+    }
+
+    private function checkByIdQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT distinct article.identifier 
+        FROM article, 
+            article_translates 
+        WHERE article.identifier = article_translates.article_id 
+            AND article.identifier = $1
         QUERY;
     }
 }

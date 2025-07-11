@@ -116,7 +116,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         }
 
         $command = new Find($articleIdToFind, $this->getLanguage());
-
         $article = $this->articleService->find($command);
 
         return new JsonResponse(new ApiDTO(
