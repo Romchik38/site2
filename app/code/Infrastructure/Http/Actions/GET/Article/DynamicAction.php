@@ -18,6 +18,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
 use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\ListSimilar;
 use Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles;
 use Romchik38\Site2\Application\Article\View\Find;
@@ -26,7 +27,6 @@ use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
-use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
 
 use function sprintf;
 use function urldecode;
