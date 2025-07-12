@@ -16,10 +16,7 @@ services:
   php-fpm: 
     build: ./docker/php-fpm
     volumes:
-      - ./app:/app
-      - ./public/http:/public/http
-      - ./vendor:/vendor
-      - ./server:/server
+      - ./:/app
     depends_on:
       - postgres
     networks:

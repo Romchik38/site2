@@ -1,11 +1,14 @@
 FROM php:8.4-fpm
 
-
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         mailutils \
-        msmtp
+        msmtp \
+        git \
+        zip \
+        unzip \
+        && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN rm -rf /var/lib/apt/lists/*
 
