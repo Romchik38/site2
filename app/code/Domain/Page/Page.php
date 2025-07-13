@@ -28,7 +28,7 @@ final class Page
      * @throws InvalidArgumentException
      */
     public function __construct(
-        private(set) Id $id,
+        public readonly Id $id,
         private(set) bool $active,
         array $languages,
         array $translates
@@ -106,13 +106,11 @@ final class Page
         $this->active = false;
     }
 
-    /** @todo test */
     public function getTranslate(string $language): ?Translate
     {
         return $this->translates[$language] ?? null;
     }
 
-    /** @todo test */
     /** @return array<int,Translate> */
     public function getTranslates(): array
     {
