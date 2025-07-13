@@ -11,6 +11,8 @@
 
 ## Next
 
+- csrf middleware api frontend
+- refactor VO
 - footer menu
 - user home page
 - search in nav bar
