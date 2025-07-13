@@ -2,10 +2,9 @@
 
 ## Current
 
-- page domain
+- page domain tests
 
 - page view
-  - domain tests
   - service
   - repository
 
