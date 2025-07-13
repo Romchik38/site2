@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a2884028660ce162d7d9fc858bf7671",
+    "content-hash": "3c037ca3caf24b11417906ce67442b01",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -426,16 +426,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "9b84d86e808c800007129171dd99e96e5e8a2c1b"
+                "reference": "0f901943e25fa3853137607dca516f251abca70a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/9b84d86e808c800007129171dd99e96e5e8a2c1b",
-                "reference": "9b84d86e808c800007129171dd99e96e5e8a2c1b",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/0f901943e25fa3853137607dca516f251abca70a",
+                "reference": "0f901943e25fa3853137607dca516f251abca70a",
                 "shasum": ""
             },
             "require": {
@@ -482,10 +482,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.24.0",
+                "source": "https://github.com/Romchik38/server/tree/v1.24.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-07-06T10:51:20+00:00"
+            "time": "2025-07-13T10:49:48+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1287,16 +1287,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68"
+                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
-                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
+                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
                 "shasum": ""
             },
             "require": {
@@ -1328,9 +1328,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.1.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.2.0"
             },
-            "time": "2025-02-19T13:28:12+00:00"
+            "time": "2025-07-13T07:04:09+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -1727,16 +1727,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.26",
+            "version": "11.5.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4ad8fe263a0b55b54a8028c38a18e3c5bef312e0"
+                "reference": "446d43867314781df7e9adf79c3ec7464956fd8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4ad8fe263a0b55b54a8028c38a18e3c5bef312e0",
-                "reference": "4ad8fe263a0b55b54a8028c38a18e3c5bef312e0",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/446d43867314781df7e9adf79c3ec7464956fd8f",
+                "reference": "446d43867314781df7e9adf79c3ec7464956fd8f",
                 "shasum": ""
             },
             "require": {
@@ -1746,7 +1746,7 @@
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "myclabs/deep-copy": "^1.13.1",
+                "myclabs/deep-copy": "^1.13.3",
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.2",
@@ -1808,7 +1808,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.26"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.27"
             },
             "funding": [
                 {
@@ -1832,7 +1832,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-04T05:58:21+00:00"
+            "time": "2025-07-11T04:10:06+00:00"
         },
         {
             "name": "sebastian/cli-parser",
