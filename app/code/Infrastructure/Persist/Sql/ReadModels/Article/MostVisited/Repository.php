@@ -19,7 +19,6 @@ use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
 use Romchik38\Site2\Domain\Article\VO\Views;
 use Romchik38\Site2\Domain\Image\VO\Description as ImageDescription;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
-use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class Repository implements RepositoryInterface
 {

@@ -18,7 +18,6 @@ use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription as ArticleShortDescription;
 use Romchik38\Site2\Domain\Image\VO\Description as ImageDescription;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
-use Romchik38\Site2\Domain\Image\VO\Path;
 
 use function implode;
 use function sprintf;

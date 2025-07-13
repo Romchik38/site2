@@ -20,11 +20,6 @@ final class ImageDTO
         return (string) $this->id;
     }
 
-    public function getPath(): string
-    {
-        return (string) $this->path;
-    }
-
     public function getDescription(): string
     {
         return (string) $this->description;
