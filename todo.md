@@ -2,6 +2,13 @@
 
 ## Current
 
+- page view
+  - sql
+  - domain
+  - domain tests
+  - service
+  - repository
+
 ## Next
 
 - footer menu
