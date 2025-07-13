@@ -18,7 +18,6 @@ CREATE table article_translates
     name text NOT NULL UNIQUE,
     short_description NOT NULL text,
     description NOT NULL text,
-    updated_at timestamp NOT NULL DEFAULT current_timestamp,
     CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language)
 );
 
