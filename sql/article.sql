@@ -16,8 +16,8 @@ CREATE table article_translates
     article_id text NOT NULL REFERENCES article (identifier) ON DELETE CASCADE ON UPDATE CASCADE,
     language text NOT NULL REFERENCES language (identifier) ON UPDATE CASCADE,
     name text NOT NULL UNIQUE,
-    short_description NOT NULL text,
-    description NOT NULL text,
+    short_description text NOT NULL,
+    description text NOT NULL,
     CONSTRAINT pk_article_translates PRIMARY KEY (article_id, language)
 );
 
