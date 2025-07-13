@@ -437,6 +437,56 @@ CREATE TABLE public.links_translates (
 ALTER TABLE public.links_translates OWNER TO postgres;
 
 --
+-- Name: page; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.page (
+    id integer NOT NULL,
+    url text NOT NULL,
+    active boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.page OWNER TO postgres;
+
+--
+-- Name: page_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.page_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.page_id_seq OWNER TO postgres;
+
+--
+-- Name: page_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.page_id_seq OWNED BY public.page.id;
+
+
+--
+-- Name: page_translates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.page_translates (
+    page_id integer NOT NULL,
+    language text NOT NULL,
+    name text NOT NULL,
+    short_description text NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.page_translates OWNER TO postgres;
+
+--
 -- Name: translate_entities; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -510,6 +560,13 @@ ALTER TABLE ONLY public.links ALTER COLUMN link_id SET DEFAULT nextval('public.l
 
 
 --
+-- Name: page id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page ALTER COLUMN id SET DEFAULT nextval('public.page_id_seq'::regclass);
+
+
+--
 -- Data for Name: admin_roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -548,9 +605,9 @@ plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01
 the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49	2
 zakon-pro-dorojniy-ruh-ukraini	t	1	121	49	2025-06-25 16:29:19	2025-07-10 14:04:39	1
 сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	123	54	2025-06-26 19:26:46	2025-07-10 14:39:41	1
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-07-03 16:55:03	9
 using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	5
 entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	1
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-07-03 16:55:03	10
 сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01	2025-06-26 13:24:15	0
 passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10	2025-06-29 17:50:58	0
 evidence-in-administrative-offense-cases-key-aspects	t	1	115	3	2024-11-05 13:40:26	2025-07-08 10:59:21	0
@@ -559,11 +616,11 @@ code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54	2025-0
 Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	122	53	2025-06-26 16:46:37	2025-07-10 14:33:23	1
 military-registration-document	t	1	124	61	2025-06-30 12:26:51	2025-07-11 13:02:22	1
 traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	3
-grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	3
 impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	3
 deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50	1
 evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	3
 extension-of-the-guarantee-of-maintaining-a-servicemans-job	t	1	102	60	2025-06-29 19:45:28	2025-06-29 19:49:24	1
+grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	4
 administrative-detention	t	1	97	55	2025-06-27 18:49:55	2025-06-27 18:57:37	0
 amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38	2025-06-29 14:59:54	0
 laws-and-regulations-governing-the-field-of-military-law	t	1	99	57	2025-06-29 12:42:15	2025-06-29 12:44:17	0
@@ -1071,6 +1128,22 @@ COPY public.links_translates (link_id, language, name, description) FROM stdin;
 
 
 --
+-- Data for Name: page; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.page (id, url, active) FROM stdin;
+\.
+
+
+--
+-- Data for Name: page_translates; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.page_translates (page_id, language, name, short_description, description) FROM stdin;
+\.
+
+
+--
 -- Data for Name: translate_entities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1460,6 +1533,13 @@ SELECT pg_catalog.setval('public.links_link_id_seq', 1, false);
 
 
 --
+-- Name: page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.page_id_seq', 1, false);
+
+
+--
 -- Name: admin_roles admin_roles_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1612,6 +1692,30 @@ ALTER TABLE ONLY public.links_translates
 
 
 --
+-- Name: page page_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page
+    ADD CONSTRAINT page_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: page_translates page_translates_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page_translates
+    ADD CONSTRAINT page_translates_name_key UNIQUE (name);
+
+
+--
+-- Name: page page_url_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page
+    ADD CONSTRAINT page_url_key UNIQUE (url);
+
+
+--
 -- Name: admin_users_with_roles pk_admin_users_roles; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1665,6 +1769,14 @@ ALTER TABLE ONLY public.img_translates
 
 ALTER TABLE ONLY public.links_translates
     ADD CONSTRAINT pk_links_translates PRIMARY KEY (link_id, language);
+
+
+--
+-- Name: page_translates pk_page_translates; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page_translates
+    ADD CONSTRAINT pk_page_translates PRIMARY KEY (page_id, language);
 
 
 --
@@ -1857,6 +1969,22 @@ ALTER TABLE ONLY public.links_translates
 
 ALTER TABLE ONLY public.links_translates
     ADD CONSTRAINT links_translates_link_id_fkey FOREIGN KEY (link_id) REFERENCES public.links(link_id) ON DELETE CASCADE;
+
+
+--
+-- Name: page_translates page_translates_language_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page_translates
+    ADD CONSTRAINT page_translates_language_fkey FOREIGN KEY (language) REFERENCES public.language(identifier) ON UPDATE CASCADE;
+
+
+--
+-- Name: page_translates page_translates_page_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.page_translates
+    ADD CONSTRAINT page_translates_page_id_fkey FOREIGN KEY (page_id) REFERENCES public.page(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
