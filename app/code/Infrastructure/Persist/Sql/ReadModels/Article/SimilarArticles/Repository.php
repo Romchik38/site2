@@ -98,10 +98,6 @@ final class Repository implements RepositoryInterface
         if ($rawImgId === null) {
             throw new RepositoryException('Article img id at is invalid');
         }
-        $rawImgPath = $row['img_path'] ?? null;
-        if ($rawImgPath === null) {
-            throw new RepositoryException('Article img path at is invalid');
-        }
         $rawImgDescription = $row['img_description'] ?? null;
         if ($rawImgDescription === null) {
             throw new RepositoryException('Article img description at is invalid');
@@ -113,7 +109,6 @@ final class Repository implements RepositoryInterface
             $articleDescription = new ArticleShortDescription($rawShortDescription);
             $imageId            = ImageId::fromString($rawImgId);
             $imageDescription   = new ImageDescription($rawImgDescription);
-            $imagePath          = new Path($rawImgPath);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
@@ -123,7 +118,7 @@ final class Repository implements RepositoryInterface
             $articleName,
             $articleDescription,
             new DateTime($rawCreatedAt),
-            new ImageDto($imageId, $imagePath, $imageDescription)
+            new ImageDto($imageId, $imageDescription)
         );
     }
 
@@ -134,7 +129,6 @@ final class Repository implements RepositoryInterface
             article.created_at,
             article_translates.name,
             article_translates.short_description,
-            img.path as img_path,
             img_translates.img_id,
             img_translates.description as img_description
         FROM

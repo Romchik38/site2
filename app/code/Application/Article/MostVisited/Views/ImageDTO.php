@@ -6,13 +6,11 @@ namespace Romchik38\Site2\Application\Article\MostVisited\Views;
 
 use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Image\VO\Id;
-use Romchik38\Site2\Domain\Image\VO\Path;
 
 final class ImageDTO
 {
     public function __construct(
         public readonly Id $id,
-        public readonly Path $path,
         public readonly Description $description
     ) {
     }

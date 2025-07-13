@@ -2,10 +2,6 @@
 
 ## Current
 
-- remove image path
-  - similar
-  - most visited
-
 ## Next
 
 - footer menu
