@@ -15,9 +15,6 @@ Additional:
 - Routing system with PSR-7 Request/Response
 - [Error handling](./doc/errors/errors.md)
 - [Design](./doc/design/01-readme.md)
-- Sitemap system
-- Breadcrumbs on every page
-- Filtering
 - Logging
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/docker.md)
@@ -25,6 +22,14 @@ Additional:
 - User and admin user login (authentication and authorization)
 - [DI Container](./doc/bootstrap/Container.md)
 - Code architectural layers
+- Sitemap system
+- Breadcrumbs on every page
+- Filtering
+- Most Visited
+- Similar
+- Continue reading
+- Javascript components
+- Full workflow control inside domain model
 
 ## Dependencies
 
