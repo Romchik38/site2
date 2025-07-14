@@ -13,7 +13,7 @@ final class PageDto
     public function __construct(
         public readonly Id $id,
         public readonly bool $active,
-        public readonly Name $name,
+        public readonly ?Name $name,
         public readonly Url $url
     ) {
     }
@@ -23,9 +23,13 @@ final class PageDto
         return (string) $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
-        return (string) $this->name;
+        if ($this->name === null) {
+            return null;
+        } else {
+            return (string) $this->name;
+        }
     }
 
     public function getUrl(): string

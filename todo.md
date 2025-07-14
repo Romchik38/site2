@@ -2,6 +2,10 @@
 
 ## Current
 
+- number static
+  - check repository
+  - update server
+
 - page admin list
   - repository
   - action
@@ -15,7 +19,6 @@
 
 ## Next
 
-- update to PHP 8.4.10
 - csrf middleware api frontend
 - refactor VO
 - footer menu

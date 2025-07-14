@@ -14,6 +14,7 @@ use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\VO\Offset;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\VO\OrderByDirection;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\VO\OrderByField;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\VO\Page;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
 final class AdminList
 {
@@ -27,19 +28,21 @@ final class AdminList
      * @throws CouldNotFilterException
      * @throws InvalidArgumentException
      * */
-    public function filter(Filter $command): FilterResult
+    public function filter(Filter $command, string $language): FilterResult
     {
         $limit            = Limit::fromString($command->limit);
         $page             = Page::fromString($command->page);
         $orderByField     = new OrderByField($command->orderByField);
         $orderByDirection = new OrderByDirection($command->orderByDirection);
         $offset           = new Offset(($page() - 1) * $limit());
+        $languageId       = new LanguageId($language);
 
         $searchCriteria = new SearchCriteria(
             $offset,
             $limit,
             $orderByField,
-            $orderByDirection
+            $orderByDirection,
+            $languageId
         );
 
         try {
