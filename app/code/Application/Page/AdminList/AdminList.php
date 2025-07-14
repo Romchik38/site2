@@ -23,7 +23,6 @@ final class AdminList
     ) {
     }
 
-    /**  @todo implement */
     /**
      * @throws CouldNotFilterException
      * @throws InvalidArgumentException
