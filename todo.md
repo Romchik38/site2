@@ -2,11 +2,18 @@
 
 ## Current
 
-- page domain tests
-
-- page view
+- add test row to database
+- page admin list
   - service
   - repository
+  - action
+  - template
+
+- page admin view
+- page admin update
+- page admin create
+- page admin delete
+- page view
 
 ## Next
 
