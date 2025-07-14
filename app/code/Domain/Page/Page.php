@@ -21,7 +21,6 @@ final class Page
     /** @var array<string,Translate> $translates */
     private array $translates = [];
 
-    /** @todo test */
     /**
      * @param array<int,mixed|LanguageId> $languages
      * @param array<int,mixed|Translates> $translates
@@ -62,7 +61,6 @@ final class Page
         }
     }
 
-    /** @todo test */
     /** @throws CouldNotChangeActivityException */
     public function activate(): void
     {
@@ -86,7 +84,6 @@ final class Page
         $this->active = true;
     }
 
-    /** @todo test */
     /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
@@ -100,7 +97,6 @@ final class Page
         $this->translates[$languageId] = $translate;
     }
 
-    /** @todo test */
     public function deactivate(): void
     {
         $this->active = false;
