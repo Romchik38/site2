@@ -11,7 +11,7 @@ final class Page extends Positive
     public const NAME         = 'page page';
     public const DEFAULT_PAGE = 1;
 
-    public static function fromString(string $page): self
+    public static function fromString(string $page): static
     {
         if ($page === '') {
             return new self(self::DEFAULT_PAGE);

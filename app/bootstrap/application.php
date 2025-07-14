@@ -202,9 +202,6 @@ return function (Container $container) {
         ]
     );
 
-    // USER CHECK
-    $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
-
     // IMAGE
     $container->shared(
         '\Romchik38\Site2\Application\Image\ImageService\ImageService',
@@ -302,6 +299,14 @@ return function (Container $container) {
         ]
     );
 
+    // PAGE ADMIN LIST
+    $container->shared(
+        '\Romchik38\Site2\Application\Page\AdminList\AdminList',
+        [
+            new Promise('\Romchik38\Site2\Application\Page\AdminList\RepositoryInterface')
+        ]
+    );
+
     // LANGUAGE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Language\List\ListService',
@@ -333,6 +338,9 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Domain\Translate\RepositoryInterface')
         ]
     );
+
+    // USER CHECK
+    $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
     return $container;
 };

@@ -26,7 +26,7 @@ final class Limit extends Number
         parent::__construct($limit);
     }
 
-    public static function fromString(string $limit): self
+    public static function fromString(string $limit): static
     {
         if ($limit === '') {
             return new self(self::DEFAULT_LIMIT);

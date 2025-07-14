@@ -2,9 +2,7 @@
 
 ## Current
 
-- number static
-  - check repository
-  - update server
+- number static - update server
 
 - page admin list
   - repository
