@@ -20,6 +20,8 @@
 - root admin image new              create new image
 - root admin imagecache             image cache
 - root admin language               languages list
+- root admin page                   page list (default)
+                                    page view (dynamic)
 - root admin translate              translate list view
                                     translate view
 - root admin translate new          translate create new

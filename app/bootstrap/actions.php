@@ -462,6 +462,22 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN PAGE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('admin_view_layout'),
+            new Promise('\Romchik38\Site2\Application\Page\AdminView\AdminView'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+        ]
+    );
+
     // ADMIN TRANSLATE LIST
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction',

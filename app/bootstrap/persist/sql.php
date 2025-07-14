@@ -370,7 +370,7 @@ return function (Container $container) {
 
     // Page admin view
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Category\AdminView\Repository',
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Page\AdminView\Repository',
         '\Romchik38\Site2\Application\Page\AdminView\RepositoryInterface',
         true,
         [

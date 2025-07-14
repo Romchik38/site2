@@ -181,7 +181,8 @@ return function (Container $container): ControllerInterface {
     $adminPage = new Controller(
         'page',
         false,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction'),
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction')
     );
 
     // Admin Translate

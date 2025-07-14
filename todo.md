@@ -3,9 +3,6 @@
 ## Current
 
 - page admin view
-  - service
-  - repository
-  - action
   - template
   
 - page admin update
