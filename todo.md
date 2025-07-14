@@ -10,6 +10,7 @@
 
 ## Next
 
+- update to PHP 8.4.10
 - csrf middleware api frontend
 - refactor VO
 - footer menu
