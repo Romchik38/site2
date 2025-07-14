@@ -9,7 +9,7 @@ use Romchik38\Site2\Domain\Page\VO\Url;
 
 final class PageDto
 {
-    /** @param array<int,Translate> $translates */
+    /** @param array<int,TranslateDto> $translates */
     public function __construct(
         public readonly Id $id,
         public readonly bool $active,

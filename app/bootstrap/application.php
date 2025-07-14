@@ -307,6 +307,14 @@ return function (Container $container) {
         ]
     );
 
+    // PAGE ADMIN VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Page\AdminView\AdminView',
+        [
+            new Promise('\Romchik38\Site2\Application\Page\AdminView\RepositoryInterface')
+        ]
+    );
+
     // LANGUAGE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Language\List\ListService',

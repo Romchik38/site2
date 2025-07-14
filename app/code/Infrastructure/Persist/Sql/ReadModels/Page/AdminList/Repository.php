@@ -121,7 +121,6 @@ final class Repository implements RepositoryInterface
 
         $name = null;
         try {
-            /** @todo check instance of */
             $id  = PageId::fromString($rawIdentifier);
             $url = new Url($rawUrl);
             if ($rawName !== null) {

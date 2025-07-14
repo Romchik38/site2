@@ -9,7 +9,7 @@ use Romchik38\Site2\Domain\Page\VO\Description;
 use Romchik38\Site2\Domain\Page\VO\Name;
 use Romchik38\Site2\Domain\Page\VO\ShortDescription;
 
-final class Translate
+final class TranslateDto
 {
     public function __construct(
         public readonly LanguageId $language,
