@@ -2,7 +2,6 @@
 
 ## Current
 
-- add test row to database
 - page admin list
   - service
   - repository

@@ -14,3 +14,23 @@ CREATE table page_translates
     description text NOT NULL,
     CONSTRAINT pk_page_translates PRIMARY KEY (page_id, language)
 );
+
+INSERT INTO page (url) VALUES ('test-page');
+
+INSERT INTO page_translates (page_id, language, name, short_description, description)
+    VALUES 
+    (
+        1,
+        'en',
+        'Test Page',
+        'Test short description',
+        'Test description'
+    ),
+    (
+        1,
+        'uk',
+        'Тестова сторінка',
+        'Тестовий корткий опис',
+        'Тестовий опис'
+    )
+;
