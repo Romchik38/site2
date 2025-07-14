@@ -3,7 +3,6 @@
 ## Current
 
 - page admin list
-  - service
   - repository
   - action
   - template
