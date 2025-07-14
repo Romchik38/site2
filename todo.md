@@ -2,21 +2,19 @@
 
 ## Current
 
-- number static - update server
-
 - page admin list
-  - repository
-  - action
   - template
 
 - page admin view
 - page admin update
 - page admin create
 - page admin delete
+- delete all pages and check how zero_pages looks like
 - page view
 
 ## Next
 
+- number static - update server
 - csrf middleware api frontend
 - refactor VO
 - footer menu
