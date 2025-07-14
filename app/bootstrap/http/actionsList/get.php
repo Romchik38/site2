@@ -177,6 +177,13 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Language\DefaultAction')
     );
     
+    // Admin Page
+    $adminPage = new Controller(
+        'page',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction')
+    );
+
     // Admin Translate
     $adminTranslate = new Controller(
         'translate',
@@ -210,6 +217,7 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminImagecache)
     ->setChild($adminImage)
     ->setChild($adminLanguage)
+    ->setChild($adminPage)
     ->setChild($adminTranslate)
     ->setChild($adminUsers);
     

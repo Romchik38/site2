@@ -1,0 +1,23 @@
+{#
+    string          urlNew                  url to create new category
+#}
+
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
+{%  set  urlNew = u.fromArray(['root', 'admin', 'page', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+
+        {% if data.pageList|length == 0 %} 
+            {% include template_full_prefix ~ '/zero_pages.twig' with {'t': translate, 'urlNew': urlNew} only %}
+        {% else %}
+            {% include template_full_prefix ~ '/pages.twig' with {'data': data, 't': translate, 'u': u, 'urlNew': urlNew } only %}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

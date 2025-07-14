@@ -29,7 +29,7 @@ final class OrderByField extends Text
                     sprintf('param %s %s is invalid', $this::NAME, $orderByField)
                 );
             }
-            parent::__construct($orderByField);
         }
+        parent::__construct($orderByField);
     }
 }

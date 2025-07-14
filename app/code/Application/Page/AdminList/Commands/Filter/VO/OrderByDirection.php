@@ -29,7 +29,7 @@ final class OrderByDirection extends Text
                     sprintf('param %s %s is invalid', $this::NAME, $orderByDirection)
                 );
             }
-            parent::__construct($orderByDirection);
         }
+        parent::__construct($orderByDirection);
     }
 }

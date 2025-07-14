@@ -1,21 +1,20 @@
 {#
     string              paginationHtml              html to display
-    CategoryDto[]       categoryList                Romchik38\Site2\Application\Category\AdminList\View\CategoryDto
+    PageDto[]           pageList                    Romchik38\Site2\Application\Page\AdminList\View\PageDto
     object              paginationForm              Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\PaginationForm
-    string              urlNew                      url to create new category
+    string              urlNew                      url to create new page
     object              u                           urlbuilder
     object              t                           translate service
 #}
 
 {% set paginationForm = data.paginationForm %}
 {% set paginationHtml = data.paginationHtml %}
-{% set categoryList = data.categoryList %}
+{% set pageList = data.pageList %}
 <div class="col-12 text-end mb-2">
       <a class="btn btn-primary" href="{{ urlNew }}" role="button">New</a>
 </div>
 <div class="col-12 mb-2">
     <form class="d-sm-flex" action="" method="get">
-
 
         <!-- Limits -->
         <label class="me-2" for="limit">Limit</label>
@@ -63,35 +62,44 @@
     </nav>
 </div>
 
+<!-- List -->
 <table class="table table-bordered">
     <thead class="table-secondary">
           <tr>
                 <th scope="col">Identifier</th>
                 <th scope="col">Active</th>
+                <th scope="col">Url</th>
+                <th scope="col">Name</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
           </tr>
     </thead>
     <tbody>
-        {% for category in categoryList %}
+        {% for page in pageList %}
             {% set activeColor = '' %}
-            {% if category.active == false %}
+            {% if page.active == false %}
                 {% set activeColor = 'text-warning bg-secondary' %}
                 {% set active = 'not active' %}
-            {% elseif category.active == true %}
+            {% elseif page.active == true %}
                 {% set activeColor = 'text-success' %}
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                {% set categoryId = category.id.__toString() %}
+                {% set pageId = page.getId() %}
                 <!-- 1. Id -->
-                <th scope="row">{{ categoryId }}</th>
-                {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId|url_encode]) %}
+                <th scope="row">{{ pageId }}</th>
+                {% set pageUrl = u.fromArray(['root', 'admin', 'page', pageId]) %}
                 <td class="{{ activeColor }}">{{ active }}</td>
-                <td><a href="{{ categoryUrl }}">edit</a></td>
+                <th scope="row">{{ page.getUrl() }}</th>
+                {% if page.getName() is null %}
+                    <td class="text-warning bg-secondary">no translate</td>
+                {% else %}
+                    <td>{{ page.getName() }}</td>
+                {% endif %}
+                <td><a href="{{ pageUrl }}">edit</a></td>
                 <td>
-                    <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post">
-                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ categoryId }}" hidden>
+                    <form action="{{ u.fromArray(['root', 'admin', 'page', 'delete']) }}" method="post">
+                        <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ pageId }}" hidden>
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>

@@ -2,10 +2,12 @@
 
 ## Current
 
-- page admin list
-  - template
-
 - page admin view
+  - service
+  - repository
+  - action
+  - template
+  
 - page admin update
 - page admin create
 - page admin delete
