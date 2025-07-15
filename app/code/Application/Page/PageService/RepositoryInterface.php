@@ -12,7 +12,7 @@ use Romchik38\Site2\Domain\Page\VO\Id;
 interface RepositoryInterface
 {
     /** @throws RepositoryException */
-    public function add(Page $model): void;
+    public function add(Page $model): Id;
 
     /** @throws RepositoryException */
     public function delete(Page $model): void;

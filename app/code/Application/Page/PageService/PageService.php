@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Page\PageService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Application\Language\List\ListService as LanguageListService;
+use Romchik38\Site2\Application\Page\PageService\Commands\Create;
 use Romchik38\Site2\Application\Page\PageService\Commands\Update;
+use Romchik38\Site2\Application\Page\PageService\Exceptions\CouldNotCreateException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\NoSuchPageException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\RepositoryException;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Page\CouldNotChangeActivityException;
 use Romchik38\Site2\Domain\Page\Entities\Translate;
+use Romchik38\Site2\Domain\Page\Page;
 use Romchik38\Site2\Domain\Page\VO\Description;
 use Romchik38\Site2\Domain\Page\VO\Id as PageId;
 use Romchik38\Site2\Domain\Page\VO\Name;
@@ -29,39 +33,31 @@ final class PageService
     ) {
     }
 
-    /** @todo implement */
     /**
      * @throws CouldNotCreateException
      * @throws InvalidArgumentException
      */
-    // public function create(Create $command): void
-    // {
-    //     $id       = new ArticleId($command->id);
-    //     $authorId = AuthorId::fromString($command->authorId);
+    public function create(Create $command): PageId
+    {
+        $url = new Url($command->url);
 
-    //     try {
-    //         $author = $this->repository->findAuthor($authorId);
-    //     } catch (RepositoryException $e) {
-    //         throw new CouldNotCreateException($e->getMessage());
-    //     }
+        try {
+            $languages = [];
+            foreach ($this->languagesService->getAll() as $language) {
+                $languages[] = $language->identifier;
+            }
+        } catch (LanguageRepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
 
-    //     try {
-    //         $languages = [];
-    //         foreach ($this->languagesService->getAll() as $language) {
-    //             $languages[] = $language->identifier;
-    //         }
-    //     } catch (LanguageRepositoryException $e) {
-    //         throw new CouldNotCreateException($e->getMessage());
-    //     }
+        $model = Page::create($url, $languages);
 
-    //     $model = Article::create($id, $author, $languages);
-
-    //     try {
-    //         $this->repository->add($model);
-    //     } catch (RepositoryException $e) {
-    //         throw new CouldNotCreateException($e->getMessage());
-    //     }
-    // }
+        try {
+            return $this->repository->add($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCreateException($e->getMessage());
+        }
+    }
 
     /** @todo implement */
     /**

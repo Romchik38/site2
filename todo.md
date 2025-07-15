@@ -2,12 +2,11 @@
 
 ## Current
 
-- page admin update
-  - service
-  - repository
-  - action
-
 - page admin create
+  - action
+  - template
+  - post action
+
 - page admin delete
 - delete all pages and check how zero_pages looks like
 - page view

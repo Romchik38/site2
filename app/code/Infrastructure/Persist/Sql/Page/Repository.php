@@ -31,26 +31,34 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    /** @todo implement */
-    public function add(Page $model): void
+    public function add(Page $model): PageId
     {
-        // $id       = (string) $model->id;
-        // $authorId = (string) $model->author->id;
-        // $active   = 'f';
-        // if ($model->active) {
-        //     $active = 't';
-        // }
-        // $createdAt = $model->formatCreatedAt();
-        // $updatedAt = $model->formatUpdatedAt();
-        // $views     = ($model->views)();
+        $id = $model->id;
+        if ($id !== null) {
+            throw new RepositoryException(sprintf('Param page id %d can not be set for new model', $id()));
+        }
+        $active = 'f';
+        $url    = (string) $model->url;
 
-        // $query  = $this->addQuery();
-        // $params = [$id, $active, $authorId, $createdAt, $updatedAt, $views];
-        // try {
-        //     $this->database->queryParams($query, $params);
-        // } catch (QueryException $e) {
-        //     throw new RepositoryException($e->getMessage());
-        // }
+        $query  = $this->addQuery();
+        $params = [$active, $url];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+            if (count($rows) !== 1) {
+                throw new RepositoryException('Returns more than 1 id while creating new page');
+            }
+            $rawId = $rows[0]['id'] ?? null;
+            if ($rawId === null) {
+                throw new RepositoryException('Param page id is invalid');
+            }
+            try {
+                return PageId::fromString($rawId);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     /** @todo implement */
@@ -201,7 +209,7 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws RepositoryException
-     * @return array<int,TranslateDto>
+     * @return array<int,Translate>
      * */
     private function createTranslates(PageId $id): array
     {
@@ -313,12 +321,12 @@ final class Repository implements RepositoryInterface
         QUERY;
     }
 
-    /** @todo refactor */
     private function addQuery(): string
     {
         return <<<'QUERY'
-            INSERT INTO article (identifier, active, author_id, created_at, updated_at, views)
-                VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO page (active, url)
+                VALUES ($1, $2)
+                RETURNING id
         QUERY;
     }
 
