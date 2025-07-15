@@ -6,6 +6,11 @@
 
 {% extends "base_admin_layouts.twig" %}
 
+{% block head %}
+    {{ parent() }}
+    <link href="/media/css/summernote/summernote-bs5.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 {% include template_full_prefix ~ '/wysiwyg/index.twig' %}
 
