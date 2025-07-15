@@ -28,7 +28,7 @@ final class Page
      * @throws InvalidArgumentException
      */
     public function __construct(
-        public readonly Id $id,
+        public readonly ?Id $id,
         private(set) bool $active,
         public Url $url,
         array $languages,
@@ -57,6 +57,9 @@ final class Page
         }
 
         if ($active === true) {
+            if ($id === null) {
+                throw new InvalidArgumentException('Page id is not set on active model');
+            }
             if (count($translates) < count($languages)) {
                 throw new InvalidArgumentException('Page has missing translates');
             }
@@ -68,6 +71,10 @@ final class Page
     {
         if ($this->active === true) {
             return;
+        }
+
+        if ($this->id === null) {
+            throw new CouldNotChangeActivityException('Page id is not set');
         }
 
         if (count($this->languages) > count($this->translates)) {

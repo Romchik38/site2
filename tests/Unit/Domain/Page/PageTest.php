@@ -164,6 +164,37 @@ final class PageTest extends TestCase
         new Page($id, false, $url, $languages, $translates);
     }
 
+    public function testConstructThrowsErrorOnEmptyIdWhenActive(): void
+    {
+        $id        = null;          // wrong
+        $url       = new Url('some-url');
+        $languages = [new LanguageId('en'), new LanguageId('uk')];
+
+        $nameEn             = new Name('Some page name');
+        $shortDescriptionEn = new ShortDescription('Some short description');
+        $descriptionEn      = new Description('Some description');
+        $translateEn        = new Translate(
+            new LanguageId('en'),
+            $nameEn,
+            $shortDescriptionEn,
+            $descriptionEn
+        );
+        $nameUk             = new Name('Опис якоїсь сторінки');
+        $shortDescriptionUk = new ShortDescription('Якийсь короткий опис');
+        $descriptionUk      = new Description('Якийсь опис');
+        $translateUk        = new Translate(
+            new LanguageId('uk'),
+            $nameUk,
+            $shortDescriptionUk,
+            $descriptionUk
+        );
+        $translates         = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Page id is not set on active model');
+        new Page($id, true, $url, $languages, $translates);
+    }
+
     public function testActivate(): void
     {
         $id        = new PageId(1);
@@ -217,6 +248,40 @@ final class PageTest extends TestCase
 
         $this->expectException(CouldNotChangeActivityException::class);
         $this->expectExceptionMessage('Page has missing translates');
+        $page->activate();
+    }
+
+    public function testActivateThrowsErrorOnEmptyId(): void
+    {
+        $id        = null;          // wrong
+        $url       = new Url('some-url');
+        $languages = [new LanguageId('en'), new LanguageId('uk')];
+
+        $nameEn             = new Name('Some page name');
+        $shortDescriptionEn = new ShortDescription('Some short description');
+        $descriptionEn      = new Description('Some description');
+        $translateEn        = new Translate(
+            new LanguageId('en'),
+            $nameEn,
+            $shortDescriptionEn,
+            $descriptionEn
+        );
+        $nameUk             = new Name('Опис якоїсь сторінки');
+        $shortDescriptionUk = new ShortDescription('Якийсь короткий опис');
+        $descriptionUk      = new Description('Якийсь опис');
+        $translateUk        = new Translate(
+            new LanguageId('uk'),
+            $nameUk,
+            $shortDescriptionUk,
+            $descriptionUk
+        );
+        $translates         = [$translateEn, $translateUk];
+
+        $page = new Page($id, false, $url, $languages, $translates);
+
+        $this->expectException(CouldNotChangeActivityException::class);
+        $this->expectExceptionMessage('Page id is not set');
+
         $page->activate();
     }
 
