@@ -89,7 +89,6 @@ final class PageService
     //     }
     // }
 
-    /** @todo implement */
     /**
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
