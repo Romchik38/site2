@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Page\Entities\Translate;
 use Romchik38\Site2\Domain\Page\VO\Id;
+use Romchik38\Site2\Domain\Page\VO\Url;
 
 use function array_values;
 use function count;
@@ -29,6 +30,7 @@ final class Page
     public function __construct(
         public readonly Id $id,
         private(set) bool $active,
+        public Url $url,
         array $languages,
         array $translates
     ) {
