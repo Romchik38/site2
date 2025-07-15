@@ -299,6 +299,15 @@ return function (Container $container) {
         ]
     );
 
+    // PAGE
+    $container->shared(
+        '\Romchik38\Site2\Application\Page\PageService\PageService',
+        [
+            new Promise('\Romchik38\Site2\Application\Page\PageService\RepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Language\List\ListService')
+        ]
+    );
+
     // PAGE ADMIN LIST
     $container->shared(
         '\Romchik38\Site2\Application\Page\AdminList\AdminList',

@@ -358,6 +358,16 @@ return function (Container $container) {
         ]
     );
 
+    // PAGE
+    $container->multi(
+        'Romchik38\Site2\Infrastructure\Persist\Sql\Page\Repository',
+        '\Romchik38\Site2\Application\Page\PageService\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')
+        ]
+    );
+
     // PAGE ADMIN LIST
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Page\AdminList\Repository',
