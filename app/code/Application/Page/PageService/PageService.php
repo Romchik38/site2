@@ -89,7 +89,6 @@ final class PageService
     //     }
     // }
 
-    /** @todo test all paths */
     /**
      * @throws CouldNotChangeActivityException
      * @throws CouldNotUpdateException
@@ -110,7 +109,7 @@ final class PageService
         }
 
         try {
-            $this->repository->transactionEnd();
+            $this->repository->transactionStart();
             $model      = $this->repository->getById($id);
             $model->url = $url;
             //translates
