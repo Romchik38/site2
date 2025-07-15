@@ -116,6 +116,15 @@ final class Page
         return $this->translates[$language] ?? null;
     }
 
+    /**
+     * @param array<int,mixed|LanguageId> $languages
+     * @param array<int,mixed|Translates> $translates
+     */
+    public static function create(Url $url, array $languages, array $translates = []): self
+    {
+        return new self(null, false, $url, $languages, $translates);
+    }
+
     /** @return array<int,Translate> */
     public function getTranslates(): array
     {

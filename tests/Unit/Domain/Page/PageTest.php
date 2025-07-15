@@ -356,6 +356,39 @@ final class PageTest extends TestCase
         $page->addTranslate($translateEn);
     }
 
+    public function testCreate(): void
+    {
+        $url       = new Url('some-url');
+        $languages = [new LanguageId('en'), new LanguageId('uk')];
+
+        $nameEn             = new Name('Some page name');
+        $shortDescriptionEn = new ShortDescription('Some short description');
+        $descriptionEn      = new Description('Some description');
+        $translateEn        = new Translate(
+            new LanguageId('en'),
+            $nameEn,
+            $shortDescriptionEn,
+            $descriptionEn
+        );
+        $translates         = [$translateEn];
+
+        $model = Page::create($url, $languages, $translates);
+
+        $this->assertSame($translateEn, $model->getTranslate('en'));
+        $this->assertSame([$translateEn], $model->getTranslates());
+    }
+
+    public function testCreateWithTranslates(): void
+    {
+        $url       = new Url('some-url');
+        $languages = [new LanguageId('en'), new LanguageId('uk')];
+        $model     = Page::create($url, $languages);
+
+        $this->assertSame(null, $model->id);
+        $this->assertSame(false, $model->active);
+        $this->assertSame([], $model->getTranslates());
+    }
+
     public function testDeactivate(): void
     {
         $id        = new PageId(1);
