@@ -3,8 +3,6 @@
 ## Current
 
 - page admin create
-  - action
-  - template
   - post action
 
 - page admin delete

@@ -1,0 +1,36 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      template_full_prefix        path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\New\DefaultAction\ViewDto
+#}
+
+{% extends "base_admin_layouts.twig" %}
+
+{% block content %}
+{% set newUrl = u.fromArray(['root', 'admin', 'page', 'new']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center pages">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Form -->
+        <form action="{{ newUrl }}" method="post">
+            <div class="form-group mb-2 p-2">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.urlField }}">Url: use <strong>latin chars</strong> and <strong>-</strong></label>
+                    <input type="text" class="form-control" name="{{ data.urlField }}" required>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Create</button>
+                </div>
+            </div>
+        </form>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ u.fromArray(['root', 'admin', 'page']) }}">Page list</a></div>
+    </div>
+</div>
+{% endblock %}

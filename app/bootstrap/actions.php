@@ -478,6 +478,18 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN PAGE NEW
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('admin_view_layout'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),            
+        ]
+    );
+
     // ADMIN TRANSLATE LIST
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction',

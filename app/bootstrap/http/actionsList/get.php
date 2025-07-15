@@ -184,6 +184,14 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction')
     );
+    $adminPageNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\New\DefaultAction'),
+        null,
+        'page_new'
+    );
+    $adminPage->setChild($adminPageNew);
 
     // Admin Translate
     $adminTranslate = new Controller(
