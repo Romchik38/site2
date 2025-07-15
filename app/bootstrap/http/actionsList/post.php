@@ -301,6 +301,19 @@ return function (Container $container): ControllerInterface {
         'admin_logout'
     );
     
+    // Admin Page
+    $adminPage = new Controller('page');
+    $adminPageUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Page\Update\DefaultAction'),
+        null,
+        'page_update'
+    );
+    $adminPage
+    ->setChild($adminPageUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
+
     // Admin Translate
     $adminTranslate = new Controller('translate');
     $adminTranslateUpdate = new Controller(
@@ -339,6 +352,7 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminCategory)
     ->setChild($adminImage)
     ->setChild($adminImagecache)
+    ->setChild($adminPage)
     ->setChild($adminTranslate);
 
     $root->setChild($auth)
