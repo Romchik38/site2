@@ -1,0 +1,19 @@
+<script src="/media/js/jquery/jquery-3.4.1.slim.min.js.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"></script>
+<script src="/media/js/summernote/summernote-bs5.min.js.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+        tabsize: 2,
+        height: 220,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]});
+    });
+</script>

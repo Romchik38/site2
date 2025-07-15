@@ -1,0 +1,110 @@
+{#
+    Object      u                           urlbuilder              {{ u.fromArray(['root', 'product']) }}
+    string      template_full_prefix        path to this folder
+    Object      data                        Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction\ViewDto
+    Object      page                        Romchik38\Site2\Application\Page\AdminView\View\PageDto
+#}
+
+{% extends "base_admin_layouts.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <link href="/media/css/summernote/summernote-bs5.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% set page = data.pageDto %}
+{% set updateUrl = u.fromArray(['root', 'admin', 'page', 'update']) %}
+{% set listUrl = u.fromArray(['root', 'admin', 'page']) %}
+{% set deleteUrl = u.fromArray(['root', 'admin', 'page', 'delete']) %}
+
+<div class="container-md my-3">
+    <div class="row">
+        <h1 class="text-center pages">{{ data.name }}</h1>
+        <p>{{ data.description }}</p>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ listUrl }}">Page list</a></div>
+        <!-- Form -->
+        <form action="{{ updateUrl }}" method="post" id="page-update-form">
+            <div class="form-group mb-2 p-2">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ page.getId() }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ page.getId() }}" hidden>
+                </div>
+            </div>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <div class="form-group mb-2 p-2">
+                <div class="mb">
+                    <label class="form-label" for="{{ data.urlFiled }}">Id: {{ page.getUrl() }}</label>
+                    <input type="text" class="form-control" name="{{ data.urlFiled }}" value="{{ page.getUrl() }}" required>
+                </div>
+            </div>        
+
+            <div class="form-group p-2 my-3">
+                <div class="mb-3">                
+                    <h2 class="text-center">Activity</h2>
+                    {% if page.active == true %} 
+                        <span class="text-success">is active</span>
+                    {% else %}
+                        <span class="text-danger">not active</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ data.changeActivityField }}" value="{{ data.noField }}" id="checkbox_active">
+                    <label class="form-check-label" for="{{ data.changeActivityField }}">
+                    {% if page.active == false %}
+                        Activate
+                    {% elseif page.active == true %}
+                        Deactivate
+                    {% endif %}
+                    </label>
+                </div>
+            </div>
+            <!-- Translates -->
+            {% include template_full_prefix ~ '/blocks/translates.twig' with {'t': t, 'u': u, 'data': data } only %}
+            {% include template_full_prefix ~ '/blocks/wysiwyg.twig' %}
+            <div class="d-flex ">
+                <div class="me-auto">
+                    <button type="submit" class="btn btn-primary my-2">Update</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger my-2" id="delete-button">Delete</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ deleteUrl }}" method="post" id="delete-form">
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ page.getId() }}" hidden>
+            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+        </form>
+        <script>
+            var activeCheckbox = document.getElementById('checkbox_active');
+            if(activeCheckbox !== null) {
+                activeCheckbox.addEventListener("change", function (e) {
+                    checked = e.target.checked;
+                    if(checked === true) {
+                        e.target.value = '{{ data.yesField }}';
+                    } else {
+                        e.target.value = '{{ data.noField }}';
+                    }
+                });
+            } else {
+                console.error('Active checkbox input field not found'); 
+            }
+        </script>
+        <script>
+            deleteButton = document.getElementById('delete-button');
+            deleteForm = document.getElementById('delete-form');
+            if(deleteButton !== null && deleteForm !== null) {
+                deleteButton.addEventListener("click", function (e) {
+                    deleteForm.submit();
+                });
+            } else {
+                console.error('Delete button or form not found'); 
+            }
+        </script>
+        <!-- Back link -->
+        <div class="my-3">⬅️ Back to <a href="{{ listUrl }}">Page list</a></div>
+    </div>
+</div>
+{% endblock %}
