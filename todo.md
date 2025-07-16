@@ -2,9 +2,14 @@
 
 ## Current
 
-- delete all pages and check how zero_pages looks like
 - page view
+  - service
+  - repository
+  - action
+  - template
+
 - test page admin list pagination when more pages will be ready
+- memory usage
 
 ## Next
 
@@ -18,6 +23,7 @@
 - control image cache size
 - add more content
 - change links in infoline
+- add language switch to admin
 
 ## Later
 
