@@ -3,10 +3,8 @@
 ## Current
 
 - page view
-  - service
-  - repository
-  - action
-  - template
+  - test service
+  - create list for dynamic routes
 
 - test page admin list pagination when more pages will be ready
 - memory usage

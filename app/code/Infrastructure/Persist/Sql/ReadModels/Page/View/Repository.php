@@ -30,11 +30,12 @@ final class Repository implements RepositoryInterface
 
     public function find(SearchCriteria $searchCriteria): PageDto
     {
-        $id     = $searchCriteria->pageId;
-        $idInt  = $id();
-        $query  = $this->findQuery();
-        $params = [
-            $idInt,
+        $url              = $searchCriteria->url;
+        $urlString        = $url();
+        $languageIdString = $searchCriteria->languageId;
+        $query            = $this->findQuery();
+        $params           = [
+            $urlString,
             (string) $searchCriteria->languageId,
         ];
 
@@ -44,13 +45,14 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException($e->getMessage());
         }
 
-        $count = count($rows);
+        $count        = count($rows);
+        $errorMessage = 'Page with url %s and language %s %s';
         if ($count === 0) {
-            throw new NoSuchPageException(sprintf('Page with id %d not exist', $idInt));
+            throw new NoSuchPageException(sprintf($errorMessage, $urlString, $languageIdString, 'not exist'));
         } elseif ($count > 1) {
-            throw new RepositoryException(sprintf('Page with id %d has duplicates', $idInt));
+            throw new RepositoryException(sprintf($errorMessage, $urlString, $languageIdString, 'has duplicates'));
         } else {
-            return $this->createFromRow($rows[0], $id);
+            return $this->createFromRow($rows[0], $url);
         }
     }
 
@@ -58,11 +60,11 @@ final class Repository implements RepositoryInterface
      * @throws RepositoryException
      * @param array<string,string|null> $row
      * */
-    private function createFromRow(array $row, PageId $id): PageDto
+    private function createFromRow(array $row, Url $url): PageDto
     {
-        $rawUrl = $row['url'] ?? null;
-        if ($rawUrl === null) {
-            throw new RepositoryException('Page url is invalid');
+        $rawId = $row['id'] ?? null;
+        if ($rawId === null) {
+            throw new RepositoryException('Page id is invalid');
         }
 
         $rawShortDescription = $row['short_description'] ?? null;
@@ -79,7 +81,7 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $url              = new Url($rawUrl);
+            $id               = PageId::fromString($rawId);
             $name             = new Name($rawName);
             $shortDescription = new ShortDescription($rawShortDescription);
             $description      = new Description($rawDescription);
@@ -93,16 +95,16 @@ final class Repository implements RepositoryInterface
     private function findQuery(): string
     {
         return <<<'QUERY'
-        SELECT page.url,
+        SELECT page.id,
             page_translates.name,
             page_translates.short_description,
             page_translates.description
         FROM page,
             page_translates
-        WHERE page_translates.page_id = $1 AND
+        WHERE page.url = $1 AND
+            page.active = 't' AND
             page_translates.language = $2 AND
-            page_translates.page_id = page.id AND
-            page.active = 't'
+            page_translates.page_id = page.id
         QUERY;
     }
 }

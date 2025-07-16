@@ -8,6 +8,8 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
@@ -15,25 +17,26 @@ use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
 use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Http\Views\Dto\DefaultViewDTOFactoryInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
+use Romchik38\Site2\Application\Page\View\CouldNotFindException;
+use Romchik38\Site2\Application\Page\View\NoSuchPageException;
+use Romchik38\Site2\Application\Page\View\ViewService;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction\ViewDTO;
+use RuntimeException;
 
 use function sprintf;
+use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
-    /** @var array<string,string> $actions */
-    private array $actions = [
-        'about'    => 'root.about',
-        'contacts' => 'root.contacts',
-    ];
-
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly DefaultViewDTOFactoryInterface $defaultViewDtoFactory
+        private readonly ViewService $pageViewService,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -47,17 +50,24 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
         }
 
-        $messageKey = $this->actions[$dynamicRoute()] ?? null;
+        $decodedRoute = urldecode($dynamicRoute());
+        $command      = new Find($decodedRoute, $this->getLanguage());
 
-        if ($messageKey === null) {
-            throw new ActionNotFoundException('action ' . $dynamicRoute() . ' not found');
+        try {
+            $page = $this->pageViewService->find($command);
+        } catch (InvalidArgumentException) {
+            throw new ActionNotFoundException(sprintf('page %s not found', $decodedRoute));
+        } catch (NoSuchPageException) {
+            throw new ActionNotFoundException(sprintf('page %s not found', $decodedRoute));
+        } catch (CouldNotFindException $e) {
+            $this->logger->log(LogLevel::ERROR, $e->getMessage());
+            throw new RuntimeException(sprintf('Page view action error %s: ', $e->getMessage()));
         }
 
-        $translatedMessage = $this->translateService->t($messageKey);
-
-        $dto = $this->defaultViewDtoFactory->create(
-            $translatedMessage,
-            $translatedMessage
+        $dto = new ViewDTO(
+            $page->getName(),
+            $page->getShortDescription(),
+            $page
         );
 
         $result = $this->view
@@ -68,6 +78,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         return new HtmlResponse($result);
     }
 
+    /** @todo refactor */
     public function getDynamicRoutes(): array
     {
         $dtos = [];
@@ -79,17 +90,17 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function getDescription(string $dynamicRoute): string
     {
-        $messageKey = $this->actions[$dynamicRoute] ?? null;
+        $decodedRoute = urldecode($dynamicRoute);
+        $command      = new Find($decodedRoute, $this->getLanguage());
 
-        if ($messageKey === null) {
-            throw new DynamicActionLogicException(
-                sprintf(
-                    'Description not found in action %s',
-                    $dynamicRoute
-                )
-            );
+        try {
+            $page = $this->pageViewService->find($command);
+        } catch (InvalidArgumentException) {
+            throw new ActionNotFoundException(sprintf('page %s not found', $decodedRoute));
+        } catch (NoSuchPageException) {
+            throw new DynamicActionLogicException(sprintf('Description not found in action %s', $dynamicRoute));
         }
 
-        return $this->translateService->t($messageKey);
+        return $page->getName();
     }
 }

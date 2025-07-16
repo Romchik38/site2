@@ -9,7 +9,7 @@ use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
 use Romchik38\Site2\Application\Page\View\Commands\Find\SearchCriteria;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
-use Romchik38\Site2\Domain\Page\VO\Id;
+use Romchik38\Site2\Domain\Page\VO\Url;
 
 final class ViewService
 {
@@ -25,10 +25,10 @@ final class ViewService
      * */
     public function find(Find $command): PageDto
     {
-        $pageId     = Id::fromString($command->id);
+        $url        = new Url($command->url);
         $languageId = new LanguageId($command->language);
 
-        $searchCriteria = new SearchCriteria($pageId, $languageId);
+        $searchCriteria = new SearchCriteria($url, $languageId);
 
         try {
             return $this->repository->find($searchCriteria);
