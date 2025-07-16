@@ -7,7 +7,6 @@ use Romchik38\Container\Container;
 return function () {
     $container = new Container();
     (require_once(__DIR__ . '/bootstrap/consts.php'))($container);
-    (require_once(__DIR__ . '/bootstrap/models.php'))($container);
     (require_once(__DIR__ . '/bootstrap/persist/sql.php'))($container);
     (require_once(__DIR__ . '/bootstrap/persist/filesystem.php'))($container);
     (require_once(__DIR__ . '/bootstrap/application.php'))($container);

@@ -2,10 +2,6 @@
 
 ## Current
 
-- page view
-  - test service
-  - create list for dynamic routes
-
 - test page admin list pagination when more pages will be ready
 - memory usage
 

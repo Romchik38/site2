@@ -78,12 +78,15 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         return new HtmlResponse($result);
     }
 
-    /** @todo refactor */
     public function getDynamicRoutes(): array
     {
         $dtos = [];
-        foreach ($this->actions as $route => $translateKey) {
-            $dtos[] = new DynamicRouteDTO($route, $this->translateService->t($translateKey));
+        $list = $this->pageViewService->list($this->getLanguage());
+        foreach ($list as $page) {
+            $dtos[] = new DynamicRouteDTO(
+                $page->getUrl(),
+                $page->getName()
+            );
         }
         return $dtos;
     }

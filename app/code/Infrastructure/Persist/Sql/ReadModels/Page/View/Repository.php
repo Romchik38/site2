@@ -11,7 +11,9 @@ use Romchik38\Site2\Application\Page\View\Commands\Find\SearchCriteria;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\RepositoryException;
 use Romchik38\Site2\Application\Page\View\RepositoryInterface;
+use Romchik38\Site2\Application\Page\View\View\ListDto;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
+use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Page\VO\Description;
 use Romchik38\Site2\Domain\Page\VO\Id as PageId;
 use Romchik38\Site2\Domain\Page\VO\Name;
@@ -54,6 +56,37 @@ final class Repository implements RepositoryInterface
         } else {
             return $this->createFromRow($rows[0], $url);
         }
+    }
+
+    public function list(LanguageId $languageId): array
+    {
+        $query  = $this->selectNamesQuery();
+        $params = [$languageId()];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        $dtos = [];
+        foreach ($rows as $row) {
+            $rawName = $row['name'] ?? null;
+            if ($rawName === null) {
+                throw new RepositoryException('Param page name is invalid');
+            }
+            $rawUrl = $row['url'] ?? null;
+            if ($rawUrl === null) {
+                throw new RepositoryException('Param page url is invalid');
+            }
+            try {
+                $name   = new Name($rawName);
+                $url    = new Url($rawUrl);
+                $dtos[] = new ListDto($url, $name);
+            } catch (InvalidArgumentException $e) {
+                throw new RepositoryException($e->getMessage());
+            }
+        }
+        return $dtos;
     }
 
     /**
@@ -105,6 +138,19 @@ final class Repository implements RepositoryInterface
             page.active = 't' AND
             page_translates.language = $2 AND
             page_translates.page_id = page.id
+        QUERY;
+    }
+
+    private function selectNamesQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT page_translates.name,
+            page.url
+        FROM page_translates,
+            page
+        WHERE page_translates.language = $1 AND
+            page_translates.page_id = page.id AND
+            page.active = 't'
         QUERY;
     }
 }
