@@ -324,6 +324,14 @@ return function (Container $container) {
         ]
     );
 
+    // PAGE VIEW
+    $container->shared(
+        '\Romchik38\Site2\Application\Page\View\ViewService',
+        [
+            new Promise('\Romchik38\Site2\Application\Page\View\RepositoryInterface')
+        ]
+    );
+
     // LANGUAGE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Language\List\ListService',

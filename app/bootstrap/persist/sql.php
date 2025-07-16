@@ -378,13 +378,23 @@ return function (Container $container) {
         ]
     );
 
-    // Page admin view
+    // PAGE ADMIN VIEW
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Page\AdminView\Repository',
         '\Romchik38\Site2\Application\Page\AdminView\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')
+        ]
+    );
+
+    // PAGE VIEW
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Page\View\Repository',
+        '\Romchik38\Site2\Application\Page\View\RepositoryInterface',
+        true,
+        [
+             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')
         ]
     );
 
