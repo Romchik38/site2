@@ -303,6 +303,13 @@ return function (Container $container): ControllerInterface {
     
     // Admin Page
     $adminPage = new Controller('page');
+    $adminPageDelete = new Controller(
+        'delete',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Page\Delete\DefaultAction'),
+        null,
+        'page_delete'
+    );
     $adminPageNew = new Controller(
         'new',
         false,
@@ -318,6 +325,7 @@ return function (Container $container): ControllerInterface {
         'page_update'
     );
     $adminPage
+    ->setChild($adminPageDelete)
     ->setChild($adminPageNew)
     ->setChild($adminPageUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));

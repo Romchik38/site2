@@ -92,12 +92,12 @@ final class PageService
         } catch (RepositoryException $e) {
             try {
                 $this->repository->transactionCancel();
-                throw new CouldNotUpdateException(sprintf(
+                throw new CouldNotDeleteException(sprintf(
                     'Could not delete Page, transaction canceled: %s',
                     $e->getMessage()
                 ));
             } catch (RepositoryException $eCancel) {
-                throw new CouldNotUpdateException(sprintf(
+                throw new CouldNotDeleteException(sprintf(
                     'Could not delete Page: %s; Could not cancel transaction: %s',
                     $e->getMessage(),
                     $eCancel->getMessage()
