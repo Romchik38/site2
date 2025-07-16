@@ -2,10 +2,11 @@
 
 ## Current
 
-- page admin create
-  - post action
-
 - page admin delete
+  - service
+  - repository
+  - action
+
 - delete all pages and check how zero_pages looks like
 - page view
 - test page admin list pagination when more pages will be ready

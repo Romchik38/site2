@@ -922,6 +922,19 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN PAGE NEW
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Page\New\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Application\Page\PageService\PageService'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
+        ]
+    );
+
     // ADMIN PAGE UPDATE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Page\Update\DefaultAction',
@@ -931,7 +944,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Page\PageService\PageService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')            
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
 
@@ -944,7 +957,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\TranslateService\TranslateService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
 
@@ -957,7 +970,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\TranslateService\TranslateService'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
 

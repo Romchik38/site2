@@ -303,6 +303,13 @@ return function (Container $container): ControllerInterface {
     
     // Admin Page
     $adminPage = new Controller('page');
+    $adminPageNew = new Controller(
+        'new',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Page\New\DefaultAction'),
+        null,
+        'page_new'
+    );
     $adminPageUpdate = new Controller(
         'update',
         false,
@@ -311,8 +318,9 @@ return function (Container $container): ControllerInterface {
         'page_update'
     );
     $adminPage
+    ->setChild($adminPageNew)
     ->setChild($adminPageUpdate)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
 
     // Admin Translate
     $adminTranslate = new Controller('translate');
