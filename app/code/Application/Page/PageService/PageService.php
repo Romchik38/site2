@@ -8,8 +8,10 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Application\Language\List\ListService as LanguageListService;
 use Romchik38\Site2\Application\Page\PageService\Commands\Create;
+use Romchik38\Site2\Application\Page\PageService\Commands\Delete;
 use Romchik38\Site2\Application\Page\PageService\Commands\Update;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\CouldNotCreateException;
+use Romchik38\Site2\Application\Page\PageService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\NoSuchPageException;
 use Romchik38\Site2\Application\Page\PageService\Exceptions\RepositoryException;
@@ -59,31 +61,50 @@ final class PageService
         }
     }
 
-    /** @todo implement */
     /**
      * @throws CouldNotChangeActivityException
      * @throws CouldNotDeleteException
      * @throws InvalidArgumentException
-     * @throws NoSuchArticleException
+     * @throws NoSuchPageException
      */
-    // public function delete(Delete $command): void
-    // {
-    //     $id = new ArticleId($command->id);
+    public function delete(Delete $command): void
+    {
+        $id = PageId::fromString($command->id);
 
-    //     try {
-    //         $model = $this->repository->getById($id);
-    //     } catch (RepositoryException $e) {
-    //         throw new CouldNotDeleteException($e->getMessage());
-    //     }
+        try {
+            $this->repository->transactionStart();
+            try {
+                $model = $this->repository->getById($id);
+            } catch (NoSuchPageException $e) {
+                $this->repository->transactionCancel();
+                throw new NoSuchPageException($e->getMessage());
+            }
 
-    //     $model->deactivate();
+            try {
+                $model->deactivate();
+            } catch (CouldNotChangeActivityException $e) {
+                $this->repository->transactionCancel();
+                throw new CouldNotChangeActivityException($e->getMessage());
+            }
 
-    //     try {
-    //         $this->repository->delete($model);
-    //     } catch (RepositoryException $e) {
-    //         throw new CouldNotDeleteException($e->getMessage());
-    //     }
-    // }
+            $this->repository->delete($model);
+            $this->repository->transactionEnd();
+        } catch (RepositoryException $e) {
+            try {
+                $this->repository->transactionCancel();
+                throw new CouldNotUpdateException(sprintf(
+                    'Could not delete Page, transaction canceled: %s',
+                    $e->getMessage()
+                ));
+            } catch (RepositoryException $eCancel) {
+                throw new CouldNotUpdateException(sprintf(
+                    'Could not delete Page: %s; Could not cancel transaction: %s',
+                    $e->getMessage(),
+                    $eCancel->getMessage()
+                ));
+            }
+        }
+    }
 
     /**
      * @throws CouldNotChangeActivityException
@@ -106,7 +127,12 @@ final class PageService
 
         try {
             $this->repository->transactionStart();
-            $model      = $this->repository->getById($id);
+            try {
+                $model = $this->repository->getById($id);
+            } catch (NoSuchPageException $e) {
+                $this->repository->transactionCancel();
+                throw new NoSuchPageException($e->getMessage());
+            }
             $model->url = $url;
             //translates
             foreach ($translates as $translate) {
@@ -114,12 +140,18 @@ final class PageService
             }
             // Activity
             if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
-                if ($model->active) {
-                    $model->deactivate();
-                } else {
-                    $model->activate();
+                try {
+                    if ($model->active) {
+                        $model->deactivate();
+                    } else {
+                        $model->activate();
+                    }
+                } catch (CouldNotChangeActivityException $e) {
+                    $this->repository->transactionCancel();
+                    throw new CouldNotChangeActivityException($e->getMessage());
                 }
             }
+
             $this->repository->save($model);
             $this->repository->transactionEnd();
         } catch (RepositoryException $e) {

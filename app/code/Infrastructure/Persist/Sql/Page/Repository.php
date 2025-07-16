@@ -61,18 +61,20 @@ final class Repository implements RepositoryInterface
         }
     }
 
-    /** @todo implement */
     public function delete(Page $model): void
     {
-        // $id = (string) $model->id;
+        $id = $model->id;
+        if ($id === null) {
+            throw new RepositoryException('Could not delete model, param page id is not set');
+        }
 
-        // $query  = $this->deleteQuery();
-        // $params = [$id];
-        // try {
-        //     $this->database->queryParams($query, $params);
-        // } catch (QueryException $e) {
-        //     throw new RepositoryException($e->getMessage());
-        // }
+        $query  = 'DELETE FROM page WHERE page.id = $1';
+        $params = [$id()];
+        try {
+            $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
     }
 
     public function getById(PageId $id): Page
@@ -107,7 +109,7 @@ final class Repository implements RepositoryInterface
     {
         $pageId = $model->id;
         if ($pageId === null) {
-            throw new RepositoryException('Colud not save model, param page id is not set');
+            throw new RepositoryException('Could not save model, param page id is not set');
         }
         $pageUrl = ($model->url)();
         if ($model->active) {
@@ -327,15 +329,6 @@ final class Repository implements RepositoryInterface
             INSERT INTO page (active, url)
                 VALUES ($1, $2)
                 RETURNING id
-        QUERY;
-    }
-
-    /** @todo refactor */
-    private function deleteQuery(): string
-    {
-        return <<<'QUERY'
-            DELETE FROM article
-            WHERE article.identifier = $1
         QUERY;
     }
 }
