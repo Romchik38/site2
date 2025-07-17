@@ -1,3 +1,4 @@
+{% set linkUrl = u.fromArray(['root']) ~ '/' %}
 <div class="row mx-5 my-4">
     <div class="col-sm-6 col-md-3">
         <div class="container border-start">
@@ -36,11 +37,11 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="container border-start">
-            <h5 class="fw-bold pt-3 pt-sm-0">Lawshield</h5>
+            <h5 class="fw-bold pt-3 pt-sm-0">{{t.t('header.logo')}}</h5>
             <ul class="list-unstyled">
-                <li><a class="link-none" href="/{{ language }}/about">About</a></li>
-                <li><a class="link-none" href="#">Why subscribe?</a></li>
-                <li><a class="link-none" href="#">Authors</a></li>
+                <li><a class="link-none" href="{{ linkUrl ~ 'about' }}">{{ t.t('footer.links.about') }}</a></li>
+                <li><a class="link-none" href="{{ linkUrl ~ 'why-subscribe' }}">{{ t.t('footer.links.why-subscribe') }}?</a></li>
+                <li><a class="link-none" href="{{ linkUrl ~ 'authors' }}">{{ t.t('footer.links.authors') }}</a></li>
                 <li><a class="link-none" href="#">Training</a></li>
                 <li><a class="link-none" href="#">Commercial offer</a></li>
             </ul>
