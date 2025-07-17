@@ -41,6 +41,7 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\DefaultAction')
     );
+    $apiContinueReading->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware')); 
     $apiArticleViews = new Controller(
         'articleviews',
         false,

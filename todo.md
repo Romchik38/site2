@@ -2,10 +2,6 @@
 
 ## Current
 
-- csrf middleware api frontend
-  - Continue Reading
-  - Article Views
-
 - refactor VO
 - more page content
 - test page admin list pagination when more pages will be ready
