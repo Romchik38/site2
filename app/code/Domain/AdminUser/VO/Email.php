@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\AdminUser\VO;
 
 use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
 use function preg_match;
-use function strlen;
 
-final class Email
+final class Email extends NonEmpty
 {
+    public const NAME = 'Admin user email';
+
     public const FIELD         = 'email';
     public const PATTERN       = '^[A-Za-z0-9.]{2,}@[A-Za-z0-9.]{2,}\.[a-z]{2,}$';
     public const ERROR_MESSAGE = 'Email Local Part can contain latin characters'
@@ -19,20 +21,12 @@ final class Email
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        public readonly string $email
+        string $value
     ) {
-        if (strlen($email) === 0) {
-            throw new InvalidArgumentException('email is empty');
-        }
-
-        $check = preg_match('/' . $this::PATTERN . '/', $email);
+        $check = preg_match('/' . $this::PATTERN . '/', $value);
         if ($check === 0 || $check === false) {
             throw new InvalidArgumentException($this::ERROR_MESSAGE);
         }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->email;
+        parent::__construct($value);
     }
 }

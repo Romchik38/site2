@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - AdminUser
   - Article
   - Audio
   - Author
@@ -27,6 +26,7 @@
 - control image cache size
 - change links in infoline
 - add language switch to admin
+- @todo
 
 ## Later
 

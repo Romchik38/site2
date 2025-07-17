@@ -4,21 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\AdminUser\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-final class PasswordHash
+final class PasswordHash extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $hash
-    ) {
-        if ($hash === '') {
-            throw new InvalidArgumentException('Password hash is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->hash;
-    }
+    public const NAME = 'Admin user password hash';
 }
