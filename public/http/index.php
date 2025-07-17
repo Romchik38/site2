@@ -6,8 +6,14 @@ use Romchik38\Container\Container;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
+// memory usage #1 before container
+$m1 = memory_get_usage(true)/1_000_000;
+
 /** init app */
 $container = (require_once(__DIR__ . './../../app/bootstrap_http_sql.php'))(new Container);
+
+// memory usage #2 after container
+$m2 = memory_get_usage(true)/1_000_000;
 
 /** Checks */
 /** 1. timezone */
@@ -30,7 +36,14 @@ $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
  * @var \Romchik38\Server\Http\Servers\HttpServerInterface $server
  * */
 $server = $container->get('\Romchik38\Server\Http\Servers\HttpServerInterface');
+
+// memory usage #3 server initialized
+$m3 = memory_get_usage(true)/1_000_000;
+
 $server->handle($request);
+
+// memory usage #5 response sent
+$m5 = memory_get_usage(true)/1_000_000;
 
 $logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
 $logger->sendAllLogs();

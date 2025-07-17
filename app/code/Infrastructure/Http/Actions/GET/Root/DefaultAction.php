@@ -22,6 +22,7 @@ use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction\ViewDTO;
 
 use function array_slice;
+use function memory_get_usage;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -40,6 +41,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        // memory usage #4 inside a controller
+        $m4 = memory_get_usage(true) / 1_000_000;
+
         $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
 
         // Banner

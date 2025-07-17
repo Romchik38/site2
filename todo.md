@@ -2,12 +2,11 @@
 
 ## Current
 
-- more page content
-- test page admin list pagination when more pages will be ready
-- memory usage
 - number static - update server
 - csrf middleware api frontend
 - refactor VO
+- more page content
+- test page admin list pagination when more pages will be ready
 - footer menu
 
 ## Next

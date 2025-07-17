@@ -55,11 +55,15 @@ See docs in [doc folder](./doc/)
 - phpstan level 8
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`[OK] No errors`  
 - phpunit
-  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (77 tests, 134 assertions)`
-  - tested partially
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (153 tests, 290 assertions)`
+  - tested primary domain
 - laminas-coding-standard
-  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`65 / 65 (100%)`
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`75 / 75 (100%)`
 - deptrac levels
   - domain
   - application
   - infrastructure
+
+## Memory usage
+
+See memory usage [doc file](./doc/monitoring/memory.md).
