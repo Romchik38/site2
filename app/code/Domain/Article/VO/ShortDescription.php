@@ -4,28 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-use function strlen;
-
-final class ShortDescription
+final class ShortDescription extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $shortDescription
-    ) {
-        if (strlen($shortDescription) === 0) {
-            throw new InvalidArgumentException('param short description is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->shortDescription;
-    }
-
-    public function __toString(): string
-    {
-        return $this->shortDescription;
-    }
+    public const NAME = 'Article short description';
 }

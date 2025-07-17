@@ -5,43 +5,21 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Article\VO;
 
 use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Number\Number;
 
 use function sprintf;
 
-final class Views
+final class Views extends Number
 {
+    public const NAME = 'Article views';
+
     /** @throws InvalidArgumentException */
     public function __construct(
-        private readonly int $views
+        int $value
     ) {
-        if ($views < 0) {
-            throw new InvalidArgumentException('param article views is less than 0');
+        if ($value < 0) {
+            throw new InvalidArgumentException(sprintf('param %s is less than 0', self::NAME));
         }
-    }
-
-    public function __invoke(): int
-    {
-        return $this->views;
-    }
-
-    public function __toString(): string
-    {
-        return (string) $this->views;
-    }
-
-    /** @throws InvalidArgumentException */
-    public static function fromString(string $views): self
-    {
-        $oldValue = $views;
-        $viewsId  = (int) $views;
-        $strId    = (string) $viewsId;
-        if ($oldValue !== $strId) {
-            throw new InvalidArgumentException(sprintf(
-                'param article views %s is invalid',
-                $views
-            ));
-        }
-
-        return new self($viewsId);
+        parent::__construct($value);
     }
 }

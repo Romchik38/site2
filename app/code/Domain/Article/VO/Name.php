@@ -4,28 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Article\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-use function strlen;
-
-final class Name
+final class Name extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $name
-    ) {
-        if (strlen($name) === 0) {
-            throw new InvalidArgumentException('param name is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->name;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
-    }
+    public const NAME = 'Article name';
 }
