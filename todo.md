@@ -3,6 +3,19 @@
 ## Current
 
 - refactor VO
+  - AdminRole
+  - AdminUser
+  - Article
+  - Audio
+  - Author
+  - Banner
+  - Category
+  - Image
+  - ImageCache
+  - Language
+  - Translate
+  - User
+
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
