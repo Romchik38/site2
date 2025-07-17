@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - Audio
   - Author
   - Banner
   - Category
