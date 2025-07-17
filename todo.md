@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - AdminRole
   - AdminUser
   - Article
   - Audio

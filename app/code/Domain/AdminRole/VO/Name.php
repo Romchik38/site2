@@ -5,34 +5,26 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\AdminRole\VO;
 
 use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
 use function in_array;
 use function sprintf;
 
-final class Name
+final class Name extends NonEmpty
 {
     public const ERROR_ROLE_NAME_INVALID = 'Role name %s is invalid';
     public const ALLOWED_ROLES           = ['ADMIN_ROOT', 'ADMIN_LOGIN'];
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        private readonly string $name
+        string $value
     ) {
-        if (! in_array($name, self::ALLOWED_ROLES)) {
+        if (! in_array($value, self::ALLOWED_ROLES)) {
             throw new InvalidArgumentException(sprintf(
                 self::ERROR_ROLE_NAME_INVALID,
-                $name
+                $value
             ));
         }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->name;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
+        parent::__construct($value);
     }
 }

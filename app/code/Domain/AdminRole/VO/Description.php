@@ -4,21 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\AdminRole\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-final class Description
+final class Description extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $description
-    ) {
-        if ($description === '') {
-            throw new InvalidArgumentException('Role description is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->description;
-    }
+    public const NAME = 'Admin role description';
 }
