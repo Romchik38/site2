@@ -2,17 +2,18 @@
 
 ## Current
 
+- ImageCache - move CreatedAt vo to model
+- test domain
+  - Author test
+  - ImageCache
+  - Translate
+
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
 
 ## Next
 
-- ImageCache - move CreatedAt vo to model
-- test domain
-  - Author test
-  - ImageCache
-  - Translate
 - user home page
 - search in nav bar
 - add popup first time visitor - the site is a demo

@@ -11,6 +11,7 @@ use Romchik38\Site2\Domain\ImageCache\ImageCache;
 use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Commands\Create;
 
 final class ImageCacheService
 {
@@ -23,7 +24,7 @@ final class ImageCacheService
      * @throws InvalidArgumentException
      * @throws CouldNotSaveException
      */
-    public function save(Cache $command): void
+    public function create(Create $command): void
     {
         $imgCache = new ImageCache(
             new Key($command->key),

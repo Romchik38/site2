@@ -11,9 +11,8 @@ use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Application\ImageCache\View\Commands\Find\Find;
 use Romchik38\Site2\Application\ImageCache\View\Exceptions\NoSuchImageCacheException;
 use Romchik38\Site2\Application\ImageCache\View\Exceptions\RepositoryException as CacheRepositoryException;
-use Romchik38\Site2\Application\ImageCache\ImageCacheService\Cache;
+use Romchik38\Site2\Application\ImageCache\ImageCacheService\Commands\Create;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\CouldNotSaveException;
-use Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 
@@ -81,7 +80,7 @@ try {
     ));
     echo $result->data;
     // put data to cache
-    $cache = new Cache(
+    $cache = new Create(
         sprintf(
             $keyTemplate,
             $command->id,
@@ -93,7 +92,7 @@ try {
         $result->type
     );
     try {
-        $imgCacheService->save($cache);
+        $imgCacheService->create($cache);
     } catch (CouldNotSaveException $e) {
         $logger->error($e->getMessage());
     } catch (InvalidArgumentException $e) {

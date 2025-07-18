@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\ImageCache\ImageCacheService;
+namespace Romchik38\Site2\Application\ImageCache\ImageCacheService\Commands;
 
-final class Cache
+final class Create
 {
     public function __construct(
         public readonly string $key,
