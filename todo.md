@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - Author
   - Banner
   - Category
   - Image
@@ -18,6 +17,7 @@
 
 ## Next
 
+- Author test
 - user home page
 - search in nav bar
 - add popup first time visitor - the site is a demo

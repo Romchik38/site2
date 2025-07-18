@@ -4,26 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Author\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-final class Description
+final class Description extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        public readonly string $description
-    ) {
-        if ($description === '') {
-            throw new InvalidArgumentException('Authir Description is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->description;
-    }
-
-    public function __toString(): string
-    {
-        return $this->description;
-    }
+    public const NAME = 'Author description';
 }
