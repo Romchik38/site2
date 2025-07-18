@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - Banner
   - Category
   - Image
   - ImageCache

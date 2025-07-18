@@ -4,26 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Banner\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-final class Name
+final class Name extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        public readonly string $name
-    ) {
-        if ($name === '') {
-            throw new InvalidArgumentException('Banner name is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->name;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
-    }
+    public const NAME = 'Banner name';
 }
