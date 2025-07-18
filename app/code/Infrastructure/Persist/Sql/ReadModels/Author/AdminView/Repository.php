@@ -12,7 +12,7 @@ use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
 use Romchik38\Site2\Application\Author\AdminView\View\Translate;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
-use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
+use Romchik38\Site2\Application\Author\AdminView\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
