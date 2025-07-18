@@ -5,34 +5,28 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Image\VO;
 
 use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\Text;
 
 use function in_array;
 use function sprintf;
 
-final class Type
+final class Type extends Text
 {
+    public const NAME = 'Image type';
     /** All images must be only these types */
     public const ALLOWED_TYPES = ['webp'];
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        private readonly string $type
+        string $value
     ) {
-        if (! in_array($type, self::ALLOWED_TYPES)) {
+        if (! in_array($value, self::ALLOWED_TYPES)) {
             throw new InvalidArgumentException(sprintf(
-                'param image type %s is invalid',
-                $type
+                'param %s %s is invalid',
+                self::NAME,
+                $value
             ));
         }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->type;
-    }
-
-    public function __toString(): string
-    {
-        return $this->type;
+        parent::__construct($value);
     }
 }

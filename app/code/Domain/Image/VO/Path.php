@@ -4,28 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Image\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-use function strlen;
-
-final class Path
+final class Path extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $path
-    ) {
-        if (strlen($path) === 0) {
-            throw new InvalidArgumentException('param image path is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->path;
-    }
-
-    public function __toString(): string
-    {
-        return $this->path;
-    }
+    public const NAME = 'Image path';
 }
