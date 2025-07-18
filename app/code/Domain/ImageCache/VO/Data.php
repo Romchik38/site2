@@ -4,23 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\ImageCache\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-use function strlen;
-
-final class Data
+final class Data extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $data
-    ) {
-        if (strlen($data) === 0) {
-            throw new InvalidArgumentException('param data is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->data;
-    }
+    public const NAME = 'Image cache data';
 }

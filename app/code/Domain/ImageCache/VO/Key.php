@@ -4,23 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\ImageCache\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-use function strlen;
-
-final class Key
+final class Key extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        private readonly string $key
-    ) {
-        if (strlen($key) === 0) {
-            throw new InvalidArgumentException('param key is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->key;
-    }
+    public const NAME = 'Image cache key';
 }
