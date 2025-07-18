@@ -12,7 +12,7 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Create;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -43,14 +43,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             'Authors create new page',
             $this->session::ADMIN_CSRF_TOKEN_FIELD,
             $csrfToken,
-            Update::ID_FIELD,
-            Update::NAME_FIELD,
-            Update::CHANGE_ACTIVITY_FIELD,
-            Update::CHANGE_ACTIVITY_YES_FIELD,
-            Update::CHANGE_ACTIVITY_NO_FIELD,
-            Update::TRANSLATES_FIELD,
-            Update::LANGUAGE_FIELD,
-            Update::DESCRIPTION_FIELD,
+            Create::NAME_FIELD,
+            Create::CHANGE_ACTIVITY_FIELD,
+            Create::CHANGE_ACTIVITY_YES_FIELD,
+            Create::CHANGE_ACTIVITY_NO_FIELD,
+            Create::TRANSLATES_FIELD,
+            Create::LANGUAGE_FIELD,
+            Create::DESCRIPTION_FIELD,
             $languages
         );
 

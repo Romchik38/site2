@@ -16,8 +16,8 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Create;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
-use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
@@ -54,10 +54,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $uriNew  = $this->urlbuilder->fromArray(['root', 'admin', 'author', 'new']);
         $message = '';
 
-        $command = Update::formHash($requestData);
+        $command = Create::formHash($requestData);
 
         try {
-            $authorId = $this->authorService->update($command);
+            $authorId = $this->authorService->create($command);
             $message  = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uri      = $this->urlbuilder->fromArray(
                 ['root', 'admin', 'author', (string) $authorId]

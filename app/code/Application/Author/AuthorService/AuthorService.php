@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Create;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldDeleteException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotCreateException;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\NoSuchAuthorException;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\RepositoryException;
@@ -17,8 +21,6 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
-use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
-use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 
 final class AuthorService
 {
@@ -30,29 +32,51 @@ final class AuthorService
 
     /**
      * @throws InvalidArgumentException
+     * @throws CouldNotCreateException
+     */
+    public function create(Create $command): AuthorId
+    {
+        $name = new Name($command->name);
+
+        $languages = [];
+        foreach ($this->languagesService->getAll() as $language) {
+            $languages[] = $language->identifier;
+        }
+        $model = Author::createNew($name, $languages);
+
+        // translates
+        foreach ($command->translates as $translate) {
+            $model->addTranslate(new Translate(
+                new Identifier($translate->language),
+                new Description($translate->description)
+            ));
+        }
+
+        try {
+            return $this->repository->add($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
      * @throws CouldNotUpdateException
      * @throws CouldNotChangeActivityException
      */
-    public function update(Update $command): AuthorId
+    public function update(Update $command): void
     {
-        $name = new Name($command->name);
+        $name     = new Name($command->name);
+        $authorId = AuthorId::fromString($command->id);
 
-        if ($command->id !== '') {
-            try {
-                $authorId = AuthorId::fromString($command->id);
-                $model    = $this->repository->getById($authorId);
-                $model->reName($name);
-            } catch (RepositoryException $e) {
-                throw new CouldNotUpdateException($e->getMessage());
-            }
-        } else {
-            $languages = [];
-            foreach ($this->languagesService->getAll() as $language) {
-                $languages[] = $language->identifier;
-            }
-            $model = Author::createNew($name, $languages);
+        try {
+            $model = $this->repository->getById($authorId);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
         }
+
+        $model->reName($name);
 
         // translates
         foreach ($command->translates as $translate) {
@@ -72,15 +96,9 @@ final class AuthorService
         }
 
         try {
-            $savedModel = $this->repository->save($model);
+            $this->repository->save($model);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
-        }
-        $savedAuthorId = $savedModel->getId();
-        if ($savedAuthorId === null) {
-            throw new CouldNotUpdateException('Author new id not updated');
-        } else {
-            return $savedAuthorId;
         }
     }
 

@@ -2,8 +2,6 @@
 
 ## Current
 
-- refactor Author
-  - move create new from `save` to own method
 - test domain
   - Author test
   - Translate

@@ -11,6 +11,9 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
 interface RepositoryInterface
 {
+    /** @throws RepositoryException */
+    public function add(Author $model): AuthorId;
+
     /**
      * @throws NoSuchAuthorException
      * @throws RepositoryException

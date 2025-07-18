@@ -76,7 +76,7 @@ final class Repository implements RepositoryInterface
     {
         $authorId = $model->getId();
         if ($authorId === null) {
-            return $this->add($model);
+             throw new RepositoryException('Could not save author - param id not set');
         }
 
         $authorName = $model->getName();
@@ -130,7 +130,7 @@ final class Repository implements RepositoryInterface
         return $this->getById($authorId);
     }
 
-    private function add(Author $model): Author
+    public function add(Author $model): AuthorId
     {
         $authorName = $model->getName();
         if ($model->isActive()) {
@@ -168,7 +168,6 @@ final class Repository implements RepositoryInterface
                 );
             }
             $this->database->transactionEnd();
-            return $this->getById(AuthorId::fromString($rawAuthorId));
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
@@ -184,6 +183,7 @@ final class Repository implements RepositoryInterface
                 throw new RepositoryException($e2->getMessage());
             }
         }
+        return AuthorId::fromString($rawAuthorId);
     }
 
     /** @param array<string,string|null> $row */
