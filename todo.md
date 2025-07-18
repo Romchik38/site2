@@ -3,7 +3,6 @@
 ## Current
 
 - refactor VO
-  - Category
   - Image
   - ImageCache
   - Language
