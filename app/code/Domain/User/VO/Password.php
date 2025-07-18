@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\User\VO;
 
 use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\Text;
 
 use function preg_match;
-use function strlen;
 
-final class Password
+final class Password extends Text
 {
+    public const NAME = 'User password';
+    /** @todo move field to command */
     public const FIELD         = 'password';
     public const PATTERN       = '^(?=.*[_`$%^*\'])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9_`$%^*\']{8,}$';
     public const ERROR_MESSAGE = 'Password must be at least 8 characters long'
@@ -19,20 +21,12 @@ final class Password
 
     /** @throws InvalidArgumentException */
     public function __construct(
-        public readonly string $password
+        string $value
     ) {
-        if (strlen($password) === 0) {
-            throw new InvalidArgumentException('param password is empty');
-        }
-
-        $check = preg_match('/' . $this::PATTERN . '/', $password);
+        $check = preg_match('/' . $this::PATTERN . '/', $value);
         if ($check === 0 || $check === false) {
             throw new InvalidArgumentException($this::ERROR_MESSAGE);
         }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->password;
+        parent::__construct($value);
     }
 }

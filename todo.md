@@ -2,11 +2,6 @@
 
 ## Current
 
-- refactor VO
-  - Language
-  - Translate
-  - User
-
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
@@ -17,6 +12,7 @@
 - test domain
   - Author test
   - ImageCache
+  - Translate
 - user home page
 - search in nav bar
 - add popup first time visitor - the site is a demo

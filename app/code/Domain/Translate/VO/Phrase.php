@@ -4,26 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Domain\Translate\VO;
 
-use InvalidArgumentException;
+use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
-final class Phrase
+final class Phrase extends NonEmpty
 {
-    /** @throws InvalidArgumentException */
-    public function __construct(
-        public readonly string $phrase
-    ) {
-        if ($phrase === '') {
-            throw new InvalidArgumentException('Translate phrase is empty');
-        }
-    }
-
-    public function __invoke(): string
-    {
-        return $this->phrase;
-    }
-
-    public function __toString(): string
-    {
-        return $this->phrase;
-    }
+    public const NAME = 'Translate phrase';
 }
