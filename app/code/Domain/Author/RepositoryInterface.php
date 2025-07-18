@@ -14,9 +14,9 @@ interface RepositoryInterface
      * */
     public function getById(AuthorId $id): Author;
 
-    /** @throws CouldDeleteException */
+    /** @throws RepositoryException */
     public function delete(Author $model): void;
 
-    /** @throws CouldNotSaveException */
+    /** @throws RepositoryException */
     public function save(Author $model): Author;
 }

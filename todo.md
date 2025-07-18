@@ -5,6 +5,7 @@
 - refactor Author
   - move to service classes from domain
   - repository throws `RepositoryException` only
+  - move create new from `save` to own method
 - test domain
   - Author test
   - Translate

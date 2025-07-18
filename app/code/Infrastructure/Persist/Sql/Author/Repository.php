@@ -11,10 +11,9 @@ use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
-use Romchik38\Site2\Domain\Author\CouldNotSaveException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
-use Romchik38\Site2\Domain\Author\RepositoryException;
+use Romchik38\Site2\Application\Author\AuthorService\RepositoryException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
@@ -117,22 +116,21 @@ final class Repository implements RepositoryInterface
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         }
         return $this->getById($authorId);
     }
 
-    /** @throws CouldNotSaveException */
     private function add(Author $model): Author
     {
         $authorName = $model->getName();
@@ -153,11 +151,11 @@ final class Repository implements RepositoryInterface
                 $mainParams
             );
             if (count($rowsMainAdd) !== 1) {
-                throw new CouldNotSaveException('Main add query must return 1 row');
+                throw new RepositoryException('Main add query must return 1 row');
             }
             $rawAuthorId = $rowsMainAdd[0]['identifier'] ?? null;
             if ($rawAuthorId === null) {
-                throw new CouldNotSaveException('Main add query does not return identifier');
+                throw new RepositoryException('Main add query does not return identifier');
             }
 
             foreach ($translates as $translate) {
@@ -175,16 +173,16 @@ final class Repository implements RepositoryInterface
         } catch (DatabaseTransactionException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         } catch (QueryException $e) {
             try {
                 $this->database->transactionRollback();
-                throw new CouldNotSaveException($e->getMessage());
+                throw new RepositoryException($e->getMessage());
             } catch (DatabaseTransactionException $e2) {
-                throw new CouldNotSaveException($e2->getMessage());
+                throw new RepositoryException($e2->getMessage());
             }
         }
     }

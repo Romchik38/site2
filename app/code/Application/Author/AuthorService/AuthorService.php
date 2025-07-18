@@ -9,10 +9,9 @@ use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
-use Romchik38\Site2\Domain\Author\CouldNotSaveException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
 use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
-use Romchik38\Site2\Domain\Author\RepositoryException;
 use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
@@ -30,7 +29,7 @@ final class AuthorService
     /**
      * @throws InvalidArgumentException
      * @throws NoSuchAuthorException
-     * @throws CouldNotSaveException
+     * @throws CouldNotUpdateException
      * @throws CouldNotChangeActivityException
      */
     public function update(Update $command): AuthorId
@@ -43,7 +42,7 @@ final class AuthorService
                 $model    = $this->repository->getById($authorId);
                 $model->reName($name);
             } catch (RepositoryException $e) {
-                throw new CouldNotSaveException($e->getMessage());
+                throw new CouldNotUpdateException($e->getMessage());
             }
         } else {
             $languages = [];
@@ -70,10 +69,14 @@ final class AuthorService
             }
         }
 
-        $savedModel    = $this->repository->save($model);
+        try {
+            $savedModel    = $this->repository->save($model);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        }
         $savedAuthorId = $savedModel->getId();
         if ($savedAuthorId === null) {
-            throw new CouldNotSaveException('Author new id not updated');
+            throw new CouldNotUpdateException('Author new id not updated');
         } else {
             return $savedAuthorId;
         }

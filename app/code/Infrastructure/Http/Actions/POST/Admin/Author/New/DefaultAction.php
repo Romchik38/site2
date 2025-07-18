@@ -18,7 +18,7 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
 use Romchik38\Site2\Application\Author\AuthorService\Update;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
-use Romchik38\Site2\Domain\Author\CouldNotSaveException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -74,7 +74,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $e->getMessage()
             );
             $uri     = $uriNew;
-        } catch (CouldNotSaveException $e) {
+        } catch (CouldNotUpdateException $e) {
             $message = $this->translateService->t($this::COULD_NOT_SAVE_KEY);
             $uri     = $uriNew;
             $this->logger->log(LogLevel::ERROR, $e->getMessage());
