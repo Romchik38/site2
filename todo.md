@@ -4,7 +4,6 @@
 
 - test domain
   - Author test
-  - ImageCache
   - Translate
 
 - more page content

@@ -9,7 +9,6 @@ use Romchik38\Site2\Domain\ImageCache\VO\Data;
 use Romchik38\Site2\Domain\ImageCache\VO\Key;
 use Romchik38\Site2\Domain\ImageCache\VO\Type;
 
-/** @todo  test */
 final class ImageCache
 {
     public const SAVE_DATE_FORMAT = 'Y-m-d H:i:s';
