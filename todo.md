@@ -2,7 +2,6 @@
 
 ## Current
 
-- ImageCache - move CreatedAt vo to model
 - test domain
   - Author test
   - ImageCache

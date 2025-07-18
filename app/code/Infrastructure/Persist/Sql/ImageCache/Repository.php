@@ -21,10 +21,10 @@ final class Repository implements RepositoryInterface
     {
         $query  = 'INSERT INTO img_cache (key, data, type, created_at) VALUES ($1, $2, $3, $4)';
         $params = [
-            ($model->key())(),
-            ($model->data())(),
-            ($model->type())(),
-            ($model->createdAt())->toString(),
+            ($model->key)(),
+            ($model->data)(),
+            ($model->type)(),
+            $model->formatCreatedAt(),
         ];
 
         try {
