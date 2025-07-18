@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Author\AuthorService;
 
 use InvalidArgumentException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldDeleteException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\NoSuchAuthorException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\Author;
-use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
-use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
-use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
-use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
@@ -70,7 +70,7 @@ final class AuthorService
         }
 
         try {
-            $savedModel    = $this->repository->save($model);
+            $savedModel = $this->repository->save($model);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         }

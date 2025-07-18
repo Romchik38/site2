@@ -142,22 +142,6 @@ final class Author
         $this->translatesHash[(string) $translate->getLanguage()] = $translate;
     }
 
-    /** @throws CouldNotRemoveTranslateException */
-    public function removeTranslate(LanguageId $language): void
-    {
-        if ($this->active === true) {
-            throw new CouldNotRemoveTranslateException('Author is active. Deactivate first.');
-        }
-        $newHash = [];
-        foreach ($this->translatesHash as $key => $value) {
-            if ($key === $language()) {
-                continue;
-            }
-            $newHash[$key] = $value;
-        }
-        $this->translatesHash = $newHash;
-    }
-
     /** @return array<int,Translate> */
     public function getTranslates(): array
     {

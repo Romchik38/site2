@@ -273,7 +273,7 @@ return function (Container $container) {
     // AUTHOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\Author\Repository',
-        '\Romchik38\Site2\Domain\Author\RepositoryInterface',
+        '\Romchik38\Site2\Application\Author\AuthorService\RepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')

@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Domain\Author;
+namespace Romchik38\Site2\Application\Author\AuthorService;
 
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\NoSuchAuthorException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\RepositoryException;
+use Romchik38\Site2\Domain\Author\Author;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 
 interface RepositoryInterface

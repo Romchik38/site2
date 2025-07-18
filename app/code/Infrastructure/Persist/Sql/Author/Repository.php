@@ -8,13 +8,12 @@ use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\DatabaseTransactionException;
 use Romchik38\Server\Persist\Sql\QueryException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\NoSuchAuthorException;
+use Romchik38\Site2\Application\Author\AuthorService\Exceptions\RepositoryException;
+use Romchik38\Site2\Application\Author\AuthorService\RepositoryInterface;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\Author;
-use Romchik38\Site2\Domain\Author\CouldDeleteException;
 use Romchik38\Site2\Domain\Author\Entities\Translate;
-use Romchik38\Site2\Domain\Author\NoSuchAuthorException;
-use Romchik38\Site2\Application\Author\AuthorService\RepositoryException;
-use Romchik38\Site2\Domain\Author\RepositoryInterface;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
@@ -69,7 +68,7 @@ final class Repository implements RepositoryInterface
         try {
             $this->database->queryParams($query, $params);
         } catch (QueryException $e) {
-            throw new CouldDeleteException($e->getMessage());
+            throw new RepositoryException($e->getMessage());
         }
     }
 
