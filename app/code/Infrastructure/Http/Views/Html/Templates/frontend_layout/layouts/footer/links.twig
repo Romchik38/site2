@@ -2,7 +2,7 @@
 <div class="row mx-5 my-4">
     <div class="col-sm-6 col-md-3">
         <div class="container border-start">
-            <h5 class="fw-bold">Law carrier</h5>
+            <h5 class="fw-bold">{{ t.t('footer.links.law-career') }}</h5>
             <ul class="list-unstyled">
                 <li><a class="link-none" href="#">Education</a></li>
                 <li><a class="link-none" href="#">Exams</a></li>
@@ -14,7 +14,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="container border-start">
-            <h5 class="fw-bold pt-3 pt-sm-0">Authors</h5>
+            <h5 class="fw-bold pt-3 pt-sm-0">{{ t.t('footer.links.authors') }}</h5>
             <ul class="list-unstyled">
                 <li><a class="link-none" href="#">Conditions of publication</a></li>
                 <li><a class="link-none" href="#">Benefits</a></li>
@@ -25,7 +25,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="container border-start">
-            <h5 class="fw-bold pt-3 pt-sm-0">Customers</h5>
+            <h5 class="fw-bold pt-3 pt-sm-0">{{ t.t('footer.links.customers') }}</h5>
             <ul class="list-unstyled">
                 <li><a class="link-none" href="#">Account</a></li>
                 <li><a class="link-none" href="#">Recovery</a></li>
@@ -42,8 +42,8 @@
                 <li><a class="link-none" href="{{ linkUrl ~ 'about' }}">{{ t.t('footer.links.about') }}</a></li>
                 <li><a class="link-none" href="{{ linkUrl ~ 'why-subscribe' }}">{{ t.t('footer.links.why-subscribe') }}?</a></li>
                 <li><a class="link-none" href="{{ linkUrl ~ 'authors' }}">{{ t.t('footer.links.authors') }}</a></li>
-                <li><a class="link-none" href="#">Training</a></li>
-                <li><a class="link-none" href="#">Commercial offer</a></li>
+                <li><a class="link-none" href="{{ linkUrl ~ 'training' }}">{{ t.t('footer.links.training') }}</a></li>
+                <li><a class="link-none" href="{{ linkUrl ~ 'commercial-offer' }}">{{ t.t('footer.links.commercial-offer') }}</a></li>
             </ul>
         </div>
     </div>
