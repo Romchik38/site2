@@ -2,6 +2,9 @@
 
 ## Current
 
+- refactor Author
+  - move to service classes from domain
+  - repository throws `RepositoryException` only
 - test domain
   - Author test
   - Translate
