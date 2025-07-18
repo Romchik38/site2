@@ -21,7 +21,7 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Author\AdminView\NoSuchAuthorException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
-use Romchik38\Site2\Application\Author\AuthorService\Update;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto;

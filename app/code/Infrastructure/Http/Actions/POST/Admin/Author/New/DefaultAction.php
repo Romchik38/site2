@@ -17,7 +17,7 @@ use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldNotUpdateException;
-use Romchik38\Site2\Application\Author\AuthorService\Update;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;

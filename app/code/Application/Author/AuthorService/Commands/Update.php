@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Author\AuthorService;
+namespace Romchik38\Site2\Application\Author\AuthorService\Commands;
 
 use function count;
 use function gettype;

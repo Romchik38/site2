@@ -22,7 +22,7 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AdminList\AdminAuthorList;
 use Romchik38\Site2\Application\Author\AdminList\Filter;
-use Romchik38\Site2\Application\Author\AuthorService\Delete;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DefaultAction\ViewDto;

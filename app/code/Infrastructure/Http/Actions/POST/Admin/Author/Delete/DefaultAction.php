@@ -16,7 +16,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Author\AuthorService\AuthorService;
-use Romchik38\Site2\Application\Author\AuthorService\Delete;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\CouldDeleteException;
 use Romchik38\Site2\Application\Author\AuthorService\Exceptions\NoSuchAuthorException;
 use Romchik38\Site2\Domain\Author\CouldNotChangeActivityException;

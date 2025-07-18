@@ -17,6 +17,8 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Description;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
+use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 
 final class AuthorService
 {
