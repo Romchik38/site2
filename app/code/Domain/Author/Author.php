@@ -69,25 +69,24 @@ final class Author
         }
         $this->images = $images;
 
-        // check traslates array
-        foreach ($translates as $translate) {
-            if (! $translate instanceof Translate) {
-                throw new InvalidArgumentException('param translate is not valid');
-            }
-        }
-
         if (count($languages) === 0) {
-            throw new InvalidArgumentException('Languages list is empty');
+            throw new InvalidArgumentException('param author languages list is empty');
         }
         if (count($languages) < count($translates)) {
             throw new InvalidArgumentException('Translates count can not be grater than languages');
         }
+        // check traslates array
         foreach ($translates as $translate) {
-            foreach ($languages as $languageId) {
-                $translateLanguageId = $translate->getLanguage();
-                if ($translateLanguageId() === $languageId()) {
-                    $this->translatesHash[$translateLanguageId()] = $translate;
-                    break;
+            if (! $translate instanceof Translate) {
+                throw new InvalidArgumentException('param author translate is invalid');
+            } else {
+                if ($this->languageCheck($translate, $languages) === false) {
+                    throw new InvalidArgumentException(
+                        'param author translate language has non expected language'
+                    );
+                } else {
+                    $languageId                          = $translate->language;
+                    $this->translatesHash[$languageId()] = $translate;
                 }
             }
         }
@@ -95,10 +94,14 @@ final class Author
 
     /**
      * @param array<int,LanguageId> $languages
+     * @param array<int,mixed|Translate> $translates
      * @throws InvalidArgumentException
      * */
-    public static function createNew(Name $name, array $languages): self
-    {
+    public static function create(
+        Name $name,
+        array $languages,
+        array $translates = []
+    ): self {
         return new self(
             null,
             $name,
@@ -106,7 +109,7 @@ final class Author
             [],
             [],
             $languages,
-            []
+            $translates
         );
     }
 
@@ -170,5 +173,19 @@ final class Author
         }
 
         $this->active = false;
+    }
+
+    /** @param array<int,mixed|LanguageId> $languages */
+    private function languageCheck(Translate $translate, array $languages): bool
+    {
+        $languageId = $translate->language;
+        $found      = false;
+        foreach ($languages as $language) {
+            if ($languageId() === $language()) {
+                $found = true;
+                break;
+            }
+        }
+        return $found;
     }
 }

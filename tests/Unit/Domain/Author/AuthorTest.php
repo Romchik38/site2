@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Tests\Unit\Domain\Author;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\Author;
@@ -42,6 +43,180 @@ final class AuthorTest extends TestCase
         $this->assertSame($id, $model->identifier);
         $this->assertSame($name, $model->name);
         $this->assertSame(true, $model->active);
+        $this->assertSame($translates, $model->getTranslates());
+    }
+
+    public function testConstructThrowsErrorOnWrongLanguage(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = [new ArticleId('article-1')];
+        $images      = [new ImageId(1)];
+        $languages   = ['wrong', new LanguageId('uk')]; // wrong
+        $translateEn = new Translate(new LanguageId('en'), new Description('some author 1'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param language is not valid');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorOnEmptyLanguage(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = [new ArticleId('article-1')];
+        $images      = [new ImageId(1)];
+        $languages   = []; // wrong
+        $translateEn = new Translate(new LanguageId('en'), new Description('some author 1'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param author languages list is empty');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorOnWrongArticle(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = ['wrong'];       // wrong
+        $images      = [new ImageId(1)];
+        $languages   = [new LanguageId('en'), new LanguageId('uk')];
+        $translateEn = new Translate(new LanguageId('en'), new Description('some author 1'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param article is not valid');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorOnWrongImage(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = [new ArticleId('article-1')];
+        $images      = ['wrong'];           // wrong
+        $languages   = [new LanguageId('en'), new LanguageId('uk')];
+        $translateEn = new Translate(new LanguageId('en'), new Description('some author 1'));
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param image is not valid');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorOnWrongTranslate(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = [new ArticleId('article-1')];
+        $images      = [new ImageId(1)];
+        $languages   = [new LanguageId('en'), new LanguageId('uk')];
+        $translateEn = 'wrong';     // wrong
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param author translate is invalid');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testConstructThrowsErrorOnWrongTranslateLanguage(): void
+    {
+        $id          = new AuthorId(1);
+        $name        = new Name('some author');
+        $articles    = [new ArticleId('article-1')];
+        $images      = [new ImageId(1)];
+        $languages   = [new LanguageId('en'), new LanguageId('uk')];
+        $translateEn = new Translate(new LanguageId('fr'), new Description('abra cadabra'));     // wrong
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateEn, $translateUk];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('param author translate language has non expected language');
+
+        new Author(
+            $id,
+            $name,
+            true,
+            $articles,
+            $images,
+            $languages,
+            $translates
+        );
+    }
+
+    public function testCreateWithEmptyTranslates(): void
+    {
+        $name      = new Name('some author');
+        $languages = [new LanguageId('en'), new LanguageId('uk')];
+
+        $model = Author::create($name, $languages);
+
+        $this->assertSame(null, $model->identifier);
+        $this->assertSame($name, $model->name);
+        $this->assertSame([], $model->getTranslates());
+    }
+
+    public function testCreateWithTranslates(): void
+    {
+        $name        = new Name('some author');
+        $languages   = [new LanguageId('en'), new LanguageId('uk')];
+        $translateUk = new Translate(new LanguageId('uk'), new Description('якийсь автор 1'));
+        $translates  = [$translateUk];
+
+        $model = Author::create($name, $languages, $translates);
+
         $this->assertSame($translates, $model->getTranslates());
     }
 }

@@ -42,7 +42,7 @@ final class AuthorService
         foreach ($this->languagesService->getAll() as $language) {
             $languages[] = $language->identifier;
         }
-        $model = Author::createNew($name, $languages);
+        $model = Author::create($name, $languages);
 
         // translates
         foreach ($command->translates as $translate) {
