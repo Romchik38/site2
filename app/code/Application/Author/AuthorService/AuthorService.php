@@ -76,7 +76,7 @@ final class AuthorService
             throw new CouldNotUpdateException($e->getMessage());
         }
 
-        $model->reName($name);
+        $model->name = $name;
 
         // translates
         foreach ($command->translates as $translate) {
@@ -88,7 +88,7 @@ final class AuthorService
 
         // Activity
         if ($command->changeActivity === Update::CHANGE_ACTIVITY_YES_FIELD) {
-            if ($model->isActive()) {
+            if ($model->active) {
                 $model->deactivate();
             } else {
                 $model->activate();

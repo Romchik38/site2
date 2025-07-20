@@ -61,8 +61,12 @@ final class Repository implements RepositoryInterface
 
     public function delete(Author $model): void
     {
+        $id = $model->identifier;
+        if ($id === null) {
+            throw new RepositoryException('Could not delete author - id not set');
+        }
         $query  = $this->mainDeleteQuery();
-        $params = [(string) $model->getId()];
+        $params = [(string) $id];
 
         // Do not need delete translates, because they will be deleted cascade
         try {
@@ -74,13 +78,13 @@ final class Repository implements RepositoryInterface
 
     public function save(Author $model): Author
     {
-        $authorId = $model->getId();
+        $authorId = $model->identifier;
         if ($authorId === null) {
              throw new RepositoryException('Could not save author - param id not set');
         }
 
         $authorName = $model->getName();
-        if ($model->isActive()) {
+        if ($model->active) {
             $authorActive = 't';
         } else {
             $authorActive = 'f';
@@ -133,7 +137,7 @@ final class Repository implements RepositoryInterface
     public function add(Author $model): AuthorId
     {
         $authorName = $model->getName();
-        if ($model->isActive()) {
+        if ($model->active) {
             $authorActive = 't';
         } else {
             $authorActive = 'f';
@@ -241,7 +245,7 @@ final class Repository implements RepositoryInterface
         }
 
         // create a model
-        return Author::load(
+        return new Author(
             $id,
             $name,
             $active,

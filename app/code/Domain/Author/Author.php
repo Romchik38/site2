@@ -37,10 +37,10 @@ final class Author
      * @param array<int,mixed|Translate> $translates
      * @throws InvalidArgumentException
      * */
-    private function __construct(
-        private AuthorId|null $identifier,
-        private Name $name,
-        private bool $active,
+    public function __construct(
+        public readonly AuthorId|null $identifier,
+        public Name $name,
+        private(set) bool $active,
         array $articles,
         array $images,
         array $languages,
@@ -110,33 +110,6 @@ final class Author
         );
     }
 
-    /**
-     * @param array<int,ArticleId> $articles
-     * @param array<int,ImageId> $images
-     * @param array<int,LanguageId> $languages
-     * @param array<int,Translate> $translates
-     * @throws InvalidArgumentException
-     * */
-    public static function load(
-        AuthorId $id,
-        Name $name,
-        bool $active,
-        array $articles,
-        array $images,
-        array $languages,
-        array $translates
-    ): self {
-        return new self(
-            $id,
-            $name,
-            $active,
-            $articles,
-            $images,
-            $languages,
-            $translates
-        );
-    }
-
     public function addTranslate(Translate $translate): void
     {
         $this->translatesHash[(string) $translate->getLanguage()] = $translate;
@@ -148,24 +121,9 @@ final class Author
         return array_values($this->translatesHash);
     }
 
-    public function getId(): ?AuthorId
-    {
-        return $this->identifier;
-    }
-
     public function getName(): Name
     {
         return $this->name;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    public function reName(Name $name): void
-    {
-        $this->name = $name;
     }
 
     /** @throws CouldNotChangeActivityException */
