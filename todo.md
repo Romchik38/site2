@@ -15,6 +15,7 @@
 - control image cache size
 - change links in infoline
 - add language switch to admin
+- implement `<details>` on sitemap
 - @todo
 
 ## Later
