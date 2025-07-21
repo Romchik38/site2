@@ -3,13 +3,14 @@
 ## Current
 
 - test domain
-  - Author 
+  - Author
     - tests
     - create mathor `getTranslate`
   - Translate
 
 - more page content
 - test page admin list pagination when more pages will be ready
+- page template - highlight the short description
 - footer menu
 
 ## Next
