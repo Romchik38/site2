@@ -18,6 +18,12 @@ use function sprintf;
 
 final class Author
 {
+    public const INVALID_LANGUAGE    = 'param author translate language has non expected language';
+    public const INVALID_ID          = 'Author id is invalid';
+    public const MISSING_TRANSLATE   = 'Author has missing translates';
+    public const DEACTIVATE_ARTICLES = 'Author is used in articles. Change it first';
+    public const DEACTIVATE_IMAGES   = 'Author is used in images. Change it first';
+
     /** @var array<string,Translate> */
     private array $translatesHash = [];
 
@@ -79,15 +85,15 @@ final class Author
         foreach ($translates as $translate) {
             if (! $translate instanceof Translate) {
                 throw new InvalidArgumentException('param author translate is invalid');
-            } else {
-                if ($this->languageCheck($translate, $languages) === false) {
-                    throw new InvalidArgumentException(
-                        'param author translate language has non expected language'
-                    );
-                } else {
-                    $languageId                          = $translate->language;
-                    $this->translatesHash[$languageId()] = $translate;
-                }
+            }
+            $this->languageCheck($translate, $languages);
+            $languageId                          = $translate->language;
+            $this->translatesHash[$languageId()] = $translate;
+        }
+
+        if ($active) {
+            if ($identifier === null) {
+                throw new InvalidArgumentException($this::INVALID_ID);
             }
         }
     }
@@ -113,9 +119,12 @@ final class Author
         );
     }
 
+    /** @throws InvalidArgumentException */
     public function addTranslate(Translate $translate): void
     {
-        $this->translatesHash[(string) $translate->getLanguage()] = $translate;
+        $this->languageCheck($translate, $this->languages);
+        $key                        = (string) $translate->getLanguage();
+        $this->translatesHash[$key] = $translate;
     }
 
     /** @return array<int,Translate> */
@@ -137,11 +146,11 @@ final class Author
         }
 
         if ($this->identifier === null) {
-            throw new CouldNotChangeActivityException('Author id is invalid');
+            throw new CouldNotChangeActivityException($this::INVALID_ID);
         }
 
         if (count($this->languages) !== count($this->translatesHash)) {
-            throw new CouldNotChangeActivityException('Author has missing translates');
+            throw new CouldNotChangeActivityException($this::MISSING_TRANSLATE);
         }
 
         foreach ($this->languages as $language) {
@@ -165,18 +174,21 @@ final class Author
         }
 
         if (count($this->articles) > 0) {
-            throw new CouldNotChangeActivityException('Author is used in articles. Change it first');
+            throw new CouldNotChangeActivityException($this::DEACTIVATE_ARTICLES);
         }
 
         if (count($this->images) > 0) {
-            throw new CouldNotChangeActivityException('Author is used in images. Change it first');
+            throw new CouldNotChangeActivityException($this::DEACTIVATE_IMAGES);
         }
 
         $this->active = false;
     }
 
-    /** @param array<int,mixed|LanguageId> $languages */
-    private function languageCheck(Translate $translate, array $languages): bool
+    /**
+     * @param array<int,mixed|LanguageId> $languages
+     * @throws InvalidArgumentException
+     * */
+    private function languageCheck(Translate $translate, array $languages): void
     {
         $languageId = $translate->language;
         $found      = false;
@@ -186,6 +198,8 @@ final class Author
                 break;
             }
         }
-        return $found;
+        if (! $found) {
+            throw new InvalidArgumentException($this::INVALID_LANGUAGE);
+        }
     }
 }
