@@ -2,13 +2,14 @@
 
 ## Current
 
+- user home page
+
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
 
 ## Next
 
-- user home page
 - search in nav bar
 - add popup first time visitor - the site is a demo
 - control image cache size
