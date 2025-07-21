@@ -7,9 +7,9 @@
 
 {% block content %}
 {% set page = data.page %}
-<div id="content" class="container-sm mt-2">
+<div id="content" class="container-sm my-4">
     <h1 class="text-center">{{ page.getName() }}</h1>
-    <p>{{ page.getShortDescription() }}<p>
+    <p class="lead my-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}<p>
     {{ page.getDescription()|raw }}
 </div>
 
