@@ -2,8 +2,12 @@
 
 ## Current
 
+- user login
 - user home page
-
+  - card
+  - special offers
+  - continue reading
+  - subscribe news
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
