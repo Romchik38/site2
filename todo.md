@@ -3,9 +3,6 @@
 ## Current
 
 - test domain
-  - Author
-    - tests
-    - create mathor `getTranslate`
   - Translate
 
 - more page content
