@@ -1,6 +1,7 @@
 {% set urlRoot = urlbuilder.fromArray(['root']) %}
 {% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
 {% set urlLogin = urlbuilder.fromArray(['root', 'login']) %}
+{% set urlSubscribe = urlbuilder.fromArray(['root', 'why-subscribe']) %}
 
 <div class="container-xxl">
     <div class="row py-2">
@@ -19,9 +20,11 @@
         <div class="col-md-3 mx-auto">
             <div class="row mt-2 header-user-notloggedin">
                 <div class="col-xl-6 col-sm mb-2 mb-sm-0 mb-md-2 mb-lg-0 d-grid gap-2">
-                    <button class="btn background-primary ">
-                        {{translate.t('header.subscribe')}}
-                    </button>
+                    <a class="link-none" href="{{ urlSubscribe }}">
+                        <button class="btn background-primary ">
+                            {{translate.t('header.subscribe')}}
+                        </button>
+                    </a>
                 </div>
                 <div class="col-xl-6 col-sm d-grid gap-2">
                     <a class="link-none" href="{{ urlLogin }}">

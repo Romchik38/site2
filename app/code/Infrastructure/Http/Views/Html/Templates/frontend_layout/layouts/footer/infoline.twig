@@ -1,3 +1,7 @@
+{% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
+{% set urlLogin = urlbuilder.fromArray(['root', 'login']) %}
+{% set urlSubscribe = urlbuilder.fromArray(['root', 'why-subscribe']) %}
+
 <div class="row background-line pt-3">
     <div class="col-sm">
         <div class="container">
@@ -38,12 +42,12 @@
         </div>
     </div>
     <div class="col-sm-4 col-md-3">
-        <div class="row text-center">
+        <div class="row text-center header-user-notloggedin">
             <div class="col-6 col-sm-12 col-md-6 px-0 text-md-end">
-                    <a class="btn" href="#"><span class="fw-bold">{{translate.t('header.subscribe')}}</span></a>
+                    <a class="btn" href="{{ urlSubscribe }}"><span class="fw-bold">{{translate.t('header.subscribe')}}</span></a>
             </div>
             <div class="col-6 col-sm-12 col-md-6 px-0 text-md-start">
-                    <a class="btn" href="#">{{translate.t('header.sing_in')}}</a>  
+                    <a class="btn" href="{{ urlLogin }}">{{translate.t('header.sing_in')}}</a>  
             </div>
         </div>
     </div>
