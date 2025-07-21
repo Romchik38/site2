@@ -17,11 +17,11 @@ final class PhraseDto
 
     public function getLanguage(): string
     {
-        return (string)$this->language;
+        return (string) $this->language;
     }
 
     public function getText(): string
     {
-        return (string)$this->text;
+        return (string) $this->text;
     }
 }

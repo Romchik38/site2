@@ -63,7 +63,7 @@ final class Repository implements RepositoryInterface
 
     public function save(Translate $model): void
     {
-        $id      = $model->getId();
+        $id      = $model->identifier;
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();
@@ -101,7 +101,7 @@ final class Repository implements RepositoryInterface
 
     public function add(Translate $model): void
     {
-        $id      = $model->getId();
+        $id      = $model->identifier;
         $phrases = $model->getPhrases();
         try {
             $this->database->transactionStart();

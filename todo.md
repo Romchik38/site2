@@ -2,9 +2,6 @@
 
 ## Current
 
-- test domain
-  - Translate
-
 - more page content
 - test page admin list pagination when more pages will be ready
 - page template - highlight the short description
