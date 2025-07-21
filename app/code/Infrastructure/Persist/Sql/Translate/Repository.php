@@ -77,7 +77,7 @@ final class Repository implements RepositoryInterface
                     [
                         $id(),
                         (string) $phrase->getLanguage(),
-                        (string) $phrase->getPhrase(),
+                        (string) $phrase->text,
                     ]
                 );
             }
@@ -115,7 +115,7 @@ final class Repository implements RepositoryInterface
                     [
                         $id(),
                         (string) $phrase->getLanguage(),
-                        (string) $phrase->getPhrase(),
+                        (string) $phrase->text,
                     ]
                 );
             }

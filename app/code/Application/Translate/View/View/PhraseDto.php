@@ -11,17 +11,17 @@ final class PhraseDto
 {
     public function __construct(
         public readonly Identifier $language,
-        public readonly Text $phrase
+        public readonly Text $text
     ) {
     }
 
-    public function getLanguage(): Identifier
+    public function getLanguage(): string
     {
-        return $this->language;
+        return (string)$this->language;
     }
 
-    public function getPhrase(): Text
+    public function getText(): string
     {
-        return $this->phrase;
+        return (string)$this->text;
     }
 }

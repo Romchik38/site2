@@ -8,5 +8,5 @@ use Romchik38\Server\Domain\VO\Text\NonEmpty;
 
 final class Text extends NonEmpty
 {
-    public const NAME = 'Translate phrase';
+    public const NAME = 'Translate text';
 }

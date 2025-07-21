@@ -11,10 +11,8 @@
     {% set availableLanguageVo = availableLanguage.identifier %}
     {% set phrase = '' %}
     {% for item in phrases %}
-        {% set languageVo = item.language %}
-        {% set phraseVo = item.phrase %}
-        {% if languageVo.__toString() == availableLanguageVo.__toString() %}
-            {% set phrase = phraseVo.__toString() %}
+        {% if item.getLanguage() == availableLanguageVo.__toString() %}
+            {% set phrase = item.getText() %}
         {% endif %}
     {% endfor %}
 

@@ -11,17 +11,12 @@ final class Phrase
 {
     public function __construct(
         public readonly Identifier $language,
-        public readonly Text $phrase
+        public readonly Text $text
     ) {
     }
 
     public function getLanguage(): Identifier
     {
         return $this->language;
-    }
-
-    public function getPhrase(): Text
-    {
-        return $this->phrase;
     }
 }
