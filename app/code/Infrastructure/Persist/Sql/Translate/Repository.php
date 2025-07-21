@@ -15,7 +15,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
 use Romchik38\Site2\Domain\Translate\Translate;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
-use Romchik38\Site2\Domain\Translate\VO\Phrase as VOPhrase;
+use Romchik38\Site2\Domain\Translate\VO\Text;
 
 use function count;
 use function sprintf;
@@ -165,7 +165,7 @@ final class Repository implements RepositoryInterface
             }
             try {
                 $language = new LanguageId($rawLanguage);
-                $phrase   = new VOPhrase($rawPhrase);
+                $phrase   = new Text($rawPhrase);
             } catch (InvalidArgumentException $e) {
                 throw new RepositoryException($e->getMessage());
             }

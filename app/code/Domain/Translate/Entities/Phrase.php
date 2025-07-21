@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Domain\Translate\Entities;
 
 use Romchik38\Site2\Domain\Language\VO\Identifier;
-use Romchik38\Site2\Domain\Translate\VO\Phrase as PhraseVo;
+use Romchik38\Site2\Domain\Translate\VO\Text;
 
 final class Phrase
 {
     public function __construct(
         public readonly Identifier $language,
-        public readonly PhraseVo $phrase
+        public readonly Text $phrase
     ) {
     }
 
@@ -20,7 +20,7 @@ final class Phrase
         return $this->language;
     }
 
-    public function getPhrase(): PhraseVo
+    public function getPhrase(): Text
     {
         return $this->phrase;
     }

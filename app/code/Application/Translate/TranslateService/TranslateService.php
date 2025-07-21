@@ -14,7 +14,7 @@ use Romchik38\Site2\Domain\Language\VO\Identifier as VOIdentifier;
 use Romchik38\Site2\Domain\Translate\Entities\Phrase;
 use Romchik38\Site2\Domain\Translate\Translate;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
-use Romchik38\Site2\Domain\Translate\VO\Phrase as PhraseVO;
+use Romchik38\Site2\Domain\Translate\VO\Text;
 
 use function sprintf;
 
@@ -44,7 +44,7 @@ final class TranslateService
         foreach ($command->phrases as $phrase) {
             $model->addPhrase(new Phrase(
                 new VOIdentifier($phrase->language),
-                new PhraseVO($phrase->phrase)
+                new Text($phrase->phrase)
             ));
         }
 
@@ -87,7 +87,7 @@ final class TranslateService
             foreach ($command->phrases as $phrase) {
                 $phrases[] = new Phrase(
                     new VOIdentifier($phrase->language),
-                    new PhraseVO($phrase->phrase)
+                    new Text($phrase->phrase)
                 );
             }
             $model = new Translate($translateId, $phrases);
