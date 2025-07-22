@@ -70,7 +70,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
-                $e->getMessage()
+                $this->translateService->t($e->getMessage())
             );
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,

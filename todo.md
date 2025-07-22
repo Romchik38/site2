@@ -2,8 +2,6 @@
 
 ## Current
 
-- user login
-  - translate massage when password or email were not correct
 - user home page
   - link existing page `account` with new controller
   - card
