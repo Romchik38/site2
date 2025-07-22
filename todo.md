@@ -2,14 +2,17 @@
 
 ## Current
 
-- user register
-  - link page with existing controller
+- user login
+  - translate massage when password or email were not correct
 - user home page
   - link existing page `account` with new controller
   - card
   - special offers
   - continue reading
   - subscribe news
+- frontend message
+  - highlight
+  - hide after 5 sec
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
@@ -21,6 +24,7 @@
 - control image cache size
 - add language switch to admin
 - implement `<details>` on sitemap
+- add current root to session and use it to redirect before default root
 - @todo
 
 ## Later

@@ -6,16 +6,28 @@
 {% extends "base_layouts.twig" %}
 
 {% block content %}
+{% set page = data.page %}
 <div class="container-sm">
     <div class="row">
-        <h1 class="text-center">{{ data.name }}</h1>
+        <h1 class="text-center">{{ page.getName() }}</h1>
+        <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
+    </div>
+    <div class="row my-3">        
         <div class="col-6 mx-auto"> 
             {% if data.adminUser is null %}
-                Show form
+                {{ t.t('page.register.tip')|raw }}
             {% else %}
-                You already logged in. Please logout first.
+                {{ t.t('page.login.already-logged-in') }}
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ urlArticles }}">{{ t.t('category.last-news') }}</a></li>
+                    <li class="list-group-item"><a href="{{ urlAccount }}">{{ t.t('footer.links.account') }}</a></li>
+                    <li class="list-group-item"><a href="{{ urlRoot }}">{{ t.t('root.page_name') }}</a></li>
+                </ul>
             {% endif %}
         </div>
+    </div>    
+    <div class="row mb-3">
+        {{ page.getDescription()|raw }}
     </div>
 </div>
 {% endblock %}

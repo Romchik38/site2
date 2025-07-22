@@ -18,7 +18,7 @@
 <div class="container-sm">
     <div class="row justify">
         <h1 class="text-center">{{ page.getName() }}</h1>
-        <p class="lead">{{ page.getShortDescription() }}</p>
+        <p class="lead my-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
     </div>
     <div class="row justify-content-center my-4">
         {% if data.user is null %}
@@ -38,7 +38,7 @@
             </div>
         {% else %}
             <div class="col-sm-4">
-                <ul class="list-group">{{ t.t('page.login.already-logged-in') }}: 
+                <ul class="list-group">{{ t.t('page.login.already-logged-in') }} 
                     <li class="list-group-item"><a href="{{ urlArticles }}">{{ t.t('category.last-news') }}</a></li>
                     <li class="list-group-item"><a href="{{ urlAccount }}">{{ t.t('footer.links.account') }}</a></li>
                     <li class="list-group-item"><a href="{{ urlRoot }}">{{ t.t('root.page_name') }}</a></li>

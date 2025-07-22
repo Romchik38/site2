@@ -14,6 +14,12 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Application\Page\View\ViewService as PageService;
+use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
+use Romchik38\Site2\Application\Page\View\CouldNotFindException;
+use Romchik38\Site2\Application\Page\View\NoSuchPageException;
+use Romchik38\Site2\Application\Page\View\View\PageDto;
+use RuntimeException;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -21,7 +27,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly Site2SessionInterface $session,
-        private readonly ViewInterface $view
+        private readonly ViewInterface $view,
+        private readonly PageService $pageService,
+        private ?PageDto $page = null        
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -30,11 +38,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         // 1 check if use already logged in
         $adminUser = $this->session->getData(Site2SessionInterface::USER_FIELD);
+
+        $page = $this->getPage();
+
+        $dto = new ViewDTO(
+            $page->getName(),
+            $page->getDescription(),
+            $adminUser,
+            $page
+        );
+
         $html      = $this->view
             ->setController($this->controller)
-            ->setControllerData(
-                new ViewDTO('User register', 'User register page', $adminUser)
-            )
+            ->setControllerData($dto)
             ->toString();
 
         return new HtmlResponse($html);
@@ -42,6 +58,23 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Registration page';
+        $page = $this->getPage();
+        return $page->getName();
     }
+
+    private function getPage(): PageDto
+    {
+        if ($this->page === null) {
+            $command = new Find('register', $this->getLanguage());
+            try {
+                $this->page = $this->pageService->find($command);
+            } catch (NoSuchPageException) {
+                throw new RuntimeException('Register view action error: page with url login not found');
+            } catch (CouldNotFindException $e) {
+                throw new RuntimeException(sprintf('Register view action error %s: ', $e->getMessage()));
+            }
+        } 
+        
+        return $this->page;
+    }    
 }
