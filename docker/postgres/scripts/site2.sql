@@ -1456,6 +1456,10 @@ page.register.tip	en	<p>The registration page is not real and does not create an
 page.register.tip	uk	<p>Сторінка реєстрації є несправжньою і не реєструє клієнта. Для здійснення входу перейдіть на <a href="/login">відповідну сторінку</a> і використовуйте наступне:</p> <ul class="list-group">   <li class="list-group-item">В поле им'я користувача введіть емайл. Можете вказати будь який. Приклад - <kbd>email@example.com</kbd></li>   <li class="list-group-item">Для полі пароль використовуйте, будь ласка правило - довжина<span style="text-align: center;">&nbsp;8 символів, містить хоча б одну маленьку і одну велику букву, цифру і хоча б один зі спеціальних символів&nbsp; _`$%^*'</span>. Пароль не зберігається. Перевірки виконуються тільки на вказані правила. Приклад - <kbd>aA1_hello</kbd></li> </ul>
 page.login.already-logged-in	en	You already logged in. Let's start with
 page.login.already-logged-in	uk	Ви вже увійшли в систему. Почніть з ⬇️
+user.email-error	en	Email Local Part can contain latin characters, numbers and a dot. Domain can contain latin characters and a dot, must end minimun with 2 characters after a dot
+user.email-error	uk	Локальна частина електронної пошти може містити латинські символи, цифри та крапку. Домен може містити латинські символи та крапку, має закінчуватися щонайменше двома символами після крапки
+user.password-error	en	Password must be at least 8 characters long, contain at least one lowercase, uppercase letter, number and a specal character from _`$%^*'
+user.password-error	uk	Пароль має містити щонайменше 8 символів, принаймні одну малу літеру, велику літеру, цифру та спеціальний символ з _`$%^*'
 \.
 
 
@@ -1597,6 +1601,8 @@ category.last-news
 logout.do-not-want
 logout
 page.register.tip
+user.email-error
+user.password-error
 \.
 
 
