@@ -3,7 +3,11 @@
 ## Current
 
 - user login
+- user register
+  - page
+  - link page with existing controller
 - user home page
+  - link existing page `account` with new controller
   - card
   - special offers
   - continue reading
