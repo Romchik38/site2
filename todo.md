@@ -2,7 +2,6 @@
 
 ## Current
 
-- user login
 - user register
   - page
   - link page with existing controller
