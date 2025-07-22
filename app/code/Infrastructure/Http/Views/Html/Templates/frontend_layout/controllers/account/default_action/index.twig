@@ -1,0 +1,24 @@
+{# 
+    Object      data                    Controller DTO
+    string      template_full_prefix    path to this folder
+#}
+
+{% extends "base_layouts.twig" %}
+
+{% block content %}
+{% set page = data.page %}
+<div class="container-sm">
+    <div class="row">
+        <h1 class="text-center">{{ page.getName() }}</h1>
+        <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
+    </div>
+    <div class="row my-3">        
+        <div class="col-6 mx-auto"> 
+            <p>Hello {{ data.user }}</p>
+        </div>
+    </div>    
+    <div class="row mb-3">
+        {{ page.getDescription()|raw }}
+    </div>
+</div>
+{% endblock %}

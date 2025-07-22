@@ -13,8 +13,8 @@ final class Password extends Text
 {
     public const NAME = 'User password';
     /** @todo move field to command */
-    public const FIELD         = 'password';
-    public const PATTERN       = '^(?=.*[_`$%^*\'])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9_`$%^*\']{8,}$';
+    public const FIELD   = 'password';
+    public const PATTERN = '^(?=.*[_`$%^*\'])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9_`$%^*\']{8,}$';
     /** Password must be at least 8 characters long, contain at least one lowercase, uppercase letter, number and a specal character from _`$%^*' */
     public const ERROR_MESSAGE = 'user.password-error';
 

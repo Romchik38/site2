@@ -547,6 +547,19 @@ return function (Container $container) {
         ]
     );
         
+    // Account
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
+            new Promise('\Romchik38\Site2\Application\Page\View\ViewService'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+        ]
+    );
+    
     // Register
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction',

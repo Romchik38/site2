@@ -8,6 +8,14 @@ use Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTreeInterf
 use Romchik38\Server\Http\Controller\Controller;
 
 return function (Container $container): ControllerInterface {
+
+    /** ACCOUNT */    
+    $account = new Controller(
+        'account',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction')
+    );
+    
     /** API */
     $api = new Controller('api');
 
@@ -229,7 +237,7 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminPage)
     ->setChild($adminTranslate)
     ->setChild($adminUsers);
-    
+
     /** CATEGORY */
     $category = new Controller(
         'category',
@@ -269,6 +277,7 @@ return function (Container $container): ControllerInterface {
     );
 
     $root
+        ->setChild($account)
         ->setChild($api)
         ->setChild($article)
         ->setChild($admin)

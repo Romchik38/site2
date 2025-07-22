@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Register;
+namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Account;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
@@ -17,7 +19,7 @@ use Romchik38\Site2\Application\Page\View\CouldNotFindException;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -31,6 +33,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly Site2SessionInterface $session,
         private readonly ViewInterface $view,
         private readonly PageService $pageService,
+        private readonly UrlbuilderInterface $urlbuilder,
         private ?PageDto $page = null
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -39,14 +42,20 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         // 1 check if use already logged in
-        $adminUser = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
 
+        // 2. redirect to login page
+        $loginUrl = $this->urlbuilder->fromArray(['root', 'login']);
+        if ($user === null) {
+            return new RedirectResponse($loginUrl);
+        }
+        // 3. show accaunt
         $page = $this->getPage();
 
         $dto = new ViewDTO(
             $page->getName(),
             $page->getDescription(),
-            $adminUser,
+            $user,
             $page
         );
 
@@ -67,13 +76,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     private function getPage(): PageDto
     {
         if ($this->page === null) {
-            $command = new Find('register', $this->getLanguage());
+            $command = new Find('account', $this->getLanguage());
             try {
                 $this->page = $this->pageService->find($command);
             } catch (NoSuchPageException) {
-                throw new RuntimeException('Register view action error: page with url login not found');
+                throw new RuntimeException('Account view action error: page with url login not found');
             } catch (CouldNotFindException $e) {
-                throw new RuntimeException(sprintf('Register view action error %s: ', $e->getMessage()));
+                throw new RuntimeException(sprintf('Account view action error %s: ', $e->getMessage()));
             }
         }
 
