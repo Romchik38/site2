@@ -47,7 +47,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
 
-        // Page
         $page = $this->getPage();
 
         $html = $this->view

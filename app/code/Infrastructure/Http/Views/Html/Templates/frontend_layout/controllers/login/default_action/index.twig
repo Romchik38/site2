@@ -11,6 +11,9 @@
 {% set urlArticles = u.fromArray(['root', 'article']) %}
 {% set urlAuth = u.fromArray(['root', 'auth']) %}
 {% set urlLogout = u.fromArray(['root', 'logout']) %}
+{% set urlRecovery = u.fromArray(['root', 'recovery']) %}
+{% set urlAccount = u.fromArray(['root', 'account']) %}
+{% set urlRoot = u.fromArray(['root']) %}
 {% set page = data.page %}
 <div class="container-sm">
     <div class="row justify">
@@ -20,25 +23,33 @@
     <div class="row justify-content-center my-4">
         {% if data.user is null %}
             <div class="col-sm-4">
-                <h2 class="text-center">Provide Login Credentials</h2>
+                <h2 class="text-center">{{ t.t('page.login.provide-login-credentials') }}</h2>
                 <form class="border rounded-3 p-4" action="{{ urlAuth }}" method="post">
-                    <label for="{{ data.userNameField }}">Enter your user name: </label>
+                    <label for="{{ data.userNameField }}">{{ t.t('page.login.enter-username') }}: </label>
                     <input class="form-control" type="text" name="{{ data.emailField }}" id="{{ data.userNameField }}" required /><br>
-                    <label for="{{ data.passwordField }}">Enter password: </label>
+                    <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>
                     <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
-                    <input class="btn btn-secondary" type="submit" value="Log In" />
+                    <input class="btn btn-secondary" type="submit" value="{{ t.t('header.sing_in') }}" />
                     <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                 </form>
                 <br>
-                <p>Forgot a password? Use <a href="#">Password recovery Page</a>.</p>
-                <p>New user? Please, visit <a href="{{ urlRegister }}">Registration Page</a>.</p>
+                <p>{{ t.t('page.login.forgot-password') }}? <a href="{{ urlRecovery }}">{{ t.t('footer.links.recovery') }}</a>.</p>
+                <p>{{ t.t('New user') }}? <a href="{{ urlRegister }}">{{ t.t('page.register.name') }}</a>.</p>
             </div>
         {% else %}
-            <p>You already logged in. Let's start with <a href="{{ urlArticles }}">Articles Page</a>.</p>
-            <p class="m-2">Do not want to be logged in?</p>
-            <form class="d-inline" action="{{ urlLogout }}" method="post">
-                <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
-            </form>
+            <div class="col-sm-4">
+                <ul class="list-group">{{ t.t('page.login.already-logged-in') }}: 
+                    <li class="list-group-item"><a href="{{ urlArticles }}">{{ t.t('category.last-news') }}</a></li>
+                    <li class="list-group-item"><a href="{{ urlAccount }}">{{ t.t('footer.links.account') }}</a></li>
+                    <li class="list-group-item"><a href="{{ urlRoot }}">{{ t.t('root.page_name') }}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <p class="my-3">{{ t.t('logout.do-not-want') }}?</p>
+                <form class="d-inline" action="{{ urlLogout }}" method="post">
+                    <button class="btn btn-secondary align-top" type="submit">{{ t.t('logout') }}</button>
+                </form>
+            </div>            
         {% endif %}
     </div>
     <div class="row">
