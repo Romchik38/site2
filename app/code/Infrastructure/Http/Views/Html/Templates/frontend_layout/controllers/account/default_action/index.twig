@@ -12,10 +12,10 @@
         <h1 class="text-center">{{ page.getName() }}</h1>
         <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
     </div>
-    <div class="row mb-4">
+    <div class="row mb-4 justify-content-center">
         {% include template_full_prefix ~ '/blocks/card.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>    
-    <div class="row mb-4">
+    <div class="row mb-4 justify-content-center">
         {% include template_full_prefix ~ '/blocks/user-data.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div> 
     <div class="row mb-4 justify-content-center">

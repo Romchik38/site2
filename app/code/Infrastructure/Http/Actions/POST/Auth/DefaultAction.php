@@ -43,6 +43,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
+        $urlAccount = $this->urlbuilder->fromArray(['root', 'account']);
         // check if user already logged in
         $userField = $this->session->getData(Site2SessionInterface::USER_FIELD);
         if ($userField !== null) {
@@ -93,7 +94,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             Site2SessionInterface::MESSAGE_FIELD,
             $this->translateService->t($this::SUCCESS_LOGGED_IN)
         );
-        return new RedirectResponse($urlLogin);
+        return new RedirectResponse($urlAccount);
     }
 
     public function getDescription(): string
