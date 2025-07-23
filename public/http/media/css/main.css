@@ -104,6 +104,10 @@ div.header-user-notloggedin {
     display: none;
 }
 
+audio {
+    min-height:20px
+}
+
 /* RESPONSE */
 @media screen and (max-width: 576px) {
 
