@@ -3,7 +3,6 @@
 ## Current
 
 - user home page
-  - card
   - special offers
   - continue reading
   - subscribe news

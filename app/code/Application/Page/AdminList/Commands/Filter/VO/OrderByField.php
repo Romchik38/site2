@@ -15,7 +15,7 @@ final class OrderByField extends Text
     public const NAME = 'page order by field';
 
     public const DEFAULT_ORDER_BY = 'active';
-    public const ALLOWED_ORDER_BY = ['id', 'active'];
+    public const ALLOWED_ORDER_BY = ['id', 'active', 'url'];
 
     /** @throws InvalidArgumentException */
     public function __construct(

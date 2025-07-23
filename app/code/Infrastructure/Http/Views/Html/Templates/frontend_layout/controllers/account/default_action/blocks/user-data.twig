@@ -1,0 +1,34 @@
+{% set changePasswordUrl = u.fromArray(['root', 'changepassword']) %}
+<div class="col-sm-6">
+    <table class="table table-striped caption-top">
+        <caption>{{ t.t('Personal data') }}</caption>
+        <thead>
+            <tr>
+                <th>{{ t.t('Field') }}</th>
+                <th>{{ t.t('Data') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ t.t('Username') }}</td>
+                <td>{{ data.user }}</td>
+            </tr>
+            <tr>
+                <td>{{ t.t('First name') }}</td>
+                <td>Your</td>
+            </tr>
+            <tr>
+                <td>{{ t.t('Last Name') }}</td>
+                <td>Magesty</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>email@example.com</td>
+            </tr>
+            <tr>
+                <td>{{ t.t('Password') }}</td>
+                <td><a href="{{ changePasswordUrl }}">{{ t.t('change') }}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

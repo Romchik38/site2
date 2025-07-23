@@ -16,6 +16,9 @@
         {% include template_full_prefix ~ '/blocks/card.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>    
     <div class="row mb-3">
+        {% include template_full_prefix ~ '/blocks/user-data.twig' with {'t': t, 'u': u, 'data': data } only %}
+    </div>    
+    <div class="row mb-3">
         {{ page.getDescription()|raw }}
     </div>
 </div>
