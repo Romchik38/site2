@@ -12,10 +12,8 @@
         <h1 class="text-center">{{ page.getName() }}</h1>
         <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
     </div>
-    <div class="row my-3">        
-        <div class="col-6 mx-auto"> 
-            <p>Hello {{ data.user }}</p>
-        </div>
+    <div class="row my-3">
+        {% include template_full_prefix ~ '/blocks/card.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>    
     <div class="row mb-3">
         {{ page.getDescription()|raw }}

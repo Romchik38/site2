@@ -1,0 +1,25 @@
+{% set standartUrl = u.fromArray(['root', 'standard-subscription']) %}
+<div class="card mb-3" style="max-width: 768px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+        <picture>
+            <source media="(max-width: 576px)" srcset="/img.php?id=126&type=webp&width=576&height=576">
+            <source media="(max-width: 768px)" srcset="/img.php?id=126&type=webp&width=768&height=768">
+            <source media="(min-width: 768px)" srcset="/img.php?id=126&type=webp&width=1080&height=1080">
+            <img 
+                class="img-fluid rounded-start"
+                src="{{ data.article.image.path }}" 
+                alt="{{ data.article.image.description }}"
+            >
+        </picture>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ data.user }}</h5>
+        <p class="card-text">{{ t.t('Standard subscription') }}. <a href="{{ standartUrl }}">{{ t.t('More details') }}</a></p>
+        <p class="card-text">{{ t.t('page.account.discount') }} - <span class="text-white bg-success px-2">10%</span></p>
+        <p class="card-text"><small class="text-muted">{{ t.t('page.account.user-from') }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
