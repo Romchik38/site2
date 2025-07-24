@@ -2,12 +2,18 @@
 
 ## Current
 
+- continue reading
+  - create storage
+  - move logic to application
+  - create methods
+    - `getLast`
+    - `update`
+
 - special offers pages
   - free consultation
 
 - user home page
   - special offers
-  - continue reading
   - subscribe news
 - frontend message
   - highlight
