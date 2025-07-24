@@ -1,3 +1,6 @@
+{% set discount30Url = u.fromArray(['root', 'discount-30-percent']) %}
+{% set twentyFourUrl = u.fromArray(['root', '24-7-support']) %}
+
 <h2 class="text-center">{{ t.t('Special offers') }}</h2>
 <!-- 1 -->
 <div class="card mx-3" style="width: 18rem;">
@@ -20,7 +23,7 @@
     <li class="list-group-item">{{ t.t('offers.condition.terms.month') }}</li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">{{ t.t('More details') }}</a>
+    <a href="{{ discount30Url }}" class="card-link">{{ t.t('More details') }}</a>
   </div>
 </div>
 
@@ -46,7 +49,7 @@
     <li class="list-group-item">{{ t.t('offers.condition.one-year-contract') }}</li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">{{ t.t('More details') }}</a>
+    <a href="{{ twentyFourUrl }}" class="card-link">{{ t.t('More details') }}</a>
   </div>
 </div>
 

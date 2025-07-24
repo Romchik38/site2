@@ -2,9 +2,7 @@
 
 ## Current
 
-- special offers
-  - discount
-  - 24/7 support
+- special offers pages
   - free consultation
 
 - user home page
