@@ -9,6 +9,7 @@ return function (Container $container) {
     /** Order does not matter till 1st container get */
     (require_once(__DIR__ . '/bootstrap/consts.php'))($container);
     (require_once(__DIR__ . '/bootstrap/persist/sql.php'))($container);
+    (require_once(__DIR__ . '/bootstrap/persist/session.php'))($container);
     (require_once(__DIR__ . '/bootstrap/persist/filesystem.php'))($container);
     (require_once(__DIR__ . '/bootstrap/application.php'))($container);
     (require_once(__DIR__ . '/bootstrap/utils.php'))($container);

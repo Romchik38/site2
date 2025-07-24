@@ -64,7 +64,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading',
         [
-            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface')
         ]
     );
 
