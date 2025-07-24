@@ -14,4 +14,14 @@ final class ImageDto
         public readonly Description $description
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->description;
+    }
 }

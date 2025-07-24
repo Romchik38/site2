@@ -1,0 +1,32 @@
+{% set a = data.continueReadingArticle %}
+
+{% if a is not null %}
+    {% set articleUrl = u.fromArray(['root', 'article', a.getId()]) %}
+    {% set i = a.image %}
+    <h2 class="text-center my-2">{{ t.t('article.view.continue.reading') }}</h2>
+
+    <div class="row pb-3">
+        <div class="col col-sm-4">
+            <a class="btn" href="{{ articleUrl }}">
+                <img class="img-fluid rounded" src="/img.php?id={{ i.getId() }}&amp;type=webp&amp;width=576&amp;height=384" alt="{{ i.getDescription() }}">
+            </a>
+        </div>
+        <div class="col-sm-8">
+            <h5 class="card-title mb-2">
+                <a class="link-none" href="{{ articleUrl }}">{{ a.getName() }}</a>
+            </h5>
+            <p class="card-text mb-2">
+                <a class="link-none" href="{{ articleUrl }}">{{ a.getShortDescription() }}</a>
+            </p>
+            <div class="col-12 text-secondary mb-2">
+                <div class="row">
+                    <div class="col-6 font-monospace comments">{{ t.t('comments') }}({{ random(1, 10) }})</div>
+                    <div class="col-6 font-monospace comments">{{ a.getCreatedAt() }}</div>
+                </div>
+            </div>
+            <div mb-2>
+                <a href="{{ articleUrl }}">{{ translate.t('article.read') }}</a>
+            </div>
+        </div>
+    </div>
+{% endif %}
