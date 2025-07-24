@@ -557,6 +557,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
             new Promise('\Romchik38\Site2\Application\Page\View\ViewService'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading'),
+            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
     

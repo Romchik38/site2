@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction;
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
+use Romchik38\Site2\Application\Article\ContinueReading\View\ArticleDto;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 
 final class ViewDTO extends DefaultViewDTO
@@ -13,7 +14,8 @@ final class ViewDTO extends DefaultViewDTO
         string $name,
         string $description,
         public readonly string $user,
-        public readonly PageDto $page
+        public readonly PageDto $page,
+        public readonly ?ArticleDto $continueReadingArticle
     ) {
         parent::__construct($name, $description);
     }

@@ -42,7 +42,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $urlLogin = $this->urlbuilder->fromArray(['root', 'login']);
+        $urlLogin   = $this->urlbuilder->fromArray(['root', 'login']);
         $urlAccount = $this->urlbuilder->fromArray(['root', 'account']);
         // check if user already logged in
         $userField = $this->session->getData(Site2SessionInterface::USER_FIELD);
