@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\Article\ContinueReading;
 
 use InvalidArgumentException;
-use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
-use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\Find;
-use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\SearchCriteria;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\SearchCriteria as FindSearchCriteria;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\List\SearchCriteria as ListSearchCriteria;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Update\Update;
-use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotCheckException;
-use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotFindException;
-use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotGetLastException;
+use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotListException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotUpdateException;
+use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\ItemRepositoryException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\ContinueReading\View\ArticleDto;
@@ -28,59 +26,45 @@ final class ContinueReading
     ) {
     }
 
-    /** @todo remove if not used */
     /**
-     * @throws CouldNotCheckException
-     * @throws InvalidArgumentException
-     * */
-    public function check(Check $command): bool
-    {
-        $id = new ArticleId($command->id);
-        try {
-            return $this->repository->checkById($id);
-        } catch (RepositoryException $e) {
-            throw new CouldNotCheckException($e->getMessage());
-        }
-    }
-
-    /** @throws CouldNotGetLastException */
-    public function getLast(string $language): ?ArticleDto
+     * @throws CouldNotListException
+     * @return array<int,ArticleDto> - Last visited goes with index 0.
+     */
+    public function list(string $language): array
     {
         $item = $this->itemRepository->get();
         if ($item === null) {
-            return null;
+            return [];
         }
 
-        $command = new Find($item->first, $language);
+        $articleIds = [];
 
         try {
-            return $this->find($command);
+            $articleIds[] = new ArticleId($item->first);
+            if ($item->second !== null) {
+                $articleIds[] = new ArticleId($item->second);
+            }
+            $languageId     = new LanguageId($language);
+            $searchCriteria = new ListSearchCriteria($articleIds, $languageId);
+            $articles       = $this->repository->list($searchCriteria);
+            $sortedArticles = [];
+            foreach ($articles as $article) {
+                if ($article->getId() === $item->first) {
+                    $sortedArticles[] = $article;
+                }
+            }
+            if ($item->second !== null) {
+                foreach ($articles as $article) {
+                    if ($article->getId() === $item->second) {
+                        $sortedArticles[] = $article;
+                    }
+                }
+            }
+            return $sortedArticles;
         } catch (InvalidArgumentException $e) {
-            throw new CouldNotGetLastException($e->getMessage());
-        } catch (CouldNotFindException $e) {
-            throw new CouldNotGetLastException($e->getMessage());
-        } catch (NoSuchArticleException $e) {
-            throw new CouldNotGetLastException($e->getMessage());
-        }
-    }
-
-    /** @todo convert to private */
-    /**
-     * @throws CouldNotFindException
-     * @throws InvalidArgumentException
-     * @throws NoSuchArticleException
-     */
-    public function find(Find $command): ArticleDto
-    {
-        $articleId  = new ArticleId($command->articleId);
-        $languageId = new LanguageId($command->languageId);
-
-        $searchCriteria = new SearchCriteria($articleId, $languageId);
-
-        try {
-            return $this->repository->find($searchCriteria);
+            throw new CouldNotListException($e->getMessage());
         } catch (RepositoryException $e) {
-            throw new CouldNotFindException($e->getMessage());
+            throw new CouldNotListException($e->getMessage());
         }
     }
 
@@ -91,22 +75,26 @@ final class ContinueReading
      * */
     public function update(Update $command): void
     {
-        $findCommand = new Find($command->articleId, $command->languageId);
-
         try {
-            $article = $this->find($findCommand);
-        } catch (CouldNotFindException $e) {
+            $articleId      = new ArticleId($command->articleId);
+            $languageId     = new LanguageId($command->languageId);
+            $searchCriteria = new FindSearchCriteria($articleId, $languageId);
+            $article        = $this->repository->find($searchCriteria);
+            $newId          = $article->getId();
+            $item           = $this->itemRepository->get();
+            if ($item === null) {
+                $item = new Item($newId);
+            } else {
+                if ($newId !== $item->first) {
+                    $item->second = $item->first;
+                    $item->first  = $newId;
+                }
+            }
+            $this->itemRepository->update($item);
+        } catch (RepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        } catch (ItemRepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         }
-
-        $item = $this->itemRepository->get();
-        if ($item === null) {
-            $item = new Item($article->getId());
-        } else {
-            $item->second = $item->first;
-            $item->first  = $article->getId();
-        }
-
-        $this->itemRepository->update($item);
     }
 }

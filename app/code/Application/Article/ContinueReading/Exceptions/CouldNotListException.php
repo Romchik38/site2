@@ -6,6 +6,6 @@ namespace Romchik38\Site2\Application\Article\ContinueReading\Exceptions;
 
 use RuntimeException;
 
-final class CouldNotGetLastException extends RuntimeException
+final class CouldNotListException extends RuntimeException
 {
 }

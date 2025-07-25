@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Find\SearchCriteria;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\List\SearchCriteria as ListSearchCriteria;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface;
@@ -21,6 +22,7 @@ use Romchik38\Site2\Domain\Image\VO\Description as ImageDescription;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 use function count;
+use function implode;
 use function sprintf;
 
 final class Repository implements RepositoryInterface
@@ -84,6 +86,36 @@ final class Repository implements RepositoryInterface
         }
 
         return $this->createFromRow($rows[0]);
+    }
+
+    public function list(ListSearchCriteria $searchCriteria): array
+    {
+        $paramCount = 0;
+
+        $params = [(string) $searchCriteria->languageId];
+        $paramCount++;
+
+        $placeHolders = [];
+        foreach ($searchCriteria->articles as $articleId) {
+            $params[] = (string) $articleId;
+            $paramCount++;
+            $placeHolders[] = sprintf('article.identifier = $%d', $paramCount);
+        }
+        $placeHolder = implode(' OR ', $placeHolders);
+        $query       = sprintf($this->listTemplateQuery(), $placeHolder);
+
+        $articles = [];
+        try {
+            $rows = $this->database->queryParams($query, $params);
+        } catch (QueryException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        foreach ($rows as $row) {
+            $articles[] = $this->createFromRow($row);
+        }
+
+        return $articles;
     }
 
     /**
@@ -169,6 +201,31 @@ final class Repository implements RepositoryInterface
             article_translates 
         WHERE article.identifier = article_translates.article_id 
             AND article.identifier = $1
+        QUERY;
+    }
+
+    private function listTemplateQuery(): string
+    {
+        return <<<'QUERY'
+        SELECT article.identifier,
+            article.created_at,
+            article_translates.name,
+            article_translates.short_description,
+            img_translates.img_id,
+            img_translates.description as img_description
+        FROM
+            article,
+            article_translates,
+            img,
+            img_translates
+        WHERE 
+            article.identifier = article_translates.article_id
+            AND article.active = 'true'
+            AND article_translates.language = $1
+            AND article.img_id = img.identifier
+            AND img_translates.img_id = article.img_id
+            AND img_translates.language = $1
+            AND (%s)  --article.identifier = $2 OR // article.identifier = $3 ...
         QUERY;
     }
 }

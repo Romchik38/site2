@@ -18,7 +18,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
-use Romchik38\Site2\Application\Article\ContinueReading\Commands\Check\Check;
+use Romchik38\Site2\Application\Article\ContinueReading\Commands\Update\Update;
 use Romchik38\Site2\Application\Article\SimilarArticles\Commands\ListSimilar\ListSimilar;
 use Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles;
 use Romchik38\Site2\Application\Article\View\Find;
@@ -93,7 +93,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $this->session::CSRF_TOKEN_FIELD,
             $csrfToken,
             $similarArticles,
-            Check::ID_FIELD
+            Update::ID_FIELD
         );
 
         $result = $this->view

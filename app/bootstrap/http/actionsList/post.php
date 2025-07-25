@@ -42,6 +42,15 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\DefaultAction')
     );
     $apiContinueReading->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware')); 
+    $apiContinueReadingUpdate = new Controller(
+        'update',
+        false,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\Update\DefaultAction'),
+        null,
+        'article_continue_reading_update'
+    );
+    $apiContinueReading->setChild($apiContinueReadingUpdate);
+
     $apiArticleViews = new Controller(
         'articleviews',
         false,

@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\Article\ContinueReading\Commands\Check;
 
 use function is_string;
 
+/** @todo remove if not used */
 final class Check
 {
     public const ID_FIELD = 'id';

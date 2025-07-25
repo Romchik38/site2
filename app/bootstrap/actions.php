@@ -616,10 +616,19 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading'),
         ]        
     );
+
+    // ARTICLE CONTINUE READING UPDATE
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\Update\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading'),
+        ]        
+    );    
 
     // ADMIN ARTICLE DELETE
     $container->shared(
