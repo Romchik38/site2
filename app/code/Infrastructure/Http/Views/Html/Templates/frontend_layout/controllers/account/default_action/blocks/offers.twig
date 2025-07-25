@@ -1,5 +1,6 @@
 {% set discount30Url = u.fromArray(['root', 'discount-30-percent']) %}
 {% set twentyFourUrl = u.fromArray(['root', '24-7-support']) %}
+{% set freeUrl = u.fromArray(['root', 'free-consultation']) %}
 
 <h2 class="text-center">{{ t.t('Special offers') }}</h2>
 <!-- 1 -->
@@ -74,6 +75,6 @@
     <li class="list-group-item">{{ t.t('offers.condition.individually') }}</li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">{{ t.t('More details') }}</a>
+    <a href="{{ freeUrl }}" class="card-link">{{ t.t('More details') }}</a>
   </div>
 </div>

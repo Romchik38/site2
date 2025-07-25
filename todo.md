@@ -2,11 +2,7 @@
 
 ## Current
 
-- special offers pages
-  - free consultation
-
 - user home page
-  - special offers
   - subscribe news
 - frontend message
   - highlight
