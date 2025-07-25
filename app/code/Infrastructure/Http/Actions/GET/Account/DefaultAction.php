@@ -16,7 +16,7 @@ use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ContinueReading\ContinueReading;
-use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotGetLastException;
+use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\CouldNotListException;
 use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
 use Romchik38\Site2\Application\Page\View\CouldNotFindException;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
@@ -26,6 +26,7 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction\ViewDT
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
+use function count;
 use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -58,10 +59,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $page = $this->getPage();
 
         // 4. continue reading
+        $article = null;
         try {
-            $continueReadingArtricle = $this->continueReadingService->getLast($this->getLanguage());
-        } catch (CouldNotGetLastException $e) {
-            $this->logger->error('Account action:' . $e->getMessage());
+            $articles = $this->continueReadingService->list($this->getLanguage());
+            if (count($articles) > 0) {
+                $article = $articles[0];
+            }
+        } catch (CouldNotListException $e) {
+            $this->logger->error($e->getMessage());
         }
 
         $dto = new ViewDTO(
@@ -69,7 +74,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $page->getDescription(),
             $user,
             $page,
-            $continueReadingArtricle
+            $article
         );
 
         $html = $this->view
