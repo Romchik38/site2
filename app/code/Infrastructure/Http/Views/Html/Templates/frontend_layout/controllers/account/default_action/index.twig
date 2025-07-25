@@ -21,11 +21,14 @@
     <div class="row mb-4 justify-content-center">
         {% include template_full_prefix ~ '/blocks/offers.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>
-        <div class="row mb-4 justify-content-center  bg-light">
+    <div class="row mb-4 justify-content-center  bg-light">
         {% include template_full_prefix ~ '/blocks/continue_reading.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>
     <div class="row mb-4">
         {{ page.getDescription()|raw }}
+    </div>    
+    <div class="row mb-4">
+        {% include template_full_prefix ~ '/blocks/subscribe.twig' with {'t': t, 'u': u, 'data': data } only %}
     </div>
 </div>
 {% endblock %}

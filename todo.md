@@ -2,8 +2,6 @@
 
 ## Current
 
-- user home page
-  - subscribe news
 - frontend message
   - highlight
   - hide after 5 sec

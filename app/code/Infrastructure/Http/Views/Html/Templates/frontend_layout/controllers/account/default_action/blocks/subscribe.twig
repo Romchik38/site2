@@ -1,0 +1,30 @@
+<div class="card">
+  <h5 class="card-header text-center">{{ t.t('Subscribe to news') }}</h5>
+  <div class="card-body">
+    <h5 class="card-title">{{ t.t('subscribe.title') }}</h5>
+    <p class="card-text">{{ t.t('subscribe.text') }}</p>
+    <form class="row g-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="flexCheckDefault">
+                {{ t.t('menu.administrative-process') }}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="flexCheckChecked">
+                {{ t.t('menu.traffic') }}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="flexCheckChecked">
+                {{ t.t('menu.military-law') }}
+            </label>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">{{ t.t('Subscribe') }}</button>
+        </div>
+    </form>
+  </div>
+</div>
