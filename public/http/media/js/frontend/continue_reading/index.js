@@ -1,26 +1,84 @@
 'use strict';
 
 import { default as Data } from './data.js';
-import { default as Article } from './article.js';
+import { Article } from './article.js';
+import { ArticleData } from './article.js';
 import { default as RequestData } from '/media/js/modules/utils/make-request/request-data.js';
 import { default as makeRequest } from '/media/js/modules/utils/make-request/make-post-request.js';
 
 var path = ['root', 'api', 'article_continue_reading'];
+var pathUpdate = ['root', 'api', 'article_continue_reading', 'update'];
 var a = Article.fromClass('api-continue-reading-article');
+var ad = Data.fromClass('api-continue-reading-data');
+
+var processData = function(data) {
+    if (! data instanceof Array) {
+        console.error('Param data is invalid');
+        return;
+    }
+    
+    var articlesCount = data.length;
+    var needUpdate = false;
+    var display = false;
+    var article = null;
+    if (articlesCount === 0) {
+        needUpdate = true;
+    } else if (articlesCount === 1) {
+        var first = new ArticleData(data[0]);
+        if (ad.getDataId() !== first.id) {            
+            display = true;
+            article = first;
+            needUpdate = true;
+        }
+    } else {
+        var first = new ArticleData(data[0]);
+        var second = new ArticleData(data[1]);
+        if (ad.getDataId() !== first.id) {
+            display = true;
+            article = first;
+            needUpdate = true;
+        } else {
+            display = true;
+            article = second;
+        }
+        
+    }
+
+    if (needUpdate === true) {
+        var requestData = new RequestData();
+        requestData.addData(ad.getDataIdField(), ad.getDataId());
+        requestData.addData(ad.getTokenField(), ad.getToken());
+
+        makeRequest(pathUpdate, requestData, (err, data) => {
+            if (err !== null) {       
+                console.err({ 'article-continue-reading': err});
+            } else {
+                a.render(article);
+                a.show();                
+            }
+        });
+        return;
+    } 
+    if (display === true && needUpdate === false) {
+        a.render(article);
+        a.show();
+    }
+};
 
 document.addEventListener('DOMContentLoaded', ()=>{
     try {
-        var data = Data.fromClass('api-continue-reading-data');
         var requestData = new RequestData();
-        requestData.addData(data.getDataIdField(), data.getDataId());
-        requestData.addData(data.getTokenField(), data.getToken());
+        requestData.addData(ad.getTokenField(), ad.getToken());
 
         makeRequest(path, requestData, (err, data) => {
             if (err !== null) {       
                 console.log({ 'article-continue-reading': err});
             } else {
-                a.render(data);
-                a.show();
+                try {
+                    processData(data);
+                } catch (e) {
+                    console.log({'article-continue-reading': e});
+                }
             }
         });
     } catch (e) {

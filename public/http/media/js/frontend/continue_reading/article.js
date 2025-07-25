@@ -2,7 +2,7 @@
 
 import { default as Component } from '/media/js/modules/components/component.js';
 
-class ArticleData {
+export class ArticleData {
     constructor(data){
         if (typeof data !== 'object') {
             throw new Error('Param continue reading data is invalid');
@@ -24,10 +24,11 @@ class ArticleData {
     }
 }
 
-class Article extends Component {
-    render(data) {
-
-        var article = new ArticleData(data);
+export class Article extends Component {
+    render(article) {
+        if (! article instanceof ArticleData) {
+            throw new Error('Param render article data is invalid');
+        }
         var articleFullurl = encodeURI(this.getUrl(article.id));
         var comments = this.getComments() + '(' + Math.floor(Math.random() * 10) + ')';
     
@@ -110,4 +111,4 @@ class Article extends Component {
     }
 };
 
-export default Article;
+// export default Article;
