@@ -6,6 +6,7 @@
   - free consultation
 
 - user home page
+  - continue reading
   - special offers
   - subscribe news
 - frontend message
