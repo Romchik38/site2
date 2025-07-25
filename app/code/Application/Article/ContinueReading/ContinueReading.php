@@ -32,14 +32,14 @@ final class ContinueReading
      */
     public function list(string $language): array
     {
-        $item = $this->itemRepository->get();
-        if ($item === null) {
-            return [];
-        }
-
-        $articleIds = [];
-
         try {
+            $item = $this->itemRepository->get();
+            if ($item === null) {
+                return [];
+            }
+
+            $articleIds = [];
+
             $articleIds[] = new ArticleId($item->first);
             if ($item->second !== null) {
                 $articleIds[] = new ArticleId($item->second);
@@ -64,6 +64,8 @@ final class ContinueReading
         } catch (InvalidArgumentException $e) {
             throw new CouldNotListException($e->getMessage());
         } catch (RepositoryException $e) {
+            throw new CouldNotListException($e->getMessage());
+        } catch (ItemRepositoryException $e) {
             throw new CouldNotListException($e->getMessage());
         }
     }

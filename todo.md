@@ -2,13 +2,6 @@
 
 ## Current
 
-- continue reading
-  - create storage
-  - move logic to application
-  - create methods
-    - `getLast`
-    - `update`
-
 - special offers pages
   - free consultation
 

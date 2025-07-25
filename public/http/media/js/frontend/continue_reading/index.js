@@ -51,7 +51,7 @@ var processData = function(data) {
 
         makeRequest(pathUpdate, requestData, (err, data) => {
             if (err !== null) {       
-                console.err({ 'article-continue-reading': err});
+                console.log({ 'article-continue-reading': err});
             } else {
                 a.render(article);
                 a.show();                

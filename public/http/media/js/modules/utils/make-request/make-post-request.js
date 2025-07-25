@@ -45,7 +45,7 @@ export default function(path, requestData, callback) {
                             callback(new Error('Response result not found'), null);
                         }
                     } else {
-                        console.error(data);
+                        console.log(data);
                         callback(new Error('Response status not success'), null);
                     }
                 } else {
