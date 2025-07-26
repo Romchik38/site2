@@ -2,9 +2,6 @@
 
 ## Current
 
-- frontend message
-  - highlight
-  - hide after 5 sec
 - more page content
 - test page admin list pagination when more pages will be ready
 - footer menu
