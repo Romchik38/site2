@@ -3,6 +3,9 @@
 ## Current
 
 - search in nav bar
+  - application
+  - repository
+  - action
 
 - more page content
 - footer menu
