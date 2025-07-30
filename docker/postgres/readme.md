@@ -22,3 +22,31 @@
 ## Dump
 
 Use `pg_dump -U postgres site2 > /home/postgres/site2.sql` to create a copy of the database
+
+## Dict
+
+How to create dictionaries from *dict/*.
+Dictionaries were generated on July 2025. If you need the latest version, go to links below and follow steps.
+
+- [dict_uk](https://github.com/brown-uk/dict_uk)
+- [howto](https://github.com/brown-uk/dict_uk/tree/master/distr/postgresql)
+
+1. Clone the repository
+
+2. Run ./gradlew expand
+
+3. Navigate to cd distr/hunspell/ and run ../../gradlew hunspell
+
+4. Copy the files and follow everything from the howto (see #3):
+
+    ```bash
+    sudo cp build/hunspell/uk_UA.aff /usr/share/pgsql/tsearch_data/uk_ua.affix  
+    sudo cp build/hunspell/uk_UA.dic /usr/share/pgsql/tsearch_data/uk_ua.dict  
+    sudo cp ../postgresql/ukrainian.stop /usr/share/pgsql/tsearch_data/ukrainian.stop  
+    ```
+
+5. Verify:
+
+    ls /usr/share/pgsql/tsearch_data | grep uk  
+
+6. Connect to the specific database and run everything needed to create the configuration
