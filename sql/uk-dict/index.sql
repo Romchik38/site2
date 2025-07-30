@@ -1,0 +1,1 @@
+CREATE INDEX idx_article_tsv ON article_translates USING GIN(tsv);
