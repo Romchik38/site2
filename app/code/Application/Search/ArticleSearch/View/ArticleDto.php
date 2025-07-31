@@ -14,6 +14,6 @@ final class ArticleDto
         public readonly Name $name,
         public readonly AuthorDto $author,
         public readonly ImageDto $image
-    ) {   
+    ) {
     }
 }

@@ -10,11 +10,11 @@ final class AuthorDto
 {
     public function __construct(
         public readonly Name $name
-    ) {  
+    ) {
     }
 
     public function getName(): string
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 }

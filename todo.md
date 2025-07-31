@@ -4,6 +4,8 @@
 
 - search in nav bar
   - application
+    - query
+    - test query
   - repository
   - action
 
