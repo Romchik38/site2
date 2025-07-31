@@ -6,7 +6,7 @@
 ## Query
 
 1. Accepted string
-    Class `Romchik38\Site2\Application\Search\ArticleSearch\VO` uses pattern:
+    Class `Romchik38\Site2\Application\Search\Article\VO` uses pattern:
     `/^(?=[\p{L}\p{N}\' ]{1,255}$)(?=.*\p{L})(?!.*\'{2,})[\p{L}\p{N}\' ]+$/u`
 
     Description:

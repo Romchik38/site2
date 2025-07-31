@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Application\Search\ArticleSearch;
+namespace Romchik38\Site2\Application\Search\Article;
 
-use Romchik38\Site2\Application\Search\ArticleSearch\Commands\List\SearchCriteria;
-use Romchik38\Site2\Application\Search\ArticleSearch\View\ArticleDto;
+use Romchik38\Site2\Application\Search\Article\Commands\List\SearchCriteria;
+use Romchik38\Site2\Application\Search\Article\View\ArticleDto;
 
 interface RepositoryInterface
 {
