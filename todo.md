@@ -6,6 +6,7 @@
   - repository
   - action
   - test results with different `'ʼ because postgres uk and en dicts can ignore them  
+  - update readme
 
 - more page content
 - footer menu

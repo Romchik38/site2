@@ -27,8 +27,10 @@
 2. String modification:
     - removed white space chars from beginnig and end
     - replace multi white space chars with single ` ` (space)
+    - drops duplicates in word check
 
 3. Word check:
     - word length must be lower than 40
     - word starts with `'ʼ
+    - max words count 7
   

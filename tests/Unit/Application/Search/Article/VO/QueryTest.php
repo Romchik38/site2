@@ -76,6 +76,14 @@ final class QueryTest extends TestCase
         $this->assertSame('суддя верховний суд', $vo());
     }
 
+    public function testRemoveDuplicates(): void
+    {
+        $q  = 'суд суд';
+        $vo = new Query($q);
+
+        $this->assertSame('суд', $vo());
+    }
+
     public function testThrowsErrorTooLong(): void
     {
         $q = <<<Q
@@ -160,6 +168,19 @@ final class QueryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(Query::ERROR_WORD_STARTS_MESSAGE);
+
+        new Query($q);
+    }
+
+    public function testThrowsErrorTooManyWords(): void
+    {
+        $q = 'перше друге третє четверте п\'яте шосте сьоме восьме';
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
+            Query::ERROR_WORDS_COUNT_MESSAGE,
+            Query::MAX_WORDS_COUNT
+        ));
 
         new Query($q);
     }
