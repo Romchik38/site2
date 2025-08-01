@@ -3,10 +3,9 @@
 ## Current
 
 - search in nav bar
-  - application
-    - test query
   - repository
   - action
+  - test results with different `'ʼ because postgres uk and en dicts can ignore them  
 
 - more page content
 - footer menu
