@@ -587,6 +587,17 @@ return function (Container $container) {
         ]
     );
 
+    // Search
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout'),
+            new Promise('\Romchik38\Site2\Application\Search\Article\ArticleSearchService'),
+        ]
+    );
+
     // [POST]
     // API
     // USERINFO

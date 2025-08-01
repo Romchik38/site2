@@ -20,4 +20,19 @@ final class ArticleDto
         public readonly ImageDto $image,
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->name;
+    }
+
+    public function getShortDescription(): string
+    {
+        return (string) $this->shortDescription;
+    }
 }

@@ -8,6 +8,7 @@
                             about etc
 - root article              articles list
                             article view page
+- root search               article search
 - root sitemap              sitemap
 - root server-error-example
 

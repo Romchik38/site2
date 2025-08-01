@@ -268,6 +268,12 @@ return function (Container $container): ControllerInterface {
     );
     $login->setChild($loginAdmin);
     
+    $search = new Controller(
+        'search',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction')
+    );
+
     /** ROOT */
     $root = new Controller(
         ControllerInterface::ROOT_NAME,
@@ -285,6 +291,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($login)
         ->setChild($register)
         ->setChild($sitemap)
+        ->setChild($search)
         ->setChild($serverErrorExample);
     return $root;
 };

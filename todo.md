@@ -3,9 +3,9 @@
 ## Current
 
 - search in nav bar
-  - repository
   - action
   - test results with different `'ʼ because postgres uk and en dicts can ignore them  
+  - pagination
   - update readme
 
 - more page content
