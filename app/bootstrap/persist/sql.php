@@ -398,6 +398,16 @@ return function (Container $container) {
         ]
     );
 
+    // SEARCH ARTICLE
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Search\Article\Repository',
+        '\Romchik38\Site2\Application\Search\Article\RepositoryInterface',
+        true,
+        [
+            new Promise('\Romchik38\Server\Persist\Sql\DatabaseSqlInterface')
+        ]        
+    );
+
     // TRANSLATE STORAGE 
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\TranslateStorage\TranslateStorage',

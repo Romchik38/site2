@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Search\Article\View;
 
-use Romchik38\Site2\Domain\Author\VO\Name;
+use Romchik38\Site2\Domain\Author\VO\Description;
 
 final class AuthorDto
 {
     public function __construct(
-        public readonly Name $name
+        public readonly Description $description
     ) {
     }
 
-    public function getName(): string
+    public function getDescription(): string
     {
-        return (string) $this->name;
+        return (string) $this->description;
     }
 }

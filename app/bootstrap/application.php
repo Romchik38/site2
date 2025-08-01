@@ -341,6 +341,14 @@ return function (Container $container) {
         ]
     );
 
+    // SEARCH ARTICLE
+    $container->shared(
+        '\Romchik38\Site2\Application\Search\Article\ArticleSearchService',
+        [
+            new Promise('\Romchik38\Site2\Application\Search\Article\RepositoryInterface')
+        ]
+    );
+
     // TRANSLATE LIST VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Translate\List\ListService',

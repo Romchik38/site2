@@ -30,4 +30,17 @@ WHERE language='uk' AND
         to_tsvector('ukrainian', name) @@ to_tsquery('ukrainian', 'court')
     )
 ORDER BY rank DESC;
+
+-- TCV COLUMN
+SELECT article_id, 
+    ts_rank(
+        tsv,
+        to_tsquery('ukrainian', 'суд')
+    ) as rank
+FROM article_translates
+WHERE language='uk' AND 
+    (
+        tsv @@ to_tsquery('ukrainian', 'суд')
+    )
+ORDER BY rank DESC;
     
