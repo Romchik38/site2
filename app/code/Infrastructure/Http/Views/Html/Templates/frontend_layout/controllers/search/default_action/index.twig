@@ -11,10 +11,10 @@
     <p class="lead my-5 p-3 bg-light border-start border-5">{{ data.description }}<p>
     
     <!-- Search bar -->
-    {% include template_full_prefix ~ '/blocks/search_bar.twig' with {'translate': t, 'u': u, 'data': data} only %}
+    {% include template_full_prefix ~ '/blocks/search_bar.twig' with {'t': t, 'u': u, 'data': data} only %}
 
     <!-- Search results -->
-    {% include template_full_prefix ~ '/blocks/search_results.twig' with {'translate': t, 'u': u, 'data': data} only %}
+    {% include template_full_prefix ~ '/blocks/search_results.twig' with {'t': t, 'u': u, 'data': data} only %}
 
 </div>
 

@@ -1,8 +1,18 @@
 <div class="row">
-    <form class="api-search-form d-flex" method="get" action="{{ searchUrl }}">
-        <!-- @todo replace maxlength with var -->
-        <input class="api-search-query form-control me-2" type="text" name="query" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="255">
-        <button class="api-search-btn btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
+    <div class="col-md-9">
+        <form class="api-search-form d-flex" method="get" action="{{ searchUrl }}">
+            <!-- @todo replace maxlength with var -->
+            {% set inputText = t.t('Search') %}
+            {% if data.query is not null %}
+                {% set inputText = data.query %}
+            {% endif %}        
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input class="api-search-query form-control" type="text" name="query" placeholder="{{ inputText }}" aria-label="Search" maxlength="255">
+
+                <button class="api-search-btn btn btn-secondary" type="submit">{{ t.t('Search') }}</button>
+            </div>
+        </form>
+    </div>
     <script type="module" src="/media/js/frontend/search/index.js"></script>
 </div>

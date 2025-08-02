@@ -1,3 +1,40 @@
-<div class="row">
-    Search results
+<div class="row my-3">
+    <h2>{{ t.t('search.search-results') }}</h2>
+    {% if data.articleList|length == 0 %}
+        <strong>{{ t.t('search.search-results.no-articles') }}</strong>
+    {% else %}
+        <div class="row my-4">
+            <div class="col-sm-9">
+                <h3>
+                    <a class="link-none" href="/uk/article/the-constitution-of-ukraine-and-the-sphere-of-military-law" target="_self">
+                        Конституція України і сфера військового права
+                    </a>
+                </h3>
+                <p>
+                    <a class="link-none" href="/uk/article/the-constitution-of-ukraine-and-the-sphere-of-military-law" target="_self">
+                        Оглядова стаття про правові норми, які регулюють обов'язки держави та громадянина у війсковій сфері.
+                    </a>
+                </p>
+                <ul class="text-muted list-inline">
+                    <li class="list-inline-item"><a class="link-none" href="/uk/category/military-law"><span class="text-decoration-underline">Військове право</span></a></li>
+                    <li class="list-inline-item"><a class="link-none" href="/uk/category/military-law-legal-framework"><span class="text-decoration-underline">Нормативна база військового права</span></a></li>
+                </ul>
+
+                <footer class="row text-secondary">
+                    <div class="col-6 font-monospace comments">декілька хвилин читати</div>
+                    <div class="col-6 font-monospace comments">2-7-25</div>
+                </footer>
+            </div>
+            <div class="col-sm-3">
+                <a class="link-none" href="/uk/article/the-constitution-of-ukraine-and-the-sphere-of-military-law" target="_self">
+                    <picture>
+                        <source media="(max-width: 636px)" srcset="/img.php?id=112&amp;type=webp&amp;width=576&amp;height=384">
+                        <source media="(max-width: 992px)" srcset="/img.php?id=112&amp;type=webp&amp;width=720&amp;height=480">
+                        <source media="(min-width: 992px)" srcset="/img.php?id=112&amp;type=webp&amp;width=1080&amp;height=720">
+                        <img class="img-fluid" src="/media/img/articles/gq91ghsZvDDF7hGyy3mh.webp" alt="Лікар і військовий поруч з Конституцією">
+                    </picture>
+                </a>
+            </div>
+        </div>
+    {% endif %}
 </div>
