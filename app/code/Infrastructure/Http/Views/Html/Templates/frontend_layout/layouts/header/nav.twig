@@ -101,12 +101,12 @@
                     </ul>
                 </li>
             </ul>
-            <form class="api-search-form d-flex" method="get" action="{{ searchUrl }}">
+            <form class="api-header-search-form d-flex" method="get" action="{{ searchUrl }}">
                 <!-- @todo replace maxlength with var -->
-                <input class="api-search-query form-control me-2" type="text" name="query" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="255">
-                <button class="api-search-btn btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input class="api-header-search-query form-control me-2" type="text" name="query" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="255">
+                <button class="api-header-search-btn btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-            <script type="module" src="/media/js/frontend/search/index.js"></script>
+            <script type="module" src="/media/js/frontend/header/search/index.js"></script>
         </div>
     </div>
 </nav>

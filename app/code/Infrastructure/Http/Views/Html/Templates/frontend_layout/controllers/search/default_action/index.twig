@@ -9,6 +9,13 @@
 <div id="content" class="container-sm my-4">
     <h1 class="text-center">{{ data.name }}</h1>
     <p class="lead my-5 p-3 bg-light border-start border-5">{{ data.description }}<p>
+    
+    <!-- Search bar -->
+    {% include template_full_prefix ~ '/blocks/search_bar.twig' with {'translate': t, 'u': u, 'data': data} only %}
+
+    <!-- Search results -->
+    {% include template_full_prefix ~ '/blocks/search_results.twig' with {'translate': t, 'u': u, 'data': data} only %}
+
 </div>
 
 {% endblock %}
