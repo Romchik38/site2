@@ -20,6 +20,7 @@ use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Author\VO\Description as AuthorDescription;
 use Romchik38\Site2\Domain\Image\VO\Description as ImageDescription;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Image\VO\Path;
 
 use function explode;
 use function implode;
@@ -108,6 +109,10 @@ final class Repository implements RepositoryInterface
         if ($rawImgDescription === null) {
             throw new RepositoryException('Article img description at is invalid');
         }
+        $rawImgPath = $row['path'] ?? null;
+        if ($rawImgPath === null) {
+            throw new RepositoryException('Article img path at is invalid');
+        }
 
         // Author
         $rawAuthorDescription = $row['author_description'] ?? null;
@@ -121,6 +126,7 @@ final class Repository implements RepositoryInterface
             $shortDescription  = new ShortDescription($rawShortDescription);
             $imageId           = ImageId::fromString($rawImgId);
             $imageDescription  = new ImageDescription($rawImgDescription);
+            $imagePath         = new Path($rawImgPath);
             $authorDescription = new AuthorDescription($rawAuthorDescription);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
@@ -132,7 +138,7 @@ final class Repository implements RepositoryInterface
             $articleName,
             $shortDescription,
             new AuthorDto($authorDescription),
-            new ImageDto($imageId, $imageDescription),
+            new ImageDto($imageId, $imageDescription, $imagePath),
         );
     }
 
@@ -154,6 +160,7 @@ final class Repository implements RepositoryInterface
             article_translates.short_description,
             author_translates.description as author_description,
             img_translates.description as img_description,
+            img.path,
             ts_rank(
                 tsv,
                 to_tsquery($1, $2)
