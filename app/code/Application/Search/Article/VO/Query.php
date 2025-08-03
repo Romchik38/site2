@@ -21,6 +21,8 @@ use function trim;
 /** see docs/search/readme.md  */
 final class Query extends NonEmpty
 {
+    public const NAME = 'search query';
+
     public const PATTERN =
         '^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*ʼ{2,})(?!.*`.*`)[\p{L}\p{N}\'’` ]+$';
 
