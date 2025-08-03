@@ -2,13 +2,14 @@
     <div class="col-md-9">
         <form class="api-search-form d-flex" method="get" action="{{ searchUrl }}">
             <!-- @todo replace maxlength with var -->
-            {% set inputText = t.t('Search') %}
+            {% set inputPlaceHolder = t.t('Search') %}
+            {% set inputText = '' %}
             {% if data.query is not null %}
                 {% set inputText = data.query %}
             {% endif %}        
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input class="api-search-query form-control" type="text" name="query" placeholder="{{ inputText }}" aria-label="Search" maxlength="255">
+                <input class="api-search-query form-control" type="text" name="query" placeholder="{{ inputPlaceHolder }}" value="{{ inputText }}" aria-label="Search" maxlength="255">
 
                 <button class="api-search-btn btn btn-secondary" type="submit">{{ t.t('Search') }}</button>
             </div>
