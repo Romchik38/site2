@@ -22,7 +22,7 @@ use function trim;
 final class Query extends NonEmpty
 {
     public const PATTERN =
-        '^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*\p{L})(?!.*\'{2,})(?!.*ʼ{2,})(?!.*`.*`)[\p{L}\p{N}\'’` ]+$';
+        '^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*ʼ{2,})(?!.*`.*`)[\p{L}\p{N}\'’` ]+$';
 
     public const ERROR_MESSAGE             = 'Query sting does not match given pattern';
     public const ERROR_WORD_LENGTH_MESSAGE = 'Query word length exceeds the allowed value %d';

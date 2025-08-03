@@ -9,14 +9,14 @@
     Class `Romchik38\Site2\Application\Search\Article\VO` uses pattern:
 
     ```php
-    '/^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*\p{L})(?!.*\'{2,})(?!.*’.*’)(?!.*`.*`)[\p{L}\p{N}\'’` ]+$/u'
+    '/^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*’.*’)(?!.*`.*`)[\p{L}\p{N}\'’` ]+$/u'
     ```
 
     ```Description:
 
     (?=[\p{L}\p{N}\'’` ]{1,255}$)           allows only letters, digits, straight/typographic/backtick apostrophes, and spaces; total length: 1–255
 
-    (?=.*\p{L})                             requires at least one letter
+    (?=.*[\p{L}\p{N}])                      requires at least one letter or number
     (?!.*\'{2,})                            disallows two or more consecutive '
     (?!.*ʼ{2,})                             disallows more than one typographic apostrophe ’
     (?!.*`.*`)                              disallows more than one backtick `
