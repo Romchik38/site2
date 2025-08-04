@@ -33,4 +33,8 @@
     - word length must be lower than 40
     - word starts with `'ʼ
     - max words count 7
-  
+
+## Postgres
+
+' and ` is the same
+' and ʼ is diff
