@@ -31,6 +31,7 @@ Additional:
 - Banner with priority on main and category pages
 - Javascript components
 - Full workflow control inside domain model
+- [Full text search based on Postgresql](./doc/search/readme.md)
 
 ## Dependencies
 

@@ -2,10 +2,6 @@
 
 ## Current
 
-- search in nav bar
-  - add ad block to template
-  - update readme
-
 - more page content
 - footer menu
 

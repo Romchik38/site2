@@ -1,12 +1,23 @@
 # Search
 
-- postgresql full text search
+- classes
 - query
+- postgresql
+- features
+
+## Classes
+
+Search query reaches the action `search` with GET method.
+
+- accepts query - `Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction`
+- prepares query and forms result - `Romchik38\Site2\Application\Search\Article\ArticleSearchService`
+- database repository - `Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Search\Article\Repository`
+- query value object - `Romchik38\Site2\Application\Search\Article\VO\Query`
 
 ## Query
 
 1. Accepted string
-    Class `Romchik38\Site2\Application\Search\Article\VO` uses pattern:
+    Class `Romchik38\Site2\Application\Search\Article\VO\Query` uses pattern:
 
     ```php
     '/^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*’.*’)(?!.*`.*`)[\p{L}\p{N}\'’` ]+$/u'
@@ -34,7 +45,12 @@
     - word starts with `'ʼ
     - max words count 7
 
-## Postgres
+## Postgresql
 
 ' and ` is the same
 ' and ʼ is diff
+
+## Features
+
+- Search based on article's `name` and `description` columns.
+- Operand `&` used with multiple wods.

@@ -1,10 +1,20 @@
 {% set articleUrlPart = u.fromArray(['root', 'article']) %}
+{% set twentyFourUrl = u.fromArray(['root', '24-7-support']) %}
 <div class="row my-3">
+    <!-- Results -->
     <div class="col-md-9">
-        <h2>{{ t.t('search.search-results') }}</h2>
         {% if data.articleList|length == 0 %}
-            <strong>{{ t.t('search.search-results.no-articles') }}</strong>
+            {% if data.query is not null %}
+                {% set inputText = data.query %}
+                <h2>{{ t.t('search.search-results') }}</h2>
+                <p><strong>{{ t.t('search.search-results.no-articles') }}</strong></p>
+                <p>{{ t.t('search.search-results.modify') }}</p>
+            {% else %}
+                <p>{{ t.t('search.search-results.tip') }}</p>
+                <p>{{ t.t('search.search-results.total-articles') }}</p>
+            {% endif %}        
         {% else %}
+            <h2>{{ t.t('search.search-results') }}</h2>
             {% for article in data.articleList %}
             {% set image = article.image %}
             {% set author = article.author %}
@@ -43,5 +53,32 @@
             {% endfor %}
             {{ data.paginationHtml|raw }}
         {% endif %}
-    </div>    
+    </div>
+    <!-- Ads -->
+    <div class="col-md-3">
+        <p class="text-center text-secondary" style="font-weight:300"><small>{{ t.t('Advertisement') }}</small><p>
+        <div class="card mx-3" style="width: 18rem;">
+            <picture>
+                <source media="(max-width: 576px)" srcset="/img.php?id=128&type=webp&width=576&height=576">
+                <source media="(max-width: 768px)" srcset="/img.php?id=128&type=webp&width=768&height=768">
+                <source media="(min-width: 768px)" srcset="/img.php?id=128&type=webp&width=1080&height=1080">
+                <img 
+                    class="img-fluid rounded-start"
+                    src="/media/img/common/66VkfbtQ0pMUxMnktfi1.webp"
+                >
+            </picture>
+            <div class="card-body">
+              <h5 class="card-title">{{ t.t('offers.24-7') }}</h5>
+              <p class="card-text">{{ t.t('offers.24-7.text') }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ t.t('offers.condition.terms-1-12-month') }}</li>
+                <li class="list-group-item">{{ t.t('offers.condition.more-lawyers') }}</li>
+                <li class="list-group-item">{{ t.t('offers.condition.one-year-contract') }}</li>
+            </ul>
+            <div class="card-body">
+              <a href="{{ twentyFourUrl }}" class="card-link">{{ t.t('More details') }}</a>
+            </div>
+        </div>  
+    </div>
 </div>
