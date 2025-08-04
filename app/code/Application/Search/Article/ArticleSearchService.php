@@ -7,13 +7,12 @@ namespace Romchik38\Site2\Application\Search\Article;
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Search\Article\Commands\List\CouldNotListException;
 use Romchik38\Site2\Application\Search\Article\Commands\List\ListCommand;
+use Romchik38\Site2\Application\Search\Article\Commands\List\ListResult;
 use Romchik38\Site2\Application\Search\Article\Commands\List\SearchCriteria;
-use Romchik38\Site2\Application\Search\Article\Commands\List\SearchResult;
 use Romchik38\Site2\Application\Search\Article\VO\Limit;
 use Romchik38\Site2\Application\Search\Article\VO\Offset;
 use Romchik38\Site2\Application\Search\Article\VO\Page;
 use Romchik38\Site2\Application\Search\Article\VO\Query;
-use Romchik38\Site2\Application\Search\Article\Commands\List\ListResult;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use RuntimeException;
 
@@ -42,8 +41,8 @@ final class ArticleSearchService
                 $limit,
                 $offset
             );
-            $searchResult = $this->repository->list($searchCriteria);
-            return new ListResult($searchResult, $page);
+            $searchResult   = $this->repository->list($searchCriteria);
+            return new ListResult($searchResult, $page, $query, $limit);
         } catch (RepositoryException $e) {
             throw new CouldNotListException($e->getMessage());
         } catch (RuntimeException $e) {

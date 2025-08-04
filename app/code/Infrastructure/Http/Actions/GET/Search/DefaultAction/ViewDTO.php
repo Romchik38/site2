@@ -23,6 +23,7 @@ final class ViewDTO extends DefaultViewDTO
         public readonly ?string $query,
         public readonly string $imageFrontendPrefix,
         private readonly TranslateInterface $translate,
+        public readonly string $paginationHtml
     ) {
         parent::__construct($name, $description);
     }

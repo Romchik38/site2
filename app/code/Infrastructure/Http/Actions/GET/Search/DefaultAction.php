@@ -10,13 +10,19 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
+use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Search\Article\ArticleSearchService;
 use Romchik38\Site2\Application\Search\Article\Commands\List\ListCommand;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction\ViewDTO;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePaginationNextPrev;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 
+use function count;
 use function is_string;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -29,17 +35,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ArticleSearchService $articleSearchService,
-        private readonly string $imageFrontendPrefix
+        private readonly string $imageFrontendPrefix,
+        private readonly UrlbuilderInterface $urlbuilder
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $request->getQueryParams();
-        $query       = null;
-        $rawQuery    = $requestData[ListCommand::QUERY_FILED] ?? null;
-        $articleList = [];
+        $requestData    = $request->getQueryParams();
+        $query          = null;
+        $rawQuery       = $requestData[ListCommand::QUERY_FILED] ?? null;
+        $articleList    = [];
+        $paginationHtml = '';
         if (is_string($rawQuery)) {
             $query = $rawQuery;
             $page  = $requestData[ListCommand::PAGE_FILED] ?? '';
@@ -48,10 +56,26 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             }
             $command = new ListCommand($query, $this->getLanguage(), $page);
             try {
-                $listResult = $this->articleSearchService->list($command);
-                $searchResult = $listResult->searchResult;
-                $page = $listResult->searchResult;
-                $articleList  = $searchResult->articles;
+                $listResult     = $this->articleSearchService->list($command);
+                $searchResult   = $listResult->searchResult;
+                $page           = $listResult->page;
+                $totalCount     = $searchResult->totalCount;
+                $articleList    = $searchResult->articles;
+                $urlGenerator   = new UrlGeneratorUseUrlBuilder(
+                    new Path(['root', 'search']),
+                    $this->urlbuilder
+                );
+                $searchQuery    = new Query(ListCommand::QUERY_FILED, (string) $listResult->query);
+                $pagination     = new CreatePaginationNextPrev(
+                    $urlGenerator,
+                    count($articleList),
+                    $page(),
+                    ListCommand::PAGE_FILED,
+                    $totalCount(),
+                    ($listResult->limit)(),
+                    [$searchQuery]
+                );
+                $paginationHtml = $pagination->create();
             } catch (InvalidArgumentException) {
                 // do nothing
             }
@@ -63,7 +87,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $articleList,
             $query,
             $this->imageFrontendPrefix,
-            $this->translateService
+            $this->translateService,
+            $paginationHtml
         );
 
         $result = $this->view
