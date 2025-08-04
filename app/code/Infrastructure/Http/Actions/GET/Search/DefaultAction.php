@@ -29,6 +29,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 {
     private const PAGE_NAME        = 'search.page_name';
     private const PAGE_DESCRIPTION = 'search.page_description';
+    private const NEXT_LABEL = 'button.next';
+    private const PREV_LABEL = 'button.prev';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -65,7 +67,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     new Path(['root', 'search']),
                     $this->urlbuilder
                 );
-                $searchQuery    = new Query(ListCommand::QUERY_FILED, (string) $listResult->query);
+                $searchQuery    = new Query(ListCommand::QUERY_FILED, urlencode((string) $listResult->query));
                 $pagination     = new CreatePaginationNextPrev(
                     $urlGenerator,
                     count($articleList),
@@ -73,7 +75,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     ListCommand::PAGE_FILED,
                     $totalCount(),
                     ($listResult->limit)(),
-                    [$searchQuery]
+                    [$searchQuery],
+                    $this->translateService->t($this::NEXT_LABEL),
+                    $this->translateService->t($this::PREV_LABEL)
                 );
                 $paginationHtml = $pagination->create();
             } catch (InvalidArgumentException) {

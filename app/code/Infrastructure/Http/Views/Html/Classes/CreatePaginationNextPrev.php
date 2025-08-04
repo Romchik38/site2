@@ -32,6 +32,8 @@ final class CreatePaginationNextPrev implements CreatePaginationInterface
         private readonly int $totalCount,
         private readonly int $limit,
         array $queries = [],
+        private readonly string $labelNext = 'Next',
+        private readonly string $labelPrev = 'Prev',
     ) {
         if ($displayed < 0) {
             throw new InvalidArgumentException(sprintf('Pagination param displayed %s is invalid', $displayed));
@@ -68,10 +70,10 @@ final class CreatePaginationNextPrev implements CreatePaginationInterface
         $prev      = '';
 
         if ($visited < $this->totalCount) {
-            $next = $this->link($this->page + 1, 'Next >');
+            $next = $this->link($this->page + 1, sprintf('%s >', $this->labelNext));
         }
         if ($this->page > 1) {
-            $prev = $this->link($this->page - 1, '< Prev');
+            $prev = $this->link($this->page - 1, sprintf('< %s', $this->labelPrev));
         }
 
         return sprintf($container, $prev, $next);

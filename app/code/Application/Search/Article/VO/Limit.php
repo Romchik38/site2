@@ -13,8 +13,8 @@ use function sprintf;
 final class Limit extends Number
 {
     public const NAME           = 'search limit';
-    public const DEFAULT_LIMIT  = 15;
-    public const ALLOWED_LIMITS = [15];
+    public const DEFAULT_LIMIT  = 5;
+    public const ALLOWED_LIMITS = [5];
 
     public function __construct(
         int $value
