@@ -13,6 +13,7 @@ final class TotalCount extends Number
 {
     public const NAME = 'search total count';
 
+    /** @throws InvalidArgumentException */
     public function __construct(
         int $value
     ) {

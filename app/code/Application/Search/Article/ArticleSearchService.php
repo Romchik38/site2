@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\Search\Article\Commands\List\CouldNotListException;
 use Romchik38\Site2\Application\Search\Article\Commands\List\ListCommand;
 use Romchik38\Site2\Application\Search\Article\Commands\List\SearchCriteria;
-use Romchik38\Site2\Application\Search\Article\View\ArticleDto;
+use Romchik38\Site2\Application\Search\Article\Commands\List\SearchResult;
 use Romchik38\Site2\Application\Search\Article\VO\Query;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use RuntimeException;
@@ -23,9 +23,8 @@ final class ArticleSearchService
     /**
      * @throws CouldNotListException
      * @throws InvalidArgumentException
-     * @return array<int,ArticleDto>
      */
-    public function list(ListCommand $command): array
+    public function list(ListCommand $command): SearchResult
     {
         try {
             $languageId     = new LanguageId($command->language);

@@ -9,11 +9,13 @@ use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Search\Article\Commands\List\SearchCriteria;
+use Romchik38\Site2\Application\Search\Article\Commands\List\SearchResult;
 use Romchik38\Site2\Application\Search\Article\RepositoryException;
 use Romchik38\Site2\Application\Search\Article\RepositoryInterface;
 use Romchik38\Site2\Application\Search\Article\View\ArticleDto;
 use Romchik38\Site2\Application\Search\Article\View\AuthorDto;
 use Romchik38\Site2\Application\Search\Article\View\ImageDto;
+use Romchik38\Site2\Application\Search\Article\VO\TotalCount;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
@@ -22,6 +24,7 @@ use Romchik38\Site2\Domain\Image\VO\Description as ImageDescription;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
+use function count;
 use function explode;
 use function implode;
 use function sprintf;
@@ -38,7 +41,7 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
-    public function list(SearchCriteria $searchCriteria): array
+    public function list(SearchCriteria $searchCriteria): SearchResult
     {
         // 1 - tsv configuration
         // 2 - tsv query
@@ -60,7 +63,7 @@ final class Repository implements RepositoryInterface
 
         $params[] = $language;
 
-        $databaseQuery = $this->listQuery();
+        $databaseQuery = $this->listWithRowsQuery();
 
         try {
             $rows = $this->database->queryParams($databaseQuery, $params);
@@ -73,7 +76,23 @@ final class Repository implements RepositoryInterface
         foreach ($rows as $row) {
             $models[] = $this->createFromRow($row);
         }
-        return $models;
+
+        if (count($rows) === 0) {
+            $rawTotalCount = '0';
+        } else {
+            $rawTotalCount = $row['total_count'] ?? null;
+            if ($rawTotalCount === null) {
+                throw new RepositoryException('Article total count is invalid');
+            }
+        }
+
+        try {
+            $totalCount = TotalCount::fromString($rawTotalCount);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        return new SearchResult($models, $totalCount);
     }
 
     /**
@@ -150,10 +169,54 @@ final class Repository implements RepositoryInterface
         );
     }
 
-    private function listQuery(): string
+    /** @todo remove */
+    // private function listQuery(): string
+    // {
+    //     return <<<'QUERY'
+    //     SELECT article.identifier,
+    //         article.created_at,
+    //         article.img_id,
+    //         article_translates.name as article_name,
+    //         article_translates.short_description,
+    //         author_translates.description as author_description,
+    //         img_translates.description as img_description,
+    //         img.path,
+    //         ts_rank(
+    //             tsv,
+    //             to_tsquery($1, $2)
+    //         ) as rank
+    //     FROM article_translates,
+    //         article,
+    //         author_translates,
+    //         author,
+    //         img,
+    //         img_translates
+    //     WHERE article_translates.language = $3 AND
+    //         (
+    //             tsv @@ to_tsquery($1, $2)
+    //         ) AND
+    //         article.active = 't' AND
+    //         article.identifier = article_translates.article_id AND
+    //         article.author_id = author.identifier AND
+    //         article.img_id = img.identifier AND
+
+    //         author.identifier = author_translates.author_id AND
+    //         author.active = 't' AND
+    //         author_translates.language = $3 AND
+
+    //         img.active = 't' AND
+    //         img.identifier = img_translates.img_id AND
+    //         img_translates.language = $3
+    //     ORDER BY rank DESC;
+    //     QUERY;
+    // }
+
+    /** makes pre-select of all matches and then returns total count and a limit bunch of articles */
+    private function listWithRowsQuery(): string
     {
         return <<<'QUERY'
-        SELECT article.identifier,
+        WITH rows AS (
+            SELECT article.identifier,
             article.created_at,
             article.img_id,
             article_translates.name as article_name,
@@ -165,29 +228,32 @@ final class Repository implements RepositoryInterface
                 tsv,
                 to_tsquery($1, $2)
             ) as rank
-        FROM article_translates,
-            article,
-            author_translates,
-            author,
-            img,
-            img_translates
-        WHERE article_translates.language = $3 AND 
-            (
-                tsv @@ to_tsquery($1, $2)
-            ) AND
-            article.active = 't' AND
-            article.identifier = article_translates.article_id AND
-            article.author_id = author.identifier AND
-            article.img_id = img.identifier AND
-
-            author.identifier = author_translates.author_id AND
-            author.active = 't' AND
-            author_translates.language = $3 AND
-
-            img.active = 't' AND
-            img.identifier = img_translates.img_id AND
-            img_translates.language = $3
-        ORDER BY rank DESC;
+            FROM article_translates,
+                article,
+                author_translates,
+                author,
+                img,
+                img_translates
+            WHERE article_translates.language = $3 AND 
+                (
+                    tsv @@ to_tsquery($1, $2)
+                ) AND
+                article.active = 't' AND
+                article.identifier = article_translates.article_id AND
+                article.author_id = author.identifier AND
+                article.img_id = img.identifier AND
+                author.identifier = author_translates.author_id AND
+                author.active = 't' AND
+                author_translates.language = $3 AND
+                img.active = 't' AND
+                img.identifier = img_translates.img_id AND
+                img_translates.language = $3
+            ORDER BY rank DESC
+        )
+        SELECT rows.*,
+            COUNT(*) OVER () AS total_count
+        FROM rows 
+        OFFSET 0 LIMIT 15; 
         QUERY;
     }
 }
