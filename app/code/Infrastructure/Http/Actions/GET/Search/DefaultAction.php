@@ -48,7 +48,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             }
             $command = new ListCommand($query, $this->getLanguage(), $page);
             try {
-                $searchResult = $this->articleSearchService->list($command);
+                $listResult = $this->articleSearchService->list($command);
+                $searchResult = $listResult->searchResult;
+                $page = $listResult->searchResult;
                 $articleList  = $searchResult->articles;
             } catch (InvalidArgumentException) {
                 // do nothing
