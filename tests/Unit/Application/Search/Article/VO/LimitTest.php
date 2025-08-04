@@ -11,7 +11,7 @@ final class LimitTest extends TestCase
 {
     public function testFromEmptyString(): void
     {
-        $vo = Limit::fromString('15');
+        $vo = Limit::fromString('');
 
         $this->assertSame(Limit::DEFAULT_LIMIT, $vo());
     }

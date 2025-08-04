@@ -9,6 +9,9 @@ use Romchik38\Site2\Application\Search\Article\Commands\List\CouldNotListExcepti
 use Romchik38\Site2\Application\Search\Article\Commands\List\ListCommand;
 use Romchik38\Site2\Application\Search\Article\Commands\List\SearchCriteria;
 use Romchik38\Site2\Application\Search\Article\Commands\List\SearchResult;
+use Romchik38\Site2\Application\Search\Article\VO\Limit;
+use Romchik38\Site2\Application\Search\Article\VO\Offset;
+use Romchik38\Site2\Application\Search\Article\VO\Page;
 use Romchik38\Site2\Application\Search\Article\VO\Query;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 use RuntimeException;
@@ -29,7 +32,15 @@ final class ArticleSearchService
         try {
             $languageId     = new LanguageId($command->language);
             $query          = new Query($command->query);
-            $searchCriteria = new SearchCriteria($languageId, $query);
+            $page           = Page::fromString($command->page);
+            $limit          = new Limit(Limit::DEFAULT_LIMIT);
+            $offset         = new Offset(($page() - 1) * $limit());
+            $searchCriteria = new SearchCriteria(
+                $languageId,
+                $query,
+                $limit,
+                $offset
+            );
             return $this->repository->list($searchCriteria);
         } catch (RepositoryException $e) {
             throw new CouldNotListException($e->getMessage());

@@ -7,10 +7,12 @@ namespace Romchik38\Site2\Application\Search\Article\Commands\List;
 final class ListCommand
 {
     public const QUERY_FILED = 'query';
+    public const PAGE_FILED  = 'page';
 
     public function __construct(
         public readonly string $query,
-        public readonly string $language
+        public readonly string $language,
+        public readonly string $page
     ) {
     }
 }

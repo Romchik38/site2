@@ -41,8 +41,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $rawQuery    = $requestData[ListCommand::QUERY_FILED] ?? null;
         $articleList = [];
         if (is_string($rawQuery)) {
-            $query   = $rawQuery;
-            $command = new ListCommand($query, $this->getLanguage());
+            $query = $rawQuery;
+            $page  = $requestData[ListCommand::PAGE_FILED] ?? '';
+            if (! is_string($page)) {
+                $page = '';
+            }
+            $command = new ListCommand($query, $this->getLanguage(), $page);
             try {
                 $searchResult = $this->articleSearchService->list($command);
                 $articleList  = $searchResult->articles;

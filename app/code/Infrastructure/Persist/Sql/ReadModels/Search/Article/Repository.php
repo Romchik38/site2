@@ -62,6 +62,8 @@ final class Repository implements RepositoryInterface
         $params[] = $tsvQuery;
 
         $params[] = $language;
+        $params[] = (string) $searchCriteria->offset;
+        $params[] = (string) $searchCriteria->limit;
 
         $databaseQuery = $this->listWithRowsQuery();
 
@@ -253,7 +255,7 @@ final class Repository implements RepositoryInterface
         SELECT rows.*,
             COUNT(*) OVER () AS total_count
         FROM rows 
-        OFFSET 0 LIMIT 15; 
+        OFFSET $4 LIMIT $5; 
         QUERY;
     }
 }
