@@ -17,8 +17,7 @@ use Romchik38\Site2\Application\Page\View\CouldNotFindException;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
-use Romchik38\Site2\Domain\User\VO\Email;
-use Romchik38\Site2\Domain\User\VO\Password;
+use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -56,8 +55,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     $page->getName(),
                     $page->getDescription(),
                     $user,
-                    Email::FIELD,
-                    Password::FIELD,
+                    CheckPassword::EMAIL_FIELD,
+                    CheckPassword::PASSWORD_FIELD,
                     $this->session::CSRF_TOKEN_FIELD,
                     $csrfToken,
                     $page
