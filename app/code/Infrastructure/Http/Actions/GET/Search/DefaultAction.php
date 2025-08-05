@@ -24,13 +24,14 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBui
 
 use function count;
 use function is_string;
+use function urlencode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     private const PAGE_NAME        = 'search.page_name';
     private const PAGE_DESCRIPTION = 'search.page_description';
-    private const NEXT_LABEL = 'button.next';
-    private const PREV_LABEL = 'button.prev';
+    private const NEXT_LABEL       = 'button.next';
+    private const PREV_LABEL       = 'button.prev';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,

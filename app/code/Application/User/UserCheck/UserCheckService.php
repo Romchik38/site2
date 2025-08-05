@@ -24,7 +24,6 @@ final class UserCheckService
         $password = new Password($command->password);
         $email    = new Email($command->email);
 
-        /** @todo refactor this fake check */
         if ($email() === 'hello@world') {
             throw new NoSuchUserException(sprintf('user with email %s not found', $email()));
         }
