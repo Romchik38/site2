@@ -2,6 +2,12 @@
 
 ## Current
 
+- visitor
+  - domain
+  - tests
+  - apllication
+  - repository
+
 - add popup first time visitor - the site is a demo
 - more page content
 - footer menu
