@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\AdminUser\AdminUserService\Commands;
 
-use Romchik38\Site2\Domain\AdminUser\VO\Username;
-
 final class CheckPassword
 {
-    public const FIELD = 'password';
+    public const PASSWORD_FIELD = 'password';
+    public const USERNAME_FIELD = 'user_name';
 
     public function __construct(
         public readonly string $username,
@@ -20,8 +19,8 @@ final class CheckPassword
     public static function fromHash(array $hash): self
     {
         return new self(
-            $hash[Username::FIELD] ?? '',
-            $hash[self::FIELD] ?? '',
+            $hash[self::USERNAME_FIELD] ?? '',
+            $hash[self::PASSWORD_FIELD] ?? '',
         );
     }
 }
