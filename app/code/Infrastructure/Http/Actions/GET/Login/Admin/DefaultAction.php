@@ -13,7 +13,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Domain\AdminUser\VO\Password;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -49,7 +49,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     'Admin user login page',
                     $user,
                     Username::FIELD,
-                    Password::FIELD,
+                    CheckPassword::FIELD,
                     $authUrl,
                     $this->session::CSRF_TOKEN_FIELD,
                     $csrfToken
