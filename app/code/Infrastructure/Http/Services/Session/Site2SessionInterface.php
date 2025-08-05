@@ -15,4 +15,5 @@ interface Site2SessionInterface extends SessionInterface
     public const MESSAGE_FIELD          = 'message';
     public const ARTICLE_VIEWS_FIELD    = 'article_views';
     public const ARTICLE_LAST_VISITED   = 'article_last_visited';
+    public const VISITOR_FIELD          = 'visitor';
 }

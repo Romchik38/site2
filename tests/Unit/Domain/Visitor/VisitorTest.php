@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Romchik38\Tests\Unit\Domain\Visitor;
+
 use PHPUnit\Framework\TestCase;
 use Romchik38\Site2\Domain\Visitor\Visitor;
 

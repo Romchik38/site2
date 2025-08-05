@@ -8,7 +8,7 @@ final class Visitor
 {
     public function __construct(
         private(set) bool $isAccepted
-    ) {   
+    ) {
     }
 
     public function acceptWithTerms(): void
