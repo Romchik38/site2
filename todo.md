@@ -3,8 +3,6 @@
 ## Current
 
 - visitor
-  - domain
-  - tests
   - apllication
   - repository
 
