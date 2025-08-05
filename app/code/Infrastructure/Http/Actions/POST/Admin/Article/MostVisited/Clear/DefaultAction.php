@@ -34,7 +34,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         parent::__construct($dynamicRootService, $translateService);
     }
 
-    /** @todo test all path */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $uri     = $this->urlbuilder->fromArray(['root', 'admin', 'article', 'most_visited']);
