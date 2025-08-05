@@ -1,7 +1,11 @@
 'use strict';
 
 export default function(target){
-    // @todo implement fragment
+    /** 
+     * parts    - array of controller names like ['root', 'article']
+     * queries  - array of objects { name: 'q1', value: 'v1' }
+     * fragment - string without #
+     * */
     return function(parts, queries = [], fragment = ''){
         var queryPart = '';
         var queryItems = [];
@@ -11,6 +15,9 @@ export default function(target){
         if (queryItems.length > 0) {
             queryPart = '?' + queryItems.join('&');
         }
-        return window.location.origin + target(parts) + queryPart;
+        if (fragment.length > 0) {
+            fragment = '#' + fragment;
+        }
+        return window.location.origin + target(parts) + queryPart + fragment;
     }
 };
