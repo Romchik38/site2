@@ -1,3 +1,5 @@
+{% set qm = meta_data.query_metadata %}
+<!-- Urls -->
 {% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set searchUrl = u.fromArray(['root', 'search']) %}
 <!-- Traffic -->
@@ -102,8 +104,7 @@
                 </li>
             </ul>
             <form class="api-header-search-form d-flex" method="get" action="{{ searchUrl }}">
-                <!-- @todo replace maxlength with var -->
-                <input class="api-header-search-query form-control me-2" type="text" name="query" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="255">
+                <input class="api-header-search-query form-control me-2" type="text" name="{{ qm.nameField }}" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="{{ qm.maxLength }}">
                 <button class="api-header-search-btn btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <script type="module" src="/media/js/frontend/header/search/index.js"></script>

@@ -21,15 +21,14 @@ use function trim;
 /** see docs/search/readme.md  */
 final class Query extends NonEmpty
 {
-    public const NAME = 'search query';
-
-    public const PATTERN =
+    public const NAME                      = 'search query';
+    public const PATTERN                   =
         '^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*ʼ{2,})(?!.*`.*`)[\p{L}\p{N}\'’` ]+$';
-
     public const ERROR_MESSAGE             = 'Query sting does not match given pattern';
     public const ERROR_WORD_LENGTH_MESSAGE = 'Query word length exceeds the allowed value %d';
     public const ERROR_WORD_STARTS_MESSAGE = 'Query word could not starts with apostrophe';
     public const ERROR_WORDS_COUNT_MESSAGE = 'Query words max allowed count %d';
+    public const MAX_QUERY_LENGTH          = 255;
     public const MAX_WORD_LENGTH           = 40;
     public const MAX_WORDS_COUNT           = 7;
 

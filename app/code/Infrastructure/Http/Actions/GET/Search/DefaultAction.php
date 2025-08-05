@@ -17,6 +17,7 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Search\Article\ArticleSearchService;
 use Romchik38\Site2\Application\Search\Article\Commands\List\ListCommand;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction\QueryMetaData;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePaginationNextPrev;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
@@ -93,7 +94,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $query,
             $this->imageFrontendPrefix,
             $this->translateService,
-            $paginationHtml
+            $paginationHtml,
+            new QueryMetaData()
         );
 
         $result = $this->view

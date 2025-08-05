@@ -9,6 +9,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\VO\QueryMetaData;
 use Twig\Environment;
 
 use function array_map;
@@ -37,6 +38,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         $this->prepareLanguages();
         $this->prepareBreadcrumbs();
         $this->prepareMessage();
+        $this->prepareSearch();
         $this->setMetadata('image-frontend-path', $this->imageFrontendPath);
     }
 
@@ -92,6 +94,11 @@ class Site2TwigViewLayout extends TwigViewLayout
             $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
         }
         $this->message = $message;
+    }
+
+    protected function prepareSearch(): void
+    {
+        $this->setMetadata('query_metadata', new QueryMetaData());
     }
 
     /**
