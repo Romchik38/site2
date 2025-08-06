@@ -7,7 +7,7 @@ export class VisitorData {
         }
 
         this.username = this._checkUsernameParm(data['username']);
-        this.name = this._checkBoolParm(data['accepted_terms']);
+        this.isAcceptedTerms = this._checkBoolParm(data['accepted_terms']);
     }
 
     _checkParm(param) {

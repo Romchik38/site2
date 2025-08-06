@@ -11,12 +11,20 @@ var usernameElem = Component.fromClass('user-name-field');
 
 var path = ['root', 'api', 'userinfo'];
 
+var atm = new bootstrap.Modal('#accept-terms-modal', {
+  keyboard: false,
+  backdrop: 'static'
+})
+
 var proccessUsername = function(visitorData) {
     if (visitorData.username !== null) {       
         usernameElem.text(visitorData.username);
         loggedinElem.show('flex');
     } else {
         notloggedinElems.show('flex');
+    }
+    if (visitorData.isAcceptedTerms === false) {
+        atm.show();
     }
 };
 
