@@ -2,10 +2,6 @@
 
 ## Current
 
-- visitor
-  - apllication
-  - repository
-
 - add popup first time visitor - the site is a demo
 
 - move to visitor
