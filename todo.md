@@ -2,6 +2,7 @@
 
 ## Current
 
+- refactor userinfo - uses components
 - add popup first time visitor - the site is a demo
 
 - move to visitor
