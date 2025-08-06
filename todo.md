@@ -12,7 +12,7 @@
   - continue reading
   - article views
 - add logout in account page
-- admin user use visitor service
+- move admin user to own session
 - more page content
 - footer menu
 
