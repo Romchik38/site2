@@ -4,24 +4,34 @@ import { default as target } from '/media/js/modules/urlbuilder/dynamicTarget.js
 import { default as urlbuilder } from '/media/js/modules/urlbuilder/urlbuilder.js';
 import { default as RequestData } from './request-data.js';
 
+// @todo replace with site2 urlbuiled
 var t = target(currentLanguage);
 var u = urlbuilder(t);
 
+/**
+ * @param ['string', ...]               path 
+ * @param null|RequestData              requestData 
+ * @param function(err, data) => {}     callback 
+ */
 export default function(path, requestData, callback) {
     if (typeof path  !== 'object') {
         throw new Error('Param path is invalid');
     } else if (path.length === 0) {
         throw new Error('Param path is empty');
     }
-    if (!requestData instanceof RequestData) {
-        throw new Error('Param requestData is invalid');
-    }
+
     var url = u(path);
 
     var formData = new FormData();
-    var keys = requestData.getKeys();
-    for (var key of keys) {
-        formData.append(key, requestData.getData(key));
+
+    if (requestData !== null) {
+        if (!requestData instanceof RequestData) {
+            throw new Error('Param requestData is invalid');
+        }
+        var keys = requestData.getKeys();
+        for (var key of keys) {
+            formData.append(key, requestData.getData(key));
+        }
     }
 
     var request = new Request(url, {

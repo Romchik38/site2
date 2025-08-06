@@ -67,7 +67,7 @@ export default class Component extends EE {
     text(newText) {
         if (typeof newText !== 'string') {
             throw new Error('Param text is invalid');
-        }        
+        }
         this.node.innerText = newText;
     }
 

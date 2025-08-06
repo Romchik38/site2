@@ -7,9 +7,9 @@ class ComponentCollection {
         if (! nodes instanceof HTMLCollection ) {
             throw new Error('Param nodes is invalid. Expected HTMLCollection');
         }
-        this.nodes = [];
+        this.components = [];
         for (var node of nodes) {
-            this.nodes.push(new Component(node));
+            this.components.push(new Component(node));
         }
         
     }
@@ -21,9 +21,17 @@ class ComponentCollection {
         return new this(document.getElementsByClassName(className));
     }
 
-    start() {
-        var first = this.nodes[0];
-        first.show();
+    show(type) {
+        for (var node of this.components) {
+            node.show(type);
+        }
+    }
+
+    /** test it before usage */
+    text(newText) {       
+        for (var node of this.components) {
+            node.text(newText);
+        }
     }
 };
 

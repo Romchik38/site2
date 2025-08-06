@@ -16,6 +16,7 @@ use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
 use Romchik38\Site2\Application\Visitor\VisitorService;
+use Romchik38\Site2\Application\Visitor\View\VisitorDto;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -47,22 +48,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ), 500);
         }
 
-        // There is can be a user's check activity.
-        if ($visitor->username === null) {
-            $dto = new ApiDTO(
-                $this::API_NAME,
-                $this::API_DESCRIPTION,
-                ApiDTOInterface::STATUS_ERROR,
-                $this::MUST_BE_LOGGED_IN_ERROR
-            );
-        } else {
-            $dto = new ApiDTO(
-                $this::API_NAME,
-                $this::API_DESCRIPTION,
-                ApiDTOInterface::STATUS_SUCCESS,
-                ($visitor->username)()
-            );
-        }
+        $dto = new ApiDTO(
+            $this::API_NAME,
+            $this::API_DESCRIPTION,
+            ApiDTOInterface::STATUS_SUCCESS,
+            [
+                VisitorDto::USERNAME_FIELD => $visitor->username,
+                VisitorDto::ACCEPTED_TERMS_FIELD => $visitor->isAcceptedTerms
+            ]
+        );
 
         return new JsonResponse($dto);
     }

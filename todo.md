@@ -10,6 +10,7 @@
   - article views
 - add logout in account page
 - move admin user to own session
+- replace urlbuilder with all requests
 - more page content
 - footer menu
 
