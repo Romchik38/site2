@@ -22,6 +22,7 @@ use Romchik38\Site2\Application\Page\View\CouldNotFindException;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
@@ -40,6 +41,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ContinueReading $continueReadingService,
         private readonly LoggerInterface $logger,
+        private readonly VisitorService $visitorService,
         private ?PageDto $page = null
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -47,13 +49,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $user = null;
         // 1 check if use already logged in
-        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
-
+        $visitor = $this->visitorService->getVisitor();
         // 2. redirect to login page
         $loginUrl = $this->urlbuilder->fromArray(['root', 'login']);
-        if ($user === null) {
+        if ($visitor->username === null) {
             return new RedirectResponse($loginUrl);
+        } else {
+            $user = ($visitor->username)();
         }
         // 3. show accaunt
         $page = $this->getPage();
