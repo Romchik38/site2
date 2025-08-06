@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Visitor;
 
+use Romchik38\Site2\Application\Visitor\View\VisitorDto;
+use Romchik38\Site2\Domain\User\VO\Username;
+
 final class VisitorService
 {
     public function __construct(
@@ -11,6 +14,7 @@ final class VisitorService
     ) {
     }
 
+    /** @todo test all path */
     /** @throws RepositoryException */
     public function acceptTerms(): void
     {
@@ -20,9 +24,23 @@ final class VisitorService
     }
 
     /** @throws RepositoryException */
-    public function checkAcceptTerms(): bool
+    public function getVisitor(): VisitorDto
     {
         $model = $this->repository->getVisitor();
-        return $model->isAccepted;
+        return new VisitorDto($model->username, $model->isAcceptedTerms);
+    }
+
+    /** @throws RepositoryException */
+    public function updateUserName(Username $username): void
+    {
+        $model           = $this->repository->getVisitor();
+        $model->username = $username;
+        $this->repository->save($model);
+    }
+
+    /** @throws RepositoryException */
+    public function logout(): void
+    {
+        $this->repository->delete();
     }
 }

@@ -18,6 +18,7 @@ use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
 use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
@@ -34,6 +35,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly PageService $pageService,
+        private readonly VisitorService $visitorService,
         private ?PageDto $page = null
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -41,7 +43,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $user = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $visitor = $this->visitorService->getVisitor();
+        if ($visitor->username === null) {
+            $user = $visitor->username;
+        } else {
+            $user = ($visitor->username)();
+        }
 
         $csrfToken = $this->csrfTokenGenerator->asBase64();
         $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);

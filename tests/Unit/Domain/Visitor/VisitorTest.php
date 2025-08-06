@@ -15,8 +15,8 @@ final class VisitorTest extends TestCase
         $username = new Username('user_1');
         $v        = new Visitor($username, false);
 
-        $this->assertSame(false, $v->isAccepted);
+        $this->assertSame(false, $v->isAcceptedTerms);
         $v->acceptWithTerms();
-        $this->assertSame(true, $v->isAccepted);
+        $this->assertSame(true, $v->isAcceptedTerms);
     }
 }

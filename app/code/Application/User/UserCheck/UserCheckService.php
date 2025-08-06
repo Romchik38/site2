@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Domain\User\NoSuchUserException;
 use Romchik38\Site2\Domain\User\VO\Email;
 use Romchik38\Site2\Domain\User\VO\Password;
+use Romchik38\Site2\Domain\User\VO\Username;
 
 use function random_int;
 use function sprintf;
@@ -19,7 +20,7 @@ final class UserCheckService
      * @throws NoSuchUserException
      * @throws InvalidArgumentException
      * */
-    public function checkPassword(CheckPassword $command): string
+    public function checkPassword(CheckPassword $command): Username
     {
         $password = new Password($command->password);
         $email    = new Email($command->email);
@@ -33,6 +34,6 @@ final class UserCheckService
             throw new InvalidPasswordException('Invalid password, try again');
         }
 
-        return 'user - ' . $rand;
+        return new Username('user - ' . $rand);
     }
 }

@@ -11,6 +11,7 @@
 - move to visitor
   - continue reading
   - article views
+- add logout in account page
 - more page content
 - footer menu
 

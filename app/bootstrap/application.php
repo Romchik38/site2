@@ -380,7 +380,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\Visitor\VisitorService',
         [
-            '\Romchik38\Site2\Application\Visitor\RepositoryInterface'
+            new Promise('\Romchik38\Site2\Application\Visitor\RepositoryInterface')
         ]
     );
 

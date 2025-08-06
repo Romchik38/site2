@@ -10,12 +10,12 @@ final class Visitor
 {
     public function __construct(
         public ?Username $username,
-        private(set) bool $isAccepted
+        private(set) bool $isAcceptedTerms
     ) {
     }
 
     public function acceptWithTerms(): void
     {
-        $this->isAccepted = true;
+        $this->isAcceptedTerms = true;
     }
 }

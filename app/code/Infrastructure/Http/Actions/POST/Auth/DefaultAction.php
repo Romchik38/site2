@@ -16,6 +16,7 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
 use Romchik38\Site2\Application\User\UserCheck\InvalidPasswordException;
 use Romchik38\Site2\Application\User\UserCheck\UserCheckService;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Domain\User\NoSuchUserException;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
@@ -35,7 +36,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly UserCheckService $adminUserCheck,
         private readonly Site2SessionInterface $session,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -44,13 +46,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $urlLogin   = $this->urlbuilder->fromArray(['root', 'login']);
         $urlAccount = $this->urlbuilder->fromArray(['root', 'account']);
+        // visitor
+        $visitor = $this->visitorService->getVisitor();
         // check if user already logged in
-        $userField = $this->session->getData(Site2SessionInterface::USER_FIELD);
-        if ($userField !== null) {
-            if ($userField === '') {
-                $this->session->logout();
-                return new RedirectResponse($urlLogin);
-            }
+        if ($visitor->username !== null) {
             return new RedirectResponse($urlLogin);
         }
         // do password check
@@ -61,7 +60,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $command = CheckPassword::fromHash($requestData);
         try {
-            $email = $this->adminUserCheck->checkPassword($command);
+            $username = $this->adminUserCheck->checkPassword($command);
         } catch (InvalidPasswordException) {
             $this->session->setData(
                 Site2SessionInterface::MESSAGE_FIELD,
@@ -86,10 +85,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($urlLogin);
         }
 
-        $this->session->setData(
-            Site2SessionInterface::USER_FIELD,
-            (string) $email
-        );
+        $this->visitorService->updateUserName($username);
+
         $this->session->setData(
             Site2SessionInterface::MESSAGE_FIELD,
             $this->translateService->t($this::SUCCESS_LOGGED_IN)

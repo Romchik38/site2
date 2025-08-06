@@ -19,6 +19,12 @@ final class Repository implements RepositoryInterface
     ) {
     }
 
+    public function delete(): void
+    {
+        $this->session->setData(Site2SessionInterface::VISITOR_FIELD, '');
+        $this->session->logout();
+    }
+
     public function getVisitor(): Visitor
     {
         $sessionVisitorData = $this->session->getData(Site2SessionInterface::VISITOR_FIELD);
