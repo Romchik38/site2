@@ -12,6 +12,14 @@ final class VisitorService
     }
 
     /** @throws RepositoryException */
+    public function acceptTerms(): void
+    {
+        $model = $this->repository->getVisitor();
+        $model->acceptWithTerms();
+        $this->repository->save($model);
+    }
+
+    /** @throws RepositoryException */
     public function checkAcceptTerms(): bool
     {
         $model = $this->repository->getVisitor();

@@ -43,6 +43,6 @@ final class Repository implements RepositoryInterface
 
     private function create(): Visitor
     {
-        return new Visitor(false);
+        return new Visitor(null, false);
     }
 }

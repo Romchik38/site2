@@ -16,5 +16,15 @@ return function (Container $container): Container {
         ]
     );
 
+    // VISITOR
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Session\Visitor\Repository',
+        '\Romchik38\Site2\Application\Visitor\RepositoryInterface',
+        true,
+        [
+            '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'
+        ]
+    );
+
     return $container;
 };

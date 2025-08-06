@@ -376,5 +376,13 @@ return function (Container $container) {
     // USER CHECK
     $container->shared('\Romchik38\Site2\Application\User\UserCheck\UserCheckService', []);
 
+    // VISITOR
+    $container->shared(
+        '\Romchik38\Site2\Application\Visitor\VisitorService',
+        [
+            '\Romchik38\Site2\Application\Visitor\RepositoryInterface'
+        ]
+    );
+
     return $container;
 };
