@@ -8,7 +8,7 @@ use Romchik38\Site2\Domain\User\VO\Username;
 
 final class VisitorDto
 {
-    public const USERNAME_FIELD = 'username';
+    public const USERNAME_FIELD       = 'username';
     public const ACCEPTED_TERMS_FIELD = 'accepted_terms';
 
     public function __construct(

@@ -24,7 +24,6 @@ use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Account\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function count;
@@ -35,7 +34,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly Site2SessionInterface $session,
         private readonly ViewInterface $view,
         private readonly PageService $pageService,
         private readonly UrlbuilderInterface $urlbuilder,

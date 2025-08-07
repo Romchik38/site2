@@ -14,6 +14,6 @@ final class Username extends NonEmpty implements JsonSerializable
     public function jsonSerialize(): string
     {
         /** @todo refactor when $value will be protected */
-        return (string)$this;
+        return (string) $this;
     }
 }
