@@ -26,7 +26,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('img-folder-frontend'),
-            'frontend_layout/controllers'
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            'frontend_layout/controllers',
         ]
     );
 
@@ -41,7 +42,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            'not-found/index.twig'
+            'not-found/index.twig',
         ]
     );
 
@@ -58,6 +59,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('img-folder-frontend'),
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
             'admin_layout'
         ]
     );

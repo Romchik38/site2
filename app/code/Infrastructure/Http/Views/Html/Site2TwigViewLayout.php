@@ -8,6 +8,7 @@ use Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\VO\QueryMetaData;
 use Twig\Environment;
@@ -22,12 +23,12 @@ class Site2TwigViewLayout extends TwigViewLayout
     public function __construct(
         Environment $environment,
         protected readonly TranslateInterface $translateService,
-        /** Metadata Service here */
         protected readonly DynamicRootInterface $dynamicRootService,
         protected Breadcrumb $breadcrumbService,
         protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly Site2SessionInterface $session,
         protected readonly string $imageFrontendPath,
+        protected readonly VisitorService $visitorService,
         string $layoutPath = 'base.twig'
     ) {
         parent::__construct($environment, $layoutPath);
@@ -39,6 +40,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         $this->prepareBreadcrumbs();
         $this->prepareMessage();
         $this->prepareSearch();
+        $this->prepareVisitor();
         $this->setMetadata('image-frontend-path', $this->imageFrontendPath);
     }
 
@@ -99,6 +101,11 @@ class Site2TwigViewLayout extends TwigViewLayout
     protected function prepareSearch(): void
     {
         $this->setMetadata('query_metadata', new QueryMetaData());
+    }
+
+    protected function prepareVisitor(): void
+    {
+        $this->setMetadata('visitor', $this->visitorService->getVisitor());
     }
 
     /**

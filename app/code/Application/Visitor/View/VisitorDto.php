@@ -28,8 +28,17 @@ final class VisitorDto
         }
     }
 
-    public function getCsrfTocken(): string
+    public function getCsrfToken(): string
     {
         return (string) $this->csrfToken;
+    }
+
+    public function getIsAcceptedTerms(): int
+    {
+        if ($this->isAcceptedTerms) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
