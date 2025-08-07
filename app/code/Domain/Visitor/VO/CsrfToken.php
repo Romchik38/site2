@@ -10,7 +10,7 @@ use Romchik38\Server\Domain\VO\Text\NonEmpty;
 use function sprintf;
 use function strlen;
 
-final class CsrfTocken extends NonEmpty
+final class CsrfToken extends NonEmpty
 {
     public const NAME                 = 'visitor csrf token';
     public const LENGTH               = 32;
@@ -20,7 +20,7 @@ final class CsrfTocken extends NonEmpty
     public function __construct(
         string $value
     ) {
-        if (strlen($value) !== $this::LENGTH) {
+        if (strlen($value) < $this::LENGTH) {
             throw new InvalidArgumentException(sprintf($this::LENGTH_ERROR_MESSAGE, $this::NAME, $value));
         }
         parent::__construct($value);

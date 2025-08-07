@@ -22,7 +22,8 @@ return function (Container $container): Container {
         '\Romchik38\Site2\Application\Visitor\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface')
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
         ]
     );
 

@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Session\Visitor;
 
+use InvalidArgumentException;
 use Romchik38\Site2\Application\Visitor\RepositoryException;
 use Romchik38\Site2\Application\Visitor\RepositoryInterface;
 use Romchik38\Site2\Domain\Visitor\Visitor;
+use Romchik38\Site2\Domain\Visitor\VO\CsrfToken;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CouldNotGenerateException;
+use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function serialize;
 use function unserialize;
@@ -16,6 +20,7 @@ final class Repository implements RepositoryInterface
 {
     public function __construct(
         private readonly Site2SessionInterface $session,
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {
     }
 
@@ -49,6 +54,22 @@ final class Repository implements RepositoryInterface
 
     private function create(): Visitor
     {
-        return new Visitor(null, false);
+        try {
+            $csrfToken = $this->csrfTokenGenerator->asBase64();
+        } catch (CouldNotGenerateException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        try {
+            $visitor = new Visitor(
+                null,
+                false,
+                new CsrfToken($csrfToken)
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        return $visitor;
     }
 }
