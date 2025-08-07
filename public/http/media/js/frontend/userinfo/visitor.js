@@ -1,34 +1,18 @@
 'use strict';
 
-export class VisitorData {
-    constructor(data){      
-        if (typeof data !== 'object') {
-            throw new Error('Param visitor data is invalid');
-        }
+import { default as Component } from '/media/js/modules/components/component.js';
 
-        this.username = this._checkUsernameParm(data['username']);
-        this.isAcceptedTerms = this._checkBoolParm(data['accepted_terms']);
+export class VisitorData extends Component {
+    getUsername() {
+        return this.node.dataset.username;
     }
-
-    _checkParm(param) {
-        if(typeof param !== 'string' || param === '') {
-            console.log({param})
-            throw new Error('Param visitor field data is invalid');
-        }
-        return param;
+    getCsrfToken() {
+        return this.node.dataset.csrftoken;
     }
-
-    _checkUsernameParm(param) {
-        if (param === null) {
-            return param;
-        }
-        return this._checkParm(param);
+    getCsrfTokenField() {
+        return this.node.dataset.csrftokenfield;
     }
-
-    _checkBoolParm(param) {
-        if(typeof param !== 'boolean') {
-            throw new Error('Param visitor field data is invalid');
-        }
-        return param;
+    getIsAcceptedTerm() {
+        return this.node.dataset.isacceptedterm;
     }
-}
+};

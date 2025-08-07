@@ -4,15 +4,15 @@
     <div class="modal-content">
         <!-- background-secondary -->
       <div class="modal-header bg-white">
-        <h5 class="modal-title">Agree to Terms and Conditions</h5>
+        <h5 class="modal-title">{{ t.t('modal.accept-terms.title') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. By clicking “Accept,” you agree to our website's cookie use as described in our Cookie Policy.</p>
+        <p>{{ t.t('modal.accept-terms.body') }}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Decline</button>
-        <button type="button" class="btn btn-secondary">Accept</button>
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">{{ t.t('modal.accept-terms.decline') }}</button>
+        <button type="button" class="btn btn-secondary api-userinfo-accept-btn">{{ t.t('modal.accept-terms.accept') }}</button>
       </div>
     </div>
   </div>
@@ -22,6 +22,7 @@
 {% set visitor = meta_data['visitor'] %}
 <div class="d-none visitor-data"
     data-username="{{ visitor.getUsername() }}"
-    data-token="{{ visitor.getCsrfToken() }}"
+    data-csrftoken="{{ visitor.getCsrfToken() }}"
+    data-csrftokenfield="{{ visitor.getCsrfTokenField() }}"
     data-isacceptedterm="{{ visitor.getIsAcceptedTerms }}"
 ></div>

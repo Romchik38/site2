@@ -15,14 +15,18 @@ use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
-use Romchik38\Site2\Application\Visitor\View\VisitorDto;
 use Romchik38\Site2\Application\Visitor\VisitorService;
+use RuntimeException;
+
+use function gettype;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     public const SERVER_ERROR     = 'server-error.message';
     private const API_NAME        = 'Api username point';
     private const API_DESCRIPTION = 'Information about auth user';
+    private const API_ACCEPTED    = 'Accepted';
+    private const API_BAD_REQUEST = 'Bad request';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -35,6 +39,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $requestData = $request->getParsedBody();
+        if (gettype($requestData) !== 'array') {
+            throw new RuntimeException('Incoming data is invalid');
+        }
+
         try {
             $visitor = $this->visitorService->getVisitor();
         } catch (VisitorRepositoryException $e) {
@@ -47,17 +56,35 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ), 500);
         }
 
-        $dto = new ApiDTO(
-            $this::API_NAME,
-            $this::API_DESCRIPTION,
-            ApiDTOInterface::STATUS_SUCCESS,
-            [
-                VisitorDto::USERNAME_FIELD       => $visitor->username,
-                VisitorDto::ACCEPTED_TERMS_FIELD => $visitor->isAcceptedTerms,
-            ]
-        );
+        /** @todo move to csrf middleware */
+        $csrfToken = $requestData[$visitor::CSRF_TOKEN_FIELD] ?? null;
 
-        return new JsonResponse($dto);
+        if ($csrfToken === $visitor->getCsrfToken()) {
+            try {
+                $this->visitorService->acceptTerms();
+                return new JsonResponse(new ApiDTO(
+                    $this::API_NAME,
+                    $this::API_DESCRIPTION,
+                    ApiDTOInterface::STATUS_SUCCESS,
+                    $this::API_ACCEPTED
+                ));
+            } catch (VisitorRepositoryException $e) {
+                $this->logger->error($e->getMessage());
+                return new JsonResponse(new ApiDTO(
+                    $this::API_NAME,
+                    $this::API_DESCRIPTION,
+                    ApiDTOInterface::STATUS_ERROR,
+                    $this::SERVER_ERROR
+                ), 500);
+            }
+        } else {
+            return new JsonResponse(new ApiDTO(
+                $this::API_NAME,
+                $this::API_DESCRIPTION,
+                ApiDTOInterface::STATUS_ERROR,
+                $this::API_BAD_REQUEST
+            ));
+        }
     }
 
     public function getDescription(): string

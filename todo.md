@@ -2,9 +2,6 @@
 
 ## Current
 
-- visitor
-  - add csrf field
-- add popup first time visitor - the site is a demo
 - move to visitor
   - continue reading
   - article views

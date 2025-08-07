@@ -16,6 +16,7 @@
 
 - root logout
 - root auth                                 user auth
+- root api userinfo                         accept terms and conditions
 - root api article_continue_reading         fetch visited articles list
 - root api article_continue_reading update  update visited article
 - root api articleviews                     increment article view

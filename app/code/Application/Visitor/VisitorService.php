@@ -14,7 +14,6 @@ final class VisitorService
     ) {
     }
 
-    /** @todo test all path */
     /** @throws RepositoryException */
     public function acceptTerms(): void
     {

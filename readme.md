@@ -32,6 +32,7 @@ Additional:
 - Javascript components
 - Full workflow control inside domain model
 - [Full text search based on Postgresql](./doc/search/readme.md)
+- Accept terms and conditions popup
 
 ## Dependencies
 

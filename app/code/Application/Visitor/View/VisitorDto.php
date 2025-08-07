@@ -11,6 +11,7 @@ final class VisitorDto
 {
     public const USERNAME_FIELD       = 'username';
     public const ACCEPTED_TERMS_FIELD = 'accepted_terms';
+    public const CSRF_TOKEN_FIELD     = 'csrf_token';
 
     public function __construct(
         public readonly ?Username $username,
@@ -31,6 +32,11 @@ final class VisitorDto
     public function getCsrfToken(): string
     {
         return (string) $this->csrfToken;
+    }
+
+    public function getCsrfTokenField(): string
+    {
+        return $this::CSRF_TOKEN_FIELD;
     }
 
     public function getIsAcceptedTerms(): int
