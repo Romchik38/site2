@@ -2,15 +2,13 @@
 
 ## Current
 
-- refactor userinfo - uses components
 - add popup first time visitor - the site is a demo
-
 - move to visitor
   - continue reading
   - article views
 - add logout in account page
 - move admin user to own session
-- replace urlbuilder with all requests
+- replace urlbuilder with all make requests
 - more page content
 - footer menu
 

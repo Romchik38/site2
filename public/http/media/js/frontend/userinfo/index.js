@@ -24,7 +24,8 @@ var proccessUsername = function(visitorData) {
         notloggedinElems.show('flex');
     }
     if (visitorData.isAcceptedTerms === false) {
-        atm.show();
+        // @todo uncomment when ready
+        //atm.show();
     }
 };
 
