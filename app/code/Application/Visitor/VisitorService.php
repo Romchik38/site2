@@ -27,7 +27,11 @@ final class VisitorService
     public function getVisitor(): VisitorDto
     {
         $model = $this->repository->getVisitor();
-        return new VisitorDto($model->username, $model->isAcceptedTerms);
+        return new VisitorDto(
+            $model->username,
+            $model->isAcceptedTerms,
+            $model->csrfTocken
+        );
     }
 
     /** @throws RepositoryException */
