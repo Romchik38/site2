@@ -5,6 +5,8 @@
 - vo
   - update vo with `NonNegative`
 
+- [js] fix article view - error when visitor first time open a page
+
 - implement new admin session
 - add admin session to admin actions
   - article

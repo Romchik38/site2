@@ -16,7 +16,6 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -25,7 +24,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -38,7 +36,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         if ($username === null) {
             $user = null;
         } else {
-            $user = $username();
+            $user = $username;
         }
 
         $authUrl = $this->urlbuilder->fromArray(['root', 'auth', 'admin']);

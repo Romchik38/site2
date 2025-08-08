@@ -27,8 +27,6 @@ use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 use function urldecode;
@@ -40,8 +38,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ViewService $articleViewService,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly SimilarArticles $similarArticles,
         private readonly VisitorService $visitorService
     ) {
@@ -86,10 +82,12 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         // Visitor
         try {
-            $visitor   = $this->visitorService->getVisitor();
-            $csrfToken = $visitor->getCsrfToken();
+            $visitor        = $this->visitorService->getVisitor();
+            $csrfTokenField = $visitor::CSRF_TOKEN_FIELD;
+            $csrfToken      = $visitor->getCsrfToken();
         } catch (VisitorRepositoryException $e) {
-            $csrfToken = ''; // do nothing, block continue reading will not be shown
+            $csrfToken      = ''; // do nothing, block continue reading will not be shown
+            $csrfTokenField = '';
         }
 
         $dto = new ViewDTO(
@@ -98,7 +96,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $article,
             $this->translateService,
             IncrementViews::ID_FIELD,
-            $visitor::CSRF_TOKEN_FIELD,
+            $csrfTokenField,
             $csrfToken,
             $similarArticles,
             Update::ID_FIELD

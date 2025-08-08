@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\RequestMiddlewares;
 
-use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,12 +26,8 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly TranslateInterface $translate,
         private readonly Path $redirectPath,
-        private readonly string $tokenFieldName,
         private readonly VisitorService $visitorService
     ) {
-        if ($tokenFieldName === '') {
-            throw new InvalidArgumentException('csrf tocken field is empty');
-        }
     }
 
     public function __invoke(ServerRequestInterface $request): ?ResponseInterface

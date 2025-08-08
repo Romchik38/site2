@@ -21,7 +21,6 @@ use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 use RuntimeException;
 
 use function sprintf;
@@ -33,7 +32,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly Site2SessionInterface $session,
         private readonly ViewInterface $view,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly PageService $pageService,
         private readonly VisitorService $visitorService,
         private ?PageDto $page = null

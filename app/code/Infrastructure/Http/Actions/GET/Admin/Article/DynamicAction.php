@@ -31,7 +31,6 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ImageFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 use function urldecode;
@@ -47,7 +46,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ListService $languageService,
         private readonly AdminView $articleViewService,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly string $audioPathPrefix,
