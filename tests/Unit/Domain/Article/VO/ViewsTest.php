@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Tests\Unit\Domain\AdminRole\VO;
+namespace Romchik38\Tests\Unit\Domain\Article\VO;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +37,7 @@ final class ViewsTest extends TestCase
     public function testConstructThrowsErrorOnNegative(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('param %s is less than 0', Views::NAME));
+        $this->expectExceptionMessage(sprintf('param %s must be greater or equal than 0', Views::NAME));
         new Views(-10);
     }
 }
