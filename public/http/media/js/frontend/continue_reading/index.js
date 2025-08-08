@@ -53,15 +53,18 @@ var processData = function(data) {
             if (err !== null) {       
                 console.log({ 'article-continue-reading': err});
             } else {
-                a.render(article);
-                a.show();                
+                if (article !== null) {
+                    a.render(article);
+                    a.show();                
+                }
             }
         });
         return;
-    } 
-    if (display === true && needUpdate === false) {
-        a.render(article);
-        a.show();
+    } else {
+        if (display === true) {
+            a.render(article);
+            a.show();
+        }
     }
 };
 
