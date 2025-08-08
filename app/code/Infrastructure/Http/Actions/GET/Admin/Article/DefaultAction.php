@@ -21,6 +21,7 @@ use Romchik38\Site2\Application\Article\AdminList\AdminListService;
 use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Article\AdminList\Exceptions\CouldNotListException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -44,6 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly LoggerInterface $logger,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly VisitorService $visitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -55,6 +57,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
 
+
+        $visitor = $this->visitorService->getVisitor();
+
+        // List
         try {
             $filterResult = $this->articleService->list($command);
         } catch (CouldNotListException $e) {
@@ -112,8 +118,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByDirection
             ),
             Delete::ID_FIELD,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
         );
         $html = $this->view
             ->setController($this->getController())

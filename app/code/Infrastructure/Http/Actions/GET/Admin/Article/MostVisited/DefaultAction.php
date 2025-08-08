@@ -18,9 +18,9 @@ use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\AdminMostVisited\AdminMostVisited;
 use Romchik38\Site2\Application\Article\AdminMostVisited\Exceptions\CouldNotListException;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\MostVisited\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -35,7 +35,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -43,6 +43,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
+
+        $visitor = $this->visitorService->getVisitor();
 
         try {
             $articleList = $this->adminMostVisitedService->list($this->getLanguage());
@@ -62,15 +64,12 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($uriRedirect);
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
-
         $dto  = new ViewDto(
             'Admin article most visited',
             self::ACTION_DESCRIPTION,
             $articleList,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
         );
         $html = $this->view
             ->setController($this->getController())

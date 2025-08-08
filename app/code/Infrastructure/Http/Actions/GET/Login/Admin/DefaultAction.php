@@ -14,8 +14,8 @@ use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -23,21 +23,23 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly Site2SessionInterface $session,
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
+        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        // 1 check if use already logged in
-        $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->visitorService->getVisitor();
+        $username = $visitor->getUserName();
+        if ($username === null) {
+            $user = null;
+        } else {
+            $user = $username();
+        }
 
         $authUrl = $this->urlbuilder->fromArray(['root', 'auth', 'admin']);
         $html    = $this->view
@@ -50,8 +52,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     CheckPassword::USERNAME_FIELD,
                     CheckPassword::PASSWORD_FIELD,
                     $authUrl,
-                    $this->session::CSRF_TOKEN_FIELD,
-                    $csrfToken
+                    $visitor->getCsrfTokenField(),
+                    $visitor->getCsrfToken()
                 )
             )
             ->toString();

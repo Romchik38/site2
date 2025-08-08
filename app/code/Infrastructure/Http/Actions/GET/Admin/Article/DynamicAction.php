@@ -24,6 +24,7 @@ use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Category\AdminList\AdminList;
 use Romchik38\Site2\Application\Language\List\ListService;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
@@ -50,7 +51,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly string $audioPathPrefix,
-        private readonly AdminList $categoryService
+        private readonly AdminList $categoryService,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -61,6 +63,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $decodedRoute = urldecode($dynamicRoute());
 
         $uriList = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
+
+        $visitor = $this->visitorService->getVisitor();
 
         try {
             $id         = new ArticleId($decodedRoute);
@@ -85,14 +89,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $languages  = $this->languageService->getAll();
         $categories = $this->categoryService->listAll();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
-
         $dto = new ViewDto(
             sprintf('Article view id %s', $decodedRoute),
             sprintf('Article view page with id %s', $decodedRoute),
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             $languages,
             $articleDto,
             Update::ID_FIELD,
