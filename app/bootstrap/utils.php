@@ -69,6 +69,13 @@ return function (Container $container) {
         true,
         []
     );
+    $container->multi(
+        '\Romchik38\Server\Http\Utils\Session\Session',
+        'admin.session',
+        true,
+        ['admin']
+    );
+
 
     $container->multi(
         '\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRoot',

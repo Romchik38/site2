@@ -3,6 +3,10 @@
 ## Current
 
 - implement new admin session
+  - domain
+  - service
+  - repository
+
 - add admin session to admin actions
   - article
   - audio
