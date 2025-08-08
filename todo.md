@@ -3,7 +3,6 @@
 ## Current
 
 - vo
-  - update fix $value
   - update vo with `NonNegative`
 
 - implement new admin session
