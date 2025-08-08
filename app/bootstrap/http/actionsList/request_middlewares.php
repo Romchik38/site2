@@ -40,6 +40,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Path(['root', 'login']),
             Site2SessionInterface::CSRF_TOKEN_FIELD,
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );
 
@@ -53,7 +54,8 @@ return function (Container $container): void {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Path(['root', 'admin']),
-            Site2SessionInterface::ADMIN_CSRF_TOKEN_FIELD
+            Site2SessionInterface::ADMIN_CSRF_TOKEN_FIELD,
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );
 };

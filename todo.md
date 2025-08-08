@@ -4,7 +4,6 @@
 
 - add visitor to request middleware and actions
   - `\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware`
-    - `auth`
     - `article_continue_reading`
     - `articleviews`
 

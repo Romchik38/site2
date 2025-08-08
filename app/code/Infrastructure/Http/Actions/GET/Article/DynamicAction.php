@@ -24,9 +24,11 @@ use Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\ViewService;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
+use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
 
 use function sprintf;
 use function urldecode;
@@ -40,7 +42,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewService $articleViewService,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly SimilarArticles $similarArticles
+        private readonly SimilarArticles $similarArticles,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -81,8 +84,13 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $similarArticles = $this->similarArticles->list($similarCommand);
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
+        // Visitor
+        try {
+            $visitor = $this->visitorService->getVisitor();
+            $csrfToken = $visitor->getCsrfToken();
+        } catch (VisitorRepositoryException $e) {
+            $csrfToken = ''; // do nothing, block continue reading will not be shown
+        }
 
         $dto = new ViewDTO(
             $article->name,
@@ -90,7 +98,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $article,
             $this->translateService,
             IncrementViews::ID_FIELD,
-            $this->session::CSRF_TOKEN_FIELD,
+            $visitor::CSRF_TOKEN_FIELD,
             $csrfToken,
             $similarArticles,
             Update::ID_FIELD

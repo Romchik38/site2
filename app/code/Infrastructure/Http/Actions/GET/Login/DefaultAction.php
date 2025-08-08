@@ -50,9 +50,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $user = ($visitor->username)();
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::CSRF_TOKEN_FIELD, $csrfToken);
-
         $page = $this->getPage();
 
         $html = $this->view
@@ -65,7 +62,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     CheckPassword::EMAIL_FIELD,
                     CheckPassword::PASSWORD_FIELD,
                     $this->session::CSRF_TOKEN_FIELD,
-                    $csrfToken,
+                    $visitor->getCsrfToken(),
                     $page
                 )
             )
