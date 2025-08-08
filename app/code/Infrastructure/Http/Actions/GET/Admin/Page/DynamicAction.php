@@ -22,9 +22,9 @@ use Romchik38\Site2\Application\Page\AdminView\AdminView;
 use Romchik38\Site2\Application\Page\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Page\AdminView\NoSuchPageException;
 use Romchik38\Site2\Application\Page\PageService\Commands\Update;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -39,10 +39,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewInterface $view,
         private readonly AdminView $viewService,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -52,6 +52,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $dynamicRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
 
         $redirectUri = $this->urlbuilder->fromArray(['root', 'admin', 'page']);
+
+        $visitor = $this->visitorService->getVisitor();
 
         try {
             $pageDto = $this->viewService->find($dynamicRoute);
@@ -81,15 +83,12 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             return new RedirectResponse($redirectUri);
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
-
         $dto = new ViewDto(
             sprintf('Page view id %s', $pageDto->getId()),
             sprintf(self::DESCRIPTION, $pageDto->getId()),
             $pageDto,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::URL_FIELD,
             Update::TRANSLATES_FIELD,

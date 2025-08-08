@@ -13,9 +13,8 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Page\PageService\Commands\Create;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -25,22 +24,20 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->visitorService->getVisitor();
 
         $dto = new ViewDto(
             'Create new page',
             self::DESCRIPTION,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Create::URL_FIELD
         );
 

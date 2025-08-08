@@ -17,13 +17,12 @@ use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Page\AdminList\AdminList;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Page\PageService\Commands\Delete;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function count;
 
@@ -37,14 +36,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminList $pageList,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
+        private readonly VisitorService $visitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $visitor = $this->visitorService->getVisitor();
+
         $requestData = $request->getQueryParams();
         $command     = Filter::fromRequest($requestData);
 
@@ -74,9 +74,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
-
         $dto = new ViewDto(
             'Pages',
             self::DESCRIPTION,
@@ -88,8 +85,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByDirection
             ),
             Delete::ID_FIELD,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
         );
 
         $html = $this->view
