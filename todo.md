@@ -2,16 +2,23 @@
 
 ## Current
 
-- add visitor to request middleware and actions
-  - `\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware`
-    - `article_continue_reading`
-    - `articleviews`
+- vo
+  - update fix $value
+  - update vo with `NonNegative`
 
-- move to visitor
-  - continue reading
-  - article views
+- implement new admin session
+- add admin session to admin actions
+  - article
+  - audio
+  - author
+  - banner
+  - category
+  - image
+  - imagecache
+  - page
+  - translate
+
 - add logout in account page
-- move admin user to own session
 - decouple session from actions and request middlewares
 - [js] replace urlbuilder with all make requests
 - more page content
