@@ -44,7 +44,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
             throw new RuntimeException('Incoming data is invalid');
         }
 
-        $visitor = $this->visitorService->getVisitor();
+        $visitor   = $this->visitorService->getVisitor();
         $csrfToken = $requestData[$visitor::CSRF_TOKEN_FIELD] ?? null;
 
         if ($csrfToken !== $visitor->getCsrfToken()) {

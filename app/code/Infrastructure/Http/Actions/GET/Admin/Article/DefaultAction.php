@@ -57,7 +57,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
 
-
         $visitor = $this->visitorService->getVisitor();
 
         // List

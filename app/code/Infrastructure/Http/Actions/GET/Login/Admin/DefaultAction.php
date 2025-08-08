@@ -33,7 +33,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor = $this->visitorService->getVisitor();
+        $visitor  = $this->visitorService->getVisitor();
         $username = $visitor->getUserName();
         if ($username === null) {
             $user = null;
