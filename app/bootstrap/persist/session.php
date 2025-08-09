@@ -7,12 +7,36 @@ use Romchik38\Container\Promise;
 
 return function (Container $container): Container {
 
+    // SESSION
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2Session',
+        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface',
+        true,
+        []
+    );
+    $container->multi(
+        '\Romchik38\Server\Http\Utils\Session\Session',
+        'admin.session',
+        true,
+        ['admin']
+    );
+
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Session\Article\ContinueReading\Repository',
         '\Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface',
         true,
         [
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface')
+        ]
+    );
+
+    // ADMIN VISITOR
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Persist\Session\AdminVisitor\Repository',
+        '\Romchik38\Site2\Application\AdminVisitor\RepositoryInterface',
+        true,
+        [
+            new Promise('admin.session'),
         ]
     );
 

@@ -175,6 +175,14 @@ return function (Container $container) {
         ]
     );
 
+    // ADMIN VISITOR
+    $container->shared(
+        '\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService',
+        [
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\RepositoryInterface'),
+        ]
+    );
+
     // BANNER VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Banner\List\ListService',

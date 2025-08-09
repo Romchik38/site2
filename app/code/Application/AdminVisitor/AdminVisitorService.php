@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Application\AdminVisitor;
 use Romchik38\Site2\Application\AdminVisitor\View\VisitorDto;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
-final class VisitorService
+final class AdminVisitorService
 {
     public function __construct(
         private readonly RepositoryInterface $repository
