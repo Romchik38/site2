@@ -2,24 +2,22 @@
 
 ## Current
 
-- implement new admin session
-  - service
-  - repository
-
 - add admin session to admin actions
   - author
   - banner
   - category
   - image
-  - imagecache
   - translate
 
 - admin userinfo
-
 - add logout in account page
 - decouple session from actions and request middlewares
   - `$this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD`
   - `$this->session->getData(Site2SessionInterface::USER_FIELD`
+- session message
+  - add to visitor and admin visitor
+  - add to view
+  - refactor controllers and middlewares
 - [js] replace urlbuilder with all make requests
 - more page content
 - footer menu
