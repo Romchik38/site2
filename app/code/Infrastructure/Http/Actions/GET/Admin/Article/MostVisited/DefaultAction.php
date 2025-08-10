@@ -16,9 +16,9 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Article\AdminMostVisited\AdminMostVisited;
 use Romchik38\Site2\Application\Article\AdminMostVisited\Exceptions\CouldNotListException;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\MostVisited\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
@@ -35,7 +35,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
         private readonly Site2SessionInterface $session,
-        private readonly VisitorService $visitorService
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -44,7 +44,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
 
-        $visitor = $this->visitorService->getVisitor();
+        $visitor = $this->adminVisitorService->getVisitor();
 
         try {
             $articleList = $this->adminMostVisitedService->list($this->getLanguage());

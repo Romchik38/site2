@@ -17,11 +17,11 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Article\AdminList\AdminListService;
 use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Article\AdminList\Exceptions\CouldNotListException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
@@ -45,7 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly LoggerInterface $logger,
         private readonly Site2SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly VisitorService $visitorService,
+        private readonly AdminVisitorService $adminVisitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -57,7 +57,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
 
-        $visitor = $this->visitorService->getVisitor();
+        $visitor = $this->adminVisitorService->getVisitor();
 
         // List
         try {

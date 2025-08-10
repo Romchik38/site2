@@ -18,13 +18,13 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Article\AdminView\AdminView;
 use Romchik38\Site2\Application\Article\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Article\AdminView\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Update;
 use Romchik38\Site2\Application\Category\AdminList\AdminList;
 use Romchik38\Site2\Application\Language\List\ListService;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AudioFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
@@ -50,7 +50,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly string $audioPathPrefix,
         private readonly AdminList $categoryService,
-        private readonly VisitorService $visitorService
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -62,7 +62,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $uriList = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
 
-        $visitor = $this->visitorService->getVisitor();
+        $visitor = $this->adminVisitorService->getVisitor();
 
         try {
             $id         = new ArticleId($decodedRoute);
