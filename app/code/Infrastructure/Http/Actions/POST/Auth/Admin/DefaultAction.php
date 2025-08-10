@@ -20,6 +20,7 @@ use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserN
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckPasswordException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\InvalidPasswordException;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
@@ -41,7 +42,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminUserService $adminUserCheck,
         private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -99,10 +101,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             Site2SessionInterface::MESSAGE_FIELD,
             $this->translateService->t($this::SUCCESS_LOGGED_IN_KEY)
         );
-        $this->session->setData(
-            Site2SessionInterface::ADMIN_USER_FIELD,
-            (string) $adminUsername()
-        );
+
+        $this->adminVisitorService->updateUserName($adminUsername);
+
         $url = $this->urlbuilder->fromArray(['root', 'admin']);
         return new RedirectResponse($url);
     }

@@ -14,6 +14,7 @@ use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction\ViewDTO;
 
@@ -24,15 +25,17 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly VisitorService $visitorService
+        private readonly VisitorService $visitorService,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor  = $this->visitorService->getVisitor();
-        $username = $visitor->getUserName();
+        $visitor      = $this->visitorService->getVisitor();
+        $adminVisitor = $this->adminVisitorService->getVisitor();
+        $username     = $adminVisitor->getUserName();
         if ($username === null) {
             $user = null;
         } else {

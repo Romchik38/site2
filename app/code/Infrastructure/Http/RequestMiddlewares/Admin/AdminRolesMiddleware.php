@@ -17,6 +17,7 @@ use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckRoles;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
@@ -30,7 +31,8 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminUserService $adminUserService,
         private readonly TranslateInterface $translate,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
     }
 
@@ -40,13 +42,14 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
         $urlAdmin = $this->urlbuilder->fromArray(['root', 'admin']);
 
-        $adminUser = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        if ($adminUser === null) {
-            // not admin user
+        $adminVisitor = $this->adminVisitorService->getVisitor();
+        $username     = $adminVisitor->getUserName();
+        if ($username === null) {
+            // not an admin user
             return new RedirectResponse($urlRoot);
         }
 
-        $command = CheckRoles::firstMatch($this->allowedRoles, $adminUser);
+        $command = CheckRoles::firstMatch($this->allowedRoles, $username);
 
         try {
             $checkResult = $this->adminUserService->checkRoles($command);
@@ -61,22 +64,22 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
             }
         } catch (AdminUserNotActiveException $e) {
             // user is logged in, but was deactivated
-            $this->session->logout();
+            $this->adminVisitorService->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (NoSuchAdminUserException $e) {
             // user is logged in, but it username was changed or deleted
-            $this->session->logout();
+            $this->adminVisitorService->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (CouldNotCheckRolesException $e) {
             // problem with database etc.
-            $this->session->logout();
+            $this->adminVisitorService->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         } catch (InvalidArgumentException $e) {
             // problem with command data (session etc)
-            $this->session->logout();
+            $this->adminVisitorService->logout();
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         }

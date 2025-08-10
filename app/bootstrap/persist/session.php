@@ -14,12 +14,6 @@ return function (Container $container): Container {
         true,
         []
     );
-    $container->multi(
-        '\Romchik38\Server\Http\Utils\Session\Session',
-        'admin.session',
-        true,
-        ['admin']
-    );
 
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Session\Article\ContinueReading\Repository',
@@ -36,7 +30,8 @@ return function (Container $container): Container {
         '\Romchik38\Site2\Application\AdminVisitor\RepositoryInterface',
         true,
         [
-            new Promise('admin.session'),
+            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
         ]
     );
 

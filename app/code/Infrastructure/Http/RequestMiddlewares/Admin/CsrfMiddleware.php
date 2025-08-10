@@ -8,32 +8,44 @@ use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
+use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use RuntimeException;
 
-final class AdminLoginMiddleware implements RequestMiddlewareInterface
+use function gettype;
+
+final class CsrfMiddleware implements RequestMiddlewareInterface
 {
-    private const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
+    private const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
 
     public function __construct(
         private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly TranslateInterface $translate,
+        private readonly Path $redirectPath,
         private readonly AdminVisitorService $adminVisitorService
     ) {
     }
 
     public function __invoke(ServerRequestInterface $request): ?ResponseInterface
     {
-        $adminVisitor = $this->adminVisitorService->getVisitor();
-        $urlLogin     = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+        $urlLogin = $this->urlbuilder->fromPath($this->redirectPath);
 
-        if ($adminVisitor->getUserName() === null) {
+        $requestData = $request->getParsedBody();
+        if (gettype($requestData) !== 'array') {
+            throw new RuntimeException('Incoming data is invalid');
+        }
+
+        $visitor   = $this->adminVisitorService->getVisitor();
+        $csrfToken = $requestData[$visitor::CSRF_TOKEN_FIELD] ?? null;
+
+        if ($csrfToken !== $visitor->getCsrfToken()) {
             $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translate->t($this::MUST_BE_LOGGED_IN_MESSAGE_KEY)
+                $this->session::MESSAGE_FIELD,
+                $this->translate->t($this::FORM_ERROR_MESSAGE_KEY)
             );
             return new RedirectResponse($urlLogin);
         }

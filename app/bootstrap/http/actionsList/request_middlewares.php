@@ -15,6 +15,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 
@@ -28,6 +29,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 
@@ -45,7 +47,7 @@ return function (Container $container): void {
 
     // Csrf admin
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware',
+        '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\CsrfMiddleware',
         'request-middleware.csrf.admin',
         true,
         [
@@ -53,7 +55,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Path(['root', 'admin']),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 };
