@@ -12,11 +12,10 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Banner\AdminList\AdminListService;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -24,9 +23,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly AdminListService $adminListService
+        private readonly AdminListService $adminListService,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -35,15 +33,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $banners = $this->adminListService->list();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             'Banners',
             'Banners page',
             $banners,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Delete::ID_FIELD
         );
 
