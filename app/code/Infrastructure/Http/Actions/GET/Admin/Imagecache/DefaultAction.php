@@ -15,11 +15,11 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Imagecache\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -31,9 +31,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly ImageCacheService $imageCacheService,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -53,16 +53,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($uri);
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             'Image cache',
             'Image cache page',
             $totalCount,
             $totalPrettySize,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken()
         );
 
         $html = $this->view
