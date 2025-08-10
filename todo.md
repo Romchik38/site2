@@ -7,14 +7,11 @@
   - repository
 
 - add admin session to admin actions
-  - article
-  - audio
   - author
   - banner
   - category
   - image
   - imagecache
-  - page
   - translate
 
 - admin userinfo

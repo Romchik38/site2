@@ -17,6 +17,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminTranslateView\Find;
@@ -25,7 +26,6 @@ use Romchik38\Site2\Application\Audio\AudioService\DeleteTranslate;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -40,9 +40,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminTranslateView $adminTranslateViewService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly LoggerInterface $logger,
-        private readonly string $audioPathPrefix
+        private readonly string $audioPathPrefix,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -77,8 +77,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ));
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $pageName = sprintf(
             'Audio translate id %s language %s',
@@ -96,8 +95,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $pageName,
             $pageDescription,
             $translateDto,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             UpdateTranslate::ID_FIELD,
             UpdateTranslate::LANGUAGE_FIELD,
             UpdateTranslate::DESCRIPTION_FIELD,

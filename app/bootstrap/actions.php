@@ -120,8 +120,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AdminList\AdminList'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
     $container->shared(
@@ -132,11 +132,11 @@ return function (Container $container) {
             new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Application\Audio\AdminView\AdminView'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('audio-folder-frontend')
+            new Promise('audio-folder-frontend'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
     
@@ -147,8 +147,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('admin_view_layout'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 
@@ -162,9 +161,9 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Audio\AdminTranslateView\AdminTranslateView'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
-            new Promise('audio-folder-frontend')
+            new Promise('audio-folder-frontend'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 
@@ -178,8 +177,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Site2\Application\Audio\AdminTranslateCreate\AdminTranslateCreate'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),    
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
     

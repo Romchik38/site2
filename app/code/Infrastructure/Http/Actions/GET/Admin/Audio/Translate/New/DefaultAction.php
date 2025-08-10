@@ -16,13 +16,13 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\AdminTranslateCreate;
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\Find;
 use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -37,8 +37,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminTranslateCreate $adminTranslateCreateService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -67,8 +67,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($uriRedirectList);
         }
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $audioRequirements = $this->adminTranslateCreateService->audioRequirements();
 
@@ -88,8 +87,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $pageName,
             $pageDescription,
             $translateDto,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             CreateTranslate::AUDIO_ID_FIELD,
             CreateTranslate::LANGUAGE_FIELD,
             CreateTranslate::DESCRIPTION_FIELD,

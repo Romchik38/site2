@@ -18,6 +18,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Audio\AdminView\AdminView;
 use Romchik38\Site2\Application\Audio\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Audio\AdminView\NoSuchAudioException;
@@ -27,7 +28,6 @@ use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -41,11 +41,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewInterface $view,
         private readonly AdminView $adminViewService,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly string $audioPathPrefix
+        private readonly string $audioPathPrefix,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -78,15 +78,14 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $languages = $this->languageService->getAll();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             sprintf('Audio view id %s', $audioId()),
             sprintf('Audio view page with id %s', $audioId()),
             $audioDto,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::NAME_FIELD,
             Update::CHANGE_ACTIVITY_FIELD,
