@@ -2,7 +2,13 @@
 
 ## Current
 
-- admin userinfo
+- Visitor - `VisitorServiceInterface`
+  - implement
+  - add to bootstrap
+- view - replace session with `VisitorServiceInterface`
+- admin view
+  - create admin visitor data set
+- [js] admin userinfo - refactor
 - add logout in account page
 - decouple session from actions and request middlewares
   - `$this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD`
