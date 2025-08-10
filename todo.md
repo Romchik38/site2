@@ -2,9 +2,6 @@
 
 ## Current
 
-- add admin session to admin actions
-  - translate
-
 - admin userinfo
 - add logout in account page
 - decouple session from actions and request middlewares
