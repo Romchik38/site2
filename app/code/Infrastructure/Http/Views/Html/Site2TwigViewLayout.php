@@ -8,7 +8,7 @@ use Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\Visitor\VisitorService;
+use Romchik38\Site2\Application\VisitorServiceInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\VO\QueryMetaData;
 use Twig\Environment;
@@ -28,7 +28,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly Site2SessionInterface $session,
         protected readonly string $imageFrontendPath,
-        protected readonly VisitorService $visitorService,
+        protected readonly VisitorServiceInterface $visitorService,
         string $layoutPath = 'base.twig'
     ) {
         parent::__construct($environment, $layoutPath);

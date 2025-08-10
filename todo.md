@@ -2,10 +2,6 @@
 
 ## Current
 
-- Visitor - `VisitorServiceInterface`
-  - implement
-  - add to bootstrap
-- view - replace session with `VisitorServiceInterface`
 - admin view
   - create admin visitor data set
 - [js] admin userinfo - refactor

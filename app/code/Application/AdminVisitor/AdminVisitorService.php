@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Application\AdminVisitor;
 
 use Romchik38\Site2\Application\AdminVisitor\View\VisitorDto;
+use Romchik38\Site2\Application\VisitorServiceInterface;
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 
-final class AdminVisitorService
+final class AdminVisitorService implements VisitorServiceInterface
 {
     public function __construct(
         private readonly RepositoryInterface $repository

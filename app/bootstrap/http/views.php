@@ -59,7 +59,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('img-folder-frontend'),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             'admin_layout'
         ]
     );
