@@ -18,6 +18,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Image\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Image\ImageService\Update;
@@ -26,7 +27,6 @@ use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -40,10 +40,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewInterface $view,
         private readonly AdminViewService $adminViewService,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
-        private readonly UrlbuilderInterface $urlbuilder
+        private readonly UrlbuilderInterface $urlbuilder,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -76,8 +76,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $languages = $this->languageService->getAll();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             sprintf('Image view id %s', (string) $imageId),
@@ -86,8 +85,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $result->metadata,
             $result->imageFrontendPath,
             $languages,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::NAME_FIELD,
             Update::AUTHOR_ID_FIELD,

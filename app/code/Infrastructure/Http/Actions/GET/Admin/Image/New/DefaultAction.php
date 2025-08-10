@@ -15,6 +15,7 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Image\AdminView\AdminViewService;
 use Romchik38\Site2\Application\Image\AdminView\RepositoryException as ImageViewRepositoryException;
 use Romchik38\Site2\Application\Image\ImageService\Create;
@@ -22,7 +23,6 @@ use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as 
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function sprintf;
 
@@ -35,11 +35,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly AdminViewService $adminViewService
+        private readonly AdminViewService $adminViewService,
+        private readonly AdminVisitorService $adminVisitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -68,15 +68,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $imageRequirements = $this->adminViewService->imageRequirements();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             sprintf('Create new Image'),
             sprintf('Create new Image page'),
             $languages,
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Create::NAME_FIELD,
             Create::AUTHOR_ID_FIELD,
             Create::TRANSLATES_FIELD,

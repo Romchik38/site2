@@ -20,17 +20,16 @@ use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Application\Image\ImageService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function count;
 
@@ -48,8 +47,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly AdminImageListService $adminImageListService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -127,8 +125,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $dto = new ViewDto(
             'Images',
@@ -140,8 +137,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            $this->session::ADMIN_CSRF_TOKEN_FIELD,
-            $csrfToken,
+            $visitor->getCsrfTokenField(),
+            $visitor->getCsrfToken(),
             Delete::ID_FIELD
         );
 
