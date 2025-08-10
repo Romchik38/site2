@@ -3,7 +3,6 @@
 ## Current
 
 - add admin session to admin actions
-  - category
   - image
   - translate
 
