@@ -14,10 +14,10 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Page\AdminList\AdminList;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Page\PageService\Commands\Delete;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DefaultAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
@@ -36,14 +36,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminList $pageList,
-        private readonly VisitorService $visitorService,
+        private readonly AdminVisitorService $adminVisitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor = $this->visitorService->getVisitor();
+        $visitor = $this->adminVisitorService->getVisitor();
 
         $requestData = $request->getQueryParams();
         $command     = Filter::fromRequest($requestData);

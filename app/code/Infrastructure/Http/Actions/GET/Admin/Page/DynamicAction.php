@@ -16,13 +16,13 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageException;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Application\Page\AdminView\AdminView;
 use Romchik38\Site2\Application\Page\AdminView\CouldNotFindException;
 use Romchik38\Site2\Application\Page\AdminView\NoSuchPageException;
 use Romchik38\Site2\Application\Page\PageService\Commands\Update;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\DynamicAction\ViewDto;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
@@ -42,7 +42,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly VisitorService $visitorService
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -53,7 +53,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $redirectUri = $this->urlbuilder->fromArray(['root', 'admin', 'page']);
 
-        $visitor = $this->visitorService->getVisitor();
+        $visitor = $this->adminVisitorService->getVisitor();
 
         try {
             $pageDto = $this->viewService->find($dynamicRoute);
