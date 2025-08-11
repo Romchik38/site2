@@ -8,6 +8,7 @@ use Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\VisitorServiceException;
 use Romchik38\Site2\Application\VisitorServiceInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\VO\QueryMetaData;
@@ -15,6 +16,7 @@ use Twig\Environment;
 
 use function array_map;
 use function array_unshift;
+use function sprintf;
 
 class Site2TwigViewLayout extends TwigViewLayout
 {
@@ -38,8 +40,8 @@ class Site2TwigViewLayout extends TwigViewLayout
     {
         $this->prepareLanguages();
         $this->prepareBreadcrumbs();
-        $this->prepareMessage();
         $this->prepareSearch();
+        $this->prepareMessage();
         $this->prepareVisitor();
         $this->setMetadata('image-frontend-path', $this->imageFrontendPath);
     }
@@ -91,11 +93,11 @@ class Site2TwigViewLayout extends TwigViewLayout
 
     protected function prepareMessage(): void
     {
-        $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
-        if ($message !== '') {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
+        try {
+            $this->message = $this->visitorService->getMessage();
+        } catch (VisitorServiceException $e) {
+            throw new CantCreateViewException(sprintf('Can\'t prepare message: %s', $e->getMessage()));
         }
-        $this->message = $message;
     }
 
     protected function prepareSearch(): void
@@ -105,7 +107,8 @@ class Site2TwigViewLayout extends TwigViewLayout
 
     protected function prepareVisitor(): void
     {
-        $this->setMetadata('visitor', $this->visitorService->getVisitor());
+        $visitor = $this->visitorService->getVisitor();
+        $this->setMetadata('visitor', $visitor);
     }
 
     /**

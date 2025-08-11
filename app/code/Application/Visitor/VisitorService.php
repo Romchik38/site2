@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\Visitor;
 
 use InvalidArgumentException;
 use Romchik38\Site2\Application\Visitor\View\VisitorDto;
+use Romchik38\Site2\Application\VisitorServiceException;
 use Romchik38\Site2\Application\VisitorServiceInterface;
 use Romchik38\Site2\Domain\User\VO\Username;
 use Romchik38\Site2\Domain\Visitor\VO\Message;
@@ -17,17 +18,39 @@ final class VisitorService implements VisitorServiceInterface
     ) {
     }
 
-    /** @todo test */
     /**
-     * @throws InvalidArgumentException
-     * @throws RepositoryException
+     * @throws VisitorServiceException
      * */
     public function changeMessage(string $message): void
     {
-        $messageVo      = new Message($message);
-        $model          = $this->repository->getVisitor();
-        $model->message = $messageVo;
-        $this->repository->save($model);
+        try {
+            $messageVo      = new Message($message);
+            $model          = $this->repository->getVisitor();
+            $model->message = $messageVo;
+            $this->repository->save($model);
+        } catch (InvalidArgumentException $e) {
+            throw new VisitorServiceException($e->getMessage());
+        } catch (RepositoryException $e) {
+            throw new VisitorServiceException($e->getMessage());
+        }
+    }
+
+    /** @throws VisitorServiceException */
+    public function getMessage(): ?string
+    {
+        try {
+            $model          = $this->repository->getVisitor();
+            $message        = $model->message;
+            $model->message = null;
+            $this->repository->save($model);
+            if ($message === null) {
+                return $message;
+            } else {
+                return $message();
+            }
+        } catch (RepositoryException $e) {
+            throw new VisitorServiceException($e->getMessage());
+        }
     }
 
     /** @throws RepositoryException */
@@ -38,15 +61,20 @@ final class VisitorService implements VisitorServiceInterface
         $this->repository->save($model);
     }
 
-    /** @throws RepositoryException */
+    /** @throws VisitorServiceException */
     public function getVisitor(): VisitorDto
     {
-        $model = $this->repository->getVisitor();
-        return new VisitorDto(
-            $model->username,
-            $model->isAcceptedTerms,
-            $model->csrfTocken
-        );
+        try {
+            $model = $this->repository->getVisitor();
+            return new VisitorDto(
+                $model->username,
+                $model->isAcceptedTerms,
+                $model->csrfTocken,
+                $model->message
+            );
+        } catch (RepositoryException $e) {
+            throw new VisitorServiceException($e->getMessage());
+        }
     }
 
     /** @throws RepositoryException */
@@ -57,9 +85,13 @@ final class VisitorService implements VisitorServiceInterface
         $this->repository->save($model);
     }
 
-    /** @throws RepositoryException */
+    /** @throws VisitorServiceException */
     public function logout(): void
     {
-        $this->repository->delete();
+        try {
+            $this->repository->delete();
+        } catch (RepositoryException $e) {
+            throw new VisitorServiceException($e->getMessage());
+        }
     }
 }

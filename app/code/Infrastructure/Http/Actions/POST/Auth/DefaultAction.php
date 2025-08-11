@@ -72,10 +72,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $this->translateService->t($e->getMessage())
             );
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $message
-            );
+            $this->visitorService->changeMessage($message);
             return new RedirectResponse($urlLogin);
         } catch (NoSuchUserException) {
             $this->session->setData(
