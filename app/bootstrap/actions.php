@@ -940,6 +940,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 

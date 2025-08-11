@@ -2,7 +2,6 @@
 
 ## Current
 
-- add logout in account page
 - decouple session from actions and request middlewares
   - `$this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD`
   - `$this->session->getData(Site2SessionInterface::USER_FIELD`

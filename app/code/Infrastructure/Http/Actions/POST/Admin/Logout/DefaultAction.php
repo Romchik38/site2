@@ -12,6 +12,7 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -22,25 +23,27 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly Site2SessionInterface $session
+        private readonly Site2SessionInterface $session,
+        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $user = $this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD);
-        if ($user !== null) {
-            $this->session->logout();
+        $visitor = $this->adminVisitorService->getVisitor();
+        if ($visitor->getUserName() !== null) {
+            $this->adminVisitorService->logout();
+            $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+            return new RedirectResponse($url);
+        } else {
+            $this->session->setData(
+                Site2SessionInterface::MESSAGE_FIELD,
+                $this::LOGOUT_MESSAGE_KEY
+            );
             $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
             return new RedirectResponse($url);
         }
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $this::LOGOUT_MESSAGE_KEY
-        );
-        $url = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
-        return new RedirectResponse($url);
     }
 
     public function getDescription(): string
