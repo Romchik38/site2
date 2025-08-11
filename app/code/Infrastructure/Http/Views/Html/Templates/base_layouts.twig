@@ -15,6 +15,7 @@
 {% set u = urlbuilder %}
 {% set t = translate %}
 {% set imageFrontendPath = meta_data['image-frontend-path'] %}
+{% set visitor = meta_data.visitor %}
 
 <html lang="{{ language }}">
 
@@ -48,7 +49,7 @@
         </div>  
 
         <!-- Display a message -->
-        {% include 'frontend_layout/layouts/message.twig' with {'message': message} only %}
+        {% include 'frontend_layout/layouts/message.twig' with {'message': visitor.getMessage()} only %}
 
         <!-- Dynamic content start -->
         {% block content %}{% endblock %} 

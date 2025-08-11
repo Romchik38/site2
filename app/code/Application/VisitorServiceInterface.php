@@ -10,7 +10,7 @@ interface VisitorServiceInterface
     public function changeMessage(string $message): void;
 
     /** @throws VisitorServiceException */
-    public function getMessage(): ?string;
+    public function clearMessage(): void;
 
     /** @throws VisitorServiceException */
     public function getVisitor(): mixed;

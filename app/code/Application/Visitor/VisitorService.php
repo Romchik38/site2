@@ -36,18 +36,12 @@ final class VisitorService implements VisitorServiceInterface
     }
 
     /** @throws VisitorServiceException */
-    public function getMessage(): ?string
+    public function clearMessage(): void
     {
         try {
             $model          = $this->repository->getVisitor();
-            $message        = $model->message;
             $model->message = null;
             $this->repository->save($model);
-            if ($message === null) {
-                return $message;
-            } else {
-                return $message();
-            }
         } catch (RepositoryException $e) {
             throw new VisitorServiceException($e->getMessage());
         }
