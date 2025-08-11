@@ -17,21 +17,22 @@ use Romchik38\Site2\Application\Page\View\CouldNotFindException;
 use Romchik38\Site2\Application\Page\View\NoSuchPageException;
 use Romchik38\Site2\Application\Page\View\View\PageDto;
 use Romchik38\Site2\Application\Page\View\ViewService as PageService;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    private ?PageDto $page = null;
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly Site2SessionInterface $session,
         private readonly ViewInterface $view,
         private readonly PageService $pageService,
-        private ?PageDto $page = null
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -39,14 +40,14 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         // 1 check if use already logged in
-        $adminUser = $this->session->getData(Site2SessionInterface::USER_FIELD);
+        $visitor = $this->visitorService->getVisitor();
 
         $page = $this->getPage();
 
         $dto = new ViewDTO(
             $page->getName(),
             $page->getDescription(),
-            $adminUser,
+            $visitor->getUserName(),
             $page
         );
 
@@ -60,8 +61,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        $page = $this->getPage();
-        return $page->getName();
+        return $this->getPage()->getName();
     }
 
     private function getPage(): PageDto

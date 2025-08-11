@@ -7,6 +7,9 @@
 
 {% block content %}
 {% set page = data.page %}
+{% set urlArticles = u.fromArray(['root', 'article']) %}
+{% set urlAccount = u.fromArray(['root', 'account']) %}
+{% set urlRoot = u.fromArray(['root']) %}
 <div class="container-sm">
     <div class="row">
         <h1 class="text-center">{{ page.getName() }}</h1>
