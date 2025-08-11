@@ -110,15 +110,6 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminArticleUpdate)
     ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
 
-    // Admin Api
-    $adminApi = new Controller('api');
-    $adminApiUserunfo = new Controller(
-        'userinfo',
-        false,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Api\Userinfo\DefaultAction')
-    );
-    $adminApi->setChild($adminApiUserunfo);
-
     // Admin Audio
     $adminAudio = new Controller('audio');
     $adminAudioDelete = new Controller(
@@ -371,7 +362,6 @@ return function (Container $container): ControllerInterface {
 
     $admin->setChild($adminLogout)
     ->setChild($adminArticle)
-    ->setChild($adminApi)
     ->setChild($adminAudio)
     ->setChild($adminAuthor)
     ->setChild($adminBanner)

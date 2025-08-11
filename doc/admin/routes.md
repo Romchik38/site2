@@ -35,7 +35,6 @@
 - root admin article new                    create new article
 - root admin article delete                 delete article
 - root admin article most_visited clear     statistic clear
-- root admin api userinfo                   admin userinfo api point
 - root admin audio new                      create new audio
 - root admin audio update                   update audio
 - root admin audio delete                   delete audio

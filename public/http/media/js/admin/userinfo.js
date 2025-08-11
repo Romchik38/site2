@@ -1,7 +1,18 @@
 'use strict';
 
 import { default as Component } from '/media/js/modules/components/component.js';
-import { VisitorData } from './visitor.js';
+
+class VisitorData extends Component {
+    getUsername() {
+        return this.node.dataset.username;
+    }
+    getCsrfToken() {
+        return this.node.dataset.csrftoken;
+    }
+    getCsrfTokenField() {
+        return this.node.dataset.csrftokenfield;
+    }
+};
 
 var loggedinElem = Component.fromClass('header-user-loggedin');
 var usernameElem = Component.fromClass('user-name-field');

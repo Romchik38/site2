@@ -2,7 +2,6 @@
 
 ## Current
 
-- remove admin api userinfo action
 - add logout in account page
 - decouple session from actions and request middlewares
   - `$this->session->getData(Site2SessionInterface::ADMIN_USER_FIELD`

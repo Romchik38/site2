@@ -685,17 +685,6 @@ return function (Container $container) {
         ]
     );
 
-    // ADMIN API
-    // USERINFO
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Api\Userinfo\DefaultAction',
-        [
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-        ]
-    );
-
     // ADMIN AUDIO DELETE
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Audio\Delete\DefaultAction',
