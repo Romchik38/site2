@@ -26,7 +26,6 @@ use Romchik38\Site2\Application\Author\AuthorService\Commands\Update;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Author\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 
@@ -39,7 +38,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly AdminViewService $adminViewService,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -62,14 +60,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         try {
             $authorDto = $this->adminViewService->find($authorId);
         } catch (NoSuchAuthorException $e) {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $e->getMessage());
+            $this->adminVisitorService->changeMessage($e->getMessage());
             return new RedirectResponse($redirectUri);
         } catch (RepositoryException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR_MESSAGE)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR_MESSAGE));
             return new RedirectResponse($redirectUri);
         }
 

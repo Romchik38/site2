@@ -66,6 +66,7 @@
         </header>
 
         <!-- Display a message -->
+        {% set message = visitor.getMessage() %}
         <div class="text-center mb-3" style="height: 9px">
             <span class="message bg-warning px-2 d-none">{{ message }}</span>
         </div>

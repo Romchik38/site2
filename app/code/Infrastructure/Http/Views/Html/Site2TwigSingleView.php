@@ -50,6 +50,7 @@ class Site2TwigSingleView extends TwigSingleView
             ->setMetadata('languages', $languages);
     }
 
+    /** @todo refactor */
     protected function prepareMessage(): void
     {
         $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);

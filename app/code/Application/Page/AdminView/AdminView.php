@@ -23,7 +23,6 @@ final class AdminView
     public function find(string $id): PageDto
     {
         $pageId = Id::fromString($id);
-
         try {
             return $this->repository->getById($pageId);
         } catch (RepositoryException $e) {

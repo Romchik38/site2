@@ -6,6 +6,7 @@ namespace Romchik38\Site2\Application\AdminVisitor\View;
 
 use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use Romchik38\Site2\Domain\AdminVisitor\VO\CsrfToken;
+use Romchik38\Site2\Domain\AdminVisitor\VO\Message;
 
 final class VisitorDto
 {
@@ -14,7 +15,8 @@ final class VisitorDto
 
     public function __construct(
         public readonly ?Username $username,
-        public readonly CsrfToken $csrfToken
+        public readonly CsrfToken $csrfToken,
+        public readonly ?Message $message
     ) {
     }
 
@@ -35,5 +37,14 @@ final class VisitorDto
     public function getCsrfTokenField(): string
     {
         return $this::CSRF_TOKEN_FIELD;
+    }
+
+    public function getMessage(): ?string
+    {
+        if ($this->message === null) {
+            return $this->message;
+        } else {
+            return (string) $this->message;
+        }
     }
 }

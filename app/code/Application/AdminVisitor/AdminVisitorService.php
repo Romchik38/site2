@@ -52,7 +52,8 @@ final class AdminVisitorService implements VisitorServiceInterface
             $model = $this->repository->getVisitor();
             return new VisitorDto(
                 $model->username,
-                $model->csrfTocken
+                $model->csrfTocken,
+                $model->message
             );
         } catch (RepositoryException $e) {
             throw new VisitorServiceException($e->getMessage());
