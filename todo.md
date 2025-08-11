@@ -2,6 +2,18 @@
 
 ## Current
 
+- visitor
+  - add message
+  - tests
+  - service + interface
+  - repository
+
+- asmin visitor
+  - add message
+  - tests
+  - service + interface
+  - repository  
+
 - session message
   - add to visitor and admin visitor
   - add to view
