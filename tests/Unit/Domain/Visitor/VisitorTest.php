@@ -20,11 +20,19 @@ final class VisitorTest extends TestCase
         $this->csrfTokenGenerator = new CsrfTokenGeneratorUseRandomBytes(32);
     }
 
+    public function testConstructDefaultNull(): void
+    {
+        $token = new CsrfToken($this->csrfTokenGenerator->asBase64());
+        $model = new Visitor($token);
+        $this->assertSame(null, $model->username);
+        $this->assertSame(null, $model->message);
+    }
+
     public function testAcceptWithTerms(): void
     {
         $username = new Username('user_1');
         $token    = new CsrfToken($this->csrfTokenGenerator->asBase64());
-        $model    = new Visitor($username, false, $token);
+        $model    = new Visitor($token, $username);
 
         $this->assertSame(false, $model->isAcceptedTerms);
         $model->acceptWithTerms();

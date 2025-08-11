@@ -6,13 +6,15 @@ namespace Romchik38\Site2\Domain\Visitor;
 
 use Romchik38\Site2\Domain\User\VO\Username;
 use Romchik38\Site2\Domain\Visitor\VO\CsrfToken;
+use Romchik38\Site2\Domain\Visitor\VO\Message;
 
 final class Visitor
 {
     public function __construct(
-        public ?Username $username,
-        private(set) bool $isAcceptedTerms,
-        public CsrfToken $csrfTocken
+        public CsrfToken $csrfTocken,
+        public ?Username $username = null,
+        private(set) bool $isAcceptedTerms = false,
+        public ?Message $message = null
     ) {
     }
 
