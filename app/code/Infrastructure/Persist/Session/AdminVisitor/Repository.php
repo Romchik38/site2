@@ -63,10 +63,7 @@ final class Repository implements RepositoryInterface
         }
 
         try {
-            $visitor = new AdminVisitor(
-                null,
-                new CsrfToken($csrfToken)
-            );
+            $visitor = new AdminVisitor(new CsrfToken($csrfToken));
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
