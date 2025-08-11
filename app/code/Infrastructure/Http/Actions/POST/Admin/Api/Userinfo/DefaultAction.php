@@ -15,6 +15,7 @@ use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
+/** @todo remove */
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     private const MUST_BE_LOGGED_IN_ERROR = 'You must be logged in to make a request';

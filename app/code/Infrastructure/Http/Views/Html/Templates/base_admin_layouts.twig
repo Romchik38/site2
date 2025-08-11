@@ -10,6 +10,7 @@
 
 {% set language = meta_data.language %}
 {% set u = urlbuilder %}
+{% set visitor = meta_data['visitor'] %}
 
 <html lang="{{ language }}">
     <head>
@@ -28,6 +29,13 @@
     </head>
 
     <body class="container-fluid p-0">     
+        <!-- Visitor data -->
+        <div class="d-none visitor-data"
+            data-username="{{ visitor.getUsername() }}"
+            data-csrftoken="{{ visitor.getCsrfToken() }}"
+            data-csrftokenfield="{{ visitor.getCsrfTokenField() }}"
+        ></div>
+
         <header class="container-fluid bg-primary text-white">
             <div class="row">
                 <div class="col-sm">
@@ -89,7 +97,7 @@
         <div class="container-fluid bg-light">
             <div class="row">
                 <div class="col-sm text-center">
-                    © 2025 Copyrights Romanenko Serhii 
+                    © 2025 Copyrights Romanenko Serhii, read license <a target="_blank" href="https://github.com/Romchik38/site2/blob/main/LICENSE.md">Github</a>
                 </div>
             </div>
         </div>
@@ -97,6 +105,6 @@
         <!-- Before body close tag -->
         <script src="/media/js/popper.min.js"></script>
         <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-        <script type="module" src="/media/js/admin/userinfo.js"></script>
+        <script type="module" src="/media/js/admin/userinfo/index.js"></script>
     </body>
 </html>
