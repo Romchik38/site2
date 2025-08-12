@@ -2,7 +2,7 @@
 
 ## Current
 
-- [js] replace urlbuilder with all make requests
+- message displayed when login as admin user and open front page
 - more page content
 - footer menu
 - /login/admin - return page name for breadcrumbs

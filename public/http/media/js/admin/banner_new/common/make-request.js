@@ -1,11 +1,7 @@
 'use strict';
 
-import { default as target } from '/media/js/modules/urlbuilder/dynamicTarget.js';
-import { default as urlbuilder } from '/media/js/modules/urlbuilder/urlbuilder.js';
+import { urlbuilder as u } from '/media/js/modules/utils/urlbuilder.js'
 import { default as Query } from '/media/js/modules/urlbuilder/query.js';
-
-var t = target(currentLanguage);
-var u = urlbuilder(t);
 
 export default function(path, filterRequest, callback) {
     if (typeof path  !== 'object') {
