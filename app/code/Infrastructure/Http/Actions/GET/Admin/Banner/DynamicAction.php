@@ -25,7 +25,6 @@ use Romchik38\Site2\Application\Banner\AdminView\Exceptions\NoSuchBannerExceptio
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Update;
 use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 use function urldecode;
@@ -39,7 +38,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly AdminView $viewService,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminVisitorService $adminVisitorService
@@ -64,10 +62,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException($e->getMessage());
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this::SERVER_ERROR_MESSAGE
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR_MESSAGE));
+            return new RedirectResponse($redirectUri);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->error($e->getMessage());
+            $this->adminVisitorService->changeMessage($e->getMessage());
             return new RedirectResponse($redirectUri);
         }
 

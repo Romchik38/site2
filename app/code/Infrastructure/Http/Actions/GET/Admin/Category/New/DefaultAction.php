@@ -20,7 +20,6 @@ use Romchik38\Site2\Application\Category\CategoryService\Commands\Create;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageException;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -30,7 +29,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -47,10 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $languages = $this->languageService->getAll();
         } catch (LanguageException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this::SERVER_ERROR_MESSAGE
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR_MESSAGE));
             return new RedirectResponse($redirectUri);
         }
 

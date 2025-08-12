@@ -25,7 +25,6 @@ use Romchik38\Site2\Application\Audio\AdminTranslateView\NoSuchTranslateExceptio
 use Romchik38\Site2\Application\Audio\AudioService\DeleteTranslate;
 use Romchik38\Site2\Application\Audio\AudioService\UpdateTranslate;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 
@@ -39,7 +38,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly AdminTranslateView $adminTranslateViewService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly string $audioPathPrefix,
         private readonly AdminVisitorService $adminVisitorService
@@ -49,25 +47,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $requestData = $request->getQueryParams();
-        $command     = Find::fromRequest($requestData);
-
-        $uriRedirectList = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
+        $requestData        = $request->getQueryParams();
+        $command            = Find::fromRequest($requestData);
+        $uriRedirectList    = $this->urlbuilder->fromArray(['root', 'admin', 'audio']);
+        $serverErrorMessage = $this->translateService->t($this::ERROR_MESSAGE_KEY);
 
         try {
             $translateDto = $this->adminTranslateViewService->find($command);
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($uriRedirectList);
         } catch (InvalidArgumentException $e) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($uriRedirectList);
         } catch (NoSuchTranslateException $e) {
             throw new ActionNotFoundException(sprintf(

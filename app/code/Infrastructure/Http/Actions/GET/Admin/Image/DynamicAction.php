@@ -26,7 +26,6 @@ use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Image\NoSuchImageException;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 
@@ -39,7 +38,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly AdminViewService $adminViewService,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -67,10 +65,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::ERROR_MESSAGE_KEY));
             return new RedirectResponse($uri);
         }
 

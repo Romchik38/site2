@@ -30,7 +30,6 @@ use Romchik38\Site2\Application\Audio\AudioService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DefaultAction\JsonViewDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
@@ -53,7 +52,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminList $audioList,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly AdminVisitorService $adminVisitorService
     ) {
@@ -72,8 +70,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return $response->withStatus(406);
         }
 
-        $requestData = $request->getQueryParams();
-        $command     = Filter::fromRequest($requestData);
+        $requestData        = $request->getQueryParams();
+        $command            = Filter::fromRequest($requestData);
+        $serverErrorMessage = $this->translateService->t($this::ERROR_MESSAGE_KEY);
 
         try {
             $filterResult = $this->audioList->list($command);
@@ -88,10 +87,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 ));
             } else {
                 $uri = $this->urlbuilder->fromArray(['root', 'admin']);
-                $this->session->setData(
-                    Site2SessionInterface::MESSAGE_FIELD,
-                    $this->translateService->t($this::ERROR_MESSAGE_KEY)
-                );
+                $this->adminVisitorService->changeMessage($serverErrorMessage);
                 return new RedirectResponse($uri);
             }
         } catch (InvalidArgumentException $e) {
@@ -105,10 +101,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 ));
             } else {
                 $uri = $this->urlbuilder->fromArray(['root', 'admin']);
-                $this->session->setData(
-                    Site2SessionInterface::MESSAGE_FIELD,
-                    $this->translateService->t($this::ERROR_MESSAGE_KEY)
-                );
+                $this->adminVisitorService->changeMessage($serverErrorMessage);
                 return new RedirectResponse($uri);
             }
         }

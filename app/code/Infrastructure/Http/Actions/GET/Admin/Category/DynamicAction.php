@@ -27,7 +27,6 @@ use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as 
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 use function urldecode;
@@ -41,7 +40,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ViewService $viewService,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -60,7 +58,8 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException($e->getMessage());
         }
 
-        $redirectUri = $this->urlbuilder->fromArray(['root', 'admin', 'category']);
+        $redirectUri        = $this->urlbuilder->fromArray(['root', 'admin', 'category']);
+        $serverErrorMessage = $this->translateService->t($this::SERVER_ERROR_MESSAGE);
 
         try {
             $categoryDto = $this->viewService->find($categoryId);
@@ -68,10 +67,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new ActionNotFoundException($e->getMessage());
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this::SERVER_ERROR_MESSAGE
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($redirectUri);
         }
 
@@ -79,10 +75,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $languages = $this->languageService->getAll();
         } catch (LanguageException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this::SERVER_ERROR_MESSAGE
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($redirectUri);
         }
 

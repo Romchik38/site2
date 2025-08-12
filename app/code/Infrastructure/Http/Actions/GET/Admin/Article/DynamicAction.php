@@ -30,7 +30,6 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\AuthorFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ImageFiltersDto;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 use function urldecode;
@@ -45,7 +44,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ViewInterface $view,
         private readonly ListService $languageService,
         private readonly AdminView $articleViewService,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly string $audioPathPrefix,
@@ -70,17 +68,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException('Article with id %s not exist');
         } catch (InvalidArgumentException $e) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::ERROR_MESSAGE_KEY));
             return new RedirectResponse($uriList);
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::ERROR_MESSAGE_KEY));
             return new RedirectResponse($uriList);
         }
 

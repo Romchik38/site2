@@ -22,7 +22,6 @@ use Romchik38\Site2\Application\Image\ImageService\Create;
 use Romchik38\Site2\Application\Language\List\Exceptions\RepositoryException as LanguageRepositoryException;
 use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Image\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 
@@ -34,7 +33,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
@@ -46,23 +44,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $urlList = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
+        $urlList            = $this->urlbuilder->fromArray(['root', 'admin', 'image']);
+        $errorServerMessage = $this->translateService->t($this::ERROR_MESSAGE_KEY);
+
         try {
             $languages = $this->languageService->getAll();
             $authors   = $this->adminViewService->listAuthors();
         } catch (LanguageRepositoryException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($errorServerMessage);
             return new RedirectResponse($urlList);
         } catch (ImageViewRepositoryException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($errorServerMessage);
             return new RedirectResponse($urlList);
         }
 

@@ -24,11 +24,9 @@ use Romchik38\Site2\Application\Article\AdminList\Exceptions\CouldNotListExcepti
 use Romchik38\Site2\Application\Article\ArticleService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
-use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 
 use function count;
 
@@ -43,8 +41,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminListService $articleService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
-        private readonly Site2SessionInterface $session,
-        private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator,
         private readonly AdminVisitorService $adminVisitorService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -64,17 +60,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $filterResult = $this->articleService->list($command);
         } catch (CouldNotListException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR));
             return new RedirectResponse($uriRedirect);
         } catch (InvalidArgumentException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR));
             return new RedirectResponse($uriRedirect);
         }
 
@@ -102,9 +92,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         );
 
         $paginationHtml = $paginationView->create();
-
-        $csrfToken = $this->csrfTokenGenerator->asBase64();
-        $this->session->setData($this->session::ADMIN_CSRF_TOKEN_FIELD, $csrfToken);
 
         $dto  = new ViewDto(
             'Admin article',

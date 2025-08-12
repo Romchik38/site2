@@ -22,7 +22,6 @@ use Romchik38\Site2\Application\Audio\AdminTranslateCreate\CouldNotFindException
 use Romchik38\Site2\Application\Audio\AdminTranslateCreate\Find;
 use Romchik38\Site2\Application\Audio\AudioService\CreateTranslate;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\Translate\New\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 
@@ -36,7 +35,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly AdminTranslateCreate $adminTranslateCreateService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly AdminVisitorService $adminVisitorService
     ) {
@@ -54,16 +52,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $translateDto = $this->adminTranslateCreateService->find($command);
         } catch (CouldNotFindException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::ERROR_MESSAGE_KEY));
             return new RedirectResponse($uriRedirectList);
         } catch (InvalidArgumentException $e) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($e->getMessage())
-            );
+            $this->adminVisitorService->changeMessage($e->getMessage());
             return new RedirectResponse($uriRedirectList);
         }
 

@@ -25,7 +25,6 @@ use Romchik38\Site2\Application\Translate\List\ListService;
 use Romchik38\Site2\Application\Translate\TranslateService\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\PaginationForm;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\CreatePagination;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
@@ -42,7 +41,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly ListService $translateList,
-        private readonly Site2SessionInterface $session,
         private readonly LoggerInterface $logger,
         private readonly AdminVisitorService $adminVisitorService
     ) {
@@ -59,14 +57,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             $filterResult = $this->translateList->list($command);
         } catch (InvalidArgumentException $e) {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $e->getMessage());
+            $this->adminVisitorService->changeMessage($e->getMessage());
             return new RedirectResponse($uriRedirect);
         } catch (CouldNotFilterException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR));
             return new RedirectResponse($uriRedirect);
         }
 
@@ -74,10 +69,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $totalCount = $this->translateList->totalCount();
         } catch (CouldNotCountException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::SERVER_ERROR));
             return new RedirectResponse($uriRedirect);
         }
 

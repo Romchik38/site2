@@ -20,7 +20,6 @@ use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Article\AdminMostVisited\AdminMostVisited;
 use Romchik38\Site2\Application\Article\AdminMostVisited\Exceptions\CouldNotListException;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\MostVisited\DefaultAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -34,7 +33,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly AdminMostVisited $adminMostVisitedService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
-        private readonly Site2SessionInterface $session,
         private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -42,25 +40,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
-
-        $visitor = $this->adminVisitorService->getVisitor();
+        $uriRedirect        = $this->urlbuilder->fromArray(['root', 'admin']);
+        $visitor            = $this->adminVisitorService->getVisitor();
+        $serverErrorMessage = $this->translateService->t($this::SERVER_ERROR);
 
         try {
             $articleList = $this->adminMostVisitedService->list($this->getLanguage());
         } catch (CouldNotListException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($uriRedirect);
         } catch (InvalidArgumentException $e) {
             $this->logger->error($e->getMessage());
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR)
-            );
+            $this->adminVisitorService->changeMessage($serverErrorMessage);
             return new RedirectResponse($uriRedirect);
         }
 
