@@ -21,7 +21,7 @@ use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCh
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\InvalidPasswordException;
 use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Application\Visitor\VisitorService;
 use RuntimeException;
 
 use function gettype;
@@ -40,10 +40,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly AdminUserService $adminUserCheck,
-        private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly AdminVisitorService $adminVisitorService,
+        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -58,49 +58,32 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $command  = CheckPassword::fromHash($requestData);
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
+
         try {
             $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch (AdminUserNotActiveException) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::NOT_ACTIVE_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::NOT_ACTIVE_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         } catch (InvalidPasswordException) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
                 $this->translateService->t($this::BAD_PROVIDED_DATA_MESSAGE_KEY),
                 $e->getMessage()
             );
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $message
-            );
+            $this->visitorService->changeMessage($message);
             return new RedirectResponse($urlLogin);
         } catch (NoSuchAdminUserException) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         } catch (CouldNotCheckPasswordException $e) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::SERVER_ERROR_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::SERVER_ERROR_KEY));
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         }
 
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $this->translateService->t($this::SUCCESS_LOGGED_IN_KEY)
-        );
+        $this->visitorService->changeMessage($this->translateService->t($this::SUCCESS_LOGGED_IN_KEY));
 
         $this->adminVisitorService->updateUserName($adminUsername);
 

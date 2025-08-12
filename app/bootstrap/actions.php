@@ -489,7 +489,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('admin_view_layout'),
             new Promise('\Romchik38\Site2\Application\Translate\View\ViewService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
@@ -623,7 +622,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService')
         ]
@@ -636,7 +635,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService')
         ]
@@ -649,7 +648,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService')
         ]
@@ -662,7 +661,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService')
         ]
@@ -676,7 +675,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -689,7 +688,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
         ]
     );
@@ -702,7 +701,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
         ]
     );
@@ -715,7 +714,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -728,7 +727,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -741,7 +740,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Audio\AudioService\AudioService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -754,7 +753,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]
     );
@@ -767,7 +766,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]
     );
@@ -780,7 +779,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AuthorService\AuthorService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -792,7 +791,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Banner\BannerService\BannerService'),            
         ]
@@ -805,7 +804,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\Banner\BannerService\BannerService'),
         ]
@@ -819,7 +818,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Banner\BannerService\BannerService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
         ]
     );
@@ -832,7 +831,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Category\CategoryService\CategoryService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -845,7 +844,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Category\CategoryService\CategoryService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -858,7 +857,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Category\CategoryService\CategoryService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -871,7 +870,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+           new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]
     );
@@ -884,7 +883,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]
     );
@@ -897,7 +896,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Image\ImageService\ImageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -908,7 +907,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
@@ -922,8 +921,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );
 
@@ -935,7 +934,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Page\PageService\PageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),            
         ]
     );
@@ -948,7 +947,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Page\PageService\PageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -961,7 +960,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Page\PageService\PageService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -974,7 +973,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\TranslateService\TranslateService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -987,7 +986,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\TranslateService\TranslateService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -1000,7 +999,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Translate\TranslateService\TranslateService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
         ]
     );
@@ -1012,10 +1011,10 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );
 
@@ -1026,7 +1025,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Application\User\UserCheck\UserCheckService'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
@@ -1039,7 +1037,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );

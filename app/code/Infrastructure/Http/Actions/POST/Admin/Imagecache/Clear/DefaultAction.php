@@ -13,9 +13,9 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -25,7 +25,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly Site2SessionInterface $session,
+        private readonly AdminVisitorService $adminVisitorService,
         private readonly ImageCacheService $imageCacheService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
@@ -40,16 +40,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         } catch (RepositoryException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin']);
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::ERROR_MESSAGE_KEY)
-            );
+            $this->adminVisitorService->changeMessage($this->translateService->t($this::ERROR_MESSAGE_KEY));
             return new RedirectResponse($uri);
         }
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $this->translateService->t($this::SUCCESS_MESSAGE_KEY)
-        );
+
+        $this->adminVisitorService->changeMessage($this->translateService->t($this::SUCCESS_MESSAGE_KEY));
         $uri = $this->urlbuilder->fromArray(['root', 'admin', 'imagecache']);
         return new RedirectResponse($uri);
     }

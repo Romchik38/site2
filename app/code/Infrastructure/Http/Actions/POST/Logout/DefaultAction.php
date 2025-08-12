@@ -13,7 +13,6 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Visitor\VisitorService;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -23,7 +22,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly Site2SessionInterface $session,
         private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -37,10 +35,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->visitorService->logout();
             return new RedirectResponse($urlLogin);
         }
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $this->translateService->t($this::LOGOUT_MESSAGE_KEY)
-        );
+        $this->visitorService->changeMessage($this->translateService->t($this::LOGOUT_MESSAGE_KEY));
 
         return new RedirectResponse($urlLogin);
     }

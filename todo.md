@@ -21,6 +21,7 @@
 - [js] replace urlbuilder with all make requests
 - more page content
 - footer menu
+- /login/admin - return page name for breadcrumbs
 
 ## Next
 

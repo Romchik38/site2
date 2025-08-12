@@ -18,7 +18,6 @@ use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserN
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
 use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {
@@ -27,7 +26,6 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
     /** @param array<int,string> $allowedRoles*/
     public function __construct(
         private readonly array $allowedRoles,
-        private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminUserService $adminUserService,
         private readonly TranslateInterface $translate,
@@ -56,10 +54,7 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
             if ($checkResult === true) {
                 return null;
             } else {
-                $this->session->setData(
-                    Site2SessionInterface::MESSAGE_FIELD,
-                    $this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY)
-                );
+                $this->adminVisitorService->changeMessage($this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY));
                 return new RedirectResponse($urlAdmin);
             }
         } catch (AdminUserNotActiveException $e) {

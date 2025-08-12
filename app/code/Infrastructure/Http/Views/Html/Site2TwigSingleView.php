@@ -7,7 +7,7 @@ namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
+use Romchik38\Site2\Application\VisitorServiceInterface;
 use Twig\Environment;
 
 use function array_map;
@@ -21,7 +21,7 @@ class Site2TwigSingleView extends TwigSingleView
         protected readonly TranslateInterface $translateService,
         protected readonly DynamicRootInterface $dynamicRootService,
         protected readonly UrlbuilderInterface $urlbuilder,
-        protected readonly Site2SessionInterface $session,
+        protected readonly VisitorServiceInterface $visitorService,
         string $layoutPath
     ) {
         parent::__construct($environment, $layoutPath);
@@ -30,7 +30,7 @@ class Site2TwigSingleView extends TwigSingleView
     protected function prepareMetaData(): void
     {
         $this->prepareLanguages();
-        $this->prepareMessage();
+        $this->prepareVisitor();
     }
 
     /**
@@ -50,14 +50,11 @@ class Site2TwigSingleView extends TwigSingleView
             ->setMetadata('languages', $languages);
     }
 
-    /** @todo refactor */
-    protected function prepareMessage(): void
+    protected function prepareVisitor(): void
     {
-        $message = (string) $this->session->getData(Site2SessionInterface::MESSAGE_FIELD);
-        if ($message !== '') {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, '');
-        }
-        $this->message = $message;
+        $visitor = $this->visitorService->getVisitor();
+        $this->visitorService->clearMessage();
+        $this->setMetadata('visitor', $visitor);
     }
 
     /**

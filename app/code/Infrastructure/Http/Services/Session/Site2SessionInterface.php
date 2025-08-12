@@ -12,7 +12,6 @@ interface Site2SessionInterface extends SessionInterface
     public const ADMIN_CSRF_TOKEN_FIELD = 'admin_csrf_token';
     public const CSRF_TOKEN_FIELD       = 'csrf_token';
     public const USER_FIELD             = 'user';
-    public const MESSAGE_FIELD          = 'message';
     public const ARTICLE_VIEWS_FIELD    = 'article_views';
     public const ARTICLE_LAST_VISITED   = 'article_last_visited';
     public const VISITOR_FIELD          = 'visitor';

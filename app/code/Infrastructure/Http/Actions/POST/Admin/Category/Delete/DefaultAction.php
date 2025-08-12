@@ -15,12 +15,12 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Category\CategoryService\CategoryService;
 use Romchik38\Site2\Application\Category\CategoryService\Commands\Delete;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\CouldNotDeleteException;
 use Romchik38\Site2\Application\Category\CategoryService\Exceptions\NoSuchCategoryException;
 use Romchik38\Site2\Domain\Category\CouldNotChangeActivityException;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;
@@ -39,7 +39,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly CategoryService $categoryService,
-        private readonly Site2SessionInterface $session,
+        private readonly AdminVisitorService $adminVisitorService,
         private readonly LoggerInterface $logger
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -82,10 +82,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         // Common answer
         if ($message !== '') {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $message
-            );
+            $this->adminVisitorService->changeMessage($message);
         }
         return new RedirectResponse($uri);
     }

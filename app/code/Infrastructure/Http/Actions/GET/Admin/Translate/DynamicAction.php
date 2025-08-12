@@ -27,7 +27,6 @@ use Romchik38\Site2\Application\Translate\View\Exceptions\NoSuchTranslateExcepti
 use Romchik38\Site2\Application\Translate\View\ViewService;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction\ViewDto;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function sprintf;
 use function urldecode;
@@ -41,7 +40,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly ViewService $viewService,
-        private readonly Site2SessionInterface $session,
         private readonly ListService $languageService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
@@ -60,7 +58,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         try {
             $translateId = new Identifier($decodedRoute);
         } catch (InvalidArgumentException $e) {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $e->getMessage());
+            $this->adminVisitorService->changeMessage($e->getMessage());
             return new RedirectResponse($uriRedirect);
         }
 
@@ -69,7 +67,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         } catch (NoSuchTranslateException $e) {
             throw new ActionNotFoundException($e->getMessage());
         } catch (CouldNotFindException $e) {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $messageError);
+            $this->adminVisitorService->changeMessage($messageError);
             $this->logger->error($e->getMessage());
             return new RedirectResponse($uriRedirect);
         }
@@ -77,7 +75,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         try {
             $languages = $this->languageService->getAll();
         } catch (LanguageRepositoryException $e) {
-            $this->session->setData(Site2SessionInterface::MESSAGE_FIELD, $messageError);
+            $this->adminVisitorService->changeMessage($messageError);
             $this->logger->error($e->getMessage());
             return new RedirectResponse($uriRedirect);
         }

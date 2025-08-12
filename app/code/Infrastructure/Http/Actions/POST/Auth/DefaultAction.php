@@ -18,7 +18,6 @@ use Romchik38\Site2\Application\User\UserCheck\InvalidPasswordException;
 use Romchik38\Site2\Application\User\UserCheck\UserCheckService;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Domain\User\NoSuchUserException;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function gettype;
@@ -35,7 +34,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly UserCheckService $adminUserCheck,
-        private readonly Site2SessionInterface $session,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly VisitorService $visitorService
     ) {
@@ -62,10 +60,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             $username = $this->adminUserCheck->checkPassword($command);
         } catch (InvalidPasswordException) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
@@ -75,19 +70,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->visitorService->changeMessage($message);
             return new RedirectResponse($urlLogin);
         } catch (NoSuchUserException) {
-            $this->session->setData(
-                Site2SessionInterface::MESSAGE_FIELD,
-                $this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         }
 
         $this->visitorService->updateUserName($username);
+        $this->visitorService->changeMessage($this->translateService->t($this::SUCCESS_LOGGED_IN));
 
-        $this->session->setData(
-            Site2SessionInterface::MESSAGE_FIELD,
-            $this->translateService->t($this::SUCCESS_LOGGED_IN)
-        );
         return new RedirectResponse($urlAccount);
     }
 

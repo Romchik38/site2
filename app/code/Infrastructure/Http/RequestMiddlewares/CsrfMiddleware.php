@@ -43,10 +43,7 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         $csrfToken = $requestData[$visitor::CSRF_TOKEN_FIELD] ?? null;
 
         if ($csrfToken !== $visitor->getCsrfToken()) {
-            $this->session->setData(
-                $this->session::MESSAGE_FIELD,
-                $this->translate->t($this::FORM_ERROR_MESSAGE_KEY)
-            );
+            $this->visitorService->changeMessage($this->translate->t($this::FORM_ERROR_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         }
 
