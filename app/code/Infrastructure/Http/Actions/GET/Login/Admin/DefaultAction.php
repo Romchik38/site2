@@ -20,6 +20,9 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\Admin\DefaultAction\Vi
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    public const PAGE_NAME_KEY        = 'admin-login.page-name';
+    public const PAGE_DESCRIPTION_KEY = 'admin-login.page-description';
+
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
@@ -47,8 +50,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ->setController($this->controller)
             ->setControllerData(
                 new ViewDTO(
-                    'Admin user login',
-                    'Admin user login page',
+                    $this->translateService->t($this::PAGE_NAME_KEY),
+                    $this->translateService->t($this::PAGE_DESCRIPTION_KEY),
                     $user,
                     CheckPassword::USERNAME_FIELD,
                     CheckPassword::PASSWORD_FIELD,
@@ -64,6 +67,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function getDescription(): string
     {
-        return 'Admin user login page';
+        return $this->translateService->t($this::PAGE_NAME_KEY);
     }
 }

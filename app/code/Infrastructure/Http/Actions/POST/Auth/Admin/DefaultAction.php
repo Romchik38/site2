@@ -83,7 +83,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($urlLogin);
         }
 
-        $this->visitorService->changeMessage($this->translateService->t($this::SUCCESS_LOGGED_IN_KEY));
+        $this->adminVisitorService->changeMessage($this->translateService->t($this::SUCCESS_LOGGED_IN_KEY));
 
         $this->adminVisitorService->updateUserName($adminUsername);
 

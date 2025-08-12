@@ -11,21 +11,21 @@
     <div class="row justify-content-center">
         <h1 class="text-center">{{ data.name }}</h1>
             {% if data.adminUser is null %}
-                <p class="lead">On this page you can provide your admin login credentials. Yor account must be active. Please, contact <a href="#">support</a> on any issue.</p>
+                <p class="lead">{{ t.t('page.login-admin.lead')|raw }}</p>
                 <div class="col-sm-4">
-                    <h2 class="text-center">Provide Login Credentials</h2>
+                    <h2 class="text-center">{{ t.t('page.login.provide-login-credentials') }}</h2>
                     <form class="border rounded-3 p-4" action="{{ data.authUrl }}" method="post">
-                        <label for="{{ data.userNameField }}">Enter your user name: </label>
+                        <label for="{{ data.userNameField }}">{{ t.t('page.login.enter-username') }}: </label>
                         <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required autofocus /><br>
-                        <label for="{{ data.passwordField }}">Enter password: </label>
+                        <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>
                         <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
-                        <input class="btn btn-secondary" type="submit" value="Log In" />
+                        <input class="btn btn-secondary" type="submit" value="{{ t.t('Log In') }}" />
                         <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
                     </form>
                     <br>
                 </div>
             {% else %}
-                <p>You already logged in. Please visit <a href="{{ u.fromArray(['root', 'admin']) }}">Admin Page</a>.</p>
+                <p>{{ t.t('page.login-admin.already') }} <a href="{{ u.fromArray(['root', 'admin']) }}">{{ t.t('admin-login.page-name') }}</a>.</p>
             {% endif %}
     </div>
 </div>
