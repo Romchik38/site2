@@ -35,7 +35,6 @@ return function (Container $container): void {
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware',
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Path(['root', 'login']),

@@ -54,7 +54,9 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
             if ($checkResult === true) {
                 return null;
             } else {
-                $this->adminVisitorService->changeMessage($this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY));
+                $this->adminVisitorService->changeMessage(
+                    $this->translate->t($this::NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY)
+                );
                 return new RedirectResponse($urlAdmin);
             }
         } catch (AdminUserNotActiveException $e) {

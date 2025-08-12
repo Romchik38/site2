@@ -41,7 +41,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminVisitorService $adminVisitorService,
         private readonly LoggerInterface $logger,
-        private readonly ArticleService $articleService,        
+        private readonly ArticleService $articleService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
