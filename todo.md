@@ -2,9 +2,6 @@
 
 ## Current
 
-- asmin visitor
-  - tests
-
 - [js] replace urlbuilder with all make requests
 - more page content
 - footer menu
