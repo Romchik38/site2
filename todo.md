@@ -2,6 +2,7 @@
 
 ## Current
 
+- update to server v1.25.0
 - add language switch to admin
 
 ## Next
