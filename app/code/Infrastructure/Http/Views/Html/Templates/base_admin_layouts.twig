@@ -11,6 +11,7 @@
 {% set language = meta_data.language %}
 {% set languages = meta_data.languages %}
 {% set u = urlbuilder %}
+{% set t = translate %}
 {% set visitor = meta_data['visitor'] %}
 {% set su = meta_data['static_urlbuilder'] %}
 
@@ -66,14 +67,14 @@
                         {% endfor %}
                     </select>
                 </div>
-
+                <script src="/media/js/language.js"></script>
                 <!-- User login data -->
                 <div class="col-sm-3">
                     <div class="text-center">
                         <div class="header-user-loggedin justify-content-center">
                             <div class="row">
                                 <div class="col-6 text-end">
-                                    <span>Hello,&nbsp;</span><span class="user-name-field me-3">User_name</span>
+                                    <span>{{ t.t('Hello') }},&nbsp;</span><span class="user-name-field me-3">User_name</span>
                                 </div>
                                 <div class="col-6 text-start">
                                     <form action="{{ u.fromArray(['root', 'admin', 'logout']) }}" method="post">
