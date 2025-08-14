@@ -41,7 +41,7 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleContinueReading\DefaultAction')
     );
-    $apiContinueReading->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware')); 
+
     $apiContinueReadingUpdate = new Controller(
         'update',
         false,
@@ -56,17 +56,18 @@ return function (Container $container): ControllerInterface {
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\ArticleViews\DefaultAction')
     );
-    $apiArticleViews->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware')); 
 
     $apiUserinfo = new Controller(
         'userinfo',
         false,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Api\Userinfo\DefaultAction')
     );
+
     $api
     ->setChild($apiContinueReading)
     ->setChild($apiArticleViews)
-    ->setChild($apiUserinfo);
+    ->setChild($apiUserinfo)
+    ->addRequestMiddleware($container->get('\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware'));
 
     // Admin
     $admin = new Controller('admin');

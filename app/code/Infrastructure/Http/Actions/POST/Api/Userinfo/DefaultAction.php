@@ -57,34 +57,22 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ), 500);
         }
 
-        /** @todo move to csrf middleware */
-        $csrfToken = $requestData[$visitor::CSRF_TOKEN_FIELD] ?? null;
-
-        if ($csrfToken === $visitor->getCsrfToken()) {
-            try {
-                $this->visitorService->acceptTerms();
-                return new JsonResponse(new ApiDTO(
-                    $this::API_NAME,
-                    $this::API_DESCRIPTION,
-                    ApiDTOInterface::STATUS_SUCCESS,
-                    $this::API_ACCEPTED
-                ));
-            } catch (VisitorRepositoryException $e) {
-                $this->logger->error($e->getMessage());
-                return new JsonResponse(new ApiDTO(
-                    $this::API_NAME,
-                    $this::API_DESCRIPTION,
-                    ApiDTOInterface::STATUS_ERROR,
-                    $this::SERVER_ERROR
-                ), 500);
-            }
-        } else {
+        try {
+            $this->visitorService->acceptTerms();
+            return new JsonResponse(new ApiDTO(
+                $this::API_NAME,
+                $this::API_DESCRIPTION,
+                ApiDTOInterface::STATUS_SUCCESS,
+                $this::API_ACCEPTED
+            ));
+        } catch (VisitorRepositoryException $e) {
+            $this->logger->error($e->getMessage());
             return new JsonResponse(new ApiDTO(
                 $this::API_NAME,
                 $this::API_DESCRIPTION,
                 ApiDTOInterface::STATUS_ERROR,
-                $this::API_BAD_REQUEST
-            ));
+                $this::SERVER_ERROR
+            ), 500);
         }
     }
 
