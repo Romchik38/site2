@@ -12,7 +12,14 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\SitemapDTOFactory;
+use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
+use Romchik38\Site2\Application\Page\View\CouldNotFindException;
+use Romchik38\Site2\Application\Page\View\NoSuchPageException;
+use Romchik38\Site2\Application\Page\View\ViewService as PageService;
+use Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction\ViewDTO;
+use RuntimeException;
+
+use function sprintf;
 
 /**
  * Creates a sitemap tree of public actions
@@ -27,20 +34,31 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ViewInterface $view,
         private readonly SitemapLinkTreeInterface $sitemapLinkTreeView,
-        private readonly SitemapDTOFactory $sitemapDtoFactory
+        private readonly PageService $pageService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        // Page
+        $command = new Find('sitemap', $this->getLanguage());
+        try {
+            $page = $this->pageService->find($command);
+        } catch (NoSuchPageException) {
+            throw new RuntimeException('Register view action error: page with url login not found');
+        } catch (CouldNotFindException $e) {
+            throw new RuntimeException(sprintf('Register view action error %s: ', $e->getMessage()));
+        }
+
         $output = $this->sitemapLinkTreeView
             ->getSitemapLinkTree($this->getController());
 
-        $sitemapDto = $this->sitemapDtoFactory->create(
+        $sitemapDto = new ViewDTO(
             $this->translateService->t($this::DEFAULT_VIEW_NAME),
             $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION),
-            $output
+            $output,
+            $page
         );
 
         $this->view->setController($this->getController())

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction;
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
+use Romchik38\Site2\Application\Page\View\View\PageDto;
 
 /**
  * Created in the Sitemap action. Used in a View template.
@@ -12,14 +13,15 @@ use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
  *
  * @internal
  */
-final class SitemapDTO extends DefaultViewDTO
+final class ViewDTO extends DefaultViewDTO
 {
     public const OUTPUT_FIELD = 'output';
 
     public function __construct(
         string $name,
         string $description,
-        private string $output
+        private string $output,
+        public readonly PageDto $page
     ) {
         parent::__construct($name, $description);
     }

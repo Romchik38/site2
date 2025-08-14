@@ -7,8 +7,11 @@
 
 {% block content %}
 {% set sitemapHtmlTree = data.output %}
+{% set page = data.page %}
 <div class="container">
-    <p class="lead">{{ data.getDescription() }}.</p>
-    {{sitemapHtmlTree|raw}}
+    <h1 class="text-center">{{ page.getName() }}</h1>
+    <p class="lead my-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}<p>
+    <div class="my-5">{{sitemapHtmlTree|raw}}</div>
+    {{ page.getDescription()|raw }}
 </div>
 {% endblock %}

@@ -2,8 +2,6 @@
 
 ## Current
 
-- sitemap page content
-
 ## Next
 
 - control image cache size
