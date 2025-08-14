@@ -80,7 +80,14 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
             $rowElemHtml       = $this->createRow($child);
             $rowElementsHtml[] = $rowElemHtml;
         }
-        $template = '<li class="list-group-item bg-light"><details><summary>%s</summary><ul class="list-group">%s</ul></details></li>';
+        $template = <<<TEMPLATE
+        <li class="list-group-item bg-light">
+            <details>
+                <summary>%s</summary>
+                <ul class="list-group">%s</ul>
+            </details>
+        </li>
+        TEMPLATE;
         return sprintf($template, $rowNameHtml, implode('', $rowElementsHtml));
     }
 }
