@@ -3,6 +3,7 @@
 ## Current
 
 - add language switch to admin
+- refactor frontend language switcher
 
 ## Next
 
