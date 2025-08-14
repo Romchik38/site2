@@ -15,6 +15,8 @@
 - check pages on responsive
 - translate midlle part of home page
 - move http classes from utils to http/utils
+- hello world
+- translate admin menu
 
 ## Later
 
