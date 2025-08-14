@@ -8,7 +8,7 @@
 {% block content %}
 {% set sitemapHtmlTree = data.output %}
 <div class="container">
-    <p>{{ data.getDescription() }}.</p>
+    <p class="lead">{{ data.getDescription() }}.</p>
     {{sitemapHtmlTree|raw}}
 </div>
 {% endblock %}

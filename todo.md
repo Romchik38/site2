@@ -2,7 +2,7 @@
 
 ## Current
 
-- implement `<details>` on sitemap
+- sitemap page content
 
 ## Next
 
