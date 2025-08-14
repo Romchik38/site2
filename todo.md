@@ -2,10 +2,11 @@
 
 ## Current
 
+- implement `<details>` on sitemap
+
 ## Next
 
 - control image cache size
-- implement `<details>` on sitemap
 - add current root to session and use it to redirect before default root
 - @todo
 - container - link deffered logger with `LoggerInterface`
