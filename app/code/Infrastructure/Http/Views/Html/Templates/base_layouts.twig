@@ -12,7 +12,9 @@
 #}
 
 {% set language = meta_data.language %}
+{% set languages = meta_data.languages %}
 {% set u = urlbuilder %}
+{% set su = meta_data['static_urlbuilder'] %}
 {% set t = translate %}
 {% set imageFrontendPath = meta_data['image-frontend-path'] %}
 {% set visitor = meta_data.visitor %}
@@ -31,7 +33,7 @@
             <script>
                 var currentLanguage ='{{ language }}';
             </script>
-            <script src="/media/js/language.js"></script>
+            <script type="module" src="/media/js/language.js"></script>
         {% endblock %}
     </head>
 

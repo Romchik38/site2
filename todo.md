@@ -2,9 +2,6 @@
 
 ## Current
 
-- refactor frontend language switcher
-- [js] refactor language from to component
-
 ## Next
 
 - control image cache size

@@ -17,8 +17,16 @@ export default class Component extends EE {
         this.fnShow = null;
 
         // events
-        this.domEvents = ['click'];
+        this.domEvents = ['click', 'change'];
         this.registeredEvents = [];
+    }
+
+    enable() {
+        this.node.disabled = false;
+    }
+
+    disable() {
+        this.node.disabled = true;
     }
 
     onEvent(name, callback) {

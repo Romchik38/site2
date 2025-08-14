@@ -1,31 +1,23 @@
 'use strict';
 
+import { default as ComponentCollection } from '/media/js/modules/components/componentCollection.js';
+
 /** 
- * This file is loaded on all pages.
- * It is responsible to redirect user when other language was selected
+ * This file is loaded on all pages frontend and admin
+ * It is responsible to redirect user when a language was selected
  */
+
+/** select language collection */
+var slc = ComponentCollection.fromClass('language');
+
+var redirectCallback = (e) => {
+    window.location.href = e.target.value;
+};
 
 (() => {
 
-    addEventListener("DOMContentLoaded", (event) => {
-
-        var className = 'language';
-        var elems = document.getElementsByClassName(className);
-
-        if (elems.length === 0) {
-            console.error('userinfo script started, but some of the elements not found on the page, pls check it: [header-user-notloggedin, header-user-loggedin, user-name-field]');
-            return;
-        }
-
-        for (var i = 0; i < elems.length; i++) {
-            var elem = elems[i];
-            
-            elem.addEventListener('change', (e) => {
-                window.location.href = e.target.value;
-            });
-
-            elem.disabled = false;
-        }
-        
+    addEventListener("DOMContentLoaded", () => {
+        slc.onEvent('change', redirectCallback);
+        slc.enable();
     });
 })();

@@ -21,16 +21,34 @@ class ComponentCollection {
         return new this(document.getElementsByClassName(className));
     }
 
+    disable() {
+        for (var component of this.components) {
+            component.disable();
+        }
+    }
+
+    enable() {
+        for (var component of this.components) {           
+            component.enable();
+        }
+    }
+
+    onEvent(name, callback) {
+        for (var component of this.components) {
+            component.onEvent(name, callback);
+        }
+    }
+
     show(type) {
-        for (var node of this.components) {
-            node.show(type);
+        for (var component of this.components) {
+            component.show(type);
         }
     }
 
     /** test it before usage */
     text(newText) {       
-        for (var node of this.components) {
-            node.text(newText);
+        for (var component of this.components) {
+            component.text(newText);
         }
     }
 };

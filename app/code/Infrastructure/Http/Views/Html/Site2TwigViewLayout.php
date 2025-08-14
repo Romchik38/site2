@@ -105,7 +105,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         if ($this->controller === null) {
             throw new CantCreateViewException('Can\'t prepare static urlbuilder: controller was not set');
         }
-        $path = new Path($this->controller->getFullPath($this->action));
+        $path             = new Path($this->controller->getFullPath($this->action));
         $staticUrlbuilder = new StaticUrlbuilder($path);
         $this->setMetadata('static_urlbuilder', $staticUrlbuilder);
     }
