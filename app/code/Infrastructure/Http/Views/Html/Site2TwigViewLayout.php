@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
 use Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb;
+use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Utils\Urlbuilder\StaticUrlbuilder;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\VisitorServiceInterface;
@@ -37,6 +39,7 @@ class Site2TwigViewLayout extends TwigViewLayout
         $this->prepareSearch();
         $this->prepareVisitor();
         $this->setMetadata('image-frontend-path', $this->imageFrontendPath);
+        $this->prepareStaticUrlbuilder();
     }
 
     /**
@@ -95,6 +98,16 @@ class Site2TwigViewLayout extends TwigViewLayout
         $visitor = $this->visitorService->getVisitor();
         $this->visitorService->clearMessage();
         $this->setMetadata('visitor', $visitor);
+    }
+
+    protected function prepareStaticUrlbuilder(): void
+    {
+        if ($this->controller === null) {
+            throw new CantCreateViewException('Can\'t prepare static urlbuilder: controller was not set');
+        }
+        $path = new Path($this->controller->getFullPath($this->action));
+        $staticUrlbuilder = new StaticUrlbuilder($path);
+        $this->setMetadata('static_urlbuilder', $staticUrlbuilder);
     }
 
     /**
