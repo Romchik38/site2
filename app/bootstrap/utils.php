@@ -20,17 +20,13 @@ return function (Container $container) {
 
     // URLBUILDER
     $container->multi(
-        '\Romchik38\Server\Http\Utils\Urlbuilder\Urlbuilder',
+        '\Romchik38\Server\Http\Utils\Urlbuilder\DynamicUrlbuilder',
         '\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\DynamicTarget'),
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
         ]
     );
-
-    $container->shared('\Romchik38\Server\Http\Utils\Urlbuilder\DynamicTarget', [
-        new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-    ]);
 
     // CSRF TOKEN GENERATOR
     $container->multi(

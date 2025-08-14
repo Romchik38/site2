@@ -14,6 +14,7 @@
 - container - link deffered logger with `LoggerInterface`
 - check pages on responsive
 - translate midlle part of home page
+- move http classes from utils to http/utils
 
 ## Later
 
