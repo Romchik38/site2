@@ -3,8 +3,8 @@
 ## Current
 
 - view
-  - update to new server version
-  - refactor `TwigView` based on server changes
+  - refactor `Site2TwigViewLayout`
+  - refactor `Site2TwigSingleView`
 
 ## Next
 

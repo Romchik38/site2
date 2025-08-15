@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
 use Romchik38\Server\Http\Controller\Actions\ActionInterface;
-use Romchik38\Server\Http\Views\AbstractView;
+use Romchik38\Server\Http\Views\AbstractControllerView;
 use Romchik38\Server\Http\Views\Errors\ViewBuildException;
-use Romchik38\Server\Http\Views\HttpViewInterface;
+use Romchik38\Server\Http\Views\MetaDataInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -22,18 +22,17 @@ use function strlen;
  *   - template_action_type     - default or dynamic
  *   - template_action_name     - dynamic action if exist
  */
-class TwigView extends AbstractView implements HttpViewInterface
+class TwigControllerView extends AbstractControllerView
 {
-    /** @var array<string,mixed> $metaData */
-    protected array $metaData = [];
-
     /**
      * @param string $layoutPath Template to render
      */
     public function __construct(
         protected readonly Environment $environment,
         protected readonly string $layoutPath = 'base.twig',
+        ?MetaDataInterface $metaDataService = null
     ) {
+        parent::__construct($metaDataService);
     }
 
     /**
@@ -101,21 +100,6 @@ class TwigView extends AbstractView implements HttpViewInterface
         }
 
         return $html;
-    }
-
-    protected function setMetadata(string $key, mixed $value): TwigView
-    {
-        $this->metaData[$key] = $value;
-        return $this;
-    }
-
-    /** Use this to add custom logic */
-    protected function prepareMetaData(): void
-    {
-        /**
-         *   1. use $this->setMetadata(string $key, string $value)
-         *   2. meta_data will be avalible in a template
-         * */
     }
 
     /**

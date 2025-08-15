@@ -13,7 +13,16 @@ use Twig\Error\SyntaxError;
 use function sprintf;
 use function strlen;
 
-class TwigViewLayout extends TwigView
+/**
+ * This class renders a view from a controller Twig template.
+ * The controller template extends base template.
+ * You will be able to use following variables:
+ *   - template_controller_name - controller's name
+ *   - template_action_type     - default or dynamic
+ *   - template_action_name     - dynamic action if exist
+ *   - template_full_prefix     - full path to controller folder to include additional files
+ */
+class TwigControllerViewLayout extends TwigControllerView
 {
     protected function build(): string
     {
