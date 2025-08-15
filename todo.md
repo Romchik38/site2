@@ -2,6 +2,12 @@
 
 ## Current
 
+- view
+  - remove view files from server folder before update
+  - move `AbstractSingleView` to server
+  - update to new server version
+  - refactor `TwigView` based on server changes
+
 ## Next
 
 - control image cache size

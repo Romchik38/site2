@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
+use MetadataInterface;
 use Romchik38\Server\Http\Controller\Actions\ActionInterface;
 use Romchik38\Server\Http\Views\AbstractView;
 use Romchik38\Server\Http\Views\Errors\ViewBuildException;
@@ -26,6 +27,7 @@ class TwigView extends AbstractView implements HttpViewInterface
     public function __construct(
         protected readonly Environment $environment,
         protected readonly string $layoutPath = 'base.twig',
+        private readonly ?MetadataInterface $metadataService = null
     ) {
     }
 
