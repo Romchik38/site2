@@ -3,8 +3,6 @@
 ## Current
 
 - view
-  - remove view files from server folder before update
-  - move `AbstractSingleView` to server
   - update to new server version
   - refactor `TwigView` based on server changes
 
@@ -25,7 +23,6 @@
 - return check "vendor/bin/deptrac"
 
 - move to server
-  - TwigView
   - Image storage
 
 - monitoring
