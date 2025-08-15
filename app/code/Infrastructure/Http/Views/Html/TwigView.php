@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
-use MetadataInterface;
 use Romchik38\Server\Http\Controller\Actions\ActionInterface;
 use Romchik38\Server\Http\Views\AbstractView;
 use Romchik38\Server\Http\Views\Errors\ViewBuildException;
@@ -16,6 +15,13 @@ use Twig\Error\SyntaxError;
 
 use function strlen;
 
+/**
+ * This class renders a view from a base Twig template.
+ * You will be able to include additional files using the following variables:
+ *   - template_controller_name - controller's name
+ *   - template_action_type     - default or dynamic
+ *   - template_action_name     - dynamic action if exist
+ */
 class TwigView extends AbstractView implements HttpViewInterface
 {
     /** @var array<string,mixed> $metaData */
@@ -27,7 +33,6 @@ class TwigView extends AbstractView implements HttpViewInterface
     public function __construct(
         protected readonly Environment $environment,
         protected readonly string $layoutPath = 'base.twig',
-        private readonly ?MetadataInterface $metadataService = null
     ) {
     }
 

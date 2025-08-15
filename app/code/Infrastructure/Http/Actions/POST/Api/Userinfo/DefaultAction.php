@@ -27,7 +27,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     private const API_NAME        = 'Api username point';
     private const API_DESCRIPTION = 'Information about auth user';
     private const API_ACCEPTED    = 'Accepted';
-    private const API_BAD_REQUEST = 'Bad request';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
