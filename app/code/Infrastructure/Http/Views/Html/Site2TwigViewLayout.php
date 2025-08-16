@@ -17,6 +17,7 @@ use Twig\Environment;
 use function array_map;
 use function array_unshift;
 
+/** @todo remove */
 class Site2TwigViewLayout extends TwigViewLayout
 {
     public function __construct(

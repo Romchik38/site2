@@ -6,34 +6,33 @@ namespace Romchik38\Site2\Infrastructure\Http\Views\Html;
 
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Views\AbstractMetaData;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\VisitorServiceInterface;
-use Twig\Environment;
+use Romchik38\Site2\Infrastructure\Http\Views\Html\VO\QueryMetaData;
 
 use function array_map;
 
-/** @remove */
-class Site2TwigSingleView extends TwigSingleView
+class Site2Metadata extends AbstractMetaData
 {
-    protected ?string $message = null;
-
     public function __construct(
-        Environment $environment,
-        protected readonly TranslateInterface $translateService,
         protected readonly DynamicRootInterface $dynamicRootService,
-        protected readonly UrlbuilderInterface $urlbuilder,
         protected readonly VisitorServiceInterface $visitorService,
-        string $layoutPath
+        TranslateInterface $translateService,
+        UrlbuilderInterface $urlbuilder,
+        string $imageFrontendPath,
     ) {
-        parent::__construct($environment, $layoutPath);
+        $this->hash['image-frontend-path'] = $imageFrontendPath;
+        $this->hash['query_metadata'] = new QueryMetaData();
+        $this->hash['urlbuilder'] = $urlbuilder;
+        $this->hash['translate'] = $translateService;
     }
 
-    protected function prepareMetaData(): void
+    protected function beforeGetAll(): void
     {
         $this->prepareLanguages();
         $this->prepareVisitor();
-    }
-
+    }    
     /**
      * Add to metadata:
      *   - current language
@@ -47,26 +46,14 @@ class Site2TwigSingleView extends TwigSingleView
             $this->dynamicRootService->getRootList()
         );
 
-        $this->setMetadata('language', $currentRoot->getName())
-            ->setMetadata('languages', $languages);
+        $this->hash['language']  = $currentRoot->getName;
+        $this->hash['languages'] = $languages;
     }
 
     protected function prepareVisitor(): void
     {
         $visitor = $this->visitorService->getVisitor();
         $this->visitorService->clearMessage();
-        $this->setMetadata('visitor', $visitor);
-    }
-
-    /**
-     * @param array<string,mixed> &$context Twig context
-     * @return array<string,mixed> Twig context
-     */
-    protected function beforeRender(array &$context): array
-    {
-        $context['translate']  = $this->translateService;
-        $context['urlbuilder'] = $this->urlbuilder;
-        $context['message']    = $this->message;
-        return $context;
+        $this->hash['visitor'] = $visitor;
     }
 }
