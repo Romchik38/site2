@@ -3,8 +3,11 @@
 ## Current
 
 - view
-  - refactor `Site2TwigViewLayout`
-  - refactor `Site2TwigSingleView`
+  - add views and metadata to bootstrap
+  - refactor twig file with new vars
+  - check frontend
+  - check backend
+  - remove unused classes
 
 ## Next
 
