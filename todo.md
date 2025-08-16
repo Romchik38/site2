@@ -3,7 +3,8 @@
 ## Current
 
 - view
-  - add views and metadata to bootstrap
+  - controllers use `ControllerViewInterface`
+  - controllers use `SingleViewInterface`
   - refactor twig file with new vars
   - check frontend
   - check backend
