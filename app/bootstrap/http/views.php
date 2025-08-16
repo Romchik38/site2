@@ -15,50 +15,70 @@ return function (Container $container) {
         ]
     );
 
-    // Frontend View
-    $container->shared(
-        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout',
+    // METADATA FRONTEND
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2Metadata',
+        'frontend-metadata',
+        true,
         [
-            new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('img-folder-frontend'),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+        ]
+    );
+
+    // METADATA BACKEND
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2Metadata',
+        'backend-metadata',
+        true,
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('img-folder-frontend'),
+        ]
+    );    
+
+
+    // Frontend View
+    $container->multi(
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigControllerViewLayout',
+        'frontend-view',
+        true,
+        [
+            new Promise('\Twig\Environment'),
+            new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
             'frontend_layout/controllers',
+            new Promise('frontend-metadata'),
         ]
     );
 
     // Frontend 404
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigSingleView',
-        'frontend_404_page',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\TwigSingleView',
+        'frontend-view-404-page',
         true,
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
             'not-found/index.twig',
+            new Promise('frontend-metadata'),
         ]
     );
 
-    // ADMIN VIEW LAYOUT
+    // ADMIN VIEW
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigViewLayout',
-        'admin_view_layout',
+        '\Romchik38\Site2\Infrastructure\Http\Views\Html\Site2TwigControllerViewLayout',
+        'backend-view',
         true,
         [
             new Promise('\Twig\Environment'),
-            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
-            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('img-folder-frontend'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
-            'admin_layout'
+            'frontend_layout/controllers',
+            new Promise('backend-metadata'),
         ]
     );
 
