@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Http\Views\ViewInterface;
+use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Page\View\Commands\Find\Find;
 use Romchik38\Site2\Application\Page\View\CouldNotFindException;
@@ -31,7 +31,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly Site2SessionInterface $session,
-        private readonly ViewInterface $view,
+        private readonly ControllerViewInterface $view,
         private readonly PageService $pageService,
         private readonly VisitorService $visitorService,
         private ?PageDto $page = null

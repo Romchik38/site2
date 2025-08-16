@@ -15,7 +15,7 @@ use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
 use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
-use Romchik38\Server\Http\Views\ViewInterface;
+use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Article\ArticleService\Commands\IncrementViews;
 use Romchik38\Site2\Application\Article\ContinueReading\Commands\Update\Update;
@@ -36,7 +36,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly ViewInterface $view,
+        private readonly ControllerViewInterface $view,
         private readonly ViewService $articleViewService,
         private readonly SimilarArticles $similarArticles,
         private readonly VisitorService $visitorService

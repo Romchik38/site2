@@ -10,8 +10,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
+use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
-use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
@@ -19,7 +19,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly ViewInterface $view,
+        private readonly ControllerViewInterface $view,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }

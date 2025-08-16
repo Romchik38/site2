@@ -70,7 +70,6 @@ class TwigSingleView extends AbstractSingleView
         return $html;
     }
 
-
     /**
      * use this tho add specific data to context
      *

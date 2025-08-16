@@ -16,9 +16,9 @@ use Romchik38\Server\Http\Controller\Actions\RequestHandlerTrait;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
+use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
-use Romchik38\Server\Http\Views\ViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
@@ -44,7 +44,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly ViewInterface $view,
+        private readonly ControllerViewInterface $view,
         private readonly AdminImageListService $adminImageListService,
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly AdminVisitorService $adminVisitorService

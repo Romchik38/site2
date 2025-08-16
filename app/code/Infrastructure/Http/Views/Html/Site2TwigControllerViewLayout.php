@@ -28,7 +28,6 @@ class Site2TwigControllerViewLayout extends TwigControllerViewLayout
 
     /**
      * @todo move to AbstractControllerView
-     * 
      * @throws CantCreateViewException - If controller was not set.
      * @return array<int,BreadcrumbDTOInterface>
      */
@@ -57,9 +56,8 @@ class Site2TwigControllerViewLayout extends TwigControllerViewLayout
         return $items;
     }
 
-    /** 
-     * @todo move to AbstractControllerView 
-     * 
+    /**
+     * @todo move to AbstractControllerView
      * @throws CantCreateViewException
      * */
     protected function prepareStaticUrlbuilder(): StaticUrlbuilderInterface
@@ -77,7 +75,7 @@ class Site2TwigControllerViewLayout extends TwigControllerViewLayout
      */
     protected function beforeRender(array &$context): array
     {
-        $context['breadrumb']  = $this->prepareBreadcrumbs();
+        $context['breadrumb']         = $this->prepareBreadcrumbs();
         $context['static_urlbuilder'] = $this->prepareStaticUrlbuilder();
         return $context;
     }

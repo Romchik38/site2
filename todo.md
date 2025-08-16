@@ -3,11 +3,6 @@
 ## Current
 
 - view
-  - controllers use `ControllerViewInterface`
-  - controllers use `SingleViewInterface`
-  - refactor twig file with new vars
-  - check frontend
-  - check backend
   - remove unused classes
 
 - refactor langusge switcher in frontend footer

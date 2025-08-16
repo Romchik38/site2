@@ -9,13 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractAction;
 use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
-use Romchik38\Server\Http\Views\ViewInterface;
+use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\DefaultAction\ViewDTO;
 
 final class DefaultAction extends AbstractAction implements DefaultActionInterface
 {
     public function __construct(
-        private readonly ViewInterface $view
+        private readonly ControllerViewInterface $view
     ) {
     }
 

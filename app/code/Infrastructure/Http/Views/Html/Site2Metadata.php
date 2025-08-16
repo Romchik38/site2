@@ -23,16 +23,17 @@ class Site2Metadata extends AbstractMetaData
         string $imageFrontendPath,
     ) {
         $this->hash['image-frontend-path'] = $imageFrontendPath;
-        $this->hash['query_metadata'] = new QueryMetaData();
-        $this->hash['urlbuilder'] = $urlbuilder;
-        $this->hash['translate'] = $translateService;
+        $this->hash['query_metadata']      = new QueryMetaData();
+        $this->hash['urlbuilder']          = $urlbuilder;
+        $this->hash['translate']           = $translateService;
     }
 
     protected function beforeGetAll(): void
     {
         $this->prepareLanguages();
         $this->prepareVisitor();
-    }    
+    }
+
     /**
      * Add to metadata:
      *   - current language
