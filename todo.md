@@ -3,7 +3,12 @@
 ## Current
 
 - view
-  - remove unused classes
+  - move breadcrumbs and staticurlbuilder to  server
+  - update to server new version
+  - checks
+    - code
+    - frontend
+    - backend
 
 - refactor langusge switcher in frontend footer
 
