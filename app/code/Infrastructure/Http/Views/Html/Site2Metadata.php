@@ -46,7 +46,7 @@ class Site2Metadata extends AbstractMetaData
             $this->dynamicRootService->getRootList()
         );
 
-        $this->hash['language']  = $currentRoot->getName;
+        $this->hash['language']  = $currentRoot->getName();
         $this->hash['languages'] = $languages;
     }
 

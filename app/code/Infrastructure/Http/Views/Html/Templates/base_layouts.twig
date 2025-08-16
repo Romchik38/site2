@@ -6,18 +6,19 @@
     string      template_controller_name    controller name
     string      template_action_type        dynamic_action or action
     string      template_action_name        dynamic action route name
-    Object      translate                   Translate service
-    Object      urlbuilder                  Urlbuilder class
-    Object      visitor                     VisitorDto
+    Object      static_urlbuilder           StaticUrlbuilder class
+    []          breadrumb                   BreadcrumbDTOInterface
 #}
 
-{% set language = meta_data.language %}
-{% set languages = meta_data.languages %}
+{% set language = meta_data['language'] %}
+{% set languages = meta_data['languages'] %}
+{% set urlbuilder = meta_data['urlbuilder'] %}
 {% set u = urlbuilder %}
-{% set su = meta_data['static_urlbuilder'] %}
+{% set translate = meta_data['translate'] %}
 {% set t = translate %}
+{% set su = static_urlbuilder %}
 {% set imageFrontendPath = meta_data['image-frontend-path'] %}
-{% set visitor = meta_data.visitor %}
+{% set visitor = meta_data['visitor'] %}
 
 <html lang="{{ language }}">
 

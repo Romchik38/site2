@@ -20,8 +20,8 @@ class Site2TwigControllerViewLayout extends TwigControllerViewLayout
         Environment $environment,
         /** @todo move to server AbstractControllerView */
         protected Breadcrumb $breadcrumbService,
+        ?MetaDataInterface $metaDataService,
         string $layoutPath = 'base.twig',
-        ?MetaDataInterface $metaDataService
     ) {
         parent::__construct($environment, $layoutPath, $metaDataService);
     }

@@ -10,6 +10,8 @@
   - check backend
   - remove unused classes
 
+- refactor langusge switcher in frontend footer
+
 ## Next
 
 - control image cache size

@@ -23,8 +23,8 @@
                         {% set selected = 'selected' %}
                         {% set disabled = 'disabled' %}
                     {% else %}
-                        {% if (meta_data.breadrumb) %}
-                            {% set item = meta_data.breadrumb|last %}
+                        {% if (breadrumb) %}
+                            {% set item = breadrumb|last %}
                             {% set arr = item.getUrl()|split('/') %}
                             {% for part in arr %}
                                 {% if loop.index == 2 %}

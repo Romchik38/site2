@@ -11,7 +11,7 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler',
         [
-            new Promise('frontend_404_page')
+            new Promise('frontend-view-404-page')
         ]
     );
 

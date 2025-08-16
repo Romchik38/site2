@@ -1,11 +1,11 @@
-{% if (meta_data.breadrumb) %}
+{% if (breadrumb) %}
   <div class="container-sm my-2">
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
               {% set count = 0 %}
-              {% set length = meta_data.breadrumb|length %}
+              {% set length = breadrumb|length %}
               {% if length > 1 %}
-                {% for item in meta_data.breadrumb %}
+                {% for item in breadrumb %}
                   {% set count = count + 1 %}
                   {% set name = item.getName() %}
                   {% set description = item.getDescription() %}

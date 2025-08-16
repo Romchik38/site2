@@ -52,8 +52,8 @@ return function (Container $container) {
         [
             new Promise('\Twig\Environment'),
             new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
-            'frontend_layout/controllers',
             new Promise('frontend-metadata'),
+            'frontend_layout/controllers',
         ]
     );
 
@@ -77,8 +77,8 @@ return function (Container $container) {
         [
             new Promise('\Twig\Environment'),
             new Promise('\Romchik38\Server\Http\Controller\Mappers\Breadcrumb\Breadcrumb'),
-            'frontend_layout/controllers',
             new Promise('backend-metadata'),
+            'admin_layout',
         ]
     );
 
