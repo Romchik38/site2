@@ -2,8 +2,6 @@
 
 ## Current
 
-- refactor language switcher in frontend footer
-
 ## Next
 
 - control image cache size

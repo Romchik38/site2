@@ -15,27 +15,17 @@
         <div class="container d-sm-block d-flex justify-content-center">
             <select class="form-select language background-line">
 
-                {% for language in meta_data.languages %}
+                {% for l in languages %}
                     {% set selected = '' %}
                     {% set disabled = '' %}
                     {% set value = '' %}
-                    {% if language == meta_data.language %}
-                        {% set selected = 'selected' %}
+                    {% if l == language %}
+                        {% set selected = 'selected="true"' %}
                         {% set disabled = 'disabled' %}
                     {% else %}
-                        {% if (breadrumb) %}
-                            {% set item = breadrumb|last %}
-                            {% set arr = item.getUrl()|split('/') %}
-                            {% for part in arr %}
-                                {% if loop.index == 2 %}
-                                    {% set value = '/' ~ language %}
-                                {% elseif loop.index > 2 %}
-                                    {% set value = value ~ '/' ~ part %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
+                        {% set value = su.withRoot(l) %}
                     {% endif %}
-                    <option value="{{value}}" {{disabled }} {{selected}}>{{translate.translate('global.language', language)}}</option>
+                    <option value="{{ value }}" {{disabled}} {{selected}}>{{translate.translate('global.language', l)}}</option>
                 {% endfor %}
 
             </select>
