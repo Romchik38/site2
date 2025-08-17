@@ -2,6 +2,10 @@
 
 ## Current
 
+- visitor
+  - test visited article block
+  - repository must handle `InvalidArgumentException` on create new instance of `Visitor`
+
 - `Site2SessionInterface` and `Site2Session` - remove where unused
 - move article views to visitor
 - move continue reading to visitor
