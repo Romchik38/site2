@@ -5,7 +5,6 @@
 ## Next
 
 - control image cache size
-- @todo
 - container - link deffered logger with `LoggerInterface`
 - check pages on responsive
 - translate midlle part of home page
@@ -13,6 +12,7 @@
 - hello world
 - translate admin menu
 - add current root to session and use it to redirect before default root
+- @todo
 
 ## Later
 
