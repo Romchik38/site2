@@ -20,7 +20,6 @@ use Romchik38\Site2\Application\Page\View\ViewService as PageService;
 use Romchik38\Site2\Application\User\UserCheck\CheckPassword;
 use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Login\DefaultAction\ViewDTO;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 use RuntimeException;
 
 use function sprintf;
@@ -30,7 +29,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly Site2SessionInterface $session,
         private readonly ControllerViewInterface $view,
         private readonly PageService $pageService,
         private readonly VisitorService $visitorService,
@@ -59,7 +57,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     $user,
                     CheckPassword::EMAIL_FIELD,
                     CheckPassword::PASSWORD_FIELD,
-                    $this->session::CSRF_TOKEN_FIELD,
+                    $visitor->getCsrfTokenField(),
                     $visitor->getCsrfToken(),
                     $page
                 )

@@ -550,7 +550,6 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
             new Promise('frontend-view'),
             new Promise('\Romchik38\Site2\Application\Page\View\ViewService'),
             new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),

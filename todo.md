@@ -3,6 +3,7 @@
 ## Current
 
 - `Site2SessionInterface` and `Site2Session` - remove where unused
+- move article views to visitor
 
 ## Next
 
