@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace Romchik38\Tests\Unit\Domain\Visitor;
 
 use PHPUnit\Framework\TestCase;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\User\VO\Username;
 use Romchik38\Site2\Domain\Visitor\Visitor;
 use Romchik38\Site2\Domain\Visitor\VO\CsrfToken;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface;
 use Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorUseRandomBytes;
+use RuntimeException;
+
+use function count;
 
 final class VisitorTest extends TestCase
 {
@@ -26,6 +30,45 @@ final class VisitorTest extends TestCase
         $model = new Visitor($token);
         $this->assertSame(null, $model->username);
         $this->assertSame(null, $model->message);
+    }
+
+    /**
+     * Also tested:
+     *   - getVisitedArticles
+     */
+    public function testMarkArticleAsVisited(): void
+    {
+        $token          = new CsrfToken($this->csrfTokenGenerator->asBase64());
+        $visitedArticle = new ArticleId('some-article');
+
+        $model = new Visitor($token);
+        $model->markArticleAsVisited($visitedArticle);
+        $this->assertSame([$visitedArticle], $model->getVisitedArticles());
+    }
+
+    public function testMarkArticleAsVisitedTwice(): void
+    {
+        $token           = new CsrfToken($this->csrfTokenGenerator->asBase64());
+        $visitedArticle1 = new ArticleId('some-article1');
+        $visitedArticle2 = new ArticleId('some-article2');
+
+        $model = new Visitor($token);
+        $model->markArticleAsVisited($visitedArticle1);
+        $model->markArticleAsVisited($visitedArticle2);
+        $model->markArticleAsVisited($visitedArticle1);  // The attempt is not counted.
+
+        $visitedArticles = $model->getVisitedArticles();
+        $this->assertSame(2, count($visitedArticles));
+        foreach ($visitedArticles as $article) {
+            if (
+                $article() !== $visitedArticle1() &&
+                $article() !== $visitedArticle2()
+            ) {
+                throw new RuntimeException(
+                    'test testMarkArticleAsVisitedTwice failed - it has non expected artilce id'
+                );
+            }
+        }
     }
 
     public function testAcceptWithTerms(): void

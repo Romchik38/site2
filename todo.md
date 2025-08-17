@@ -3,8 +3,8 @@
 ## Current
 
 - visitor
-  - test visited article block
-  - repository must handle `InvalidArgumentException` on create new instance of `Visitor`
+  - service - add new functionality
+  - modify - action api article views
 
 - `Site2SessionInterface` and `Site2Session` - remove where unused
 - move article views to visitor
