@@ -2,6 +2,8 @@
 
 ## Current
 
+- `Site2SessionInterface` and `Site2Session` - remove where unused
+
 ## Next
 
 - control image cache size
