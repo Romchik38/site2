@@ -2,15 +2,7 @@
 
 ## Current
 
-- view
-  - move breadcrumbs and staticurlbuilder to  server
-  - update to server new version
-  - checks
-    - code
-    - frontend
-    - backend
-
-- refactor langusge switcher in frontend footer
+- refactor language switcher in frontend footer
 
 ## Next
 
