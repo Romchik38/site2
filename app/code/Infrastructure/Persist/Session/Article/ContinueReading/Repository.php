@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Session\Article\ContinueReading;
 
+use Romchik38\Server\Http\Utils\Session\SessionInterface;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\ItemRepositoryException;
 use Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface;
 use Romchik38\Site2\Application\Article\ContinueReading\View\Item;
-use Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface;
 
 use function serialize;
 use function unserialize;
 
 final class Repository implements ItemRepositoryInterface
 {
+    public const ARTICLE_LAST_VISITED = 'article_last_visited';
+
     public function __construct(
-        private readonly Site2SessionInterface $session,
+        private readonly SessionInterface $session,
     ) {
     }
 
     public function get(): ?Item
     {
-        $sessionItemData = $this->session->getData(Site2SessionInterface::ARTICLE_LAST_VISITED);
+        $sessionItemData = $this->session->getData(self::ARTICLE_LAST_VISITED);
         if ($sessionItemData === null || $sessionItemData === '') {
             return null;
         }
@@ -35,6 +37,6 @@ final class Repository implements ItemRepositoryInterface
 
     public function update(Item $item): void
     {
-        $this->session->setData(Site2SessionInterface::ARTICLE_LAST_VISITED, serialize($item));
+        $this->session->setData(self::ARTICLE_LAST_VISITED, serialize($item));
     }
 }
