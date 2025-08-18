@@ -14,7 +14,8 @@ use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\ItemRepositor
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\ContinueReading\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\ContinueReading\View\ArticleDto;
-use Romchik38\Site2\Application\Article\ContinueReading\View\Item;
+use Romchik38\Site2\Application\Visitor\VisitorService;
+use Romchik38\Site2\Application\VisitorServiceException;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
@@ -22,7 +23,7 @@ final class ContinueReading
 {
     public function __construct(
         private readonly RepositoryInterface $repository,
-        private readonly ItemRepositoryInterface $itemRepository
+        private readonly VisitorService $visitorService
     ) {
     }
 
@@ -33,7 +34,7 @@ final class ContinueReading
     public function list(string $language): array
     {
         try {
-            $item = $this->itemRepository->get();
+            $item = $this->visitorService->getVisitor()->lastVisitedArticles;
             if ($item === null) {
                 return [];
             }
@@ -81,21 +82,13 @@ final class ContinueReading
             $articleId      = new ArticleId($command->articleId);
             $languageId     = new LanguageId($command->languageId);
             $searchCriteria = new FindSearchCriteria($articleId, $languageId);
-            $article        = $this->repository->find($searchCriteria);
-            $newId          = $article->getId();
-            $item           = $this->itemRepository->get();
-            if ($item === null) {
-                $item = new Item($newId);
-            } else {
-                if ($newId !== $item->first) {
-                    $item->second = $item->first;
-                    $item->first  = $newId;
-                }
-            }
-            $this->itemRepository->update($item);
+            $this->repository->find($searchCriteria);
+            $this->visitorService->updateArticleView($articleId);
         } catch (RepositoryException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         } catch (ItemRepositoryException $e) {
+            throw new CouldNotUpdateException($e->getMessage());
+        } catch (VisitorServiceException $e) {
             throw new CouldNotUpdateException($e->getMessage());
         }
     }

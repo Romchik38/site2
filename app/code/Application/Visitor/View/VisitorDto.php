@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\User\VO\Username;
 use Romchik38\Site2\Domain\Visitor\VO\CsrfToken;
+use Romchik38\Site2\Domain\Visitor\VO\LastVisitedArticles;
 use Romchik38\Site2\Domain\Visitor\VO\Message;
 
 final class VisitorDto
@@ -28,7 +29,8 @@ final class VisitorDto
         public readonly bool $isAcceptedTerms,
         public readonly CsrfToken $csrfToken,
         public readonly ?Message $message,
-        array $visitedArticles
+        array $visitedArticles,
+        public readonly ?LastVisitedArticles $lastVisitedArticles
     ) {
         foreach ($visitedArticles as $article) {
             if (! $article instanceof ArticleId) {

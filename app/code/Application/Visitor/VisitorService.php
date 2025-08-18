@@ -66,7 +66,8 @@ final class VisitorService implements VisitorServiceInterface
                 $model->isAcceptedTerms,
                 $model->csrfTocken,
                 $model->message,
-                $model->getVisitedArticles()
+                $model->getVisitedArticles(),
+                $model->lastVisitedArticles
             );
         } catch (RepositoryException $e) {
             throw new VisitorServiceException($e->getMessage());

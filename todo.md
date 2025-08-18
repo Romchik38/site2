@@ -2,8 +2,6 @@
 
 ## Current
 
-- move continue reading to visitor
-
 ## Next
 
 - use visitor csrf token and field in the frontend template

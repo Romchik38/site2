@@ -65,7 +65,8 @@ return function (Container $container) {
         '\Romchik38\Site2\Application\Article\ContinueReading\ContinueReading',
         [
             new Promise('\Romchik38\Site2\Application\Article\ContinueReading\RepositoryInterface'),
-            new Promise('\Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface')
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+
         ]
     );
 

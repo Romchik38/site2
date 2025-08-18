@@ -15,15 +15,6 @@ return function (Container $container): Container {
         []
     );
 
-    $container->multi(
-        '\Romchik38\Site2\Infrastructure\Persist\Session\Article\ContinueReading\Repository',
-        '\Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface',
-        true,
-        [
-            new Promise('\Romchik38\Server\Http\Utils\Session\SessionInterface'),
-        ]
-    );
-
     // ADMIN VISITOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Persist\Session\AdminVisitor\Repository',
