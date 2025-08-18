@@ -2,9 +2,10 @@
 
 ## Current
 
+- use visitor csrf token and field in the frontend template
+
 ## Next
 
-- use visitor csrf token and field in the frontend template
 - use admin visitor csrf token and field in the admin template
 - control image cache size
 - container - link deffered logger with `LoggerInterface`
