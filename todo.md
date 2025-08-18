@@ -2,9 +2,7 @@
 
 ## Current
 
-- visitor
-  - service - add new functionality
-  - modify - action api article views
+- ArticleViewsService - test all path `updateView`
 
 - `Site2SessionInterface` and `Site2Session` - remove where unused
 - move article views to visitor
