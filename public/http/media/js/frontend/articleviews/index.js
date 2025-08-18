@@ -3,6 +3,7 @@
 import { default as Data } from './data.js';
 import { default as RequestData } from './request-data.js';
 import { default as makeRequest } from './make-request.js';
+import { VisitorData as vd } from '/media/js/frontend/visitor/visitorData.js';
 
 var path = ['root', 'api', 'articleviews'];
 
@@ -12,8 +13,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         var requestData = new RequestData(
             data.getDataIdField(),
             data.getDataId(),
-            data.getTokenField(),
-            data.getToken()
+            vd.getCsrfTokenField(),
+            vd.getCsrfToken()
         );
 
         makeRequest(path, requestData, (err, data) => {

@@ -3,6 +3,7 @@
 ## Current
 
 - use visitor csrf token and field in the frontend template
+- breadcrumb `home` displayed instead of `Home`
 
 ## Next
 

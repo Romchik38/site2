@@ -22,8 +22,6 @@ final class ViewDTO extends DefaultViewDTO
         public readonly ArticleViewDTO $article,
         private readonly TranslateInterface $translate,
         public readonly string $idField,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly array $similarArticles,
         public readonly string $continueReadingIdField,
     ) {

@@ -4,13 +4,12 @@ import { default as Component } from '/media/js/modules/components/component.js'
 import { default as ComponentCollection } from '/media/js/modules/components/componentCollection.js';
 import { default as makeRequest } from '/media/js/modules/utils/make-request/make-post-request.js';
 import { default as RequestData } from '/media/js/modules/utils/make-request/request-data.js';
-import { VisitorData } from './visitor.js';
+import { VisitorData as vd } from '/media/js/frontend/visitor/visitorData.js';
 
 var notloggedinElems = ComponentCollection.fromClass('header-user-notloggedin');
 var loggedinElem = Component.fromClass('header-user-loggedin');
 var usernameElem = Component.fromClass('user-name-field');
 var ab = Component.fromClass('api-userinfo-accept-btn');
-var vd = VisitorData.fromClass('visitor-data');
 
 var path = ['root', 'api', 'userinfo'];
 

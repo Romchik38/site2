@@ -5,6 +5,7 @@ import { Article } from './article.js';
 import { ArticleData } from './article.js';
 import { default as RequestData } from '/media/js/modules/utils/make-request/request-data.js';
 import { default as makeRequest } from '/media/js/modules/utils/make-request/make-post-request.js';
+import { VisitorData as vd } from '/media/js/frontend/visitor/visitorData.js';
 
 var path = ['root', 'api', 'article_continue_reading'];
 var pathUpdate = ['root', 'api', 'article_continue_reading', 'update'];
@@ -47,7 +48,8 @@ var processData = function(data) {
     if (needUpdate === true) {
         var requestData = new RequestData();
         requestData.addData(ad.getDataIdField(), ad.getDataId());
-        requestData.addData(ad.getTokenField(), ad.getToken());
+        requestData.addData(vd.getCsrfTokenField(), vd.getCsrfToken());        
+
 
         makeRequest(pathUpdate, requestData, (err, data) => {
             if (err !== null) {       
@@ -71,7 +73,7 @@ var processData = function(data) {
 document.addEventListener('DOMContentLoaded', ()=>{
     try {
         var requestData = new RequestData();
-        requestData.addData(ad.getTokenField(), ad.getToken());
+        requestData.addData(vd.getCsrfTokenField(), vd.getCsrfToken()); 
 
         makeRequest(path, requestData, (err, data) => {
             if (err !== null) {       

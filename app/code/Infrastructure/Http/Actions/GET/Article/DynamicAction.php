@@ -24,8 +24,6 @@ use Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles;
 use Romchik38\Site2\Application\Article\View\Find;
 use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\ViewService;
-use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
-use Romchik38\Site2\Application\Visitor\VisitorService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 
 use function sprintf;
@@ -39,7 +37,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         private readonly ControllerViewInterface $view,
         private readonly ViewService $articleViewService,
         private readonly SimilarArticles $similarArticles,
-        private readonly VisitorService $visitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -80,24 +77,12 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $similarArticles = $this->similarArticles->list($similarCommand);
 
-        // Visitor
-        try {
-            $visitor        = $this->visitorService->getVisitor();
-            $csrfTokenField = $visitor::CSRF_TOKEN_FIELD;
-            $csrfToken      = $visitor->getCsrfToken();
-        } catch (VisitorRepositoryException $e) {
-            $csrfToken      = ''; // do nothing, block continue reading will not be shown
-            $csrfTokenField = '';
-        }
-
         $dto = new ViewDTO(
             $article->name,
             $article->shortDescription,
             $article,
             $this->translateService,
             IncrementViews::ID_FIELD,
-            $csrfTokenField,
-            $csrfToken,
             $similarArticles,
             Update::ID_FIELD
         );

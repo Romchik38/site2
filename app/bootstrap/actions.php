@@ -97,7 +97,6 @@ return function (Container $container) {
             new Promise('frontend-view'),
             new Promise('\Romchik38\Site2\Application\Article\View\ViewService'),
             new Promise('\Romchik38\Site2\Application\Article\SimilarArticles\SimilarArticles'),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
         ]
     );
 

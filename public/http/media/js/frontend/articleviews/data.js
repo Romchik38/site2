@@ -9,12 +9,6 @@ class Data extends Component {
     getDataIdField() {
         return this.node.dataset.idfield;
     }
-    getTokenField() {
-        return this.node.dataset.tokenfield;
-    }
-    getToken() {
-        return this.node.dataset.token;
-    }          
 };
 
 export default Data;
