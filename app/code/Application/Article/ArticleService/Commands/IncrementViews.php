@@ -10,7 +10,7 @@ final class IncrementViews
 {
     public const ID_FIELD = 'id';
 
-    private function __construct(
+    public function __construct(
         public readonly string $id
     ) {
     }

@@ -69,6 +69,15 @@ return function (Container $container) {
         ]
     );
 
+    // ARTICLE VIEWS
+    $container->shared(
+        '\Romchik38\Site2\Application\Article\ArticleViews\ArticleViewsService',
+        [
+            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService'),
+        ]
+    );
+
     // ADMIN ARTICLE VIEW
     $container->shared(
         '\Romchik38\Site2\Application\Article\AdminView\AdminView',
