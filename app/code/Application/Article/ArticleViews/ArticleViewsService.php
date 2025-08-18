@@ -21,21 +21,22 @@ final class ArticleViewsService
     ) {
     }
 
+    /** @todo check all path */
     /**
      * @throws CouldNotUpdateViewException
      * @throws InvalidArgumentException
      * @throws NoSuchArticleException
      */
-    public function updateView(string $id): void
+    public function updateView(UpdateView $command): void
     {
         try {
-            $articleId = new ArticleId($id);
+            $articleId = new ArticleId($command->id);
             $visitor   = $this->visitorService->getVisitor();
             if ($visitor->checkIsArticleVisited($articleId)) {
                 return;
             }
             $this->visitorService->updateArticleView($articleId);
-            $this->articleService->incrementViews(new IncrementViews($id));
+            $this->articleService->incrementViews(new IncrementViews($command->id));
         } catch (VisitorServiceException $e) {
             throw new CouldNotUpdateViewException($e->getMessage());
         } catch (CouldNotIncrementViewsException $e) {

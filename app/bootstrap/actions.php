@@ -588,8 +588,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
-            new Promise('\Romchik38\Site2\Application\Article\ArticleService\ArticleService'),
+            new Promise('\Romchik38\Site2\Application\Article\ArticleViews\ArticleViewsService'),
         ]
     );
 
