@@ -21,7 +21,6 @@ final class ArticleViewsService
     ) {
     }
 
-    /** @todo check all path */
     /**
      * @throws CouldNotUpdateViewException
      * @throws InvalidArgumentException
