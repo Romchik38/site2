@@ -2,7 +2,6 @@
 
 ## Current
 
-- `Site2SessionInterface` and `Site2Session` - remove where unused
 - move continue reading to visitor
 
 ## Next

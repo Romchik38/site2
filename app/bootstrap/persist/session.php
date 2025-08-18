@@ -9,8 +9,8 @@ return function (Container $container): Container {
 
     // SESSION
     $container->multi(
-        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2Session',
-        '\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface',
+        '\Romchik38\Server\Http\Utils\Session\Session',
+        '\Romchik38\Server\Http\Utils\Session\SessionInterface',
         true,
         []
     );
@@ -20,7 +20,7 @@ return function (Container $container): Container {
         '\Romchik38\Site2\Application\Article\ContinueReading\ItemRepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface')
+            new Promise('\Romchik38\Server\Http\Utils\Session\SessionInterface'),
         ]
     );
 
@@ -30,7 +30,7 @@ return function (Container $container): Container {
         '\Romchik38\Site2\Application\AdminVisitor\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Session\SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
         ]
     );
@@ -41,7 +41,7 @@ return function (Container $container): Container {
         '\Romchik38\Site2\Application\Visitor\RepositoryInterface',
         true,
         [
-            new Promise('\Romchik38\Site2\Infrastructure\Http\Services\Session\Site2SessionInterface'),
+            new Promise('\Romchik38\Server\Http\Utils\Session\SessionInterface'),
             new Promise('\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorInterface'),
         ]
     );
