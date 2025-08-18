@@ -2,8 +2,6 @@
 
 ## Current
 
-- why 404 `http://localhost:8000/uk/category/traffic-legislative-changes`
-
 ## Next
 
 - use visitor csrf token and field in the frontend template
