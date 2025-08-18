@@ -2,13 +2,11 @@
 
 ## Current
 
-- breadcrumb `home` displayed instead of `Home`
-  - update server
-  - check how it works
+- use visitor csrf token and field in the frontend template
 
 ## Next
 
-- use visitor csrf token and field in the frontend template
+
 - add a banner to `category` list page
 - use admin visitor csrf token and field in the admin template
 - control image cache size
