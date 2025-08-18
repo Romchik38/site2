@@ -30,7 +30,7 @@
                     <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>
                     <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
                     <input class="btn btn-secondary" type="submit" value="{{ t.t('header.sing_in') }}" />
-                    <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+                    <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
                 </form>
                 <br>
                 <p>{{ t.t('page.login.forgot-password') }}? <a href="{{ urlRecovery }}">{{ t.t('footer.links.recovery') }}</a>.</p>

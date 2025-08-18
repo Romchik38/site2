@@ -3,6 +3,7 @@
 ## Current
 
 - use visitor csrf token and field in the frontend template
+  - next login admin
 
 ## Next
 

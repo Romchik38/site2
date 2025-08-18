@@ -57,8 +57,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     $user,
                     CheckPassword::EMAIL_FIELD,
                     CheckPassword::PASSWORD_FIELD,
-                    $visitor->getCsrfTokenField(),
-                    $visitor->getCsrfToken(),
                     $page
                 )
             )
