@@ -45,4 +45,14 @@ final class Visitor
     {
         return $this->visitedArticles;
     }
+
+    public function checkIsArticleVisited(ArticleId $articleToCheck): bool
+    {
+        foreach ($this->visitedArticles as $article) {
+            if ($article() === $articleToCheck()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -81,4 +81,17 @@ final class VisitorTest extends TestCase
         $model->acceptWithTerms();
         $this->assertSame(true, $model->isAcceptedTerms);
     }
+
+    public function testCheckIsArticleVisited(): void
+    {
+        $token           = new CsrfToken($this->csrfTokenGenerator->asBase64());
+        $model           = new Visitor($token);
+        $visitedArticle1 = new ArticleId('some-article1');
+        $visitedArticle2 = new ArticleId('some-article2');
+
+        $model->markArticleAsVisited($visitedArticle1);
+
+        $this->assertSame(true, $model->checkIsArticleVisited($visitedArticle1));
+        $this->assertSame(false, $model->checkIsArticleVisited($visitedArticle2));
+    }
 }
