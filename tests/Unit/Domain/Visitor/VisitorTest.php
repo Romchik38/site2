@@ -94,4 +94,27 @@ final class VisitorTest extends TestCase
         $this->assertSame(true, $model->checkIsArticleVisited($visitedArticle1));
         $this->assertSame(false, $model->checkIsArticleVisited($visitedArticle2));
     }
+
+    public function testLastVisited(): void
+    {
+        $token = new CsrfToken($this->csrfTokenGenerator->asBase64());
+        $model = new Visitor($token);
+
+        $a1 = new ArticleId('some-article1');
+        $a2 = new ArticleId('some-article2');
+        $a3 = new ArticleId('some-article3');
+
+        $this->assertSame(null, $model->lastVisitedArticles);
+        $model->markArticleAsVisited($a1);
+        $this->assertSame('some-article1', $model->lastVisitedArticles->first);
+        $model->markArticleAsVisited($a1);
+        $this->assertSame('some-article1', $model->lastVisitedArticles->first);
+        $this->assertSame(null, $model->lastVisitedArticles->second);
+        $model->markArticleAsVisited($a2);
+        $this->assertSame('some-article2', $model->lastVisitedArticles->first);
+        $this->assertSame('some-article1', $model->lastVisitedArticles->second);
+        $model->markArticleAsVisited($a3);
+        $this->assertSame('some-article3', $model->lastVisitedArticles->first);
+        $this->assertSame('some-article2', $model->lastVisitedArticles->second);
+    }
 }
