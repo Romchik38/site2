@@ -14,9 +14,9 @@ use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
 use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 use Romchik38\Site2\Application\Category\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DefaultAction\ViewDTO;
-use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -47,7 +47,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         } catch (NoBannerToDisplayException) {
             $banner = null;
         }
-        
+
         $dto = new ViewDTO(
             $translatedPageName,
             $translatedPageDescription,

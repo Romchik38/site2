@@ -58,7 +58,7 @@ See docs in [doc folder](./doc/)
 - phpstan level 8
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`[OK] No errors`  
 - phpunit
-  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (153 tests, 290 assertions)`
+  - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`OK (365 tests, 626 assertions)`
   - tested primary domain
 - laminas-coding-standard
   - ![passes](https://placehold.co/15x15/0dbc79/0dbc79.png)`75 / 75 (100%)`

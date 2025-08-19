@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DefaultAction;
 
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
-use Romchik38\Site2\Application\Category\List\View\CategoryDto;
 use Romchik38\Site2\Application\Banner\List\View\BannerDto;
+use Romchik38\Site2\Application\Category\List\View\CategoryDto;
 
 final class ViewDTO extends DefaultViewDTO
 {
