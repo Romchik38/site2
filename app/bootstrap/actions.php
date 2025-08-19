@@ -382,7 +382,6 @@ return function (Container $container) {
             new Promise('backend-view'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Author\AdminList\AdminAuthorList'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 
@@ -408,7 +407,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('backend-view'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 

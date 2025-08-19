@@ -70,14 +70,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $languages = $this->languageService->getAll();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             sprintf('Author view id %s', (string) $authorId),
             sprintf('Authors view page with id %s', (string) $authorId),
             $authorDto,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::NAME_FIELD,
             Update::CHANGE_ACTIVITY_FIELD,

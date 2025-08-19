@@ -20,7 +20,6 @@ use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Author\AdminList\AdminAuthorList;
 use Romchik38\Site2\Application\Author\AdminList\Filter;
 use Romchik38\Site2\Application\Author\AuthorService\Commands\Delete;
@@ -46,8 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly AdminAuthorList $adminAuthorList,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly AdminAuthorList $adminAuthorList
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -124,8 +122,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Authors',
             'Authors page',
@@ -136,9 +132,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            Delete::ID_FIELD,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken()
+            Delete::ID_FIELD
         );
 
         $html = $this->view

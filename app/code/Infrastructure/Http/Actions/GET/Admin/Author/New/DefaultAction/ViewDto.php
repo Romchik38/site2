@@ -15,8 +15,6 @@ final class ViewDto extends DefaultViewDTO
     public function __construct(
         string $name,
         string $description,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $nameFiled,
         public readonly string $changeActivityFiled,
         public readonly string $yesField,
