@@ -96,8 +96,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Translates',
             'Translates page',
@@ -108,9 +106,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            Delete::ID_FIELD,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
+            Delete::ID_FIELD
         );
 
         $html = $this->view

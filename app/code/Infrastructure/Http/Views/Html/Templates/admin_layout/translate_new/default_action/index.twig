@@ -21,7 +21,7 @@
                     <input type="text" class="form-control" name="{{ data.idFiled }}" value="">
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <!-- Translates -->
             {% include template_full_prefix ~ '/blocks/phrases.twig' with {'t': t, 'u': u, 'data': data } only %}
             <div class="d-flex ">

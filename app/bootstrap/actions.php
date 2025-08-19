@@ -491,7 +491,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('backend-view'),
             new Promise('\Romchik38\Site2\Application\Language\List\ListService'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 

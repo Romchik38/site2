@@ -15,7 +15,7 @@
         {% if data.translateList|length == 0 %} 
             {% include template_full_prefix ~ '/zero_translates.twig' with {'t': translate, 'urlNew': urlNew} only %}
         {% else %}
-            {% include template_full_prefix ~ '/translates.twig' with {'data': data, 't': translate, 'u': u, 'urlNew': urlNew } only %}
+            {% include template_full_prefix ~ '/translates.twig' with {'data': data, 't': translate, 'u': u, 'urlNew': urlNew, 'visitor': visitor } only %}
         {% endif %}
 
     </div>

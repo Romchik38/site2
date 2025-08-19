@@ -26,7 +26,7 @@
                     <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translate.identifier }}" hidden>
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <!-- Translates -->
             {% include template_full_prefix ~ '/blocks/phrases.twig' with {'t': t, 'u': u, 'data': data } only %}
             <div class="d-flex ">
@@ -40,7 +40,7 @@
         </form>
         <form action="{{ u.fromArray(['root', 'admin', 'translate', 'delete']) }}" method="post" id="delete-form">
             <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translate.identifier }}" hidden>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>
             deleteButton = document.getElementById('delete-button');

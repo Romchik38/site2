@@ -80,14 +80,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             return new RedirectResponse($uriRedirect);
         }
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             sprintf('Translate view id %s', $translateId()),
             sprintf('Translate view page with id %s', $translateId()),
             $translateDto,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::TRANSLATES_FIELD,
             Update::LANGUAGE_FIELD,
