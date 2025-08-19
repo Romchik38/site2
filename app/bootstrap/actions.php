@@ -219,7 +219,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('frontend-view'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
-            new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );

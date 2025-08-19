@@ -20,7 +20,7 @@
                         <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>
                         <input class="form-control" type="password" name="{{ data.passwordField }}" id="{{ data.passwordField }}" required /><br>
                         <input class="btn btn-secondary" type="submit" value="{{ t.t('Log In') }}" />
-                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+                        <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
                     </form>
                     <br>
                 </div>
