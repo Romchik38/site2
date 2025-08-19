@@ -41,7 +41,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $uriRedirect        = $this->urlbuilder->fromArray(['root', 'admin']);
-        $visitor            = $this->adminVisitorService->getVisitor();
         $serverErrorMessage = $this->translateService->t($this::SERVER_ERROR);
 
         try {
@@ -59,9 +58,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $dto  = new ViewDto(
             'Admin article most visited',
             self::ACTION_DESCRIPTION,
-            $articleList,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
+            $articleList
         );
         $html = $this->view
             ->setController($this->getController())

@@ -14,7 +14,7 @@
         <h1 class="text-center">{{ data.getName() }}</h1>
         <p>{{ data.getDescription() }}</p>
         <form class="my-3" action="{{ u.fromArray(['root', 'admin', 'article', 'most_visited', 'clear']) }}" method="post">
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <button class="btn btn-secondary py-0 align-top px-1" type="submit">Clear</button>
         </form>
         <table class="table table-striped border">
