@@ -2,12 +2,10 @@
 
 ## Current
 
-- use visitor csrf token and field in the frontend template
-  - next login admin
+- replace `imageFrontendPrefix` with view metadata var
 
 ## Next
 
-- replace `imageFrontendPrefix` with view metadata var
 - add a banner to `category` list page
 - use admin visitor csrf token and field in the admin template
 - control image cache size
