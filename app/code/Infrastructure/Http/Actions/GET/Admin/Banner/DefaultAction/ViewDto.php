@@ -14,8 +14,6 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public readonly array $banners,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $bannerIdField,
     ) {
         parent::__construct($name, $description);

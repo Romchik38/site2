@@ -13,8 +13,6 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public readonly BannerDto $bannerDto,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $idField,
         public readonly string $nameField,
         public readonly string $priorityField,

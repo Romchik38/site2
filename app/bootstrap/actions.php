@@ -182,8 +182,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('backend-view'),
-            new Promise('\Romchik38\Site2\Application\Banner\AdminList\AdminListService'),    
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+            new Promise('\Romchik38\Site2\Application\Banner\AdminList\AdminListService'),
         ]
     );
     $container->shared(
@@ -206,7 +205,6 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('backend-view'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 

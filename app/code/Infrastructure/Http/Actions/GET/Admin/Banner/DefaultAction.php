@@ -12,7 +12,6 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Banner\AdminList\AdminListService;
 use Romchik38\Site2\Application\Banner\BannerService\Commands\Delete;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DefaultAction\ViewDto;
@@ -23,8 +22,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
-        private readonly AdminListService $adminListService,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly AdminListService $adminListService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -33,14 +31,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     {
         $banners = $this->adminListService->list();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Banners',
             'Banners page',
             $banners,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Delete::ID_FIELD
         );
 

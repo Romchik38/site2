@@ -15,7 +15,7 @@
         {% if data.banners|length == 0 %} 
             {% include template_full_prefix ~ '/zero_banners.twig' with {'t': translate, 'newUrl': newUrl} only %}
         {% else %}
-            {% include template_full_prefix ~ '/banners.twig' with {'data': data, 't': translate, 'u': u, 'newUrl': newUrl } only %}
+            {% include template_full_prefix ~ '/banners.twig' with {'data': data, 't': translate, 'u': u, 'newUrl': newUrl, 'visitor': visitor } only %}
         {% endif %}
 
     </div>
