@@ -723,7 +723,7 @@ traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	2
 the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49	1
 grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	8
 using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	3
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	11
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	12
 zakon-pro-dorojniy-ruh-ukraini	t	1	121	49	2025-06-25 16:29:19	2025-07-10 14:04:39	0
 сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01	2025-06-26 13:24:15	0
 сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	123	54	2025-06-26 19:26:46	2025-07-10 14:39:41	0
@@ -733,8 +733,8 @@ passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10	2025-06-2
 military-registration-document	t	1	124	61	2025-06-30 12:26:51	2025-07-11 13:02:22	0
 extension-of-the-guarantee-of-maintaining-a-servicemans-job	t	1	102	60	2025-06-29 19:45:28	2025-06-29 19:49:24	0
 the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16	2025-06-24 18:47:02	0
-impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	1
-evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	1
+evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	2
+impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	2
 reservation-of-employees-for-the-period-of-mobilization	t	1	105	62	2025-06-30 17:35:55	2025-06-30 17:47:08	0
 Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	122	53	2025-06-26 16:46:37	2025-07-10 14:33:23	0
 administrative-detention	t	1	97	55	2025-06-27 18:49:55	2025-06-27 18:57:37	0
@@ -1122,6 +1122,9 @@ COPY public.img (identifier, name, author_id, path, active) FROM stdin;
 127	Table, books and the inscription "Legal protection with a 30% discount"	1	common/3BegpxqtH0rzb4wh4zZT.webp	t
 128	Man in a suit and with a diplomat. Wristwatch with the inscription 24/7	1	common/66VkfbtQ0pMUxMnktfi1.webp	t
 129	Two men in an office building making a deal	1	common/UXcM9b0CqzcFrzbrmD7V.webp	t
+132	Administrative law teacher	1	common/1TBJ6WKZu0tduG5N7BAH.webp	t
+133	Administrative process teacher	1	common/x4hkvcEIaX7ttg9GwTTp.webp	t
+134	General administrative law teacher	18	common/vkmja5CCaXpppNHtLAos.webp	f
 \.
 
 
@@ -1210,6 +1213,12 @@ COPY public.img_translates (img_id, language, description) FROM stdin;
 125	uk	Автомобіль зупинився на автобусній зупинці в місті з офісними будівлями
 129	en	Two men in an office building making a deal
 129	uk	Два чоловіка в офісному приміщенні укладають угоду
+132	en	Middle-aged man in a gray shirt and tie
+132	uk	Чоловік середніх літ в сірій сорочці і краватці
+133	en	Professor in glasses and suit near blackboard
+133	uk	Професор в окулярах та костюмі біля дошки
+134	en	Young woman in glasses and white blouse smiling
+134	uk	Молода жінка в окулярах і білій блузці посміхається
 \.
 
 
@@ -2034,7 +2043,7 @@ SELECT pg_catalog.setval('public.banner_identifier_seq', 12, true);
 -- Name: img_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.img_identifier_seq', 131, true);
+SELECT pg_catalog.setval('public.img_identifier_seq', 134, true);
 
 
 --
