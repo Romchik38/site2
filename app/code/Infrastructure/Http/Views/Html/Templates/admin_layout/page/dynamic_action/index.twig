@@ -32,7 +32,7 @@
                     <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ page.getId() }}" hidden>
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <div class="form-group mb-2 p-2">
                 <div class="mb">
                     <label class="form-label" for="{{ data.urlFiled }}">Url: {{ page.getUrl() }}</label>
@@ -75,7 +75,7 @@
         </form>
         <form action="{{ deleteUrl }}" method="post" id="delete-form">
             <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ page.getId() }}" hidden>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>
             var activeCheckbox = document.getElementById('checkbox_active');

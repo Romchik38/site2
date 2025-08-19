@@ -21,7 +21,7 @@
                     <input type="text" class="form-control" name="{{ data.urlField }}" required autofocus>
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
 
             <div class="d-flex ">
                 <div class="me-auto">

@@ -51,8 +51,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $redirectUri = $this->urlbuilder->fromArray(['root', 'admin', 'page']);
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         try {
             $pageDto = $this->viewService->find($dynamicRoute);
         } catch (InvalidArgumentException $e) {
@@ -79,8 +77,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             sprintf('Page view id %s', $pageDto->getId()),
             sprintf(self::DESCRIPTION, $pageDto->getId()),
             $pageDto,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::URL_FIELD,
             Update::TRANSLATES_FIELD,

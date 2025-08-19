@@ -14,7 +14,6 @@ use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Page\AdminList\AdminList;
 use Romchik38\Site2\Application\Page\AdminList\Commands\Filter\Filter;
 use Romchik38\Site2\Application\Page\PageService\Commands\Delete;
@@ -35,16 +34,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly AdminList $pageList,
-        private readonly AdminVisitorService $adminVisitorService,
+        private readonly AdminList $pageList
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $requestData = $request->getQueryParams();
         $command     = Filter::fromRequest($requestData);
 
@@ -84,9 +80,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            Delete::ID_FIELD,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
+            Delete::ID_FIELD
         );
 
         $html = $this->view

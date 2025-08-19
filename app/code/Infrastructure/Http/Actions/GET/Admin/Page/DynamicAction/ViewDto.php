@@ -17,8 +17,6 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public readonly PageDto $pageDto,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $idFiled,
         public readonly string $urlFiled,
         public readonly string $translateField,

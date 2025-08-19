@@ -12,7 +12,6 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Page\PageService\Commands\Create;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Page\New\DefaultAction\ViewDto;
 
@@ -24,20 +23,15 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
-        private readonly AdminVisitorService $adminVisitorService
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Create new page',
             self::DESCRIPTION,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Create::URL_FIELD
         );
 
