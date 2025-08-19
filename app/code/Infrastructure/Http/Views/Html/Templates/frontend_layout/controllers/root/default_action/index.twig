@@ -178,20 +178,18 @@
                 <div class="col-md-8 col-lg-6 mx-auto col-xxl-3">
                     <!-- Statistic -->
                     <div>
-                        <h5 class="text-center">Why to subscribe?</h5>
+                        <!-- Uncomment code below instead of stub -->
+                        {{ t.t('root.video.why-subscribe-stub')|raw }}
+                        <!-- <h5 class="text-center">Why to subscribe?</h5>
                         <p>We offer the following benefits for subscribers to our website</p>
-                        <ul>
+                        <ul class="text-start">
                             <li>The latest and thoroughly verified information</li>
                             <li>Access to video and audio content at any time</li>
                             <li>Opportunity for free participation in training courses</li>
                             <li>Opportunity to use discounts when taking training courses</li>
                             <li>Special offers from partners</li>
-                        </ul>
-                        <form class="col d-grid gap-2 mt-3">
-                            <button class="btn background-secondary" type="submit">
-                                Subscribe
-                            </button>
-                        </form>
+                        </ul> -->
+                        <a class="btn background-secondary" href="{{ u.fromArray(['root', 'why-subscribe']) }}" role="button">{{ t.t('Subscribe') }}</a>
                     </div>
                 </div>
                 <!-- Aside end -->
