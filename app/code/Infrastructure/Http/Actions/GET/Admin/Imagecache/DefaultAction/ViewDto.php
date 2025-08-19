@@ -12,9 +12,7 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public int $totalCount,
-        public string $totalPrettySize,
-        public readonly string $csrfTokenField,
-        public string $csrfToken
+        public string $totalPrettySize
     ) {
         parent::__construct($name, $description);
     }

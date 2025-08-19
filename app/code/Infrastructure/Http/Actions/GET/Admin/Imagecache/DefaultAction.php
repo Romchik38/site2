@@ -48,15 +48,11 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($uri);
         }
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Image cache',
             'Image cache page',
             $totalCount,
-            $totalPrettySize,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken()
+            $totalPrettySize
         );
 
         $html = $this->view
