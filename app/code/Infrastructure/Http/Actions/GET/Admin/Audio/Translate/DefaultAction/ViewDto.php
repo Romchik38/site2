@@ -13,8 +13,6 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public readonly TranslateDto $translateDto,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $idFiled,
         public readonly string $languageFiled,
         public readonly string $descriptionField,

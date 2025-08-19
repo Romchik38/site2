@@ -59,8 +59,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($uriRedirectList);
         }
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $audioRequirements = $this->adminTranslateCreateService->audioRequirements();
 
         $pageName = sprintf(
@@ -79,8 +77,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $pageName,
             $pageDescription,
             $translateDto,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             CreateTranslate::AUDIO_ID_FIELD,
             CreateTranslate::LANGUAGE_FIELD,
             CreateTranslate::DESCRIPTION_FIELD,

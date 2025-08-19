@@ -46,7 +46,7 @@
             <!-- File select -->
             {% include template_full_prefix    ~ '/blocks/audio.twig' with {'translate': translate, 'u': u, 'data': data} only %}
 
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <div class="d-flex">
                 <div class="me-auto">
                     <button type="submit" class="btn btn-primary my-2">Create</button>

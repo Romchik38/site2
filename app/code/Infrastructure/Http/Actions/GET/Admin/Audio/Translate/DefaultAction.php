@@ -69,8 +69,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ));
         }
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $pageName = sprintf(
             'Audio translate id %s language %s',
             $command->id,
@@ -87,8 +85,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $pageName,
             $pageDescription,
             $translateDto,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             UpdateTranslate::ID_FIELD,
             UpdateTranslate::LANGUAGE_FIELD,
             UpdateTranslate::DESCRIPTION_FIELD,

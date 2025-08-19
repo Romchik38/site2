@@ -101,7 +101,7 @@
                 <td>
                     <form action="{{ deleteUrl }}" method="post">
                         <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audioId }}" hidden>
-                        <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+                        <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
                         <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
                     </form>
                 </td>

@@ -16,7 +16,6 @@ use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
 use Romchik38\Site2\Application\Visitor\RepositoryException as VisitorRepositoryException;
 use Romchik38\Site2\Application\Visitor\VisitorService;
-use Romchik38\Site2\Application\VisitorServiceException;
 use RuntimeException;
 
 use function gettype;

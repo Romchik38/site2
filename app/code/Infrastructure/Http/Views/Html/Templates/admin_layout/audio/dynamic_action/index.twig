@@ -51,7 +51,7 @@
                     </label>
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <div class="d-flex ">
                 <div class="me-auto">
                     <button type="submit" class="btn btn-primary my-2">Update</button>
@@ -63,7 +63,7 @@
         </form>
         <form action="{{ deleteUrl }}" method="post" id="delete-form">
             <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audio.id }}" hidden>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>
             activeCheckbox = document.getElementById('checkbox_active');

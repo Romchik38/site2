@@ -17,8 +17,6 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public readonly AudioDto $audioDto,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $idFiled,
         public readonly string $nameFiled,
         public readonly string $changeActivityFiled,

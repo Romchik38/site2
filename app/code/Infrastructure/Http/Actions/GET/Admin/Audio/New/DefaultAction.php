@@ -12,7 +12,6 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Audio\AudioService\Create;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Audio\New\DefaultAction\ViewDto;
 
@@ -23,21 +22,16 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     public function __construct(
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
-        private readonly ControllerViewInterface $view,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly ControllerViewInterface $view
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             sprintf('Create new Audio'),
             sprintf('Create new Audio page'),
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Create::NAME_FIELD
         );
 
