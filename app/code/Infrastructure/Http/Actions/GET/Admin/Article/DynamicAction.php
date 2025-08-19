@@ -60,8 +60,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $uriList = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         try {
             $id         = new ArticleId($decodedRoute);
             $articleDto = $this->articleViewService->find($id);
@@ -82,8 +80,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $dto = new ViewDto(
             sprintf('Article view id %s', $decodedRoute),
             sprintf('Article view page with id %s', $decodedRoute),
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             $languages,
             $articleDto,
             Update::ID_FIELD,

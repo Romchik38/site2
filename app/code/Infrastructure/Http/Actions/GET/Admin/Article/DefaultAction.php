@@ -53,8 +53,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $uriRedirect = $this->urlbuilder->fromArray(['root', 'admin']);
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         // List
         try {
             $filterResult = $this->articleService->list($command);
@@ -103,9 +101,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            Delete::ID_FIELD,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
+            Delete::ID_FIELD
         );
         $html = $this->view
             ->setController($this->getController())

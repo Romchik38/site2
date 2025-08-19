@@ -10,7 +10,7 @@
         {% if data.articleList|length == 0 %} 
             {% include template_full_prefix ~ '/zero_articles.twig' with {'translate': translate, 'createUrl': createUrl} only %}
         {% else %}
-            {% include template_full_prefix ~ '/articles.twig' with {'data': data, 't': translate, 'u': u, 'createUrl': createUrl} only %}
+            {% include template_full_prefix ~ '/articles.twig' with {'data': data, 't': translate, 'u': u, 'createUrl': createUrl, 'visitor': visitor} only %}
             <!-- refactor -->
         {% endif %}
 
