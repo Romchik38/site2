@@ -45,18 +45,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         }
 
         try {
-            $visitor = $this->visitorService->getVisitor();
-        } catch (VisitorServiceException $e) {
-            $this->logger->error($e->getMessage());
-            return new JsonResponse(new ApiDTO(
-                $this::API_NAME,
-                $this::API_DESCRIPTION,
-                ApiDTOInterface::STATUS_ERROR,
-                $this::SERVER_ERROR
-            ), 500);
-        }
-
-        try {
             $this->visitorService->acceptTerms();
             return new JsonResponse(new ApiDTO(
                 $this::API_NAME,
