@@ -19,7 +19,7 @@
             {% set image = article.image %}
             {% set author = article.author %}
             {% set articleUrl = articleUrlPart ~ '/' ~ article.getId() %}
-            {% set imageUrl = data.imageFrontendPrefix ~ '/' ~ image.getPath() %}
+            {% set imageUrl = imageFrontendPath ~ '/' ~ image.getPath() %}
             <div class="row my-4">
                 <div class="col-sm-9">
                     <h5>

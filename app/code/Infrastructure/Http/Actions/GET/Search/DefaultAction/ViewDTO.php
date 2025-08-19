@@ -21,7 +21,6 @@ final class ViewDTO extends DefaultViewDTO
         string $description,
         public readonly array $articleList,
         public readonly ?string $query,
-        public readonly string $imageFrontendPrefix,
         private readonly TranslateInterface $translate,
         public readonly string $paginationHtml,
         public readonly QueryMetaData $queryMetaData

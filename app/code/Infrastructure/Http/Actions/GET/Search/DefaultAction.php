@@ -39,7 +39,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
         private readonly ArticleSearchService $articleSearchService,
-        private readonly string $imageFrontendPrefix,
         private readonly UrlbuilderInterface $urlbuilder
     ) {
         parent::__construct($dynamicRootService, $translateService);
@@ -92,7 +91,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->translateService->t($this::PAGE_DESCRIPTION),
             $articleList,
             $query,
-            $this->imageFrontendPrefix,
             $this->translateService,
             $paginationHtml,
             new QueryMetaData()
