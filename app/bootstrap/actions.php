@@ -282,7 +282,6 @@ return function (Container $container) {
             new Promise('backend-view'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\Category\AdminList\AdminList'),
-            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
         ]
     );
 

@@ -24,7 +24,7 @@
                     <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" hidden>
                 </div>
             </div>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
 
             <div class="form-group p-2">
                 <div class="mb-3">                
@@ -60,7 +60,7 @@
         </form>
         <form action="{{ u.fromArray(['root', 'admin', 'category', 'delete']) }}" method="post" id="delete-form">
             <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ category.getId() }}" hidden>
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>
             var activeCheckbox = document.getElementById('checkbox_active');

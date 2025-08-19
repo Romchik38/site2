@@ -49,13 +49,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             return new RedirectResponse($redirectUri);
         }
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Create new category',
             'Create new category page',
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Create::CATEGORY_ID_FIELD,
             Create::TRANSLATES_FIELD,
             Create::LANGUAGE_FIELD,
