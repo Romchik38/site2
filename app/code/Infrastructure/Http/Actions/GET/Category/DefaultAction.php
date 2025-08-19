@@ -12,8 +12,11 @@ use Romchik38\Server\Http\Controller\Actions\DefaultActionInterface;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\Banner\List\Exceptions\NoBannerToDisplayException;
+use Romchik38\Site2\Application\Banner\List\Exceptions\PriorityException;
 use Romchik38\Site2\Application\Category\List\ListService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DefaultAction\ViewDTO;
+use Romchik38\Site2\Application\Banner\List\ListService as BannerService;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -24,7 +27,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         DynamicRootInterface $dynamicRootService,
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
-        private readonly ListService $listService
+        private readonly ListService $listService,
+        private readonly BannerService $bannerService,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -36,10 +40,19 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $translatedPageName        = $this->translateService->t($this::PAGE_NAME_KEY);
         $translatedPageDescription = $this->translateService->t($this::PAGE_DESCRIPTION_KEY);
 
+        try {
+            $banner = $this->bannerService->priority();
+        } catch (PriorityException) {
+            $banner = null;
+        } catch (NoBannerToDisplayException) {
+            $banner = null;
+        }
+        
         $dto = new ViewDTO(
             $translatedPageName,
             $translatedPageDescription,
-            $categories
+            $categories,
+            $banner
         );
 
         $result = $this->view

@@ -2,8 +2,6 @@
 
 ## Current
 
-- add a banner to `category` list page
-
 ## Next
 
 - use admin visitor csrf token and field in the admin template

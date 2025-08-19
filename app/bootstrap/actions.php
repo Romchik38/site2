@@ -50,7 +50,8 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('frontend-view'),
-            new Promise('\Romchik38\Site2\Application\Category\List\ListService')
+            new Promise('\Romchik38\Site2\Application\Category\List\ListService'),
+            new Promise('\Romchik38\Site2\Application\Banner\List\ListService'),
         ]
     );
 
