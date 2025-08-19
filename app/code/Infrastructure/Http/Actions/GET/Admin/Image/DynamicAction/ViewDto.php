@@ -21,8 +21,6 @@ final class ViewDto extends DefaultViewDTO
         public readonly MetadataDto $metadataDto,
         public readonly string $imageFrontendPath,
         public readonly array $languages,
-        public readonly string $csrfTokenField,
-        public string $csrfToken,
         public readonly string $idFiled,
         public readonly string $nameFiled,
         public readonly string $authorIdFiled,

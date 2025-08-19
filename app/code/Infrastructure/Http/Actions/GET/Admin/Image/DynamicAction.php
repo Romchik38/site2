@@ -71,8 +71,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
         $languages = $this->languageService->getAll();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             sprintf('Image view id %s', (string) $imageId),
             sprintf('Image view page with id %s', (string) $imageId),
@@ -80,8 +78,6 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             $result->metadata,
             $result->imageFrontendPath,
             $languages,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Update::ID_FIELD,
             Update::NAME_FIELD,
             Update::AUTHOR_ID_FIELD,

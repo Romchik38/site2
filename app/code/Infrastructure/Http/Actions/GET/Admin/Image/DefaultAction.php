@@ -20,7 +20,6 @@ use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTO;
 use Romchik38\Server\Http\Views\Dto\Api\ApiDTOInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
-use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Image\AdminImageListService\AdminImageListService;
 use Romchik38\Site2\Application\Image\AdminImageListService\Filter;
 use Romchik38\Site2\Application\Image\ImageService\Delete;
@@ -46,8 +45,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         TranslateInterface $translateService,
         private readonly ControllerViewInterface $view,
         private readonly AdminImageListService $adminImageListService,
-        private readonly UrlbuilderInterface $urlbuilder,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly UrlbuilderInterface $urlbuilder
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -125,8 +123,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $paginationHtml = $paginationView->create();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             'Images',
             'Images page',
@@ -137,8 +133,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $searchCriteria->orderByField,
                 $searchCriteria->orderByDirection
             ),
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Delete::ID_FIELD
         );
 

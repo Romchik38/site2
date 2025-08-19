@@ -62,14 +62,10 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $imageRequirements = $this->adminViewService->imageRequirements();
 
-        $visitor = $this->adminVisitorService->getVisitor();
-
         $dto = new ViewDto(
             sprintf('Create new Image'),
             sprintf('Create new Image page'),
             $languages,
-            $visitor->getCsrfTokenField(),
-            $visitor->getCsrfToken(),
             Create::NAME_FIELD,
             Create::AUTHOR_ID_FIELD,
             Create::TRANSLATES_FIELD,

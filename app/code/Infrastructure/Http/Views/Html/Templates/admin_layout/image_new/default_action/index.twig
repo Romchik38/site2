@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <!-- Translates -->
             {% include template_full_prefix ~ '/blocks/translates.twig' with {'translate': t, 'u': u, 'translates': translates, 'data': data} only %}
             {% include template_full_prefix ~ '/blocks/image.twig' with {'translate': translate, 'u': u, 'data': data} only %}
