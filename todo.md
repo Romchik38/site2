@@ -2,11 +2,10 @@
 
 ## Current
 
-- replace `imageFrontendPrefix` with view metadata var
+- add a banner to `category` list page
 
 ## Next
 
-- add a banner to `category` list page
 - use admin visitor csrf token and field in the admin template
 - control image cache size
 - container - link deffered logger with `LoggerInterface`
