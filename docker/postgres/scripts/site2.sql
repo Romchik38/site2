@@ -719,11 +719,11 @@ deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2
 entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	1
 code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54	2025-06-30 19:20:16	1
 plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37	1
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	9
-grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	7
 traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	2
-using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	2
 the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49	1
+grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	8
+using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	3
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	11
 zakon-pro-dorojniy-ruh-ukraini	t	1	121	49	2025-06-25 16:29:19	2025-07-10 14:04:39	0
 сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01	2025-06-26 13:24:15	0
 сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	123	54	2025-06-26 19:26:46	2025-07-10 14:39:41	0
