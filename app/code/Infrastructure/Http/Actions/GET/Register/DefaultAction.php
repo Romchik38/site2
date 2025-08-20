@@ -46,7 +46,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
         $dto = new ViewDTO(
             $page->getName(),
-            $page->getDescription(),
+            $page->getShortDescription(),
             $visitor->getUserName(),
             $page
         );

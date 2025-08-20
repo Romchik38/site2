@@ -53,7 +53,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             ->setControllerData(
                 new ViewDTO(
                     $page->getName(),
-                    $page->getDescription(),
+                    $page->getShortDescription(),
                     $user,
                     CheckPassword::EMAIL_FIELD,
                     CheckPassword::PASSWORD_FIELD,
