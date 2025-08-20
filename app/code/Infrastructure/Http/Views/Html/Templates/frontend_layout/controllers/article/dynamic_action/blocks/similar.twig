@@ -8,11 +8,13 @@
         {% for article in data.similarArticles %}
             {% set articleSimilarUrl = articleUrl ~ '/' ~ article.getId() %}
                     <div class="col-md-6 mb-3 mb-lg-0 col-lg-4">
+                        <div>
                         <a class="link-none" href="{{ articleSimilarUrl }}">
                             <img class="img-fluid"
-                                src="/img.php?id={{ article.image.getId() }}&type=webp&width=200&height=100" alt="{{ article.image.getDescription() }}"
-                                width="200px">
+                                src="/img.php?id={{ article.image.getId() }}&type=webp&width=576&height=384" alt="{{ article.image.getDescription() }}"
+                            >
                         </a>
+                        </div>
                         <h5><a class="link-none" href="{{ articleSimilarUrl }}">{{ article.getName() }}</a></h5>
                         <p class="h6"><a class="link-none" href="{{ articleSimilarUrl }}">{{ article.getShortDescription() }}</a></p>
                         <footer class="row text-secondary">

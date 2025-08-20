@@ -8,7 +8,7 @@
 {% block content %}
 {% set categories = data.categories %}
 <div id="content" class="container-fluid p-0 mt-2">
-    <div class="container-xxl p-0">
+    <div class="container-lg p-0">
         <!-- Banner -->
         {% set banner = data.banner %}
         {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banner': banner, 'imageFrontendPath': imageFrontendPath } only %}

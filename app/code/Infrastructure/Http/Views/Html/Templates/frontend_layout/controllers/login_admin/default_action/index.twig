@@ -10,11 +10,12 @@
 <div class="container-sm">
     <div class="row justify-content-center">
         <h1 class="text-center">{{ data.name }}</h1>
+        <div class="col">
             {% if data.adminUser is null %}
-                <p class="lead">{{ t.t('page.login-admin.lead')|raw }}</p>
-                <div class="col-sm-4">
+                <p class="lead my-5 p-3 bg-light border-start border-5">{{ t.t('page.login-admin.lead')|raw }}</p>
+                <div class="col-md-6 col-lg-4 mx-auto">
                     <h2 class="text-center">{{ t.t('page.login.provide-login-credentials') }}</h2>
-                    <form class="border rounded-3 p-4" action="{{ data.authUrl }}" method="post">
+                    <form class="border bg-light rounded-3 p-4" action="{{ data.authUrl }}" method="post">
                         <label for="{{ data.userNameField }}">{{ t.t('page.login.enter-username') }}: </label>
                         <input class="form-control" type="text" name="{{ data.userNameField }}" id="{{ data.userNameField }}" required autofocus /><br>
                         <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>
@@ -27,6 +28,7 @@
             {% else %}
                 <p>{{ t.t('page.login-admin.already') }} <a href="{{ u.fromArray(['root', 'admin']) }}">{{ t.t('admin-login.page-name') }}</a>.</p>
             {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

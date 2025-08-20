@@ -33,18 +33,22 @@ export class Article extends Component {
         var comments = this.getComments() + '(' + Math.floor(Math.random() * 10) + ')';
     
         var mainContainer = this._createElement(
+            'div', { 'class': 'col-12' }
+        );
+
+        var mainRow = this._createElement(
             'div', { 'class': 'row' }
         );
         
         var imgContainer = this._createElement(
-            'div', { 'class': 'col col-sm-4' }
+            'div', { 'class': 'col-md-4' }
         );
         var imgLink = this._createElement(
-            'a', { 'class': 'btn', 'href': articleFullurl }
+            'a', { 'class': 'link-none', 'href': articleFullurl }
         );
         var img = this._createElement(
             'img', { 
-                'class': 'img-fluid rounded-start', 
+                'class': 'img-fluid', 
                 'src': `/img.php?id=${article.imageId}&type=webp&width=576&height=384`,
                 'alt': article.imageDescription
             }
@@ -52,7 +56,7 @@ export class Article extends Component {
         imgLink.appendChild(img);
         imgContainer.appendChild(imgLink);
 
-        var bodyContainer = this._createElement('div', { 'class': 'col-sm-8' });
+        var bodyContainer = this._createElement('div', { 'class': 'col-md-8' });
         var bodyTitle = this._createElement('h5', { 'class': 'card-title' });
         var bodyTitleLink = this._createElement(
             'a', { 'class': 'link-none', 'href': articleFullurl }, article.name
@@ -81,9 +85,10 @@ export class Article extends Component {
 
         footerContainer.appendChild(footerRow);
 
-        mainContainer.appendChild(imgContainer);
-        mainContainer.appendChild(bodyContainer);
-        mainContainer.appendChild(footerContainer);
+        mainContainer.appendChild(mainRow);
+        mainRow.appendChild(imgContainer);
+        mainRow.appendChild(bodyContainer);
+        mainRow.appendChild(footerContainer);
 
         this.node.appendChild(mainContainer);
     }

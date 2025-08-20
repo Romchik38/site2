@@ -16,15 +16,13 @@
 {% set urlRoot = u.fromArray(['root']) %}
 {% set page = data.page %}
 <div class="container-sm">
-    <div class="row justify">
-        <h1 class="text-center">{{ page.getName() }}</h1>
-        <p class="lead my-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
-    </div>
+    <h1 class="text-center">{{ page.getName() }}</h1>
+    <p class="lead my-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
     <div class="row justify-content-center my-4">
         {% if data.user is null %}
-            <div class="col-sm-4">
+            <div class="col-md-6 col-lg-4">
                 <h2 class="text-center">{{ t.t('page.login.provide-login-credentials') }}</h2>
-                <form class="border rounded-3 p-4" action="{{ urlAuth }}" method="post">
+                <form class="border bg-light rounded-3 p-4" action="{{ urlAuth }}" method="post">
                     <label for="{{ data.userNameField }}">{{ t.t('page.login.enter-username') }}: </label>
                     <input class="form-control" type="text" name="{{ data.emailField }}" id="{{ data.userNameField }}" required /><br>
                     <label for="{{ data.passwordField }}">{{ t.t('page.login.enter-password') }}: </label>

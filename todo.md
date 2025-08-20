@@ -3,14 +3,14 @@
 ## Current
 
 - check pages on responsive
-  - home
-  - category list
-  - category view
-  - article last
-  - article view
-  - page view
-  - login
-  - login admin
+  - [+] home
+  - [+] category list
+  - [+] category view
+  - [+] article list
+  - [+] article view
+  - [+] page view
+  - [+] login
+  - [+] login admin
   - search
   - sitemap
   - account

@@ -1,19 +1,21 @@
-<table class="table table-borderless table-striped">
-    <thead class="background-secondary">
-         <tr>
-            <th scope="col">{{ translate.t('category.page.table.name') }}</th>
-            <th scope="col">{{ translate.t('category.page.table.description') }}</th>
-            <th scope="col">{{ translate.t('category.page.table.articles-count') }}</th>
-         </tr>
-    </thead>
-    <tbody>
-    {% for c in categories %}
-        {% set categoryUrl = u.fromArray(['root', 'category', c.getId()|url_encode]) %}
-        <tr>
-            <td><a href="{{ categoryUrl }}">{{ c.getName() }}</a></td>
-            <td>{{ c.getDescription() }}</td>
-            <td>{{ c.totalCount }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive-md">
+    <table class="table table-borderless table-striped">
+        <thead class="background-secondary">
+             <tr>
+                <th scope="col">{{ translate.t('category.page.table.name') }}</th>
+                <th scope="col">{{ translate.t('category.page.table.description') }}</th>
+                <th scope="col">{{ translate.t('category.page.table.articles-count') }}</th>
+             </tr>
+        </thead>
+        <tbody>
+        {% for c in categories %}
+            {% set categoryUrl = u.fromArray(['root', 'category', c.getId()|url_encode]) %}
+            <tr>
+                <td><a href="{{ categoryUrl }}">{{ c.getName() }}</a></td>
+                <td>{{ c.getDescription() }}</td>
+                <td>{{ c.totalCount }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
