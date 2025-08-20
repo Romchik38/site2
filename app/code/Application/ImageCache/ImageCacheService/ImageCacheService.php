@@ -16,7 +16,8 @@ use Romchik38\Site2\Domain\ImageCache\VO\Type;
 final class ImageCacheService
 {
     public function __construct(
-        private readonly RepositoryInterface $imageCacheRepository
+        private readonly RepositoryInterface $imageCacheRepository,
+        private readonly int $maxCacheSize
     ) {
     }
 
@@ -32,6 +33,9 @@ final class ImageCacheService
             new Type($command->type),
         );
         try {
+            if ($this->totalSize() > $this->maxCacheSize) {
+                throw new CouldNotSaveException('Cache space is full');
+            }
             $this->imageCacheRepository->add($imgCache);
         } catch (RepositoryException $e) {
             throw new CouldNotSaveException($e->getMessage());

@@ -264,7 +264,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Application\ImageCache\ImageCacheService\ImageCacheService',
         [
-            new Promise('\Romchik38\Site2\Domain\ImageCache\RepositoryInterface')
+            new Promise('\Romchik38\Site2\Domain\ImageCache\RepositoryInterface'),
+            new Promise('img-max-cache-size'),
         ]
     );
 
