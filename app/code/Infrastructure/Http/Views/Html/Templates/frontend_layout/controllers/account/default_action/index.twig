@@ -9,26 +9,40 @@
 {% set page = data.page %}
 <div class="container-sm">
     <div class="row mb-4">
-        <h1 class="text-center">{{ page.getName() }}</h1>
-        <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
+        <div class="col">
+            <h1 class="text-center">{{ page.getName() }}</h1>
+            <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
+        </div>
     </div>
     <div class="row mb-4 justify-content-center">
-        {% include template_full_prefix ~ '/blocks/card.twig' with {'t': t, 'u': u, 'data': data } only %}
+        <div class="col">
+            {% include template_full_prefix ~ '/blocks/card.twig' with {'t': t, 'u': u, 'data': data } only %}
+        </div>
     </div>    
     <div class="row mb-4 justify-content-center">
-        {% include template_full_prefix ~ '/blocks/user-data.twig' with {'t': t, 'u': u, 'data': data } only %}
+        <div class="col">
+            {% include template_full_prefix ~ '/blocks/user-data.twig' with {'t': t, 'u': u, 'data': data } only %}
+        </div>
     </div> 
     <div class="row mb-4 justify-content-center">
-        {% include template_full_prefix ~ '/blocks/offers.twig' with {'t': t, 'u': u, 'data': data } only %}
+        <div class="col">
+            {% include template_full_prefix ~ '/blocks/offers.twig' with {'t': t, 'u': u, 'data': data } only %}
+        </div>
     </div>
     <div class="row mb-4 justify-content-center  bg-light">
-        {% include template_full_prefix ~ '/blocks/continue_reading.twig' with {'t': t, 'u': u, 'data': data } only %}
+        <div class="col">
+            {% include template_full_prefix ~ '/blocks/continue_reading.twig' with {'t': t, 'u': u, 'data': data } only %}
+        </div>
     </div>
     <div class="row mb-4">
-        {{ page.getDescription()|raw }}
+        <div class="col">
+            {{ page.getDescription()|raw }}
+        </div>
     </div>    
     <div class="row mb-4">
-        {% include template_full_prefix ~ '/blocks/subscribe.twig' with {'t': t, 'u': u, 'data': data } only %}
+        <div class="col">
+            {% include template_full_prefix ~ '/blocks/subscribe.twig' with {'t': t, 'u': u, 'data': data } only %}
+        </div>
     </div>
 </div>
 {% endblock %}

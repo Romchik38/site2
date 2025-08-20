@@ -2,19 +2,6 @@
 
 ## Current
 
-- check pages on responsive
-  - [+] home
-  - [+] category list
-  - [+] category view
-  - [+] article list
-  - [+] article view
-  - [+] page view
-  - [+] login
-  - [+] login admin
-  - search
-  - sitemap
-  - account
-
 ## Next
 
 - control image cache size

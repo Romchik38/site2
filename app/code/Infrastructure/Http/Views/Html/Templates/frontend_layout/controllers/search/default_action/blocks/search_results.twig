@@ -2,7 +2,7 @@
 {% set twentyFourUrl = u.fromArray(['root', '24-7-support']) %}
 <div class="row my-3">
     <!-- Results -->
-    <div class="col-md-9">
+    <div class="col-lg-9">
         {% if data.articleList|length == 0 %}
             {% if data.query is not null %}
                 {% set inputText = data.query %}
@@ -55,9 +55,9 @@
         {% endif %}
     </div>
     <!-- Ads -->
-    <div class="col-md-3">
+    <div class="col-lg-3 mt-3 mt-lg-0">
         <p class="text-center text-secondary" style="font-weight:300"><small>{{ t.t('Advertisement') }}</small><p>
-        <div class="card mx-3" style="width: 18rem;">
+        <div class="card mx-auto" style="width: 18rem;">
             <picture>
                 <source media="(max-width: 576px)" srcset="/img.php?id=128&type=webp&width=576&height=576">
                 <source media="(max-width: 768px)" srcset="/img.php?id=128&type=webp&width=768&height=768">

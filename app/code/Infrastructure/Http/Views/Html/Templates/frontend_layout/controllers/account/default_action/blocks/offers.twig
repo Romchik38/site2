@@ -2,79 +2,83 @@
 {% set twentyFourUrl = u.fromArray(['root', '24-7-support']) %}
 {% set freeUrl = u.fromArray(['root', 'free-consultation']) %}
 
-<h2 class="text-center">{{ t.t('Special offers') }}</h2>
-<!-- 1 -->
-<div class="card mx-3" style="width: 18rem;">
-    <picture>
-        <source media="(max-width: 576px)" srcset="/img.php?id=127&type=webp&width=576&height=576">
-        <source media="(max-width: 768px)" srcset="/img.php?id=127&type=webp&width=768&height=768">
-        <source media="(min-width: 768px)" srcset="/img.php?id=127&type=webp&width=1080&height=1080">
-        <img 
-            class="img-fluid rounded-start"
-            src="/media/img/common/3BegpxqtH0rzb4wh4zZT.webp"
-        >
-    </picture>
-  <div class="card-body">
-    <h5 class="card-title">{{ t.t('offers.discount-30.title') }}</h5>
-    <p class="card-text">{{ t.t('offers.discount-30.text') }}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{ t.t('offers.condition.once') }}</li>
-    <li class="list-group-item">{{ t.t('offers.condition.individually') }}</li>
-    <li class="list-group-item">{{ t.t('offers.condition.terms.month') }}</li>
-  </ul>
-  <div class="card-body">
-    <a href="{{ discount30Url }}" class="card-link">{{ t.t('More details') }}</a>
-  </div>
-</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <h2 class="text-center">{{ t.t('Special offers') }}</h2>
+    <!-- 1 -->
+    <div class="card col-sm-12 col-md-5 col-lg-3 my-2 mx-sm-3">
+        <picture>
+            <source media="(max-width: 576px)" srcset="/img.php?id=127&type=webp&width=576&height=576">
+            <source media="(max-width: 768px)" srcset="/img.php?id=127&type=webp&width=768&height=768">
+            <source media="(min-width: 768px)" srcset="/img.php?id=127&type=webp&width=1080&height=1080">
+            <img 
+                class="img-fluid rounded-start"
+                src="/media/img/common/3BegpxqtH0rzb4wh4zZT.webp"
+            >
+        </picture>
+      <div class="card-body">
+        <h5 class="card-title">{{ t.t('offers.discount-30.title') }}</h5>
+        <p class="card-text">{{ t.t('offers.discount-30.text') }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ t.t('offers.condition.once') }}</li>
+        <li class="list-group-item">{{ t.t('offers.condition.individually') }}</li>
+        <li class="list-group-item">{{ t.t('offers.condition.terms.month') }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{{ discount30Url }}" class="card-link">{{ t.t('More details') }}</a>
+      </div>
+    </div>
 
 
-<!-- 2 -->
-<div class="card mx-3" style="width: 18rem;">
-    <picture>
-        <source media="(max-width: 576px)" srcset="/img.php?id=128&type=webp&width=576&height=576">
-        <source media="(max-width: 768px)" srcset="/img.php?id=128&type=webp&width=768&height=768">
-        <source media="(min-width: 768px)" srcset="/img.php?id=128&type=webp&width=1080&height=1080">
-        <img 
-            class="img-fluid rounded-start"
-            src="/media/img/common/66VkfbtQ0pMUxMnktfi1.webp"
-        >
-    </picture>
-  <div class="card-body">
-    <h5 class="card-title">{{ t.t('offers.24-7') }}</h5>
-    <p class="card-text">{{ t.t('offers.24-7.text') }}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{ t.t('offers.condition.terms-1-12-month') }}</li>
-    <li class="list-group-item">{{ t.t('offers.condition.more-lawyers') }}</li>
-    <li class="list-group-item">{{ t.t('offers.condition.one-year-contract') }}</li>
-  </ul>
-  <div class="card-body">
-    <a href="{{ twentyFourUrl }}" class="card-link">{{ t.t('More details') }}</a>
-  </div>
-</div>
+    <!-- 2 -->
+    <div class="card col-sm-12 col-md-5 col-lg-3 my-2 mx-sm-3">
+        <picture>
+            <source media="(max-width: 576px)" srcset="/img.php?id=128&type=webp&width=576&height=576">
+            <source media="(max-width: 768px)" srcset="/img.php?id=128&type=webp&width=768&height=768">
+            <source media="(min-width: 768px)" srcset="/img.php?id=128&type=webp&width=1080&height=1080">
+            <img 
+                class="img-fluid rounded-start"
+                src="/media/img/common/66VkfbtQ0pMUxMnktfi1.webp"
+            >
+        </picture>
+      <div class="card-body">
+        <h5 class="card-title">{{ t.t('offers.24-7') }}</h5>
+        <p class="card-text">{{ t.t('offers.24-7.text') }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ t.t('offers.condition.terms-1-12-month') }}</li>
+        <li class="list-group-item">{{ t.t('offers.condition.more-lawyers') }}</li>
+        <li class="list-group-item">{{ t.t('offers.condition.one-year-contract') }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{{ twentyFourUrl }}" class="card-link">{{ t.t('More details') }}</a>
+      </div>
+    </div>
 
 
-<!-- 3 -->
-<div class="card mx-3" style="width: 18rem;">
-    <picture>
-        <source media="(max-width: 576px)" srcset="/img.php?id=129&type=webp&width=576&height=576">
-        <source media="(max-width: 768px)" srcset="/img.php?id=129&type=webp&width=768&height=768">
-        <source media="(min-width: 768px)" srcset="/img.php?id=129&type=webp&width=1080&height=1080">
-        <img 
-            class="img-fluid rounded-start"
-            src="/media/img/common/UXcM9b0CqzcFrzbrmD7V.webp"
-        >
-    </picture>
-  <div class="card-body">
-    <h5 class="card-title">{{ t.t('offers.free-consultation') }}</h5>
-    <p class="card-text">{{ t.t('offers.free-consultation.text') }}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{ t.t('offers.condition.once-12-month') }}</li>
-    <li class="list-group-item">{{ t.t('offers.condition.individually') }}</li>
-  </ul>
-  <div class="card-body">
-    <a href="{{ freeUrl }}" class="card-link">{{ t.t('More details') }}</a>
+    <!-- 3 -->
+    <div class="card col-sm-12 col-md-5 col-lg-3 mt-2 mx-sm-3">
+        <picture>
+            <source media="(max-width: 576px)" srcset="/img.php?id=129&type=webp&width=576&height=576">
+            <source media="(max-width: 768px)" srcset="/img.php?id=129&type=webp&width=768&height=768">
+            <source media="(min-width: 768px)" srcset="/img.php?id=129&type=webp&width=1080&height=1080">
+            <img 
+                class="img-fluid rounded-start"
+                src="/media/img/common/UXcM9b0CqzcFrzbrmD7V.webp"
+            >
+        </picture>
+      <div class="card-body">
+        <h5 class="card-title">{{ t.t('offers.free-consultation') }}</h5>
+        <p class="card-text">{{ t.t('offers.free-consultation.text') }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ t.t('offers.condition.once-12-month') }}</li>
+        <li class="list-group-item">{{ t.t('offers.condition.individually') }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{{ freeUrl }}" class="card-link">{{ t.t('More details') }}</a>
+      </div>
+    </div>
   </div>
 </div>
