@@ -326,6 +326,7 @@ return function (Container $container) {
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
             new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+            new Promise('img-max-cache-size'),
         ]
     );
 

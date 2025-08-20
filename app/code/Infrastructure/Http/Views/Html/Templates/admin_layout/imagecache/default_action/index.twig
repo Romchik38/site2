@@ -4,13 +4,18 @@
 <div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
-        <p>{{ data.description }}</p>
+        <p class="lead bg-light border-start border-5">{{ data.description }}</p>
     </div>
     <p>Total images in storage: {{ data.totalCount }}</p>
     <p>Memory usage: {{ data.totalPrettySize }}</p>
     <form action="{{ u.fromArray(['root', 'admin', 'imagecache', 'clear']) }}" method="post">
         <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
-        <button class="btn btn-secondary py-0 align-top px-1" type="submit">Clear</button>
+        <div class="d-flex justify-content-between">
+            <div class="bg-success text-white rounded px-2">min</div>
+            <div class="bg-danger text-white rounded px-2">max</div>
+        </div>
+        <input type="range" class="form-range" id="disabledRange" min="1" max="{{ data.maxCacheSize }}" value="{{ data.totalSize }}" disabled>
+        <button class="btn btn-secondary py-1 align-top px-3" type="submit">Clear</button>
     </form>
 </div>
 {% endblock %}

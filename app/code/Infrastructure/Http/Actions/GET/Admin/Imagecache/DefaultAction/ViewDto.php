@@ -12,7 +12,9 @@ final class ViewDto extends DefaultViewDTO
         string $name,
         string $description,
         public int $totalCount,
-        public string $totalPrettySize
+        public string $totalPrettySize,
+        public int $totalSize,
+        public int $maxCacheSize
     ) {
         parent::__construct($name, $description);
     }

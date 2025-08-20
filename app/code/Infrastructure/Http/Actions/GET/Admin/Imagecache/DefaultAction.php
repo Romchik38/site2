@@ -31,7 +31,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly ImageCacheService $imageCacheService,
         private readonly LoggerInterface $logger,
         private readonly UrlbuilderInterface $urlbuilder,
-        private readonly AdminVisitorService $adminVisitorService
+        private readonly AdminVisitorService $adminVisitorService,
+        private readonly int $maxCacheSize
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -41,6 +42,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             $totalPrettySize = $this->imageCacheService->totalPrettySize();
             $totalCount      = $this->imageCacheService->totalCount();
+            $totalSize       = $this->imageCacheService->totalSize();
         } catch (RepositoryException $e) {
             $this->logger->error($e->getMessage());
             $uri = $this->urlbuilder->fromArray(['root', 'admin']);
@@ -52,7 +54,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             'Image cache',
             'Image cache page',
             $totalCount,
-            $totalPrettySize
+            $totalPrettySize,
+            $totalSize,
+            $this->maxCacheSize
         );
 
         $html = $this->view
