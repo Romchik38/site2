@@ -13,6 +13,7 @@ return function (Container $container) {
     (require_once(__DIR__ . '/bootstrap/persist/filesystem.php'))($container);
     (require_once(__DIR__ . '/bootstrap/application.php'))($container);
     (require_once(__DIR__ . '/bootstrap/utils.php'))($container);
+    (require_once(__DIR__ . '/bootstrap/http/utils.php'))($container);
     (require_once(__DIR__ . '/bootstrap/http/views.php'))($container);
     (require_once(__DIR__ . '/bootstrap/http/server.php'))($container);
     (require_once(__DIR__ . '/bootstrap/http/router.php'))($container);

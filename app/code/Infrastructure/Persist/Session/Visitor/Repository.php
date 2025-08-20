@@ -21,7 +21,6 @@ final class Repository implements RepositoryInterface
     private const VISITOR_FIELD = 'visitor';
 
     public function __construct(
-        /** @todo replace with server session */
         private readonly SessionInterface $session,
         private readonly CsrfTokenGeneratorInterface $csrfTokenGenerator
     ) {

@@ -2,8 +2,6 @@
 
 ## Current
 
-- move http classes from utils to http/utils
-
 ## Next
 
 - control image cache size
