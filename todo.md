@@ -2,8 +2,6 @@
 
 ## Current
 
-- translate middle part of the home page
-
 ## Next
 
 - control image cache size

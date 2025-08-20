@@ -216,13 +216,14 @@
                                         <img class="card-img-top" src="/media/img/common/1TBJ6WKZu0tduG5N7BAH.webp" alt="">
                                     </picture>
 
-                                    <div class="card-body">
+                                    {{ t.t('root.teachers.stub.administrative-law')|raw }}
+                                    <!-- <div class="card-body">
                                         <h5 class="card-title">Administrative law</h5>
                                         <p class="card-text">10 years of practice and 5 years of teaching in the field of administrative law</p>
                                     </div>
                                     <div class="card-footer text-center">
                                         <a href="#">See courses</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4 mx-md-auto col-lg-4 mb-3">
@@ -233,7 +234,9 @@
                                         <source media="(min-width: 768px)" srcset="/img.php?id=133&amp;type=webp&amp;width=1080&amp;height=1080">
                                         <img class="card-img-top" src="/media/img/common/x4hkvcEIaX7ttg9GwTTp.webp" alt="">
                                     </picture>
-                                    <div class="card-body">
+
+                                    {{ t.t('root.teachers.stub.administrative-process')|raw }}
+                                    <!-- <div class="card-body">
                                         <h5 class="card-title">Administrative process</h5>
                                         <p class="card-text">
                                             20 years of teaching in the field of administrative law and process.
@@ -242,7 +245,7 @@
                                     </div>
                                     <div class="card-footer text-center">
                                         <a href="#">See courses</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4 mx-md-auto col-lg-4 mb-3">
@@ -253,7 +256,9 @@
                                         <source media="(min-width: 768px)" srcset="/img.php?id=134&amp;type=webp&amp;width=1080&amp;height=1080">
                                         <img class="card-img-top" src="/media/img/common/1TBJ6vkmja5CCaXpppNHtLAosWKZu0tduG5N7BAH.webp" alt="">
                                     </picture>
-                                    <div class="card-body">
+
+                                    {{ t.t('root.teachers.stub.administrative-general')|raw }}
+                                    <!-- <div class="card-body">
                                         <h5 class="card-title">General administrative law</h5>
                                         <p class="card-text">
                                             10 years of teaching the theory of administrative law. Head of the
@@ -262,7 +267,7 @@
                                     </div>
                                     <div class="card-footer text-center">
                                         <a href="#">See courses</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -294,8 +299,10 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="col">
-                                                <h5>Automobile seat belt</h5>
-                                                <p class="h6">Traffic Rules 2024. What new?</p>
+
+                                                {{ t.t('root.podcasts.first.text')|raw }}
+                                                <!-- <h5 class="text-break">Automobile seat belt</h5>
+                                                <p class="h6 text-start text-break">Traffic Rules 2024. What new?</p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -303,8 +310,8 @@
                                     <audio src="/media/audio/audio1.mp3" controls crossorigin="anonymous">Listen
                                         audio</audio>
                                     <footer class="text-secondary d-flex">
-                                        <div class="font-monospace comments me-3">comments(1)</div>
-                                        <div class="font-monospace comments">yesterday</div>
+                                        <div class="font-monospace comments me-3">{{ t.t('comments') }}(1)</div>
+                                        <div class="font-monospace comments">{{ t.t('yesterday') }}</div>
                                     </footer>
                                 </div>
                             </div>
@@ -321,10 +328,10 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="col">
-                                                <h5>Timeframes for administrative cases</h5>
-                                                <p class="h6">New timeframes for case review. What this could mean
-                                                    for the
-                                                    defense.</p>
+
+                                                {{ t.t('root.podcasts.second.text')|raw }}
+                                                <!-- <h5 class="text-break">Timeframes for administrative cases</h5>
+                                                <p class="h6 text-start text-break">New timeframes for case review. What this could mean for the defense.</p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -332,8 +339,8 @@
                                     <audio src="/media/audio/audio2.mp3" controls crossorigin="anonymous">Listen
                                         audio</audio>
                                     <footer class="text-secondary d-flex">
-                                        <div class="font-monospace comments me-3">comments(5)</div>
-                                        <div class="font-monospace comments">a week ago</div>
+                                        <div class="font-monospace comments me-3">{{ t.t('comments') }}(5)</div>
+                                        <div class="font-monospace comments">{{ t.t('a week ago') }}</div>
                                     </footer>
                                 </div>
                             </div>
@@ -350,8 +357,10 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="col">
-                                                <h5>Special means</h5>
-                                                <p class="h6">Cases of the use of special means.</p>
+
+                                                {{ t.t('root.podcasts.third.text')|raw }}
+                                                <!-- <h5 class="text-break">Special means</h5>
+                                                <p class="h6 text-break text-start">Cases of the use of special means.</p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -359,15 +368,15 @@
                                     <audio src="/media/audio/audio3.mp3" controls crossorigin="anonymous">Listen
                                         audio</audio>
                                     <footer class="text-secondary d-flex">
-                                        <div class="font-monospace comments me-3">no comments yet</div>
-                                        <div class="font-monospace comments">2 days ago</div>
+                                        <div class="font-monospace comments me-3">{{ t.t('no comments yet') }}</div>
+                                        <div class="font-monospace comments">{{ t.t('2 days ago') }}</div>
                                     </footer>
                                 </div>
                             </div>
                             <hr>
                         </div>
                     </div>
-                    <p><a href="#">Listen more audio</a></p>
+                    <p><a href="#">{{ t.t('root.podcasts.listen-more') }}</a></p>
                 </div>
             </div>
         </div>
