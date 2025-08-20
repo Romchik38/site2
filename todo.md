@@ -2,9 +2,10 @@
 
 ## Current
 
+- control image cache size
+
 ## Next
 
-- control image cache size
 - container - link deffered logger with `LoggerInterface`
 - hello world
 - add current root to session and use it to redirect before default root
