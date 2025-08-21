@@ -15,6 +15,8 @@ use Romchik38\Site2\Application\Visitor\VisitorService;
 
 final class AdminLoginMiddleware implements RequestMiddlewareInterface
 {
+    public const ATTRIBUTE_NAME = 'admin_login_middleware';
+
     private const MUST_BE_LOGGED_IN_MESSAGE_KEY = 'logout.you-must-login-first';
 
     public function __construct(
@@ -36,5 +38,10 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
         }
 
         return null;
+    }
+
+    public function getAttributeName(): string
+    {
+        return $this::ATTRIBUTE_NAME;
     }
 }

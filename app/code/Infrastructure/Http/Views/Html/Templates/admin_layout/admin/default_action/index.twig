@@ -7,8 +7,10 @@
 
 {% block content %}
     <div class="container-sm">
-        <h1 class="text-center">{{ data.name }}</h1>
-        <p class="lead description">{{ data.description }}</p>
+        <div class="row">
+            <h1 class="text-center">{{ data.name }}</h1>
+            <p class="lead description">{{ data.description }}</p>
+        </div>
         <div class="row">
             {% set blockPath = template_full_prefix ~ '/blocks/' %}
             {% include blockPath ~ 'articles.twig' %}

@@ -21,6 +21,7 @@ use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 
 final class AdminRolesMiddleware implements RequestMiddlewareInterface
 {
+    public const ATTRIBUTE_NAME                      = 'admin_roles_middleware';
     private const NOT_ENOUGH_PERMISSIONS_MESSAGE_KEY = 'admin.roles.you-do-not-have-enough-permissions';
 
     /** @param array<int,string> $allowedRoles*/
@@ -80,5 +81,10 @@ final class AdminRolesMiddleware implements RequestMiddlewareInterface
             $this->logger->error($e->getMessage());
             return new RedirectResponse($urlLogin);
         }
+    }
+
+    public function getAttributeName(): string
+    {
+        return $this::ATTRIBUTE_NAME;
     }
 }

@@ -18,6 +18,7 @@ use function gettype;
 
 final class CsrfMiddleware implements RequestMiddlewareInterface
 {
+    public const ATTRIBUTE_NAME          = 'admin_csrf_middleware';
     private const FORM_ERROR_MESSAGE_KEY = 'middleware.form-error';
 
     public function __construct(
@@ -46,5 +47,10 @@ final class CsrfMiddleware implements RequestMiddlewareInterface
         }
 
         return null;
+    }
+
+    public function getAttributeName(): string
+    {
+        return $this::ATTRIBUTE_NAME;
     }
 }
