@@ -10,8 +10,7 @@
 <div class="container-md my-3">
     <div class="row">
         <h1 class="text-center">{{ data.name }}</h1>
-        <p>{{ data.description }}</p>
-
+        <p class="lead description">{{ data.description }}</p>
         {% if data.imagesList|length == 0 %} 
             {% include template_full_prefix ~ '/zero_images.twig' with {'t': translate, 'newUrl': newUrl} only %}
         {% else %}

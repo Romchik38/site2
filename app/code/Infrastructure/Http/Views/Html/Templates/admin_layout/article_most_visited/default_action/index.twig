@@ -11,8 +11,8 @@
     {% set articleUrl = u.fromArray(['root', 'article']) %}
     {% set articleAdminUrl = u.fromArray(['root', 'admin', 'article']) %}
     <div class="container">
-        <h1 class="text-center">{{ data.getName() }}</h1>
-        <p>{{ data.getDescription() }}</p>
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p class="lead description">{{ data.description }}</p>
         <form class="my-3" action="{{ u.fromArray(['root', 'admin', 'article', 'most_visited', 'clear']) }}" method="post">
             <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
             <button class="btn btn-secondary py-0 align-top px-1" type="submit">Clear</button>

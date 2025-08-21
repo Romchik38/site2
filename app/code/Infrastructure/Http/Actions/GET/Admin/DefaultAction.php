@@ -21,7 +21,7 @@ final class DefaultAction extends AbstractAction implements DefaultActionInterfa
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dto  = new ViewDTO('Admin', 'Admin page');
+        $dto  = new ViewDTO('Admin dashboard', 'Admin dashboard page');
         $html = $this->view
             ->setController($this->getController())
             ->setControllerData($dto)
@@ -31,6 +31,6 @@ final class DefaultAction extends AbstractAction implements DefaultActionInterfa
 
     public function getDescription(): string
     {
-        return 'Admin panel';
+        return 'Admin dashboard';
     }
 }

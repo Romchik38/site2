@@ -12,8 +12,8 @@
 
 <div class="container-md my-3">
     <div class="row">
-        <h1 class="text-center articles">{{ data.name }}</h1>
-        <p>{{ data.description }}</p>
+        <h1 class="text-center">{{ data.name }}</h1>
+        <p class="lead description">{{ data.description }}</p>
         <!-- Form -->
         <form action="{{ createUrl }}" method="post" id="article-update-form">
             <div class="form-group mb-2 p-2">
@@ -22,7 +22,7 @@
                     <input type="text" class="form-control" name="{{ data.idField }}" value="" required>
                 </div>
             </div>
-            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor->getCsrfToken() }}" />
+            <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
 
             <!-- Author -->
             <div class="mb-5">
