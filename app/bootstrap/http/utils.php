@@ -39,6 +39,7 @@ return function (Container $container) {
         ]
     );
 
+    // DYNAMIC ROOT
     $container->multi(
         '\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRoot',
         '\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface',

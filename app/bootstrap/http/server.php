@@ -19,7 +19,7 @@ return function (Container $container) {
         '\Romchik38\Server\Http\Servers\HttpServerInterface',
         true,
         [
-            new Promise('\Romchik38\Server\Http\Routers\HttpRouterInterface'),
+            new Promise('router'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\RequestHandlers\ServerErrorHandler'),
             new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
         ]

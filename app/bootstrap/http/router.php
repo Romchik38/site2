@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Container\Promise;
+use Romchik38\Server\Http\Routers\Middlewares\ControllerRouterMiddleware;
+use Romchik38\Server\Http\Routers\Middlewares\DynamicPathRouterMiddleware;
+use Romchik38\Server\Http\Routers\Middlewares\HandlerRouterMiddleware;
 
 return function (Container $container) {
 
@@ -26,17 +29,30 @@ return function (Container $container) {
     // ROUTER RESPONSE FACTORY
     $container->shared('\Laminas\Diactoros\ResponseFactory');
 
+    // MIDDLEWARES
+    $dynamicPathMiddleware = new DynamicPathRouterMiddleware(
+        $container->get('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+        $container->get('\Laminas\Diactoros\ResponseFactory')
+    );
+    $containerMiddleware = new ControllerRouterMiddleware(
+        $container->get('\Romchik38\Server\Http\Controller\ControllersCollectionInterface'),
+        $container->get('\Laminas\Diactoros\ResponseFactory'),
+        'dynamic_path_router_middleware'
+    );
+    $nonfoundMiddleware = new HandlerRouterMiddleware(
+        $container->get('\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler')
+    );
+    // chain
+    $dynamicPathMiddleware->setNext($containerMiddleware);
+    $containerMiddleware->setNext($nonfoundMiddleware);
+
     // ROUTER
     $container->multi(
-        '\Romchik38\Server\Http\Routers\DynamicRootRouter',
-        '\Romchik38\Server\Http\Routers\HttpRouterInterface',
+        '\Romchik38\Server\Http\Routers\MiddlewareRouter',
+        'router',
         true,
         [
-            new Promise('\Laminas\Diactoros\ResponseFactory'),
-            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Http\Controller\ControllersCollectionInterface'),
-            new Promise('\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler'),
-            null
+            $dynamicPathMiddleware
         ]
     );
 
