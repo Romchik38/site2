@@ -2,6 +2,8 @@
 
 ## Current
 
+- update routing with server v1.28.0
+
 ## Next
 
 - container - link deffered logger with `LoggerInterface`
