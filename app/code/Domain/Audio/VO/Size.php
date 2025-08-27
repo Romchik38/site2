@@ -12,7 +12,7 @@ use function sprintf;
 final class Size extends Positive
 {
     public const NAME      = 'Audio size';
-    public const MAX_VALUE = 2097152;
+    public const MAX_VALUE = 10485760;
 
     /**
      * @param int $value - Content size in bytes
