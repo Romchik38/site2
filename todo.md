@@ -2,6 +2,8 @@
 
 ## Current
 
+- add prefferd router middleware with accept-language header
+
 ## Next
 
 - container - link deffered logger with `LoggerInterface`
