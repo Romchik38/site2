@@ -7,6 +7,7 @@ use Romchik38\Container\Promise;
 use Romchik38\Server\Http\Routers\Middlewares\ControllerRouterMiddleware;
 use Romchik38\Server\Http\Routers\Middlewares\DynamicPathRouterMiddleware;
 use Romchik38\Server\Http\Routers\Middlewares\HandlerRouterMiddleware;
+use Romchik38\Server\Http\Routers\Middlewares\PrefferedRootRouterMiddlewareUseAcceptLanguage;
 
 return function (Container $container) {
 
@@ -30,11 +31,12 @@ return function (Container $container) {
     $container->shared('\Laminas\Diactoros\ResponseFactory');
 
     // MIDDLEWARES
+    $prefferedMiddleware = new PrefferedRootRouterMiddlewareUseAcceptLanguage();
     $dynamicPathMiddleware = new DynamicPathRouterMiddleware(
         $container->get('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
         $container->get('\Laminas\Diactoros\ResponseFactory')
     );
-    $containerMiddleware = new ControllerRouterMiddleware(
+    $controllerMiddleware = new ControllerRouterMiddleware(
         $container->get('\Romchik38\Server\Http\Controller\ControllersCollectionInterface'),
         $container->get('\Laminas\Diactoros\ResponseFactory'),
         'dynamic_path_router_middleware'
@@ -43,8 +45,9 @@ return function (Container $container) {
         $container->get('\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler')
     );
     // chain
-    $dynamicPathMiddleware->setNext($containerMiddleware);
-    $containerMiddleware->setNext($nonfoundMiddleware);
+    $prefferedMiddleware->setNext($dynamicPathMiddleware);
+    $dynamicPathMiddleware->setNext($controllerMiddleware);
+    $controllerMiddleware->setNext($nonfoundMiddleware);
 
     // ROUTER
     $container->multi(
@@ -52,7 +55,7 @@ return function (Container $container) {
         'router',
         true,
         [
-            $dynamicPathMiddleware
+            $prefferedMiddleware
         ]
     );
 
