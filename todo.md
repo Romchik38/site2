@@ -2,8 +2,6 @@
 
 ## Current
 
-- hello world
-
 ## Next
 
 - container - link deffered logger with `LoggerInterface`
