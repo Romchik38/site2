@@ -2,10 +2,10 @@
 
 ## Current
 
+- container - link deffered logger with `LoggerInterface`
+
 ## Next
 
-- container - link deffered logger with `LoggerInterface`
-- add current root to session and use it to redirect before default root
 - @todo
 
 ## Later
