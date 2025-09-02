@@ -31,6 +31,21 @@ return function (Container $container): void {
         ]
     );
 
+    // Admin All Requests
+    $container->multi(
+        'Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminRolesMiddleware',
+        'request-middleware.admin.write.all',
+        true,
+        [
+            ['ADMIN_ROOT', 'ADMIN_WRITE_ALL'],
+            new Promise('\Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('\Psr\Log\LoggerInterface'),
+            new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
+        ]
+    );    
+
     // Csrf
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\CsrfMiddleware',

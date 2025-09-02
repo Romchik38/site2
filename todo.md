@@ -2,7 +2,7 @@
 
 ## Current
 
-- add admin user with read rights
+- `AdminLoginMiddleware` admin user activitity
 
 ## Next
 

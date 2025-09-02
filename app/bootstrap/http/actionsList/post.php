@@ -109,7 +109,8 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminArticleMostVisited)
     ->setChild($adminArticleNew)
     ->setChild($adminArticleUpdate)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));;
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Audio
     $adminAudio = new Controller('audio');
@@ -161,12 +162,13 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAudioTranslateNew)
     ->setChild($adminAudioTranslateUpdate);
 
-    $adminAudio->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
     $adminAudio
     ->setChild($adminAudioDelete)
     ->setChild($adminAudioNew)
     ->setChild($adminAudioTranslate)
-    ->setChild($adminAudioUpdate);
+    ->setChild($adminAudioUpdate)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Author
     $adminAuthor = new Controller('author');
@@ -195,7 +197,8 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminAuthorUpdate)
     ->setChild($adminAuthorNew)
     ->setChild($adminAuthorDelete)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
     
     // Admin Banner
     $adminBanner = new Controller('banner');
@@ -224,7 +227,8 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminBannerDelete)
     ->setChild($adminBannerNew)
     ->setChild($adminBannerUpdate)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Category
     $adminCategory = new Controller('category');
@@ -253,7 +257,8 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminCategoryDelete)
     ->setChild($adminCategoryNew)
     ->setChild($adminCategoryUpdate)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Image
     $adminImage = new Controller('image');
@@ -278,11 +283,13 @@ return function (Container $container): ControllerInterface {
         null,
         'image_delete'
     );
-    $adminImage->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+
     $adminImage
     ->setChild($adminImageUpdate)
     ->setChild($adminImageNew)
-    ->setChild($adminImageDelete);
+    ->setChild($adminImageDelete)
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Image Cache
     $adminImagecache = new Controller('imagecache', false);
@@ -292,7 +299,9 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\POST\Admin\Imagecache\Clear\DefaultAction')
     );
     $adminImagecacheClear->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
-    $adminImagecache->setChild($adminImagecacheClear);
+    
+    $adminImagecache->setChild($adminImagecacheClear)
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Logout
     $adminLogout = new Controller(
@@ -330,7 +339,8 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminPageDelete)
     ->setChild($adminPageNew)
     ->setChild($adminPageUpdate)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     // Admin Translate
     $adminTranslate = new Controller('translate');
@@ -355,11 +365,13 @@ return function (Container $container): ControllerInterface {
         null,
         'translate_delete'
     );
+
     $adminTranslate
     ->setChild($adminTranslateUpdate)
     ->setChild($adminTranslateNew)
     ->setChild($adminTranslateDelete)
-    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'));
+    ->addRequestMiddleware($container->get('request-middleware.csrf.admin'))
+    ->addRequestMiddleware($container->get('request-middleware.admin.write.all'));
 
     $admin->setChild($adminLogout)
     ->setChild($adminArticle)
