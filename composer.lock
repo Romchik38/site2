@@ -363,16 +363,16 @@
         },
         {
             "name": "romchik38/php-container",
-            "version": "v2.0.0",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/php-container.git",
-                "reference": "4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4"
+                "reference": "c8e1f73e8486dfa0cf69c35198770a350d23feee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/php-container/zipball/4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4",
-                "reference": "4cb8944d2d67ae215321aeea3f1f3ffeb9fea5a4",
+                "url": "https://api.github.com/repos/Romchik38/php-container/zipball/c8e1f73e8486dfa0cf69c35198770a350d23feee",
+                "reference": "c8e1f73e8486dfa0cf69c35198770a350d23feee",
                 "shasum": ""
             },
             "require": {
@@ -419,10 +419,10 @@
             ],
             "description": "PSR-11: Container interface",
             "support": {
-                "source": "https://github.com/Romchik38/php-container/tree/v2.0.0",
+                "source": "https://github.com/Romchik38/php-container/tree/v2.0.2",
                 "issues": "https://github.com/Romchik38/php-container/issues"
             },
-            "time": "2025-03-15T08:49:27+00:00"
+            "time": "2025-09-02T08:59:23+00:00"
         },
         {
             "name": "romchik38/php-server",

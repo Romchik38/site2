@@ -16,6 +16,11 @@ return function (Container $container) {
         ]
     );
 
+    $container->link(
+        '\Psr\Log\LoggerInterface',
+        '\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'
+    );
+
     // CSRF TOKEN GENERATOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',

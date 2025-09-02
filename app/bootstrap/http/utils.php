@@ -58,7 +58,7 @@ return function (Container $container) {
         [
             new Promise('\Romchik38\Server\Utils\Translate\TranslateStorageInterface'),
             new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
-            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'),
+            new Promise('\Psr\Log\LoggerInterface'),
         ]
     );
 

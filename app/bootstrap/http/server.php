@@ -21,7 +21,7 @@ return function (Container $container) {
         [
             new Promise('router'),
             new Promise('\Romchik38\Site2\Infrastructure\Http\RequestHandlers\ServerErrorHandler'),
-            new Promise('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface')
+            new Promise('\Psr\Log\LoggerInterface')
         ]
     );
 
