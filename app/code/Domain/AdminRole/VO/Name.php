@@ -15,7 +15,7 @@ final class Name extends NonEmpty
     public const ERROR_ROLE_NAME_INVALID = 'Role name %s is invalid';
     public const ALLOWED_ROLES           = [
         'ADMIN_ROOT',
-        'ADMIN_WRITE_ALL'
+        'ADMIN_WRITE_ALL',
     ];
 
     /** @throws InvalidArgumentException */

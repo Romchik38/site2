@@ -47,7 +47,7 @@
         "phpunit/phpunit": "^11",
         "phpstan/phpstan": "^2.1",
         "laminas/laminas-coding-standard": "^3.0",
-        "deptrac/deptrac": "^3.0"
+        "deptrac/deptrac": "^4.1"
     },
     "config": {
         "allow-plugins": {
@@ -61,7 +61,8 @@
         "tests": [
             "vendor/bin/phpunit",
             "composer cs-check",
-            "vendor/bin/phpstan --memory-limit=1G"
+            "vendor/bin/phpstan --memory-limit=1G",
+            "vendor/deptrac/deptrac/deptrac"
         ]
     }
 }

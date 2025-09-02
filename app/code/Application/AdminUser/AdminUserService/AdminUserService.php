@@ -100,7 +100,7 @@ final class AdminUserService
         }
     }
 
-    /** 
+    /**
      * @throws CouldNotCheckActivityException
      * @throws NoSuchAdminUserException
      */

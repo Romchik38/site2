@@ -10,9 +10,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Romchik38\Server\Http\Controller\Middleware\RequestMiddlewareInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
 use Romchik38\Site2\Application\AdminVisitor\AdminVisitorService;
 use Romchik38\Site2\Application\Visitor\VisitorService;
-use Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService;
 
 final class AdminLoginMiddleware implements RequestMiddlewareInterface
 {
@@ -34,14 +34,16 @@ final class AdminLoginMiddleware implements RequestMiddlewareInterface
         $adminVisitor = $this->adminVisitorService->getVisitor();
         $urlLogin     = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
 
-        if ($adminVisitor->getUserName() === null) {
+        $username = $adminVisitor->username;
+
+        if ($username === null) {
             $this->visitorService->changeMessage($this->translate->t($this::MUST_BE_LOGGED_IN_MESSAGE_KEY));
             return new RedirectResponse($urlLogin);
         }
 
-        $isActive = $this->adminUserService->checkActivity($adminVisitor->username);
+        $isActive = $this->adminUserService->checkActivity($username);
 
-        if (!$isActive) {
+        if (! $isActive) {
             $this->adminVisitorService->logout();
             return new RedirectResponse($urlLogin);
         }
