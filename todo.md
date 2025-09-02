@@ -2,13 +2,10 @@
 
 ## Current
 
+- docs
+
 ## Next
 
 - @todo
 
 ## Later
-
-- move to server
-  - Image storage
-
-- monitoring
