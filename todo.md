@@ -2,8 +2,6 @@
 
 ## Current
 
-- `AdminLoginMiddleware` admin user activitity
-
 ## Next
 
 - @todo

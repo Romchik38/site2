@@ -15,6 +15,7 @@ return function (Container $container): void {
             new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('\Romchik38\Site2\Application\AdminUser\AdminUserService\AdminUserService'),
         ]
     );
 

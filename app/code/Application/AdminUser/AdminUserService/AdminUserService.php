@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckPassword;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Commands\CheckRoles;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\AdminUserNotActiveException;
+use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckActivityException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckPasswordException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\CouldNotCheckRolesException;
 use Romchik38\Site2\Application\AdminUser\AdminUserService\Exceptions\NoSuchAdminUserException;
@@ -97,5 +98,20 @@ final class AdminUserService
         } else {
             return false;
         }
+    }
+
+    /** 
+     * @throws CouldNotCheckActivityException
+     * @throws NoSuchAdminUserException
+     */
+    public function checkActivity(Username $username): bool
+    {
+        try {
+            $user = $this->adminUserRepository->findByUsername($username);
+        } catch (RepositoryException $e) {
+            throw new CouldNotCheckActivityException($e->getMessage());
+        }
+
+        return $user->isActive();
     }
 }
