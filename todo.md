@@ -2,7 +2,7 @@
 
 ## Current
 
-- container - link deffered logger with `LoggerInterface`
+- add admin user with read rights
 
 ## Next
 
