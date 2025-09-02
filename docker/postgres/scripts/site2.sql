@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict sgW2WWCilcce6qqGzQHQcWo35bMnsj87zKejSRvfL03a3rz2PkHcDlsQmxtn246
+\restrict NOWuCl03xVEPLgi4tRJEbxeCZjEz1JGdp40GzZ6U6WIByLFARcVDG3RqSHeyS65
 
 -- Dumped from database version 17.6 (Debian 17.6-1.pgdg13+1)
 -- Dumped by pg_dump version 17.6 (Debian 17.6-1.pgdg13+1)
@@ -688,7 +688,7 @@ ALTER TABLE ONLY public.page ALTER COLUMN id SET DEFAULT nextval('public.page_id
 
 COPY public.admin_roles (identifier, name, description) FROM stdin;
 1	ADMIN_ROOT	Can do anything
-2	ADMIN_LOGIN	Can login into
+2	ADMIN_WRITE_ALL	Can send any post request
 \.
 
 
@@ -699,6 +699,7 @@ COPY public.admin_roles (identifier, name, description) FROM stdin;
 COPY public.admin_users (identifier, username, password_hash, active, email) FROM stdin;
 2	admin2	$2y$10$imdQM8v2LJ.G2la8xIcSSuyypMX8UWf63JncAgIAdJzI2Ioe/Wk2K	t	admin2@example.com
 1	admin	$2y$12$q/QW6ASrN4ist4/csSjXreOTthlkqUgJdCMJpO75tZnkL/o5GCfqC	t	admin@example.com
+3	admin_read	$2y$12$rdhWgiPlHjVp0kLXmwwLKu.TctsGpV7YUOTM.TiADwnYLmewTlYm.	t	adminread@example.com
 \.
 
 
@@ -717,33 +718,33 @@ COPY public.admin_users_with_roles (user_id, role_id) FROM stdin;
 --
 
 COPY public.article (identifier, active, author_id, img_id, audio_id, created_at, updated_at, views) FROM stdin;
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	16
-passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10	2025-06-29 17:50:58	1
-deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50	1
-entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	1
-code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54	2025-06-30 19:20:16	1
-plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37	1
-traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	2
-using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	6
-grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	11
-the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49	2
+passing-the-military-medical-commission	t	1	101	59	2025-06-29 17:45:10	2025-06-29 17:50:58	0
+deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50	0
+the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-07-02 12:53:49	0
+plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37	0
+entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	0
+code-of-ukraine-on-administrative-offenses	t	1	107	63	2025-06-30 19:10:54	2025-06-30 19:20:16	0
+traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	0
+using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	0
+grounds-for-stopping-a-vehicle-by-police-officers	t	1	119	51	2025-06-26 10:25:57	2025-07-09 12:45:20	0
 zakon-pro-dorojniy-ruh-ukraini	t	1	121	49	2025-06-25 16:29:19	2025-07-10 14:04:39	0
 сode-of-administrative-procedure-of-ukraine	t	1	94	52	2025-06-26 13:15:01	2025-06-26 13:24:15	0
 сircumstances-that-are-not-a-valid-reason-for-missing-a-procedural-deadline	t	1	123	54	2025-06-26 19:26:46	2025-07-10 14:39:41	0
 evidence-in-administrative-offense-cases-key-aspects	t	1	115	3	2024-11-05 13:40:26	2025-07-08 10:59:21	0
 military-registration-document	t	1	124	61	2025-06-30 12:26:51	2025-07-11 13:02:22	0
 extension-of-the-guarantee-of-maintaining-a-servicemans-job	t	1	102	60	2025-06-29 19:45:28	2025-06-29 19:49:24	0
-the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16	2025-06-24 18:47:02	0
-evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	2
-impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	2
-Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	122	53	2025-06-26 16:46:37	2025-07-10 14:33:23	1
+evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	0
+impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	0
+Restrictions-on-the-right-to-drive-a-vehicle-during-mobilization	t	1	122	53	2025-06-26 16:46:37	2025-07-10 14:33:23	0
 reservation-of-employees-for-the-period-of-mobilization	t	1	105	62	2025-06-30 17:35:55	2025-06-30 17:47:08	0
+document-verification-for-drivers	t	1	2	2	2024-10-31 19:14:03	2024-11-01 11:48:50	0
 administrative-detention	t	1	97	55	2025-06-27 18:49:55	2025-06-27 18:57:37	0
 amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38	2025-06-29 14:59:54	0
 laws-and-regulations-governing-the-field-of-military-law	t	1	99	57	2025-06-29 12:42:15	2025-06-29 12:44:17	0
 simplification-of-the-drivers-license-examination-process	t	1	114	1	2024-11-12 17:54:44	2025-07-08 10:48:46	0
-document-verification-for-drivers	t	1	2	2	2024-10-31 19:14:03	2024-11-01 11:48:50	0
-increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03	2025-06-15 13:38:03	1
+the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16	2025-06-24 18:47:02	0
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-08-12 11:15:56	0
+increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03	2025-06-15 13:38:03	0
 \.
 
 
@@ -1029,7 +1030,6 @@ military-reservation	t
 administrative-process	t
 traffic	t
 traffic-legislative-changes	t
-from-the-developer	f
 \.
 
 
@@ -1078,8 +1078,6 @@ traffic	en	Traffic law	Traffic law refers to the regulations and rules establish
 traffic	uk	Законодавство про дорожній рух	Все про закони про дорожній рух які стосуються правил і норм, встановлених владою для забезпечення безпеки та ефективного руху транспортних засобів і пішоходів на дорогах
 traffic-legislative-changes	en	Legislative changes in road traffic	Stay up to date with all the latest legislative changes in the field of road traffic. We closely monitor innovations and post relevant materials here almost immediately.
 traffic-legislative-changes	uk	Законодавчі зміни в дорожньому русі	Будьте в курсі всіх останніх законодавчих змін у сфері дорожнього руху. Ми пильно стежимо за нововведеннями та майже відразу розміщуємо відповідні матеріали тут. 
-from-the-developer	en	From the developer	Materials worth reading to learn more about this site.
-from-the-developer	uk	Від розробника	Матеріали, які варто прочитати, щоб більше дізнатись про цей сайт.
 \.
 
 
@@ -1130,7 +1128,7 @@ COPY public.img (identifier, name, author_id, path, active) FROM stdin;
 133	Administrative process teacher	1	common/x4hkvcEIaX7ttg9GwTTp.webp	t
 137	Links between pages of the Lawshield website	1	common/4D2JNGZpgOTEeRqK9unW.webp	t
 134	General administrative law teacher	1	common/vkmja5CCaXpppNHtLAos.webp	t
-138	Young man in a shirt sitting at a table in front of a laptop in the office	1	common/scqkg8zkPpDxM4ZKUPh4.webp	f
+138	Young man in a shirt sitting at a table in front of a laptop in the office	1	common/scqkg8zkPpDxM4ZKUPh4.webp	t
 \.
 
 
@@ -1814,6 +1812,8 @@ root.video.courses-stub	uk	<div class="container-fluid"> <div class="row"> <div 
 a week ago	uk	тиждень тому
 article.page_name	en	Articles
 article.page_name	uk	Статті
+header.link.dev	en	From the developer
+header.link.dev	uk	 Від розробника
 root.video.why-subscribe-stub	en	<h5 class="text-center">Why to subscribe?</h5><p>We offer the following benefits for subscribers to our website</p>                         <ul class="text-start">                             <li>The latest and thoroughly verified information</li>                             <li>Access to video and audio content at any time</li>                             <li>Opportunity for free participation in training courses</li>                             <li>Opportunity to use discounts when taking training courses</li>                             <li>Special offers from partners</li>                         </ul>
 root.video.why-subscribe-stub	uk	<h5 class="text-center">Чому варто підписатися?</h5> <p>Ми пропонуємо наступні переваги для підписників нашого веб-сайту</p> <ul class="text-start"> <li>Найновіша та ретельно перевірена інформація</li> <li>Доступ до відео- та аудіоконтенту в будь-який час</li> <li>Можливість безкоштовної участі в навчальних курсах</li> <li>Можливість використання знижок під час проходження навчальних курсів</li> <li>Спеціальні пропозиції від партнерів</li> </ul>
 root.teachers.stub.administrative-law	en	                                    <div class="card-body">                                         <h5 class="card-title">Administrative law</h5>                                         <p class="card-text">10 years of practice and 5 years of teaching in the field of administrative law</p>                                     </div>                                     <div class="card-footer text-center">                                         <a href="#">See courses</a>                                     </div>
@@ -2051,6 +2051,7 @@ root.podcasts.third.text
 2 days ago
 a week ago
 yesterday
+header.link.dev
 \.
 
 
@@ -2065,35 +2066,35 @@ SELECT pg_catalog.setval('public.admin_roles_identifier_seq', 1, false);
 -- Name: admin_users_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.admin_users_identifier_seq', 1, false);
+SELECT pg_catalog.setval('public.admin_users_identifier_seq', 1, true);
 
 
 --
 -- Name: audio_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.audio_identifier_seq', 84, true);
+SELECT pg_catalog.setval('public.audio_identifier_seq', 90, true);
 
 
 --
 -- Name: author_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.author_identifier_seq', 65, true);
+SELECT pg_catalog.setval('public.author_identifier_seq', 67, true);
 
 
 --
 -- Name: banner_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.banner_identifier_seq', 12, true);
+SELECT pg_catalog.setval('public.banner_identifier_seq', 14, true);
 
 
 --
 -- Name: img_identifier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.img_identifier_seq', 138, true);
+SELECT pg_catalog.setval('public.img_identifier_seq', 140, true);
 
 
 --
@@ -2107,7 +2108,7 @@ SELECT pg_catalog.setval('public.links_link_id_seq', 1, false);
 -- Name: page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.page_id_seq', 53, true);
+SELECT pg_catalog.setval('public.page_id_seq', 55, true);
 
 
 --
@@ -2592,5 +2593,5 @@ ALTER TABLE ONLY public.translate_entities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict sgW2WWCilcce6qqGzQHQcWo35bMnsj87zKejSRvfL03a3rz2PkHcDlsQmxtn246
+\unrestrict NOWuCl03xVEPLgi4tRJEbxeCZjEz1JGdp40GzZ6U6WIByLFARcVDG3RqSHeyS65
 
