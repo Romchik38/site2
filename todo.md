@@ -3,6 +3,9 @@
 ## Current
 
 - docs
+  - install
+    - standalone
+    - docker
 
 ## Next
 
