@@ -45,6 +45,8 @@ Dictionaries were generated on July 2025. If you need the latest version, go to 
     sudo cp ../postgresql/ukrainian.stop /usr/share/pgsql/tsearch_data/ukrainian.stop  
     ```
 
+Path `/usr/share/pgsql/tsearch_data` is relevant in `Fedora42`.
+
 5. Verify:
 
     ls /usr/share/pgsql/tsearch_data | grep uk  
