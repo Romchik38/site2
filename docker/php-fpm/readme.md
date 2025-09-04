@@ -4,8 +4,7 @@
 
 1. Ini files from `docker/php-fpm/php/conf.d` will be copied to `$PHP_INI_DIR/conf.d/` directory (by default it's */usr/local/etc/php/conf.d*)
 
-2. To use x-debug
-  remove `back` from `docker/php-fpm/php/conf.d/xdebug.ini.back` and delete `;` inside it
+2. Remove `back` from `docker/php-fpm/php/conf.d/xdebug.ini.back` and delete `;` inside it
   config your code editor
 
   for VS Code use:
