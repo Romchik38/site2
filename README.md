@@ -16,7 +16,7 @@ Site2 is based on [php-server](https://github.com/Romchik38/server) and [php-con
 
 Also, you can inspect additional features:
 
-- Routing system with PSR-7 Request/Response and middlewares
+- [Routing system](./doc/routing/readme.md) with PSR-7 Request/Response and middlewares
 - [Error handling](./doc/errors/errors.md)
 - [Design](./doc/design/01-readme.md)
 - Logging
@@ -78,4 +78,4 @@ See memory usage [doc file](./doc/monitoring/memory.md).
 
 ## Install
 
-Please read [installation guide](./doc/install/readme.md) to run site2 quickly
+Please read [installation guide](./doc/install/readme.md) to run site2 quickly as possible.
