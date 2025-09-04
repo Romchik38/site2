@@ -4,7 +4,8 @@
 - router middlewares
 - middlewares logic
 - routes (actions)
-- boostrap file
+- boostrap files
+- controller system
 
 ## Routing system
 
@@ -76,4 +77,8 @@ The site uses the following middlewares:
 
 ## Boostrap file
 
-Look at [bootstrap file](./../../app/bootstrap/http/router.php)
+- [router](./../../app/bootstrap/http/router.php)
+
+## Controller system
+
+[Read more](./controller.md)
