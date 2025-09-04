@@ -31,7 +31,9 @@ Docker will copy `docker/nginx/conf.d/default.conf` to container. So edit it wit
 
 Look at [readme](./../../docker/php-fpm/readme.md)
 
-After `docker compose up -d --build` enter inside container to `app` foled and run `composer install`
+1. After `docker compose up -d --build` is executed, inside a container `app` folder run `composer install`
+
+2. Create `var` folder inside `app` to log. File `file.log` will be created auto on the first error.
 
 ## 5. Postgresql
 
