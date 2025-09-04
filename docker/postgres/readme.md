@@ -2,8 +2,8 @@
 
 ## Install
 
-1. The database *site2* will be created auto
-2. Inside posgres container use command `psql -U postgres -d site2 < /dump/site2.sql` to create tables and fill data
+1. The database `site2` will be created auto via `docker compose up -d --build`
+2. `Inside` the postgres container use command `psql -U postgres -d site2 < /dump/site2.sql` to create tables and fill data.
 3. Create a file `app/config/private/database.php` with code:
 
     ```php
@@ -17,16 +17,16 @@
     ```
 
 4. Do not forget change password `Change_it` in the file above and in the docker config
-5. Change admin user passwords from table `admin_users` manually. See domain model `AdminUser` how password verifies to create hashes.
+5. Change admin user passwords from table `admin_users` manually. See domain model `AdminUser` how password verifies to create hashes. Read [admin docs](./../../doc/admin/readme.md)
+6. Dictionary [files](./dict/) will be copied auto.
 
 ## Dump
 
-Use `pg_dump -U postgres site2 > /home/postgres/site2.sql` to create a copy of the database
+Use `pg_dump -U postgres site2 > /home/postgres/site2.sql` to create a copy of the database.
 
 ## Dict
 
-How to create dictionaries from *dict/*.
-Dictionaries were generated on July 2025. If you need the latest version, go to links below and follow steps.
+How to create dictionaries from *dict/*. Dictionaries were generated on July 2025. If you need the latest version, go to links below and follow steps.
 
 - [dict_uk](https://github.com/brown-uk/dict_uk)
 - [howto](https://github.com/brown-uk/dict_uk/tree/master/distr/postgresql)
