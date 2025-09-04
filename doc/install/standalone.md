@@ -4,6 +4,8 @@
 2. Php-fpm
 3. Nginx
 4. Postgresql
+5. Check frontend
+6. Check backend
 
 ## 1. Clone project
 
@@ -51,7 +53,7 @@ Use [script](./../../docker/postgres/scripts/database.sql) to create a database 
 
 `psql -U postgres -d site2 < site2.sql`
 
-### 4. Place config file to [database.php](./../../app/config/private/)
+### 4.4 Place config file to [database.php](./../../app/config/private/)
 
 After project's cloning:
 
@@ -70,3 +72,24 @@ After project's cloning:
 
 Please, edit the code above to your configuration.
 Read more about [connect settings](https://www.php.net/manual/en/function.pg-connect.php)
+
+### 5. Install dictionaries for full text search
+
+1. Move dictionaries from `docker/postgres/dict` to you postgres `tsearch_data` dir. For example - `/usr/share/pgsql/tsearch_data` is relevant in `Fedora42`.
+2. run sql script `sql/uk-dict/dictionary.sql`
+    `psql -U postgres -d site2 < dictionary.sql
+
+## 5. Check frontend
+
+- Visit `/` url. It should redirect to `/en` or `/uk` based on your browser config.
+- Check search by placed query to search field and pressing next to it button.
+- visit `/login` page
+
+## 6. Check backend
+
+To check backend 
+
+- login into system `/login/admin`
+- you will be redirected to `/admin`
+
+read [more](./../admin/readme.md) about `admin` section.
