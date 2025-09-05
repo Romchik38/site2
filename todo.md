@@ -2,7 +2,7 @@
 
 ## Current
 
-- docs - controller
+- docs
 
 ## Next
 

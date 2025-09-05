@@ -15,7 +15,7 @@ return function (Container $container) {
 
     /** Collection */
     $collection
-        ->setController($rootGet, HttpRouterInterface::REQUEST_METHOD_GET)
-        ->setController($rootPost, HttpRouterInterface::REQUEST_METHOD_POST);
+        ->setController($rootGet, 'GET')
+        ->setController($rootPost, 'POST');
     return $container;
 };
