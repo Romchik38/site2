@@ -19,7 +19,7 @@ return function (Container $container): void {
         ]
     );
 
-    // Admin Users
+    // Admin Root
     $container->shared(
         'Romchik38\Site2\Infrastructure\Http\RequestMiddlewares\Admin\AdminRolesMiddleware',
         [

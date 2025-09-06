@@ -17,15 +17,15 @@ Site2 is based on [php-server](https://github.com/Romchik38/server) and [php-con
 Also, you can inspect additional features:
 
 - [Routing system](./doc/routing/readme.md) with PSR-7 Request/Response and middlewares
+- [DI Container](./doc/bootstrap/Container.md)
+- [Docker](./doc/docker/00_readme.md) package for developing only
+- [User login](./doc/frontend/login.md)
+- [Admin user login (authentication and authorization)](./doc/admin/readme.md)
 - [Error handling](./doc/errors/errors.md)
 - [Design](./doc/design/01-readme.md)
 - [Logging](./doc/logging/readme.md)
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/readme.md)
-- [Docker](./doc/docker/00_readme.md) package for developing only
-- [User login](./doc/frontend/login.md)
-- Admin user login (authentication and authorization)
-- [DI Container](./doc/bootstrap/Container.md)
 - Code architectural layers
 - Sitemap system
 - Breadcrumbs on every page
