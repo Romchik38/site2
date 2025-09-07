@@ -26,7 +26,7 @@ Also, you can inspect additional features:
 - [Logging](./doc/logging/readme.md)
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/readme.md)
-- Code architectural layers
+- [Architecture](./doc/architecture/readme.md)
 - Sitemap system
 - Breadcrumbs on every page
 - Filtering
