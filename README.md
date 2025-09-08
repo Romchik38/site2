@@ -31,7 +31,7 @@ Also, you can inspect additional features:
 - [Breadcrumbs](./doc/breadcrumbs/readme.md) on every page
 - [Filtering](./doc/filtering/readme.md)
 - [Most Visited](./doc/most-visited/readme.md)
-- Similar
+- [Similar](./doc/similar/readme.md)
 - Continue reading
 - Banner with priority on main and category pages
 - Javascript components
