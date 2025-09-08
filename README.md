@@ -27,8 +27,8 @@ Also, you can inspect additional features:
 - [CSRF](./doc/security/csrf.md)
 - [Mailer](./doc/mail/readme.md)
 - [Architecture](./doc/architecture/readme.md)
-- Sitemap system
-- Breadcrumbs on every page
+- [Sitemap](./doc/sitemap/readme.md) system
+- [Breadcrumbs](./doc/breadcrumbs/readme.md) on every page
 - Filtering
 - Most Visited
 - Similar
