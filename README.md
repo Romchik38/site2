@@ -29,7 +29,7 @@ Also, you can inspect additional features:
 - [Architecture](./doc/architecture/readme.md)
 - [Sitemap](./doc/sitemap/readme.md) system
 - [Breadcrumbs](./doc/breadcrumbs/readme.md) on every page
-- Filtering
+- [Filtering](./doc/filtering/readme.md)
 - Most Visited
 - Similar
 - Continue reading
