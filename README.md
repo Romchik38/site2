@@ -32,7 +32,7 @@ Also, you can inspect additional features:
 - [Filtering](./doc/filtering/readme.md)
 - [Most Visited](./doc/most-visited/readme.md)
 - [Similar](./doc/similar/readme.md)
-- Continue reading
+- [Continue reading](./doc/continue-reading/readme.md)
 - Banner with priority on main and category pages
 - Javascript components
 - Full workflow control inside domain model
