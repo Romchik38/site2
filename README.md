@@ -34,7 +34,7 @@ Also, you can inspect additional features:
 - [Similar](./doc/similar/readme.md)
 - [Continue reading](./doc/continue-reading/readme.md)
 - [Banner](./doc/banner/readme.md) with priority on main and category pages
-- Javascript components
+- [Javascript components](./doc/javascript-components/readme.md)
 - Full workflow control inside domain model
 - [Full text search based on Postgresql](./doc/search/readme.md)
 - Accept terms and conditions popup
