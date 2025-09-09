@@ -33,7 +33,7 @@ Also, you can inspect additional features:
 - [Most Visited](./doc/most-visited/readme.md)
 - [Similar](./doc/similar/readme.md)
 - [Continue reading](./doc/continue-reading/readme.md)
-- Banner with priority on main and category pages
+- [Banner](./doc/banner/readme.md) with priority on main and category pages
 - Javascript components
 - Full workflow control inside domain model
 - [Full text search based on Postgresql](./doc/search/readme.md)
