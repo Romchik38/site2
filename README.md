@@ -37,7 +37,7 @@ Also, you can inspect additional features:
 - [Javascript components](./doc/javascript-components/readme.md)
 - [Full text search based on Postgresql](./doc/search/readme.md)
 - [Accept terms and conditions popup](./doc/accept-terms-conditions/readme.md)
-- [minum memory usage] (./doc/monitoring/memory.md)
+- [Minum memory usage](./doc/monitoring/memory.md)
 - [SEO](./doc/seo/readme.md)
 
 ## Dependencies
