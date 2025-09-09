@@ -36,7 +36,7 @@ Also, you can inspect additional features:
 - [Banner](./doc/banner/readme.md) with priority on main and category pages
 - [Javascript components](./doc/javascript-components/readme.md)
 - [Full text search based on Postgresql](./doc/search/readme.md)
-- Accept terms and conditions popup
+- [Accept terms and conditions popup](./doc/accept-terms-conditions/readme.md)
 - [minum memory usage] (./doc/monitoring/memory.md)
 - [SEO](./doc/seo/readme.md)
 
