@@ -9,7 +9,7 @@
 Site2 is based on [php-server](https://github.com/Romchik38/server) and [php-container](https://github.com/Romchik38/php-container) and demonstrates:
 
 - [multilanguage system](./doc/language/01-readme.md)
-- [twig view](./doc/templates/01-readme.md)
+- [twig view](./doc/templates/readme.md)
 - [Image Converter](./doc/Image_Converter/01_readme.md)
 
 ## Additional
