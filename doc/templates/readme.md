@@ -33,6 +33,8 @@ All of them are built on main template files that are extended:
 
 The main files differ insignificantly from each other.
 
+### Dynamic template
+
 The `name` of the directories inside the templates is related to the `name of the controller` and the `type of action`.
 
 For example, to find the `main page template`, you should start from the name of the action that processes it and its controller. The processing is handled by the [DefaultAction](./../../app/code/Infrastructure/Http/Actions/GET/Root/DefaultAction.php), which belongs to the [root controller](./../../app/bootstrap/http/actionsList/get.php).
