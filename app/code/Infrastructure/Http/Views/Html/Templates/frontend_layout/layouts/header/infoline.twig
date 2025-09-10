@@ -29,14 +29,14 @@
         </div>
         <div class="col-md-2">
             <div class="row header-user-loggedin">
-                <div class="col-xl-7 col-md pe-0">
-                    <a class="link-none text-white" href="{{ accountUrl }}">
+                <div class="col-xl pe-0">
+                    <a class="link-none text-dark bg-white px-2 rounded" href="{{ accountUrl }}">
                         <span class="user-name-field"></span>
                     </a>
                 </div>
-                <div class="col-xl-5 col-md px-0">
-                    <form action="{{ urlLogout }}" method="post">
-                        <button class="btn align-top pt-0 text-white" type="submit"><u>{{ t.t('logout') }}</u></button>
+                <div class="col-xl ">
+                    <form class="header-user-form-logout" action="{{ urlLogout }}" method="post">
+                         <span>{{ t.t('logout') }}</span>
                     </form>
                 </div>
             </div>
