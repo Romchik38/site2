@@ -2,9 +2,11 @@
 
 ## Current
 
+- The layout is shifted on infoline sign in
+
 ## Next
 
-- The layout is shifted on infoline sign in
+- long admin user name hover logout
 - refactor [article list dto](app/code/Application/Article/List/Commands/Filter/ArticleDTO.php) - must use value objects
 - sign in button on 880 * 390
 - favicon
