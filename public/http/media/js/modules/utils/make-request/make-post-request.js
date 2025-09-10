@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * The file is a part of the Site2 Project https://github.com/Romchik38/site2
+ * Please read the license before use https://github.com/Romchik38/site2/blob/main/LICENSE.md
+ */
+
 import { urlbuilder as u } from '/media/js/modules/utils/urlbuilder.js'
 import { default as RequestData } from './request-data.js';
 

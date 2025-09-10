@@ -46,4 +46,4 @@ You can either create new `middlewares` or use existing ones to restrict access 
 2. Add `class` to [bootstrap](./../../app/bootstrap/http/actionsList/request_middlewares.php)
 3. Add `middleware` in the [post controller bootstrap](./../../app/bootstrap/http/actionsList/post.php)
 
-Readm more about [container](https://github.com/Romchik38/php-container). It's pretty simple.
+Read more about [container](https://github.com/Romchik38/php-container). It's pretty simple.

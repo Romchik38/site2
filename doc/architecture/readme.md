@@ -28,7 +28,7 @@ For example - [ArticleView](./../../app/code/Application/Article/AdminView/) ser
 - [RepositoryInterface](./../../app/code/Application/Article/AdminView/RepositoryInterface.php) - a data access interface.
 - [RepositoryException](./../../app/code/Application/Article/AdminView/RepositoryException.php) - during implementation, the repository must throws this error.
 - [NoSuchArticleException](./../../app/code/Application/Article/AdminView/NoSuchArticleException.php) - the repository must throws this error if the requested model does not exist
-- [CouldNotFindException](./../../app/code/Application/Article/AdminView/NoSuchArticleException.php) - this error is used by the service to indicate that something went wrong and the program must be stopped. This applies only to the `find` command. this error is caught by the infrastructure layer like `http action`.
+- [CouldNotFindException](./../../app/code/Application/Article/AdminView/NoSuchArticleException.php) - this error is used by the service to indicate that something went wrong and the program must be stopped. This applies only to the `find` command. This error is caught by the infrastructure layer like `http action`.
 - [Dtos](./../../app/code/Application/Article/AdminView/Dto/) - a list of `read models` that the infrastructure layer can expect when using the service.
 
 The service `ArticleView` doesn't contain any commands, because it's very simple. When considering this service, the term `command` refers to the `find` function of the class. For other classes that have more complex logic, separate commands in the form of classes are provided.

@@ -10,7 +10,7 @@ They consist of the following parts:
 
 ## Components for working with DOM elements
 
-General components for working with DOM elements are located here. They are based on Javascript classes for easy inheritance. You can manage a single component using [Component](./../../public/http/media/js/modules/components/component.js) or a group of components using [ComponentCollection](./../../public/http/media/js/modules/components/componentCollection.js).
+General components for working with DOM elements are located [here](./../../public/http/media/js/modules/components). They are based on Javascript classes for easy inheritance. You can manage a single component using [Component](./../../public/http/media/js/modules/components/component.js) or a group of components using [ComponentCollection](./../../public/http/media/js/modules/components/componentCollection.js).
 
 The components inherit from [EventEmitter](./../../public/http/media/js/modules/utils/eventEmitter.js) for easy event management.
 
@@ -20,7 +20,7 @@ The `components` can be used for work on any website. They are not specifically 
 
 ## Modules for working with important parts of the site
 
-You can find modules for working with important parts of the site here. They include [UrlBuilder](./../../public/http/media/js/modules/urlbuilder), [make request](./../../public/http/media/js/modules/utils/make-request) utilities, the aforementioned [EventEmitter](./../../public/http/media/js/modules/utils/eventEmitter.js), and [UrlBuilder Site2](./../../public/http/media/js/modules/utils/urlbuilder.js).
+The modules for working with important parts of the site are [UrlBuilder](./../../public/http/media/js/modules/urlbuilder), [make request](./../../public/http/media/js/modules/utils/make-request) utilities, the aforementioned [EventEmitter](./../../public/http/media/js/modules/utils/eventEmitter.js), and [UrlBuilder Site2](./../../public/http/media/js/modules/utils/urlbuilder.js).
 
 `UrlBuilder`, `make request`, `EventEmitter` are not tied to site2 and can be used on another website.
 

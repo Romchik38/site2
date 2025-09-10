@@ -8,7 +8,7 @@ If you do not want to use `DeferredLoggerInterface` you cat replace it in [boots
 
 Messages are logged only once at the end, you have to call `sendAllLogs` yourself.
 
-As an example look at the [index.php](./../../public/http/index.php). Messages are logged on line 49 and the script finishes its work.:
+As an example look at the [index.php](./../../public/http/index.php). Messages are logged on line 49 and the script finishes its work:
 
 ```php
 $logger->sendAllLogs();

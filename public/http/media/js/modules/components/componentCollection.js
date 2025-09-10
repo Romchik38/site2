@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Class ComponentCollection is a part of the Site2 Project https://github.com/Romchik38/site2
+ * Please read the license before use https://github.com/Romchik38/site2/blob/main/LICENSE.md
+ */
+
 import { default as Component } from '/media/js/modules/components/component.js';
 
 class ComponentCollection {

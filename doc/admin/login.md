@@ -36,6 +36,6 @@ The following roles are available by default:
 
 User with `ADMIN_WRITE_ALL` can send all post request except `Manage users` in the bootom part of the admin pannel.
 
-User with `ADMIN_ROOT` can do all the same and can visit `Manage users`. It should be noted that `Manage users` is a placeholder. This page does nothing. I deliberately did not develop this content and left it for those who want to do it themselves.
+User with `ADMIN_ROOT` can do all the same and can visit `Manage users`. It should be noted that `Manage users` is a placeholder. This page does nothing.
 
 Read more about [authorization](./authorization.md)

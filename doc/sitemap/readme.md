@@ -6,7 +6,7 @@ The `sitemap` is generated automatically based on `controllers` that have `publi
 Several classes are responsible for the generation:
 
 - [ControllerTree](https://github.com/Romchik38/server/blob/master/src/Http/Controller/Mappers/ControllerTree/ControllerTree.php) - build a controller tree
-- [LinkTree](https://github.com/Romchik38/server/blob/master/src/Http/Controller/Mappers/LinkTree/LinkTree.php) - build map the controller tree to a link tree.
+- [LinkTree](https://github.com/Romchik38/server/blob/master/src/Http/Controller/Mappers/LinkTree/LinkTree.php) - map the controller tree to a link tree.
 - [SitemapLinkTreeToHtml](./../../app/code/Infrastructure/Http/Views/Html/Classes/SitemapLinkTreeToHtml.php) - map the link tree to html.
 
 ## How it works

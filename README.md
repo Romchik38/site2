@@ -19,14 +19,13 @@ Also, you can inspect additional features:
 - [Routing system](./doc/routing/readme.md) with PSR-7 Request/Response and middlewares
 - [DI Container](./doc/bootstrap/Container.md)
 - [Docker](./doc/docker/00_readme.md) package for developing only
+- [Architecture](./doc/architecture/readme.md)
 - [User login](./doc/frontend/login.md)
 - [Admin user login (authentication and authorization)](./doc/admin/readme.md)
 - [Error handling](./doc/errors/errors.md)
 - [Design](./doc/design/01-readme.md)
 - [Logging](./doc/logging/readme.md)
 - [CSRF](./doc/security/csrf.md)
-- [Mailer](./doc/mail/readme.md)
-- [Architecture](./doc/architecture/readme.md)
 - [Sitemap](./doc/sitemap/readme.md) system
 - [Breadcrumbs](./doc/breadcrumbs/readme.md) on every page
 - [Filtering](./doc/filtering/readme.md)
@@ -39,6 +38,7 @@ Also, you can inspect additional features:
 - [Accept terms and conditions popup](./doc/accept-terms-conditions/readme.md)
 - [Minum memory usage](./doc/monitoring/memory.md)
 - [SEO](./doc/seo/readme.md)
+- [Mailer](./doc/mail/readme.md)
 
 ## Dependencies
 

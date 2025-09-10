@@ -1,12 +1,15 @@
 # csrf
 
-**No `csrf_token` in a POST request, no talk.** This means, that all POST request must be send with this kind of token inside.
+**"No `csrf_token` in a POST request, no talk"**.
+
+This means, that all POST requestі must be send with this kind of token inside.
 
 ## Protected
 
 - `Auth` POST action recieves login form data from `Login` and `Login Admin` actions
-- `Admin Imagecache Clear`
-- `Admin Author`
+- `Admin`
+- `Accept terms`
+- `Article views`
 
 ## Not protected
 
@@ -18,10 +21,6 @@ Some actions do not protected, because they are recieved data from forms, placed
 
 There is a *request middleware* `CsrfMiddleware` executing before a target action. The request will be declined if `csrf_token` did not provided with post data.
 
-To make a request successfull, action, which resposable to generate a `<fomr>`, must:
+To make a request successfull, action, which resposable to generate a `<form>`, must place token inside `<form>` as `<input type="hidden">` tag.
 
-- generate a `csrf_token` with `CsrfTokenGeneratorUseRandomBytes` or somthing else
-- place token inside `<form>` as `<input type="hidden">` tag.
-- add token to `Session` with `csrf_token` key
-
-[!] for admin use `admin_csrf_token`
+Token is available in the twig template via variable `visitor`.

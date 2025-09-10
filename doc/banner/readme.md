@@ -6,6 +6,6 @@ The banner is displayed on the main page `/`, on category pages `/category/categ
 
 Banner management is done through the admin menu. Go to the link `/admin` and select the corresponding item in the Banners menu.
 
-The visitor is shown `only one banner` based on priority. The `higher the priority`, the `greater the chance` for the banner to be displayed. There is `no banner gallery` on the site.
+The visitor is shown `only one banner` based on the priority. The `higher the priority`, the `greater the chance` for the banner to be displayed. There is `no banner gallery` on the site.
 
 The banner system is very simple, but it *can be easily expanded* to the required functionality.

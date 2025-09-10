@@ -4,4 +4,4 @@
 - [Bootstrap](./bootstrap.md)
 - [Responsive checks](./responsive.md)
 
-`Site2` has unique design. All content created with AI.
+`Site2` has unique design. All content, such as article, images etc, were created with AI.
