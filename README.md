@@ -72,10 +72,6 @@ See docs in [doc folder](./doc/)
   - application
   - infrastructure
 
-## Memory usage
-
-See memory usage [doc file](./doc/monitoring/memory.md).
-
 ## Install
 
-Please read [installation guide](./doc/install/readme.md) to run site2 quickly as possible.
+Please read [installation guide](./doc/install/readme.md) to run site2 as quickly as possible.

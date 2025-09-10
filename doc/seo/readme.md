@@ -9,7 +9,7 @@
 
 By default, [robots.txt](./../../public/http/robots.txt) is configured to disallow all robots. You can edit this file to change default behavior.
 
-## images
+## Images
 
 Images are adaptive. The best and largest image is shown to the search engine bot. For the user, the browser loads the optimal size depending on the device.
 

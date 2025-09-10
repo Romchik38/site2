@@ -16,8 +16,7 @@ Search query reaches the action `search` with GET method.
 
 ## Query
 
-1. Accepted string
-    Class `Romchik38\Site2\Application\Search\Article\VO\Query` uses pattern:
+1. The Class `Romchik38\Site2\Application\Search\Article\VO\Query` uses pattern on Accepted string:
 
     ```php
     '/^(?=[\p{L}\p{N}\'’` ]{1,255}$)(?=.*[\p{L}\p{N}])(?!.*\'{2,})(?!.*’.*’)(?!.*`.*`)[\p{L}\p{N}\'’` ]+$/u'
@@ -36,18 +35,20 @@ Search query reaches the action `search` with GET method.
     ```
 
 2. String modification:
-    - removed white space chars from beginnig and end
+    - remove white space chars from beginnig and end
     - replace multi white space chars with single ` ` (space)
     - drops duplicates in word check
 
 3. Word check:
-    - word length must be lower than 40
-    - word starts with `'ʼ
+    - a word length must be lower than 40
+    - a word starts with `'ʼ
     - max words count 7
 
 ## Postgresql
 
-' and ` is the same
+The database search engine considers:
+
+' and ` is the same  
 ' and ʼ is diff
 
 ## Features

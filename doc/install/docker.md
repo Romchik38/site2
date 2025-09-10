@@ -1,13 +1,15 @@
-# docker
+# Docker install
 
 Launching with Docker is intended for `development purposes only`. If you wish to use Docker to demonstrate the website externally, please make the necessary changes yourself.
 
-Structure:
+File structure:
 
 - [compose.yaml](./../../compose.yaml)
 - [nginx folder](./../../docker/nginx/)
 - [php-fpm folder](./../../docker/php-fpm/)
 - [postgresql folder](./../../docker/postgres/)
+
+Content:
 
 1. Clone project
 2. Read all docs
@@ -29,7 +31,7 @@ Docker will copy `docker/nginx/conf.d/default.conf` to container. So edit it wit
 
 ## 4. Php-fpm
 
-Look at [readme](./../../docker/php-fpm/readme.md)
+Look at the [readme](./../../docker/php-fpm/readme.md)
 
 1. After `docker compose up -d --build` is executed, inside a container `app` folder run `composer install`
 

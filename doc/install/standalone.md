@@ -53,7 +53,7 @@ Use [script](./../../docker/postgres/scripts/database.sql) to create a database 
 
 `psql -U postgres -d site2 < site2.sql`
 
-### 4.4 Place config file to [database.php](./../../app/config/private/)
+### 4.4 Place config info to [database.php](./../../app/config/private/)
 
 After project's cloning:
 
@@ -73,7 +73,7 @@ After project's cloning:
 Please, edit the code above to your configuration.
 Read more about [connect settings](https://www.php.net/manual/en/function.pg-connect.php)
 
-### 5. Install dictionaries for full text search
+### 4.5. Install dictionaries for full text search
 
 1. Move dictionaries from `docker/postgres/dict` to you postgres `tsearch_data` dir. For example - `/usr/share/pgsql/tsearch_data` is relevant in `Fedora42`.
 2. run sql script `sql/uk-dict/dictionary.sql`
@@ -85,11 +85,13 @@ Read more about [connect settings](https://www.php.net/manual/en/function.pg-con
 - Check search by placed query to search field and pressing next to it button.
 - visit `/login` page
 
+Read [frontend login](./../frontend/login.md) section.
+
 ## 6. Check backend
 
-To check backend 
+To check backend
 
 - login into system `/login/admin`
 - you will be redirected to `/admin`
 
-read [more](./../admin/readme.md) about `admin` section.
+Read [admin login](./../admin/readme.md) section.
