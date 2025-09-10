@@ -2,8 +2,6 @@
 
 ## Current
 
-- long admin user name hover logout
-
 ## Next
 
 - refactor [article list dto](app/code/Application/Article/List/Commands/Filter/ArticleDTO.php) - must use value objects

@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Language switcher -->
-                <div class="col-sm-1">
+                <div class="col-sm-3">
                     <select class="language">
                         {% for l in languages %}
                             {% set selected = '' %}
@@ -75,13 +75,13 @@
                 </div>
                 <!-- User login data -->
                 <div class="col-sm-3">
-                    <div class="text-center">
-                        <div class="header-user-loggedin justify-content-center">
+                    <div>
+                        <div class="header-user-loggedin">
                             <div class="row">
-                                <div class="col-6 text-end">
+                                <div class="col-xl">
                                     <span>{{ t.t('Hello') }},&nbsp;</span><span class="user-name-field me-3">User_name</span>
                                 </div>
-                                <div class="col-6 text-start">
+                                <div class="col-xl">
                                     <form action="{{ u.fromArray(['root', 'admin', 'logout']) }}" method="post">
                                         <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
                                     </form>
