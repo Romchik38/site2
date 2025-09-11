@@ -2,9 +2,10 @@
 
 ## Current
 
+- add text-break to article name on categories and last like `/uk/category/military-law-legislative-changes`
+
 ## Next
 
-- transfer words by letters `/uk/category/military-law-legislative-changes`
 - database and connection
 - pagespeed test
 - @todo
