@@ -2,8 +2,6 @@
 
 ## Current
 
-- favicon
-
 ## Next
 
 - transfer words by letters `/uk/category/military-law-legislative-changes`
