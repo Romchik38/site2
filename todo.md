@@ -2,8 +2,6 @@
 
 ## Current
 
-- refactor [article list dto](app/code/Application/Article/List/Commands/Filter/ArticleDTO.php) - must use value objects
-
 ## Next
 
 - sign in button on 880 * 390

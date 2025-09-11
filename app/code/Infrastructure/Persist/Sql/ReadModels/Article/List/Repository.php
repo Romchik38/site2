@@ -15,6 +15,10 @@ use Romchik38\Site2\Application\Article\List\Commands\Filter\ImageDTOFactory;
 use Romchik38\Site2\Application\Article\List\Commands\Filter\SearchCriteria;
 use Romchik38\Site2\Application\Article\List\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\List\RepositoryInterface;
+use Romchik38\Site2\Domain\Article\VO\Description as ArticleDescription;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Article\VO\Name as ArticleName;
+use Romchik38\Site2\Domain\Article\VO\ShortDescription as ArticleShortDescription;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Domain\Category\VO\Name as CategoryName;
 
@@ -143,11 +147,20 @@ final class Repository implements RepositoryInterface
 
         $categories = $this->createCategories($rawIdentifier, $language);
 
+        try {
+            $id               = new ArticleId($rawIdentifier);
+            $name             = new ArticleName($rawName);
+            $shortDescription = new ArticleShortDescription($rawShortDescription);
+            $description      = new ArticleDescription($rawDescription);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         return new ArticleDTO(
-            $rawIdentifier,
-            $rawName,
-            $rawShortDescription,
-            $rawDescription,
+            $id,
+            $name,
+            $shortDescription,
+            $description,
             $categories,
             new DateTime($rawCreatedAt),
             $this->imageDtoFactory->create($rawImgId, $rawImgPath, $rawImgDescription)
