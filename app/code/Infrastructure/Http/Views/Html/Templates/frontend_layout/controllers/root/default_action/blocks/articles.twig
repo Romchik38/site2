@@ -7,7 +7,7 @@
                 {% set articleUrl = u.fromArray(['root', 'article', article.getId()|url_encode ]) %}
                 <div>
                     <a class="link-none" href="{{ articleUrl }}">
-                        <h4>{{ article.getName() }}</h4>
+                        <h4 class="text-break">{{ article.getName() }}</h4>
                     </a>
                     <a class="link-none" href="{{ articleUrl }}">
                         <p class="h6 text-start">{{ article.getShortDescription() }}</p>

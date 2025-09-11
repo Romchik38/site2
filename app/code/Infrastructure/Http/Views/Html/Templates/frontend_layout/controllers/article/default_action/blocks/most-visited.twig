@@ -5,7 +5,7 @@
     {% set articleMostVisitedUrl = data.articlePageUrl ~ '/' ~ article.getId() %}
     <div class="row my-3">
         <div class="col-9">
-            <a class="link-none" href="{{ articleMostVisitedUrl }}" target="_self">
+            <a class="link-none text-break" href="{{ articleMostVisitedUrl }}" target="_self">
                 <h5>{{ article.getName() }}</h5>
             </a>
             <footer class="container p-0 text-secondary d-flex">
