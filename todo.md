@@ -2,8 +2,6 @@
 
 ## Current
 
-- sign in button on 880 * 390
-
 ## Next
 
 - favicon
