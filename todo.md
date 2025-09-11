@@ -2,9 +2,10 @@
 
 ## Current
 
+- database and connection
+
 ## Next
 
-- database and connection
 - pagespeed test
 - @todo
 
