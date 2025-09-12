@@ -2,8 +2,6 @@
 
 ## Current
 
-- database and connection
-
 ## Next
 
 - pagespeed test
