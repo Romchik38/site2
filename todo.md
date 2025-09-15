@@ -2,7 +2,7 @@
 
 ## Current
 
-- refactor admin image list dto
+- refactor __toString in templates
 
 ## Next
 

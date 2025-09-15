@@ -90,7 +90,7 @@
                 {% set active = 'active' %}
             {% endif %}
 
-            {% set imageId = image.identifier.__toString() %}
+            {% set imageId = image.getId() %}
             <tr>
 
                 <!-- 1. Display image -->
@@ -105,9 +105,9 @@
                 <!-- 3. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 4. Name -->
-                <td>{{ image.name }}</td> 
+                <td>{{ image.getImageName() }}</td> 
                 <!-- 5. Author Name -->
-                <td>{{ image.authorName }}</td>
+                <td>{{ image.getAuthorName() }}</td>
                 {% set editUrl = u.fromArray(['root', 'admin', 'image', imageId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>

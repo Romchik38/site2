@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Image\AdminList;
 
+use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryException;
 use Romchik38\Site2\Application\Image\AdminImageListService\RepositoryInterface;
 use Romchik38\Site2\Application\Image\AdminImageListService\SearchCriteria;
 use Romchik38\Site2\Application\Image\AdminImageListService\View\ImageDto;
+use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
+use Romchik38\Site2\Domain\Image\VO\Name as ImageName;
+use Romchik38\Site2\Domain\Image\VO\Path;
 
 use function implode;
 use function sprintf;
@@ -93,12 +98,21 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Image author name is invalid');
         }
 
+        try {
+            $imageId    = ImageId::fromString($rawIdentifier);
+            $imageName  = new ImageName($rawName);
+            $authorName = new AuthorName($rawAuthorName);
+            $path       = new Path($rawPath);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
         return new ImageDto(
-            (int) $rawIdentifier,
+            $imageId,
             $active,
-            $rawName,
-            $rawAuthorName,
-            $rawPath
+            $imageName,
+            $authorName,
+            $path
         );
     }
 
