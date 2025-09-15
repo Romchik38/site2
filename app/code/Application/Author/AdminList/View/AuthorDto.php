@@ -16,6 +16,16 @@ final readonly class AuthorDto
     ) {
     }
 
+    public function getId(): string
+    {
+        return (string) $this->identifier;
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->name;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [

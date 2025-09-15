@@ -80,13 +80,13 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                {% set authorId = author.identifier.__toString() %}
+                {% set authorId = author.getId() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ authorId }}</th>
                 <!-- 2. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 3. Author Name -->
-                <td>{{ author.name }}</td>
+                <td>{{ author.getName() }}</td>
                 {% set authorUrl = u.fromArray(['root', 'admin', 'author', authorId]) %}
                 <td><a href="{{ authorUrl }} ">edit</a></td>
                 <td>
