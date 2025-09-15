@@ -9,6 +9,7 @@
 
 {% block content %}
 {% set translate = data.translateDto %}
+{% set translateId = translate.getId() %}
 {% set listUrl = u.fromArray(['root', 'admin', 'translate']) %}
 {% set newUrl = u.fromArray(['root', 'admin', 'translate', 'new']) %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'translate', 'update']) %}
@@ -22,8 +23,8 @@
         <form action="{{ updateUrl }}" method="post">
             <div class="form-group mb-2 p-2">
                 <div class="mb">
-                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ translate.identifier }}</label>
-                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translate.identifier }}" hidden>
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ translateId }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translateId }}" hidden>
                 </div>
             </div>
             <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
@@ -39,7 +40,7 @@
             </div>
         </form>
         <form action="{{ u.fromArray(['root', 'admin', 'translate', 'delete']) }}" method="post" id="delete-form">
-            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translate.identifier }}" hidden>
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ translateId }}" hidden>
             <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>

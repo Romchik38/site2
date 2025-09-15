@@ -76,7 +76,7 @@
     <tbody>
         {% for translate in translateList %}
             <tr>
-                {% set translateId = translate.identifier.__toString() %}
+                {% set translateId = translate.getId() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ translateId }}</th>
                 {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId|url_encode]) %}

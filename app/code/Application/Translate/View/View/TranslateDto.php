@@ -14,4 +14,9 @@ final readonly class TranslateDto
         public array $phrases
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->identifier;
+    }
 }

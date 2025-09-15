@@ -3,7 +3,7 @@
 {% if articles|length == 0 %}
     <p>Image do not used in any article</p>
 {% else %}
-    <ul>The image is used in articles:
+    <p>The image is used in articles:
             <table class="table table-bordered">
                     <thead>
                           <tr>
@@ -24,7 +24,7 @@
                                     {% set activeArticle = 'active' %}
                                 {% endif %}           
                                 <tr>
-                                    {% set articleId = article.id.__toString() %}
+                                    {% set articleId = article.getId() %}
                                     <th>{{ articleId }}</th>
                                     <td class="{{ activeColorArticle }}">{{ activeArticle }}</td>
                                     {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
@@ -34,5 +34,5 @@
                         {% endfor %}
                     <tbody>
             </table>
-    </ul>
+    </p>
 {%  endif %}

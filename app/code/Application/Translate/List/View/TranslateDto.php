@@ -12,4 +12,9 @@ final class TranslateDto
         public readonly Identifier $identifier
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->identifier;
+    }
 }

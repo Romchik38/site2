@@ -11,14 +11,16 @@
 
 {% block content %}
 {% set image = data.imageDto %}
+{% set imageId = image.getId() %}
 {% set author = image.author %}
+{% set authorId = author.getId() %}
 {% set metadata = data.MetadataDto %}
 {% set updateUrl = u.fromArray(['root', 'admin', 'image', 'update']) %}
 {% set translates = data.imageDto.translates %}
 {% set articles = data.imageDto.articles %}
 {% set banners = data.imageDto.banners %}
 {% set authors = data.imageDto.authors %}
-{% set authorAdminUrl = u.fromArray(['root', 'admin', 'author', author.id.__toString()]) %}
+{% set authorAdminUrl = u.fromArray(['root', 'admin', 'author', authorId]) %}
 
 <div class="container-md my-3">
     <div class="row">
@@ -29,12 +31,12 @@
         <form action="{{ updateUrl }}" method="post">
             <div class="form-group mb-2 p-2">
                 <div class="mb-3">
-                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ image.identifier }}</label>
-                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ image.identifier }}" hidden>
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ imageId }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ imageId }}" hidden>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="{{ data.nameFiled }}">Name</label>
-                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ image.name }}">
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ image.getImageName() }}">
                 </div>
             </div>
 
@@ -42,11 +44,11 @@
             <div class="form-group mb-2 p-2">
                 <h2 class="text-center">Author</h2>
                 <div class="mb-3">
-                    <label class="form-label" for="{{ data.authorIdFiled }}"><a href="{{ authorAdminUrl }}">Id: {{ author.id }}</a></label>
-                    <input type="text" class="form-control" name="{{ data.authorIdFiled }}" value="{{ author.id }}" id="author_id" hidden>
+                    <label class="form-label" for="{{ data.authorIdFiled }}"><a href="{{ authorAdminUrl }}">Id: {{ authorId }}</a></label>
+                    <input type="text" class="form-control" name="{{ data.authorIdFiled }}" value="{{ authorId }}" id="author_id" hidden>
                 </div>
                 <div class="mb-3">
-                    <p>Name: {{ author.name }}</p>
+                    <p>Name: {{ author.getName() }}</p>
                 </div>
                 <div class="mb-3">
                     <p>Activity: 
@@ -65,8 +67,8 @@
                 <div class="me-2">
                     <select disabled class="form-select form-select-sm" id ="select_author" name="{{ data.changeAuthorIdFiled }}" aria-label="select {{ data.changeAuthorIdFiled }}">
                         {% for a in authors %}
-                            {% if a.id.__toString() != author.id.__toString() %}
-                                <option value="{{ a.id }}" {{ selectedAuthor }}>{{ a.name }}</option>
+                            {% if a.getId() != authorId %}
+                                <option value="{{ a.getId() }}" {{ selectedAuthor }}>{{ a.getName() }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
@@ -107,7 +109,7 @@
             </div>
         </form>
         <form action="{{ u.fromArray(['root', 'admin', 'image', 'delete']) }}" method="post" id="delete-form">
-            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ image.identifier }}" hidden>
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ imageId }}" hidden>
             <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>

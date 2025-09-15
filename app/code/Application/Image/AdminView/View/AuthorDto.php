@@ -15,4 +15,14 @@ final readonly class AuthorDto
         public bool $active
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->name;
+    }
 }

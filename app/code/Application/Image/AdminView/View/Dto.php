@@ -28,4 +28,19 @@ final readonly class Dto
         public array $banners,
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->identifier;
+    }
+
+    public function getImageName(): string
+    {
+        return (string) $this->name;
+    }
+
+    public function getPath(): string
+    {
+        return (string) $this->path;
+    }
 }

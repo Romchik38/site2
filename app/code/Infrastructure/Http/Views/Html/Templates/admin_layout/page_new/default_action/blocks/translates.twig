@@ -8,12 +8,12 @@
 <h2 class="text-center">Translates</h2>
 <p>Category names <strong>must</strong> be unique. They can be used as page titles.</p>
 {% for availableLanguage in availableLanguages  %}
-    {% set availableLanguage = availableLanguage.identifier.__toString() %}
+    {% set availableLanguageId = availableLanguage.getId() %}
     <div class="form-group p-2 my-2">
         <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguage }}</label>
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageId }}</label>
             <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
-                value="{{ availableLanguage }}" 
+                value="{{ availableLanguageId }}" 
                 hidden
             >
         </div>

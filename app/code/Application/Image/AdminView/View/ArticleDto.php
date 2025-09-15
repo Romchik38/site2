@@ -13,4 +13,9 @@ final readonly class ArticleDto
         public bool $active
     ) {
     }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
 }
