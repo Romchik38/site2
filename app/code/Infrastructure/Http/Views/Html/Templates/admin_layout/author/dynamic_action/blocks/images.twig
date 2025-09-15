@@ -5,11 +5,12 @@
 {% else %}
     <p>Author of images</p>
     {% for image in images %}
-    {% set imageAdminUrl = u.fromArray(['root', 'admin', 'image', image.__toString]) %}
+        {% set imageId = image.getId() %}
+        {% set imageAdminUrl = u.fromArray(['root', 'admin', 'image', imageId]) %}
         <div class="col-sm-3">
             <a href="{{ imageAdminUrl }}" target="_self">
                 <img class="img-fluid" 
-                    src="/img.php?id={{ image }}&type=webp&width=200&height=100" 
+                    src="/img.php?id={{ imageId }}&type=webp&width=200&height=100" 
                     alt=""
                 >
             </a>

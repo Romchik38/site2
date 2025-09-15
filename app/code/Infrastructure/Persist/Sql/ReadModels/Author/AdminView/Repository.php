@@ -10,7 +10,9 @@ use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Author\AdminView\NoSuchAuthorException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Author\AdminView\RepositoryInterface;
+use Romchik38\Site2\Application\Author\AdminView\View\ArticleDto;
 use Romchik38\Site2\Application\Author\AdminView\View\AuthorDto;
+use Romchik38\Site2\Application\Author\AdminView\View\ImageDto;
 use Romchik38\Site2\Application\Author\AdminView\View\Translate;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
@@ -90,17 +92,17 @@ final class Repository implements RepositoryInterface
         if ($rawArticles === null) {
             throw new RepositoryException('Author articles is invalid');
         }
-        $articles = $this->prepareRawArticles($rawArticles);
 
         $rawImages = $row['images'] ?? null;
         if ($rawImages === null) {
             throw new RepositoryException('Author images is invalid');
         }
-        $images = $this->prepareRawImages($rawImages);
 
         try {
-            $id   = AuthorId::fromString($rawIdentifier);
-            $name = new Name($rawName);
+            $id       = AuthorId::fromString($rawIdentifier);
+            $name     = new Name($rawName);
+            $articles = $this->prepareRawArticles($rawArticles);
+            $images   = $this->prepareRawImages($rawImages);
         } catch (InvalidArgumentException $e) {
             throw new RepositoryException($e->getMessage());
         }
@@ -116,8 +118,9 @@ final class Repository implements RepositoryInterface
     }
 
     /**
+     * @throws InvalidArgumentException
      * @param string $rawImages - Json encoded array of strings
-     * @return array<int,ImageId>
+     * @return array<int,ImageDto>
      */
     private function prepareRawImages(string $rawImages): array
     {
@@ -125,14 +128,14 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedImages as $image) {
-            $data[] = new ImageId($image);
+            $data[] = new ImageDto(new ImageId($image));
         }
         return $data;
     }
 
     /**
      * @param string $rawArticles - Json encoded array of strings
-     * @return array<int,ArticleId>
+     * @return array<int,ArticleDto>
      */
     private function prepareRawArticles(string $rawArticles): array
     {
@@ -140,7 +143,7 @@ final class Repository implements RepositoryInterface
 
         $data = [];
         foreach ($decodedArticles as $article) {
-            $data[] = new ArticleId($article);
+            $data[] = new ArticleDto(new ArticleId($article));
         }
         return $data;
     }

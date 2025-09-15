@@ -16,4 +16,19 @@ final readonly class TranslateDto
         public Name $name
     ) {
     }
+
+    public function getAudioId(): string
+    {
+        return (string) $this->audioId;
+    }
+
+    public function getLanguage(): string
+    {
+        return (string) $this->language;
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->name;
+    }
 }

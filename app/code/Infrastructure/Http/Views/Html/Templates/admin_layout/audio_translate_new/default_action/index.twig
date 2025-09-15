@@ -9,9 +9,9 @@
 {% block content %}
 {% set dto = data.translateDto %}
 
-{% set audioId = dto.audioId.__toString() %}
-{% set language = dto.language.__toString() %}
-{% set name = dto.name.__toString() %}
+{% set audioId = dto.getAudioId() %}
+{% set language = dto.getLanguage() %}
+{% set name = dto.getName() %}
 
 {% set audioUrl = u.fromArray(['root', 'admin', 'audio', audioId]) %}
 {% set newUrl = u.fromArray(['root', 'admin', 'audio', 'translate', 'new']) %}

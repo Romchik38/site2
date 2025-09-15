@@ -4,26 +4,27 @@
     <p>Author has no articles</p>
 {% else %}
     <ul>Author of articles:
-            <table class="table table-bordered">
-                    <thead>
-                          <tr>
-                                <th scope="col">Identifier</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Preview</th>
-                          </tr>
-                    </thead>
-                    <tbody>
-                        {% for article in articles %}             
-                                    <tr>
-                                        {% set urlId = article.__toString()|url_encode %}
-                                        {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', urlId ]) %}
-                                        {% set articlePreviewUrl = u.fromArray(['root', 'article', urlId ]) %}
-                                        <th>{{ article }}</th>
-                                        <td><a href="{{ articleEditUrl }}">Edit</a></td>
-                                        <td><a href="{{ articlePreviewUrl }}" target="_blank">Preview</a></td>
-                                    </tr>
-                        {% endfor %}
-                    <tbody>
-            </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                      <th scope="col">Identifier</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}             
+                    <tr>
+                        {% set articleId = article.getId() %}
+                        {% set urlId = articleId|url_encode %}
+                        {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', urlId ]) %}
+                        {% set articlePreviewUrl = u.fromArray(['root', 'article', urlId ]) %}
+                        <th>{{ articleId }}</th>
+                        <td><a href="{{ articleEditUrl }}">Edit</a></td>
+                        <td><a href="{{ articlePreviewUrl }}" target="_blank">Preview</a></td>
+                    </tr>
+                {% endfor %}
+            <tbody>
+        </table>
     </ul>
 {%  endif %}
