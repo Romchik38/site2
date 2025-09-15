@@ -18,4 +18,24 @@ final readonly class TranslateDto
         public Path $path
     ) {
     }
+
+    public function getAudioId(): string
+    {
+        return (string) $this->audioId;
+    }
+
+    public function getLanguage(): string
+    {
+        return (string) $this->language;
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->description;
+    }
+
+    public function getPath(): string
+    {
+        return (string) $this->path;
+    }
 }

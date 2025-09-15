@@ -9,10 +9,10 @@
 {% block content %}
 {% set translateDto = data.translateDto %}
 
-{% set audioId = translateDto.audioId.__toString() %}
-{% set language = translateDto.language.__toString() %}
-{% set description = translateDto.description.__toString() %}
-{% set path = translateDto.path.__toString() %}
+{% set audioId = translateDto.getAudioId() %}
+{% set language = translateDto.getLanguage() %}
+{% set description = translateDto.getDescription() %}
+{% set path = translateDto.getPath() %}
 
 {% set audioUrl = u.fromArray(['root', 'admin', 'audio', audioId]) %}
 {% set deleteUrl = u.fromArray(['root', 'admin', 'audio', 'translate', 'delete']) %}

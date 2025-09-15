@@ -22,42 +22,31 @@
       </thead>
       <tbody>
         {% for availableLanguage in availableLanguages  %}
-            {% set availableLanguageVo = availableLanguage.identifier %}
+            {% set availableLanguageId = availableLanguage.getId() %}
             {% set break = false %}
             {% for translate in translates %}
-                {% set translateLanguageVo = translate.language %}
-                {% set descriptionVo = translate.description %}
-                {% if translateLanguageVo.__toString() == availableLanguageVo.__toString() %}
+                {% set translateLanguageId = translate.getlanguage() %}
+                {% set description = translate.getDescription() %}
+                {% if translateLanguageId == availableLanguageId %}
                     <!-- translate exust -->
-                    {% set audioId = audio.id %}
-                    {% set languageId = translateLanguageVo %}
+                    {% set audioId = audio.getId() %}
+                    {% set languageId = translateLanguageId %}
 					{% 
 						set editUrl = u.fromArray(
 							['root', 'admin', 'audio', 'translate'], 
 							{ 
 								(data.translateAudioIdField): audioId,
-								(data.translateLanguageField): translateLanguageVo,
+								(data.translateLanguageField): translateLanguageId,
 							}
 						) 
 					%}
                     <tr class="table-success">
-                        <td>{{ translateLanguageVo }}</td>
-                        <td>{{ translate.description }}</td>
+                        <td>{{ translateLanguageId }}</td>
+                        <td>{{ description }}</td>
                         <td>
-							<audio src="{{ audioPathPrefix ~ '/' ~ translate.path }}" controls crossorigin="anonymous">{{ translate.description }}</audio>
+							<audio src="{{ audioPathPrefix ~ '/' ~ translate.path }}" controls crossorigin="anonymous">{{ description }}</audio>
                         </td>
                         <td><a href="{{ editUrl }}">edit</a></td>
-
-
-                        <!-- <td>
-                            <form action="{{ deleteUrl }}" method="post">
-                                <input type="text" class="form-control" name="{{ data.deleteTranslateIdFiled }}" value="{{ audioId }}" hidden>
-                                <input type="text" class="form-control" name="{{ data.deleteTranslateLanguageFiled }}" value="{{ languageId }}" hidden>
-                                <input type="hidden" name="{{ data.csrfTokenField }}" value="{{ data.csrfToken }}" />
-                                <button type="submit" class="btn btn-secondary my-2 btn-sm py-0">delete</button>
-                            </form>
-                        </td> -->
-
                     </tr>
                     {% set break = true %}
                 {% endif %}
@@ -67,13 +56,13 @@
 					set addUrl = u.fromArray(
 						['root', 'admin', 'audio', 'translate', 'new'], 
 						{ 
-							(data.translateAudioIdField): audio.id.__toString(),
-							(data.translateLanguageField): availableLanguageVo,
+							(data.translateAudioIdField): audio.getId(),
+							(data.translateLanguageField): availableLanguageId,
 						}
 					) 
 				%}
                 <tr class="table-danger">
-                    <td>{{ availableLanguageVo }}</td>
+                    <td>{{ availableLanguageId }}</td>
                     <td>-</td>
                     <td>-</td>
                     <td><a href="{{ addUrl }}">add</a></td>

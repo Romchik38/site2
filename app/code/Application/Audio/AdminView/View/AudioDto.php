@@ -24,11 +24,11 @@ final readonly class AudioDto
 
     public function getId(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     public function getName(): string
     {
-        return (string)$this->name;
-    }    
+        return (string) $this->name;
+    }
 }
