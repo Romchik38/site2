@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Persist\Sql\ReadModels\Author\AdminList;
 
+use InvalidArgumentException;
 use Romchik38\Server\Persist\Sql\DatabaseSqlInterface;
 use Romchik38\Server\Persist\Sql\SearchCriteria\OrderBy;
 use Romchik38\Site2\Application\Author\AdminList\RepositoryException;
 use Romchik38\Site2\Application\Author\AdminList\RepositoryInterface;
 use Romchik38\Site2\Application\Author\AdminList\SearchCriteria;
 use Romchik38\Site2\Application\Author\AdminList\View\AuthorDto;
+use Romchik38\Site2\Domain\Author\VO\AuthorId;
+use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
 
 use function implode;
 use function sprintf;
@@ -83,11 +86,14 @@ final class Repository implements RepositoryInterface
             throw new RepositoryException('Author name is invalid');
         }
 
-        return new AuthorDto(
-            $rawIdentifier,
-            $rawName,
-            $active
-        );
+        try {
+            $id   = AuthorId::fromString($rawIdentifier);
+            $name = new AuthorName($rawName);
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
+        }
+
+        return new AuthorDto($id, $name, $active);
     }
 
     private function defaultQuery(): string

@@ -7,18 +7,13 @@ namespace Romchik38\Site2\Application\Author\AdminList\View;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 
-final class AuthorDto
+final readonly class AuthorDto
 {
-    public readonly AuthorId $identifier;
-    public readonly Name $name;
-
     public function __construct(
-        string $id,
-        string $name,
-        public readonly bool $active
+        public AuthorId $identifier,
+        public Name $name,
+        public bool $active
     ) {
-        $this->identifier = AuthorId::fromString($id);
-        $this->name       = new Name($name);
     }
 
     public function jsonSerialize(): mixed
