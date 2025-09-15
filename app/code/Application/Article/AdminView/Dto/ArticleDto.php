@@ -8,7 +8,7 @@ use DateTime;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Views;
 
-final class ArticleDto
+final readonly class ArticleDto
 {
     public const DATE_FORMAT = 'd-m-Y G:i:s';
     /**
@@ -16,16 +16,16 @@ final class ArticleDto
      * @param array<int,TranslateDto> $translates
      */
     public function __construct(
-        public readonly ArticleId $id,
-        public readonly bool $active,
-        public readonly DateTime $createdAt,
-        public readonly DateTime $updatedAt,
-        public readonly Views $views,
-        public readonly ?AudioDto $audio,
-        public readonly AuthorDto $author,
-        public readonly ?ImageDto $image,
-        public readonly array $categories,
-        public readonly array $translates
+        public ArticleId $id,
+        public bool $active,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public Views $views,
+        public ?AudioDto $audio,
+        public AuthorDto $author,
+        public ?ImageDto $image,
+        public array $categories,
+        public array $translates
     ) {
     }
 

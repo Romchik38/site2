@@ -10,16 +10,16 @@ use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 
-final class ArticleDto implements JsonSerializable
+final readonly class ArticleDto implements JsonSerializable
 {
     public const CREATED_AT_FORMAT = 'j-n-y';
 
     public function __construct(
-        public readonly ArticleId $id,
-        public readonly Name $name,
-        public readonly ShortDescription $shortDescription,
-        public readonly DateTime $createdAt,
-        public readonly ImageDto $image
+        public ArticleId $id,
+        public Name $name,
+        public ShortDescription $shortDescription,
+        public DateTime $createdAt,
+        public ImageDto $image
     ) {
     }
 

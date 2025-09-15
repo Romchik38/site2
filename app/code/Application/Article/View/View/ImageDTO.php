@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\View\View;
 
-final class ImageDTO
+final readonly class ImageDTO
 {
     public function __construct(
-        public readonly string $imgId,
-        public readonly string $path,
-        public readonly string $description,
-        public readonly string $author,
+        public string $imgId,
+        public string $path,
+        public string $description,
+        public string $author,
     ) {
     }
 }

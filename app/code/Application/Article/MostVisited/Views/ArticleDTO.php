@@ -10,15 +10,15 @@ use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\Views;
 
-final class ArticleDTO
+final readonly class ArticleDTO
 {
     public function __construct(
-        public readonly ArticleId $id,
-        public readonly Name $name,
-        public readonly Description $description,
-        public readonly DateTime $createdAt,
-        public readonly Views $views,
-        public readonly ImageDTO $image
+        public ArticleId $id,
+        public Name $name,
+        public Description $description,
+        public DateTime $createdAt,
+        public Views $views,
+        public ImageDTO $image
     ) {
     }
 

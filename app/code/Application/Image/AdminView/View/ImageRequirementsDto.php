@@ -7,14 +7,14 @@ namespace Romchik38\Site2\Application\Image\AdminView\View;
 use function round;
 use function sprintf;
 
-final class ImageRequirementsDto
+final readonly class ImageRequirementsDto
 {
     /** @param array<int,string> $types */
     public function __construct(
-        public readonly int $width,
-        public readonly int $height,
-        public readonly int $size,
-        public readonly array $types,
+        public int $width,
+        public int $height,
+        public int $size,
+        public array $types,
     ) {
     }
 

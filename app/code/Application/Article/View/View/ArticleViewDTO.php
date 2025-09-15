@@ -7,19 +7,19 @@ namespace Romchik38\Site2\Application\Article\View\View;
 use DateTime;
 
 /** Full info about Article */
-final class ArticleViewDTO
+final readonly class ArticleViewDTO
 {
     /** @param CategoryDTO[] $categories */
     public function __construct(
-        public readonly string $articleId,
-        public readonly string $name,
-        public readonly string $shortDescription,
-        public readonly string $description,
-        public readonly array $categories,
-        public readonly DateTime $createdAt,
-        public readonly AuthorDTO $author,
-        public readonly ImageDTO $image,
-        public readonly AudioDTO $audio
+        public string $articleId,
+        public string $name,
+        public string $shortDescription,
+        public string $description,
+        public array $categories,
+        public DateTime $createdAt,
+        public AuthorDTO $author,
+        public ImageDTO $image,
+        public AudioDTO $audio
     ) {
     }
 }

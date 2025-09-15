@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Application\Article\AdminView\Dto;
 
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 
-final class CategoryDto
+final readonly class CategoryDto
 {
     public function __construct(
-        public readonly CategoryId $id,
-        public readonly bool $active
+        public CategoryId $id,
+        public bool $active
     ) {
     }
 

@@ -6,17 +6,17 @@ namespace Romchik38\Site2\Application\Category\AdminView\View;
 
 use Romchik38\Site2\Domain\Category\VO\Identifier;
 
-final class CategoryDto
+final readonly class CategoryDto
 {
     /**
      * @param array<int,ArticleDto> $articles
      * @param array<int,TranslateDto> $translates
      * */
     public function __construct(
-        public readonly Identifier $id,
-        public readonly bool $active,
-        public readonly array $articles,
-        public readonly array $translates
+        public Identifier $id,
+        public bool $active,
+        public array $articles,
+        public array $translates
     ) {
     }
 

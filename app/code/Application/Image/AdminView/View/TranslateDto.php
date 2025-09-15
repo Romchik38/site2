@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Application\Image\AdminView\View;
 use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
-final class TranslateDto
+final readonly class TranslateDto
 {
     public function __construct(
-        public readonly Identifier $language,
-        public readonly Description $description
+        public Identifier $language,
+        public Description $description
     ) {
     }
 

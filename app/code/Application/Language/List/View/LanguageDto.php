@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Application\Language\List\View;
 
 use Romchik38\Site2\Domain\Language\VO\Identifier;
 
-final class LanguageDto
+final readonly class LanguageDto
 {
     public function __construct(
-        public readonly Identifier $identifier,
-        public readonly bool $active
+        public Identifier $identifier,
+        public bool $active
     ) {
     }
 

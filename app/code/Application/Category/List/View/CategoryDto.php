@@ -8,13 +8,13 @@ use Romchik38\Site2\Domain\Category\VO\Description;
 use Romchik38\Site2\Domain\Category\VO\Identifier;
 use Romchik38\Site2\Domain\Category\VO\Name;
 
-final class CategoryDto
+final readonly class CategoryDto
 {
     public function __construct(
-        public readonly Identifier $id,
-        public readonly Name $name,
-        public readonly Description $description,
-        public readonly int $totalCount
+        public Identifier $id,
+        public Name $name,
+        public Description $description,
+        public int $totalCount
     ) {
     }
 

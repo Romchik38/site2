@@ -10,14 +10,14 @@ use Romchik38\Site2\Domain\Page\VO\Name;
 use Romchik38\Site2\Domain\Page\VO\ShortDescription;
 use Romchik38\Site2\Domain\Page\VO\Url;
 
-final class PageDto
+final readonly class PageDto
 {
     public function __construct(
-        public readonly Id $id,
-        public readonly Url $url,
-        public readonly Name $name,
-        public readonly ShortDescription $shortDescription,
-        public readonly Description $description,
+        public Id $id,
+        public Url $url,
+        public Name $name,
+        public ShortDescription $shortDescription,
+        public Description $description,
     ) {
     }
 

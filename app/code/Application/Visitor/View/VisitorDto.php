@@ -11,26 +11,26 @@ use Romchik38\Site2\Domain\Visitor\VO\CsrfToken;
 use Romchik38\Site2\Domain\Visitor\VO\LastVisitedArticles;
 use Romchik38\Site2\Domain\Visitor\VO\Message;
 
-final class VisitorDto
+final readonly class VisitorDto
 {
     public const USERNAME_FIELD       = 'username';
     public const ACCEPTED_TERMS_FIELD = 'accepted_terms';
     public const CSRF_TOKEN_FIELD     = 'csrf_token';
 
     /** @var array<int,ArticleId> $visitedArticles */
-    public readonly array $visitedArticles;
+    public array $visitedArticles;
 
     /**
      * @throws InvalidArgumentException
      * @param array<int,mixed|ArticleId> $visitedArticles
      * */
     public function __construct(
-        public readonly ?Username $username,
-        public readonly bool $isAcceptedTerms,
-        public readonly CsrfToken $csrfToken,
-        public readonly ?Message $message,
+        public ?Username $username,
+        public bool $isAcceptedTerms,
+        public CsrfToken $csrfToken,
+        public ?Message $message,
         array $visitedArticles,
-        public readonly ?LastVisitedArticles $lastVisitedArticles
+        public ?LastVisitedArticles $lastVisitedArticles
     ) {
         foreach ($visitedArticles as $article) {
             if (! $article instanceof ArticleId) {

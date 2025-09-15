@@ -9,13 +9,13 @@ use Romchik38\Site2\Domain\Article\VO\Name;
 use Romchik38\Site2\Domain\Article\VO\ShortDescription;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-final class TranslateDto
+final readonly class TranslateDto
 {
     public function __construct(
-        public readonly LanguageId $language,
-        public readonly Name $name,
-        public readonly ShortDescription $shortDescription,
-        public readonly Description $description
+        public LanguageId $language,
+        public Name $name,
+        public ShortDescription $shortDescription,
+        public Description $description
     ) {
     }
 

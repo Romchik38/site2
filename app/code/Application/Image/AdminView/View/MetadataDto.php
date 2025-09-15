@@ -7,13 +7,13 @@ namespace Romchik38\Site2\Application\Image\AdminView\View;
 use function round;
 use function sprintf;
 
-final class MetadataDto
+final readonly class MetadataDto
 {
     public function __construct(
-        public readonly int $width,
-        public readonly int $height,
-        public readonly string $type,
-        public readonly int $bytes
+        public int $width,
+        public int $height,
+        public string $type,
+        public int $bytes
     ) {
     }
 

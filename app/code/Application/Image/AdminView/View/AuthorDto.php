@@ -7,12 +7,12 @@ namespace Romchik38\Site2\Application\Image\AdminView\View;
 use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 
-final class AuthorDto
+final readonly class AuthorDto
 {
     public function __construct(
-        public readonly AuthorId $id,
-        public readonly Name $name,
-        public readonly bool $active
+        public AuthorId $id,
+        public Name $name,
+        public bool $active
     ) {
     }
 }

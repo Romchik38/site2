@@ -9,13 +9,13 @@ use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Audio\VO\Path;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-final class TranslateDto
+final readonly class TranslateDto
 {
     public function __construct(
-        public readonly AudioId $audioId,
-        public readonly LanguageId $language,
-        public readonly Description $description,
-        public readonly Path $path
+        public AudioId $audioId,
+        public LanguageId $language,
+        public Description $description,
+        public Path $path
     ) {
     }
 }

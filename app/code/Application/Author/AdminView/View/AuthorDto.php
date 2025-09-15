@@ -9,7 +9,7 @@ use Romchik38\Site2\Domain\Author\VO\AuthorId;
 use Romchik38\Site2\Domain\Author\VO\Name;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
-final class AuthorDto
+final readonly class AuthorDto
 {
     /**
      * @param array<int,Translate> $translates
@@ -17,12 +17,12 @@ final class AuthorDto
      * @param array<int,ImageId> $images
      * */
     public function __construct(
-        public readonly AuthorId $identifier,
-        public readonly Name $name,
-        public readonly bool $active,
-        public readonly array $translates,
-        public readonly array $articles,
-        public readonly array $images,
+        public AuthorId $identifier,
+        public Name $name,
+        public bool $active,
+        public array $translates,
+        public array $articles,
+        public array $images,
     ) {
     }
 }

@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Application\Image\ImgConverter\View;
 use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
-final class ImgView
+final readonly class ImgView
 {
     public function __construct(
-        private readonly Id $id,
-        private readonly Path $path
+        private Id $id,
+        private Path $path
     ) {
     }
 

@@ -8,14 +8,14 @@ use Romchik38\Site2\Domain\Banner\VO\Identifier as BannerId;
 use Romchik38\Site2\Domain\Banner\VO\Name;
 use Romchik38\Site2\Domain\Banner\VO\Priority;
 
-final class BannerDto
+final readonly class BannerDto
 {
     public function __construct(
-        public readonly BannerId $id,
-        public readonly bool $active,
-        public readonly Name $name,
-        public readonly ImageDto $image,
-        public readonly Priority $priority
+        public BannerId $id,
+        public bool $active,
+        public Name $name,
+        public ImageDto $image,
+        public Priority $priority
     ) {
     }
 

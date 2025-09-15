@@ -7,12 +7,12 @@ namespace Romchik38\Site2\Application\Audio\AdminList\View;
 use Romchik38\Site2\Domain\Audio\VO\Id;
 use Romchik38\Site2\Domain\Audio\VO\Name;
 
-final class AudioDto
+final readonly class AudioDto
 {
     public function __construct(
-        public readonly Id $id,
-        public readonly bool $active,
-        public readonly Name $name
+        public Id $id,
+        public bool $active,
+        public Name $name
     ) {
     }
 

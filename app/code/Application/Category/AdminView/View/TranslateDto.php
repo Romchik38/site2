@@ -8,12 +8,12 @@ use Romchik38\Site2\Domain\Category\VO\Description;
 use Romchik38\Site2\Domain\Category\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-final class TranslateDto
+final readonly class TranslateDto
 {
     public function __construct(
-        public readonly LanguageId $language,
-        public readonly Name $name,
-        public readonly Description $description
+        public LanguageId $language,
+        public Name $name,
+        public Description $description
     ) {
     }
 

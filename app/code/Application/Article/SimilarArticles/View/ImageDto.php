@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Application\Article\SimilarArticles\View;
 use Romchik38\Site2\Domain\Image\VO\Description;
 use Romchik38\Site2\Domain\Image\VO\Id;
 
-final class ImageDto
+final readonly class ImageDto
 {
     public function __construct(
-        public readonly Id $id,
-        public readonly Description $description
+        public Id $id,
+        public Description $description
     ) {
     }
 

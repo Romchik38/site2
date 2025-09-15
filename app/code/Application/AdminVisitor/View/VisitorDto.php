@@ -8,15 +8,15 @@ use Romchik38\Site2\Domain\AdminUser\VO\Username;
 use Romchik38\Site2\Domain\AdminVisitor\VO\CsrfToken;
 use Romchik38\Site2\Domain\AdminVisitor\VO\Message;
 
-final class VisitorDto
+final readonly class VisitorDto
 {
     public const USERNAME_FIELD   = 'username';
     public const CSRF_TOKEN_FIELD = 'csrf_token';
 
     public function __construct(
-        public readonly ?Username $username,
-        public readonly CsrfToken $csrfToken,
-        public readonly ?Message $message
+        public ?Username $username,
+        public CsrfToken $csrfToken,
+        public ?Message $message
     ) {
     }
 

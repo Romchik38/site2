@@ -7,12 +7,12 @@ namespace Romchik38\Site2\Application\Audio\AdminTranslateCreate\View;
 use function round;
 use function sprintf;
 
-final class AudioRequirementsDto
+final readonly class AudioRequirementsDto
 {
     /** @param array<int,string> $types */
     public function __construct(
-        public readonly int $size,
-        public readonly array $types
+        public int $size,
+        public array $types
     ) {
     }
 

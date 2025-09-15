@@ -10,14 +10,14 @@ use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
-final class BannerDto
+final readonly class BannerDto
 {
     public function __construct(
-        public readonly BannerId $id,
-        public readonly Name $name,
-        public readonly Priority $priority,
-        public readonly ImageId $imageId,
-        public readonly Path $imagePath,
+        public BannerId $id,
+        public Name $name,
+        public Priority $priority,
+        public ImageId $imageId,
+        public Path $imagePath,
     ) {
     }
 

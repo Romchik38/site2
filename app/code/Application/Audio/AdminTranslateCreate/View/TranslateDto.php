@@ -8,12 +8,12 @@ use Romchik38\Site2\Domain\Audio\VO\Id as AudioId;
 use Romchik38\Site2\Domain\Audio\VO\Name;
 use Romchik38\Site2\Domain\Language\VO\Identifier as LanguageId;
 
-final class TranslateDto
+final readonly class TranslateDto
 {
     public function __construct(
-        public readonly AudioId $audioId,
-        public readonly LanguageId $language,
-        public readonly Name $name
+        public AudioId $audioId,
+        public LanguageId $language,
+        public Name $name
     ) {
     }
 }

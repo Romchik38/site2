@@ -6,17 +6,17 @@ namespace Romchik38\Site2\Application\Category\View\View;
 
 use DateTime;
 
-final class ArticleDto
+final readonly class ArticleDto
 {
     /** @param ArticleCategoryDto[] $categories */
     public function __construct(
-        public readonly string $articleId,
-        public readonly string $name,
-        public readonly string $shortDescription,
-        public readonly string $description,
-        public readonly array $categories,
-        public readonly DateTime $createdAt,
-        public readonly ImageDto $image
+        public string $articleId,
+        public string $name,
+        public string $shortDescription,
+        public string $description,
+        public array $categories,
+        public DateTime $createdAt,
+        public ImageDto $image
     ) {
     }
 }

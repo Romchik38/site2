@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Application\Category\View\View;
 use Romchik38\Site2\Domain\Category\VO\Identifier;
 use Romchik38\Site2\Domain\Category\VO\Name;
 
-final class CategoryIdNameDto
+final readonly class CategoryIdNameDto
 {
     public function __construct(
-        public readonly Identifier $id,
-        public readonly Name $name
+        public Identifier $id,
+        public Name $name
     ) {
     }
 

@@ -8,7 +8,7 @@ use Romchik38\Site2\Domain\Image\VO\Id;
 use Romchik38\Site2\Domain\Image\VO\Name as ImageName;
 use Romchik38\Site2\Domain\Image\VO\Path;
 
-final class Dto
+final readonly class Dto
 {
     /**
      * @param array<int,ArticleDto> $articles
@@ -17,15 +17,15 @@ final class Dto
      * @param array<int,TranslateDto> $translates
      * */
     public function __construct(
-        public readonly Id $identifier,
-        public readonly bool $active,
-        public readonly ImageName $name,
-        public readonly Path $path,
-        public readonly AuthorDto $author,
-        public readonly array $translates,
-        public readonly array $articles,
-        public readonly array $authors,
-        public readonly array $banners,
+        public Id $identifier,
+        public bool $active,
+        public ImageName $name,
+        public Path $path,
+        public AuthorDto $author,
+        public array $translates,
+        public array $articles,
+        public array $authors,
+        public array $banners,
     ) {
     }
 }

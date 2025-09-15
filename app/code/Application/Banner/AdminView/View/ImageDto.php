@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Application\Banner\AdminView\View;
 
 use Romchik38\Site2\Domain\Image\VO\Id;
 
-final class ImageDto
+final readonly class ImageDto
 {
     public function __construct(
-        public readonly Id $id,
-        public readonly bool $active
+        public Id $id,
+        public bool $active
     ) {
     }
 

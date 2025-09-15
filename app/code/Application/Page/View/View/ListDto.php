@@ -7,11 +7,11 @@ namespace Romchik38\Site2\Application\Page\View\View;
 use Romchik38\Site2\Domain\Page\VO\Name;
 use Romchik38\Site2\Domain\Page\VO\Url;
 
-final class ListDto
+final readonly class ListDto
 {
     public function __construct(
-        public readonly Url $url,
-        public readonly Name $name
+        public Url $url,
+        public Name $name
     ) {
     }
 

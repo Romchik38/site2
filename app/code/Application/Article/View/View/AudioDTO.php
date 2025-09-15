@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Application\Article\View\View;
 
-final class AudioDTO
+final readonly class AudioDTO
 {
     public function __construct(
-        public readonly string $path,
-        public readonly string $description
+        public string $path,
+        public string $description
     ) {
     }
 }
