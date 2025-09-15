@@ -13,7 +13,9 @@ use Romchik38\Site2\Application\Article\AdminList\Commands\Filter\SearchCriteria
 use Romchik38\Site2\Application\Article\AdminList\Exceptions\RepositoryException;
 use Romchik38\Site2\Application\Article\AdminList\RepositoryInterface;
 use Romchik38\Site2\Application\Article\AdminList\View\ArticleDto;
-use Romchik38\Site2\Domain\Image\VO\Id;
+use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
+use Romchik38\Site2\Domain\Author\VO\Name as AuthorName;
+use Romchik38\Site2\Domain\Image\VO\Id as ImageId;
 
 use function implode;
 use function sprintf;
@@ -147,25 +149,28 @@ final class Repository implements RepositoryInterface
         }
 
         $rawImageId = $row['img_id'] ?? null;
-        if ($rawImageId !== null) {
-            try {
-                $imageId = Id::fromString($rawImageId);
-            } catch (InvalidArgumentException $e) {
-                throw new RepositoryException($e->getMessage());
+
+        try {
+            $id         = new ArticleId($rawIdentifier);
+            $authorName = new AuthorName($rawAuthorName);
+            if ($rawImageId !== null) {
+                $imageId = ImageId::fromString($rawImageId);
+            } else {
+                $imageId = $rawImageId;
             }
-        } else {
-            $imageId = $rawImageId;
+        } catch (InvalidArgumentException $e) {
+            throw new RepositoryException($e->getMessage());
         }
 
         return new ArticleDto(
-            $rawIdentifier,
+            $id,
             $active,
             new DateTime($rawCreatedAt),
             new DateTime($rawUpdatedAt),
             $imageActive,
             $imageId,
             $audioActive,
-            $rawAuthorName
+            $authorName
         );
     }
 

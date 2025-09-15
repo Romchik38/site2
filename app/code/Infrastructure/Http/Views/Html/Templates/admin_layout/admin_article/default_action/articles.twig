@@ -83,7 +83,7 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                {% set articleId = article.identifier.__toString() %}
+                {% set articleId = article.getId() %}
                 <th scope="row">{{ articleId }}</th>
                 
                 <td class="{{ activeColor }}">{{ active }}</td>
@@ -129,7 +129,7 @@
                 {% endif %}
                 <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
 
-                <td>{{ article.authorName }}</td>
+                <td>{{ article.getAuthorName() }}</td>
                 {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
