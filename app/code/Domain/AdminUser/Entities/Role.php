@@ -8,12 +8,12 @@ use Romchik38\Site2\Domain\AdminRole\VO\Description;
 use Romchik38\Site2\Domain\AdminRole\VO\Identifier;
 use Romchik38\Site2\Domain\AdminRole\VO\Name;
 
-final class Role
+final readonly class Role
 {
     public function __construct(
-        private readonly Identifier $id,
-        private readonly Name $name,
-        private readonly Description $description
+        private Identifier $id,
+        private Name $name,
+        private Description $description
     ) {
     }
 

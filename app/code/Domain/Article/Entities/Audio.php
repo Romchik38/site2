@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Domain\Article\Entities;
 
 use Romchik38\Site2\Domain\Audio\VO\Id;
 
-final class Audio
+final readonly class Audio
 {
     public function __construct(
-        public readonly Id $id,
-        public readonly bool $active
+        public Id $id,
+        public bool $active
     ) {
     }
 }

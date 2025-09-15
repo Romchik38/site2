@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Domain\Image\Entities;
 
 use Romchik38\Site2\Domain\Banner\VO\Identifier;
 
-final class Banner
+final readonly class Banner
 {
     public function __construct(
-        public readonly Identifier $id,
-        public readonly bool $active
+        public Identifier $id,
+        public bool $active
     ) {
     }
 }

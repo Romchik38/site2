@@ -6,11 +6,11 @@ namespace Romchik38\Site2\Domain\Audio\Entities;
 
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
 
-final class Article
+final readonly class Article
 {
     public function __construct(
-        public readonly ArticleId $id,
-        public readonly bool $active
+        public ArticleId $id,
+        public bool $active
     ) {
     }
 }

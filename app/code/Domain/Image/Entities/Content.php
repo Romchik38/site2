@@ -10,14 +10,14 @@ use Romchik38\Site2\Domain\Image\VO\Size;
 use Romchik38\Site2\Domain\Image\VO\Type;
 use Romchik38\Site2\Domain\Image\VO\Width;
 
-final class Content
+final readonly class Content
 {
     public function __construct(
-        private readonly GdImage $data,
-        private readonly Type $type,
-        private readonly Height $height,
-        private readonly Width $width,
-        private readonly Size $size
+        private GdImage $data,
+        private Type $type,
+        private Height $height,
+        private Width $width,
+        private Size $size
     ) {
     }
 

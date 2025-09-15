@@ -7,12 +7,12 @@ namespace Romchik38\Site2\Domain\Audio\Entities;
 use Romchik38\Site2\Domain\Audio\VO\Size;
 use Romchik38\Site2\Domain\Audio\VO\Type;
 
-final class Content
+final readonly class Content
 {
     public function __construct(
-        private readonly string $data,
-        private readonly Type $type,
-        private readonly Size $size
+        private string $data,
+        private Type $type,
+        private Size $size
     ) {
     }
 
