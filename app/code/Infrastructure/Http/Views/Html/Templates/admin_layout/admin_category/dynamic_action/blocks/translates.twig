@@ -8,11 +8,11 @@
 <!-- Inside a form -->
 <h2 class="text-center">Translates</h2>
 {% for availableLanguage in availableLanguages  %}
-    {% set availableLanguageVo = availableLanguage.identifier %}
+    {% set availableLanguageId = availableLanguage.getId() %}
     {% set name = '' %}
     {% set description = '' %}
     {% for item in translates %}
-        {% if item.getLanguage() == availableLanguageVo.__toString() %}
+        {% if item.getLanguage() == availableLanguageId %}
             {% set name = item.getName() %}
             {% set description = item.getDescription() %}
         {% endif %}
@@ -20,9 +20,9 @@
 
     <div class="form-group p-2 my-2">
         <div class="mb-1">
-            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageVo }}</label>
+            <label class="form-label" for="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]">Language: {{ availableLanguageId }}</label>
             <input type="text" class="form-control" name="{{ data.translateField }}[{{ loop.index0 }}][{{ data.languageField }}]" 
-                value="{{ availableLanguageVo }}" 
+                value="{{ availableLanguageId }}" 
                 hidden
             >
         </div>

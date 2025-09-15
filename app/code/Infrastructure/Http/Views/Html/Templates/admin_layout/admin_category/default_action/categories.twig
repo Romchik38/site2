@@ -83,7 +83,7 @@
                 {% set active = 'active' %}
             {% endif %}
             <tr>
-                {% set categoryId = category.id.__toString() %}
+                {% set categoryId = category.getId() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ categoryId }}</th>
                 {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId|url_encode]) %}

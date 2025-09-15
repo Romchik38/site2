@@ -8,6 +8,7 @@
 
 {% block content %}
 {% set audio = data.audioDto %}
+{% set audioId = audio.getId() %}
 {% set articles = audio.articles %}
 {% set deleteUrl = u.fromArray(['root', 'admin', 'audio', 'delete']) %}
 {% set listUrl = u.fromArray(['root', 'admin', 'audio']) %}
@@ -21,13 +22,13 @@
         <form action="{{ updateUrl }}" method="post">
             <div class="form-group mb-2 p-2">
                 <div class="mb-3">
-                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ audio.id }}</label>
-                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audio.id }}" hidden>
+                    <label class="form-label" for="{{ data.idFiled }}">Id: {{ audioId }}</label>
+                    <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audioId }}" hidden>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="{{ data.nameFiled }}">Name</label>
-                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ audio.name }}">
+                    <input type="text" class="form-control" name="{{ data.nameFiled }}" required value="{{ audio.getName() }}">
                 </div>
             </div>
             <div class="form-group p-2">
@@ -62,7 +63,7 @@
             </div>
         </form>
         <form action="{{ deleteUrl }}" method="post" id="delete-form">
-            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audio.id }}" hidden>
+            <input type="text" class="form-control" name="{{ data.idFiled }}" value="{{ audioId }}" hidden>
             <input type="hidden" name="{{ visitor.getCsrfTokenField() }}" value="{{ visitor.getCsrfToken() }}" />
         </form>
         <script>

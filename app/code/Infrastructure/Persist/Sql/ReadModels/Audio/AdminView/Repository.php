@@ -10,6 +10,7 @@ use Romchik38\Server\Persist\Sql\QueryException;
 use Romchik38\Site2\Application\Audio\AdminView\NoSuchAudioException;
 use Romchik38\Site2\Application\Audio\AdminView\RepositoryException;
 use Romchik38\Site2\Application\Audio\AdminView\RepositoryInterface;
+use Romchik38\Site2\Application\Audio\AdminView\View\ArticleDto;
 use Romchik38\Site2\Application\Audio\AdminView\View\AudioDto;
 use Romchik38\Site2\Application\Audio\AdminView\View\Translate;
 use Romchik38\Site2\Domain\Article\VO\Identifier as ArticleId;
@@ -111,15 +112,15 @@ final class Repository implements RepositoryInterface
 
     /**
      * @throws  InvalidArgumentException
-     * @return array<int,ArticleId>
+     * @return array<int,ArticleDto>
      * */
     private function createArticles(string $rawArticles): array
     {
         $decodedArticles = json_decode($rawArticles);
 
         $data = [];
-        foreach ($decodedArticles as $article) {
-            $data[] = new ArticleId($article);
+        foreach ($decodedArticles as $articleId) {
+            $data[] = new ArticleDto(new ArticleId($articleId));
         }
         return $data;
     }

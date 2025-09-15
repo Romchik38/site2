@@ -24,7 +24,7 @@
                                     {% set activeArticle = 'active' %}
                                 {% endif %}           
                                 <tr>
-                                    {% set articleId = article.id.__toString() %}
+                                    {% set articleId = article.getId() %}
                                     <th>{{ articleId }}</th>
                                     <td class="{{ activeColorArticle }}">{{ activeArticle }}</td>
                                     <td><a href="{{ u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) }}">Edit</a></td>

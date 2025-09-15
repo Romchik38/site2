@@ -88,14 +88,14 @@
                 {% set active = 'active' %}
             {% endif %}
 
-            {% set audioId = audio.id.__toString() %}
+            {% set audioId = audio.getId() %}
             <tr>
                 <!-- 1. Id -->
                 <th scope="row">{{ audioId }}</th>
                 <!-- 2. Active -->
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <!-- 3. Name -->
-                <td>{{ audio.name }}</td> 
+                <td>{{ audio.getName() }}</td> 
                 {% set editUrl = u.fromArray(['root', 'admin', 'audio', audioId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>

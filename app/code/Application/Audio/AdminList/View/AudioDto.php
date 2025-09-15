@@ -16,6 +16,16 @@ final readonly class AudioDto
     ) {
     }
 
+    public function getId(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->name;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [

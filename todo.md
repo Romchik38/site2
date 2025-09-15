@@ -3,6 +3,7 @@
 ## Current
 
 - refactor __toString in templates
+  - language dto
 
 ## Next
 
