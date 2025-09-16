@@ -2,6 +2,8 @@
 
 ## Current
 
+- robots.txt
+
 ## Next
 
 - pagespeed test
