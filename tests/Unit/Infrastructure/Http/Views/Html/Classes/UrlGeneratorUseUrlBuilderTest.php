@@ -43,19 +43,18 @@ final class UrlGeneratorUseUrlBuilderTest extends TestCase
         $urlGenerator->generateUrl($queries);
     }
 
-    // special chars
-    // public function testGenerateUrlWithSpecialChars(): void
-    // {
-    //     $path = new Path(['root', 'categories']);
-    //     $urlbuilder = new Urlbuilder();
-    //     $urlGenerator = new UrlGeneratorUseUrlBuilder($path, $urlbuilder);
+    public function testGenerateUrlWithSpecialChars(): void
+    {
+        $path = new Path(['root', 'categories']);
+        $urlbuilder = new Urlbuilder();
+        $urlGenerator = new UrlGeneratorUseUrlBuilder($path, $urlbuilder);
 
-    //     $query1 = new Query('cat_id', 'id_1');
-    //     $query2 = new Query('text', 'so\'me text');
-    //     $queries = [$query1, $query2];
+        $query1 = new Query('cat_id', 'id_1');
+        $query2 = new Query('text', 'so\'me text');
+        $queries = [$query1, $query2];
 
-    //     $url = $urlGenerator->generateUrl($queries);
+        $url = $urlGenerator->generateUrl($queries);
 
-    //     $this->assertSame('/categories?cat_id=id_1&text=so%27me+text', $url);
-    // }
+        $this->assertSame('/categories?cat_id=id_1&text=so%27me+text', $url);
+    }
 }
