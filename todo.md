@@ -2,7 +2,6 @@
 
 ## Current
 
-- test `UrlGeneratorUseUrlBuilder` with special chars
 - all big images must be as a `<pucture>` tag
 - adaptive - mobile first screen
   - hide infoline
