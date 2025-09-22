@@ -4,8 +4,9 @@
 2. Php-fpm
 3. Nginx
 4. Postgresql
-5. Check frontend
-6. Check backend
+5. Directories and permissions
+6. Check frontend
+7. Check backend
 
 ## 1. Clone project
 
@@ -34,26 +35,32 @@ I have prepared [simple.conf](./../../nginx/simple.conf) that might help to conf
 Site2 uses Postgresql version 17. You must proceed next steps to run programm:
 
 1. Install and configure your `Postgresql` mannualy.
-2. Create database `site2`
-3. Add database info from last dump file.
-4. Place config file to [database.php](./../../app/config/private/)
-5. Install dictionaries for full text search
+2. Install dictionaries for full text search
+3. Create database `site2`
+4. Add database info from last dump file.
+5. Place config file to [database.php](./../../app/config/private/)
 
 ### 4.1. Install and configure your `Postgresql` mannualy
 
 You must install, update and configure your database by yourself. If you don't know what to do, familiarize yourself with the [database documentation](https://www.postgresql.org/).
 
-### 4.2. Create database `site2`
+### 4.2. Install dictionaries for full text search
+
+1. Move dictionaries from `docker/postgres/dict` to you postgres `tsearch_data` dir. For example - `/usr/share/pgsql/tsearch_data` is relevant in `Fedora42`.
+2. run sql script `sql/uk-dict/dictionary.sql`
+    `psql -U postgres -d site2 < dictionary.sql
+
+### 4.3. Create database `site2`
 
 Use [script](./../../docker/postgres/scripts/database.sql) to create a database `site2`
 
 `psql -U postgres < database.sql`
 
-### 4.3. Add database info from last dump file
+### 4.4. Add database info from last dump file
 
 `psql -U postgres -d site2 < site2.sql`
 
-### 4.4 Place config info to [database.php](./../../app/config/private/)
+### 4.5 Place config info to [database.php](./../../app/config/private/)
 
 After project's cloning:
 
@@ -73,13 +80,27 @@ After project's cloning:
 Please, edit the code above to your configuration.
 Read more about [connect settings](https://www.php.net/manual/en/function.pg-connect.php)
 
-### 4.5. Install dictionaries for full text search
+## 5. Directories and permissions
 
-1. Move dictionaries from `docker/postgres/dict` to you postgres `tsearch_data` dir. For example - `/usr/share/pgsql/tsearch_data` is relevant in `Fedora42`.
-2. run sql script `sql/uk-dict/dictionary.sql`
-    `psql -U postgres -d site2 < dictionary.sql
+### 5.1 Selinux
 
-## 5. Check frontend
+cd /full_path_to/site2_folder
+restorecon -R .
+
+### 5.2 Config var/ folder
+
+Creating a `var/` directory for logging and assigning write permissions to it for the service. Adding a SELinux rule so that the service can create and edit the log file. The log file will be created automatically upon first recording.
+
+```bash
+cd /full_path_to/site2_folder
+mkdir app/var/
+sudo semanage fcontext -a -t httpd_sys_rw_content_t "/full_path_to/site2_folder/app/var(/.*)?"
+sudo restorecon -R .
+sudo chown user_name:service_name app/var/
+chmod g=rwx app/var/
+```
+
+## 6. Check frontend
 
 - Visit `/` url. It should redirect to `/en` or `/uk` based on your browser config.
 - Check search by placed query to search field and pressing next to it button.
@@ -87,7 +108,7 @@ Read more about [connect settings](https://www.php.net/manual/en/function.pg-con
 
 Read [frontend login](./../frontend/login.md) section.
 
-## 6. Check backend
+## 7. Check backend
 
 To check backend
 
