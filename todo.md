@@ -4,11 +4,6 @@
 
 - adaptive - mobile first screen
   - burger
-    - combine blog categories in one menu point
-    - add important pages as menu point
-      - about
-      - services
-      - contacts
     - add language switcher
     - add login/username
     - add contact phone

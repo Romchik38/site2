@@ -1,37 +1,13 @@
 {% set qm = meta_data.query_metadata %}
 <!-- Urls -->
+{% set linkUrl = u.fromArray(['root']) ~ '/' %}
 {% set urlRoot = urlbuilder.fromArray(['root']) %}
-{% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set searchUrl = u.fromArray(['root', 'search']) %}
-<!-- Traffic -->
+<!-- Blog -->
+{% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set trafficUrl = u.fromArray(['root', 'category', 'traffic']) %}
-{% set trafficLegislativeUrl = u.fromArray(['root', 'category', 'traffic-legislative-changes']) %}
-{% set trafficConsultationUrl = u.fromArray(['root', 'category', 'traffic-consultations']) %}
-{% set trafficJudicalUrl = u.fromArray(['root', 'category', 'traffic-judicial-practice']) %}
-{% set trafficLegalUrl = u.fromArray(['root', 'category', 'traffic-legal-framework']) %}
-{% set trafficMistakesUrl = u.fromArray(['root', 'category', 'traffic-common-mistakes']) %}
-{% set trafficStopUrl = u.fromArray(['root', 'category', 'traffic-vehicle-stop']) %}
-<!-- Admin proc -->
 {% set adminUrl = u.fromArray(['root', 'category', 'administrative-process']) %}
-{% set adminLFUrl = u.fromArray(['root', 'category', 'administrative-process-legal-framework']) %}
-{% set adminLCUrl = u.fromArray(['root', 'category', 'administrative-process-legislative-changes']) %}
-{% set adminCUrl = u.fromArray(['root', 'category', 'administrative-process-consultations']) %}
-{% set adminDUrl = u.fromArray(['root', 'category', 'administrative-process-administrative-detention']) %}
-{% set adminEUrl = u.fromArray(['root', 'category', 'evidence']) %}
-<!-- military -->
 {% set militaryUrl = u.fromArray(['root', 'category', 'military-law']) %}
-{% set militaryLfUrl = u.fromArray(['root', 'category', 'military-law-legal-framework']) %}
-{% set militaryLcUrl = u.fromArray(['root', 'category', 'military-law-legislative-changes']) %}
-{% set militaryMmcUrl = u.fromArray(['root', 'category', 'military-law-mmc']) %}
-{% set militaryJpUrl = u.fromArray(['root', 'category', 'military-law-judicial-practice']) %}
-{% set militaryDocUrl = u.fromArray(['root', 'category', 'military-registration-document']) %}
-{% set militaryReservUrl = u.fromArray(['root', 'category', 'military-reservation']) %}
-<!-- Translates -->
-{% set tAll = translate.t('menu.all') %}
-{% set tLf = translate.t('menu.legal-framework') %}
-{% set tLc = translate.t('menu.legislative-changes') %}
-{% set tC = translate.t('menu.consultations') %}
-{% set tJp = translate.t('menu.judicial-practice') %}
 <nav class="navbar navbar-expand-lg navbar-light p-0">
     <div class="container-lg d-block p-0">
         <div class="d-flex d-lg-none justify-content-between p-2 background-nav-container">
@@ -42,68 +18,60 @@
             </button>
             <a class="link-none h1 d-lg-none" href="{{ urlRoot }}">{{translate.t('header.logo')}}</a>
         </div>
-        <div class="collapse navbar-collapse bg-white p-2" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
+        <div class="collapse navbar-collapse bg-white p-2 justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <!-- About -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ latestUrl }}">{{ translate.t('menu.latest') }}</a>
+                    <a class="nav-link" href="{{ linkUrl ~ 'about' }}">{{ translate.t('footer.links.about') }}</a>
                 </li>
-                <!-- Administrative process -->
+                <!-- Services -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ translate.t('menu.administrative-process') }}
+                        {{ translate.t('Services') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ adminLFUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="{{ adminLCUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="{{ adminCUrl }}">{{ tC }}<small class="color-secondary">
-                                    hot</small></a></li>
-                        <li><a class="dropdown-item" href="{{ adminDUrl }}">{{ translate.t('menu.administrative-detention') }}</a></li>                                    
-                        <li><a class="dropdown-item" href="{{ adminEUrl }}">{{ translate.t('menu.evidence') }}</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ adminUrl }}">{{ tAll }}</a></li>
+                        <li><a class="dropdown-item" href="{{ linkUrl ~ 'commercial-offer' }}">{{ translate.t('Legal Support') }}</a></li>                        
+                        <li><a class="dropdown-item" href="{{ linkUrl ~ 'training' }}">{{ translate.t('footer.links.training') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ linkUrl ~ 'exams' }}">{{ translate.t('footer.links.exams') }}</a></li>                                    
+                        <li><a class="dropdown-item" href="{{ linkUrl ~ 'attorney-license' }}">{{ translate.t('footer.links.attorney-license') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ linkUrl ~ 'special-offers' }}">{{ translate.t('footer.links.special.offers') }}<small class="color-secondary">
+                                    hot</small></a></li>                        
                     </ul>
                 </li>
-                <!-- Trafic -->
+                <!-- Blog -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ translate.t('menu.traffic') }}
+                        {{ translate.t('Blog') }}
                     </a>
                     <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ trafficLegislativeUrl }}">{{ tLc }}<small class="color-secondary">
-                                    hot</small></a></li>
-                        <li><a class="dropdown-item" href="{{ trafficConsultationUrl }}">{{ tC }}</a></li>
-                        <li><a class="dropdown-item" href="{{ trafficJudicalUrl }}">{{ tJp }}</a></li>
-                        <li><a class="dropdown-item" href="{{ trafficLegalUrl }}">{{ tLf }}</a></li>                        
-                        <li><a class="dropdown-item" href="{{ trafficMistakesUrl }}">{{ translate.t('menu.common-mistakes') }}</a></li>
-                        <li><a class="dropdown-item" href="{{ trafficStopUrl }}">{{ translate.t('menu.traffic-vehicle-stop') }}</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
+
+                        <!-- Latest -->
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="{{ latestUrl }}">{{ translate.t('menu.latest') }}</a>
                         </li>
-                        <li><a class="dropdown-item" href="{{ trafficUrl }}">{{ tAll }}</a></li>
+
+                        <!-- Administrative process -->
+                       <li class="nav-item">
+                            <a class="dropdown-item" href="{{ adminUrl }}">{{ translate.t('menu.administrative-process') }}</a>
+                        </li>
+
+                        <!-- Trafic -->
+                       <li class="nav-item">
+                            <a class="dropdown-item" href="{{ trafficUrl }}">{{ translate.t('menu.traffic') }}</a>
+                        </li>
+
+                        <!-- Military -->
+                       <li class="nav-item">
+                            <a class="dropdown-item" href="{{ militaryUrl }}">{{ translate.t('menu.military-law') }}</a>
+                        </li>                        
+
                     </ul>
                 </li>
-                <!-- Military -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                       {{ translate.t('menu.military-law') }}
-                    </a>
-                    <ul class="dropdown-menu background-nav-dropdown" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ militaryLfUrl }}">{{ tLf }}</a></li>
-                        <li><a class="dropdown-item" href="{{ militaryLcUrl }}">{{ tLc }}</a></li>
-                        <li><a class="dropdown-item" href="{{ militaryMmcUrl }}">{{ translate.t('menu.military-medical-commission') }}</a></li>
-                        <li><a class="dropdown-item" href="{{ militaryJpUrl }}">{{ tJp }}</a></li>
-                        <li><a class="dropdown-item" href="{{ militaryDocUrl }}">{{ translate.t('menu.military-registration-document') }}<small class="color-secondary"> hot</small></a></li>
-                        <li><a class="dropdown-item" href="{{ militaryReservUrl }}">{{ translate.t('menu.reservation') }}</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                       <li><a class="dropdown-item" href="{{ militaryUrl }}">{{ tAll }}</a></li>
-                    </ul>
+               <!-- Contacts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ linkUrl ~ 'contacts' }}">{{ translate.t('footer.links.contacts') }}</a>
                 </li>
             </ul>
             <form class="api-header-search-form d-flex" method="get" action="{{ searchUrl }}">
