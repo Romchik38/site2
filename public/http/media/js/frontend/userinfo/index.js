@@ -5,17 +5,17 @@ import { default as ComponentCollection } from '/media/js/modules/components/com
 import { default as makeRequest } from '/media/js/modules/utils/make-request/make-post-request.js';
 import { default as RequestData } from '/media/js/modules/utils/make-request/request-data.js';
 import { VisitorData as vd } from '/media/js/frontend/visitor/visitorData.js';
-import { default as FormLogout } from './form.js';
+import { default as FormCollectionLogout } from './form.js';
 
 /**
  * @var flo - Form logout
  */
 
 var notloggedinElems = ComponentCollection.fromClass('header-user-notloggedin');
-var loggedinElem = Component.fromClass('header-user-loggedin');
-var usernameElem = Component.fromClass('user-name-field');
+var loggedinElem = ComponentCollection.fromClass('header-user-loggedin');
+var usernameElem = ComponentCollection.fromClass('user-name-field');
 var ab = Component.fromClass('api-userinfo-accept-btn');
-var flo = FormLogout.fromClass('header-user-form-logout');
+var flo = FormCollectionLogout.fromClass('header-user-form-logout');
 
 flo.onEvent('click', ()=> {
     flo.markAsVisited();

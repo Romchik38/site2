@@ -1,11 +1,14 @@
 'use strict';
 
-import { default as Form } from '/media/js/modules/components/form.js';
+import { default as FormCollection } from '/media/js/modules/components/formCollection.js';
 
-class FormLogout extends Form {
+
+class FormCollectionLogout extends FormCollection {
     markAsVisited() {
-        this.node.style['text-decoration'] = 'underline';
+        for (var component of this.components) {
+            component.node.style['text-decoration'] = 'underline';
+        }
     }
 };
 
-export default FormLogout;
+export default FormCollectionLogout;

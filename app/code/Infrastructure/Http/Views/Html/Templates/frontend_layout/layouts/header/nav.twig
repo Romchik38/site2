@@ -3,6 +3,8 @@
 {% set linkUrl = u.fromArray(['root']) ~ '/' %}
 {% set urlRoot = urlbuilder.fromArray(['root']) %}
 {% set searchUrl = u.fromArray(['root', 'search']) %}
+{% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
+{% set urlLogin = urlbuilder.fromArray(['root', 'login']) %}
 <!-- Blog -->
 {% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set trafficUrl = u.fromArray(['root', 'category', 'traffic']) %}
@@ -74,11 +76,49 @@
                     <a class="nav-link" href="{{ linkUrl ~ 'contacts' }}">{{ translate.t('footer.links.contacts') }}</a>
                 </li>
             </ul>
-            <form class="api-header-search-form d-flex" method="get" action="{{ searchUrl }}">
+            <!-- Search -->
+            <form class="api-header-search-form d-flex my-2 my-lg-0" method="get" action="{{ searchUrl }}">
                 <input class="api-header-search-query form-control me-2" type="text" name="{{ qm.nameField }}" placeholder="{{ translate.t('Search') }}" aria-label="Search" maxlength="{{ qm.maxLength }}">
                 <button class="api-header-search-btn btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <script type="module" src="/media/js/frontend/header/search/index.js"></script>
+            <div class="d-lg-none d-block">
+                <!-- Language -->
+                <div class="py-2">
+                    <select class="border-start border-4 language p-2 bg-white" style="border: 0" disabled="0">
+                        {% for l in languages %}
+                            {% set selected = '' %}
+                            {% set disabled = '' %}
+                            {% set value = '' %}
+                            {% if l == language %}
+                                {% set selected = 'selected="true"' %}
+                                {% set disabled = 'disabled' %}
+                            {% else %}
+                                {% set value = su.withRoot(l) %}
+                            {% endif %}
+                            <option value="{{ value }}" {{disabled}} {{selected}}>{{translate.translate('global.language', l)}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <div class="header-user-notloggedin">
+                        <a class="link-none" href="{{ urlLogin }}">
+                            <button class="btn border w-100">
+                                {{translate.t('header.sing_in')}}
+                            </button>
+                        </a>
+                    </div>
+                    <div class="header-user-loggedin justify-content-between" style="display:none">
+                        <a class="link-none" href="{{ accountUrl }}">
+                            <span class="user-name-field"></span>
+                        </a>
+                        <form class="header-user-form-logout" action="{{ urlLogout }}" method="post">
+                            <u>{{ t.t('logout') }}</u>
+                        </form>
+                    </div>
+                </div>
+                <hr class="mt-3">
+            </div>
         </div>
     </div>
 </nav>

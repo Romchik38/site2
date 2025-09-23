@@ -3,10 +3,6 @@
 ## Current
 
 - adaptive - mobile first screen
-  - burger
-    - add language switcher
-    - add login/username
-    - add contact phone
   - create bottom infoline with sitemap
 - accept terms move to bottom
 - main page - add blocks
