@@ -45,12 +45,12 @@ final class UrlGeneratorUseUrlBuilderTest extends TestCase
 
     public function testGenerateUrlWithSpecialChars(): void
     {
-        $path = new Path(['root', 'categories']);
-        $urlbuilder = new Urlbuilder();
+        $path         = new Path(['root', 'categories']);
+        $urlbuilder   = new Urlbuilder();
         $urlGenerator = new UrlGeneratorUseUrlBuilder($path, $urlbuilder);
 
-        $query1 = new Query('cat_id', 'id_1');
-        $query2 = new Query('text', 'so\'me text');
+        $query1  = new Query('cat_id', 'id_1');
+        $query2  = new Query('text', 'so\'me text');
         $queries = [$query1, $query2];
 
         $url = $urlGenerator->generateUrl($queries);
