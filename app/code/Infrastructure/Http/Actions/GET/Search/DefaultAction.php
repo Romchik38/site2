@@ -25,7 +25,6 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBui
 
 use function count;
 use function is_string;
-use function urlencode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -68,7 +67,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                     new Path(['root', 'search']),
                     $this->urlbuilder
                 );
-                $searchQuery    = new Query(ListCommand::QUERY_FILED, urlencode((string) $listResult->query));
+                $searchQuery    = new Query(ListCommand::QUERY_FILED, (string) $listResult->query);
                 $pagination     = new CreatePaginationNextPrev(
                     $urlGenerator,
                     count($articleList),

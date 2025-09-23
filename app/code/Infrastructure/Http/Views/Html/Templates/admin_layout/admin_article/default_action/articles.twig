@@ -130,7 +130,7 @@
                 <td class="{{ activeColorAudio }}">{{ audioActive }}</td>
 
                 <td>{{ article.getAuthorName() }}</td>
-                {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId|url_encode ]) %}
+                {% set editUrl = u.fromArray(['root', 'admin', 'article', articleId ]) %}
                 <td><a href="{{ editUrl }}">edit</a></td>
                 <td>
                     <form action="{{ u.fromArray(['root', 'admin', 'article', 'delete' ]) }}" method="post">

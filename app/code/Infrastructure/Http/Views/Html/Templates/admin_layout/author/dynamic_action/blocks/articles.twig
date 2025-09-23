@@ -16,9 +16,8 @@
                 {% for article in articles %}             
                     <tr>
                         {% set articleId = article.getId() %}
-                        {% set urlId = articleId|url_encode %}
-                        {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', urlId ]) %}
-                        {% set articlePreviewUrl = u.fromArray(['root', 'article', urlId ]) %}
+                        {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', articleId ]) %}
+                        {% set articlePreviewUrl = u.fromArray(['root', 'article', articleId ]) %}
                         <th>{{ articleId }}</th>
                         <td><a href="{{ articleEditUrl }}">Edit</a></td>
                         <td><a href="{{ articlePreviewUrl }}" target="_blank">Preview</a></td>

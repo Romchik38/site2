@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Category;
 
-use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +12,6 @@ use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
-use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Controller\Path;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
@@ -34,7 +32,6 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBui
 
 use function count;
 use function sprintf;
-use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
@@ -52,12 +49,9 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dynamicAttribute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
-        try {
-            $dynamicRoute = new Name($dynamicAttribute);
-            $decodedRoute = urldecode($dynamicRoute());
-        } catch (InvalidArgumentException) {
-            throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
+        $decodedRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
+        if (! is_string($decodedRoute)) {
+            throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
 
         $requestData = $request->getQueryParams();
@@ -81,7 +75,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         $page           = $findResult->page;
         $totalCount     = $category->totalCount;
 
-        $path              = new Path(['root', 'category', $dynamicRoute()]);
+        $path              = new Path(['root', 'category', $decodedRoute]);
         $urlGenerator      = new UrlGeneratorUseUrlBuilder($path, $this->urlbuilder);
         $additionalQueries = [
             new Query(Filter::ORDER_BY_FIELD, ($searchCriteria->orderByField)()),
@@ -155,10 +149,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     public function getDescription(string $dynamicRoute): string
     {
         try {
-            $name = $this->categoryService->findName(
-                urldecode($dynamicRoute),
-                $this->getLanguage()
-            );
+            $name = $this->categoryService->findName($dynamicRoute, $this->getLanguage());
             return $name();
         } catch (NoSuchCategoryException) {
             throw new DynamicActionLogicException(sprintf(

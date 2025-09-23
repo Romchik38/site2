@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 use Romchik38\Server\Http\Controller\Actions\AbstractMultiLanguageAction;
 use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
-use Romchik38\Server\Http\Controller\Name;
+use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Utils\Urlbuilder\UrlbuilderInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
@@ -27,7 +27,6 @@ use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction\ViewDto;
 
 use function sprintf;
-use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
@@ -47,13 +46,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        try {
-            $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
-        } catch (InvalidArgumentException $e) {
-            throw new ActionNotFoundException($e->getMessage());
+        $decodedRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
+        if (! is_string($decodedRoute)) {
+            throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
 
-        $decodedRoute = urldecode($dynamicRoute());
         $redirectUri  = $this->urlbuilder->fromArray(['root', 'admin', 'banner']);
 
         try {
@@ -85,7 +82,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $html = $this->view
-            ->setController($this->getController(), $dynamicRoute())
+            ->setController($this->getController(), $decodedRoute)
             ->setControllerData($dto)
             ->toString();
 
@@ -94,7 +91,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function getDescription(string $dynamicRoute): string
     {
-        return 'Admin Banner view page ' . urldecode($dynamicRoute);
+        return 'Admin Banner view page ' . $dynamicRoute;
     }
 
     public function getDynamicRoutes(): array

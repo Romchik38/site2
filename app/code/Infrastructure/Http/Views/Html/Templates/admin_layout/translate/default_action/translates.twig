@@ -79,7 +79,7 @@
                 {% set translateId = translate.getId() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ translateId }}</th>
-                {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId|url_encode]) %}
+                {% set translateUrl = u.fromArray(['root', 'admin', 'translate', translateId]) %}
                 <td><a href="{{ translateUrl }}">edit</a></td>
                 <td>
                     <form action="{{ u.fromArray(['root', 'admin', 'translate', 'delete']) }}" method="post">

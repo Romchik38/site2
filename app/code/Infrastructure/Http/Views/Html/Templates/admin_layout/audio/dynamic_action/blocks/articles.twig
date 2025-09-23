@@ -17,7 +17,7 @@
                             <tr class="table-success">
                                 {% set articleId = article.getId() %}
                                 <th>{{ articleId }}</th>
-                                {% set urlId = articleId|url_encode %}
+                                {% set urlId = articleId %}
                                 {% set articleEditUrl = u.fromArray(['root', 'admin', 'article', urlId ]) %}
                                 <td><a href="{{ articleEditUrl }}">Edit</a></td>
                                 <td><a href="{{ u.fromArray(['root', 'article', urlId ]) }}" target="_blank">Preview</a></td>

@@ -86,7 +86,7 @@
                 {% set categoryId = category.getId() %}
                 <!-- 1. Id -->
                 <th scope="row">{{ categoryId }}</th>
-                {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId|url_encode]) %}
+                {% set categoryUrl = u.fromArray(['root', 'admin', 'category', categoryId]) %}
                 <td class="{{ activeColor }}">{{ active }}</td>
                 <td><a href="{{ categoryUrl }}">edit</a></td>
                 <td>

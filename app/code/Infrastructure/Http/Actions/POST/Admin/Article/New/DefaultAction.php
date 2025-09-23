@@ -23,7 +23,6 @@ use RuntimeException;
 
 use function gettype;
 use function sprintf;
-use function urlencode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -83,7 +82,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
     private function createUriWithId(string $id): string
     {
         return $this->urlbuilder->fromArray(
-            ['root', 'admin', 'article', urlencode($id)]
+            ['root', 'admin', 'article', $id]
         );
     }
 }

@@ -32,7 +32,6 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Article\DynamicAction\ViewDto;
 
 use function sprintf;
-use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
@@ -56,7 +55,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $dynamicRoute = new Name($request->getAttribute(self::TYPE_DYNAMIC_ACTION));
-        $decodedRoute = urldecode($dynamicRoute());
+        $decodedRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
 
         $uriList = $this->urlbuilder->fromArray(['root', 'admin', 'article']);
 
@@ -100,7 +99,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $html = $this->view
-            ->setController($this->getController(), $dynamicRoute())
+            ->setController($this->getController(), $decodedRoute)
             ->setControllerData($dto)
             ->toString();
 
@@ -109,7 +108,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function getDescription(string $dynamicRoute): string
     {
-        return 'Admin Article page view ' . urldecode($dynamicRoute);
+        return 'Admin Article page view ' . $dynamicRoute;
     }
 
     public function getDynamicRoutes(): array

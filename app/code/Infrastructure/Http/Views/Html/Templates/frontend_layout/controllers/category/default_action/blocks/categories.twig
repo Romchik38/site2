@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         {% for c in categories %}
-            {% set categoryUrl = u.fromArray(['root', 'category', c.getId()|url_encode]) %}
+            {% set categoryUrl = u.fromArray(['root', 'category', c.getId()]) %}
             <tr>
                 <td><a href="{{ categoryUrl }}">{{ c.getName() }}</a></td>
                 <td>{{ c.getDescription() }}</td>

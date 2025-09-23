@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Article;
 
-use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +12,6 @@ use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
-use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -27,7 +25,6 @@ use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 
 use function sprintf;
-use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
@@ -43,13 +40,10 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dynamicAttribute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
-        try {
-            $dynamicRoute = new Name($dynamicAttribute);
-        } catch (InvalidArgumentException) {
-            throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
+        $decodedRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
+        if (! is_string($decodedRoute)) {
+            throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
-        $decodedRoute = urldecode($dynamicRoute());
 
         // Article
         try {
@@ -59,7 +53,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             ));
         } catch (NoSuchArticleException $e) {
             throw new ActionNotFoundException(
-                sprintf('Route %s not found. Error message: %s', $dynamicRoute(), $e->getMessage())
+                sprintf('Route %s not found. Error message: %s', $decodedRoute, $e->getMessage())
             );
         }
 

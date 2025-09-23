@@ -45,7 +45,7 @@
                     {% if categoryId == category.getId() %}
                         <li class="list-inline-item"><span class="text-decoration-underline">{{ category.getName() }}</span></li>
                     {% else %}
-                        {% set categoryUrl = u.fromArray(['root', 'category', category.getId|url_encode]) %}
+                        {% set categoryUrl = u.fromArray(['root', 'category', category.getId]) %}
                         <li class="list-inline-item"><a class="link-none" href="{{ categoryUrl }}"><span class="text-decoration-underline">{{ category.getName() }}</span></a></li>
                     {% endif %}
                 {% endfor %}
@@ -101,7 +101,7 @@
                     {% if categoryId == category.getId() %}
                         <li class="list-inline-item"><span class="text-decoration-underline">{{ category.getName() }}</span></li>
                     {% else %}
-                        {% set categoryUrl = u.fromArray(['root', 'category', category.getId|url_encode]) %}
+                        {% set categoryUrl = u.fromArray(['root', 'category', category.getId]) %}
                         <li class="list-inline-item"><a class="link-none" href="{{ categoryUrl }}"><span class="text-decoration-underline">{{ category.getName() }}</span></a></li>
                     {% endif %}
                 {% endfor %}

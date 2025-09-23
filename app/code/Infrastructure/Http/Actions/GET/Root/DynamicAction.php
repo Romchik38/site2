@@ -27,7 +27,6 @@ use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction\ViewDTO;
 use RuntimeException;
 
 use function sprintf;
-use function urldecode;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
 {
@@ -43,14 +42,11 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $dynamicAttribute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
-        try {
-            $dynamicRoute = new Name($dynamicAttribute);
-        } catch (InvalidArgumentException) {
-            throw new ActionNotFoundException('action ' . $dynamicAttribute . ' not found');
+        $decodedRoute = $request->getAttribute(self::TYPE_DYNAMIC_ACTION);
+        if (! is_string($decodedRoute)) {
+            throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
 
-        $decodedRoute = urldecode($dynamicRoute());
         $command      = new Find($decodedRoute, $this->getLanguage());
 
         try {
@@ -71,7 +67,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         );
 
         $result = $this->view
-            ->setController($this->getController(), $dynamicRoute())
+            ->setController($this->getController(), $decodedRoute)
             ->setControllerData($dto)
             ->toString();
 
@@ -93,13 +89,12 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
 
     public function getDescription(string $dynamicRoute): string
     {
-        $decodedRoute = urldecode($dynamicRoute);
-        $command      = new Find($decodedRoute, $this->getLanguage());
+        $command = new Find($dynamicRoute, $this->getLanguage());
 
         try {
             $page = $this->pageViewService->find($command);
         } catch (InvalidArgumentException) {
-            throw new ActionNotFoundException(sprintf('page %s not found', $decodedRoute));
+            throw new ActionNotFoundException(sprintf('page %s not found', $dynamicRoute));
         } catch (NoSuchPageException) {
             throw new DynamicActionLogicException(sprintf('Description not found in action %s', $dynamicRoute));
         }

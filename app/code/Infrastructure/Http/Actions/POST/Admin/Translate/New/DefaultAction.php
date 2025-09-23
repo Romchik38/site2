@@ -23,7 +23,6 @@ use RuntimeException;
 
 use function gettype;
 use function sprintf;
-use function urlencode;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
@@ -58,7 +57,7 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
             $this->translateModelService->create($command);
             $message = $this->translateService->t($this::SUCCESS_UPDATE_KEY);
             $uri     = $this->urlbuilder->fromArray(
-                ['root', 'admin', 'translate', urlencode($command->id)]
+                ['root', 'admin', 'translate', $command->id]
             );
         } catch (InvalidArgumentException $e) {
             $message = sprintf(

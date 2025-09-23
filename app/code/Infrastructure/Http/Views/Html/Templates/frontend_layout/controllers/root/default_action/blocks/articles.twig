@@ -4,7 +4,7 @@
         <div class="col-sm-4">
             {% for i in 1..articles|length - 1 %}
                 {% set article = articles[i] %}
-                {% set articleUrl = u.fromArray(['root', 'article', article.getId()|url_encode ]) %}
+                {% set articleUrl = u.fromArray(['root', 'article', article.getId() ]) %}
                 <div>
                     <a class="link-none" href="{{ articleUrl }}">
                         <h4 class="text-break">{{ article.getName() }}</h4>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-8">
             <div class="medium-news">
-                {% set firstArticleUrl = u.fromArray(['root', 'article', firstArticle.getId()|url_encode ]) %}
+                {% set firstArticleUrl = u.fromArray(['root', 'article', firstArticle.getId()]) %}
                 <a class="link-none" href="{{ firstArticleUrl }}">
                     <div class="img">
                         <picture>
