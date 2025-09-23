@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b31ce47a391eb6fb3d2c514839f9d004",
+    "content-hash": "1b9254dd3cd56b236b50eeb332307c75",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -426,16 +426,16 @@
         },
         {
             "name": "romchik38/php-server",
-            "version": "v1.28.3",
+            "version": "v1.29.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Romchik38/server.git",
-                "reference": "6da03630fec9fd982d94e69008bf75ca15c61c60"
+                "reference": "a0276751b44d92999ece7d836266f03d74c13703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Romchik38/server/zipball/6da03630fec9fd982d94e69008bf75ca15c61c60",
-                "reference": "6da03630fec9fd982d94e69008bf75ca15c61c60",
+                "url": "https://api.github.com/repos/Romchik38/server/zipball/a0276751b44d92999ece7d836266f03d74c13703",
+                "reference": "a0276751b44d92999ece7d836266f03d74c13703",
                 "shasum": ""
             },
             "require": {
@@ -482,10 +482,10 @@
             ],
             "description": "Php files to create a web app under php-fpm ",
             "support": {
-                "source": "https://github.com/Romchik38/server/tree/v1.28.3",
+                "source": "https://github.com/Romchik38/server/tree/v1.29.1",
                 "issues": "https://github.com/Romchik38/server/issues"
             },
-            "time": "2025-09-22T14:02:25+00:00"
+            "time": "2025-09-23T09:10:54+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
