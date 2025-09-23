@@ -2,6 +2,10 @@
 
 ## Current
 
+- encoding
+  - view
+  - actions
+
 - all big images must be as a `<pucture>` tag
 - adaptive - mobile first screen
   - hide infoline
