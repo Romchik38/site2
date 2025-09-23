@@ -2,10 +2,7 @@
 
 ## Current
 
-- all big images must be as a `<pucture>` tag
 - adaptive - mobile first screen
-  - hide infoline
-  - hide subscrive/login
   - burger
     - combine blog categories in one menu point
     - add important pages as menu point
@@ -28,6 +25,8 @@
   - source width/height
     - `<source width="480" height="180">`
     - `img` attributes - `width="auto" height="100%"`
+
+- all big images must be as a `<pucture>` tag
 
 ## Next
 

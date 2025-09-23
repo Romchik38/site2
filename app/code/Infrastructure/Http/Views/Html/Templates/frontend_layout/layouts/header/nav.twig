@@ -1,5 +1,6 @@
 {% set qm = meta_data.query_metadata %}
 <!-- Urls -->
+{% set urlRoot = urlbuilder.fromArray(['root']) %}
 {% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set searchUrl = u.fromArray(['root', 'search']) %}
 <!-- Traffic -->
@@ -31,15 +32,17 @@
 {% set tLc = translate.t('menu.legislative-changes') %}
 {% set tC = translate.t('menu.consultations') %}
 {% set tJp = translate.t('menu.judicial-practice') %}
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand d-sm-none" href="#">Lawshield</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg navbar-light p-0">
+    <div class="container-lg d-block p-0">
+        <div class="d-flex d-lg-none justify-content-between p-2 background-nav-container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="link-none h1 d-lg-none" href="{{ urlRoot }}">{{translate.t('header.logo')}}</a>
+        </div>
+        <div class="collapse navbar-collapse bg-white p-2" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ latestUrl }}">{{ translate.t('menu.latest') }}</a>

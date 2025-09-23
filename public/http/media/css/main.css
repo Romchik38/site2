@@ -37,6 +37,10 @@
 }
 
 /* Nav */
+.background-nav-container {
+    background-color: #ded8d8e4;
+}
+
 .background-nav-dropdown {
     background-color: #e9e9e9;
 }
