@@ -1,12 +1,12 @@
 {% if banner is not null %}
-<div class="container-fluid p-0" style="height: 480px;overflow: hidden;">
+<div class="container-fluid p-0">
         {% set imageId = banner.getImageId() %}
         {% set imageUrl = imageFrontendPath ~ '/' ~ banner.getImagePath() %}
         <picture class="banner_item">
-            <source media="(max-width: 636px)" srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480">
-            <source media="(max-width: 844px)" srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480">
-            <source media="(min-width: 844px)" srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480">
-            <img class="" src="{{ imageUrl }}" alt="" style="max-width: 100%">
+            <source media="(max-width: 636px)" style="width: 100%; height: auto;" width="576" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480">
+            <source media="(max-width: 844px)" style="width: 100%; height: auto;" width="768" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480">
+            <source media="(min-width: 844px)" style="width: 100%; height: auto;" width="1200" height="480" srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480">
+            <img class="" src="{{ imageUrl }}" alt="" style="width: 100%; height: auto;">
         </picture>
 </div>
 {% endif %}

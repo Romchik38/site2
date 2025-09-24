@@ -13,6 +13,7 @@
   - source width/height
     - `<source width="480" height="180">`
     - `img` attributes - `width="auto" height="100%"`
+      - upload w/h for the `img`
 
 - all big images must be as a `<pucture>` tag
 
