@@ -43,7 +43,7 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
 
     private function buildHtml(LinkTreeDTOInterface $linkTreeDto): string
     {
-        return '<ul class="list-group">' . $this->createRow($linkTreeDto) . '</ul>';
+        return '<ul class="list-group">' . $this->createRow($linkTreeDto, ' open ') . '</ul>';
     }
 
     /**
@@ -51,7 +51,7 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
      *
      * @return string <li>inner html</li>
      */
-    private function createRow(LinkTreeDTOInterface $element): string
+    private function createRow(LinkTreeDTOInterface $element, string $open = ''): string
     {
         $children    = $element->getChildren();
         $description = $element->getDescription();
@@ -82,12 +82,12 @@ final class SitemapLinkTreeToHtml implements SitemapLinkTreeInterface
         }
         $template = <<<TEMPLATE
         <li class="list-group-item bg-light">
-            <details>
+            <details%s>
                 <summary>%s</summary>
                 <ul class="list-group">%s</ul>
             </details>
         </li>
         TEMPLATE;
-        return sprintf($template, $rowNameHtml, implode('', $rowElementsHtml));
+        return sprintf($template, $open, $rowNameHtml, implode('', $rowElementsHtml));
     }
 }

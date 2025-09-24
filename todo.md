@@ -2,8 +2,6 @@
 
 ## Current
 
-- adaptive - mobile first screen
-  - create bottom infoline with sitemap
 - accept terms move to bottom
 - main page - add blocks
   - about - short

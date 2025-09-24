@@ -5,11 +5,13 @@
 {% set searchUrl = u.fromArray(['root', 'search']) %}
 {% set urlLogout = urlbuilder.fromArray(['root', 'logout']) %}
 {% set urlLogin = urlbuilder.fromArray(['root', 'login']) %}
+{% set urlSitemap = urlbuilder.fromArray(['root', 'sitemap']) %}
 <!-- Blog -->
 {% set latestUrl = u.fromArray(['root', 'article']) %}
 {% set trafficUrl = u.fromArray(['root', 'category', 'traffic']) %}
 {% set adminUrl = u.fromArray(['root', 'category', 'administrative-process']) %}
 {% set militaryUrl = u.fromArray(['root', 'category', 'military-law']) %}
+{% set categoryUrl = u.fromArray(['root', 'category']) %}
 <nav class="navbar navbar-expand-lg navbar-light p-0">
     <div class="container-lg d-block p-0">
         <div class="d-flex d-lg-none justify-content-between p-2 background-nav-container">
@@ -68,10 +70,12 @@
                        <li class="nav-item">
                             <a class="dropdown-item" href="{{ militaryUrl }}">{{ translate.t('menu.military-law') }}</a>
                         </li>                        
-
+                       <li class="nav-item">
+                            <a class="dropdown-item" href="{{ categoryUrl }}">{{ translate.t('menu.categories') }}</a>
+                        </li> 
                     </ul>
                 </li>
-               <!-- Contacts -->
+                <!-- Contacts -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ linkUrl ~ 'contacts' }}">{{ translate.t('footer.links.contacts') }}</a>
                 </li>
@@ -83,6 +87,12 @@
             </form>
             <script type="module" src="/media/js/frontend/header/search/index.js"></script>
             <div class="d-lg-none d-block">
+                <!-- Sitemap -->
+                <div>
+                    <a class="link-none" href="{{ urlSitemap }}">
+                        {{ translate.t('header.link.sitemap') }}
+                    </a>
+                </div>
                 <!-- Language -->
                 <div class="py-2">
                     <select class="border-start border-4 language p-2 bg-white" style="border: 0" disabled="0">
