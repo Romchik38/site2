@@ -9,13 +9,21 @@ import { default as FormCollectionLogout } from './form.js';
 
 /**
  * @var flo - Form logout
+ * 
+ * Except terms
+ * @var ab  - accept button
+ * @var db  - decline button
+ * @var atb - accept terms banner
  */
 
 var notloggedinElems = ComponentCollection.fromClass('header-user-notloggedin');
 var loggedinElem = ComponentCollection.fromClass('header-user-loggedin');
 var usernameElem = ComponentCollection.fromClass('user-name-field');
-var ab = Component.fromClass('api-userinfo-accept-btn');
 var flo = FormCollectionLogout.fromClass('header-user-form-logout');
+// Except terms
+var ab = Component.fromClass('api-userinfo-accept-btn');
+var db = Component.fromClass('api-userinfo-decline-btn');
+var atb = Component.fromClass('api-userinfo-accept-terms');
 
 flo.onEvent('click', ()=> {
     flo.markAsVisited();
@@ -23,11 +31,6 @@ flo.onEvent('click', ()=> {
 });
 
 var path = ['root', 'api', 'userinfo'];
-
-var atm = new bootstrap.Modal('#accept-terms-modal', {
-  keyboard: false,
-  backdrop: 'static'
-})
 
 var proccessUsername = function() {
     var username = vd.getUsername();
@@ -44,14 +47,14 @@ var proccessAcceptedTerms = function() {
     if (isAccepted === '1') {
         return;
     } else if(isAccepted === '0') {
-        atm.show();
+        atb.show();
     } else {
         throw new Error('Visitor isAccepted is invalid');
     }
 }
 
 ab.onEvent('click', () => {
-    atm.hide();
+    atb.hide();
     var requestData = new RequestData();
     requestData.addData(vd.getCsrfTokenField(), vd.getCsrfToken());
     makeRequest(path, requestData, (err, data) => {
@@ -61,6 +64,10 @@ ab.onEvent('click', () => {
             console.log({ 'userinfo': data });
         }
     });                
+});
+
+db.onEvent('click', () => {
+    atb.hide();
 });
 
 document.addEventListener('DOMContentLoaded', ()=>{

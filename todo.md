@@ -2,7 +2,6 @@
 
 ## Current
 
-- accept terms move to bottom
 - main page - add blocks
   - about - short
   - services - a list of links from menu
