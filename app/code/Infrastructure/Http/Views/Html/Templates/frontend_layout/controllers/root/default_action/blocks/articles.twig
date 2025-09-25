@@ -26,9 +26,9 @@
                 <a class="link-none" href="{{ firstArticleUrl }}">
                     <div class="img">
                         <picture>
-                            <source media="(max-width: 576px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=576">
-                            <source media="(max-width: 768px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=768&height=768">
-                            <source media="(min-width: 768px)" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=1080">
+                            <source media="(max-width: 576px)" width="576" height="576" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=576">
+                            <source media="(max-width: 768px)" width="768" height="768" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=768&height=768">
+                            <source media="(min-width: 768px)" width="1080" height="1080" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=1080">
                             <img 
                                 class="card-img-top"
                                 src="{{ firstArticle.image.path }}" 

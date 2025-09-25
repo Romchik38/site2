@@ -112,11 +112,6 @@ audio {
     min-height:20px
 }
 
-/* RESPONSE */
-@media screen and (max-width: 576px) {
-
-}
-
 /* Cookie */
 .cookie-banner {
     position: fixed;
@@ -129,4 +124,16 @@ audio {
     background-color: #fff;
     border-top: 1px solid #dee2e6;
     padding: 1rem 0;
+}
+
+/* Response image */
+picture > source,
+picture > img {
+    width: 100%; 
+    height: auto;
+}
+
+/* RESPONSE */
+@media screen and (max-width: 576px) {
+
 }
