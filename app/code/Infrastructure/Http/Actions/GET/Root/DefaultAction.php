@@ -27,6 +27,7 @@ use function memory_get_usage;
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
     private const DEFAULT_VIEW_NAME = 'root.page_name';
+    private const DEFAULT_VIEW_DESCRIPTION = 'root.page_description';
 
     public function __construct(
         DynamicRootInterface $dynamicRootService,
@@ -44,8 +45,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         // memory usage #4 inside a controller
         $m4 = memory_get_usage(true) / 1_000_000;
 
-        $translatedMessage = $this->translateService->t($this::DEFAULT_VIEW_NAME);
-
         // Banner
         $banner = null;
         try {
@@ -62,8 +61,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $articleList  = array_slice($filterResult->list, 0, 4);
 
         $dto = new ViewDTO(
-            $translatedMessage,
-            $translatedMessage,
+            $this->translateService->t($this::DEFAULT_VIEW_NAME),
+            $this->translateService->t($this::DEFAULT_VIEW_DESCRIPTION),
             $banner,
             $articleList
         );
