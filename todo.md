@@ -3,7 +3,6 @@
 ## Current
 
 - pagespeed test `/`
-  - image & audio Cache-Control: max-age=86400
   - add `fetchpriority=high` to images
   - source width/height
     - `<source width="480" height="180">`

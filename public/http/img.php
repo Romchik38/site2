@@ -33,6 +33,8 @@ try {
     $imgCacheViewService = $container->get('\Romchik38\Site2\Application\ImageCache\View\ViewService');
     /** @var LoggerServerInterface $logger */
     $logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
+    /** @var string|null $imageCacheControlHeader */
+    $imageCacheControlHeader = $container->get('img-cache-control-header');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
@@ -59,9 +61,10 @@ try {
     );
 
     $result = $imgCacheViewService->getByKey(new Find($key));
-    header(sprintf(
-        'Content-Type: image/' . $result->type()
-    ));
+    header('Content-Type: image/' . $result->type());
+    if ($imageCacheControlHeader !== null) {
+        header('Cache-Control: ' . $imageCacheControlHeader); 
+    }
     echo base64_decode($result->data());
     exit(0);
 } catch (NoSuchImageCacheException) {
@@ -75,9 +78,10 @@ try {
 // Case 2 - no cache
 try {
     $result = $imgConverterService->createImg($command);
-    header(sprintf(
-        'Content-Type: image/' . $result->type
-    ));
+    header('Content-Type: image/' . $result->type);
+    if ($imageCacheControlHeader !== null) {
+        header('Cache-Control: ' . $imageCacheControlHeader); 
+    }
     echo $result->data;
     // put data to cache
     $cache = new Create(
@@ -105,9 +109,10 @@ try {
     try {
         $commandStub = StubData::fromRequest($data, 'common/404_1080_1080.webp');
         $result = $imgConverterService->createStub($commandStub);
-        header(sprintf(
-            'Content-Type: image/' . $result->type
-        ));
+        header('Content-Type: image/' . $result->type);
+        if ($imageCacheControlHeader !== null) {
+           header('Cache-Control: ' . $imageCacheControlHeader); 
+        }
         echo $result->data;
     } catch (\Exception) {
         http_response_code(500);
