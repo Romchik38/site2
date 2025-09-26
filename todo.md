@@ -2,12 +2,10 @@
 
 ## Current
 
-- pagespeed test `/`
-  - add `fetchpriority=high` to images
-  - source width/height
-    - `<source width="480" height="180">`
-    - `img` attributes - `width="auto" height="100%"`
-  - do test `/` while not green
+- pagespeed test
+  - `/` - 2.1 - 8.1. - 75
+  - `/media/html/skeleton.html` - 1.6 - 2.5 - 97
+
 - distribute the results of the `/` page to all others
 
 - main page - add blocks
