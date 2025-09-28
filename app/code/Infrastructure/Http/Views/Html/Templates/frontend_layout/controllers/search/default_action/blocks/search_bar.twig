@@ -8,7 +8,7 @@
                 {% set inputText = data.query %}
             {% endif %}        
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span class="input-group-text" id="basic-addon1"><img src="/media/img/icons/magnifying-glass-grey.svg" alt="Magnifying glass" priority="low" width="16" height="16"></span>
                 <input class="api-search-query form-control" type="text" name="{{ qmd.nameField }}" placeholder="{{ inputPlaceHolder }}" value="{{ inputText }}" aria-label="Search" maxlength="{{ qmd.maxLength }}">
 
                 <button class="api-search-btn btn btn-secondary" type="submit">{{ t.t('Search') }}</button>

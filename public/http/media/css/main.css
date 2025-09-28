@@ -108,8 +108,26 @@ div.header-user-notloggedin {
     display: none;
 }
 
+.search-btn {
+    background-image: url('/media/img/icons/magnifying-glass-grey.svg');
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+
+.search-btn:hover {
+    background-image: url('/media/img/icons/magnifying-glass-white-white.svg');
+    background-repeat:no-repeat;
+    background-position:center center
+}
+
+/* Other */
 audio {
     min-height:20px
+}
+
+.image_brands {
+    width: 20px;
+    height: 20px;
 }
 
 /* Cookie */
