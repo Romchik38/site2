@@ -12,7 +12,8 @@
             </div>
         </div>
         <div class="col-md-2">
-            <select class="language text-white background-secondary p-0" style="border: 0" disabled="0">
+            <label for="infoline-language">{{ t.t('Language') }}:</label>
+            <select id="infoline-language" class="language text-white background-secondary p-0" style="border: 0" disabled="0">
                 {% for l in languages %}
                     {% set selected = '' %}
                     {% set disabled = '' %}

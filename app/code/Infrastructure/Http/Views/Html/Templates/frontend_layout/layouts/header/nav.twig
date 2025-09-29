@@ -95,7 +95,8 @@
                 </div>
                 <!-- Language -->
                 <div class="py-2">
-                    <select class="border-start border-4 language p-2 bg-white" style="border: 0" disabled="0">
+                    <label for="nav-language">{{ t.t('Language') }}:</label>
+                    <select id="nav-language" class="language p-2 bg-white" style="border: 0" disabled="0">
                         {% for l in languages %}
                             {% set selected = '' %}
                             {% set disabled = '' %}

@@ -12,9 +12,9 @@
         </div>
     </div>
     <div class="col-sm">
-        <div class="container d-sm-block d-flex justify-content-center">
-            <select class="form-select language background-line">
-
+        <div class="d-flex justify-content-end">
+            <label for="footer-language" class="p-2">{{ t.t('Language') }}:</label>
+            <select id="footer-language" class="form-select language background-line">
                 {% for l in languages %}
                     {% set selected = '' %}
                     {% set disabled = '' %}
