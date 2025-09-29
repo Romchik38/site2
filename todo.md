@@ -2,10 +2,7 @@
 
 ## Current
 
-- pagespeed test
-  - `/` - 2.1 - 8.1. - 75
-  - `/media/html/skeleton.html` - 1.6 - 2.5 - 97
-
+- Accessibility 90
 - distribute the results of the `/` page to all others
 
 - main page - add blocks
