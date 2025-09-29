@@ -26,6 +26,13 @@ class ComponentCollection {
         return new this(document.getElementsByClassName(className));
     }
 
+    static fromTag(tagName) {
+        if (typeof tagName !== 'string') {
+            throw new Error('Param tagName is invalid');
+        }
+        return new this(document.getElementsByTagName(tagName));
+    }
+
     disable() {
         for (var component of this.components) {
             component.disable();

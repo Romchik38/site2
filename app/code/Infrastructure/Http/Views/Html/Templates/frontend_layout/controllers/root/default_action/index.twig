@@ -51,54 +51,40 @@
                 <div class="col-xxl-9">
                     <div class="container-fluid">
                         <h2 class="text-center">{{ t.t('Latest Videos') }}</h2>
-                        {{ t.t('root.video.stub')|raw }}
+                        <!-- {{ t.t('root.video.stub')|raw }} -->
 
                         <!-- Uncomment text below instead of stub -->
-
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-sm-10 mx-sm-auto col-md-4 mb-3">
-                                <video class="img-fluid mb-1" src="/media/video/video1.mp4" controls
-                                    crossorigin="anonymous"
-                                    poster="/media/img/videos/placeholders/video-placeholder.png"></video>
+                                <video class="img-fluid mb-1" src="/media/video/video1.mp4" controls crossorigin="anonymous" data-poster="/media/img/videos/placeholders/video-placeholder-1.webp" poster=""></video> 
                                 <h5>The Code of Ukraine on Administrative Offenses</h5>
-                                <p class="h6 text-start">Legislative changes that come into effect from the beginning of the
-                                    year
-                                    and should be thoroughly prepared for.</p>
-                                <footer class="row text-secondary">
-                                    <div class="col-6 font-monospace comments">30 min watch</div>
-                                    <div class="col-6 font-monospace comments">yesterday</div>
-                                </footer>
-                            </div>
-                            <div class="col-sm-10 mx-sm-auto col-md-4 mb-3">
-                                <video class="img-fluid" src="/media/video/video2.mp4" controls
-                                    crossorigin="anonymous"
-                                    poster="/media/img/videos/placeholders/video2-1920-placeholder.jpeg"></video>
-                                <h5>Driver conduct rules during document and vehicle inspection by police officers
-                                </h5>
-                                <p class="h6 text-start">In less than a month, new rules for document and vehicle inspections
-                                    will
-                                    come into force. Detailed information about the innovations and possible
-                                    consequences.</p>
-                                <footer class="row text-secondary">
-                                    <div class="col-6 font-monospace comments">15 min watch</div>
-                                    <div class="col-6 font-monospace comments">morning</div>
-                                </footer>
-                            </div>
-                            <div class="col-sm-10 mx-sm-auto col-md-4 mb-3">
-                                <video class="img-fluid" src="/media/video/video3.mp4" controls
-                                    crossorigin="anonymous"
-                                    poster="/media/img/videos/placeholders/video3-1920-placeholder.jpg"></video>
-                                <h5>Rights and duties of the employees of territorial recruitment centers</h5>
-                                <p class="h6 text-start">A detailed review of the rights and duties of employees of the
-                                    territorial
-                                    recruitment centers (TRCs) in connection with recently adopted legal acts.
-                                    Everything you need to know to avoid legal issues.</p>
-                                <footer class="row text-secondary">
-                                    <div class="col-6 font-monospace comments">45 min watch</div>
-                                    <div class="col-6 font-monospace comments">2 days ago</div>
-                                </footer>
-                            </div>
-                        </div> -->
+                                <p class="h6 text-start">Legislative changes that come into effect from the beginning of the year and should be thoroughly prepared for.</p>
+                                <footer class="row text-secondary">                 
+                                    <div class="col-6 font-monospace comments">30 min watch</div>                 
+                                    <div class="col-6 font-monospace comments">yesterday</div>             
+                                </footer>         
+                            </div>         
+                            <div class="col-sm-10 mx-sm-auto col-md-4 mb-3">         
+                                <video class="img-fluid" src="/media/video/video2.mp4" controls crossorigin="anonymous" data-poster="/media/img/videos/placeholders/video-placeholder-2.webp" poster=""></video>             
+                                <h5>Driver conduct rules during document and vehicle inspection by police officers </h5>             
+                                <p class="h6 text-start">In less than a month, new rules for document and vehicle inspections will come into force. Detailed information about the innovations and possible consequences.</p>             
+                                <footer class="row text-secondary">                 
+                                    <div class="col-6 font-monospace comments">15 min watch</div>                 
+                                    <div class="col-6 font-monospace comments">morning</div>             
+                                </footer>         
+                            </div>         
+                            <div class="col-sm-10 mx-sm-auto col-md-4 mb-3"> 
+                                <video class="img-fluid" src="/media/video/video3.mp4" controls crossorigin="anonymous" data-poster="/media/img/videos/placeholders/video-placeholder-3.webp" poster=""></video>
+                                <h5>Rights and duties of the employees of territorial recruitment centers</h5>             
+                                <p class="h6 text-start">A detailed review of the rights and duties of employees of the territorial recruitment centers (TRCs) in connection with recently adopted legal acts. Everything you need to know to avoid legal issues.</p>             
+                                <footer class="row text-secondary">                 
+                                    <div class="col-6 font-monospace comments">45 min watch</div>                 
+                                    <div class="col-6 font-monospace comments">2 days ago</div>             
+                                </footer>         
+                            </div>     
+                        </div>
+
+
                     </div>
                     <hr>
                 </div>
@@ -392,4 +378,5 @@
         <!-- 6th row end Latest Audio -->
     </div>
 </div>
+<script type="module" src="/media/js/frontend/controllers/root/default/index.js"></script>
 {% endblock %}
