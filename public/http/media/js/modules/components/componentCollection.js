@@ -8,29 +8,43 @@
 import { default as Component } from '/media/js/modules/components/component.js';
 
 class ComponentCollection {
-    constructor(nodes) {
-        if (! nodes instanceof HTMLCollection ) {
-            throw new Error('Param nodes is invalid. Expected HTMLCollection');
+    constructor(components) {
+        for (var component of components) {
+            if (! component instanceof Component ) {
+                throw new Error('Param components is invalid. Expected Component');
+            }
         }
-        this.components = [];
-        for (var node of nodes) {
-            this.components.push(new Component(node));
-        }
-        
+        this.components = components;
     }
 
     static fromClass(className) {
         if (typeof className !== 'string') {
             throw new Error('Param className is invalid');
         }
-        return new this(document.getElementsByClassName(className));
+        var nodes = document.getElementsByClassName(className);
+        if (! nodes instanceof HTMLCollection ) {
+            throw new Error('Param className is invalid. Expected HTMLCollection');
+        }
+        var components = [];
+        for (var node of nodes) {
+            components.push(new Component(node));
+        }
+        return new this(components);
     }
 
     static fromTag(tagName) {
         if (typeof tagName !== 'string') {
             throw new Error('Param tagName is invalid');
         }
-        return new this(document.getElementsByTagName(tagName));
+        var nodes = document.getElementsByTagName(tagName);
+        if (! nodes instanceof HTMLCollection ) {
+            throw new Error('Param tagName is invalid. Expected HTMLCollection');
+        }
+        var components = [];
+        for (var node of nodes) {
+            components.push(new Component(node));
+        }
+        return new this(components);
     }
 
     disable() {

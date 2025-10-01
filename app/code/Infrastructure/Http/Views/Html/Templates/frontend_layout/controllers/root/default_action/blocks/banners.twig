@@ -1,12 +1,12 @@
 {% if banner is not null %}
 <div class="container-lg p-0">
-        {% set imageId = banner.getImageId() %}
-        {% set imageUrl = imageFrontendPath ~ '/' ~ banner.getImagePath() %}
-        <picture class="banner_item">
-            <source media="(max-width: 636px)" width="576" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480" fetchpriority="high">
-            <source media="(max-width: 844px)" width="768" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480" fetchpriority="high">
-            <source media="(min-width: 844px)" width="1200" height="480" srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480" fetchpriority="high">
-            <img class="" src="{{ imageUrl }}" alt="" fetchpriority="high">
-        </picture>
+    {% set imageId = banner.getImageId() %}
+    {% set imageUrl = imageFrontendPath ~ '/' ~ banner.getImagePath() %}
+    <picture class="banner_item">
+        <source media="(max-width: 636px)" width="576" height="480"  data-srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480" fetchpriority="high" srcset="/media/image_placeholder.svg">
+        <source media="(max-width: 844px)" width="768" height="480"  data-srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480" fetchpriority="high" srcset="/media/image_placeholder.svg">
+        <source media="(min-width: 844px)" width="1200" height="480" data-srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480" fetchpriority="high" srcset="/media/image_placeholder.svg">
+        <img class="" src="{{ imageUrl }}" alt="" fetchpriority="high">
+    </picture>
 </div>
 {% endif %}
