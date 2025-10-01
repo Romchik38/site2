@@ -26,9 +26,9 @@
                 <a class="link-none" href="{{ firstArticleUrl }}">
                     <div class="img">
                         <picture>
-                            <source media="(max-width: 576px)" width="576" height="576" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=576" fetchpriority="high">
-                            <source media="(max-width: 768px)" width="768" height="768" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=768&height=768" fetchpriority="high">
-                            <source media="(min-width: 768px)" width="1080" height="1080" srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=1080" fetchpriority="high">
+                            <source media="(max-width: 576px)" width="576" height="576" data-srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=576" srcset="/media/image_placeholder.svg" fetchpriority="high">
+                            <source media="(max-width: 768px)" width="768" height="768" data-srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=768&height=768" srcset="/media/image_placeholder.svg" fetchpriority="high">
+                            <source media="(min-width: 768px)" width="1080" height="1080" data-srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=1080" srcset="/media/image_placeholder.svg" fetchpriority="high">
                             <img 
                                 class="card-img-top"
                                 src="{{ firstArticle.image.path }}" 
@@ -36,9 +36,6 @@
                                 fetchpriority="high"
                             >
                         </picture>
-                        <!-- <img class="img-fluid"
-                            src="/media/img/articles/perevirka-documentiv/1.webp"
-                            alt=""> -->
                     </div>
                 </a>
                 <a class="link-none" href="{{ firstArticleUrl }}">
