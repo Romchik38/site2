@@ -15,7 +15,6 @@ class SourceCollection extends ComponentCollection {
             if (
                 typeof dataSrcset === 'string' & 
                 dataSrcset !== ''
-                
             ) {
                 component.node.srcset = dataSrcset;
             }

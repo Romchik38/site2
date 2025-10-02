@@ -33,7 +33,6 @@
             <script>
                 var currentLanguage ='{{ language }}';
             </script>
-            <script type="module" src="/media/js/language.js" async></script>
         {% endblock %}
     </head>
 
@@ -69,9 +68,9 @@
         </div>
         
         <!-- Before body close tag -->
-        <script src="/media/js/popper.min.js" defer></script>
-        <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js" defer></script>
-        <script type="module" src="/media/js/frontend/userinfo/index.js"></script>
-        <script type="module" src="/media/js/frontend/index.js"></script>
+        <script type="module" src="/media/js/language.js" fetchpriority="low"></script>
+        <script src="/media/js/popper.min.js" defer fetchpriority="low"></script>
+        <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js" defer fetchpriority="low"></script>
+        <script type="module" src="/media/js/frontend/userinfo/index.js" fetchpriority="low"></script>
     </body>
 </html>
