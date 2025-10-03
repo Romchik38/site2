@@ -32,13 +32,14 @@
             </div>
             <div class="col-sm-6">
                 <picture>
-                    <source media="(max-width: 576px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=576&height=576">
-                    <source media="(max-width: 768px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=768&height=768">
-                    <source media="(min-width: 768px)" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=1080&height=1080">
+                    <source media="(max-width: 576px)" width="576" height="576" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=576&height=576">
+                    <source media="(max-width: 768px)" width="768" height="768" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=768&height=768">
+                    <source media="(min-width: 768px)" width="1080" height="1080" srcset="/img.php?id={{ data.article.image.imgId }}&type=webp&width=1080&height=1080">
                     <img 
                         class="card-img-top"
                         src="{{ data.article.image.path }}" 
                         alt="{{ data.article.image.description }}"
+                        fetchpriority="high"
                     >
                 </picture>
             </div>

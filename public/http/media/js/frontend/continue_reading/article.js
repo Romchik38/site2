@@ -50,7 +50,8 @@ export class Article extends Component {
             'img', { 
                 'class': 'img-fluid', 
                 'src': `/img.php?id=${article.imageId}&type=webp&width=576&height=384`,
-                'alt': article.imageDescription
+                'alt': article.imageDescription,
+                'fetchpriority': 'low'
             }
         );
         imgLink.appendChild(img);
