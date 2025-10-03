@@ -11,7 +11,7 @@ use function is_numeric;
 
 final class Width
 {
-    public const ALLOWED_VALUES = [100, 150, 200, 576, 720, 768, 1080, 1200];
+    public const ALLOWED_VALUES = [100, 150, 200, 384, 576, 720, 768, 1080, 1200];
 
     private function __construct(
         private readonly int $width

@@ -9,9 +9,6 @@
     <meta name="description" content="Server error page. Please try again later">
     <link rel="stylesheet" href="/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/media/css/main.css" />
-    <script src="https://kit.fontawesome.com/d99166463c.js" crossorigin="anonymous"></script>
-
-    <script src="/media/js/language.js"></script>
 </head>
 
 <body class="container-fluid p-0">
@@ -41,7 +38,7 @@
                 </div>
                 <div class="col-sm text-center">
                     <a href="/" target="_self">
-                        <img src="/media/logo.png" class="img" height="100px" alt="Logo">
+                        <img src="/media/logo-100.png" class="img" height="100px" alt="Logo" fetchpriority="high">
                     </a>
                 </div>
                 <div class="col-md-3 mx-auto">
@@ -65,7 +62,11 @@
                 <h1 class="text-center">Server error page (500)</h1>
                 <p class="bg-secondary text-white px-2 py-1 h5">Sorry, we have an error on our side. Please try again
                     later</p>
-                <img class="img-fluid" src="/media/img/server-error/gear.jpeg">
+                    <picture>
+                        <source media="(max-width: 500px)" width="500" height="397"  srcset="/media/img/server-error/gear-w500.jpeg">
+                        <source media="(max-width: 1920px)" width="900" height="715" srcset="/media/img/server-error/gear-w900.jpeg">
+                        <img class="img-fluid" src="/media/img/server-error/gear.jpeg" alt="Orange gears" fetchpriority="high">
+                    </picture>
             </div>
         </div>
     </div> <!-- Dynamic content end -->
@@ -155,9 +156,6 @@
         </div>
 
     </div>
-
-    <script src="/media/js/popper.min.js"></script>
-    <script src="/media/js/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

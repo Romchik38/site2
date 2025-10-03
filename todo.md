@@ -14,7 +14,6 @@
 - all big images must be as a `<pucture>` tag
 - banner `img` attribute `alt`
 - all images have `alt`
-- `fetchprioroty` only on `img`
 
 ## Next
 
