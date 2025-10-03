@@ -10,14 +10,25 @@
             <a class="link-none" href="{{ article_page_url ~ '/' ~ firstArticle.articleId }}" target="_self">
                 <picture>
                     <source media="(max-width: 636px)"
-                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384">
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=576&height=384"
+                        width="576" 
+                        height="384"
+                    >
                     <source media="(max-width: 992px)"
-                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480">
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=720&height=480"
+                        width="720" 
+                        height="480"                        
+                    >
                     <source media="(min-width: 992px)"
-                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720">
+                        srcset="/img.php?id={{ firstArticle.image.imgId }}&type=webp&width=1080&height=720"
+                        width="1080" 
+                        height="720"                        
+                    >
                     <img class="img-fluid"
                         src="{{ firstArticle.image.path }}" 
-                        alt="{{ firstArticle.image.description }}">
+                        alt="{{ firstArticle.image.description }}"
+                        fetchpriority="low"
+                    >
                 </picture>
             </a>
         </div>
@@ -62,14 +73,25 @@
             <a class="link-none" href="{{ article_page_url ~ '/' ~ article.articleId }}" target="_self">
                 <picture>
                     <source media="(max-width: 636px)"
-                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384">
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=576&height=384"
+                        width="576" 
+                        height="384"                        
+                    >
                     <source media="(max-width: 992px)"
-                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480">
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=720&height=480"
+                        width="720" 
+                        height="480"                        
+                    >
                     <source media="(min-width: 992px)"
-                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720">
+                        srcset="/img.php?id={{ article.image.imgId }}&type=webp&width=1080&height=720"
+                        width="1080" 
+                        height="720"                        
+                    >
                     <img class="img-fluid"
                         src="{{ article.image.path }}" 
-                        alt="{{ article.image.description }}">
+                        alt="{{ article.image.description }}"
+                        fetchpriority="low"
+                    >
                 </picture>
             </a>
         </div>
