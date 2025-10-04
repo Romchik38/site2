@@ -12,9 +12,38 @@
     {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banner': banner, 'imageFrontendPath': imageFrontendPath } only %}
     <!-- 1st row end -->
     <div class="container-xxl">
+        
+        <!-- @todo en version  -->
+        <!-- About -->
+    <div class="container-fluid my-2 my-sm-5">
+        <h2 class="text-center">Юридична компанія Правощит</h2>
+        <div class="row mt-3">
+            <div class="d-md-flex border-start border-5 ps-2 text-start">
+                 <p class="lead px-3">Юридична компанія "Правощит" спеціалізується на послугах в сфері адміністративного права та навчанні.</p>
+                 <p class="lead px-3">Заснована в 1998 році старшим партнером Іваном Скобою, зараз фірма налічує 25 юристів, з яких 10 обімали посаду судді Вищого адміністративного суду України.</p>
+                 <p class="lead px-3">Наші приорітети - максимум користі, швидкість, професійність, з фокусом на результат і практику.</p>
+            </div>
+        </div>
+    </div>  
+        
+        <!-- @todo en version  -->
+        <!-- Service -->
+        <div class="container-fluid my-5 bg-secondary rounded-top">
+            <div class="row">
+                <h2 class="text-center my-2"><span class="text-white p-1">Наші послуги</span></h2>
+            </div>
+           <div class="d-flex flex-column flex-md-row justify-content-between mt-3">
+                <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/commercial-offer">Юридична підтримка</a>
+                <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/training">Навчання</a>
+                <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/exams">Іспити</a>
+                <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/attorney-license">Ліцензія адвоката</a>
+                <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/special-offers">Спеціальні пропозиції</a>
+            </div>
+        </div>  
+
         <!-- 2nd row start News -->
         <div class="container-fluid">
-            <h1 class="text-center my-4">{{ translate.t('root.news-header') }}</h1>
+            <h2 class="text-center my-4">{{ translate.t('root.news-header') }}</h2>
             <div class="row">
                 <!-- Main start -->
                 <div class="col-sm-12 col-xxl-9">
