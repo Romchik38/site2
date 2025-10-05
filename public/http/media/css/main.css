@@ -144,6 +144,40 @@ audio {
     padding: 1rem 0;
 }
 
+/* Mobile Bottom menu */
+.mobile-bottom-menu {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1000;
+    box-shadow: 0 -2px 8px #00000026;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.mobile-bottom-menu > span::before {
+    vertical-align: top;
+    margin-right: 2px;
+}
+
+.mobile-bottom-menu-service::before {
+    content: url('/media/img/icons/category.svg');
+}
+
+.mobile-bottom-menu-contacts::before {
+    content: url('/media/img/icons/event_note.svg');
+}
+
+.mobile-bottom-menu-call::before {
+    content: url('/media/img/icons/call.svg');
+}
+
 /* Response image */
 picture > source,
 picture > img {
