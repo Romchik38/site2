@@ -6,7 +6,7 @@
 {% extends "base_layouts.twig" %}
 
 {% block content %}
-<div id="content" class="container-fluid p-0 mt-2 text-center">
+<div id="content" class="container-fluid p-0 mt-md-2 text-center">
     <!-- 1st row start Banner-->
     {% set banner = data.banner %}
     {% include template_full_prefix ~ '/blocks/banners.twig' with {'translate': t, 'u': u, 'banner': banner, 'imageFrontendPath': imageFrontendPath } only %}
@@ -27,7 +27,7 @@
                 <a class="h5 px-0 px-md-2 text-white link-none" href="/uk/special-offers">Спеціальні пропозиції</a>
             </div>
         </div>  
-                
+
         
         <!-- @todo en version  -->
         <!-- About -->

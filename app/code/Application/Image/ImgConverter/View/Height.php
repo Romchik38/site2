@@ -11,7 +11,7 @@ use function is_numeric;
 
 final class Height
 {
-    public const ALLOWED_VALUES = [100, 150, 384, 480, 576, 720, 768, 1080];
+    public const ALLOWED_VALUES = [100, 150, 300, 384, 480, 576, 720, 768, 1080];
 
     private function __construct(
         private readonly int $height
