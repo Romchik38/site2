@@ -19,6 +19,13 @@ return function (Container $container): ControllerInterface {
     /** API */
     $api = new Controller('api');
 
+    /** Contacts */    
+    $contacts = new Controller(
+        'contacts',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Contacts\DefaultAction')
+    );    
+
     /** SITEMAP */
     $sitemap = new Controller(
         'sitemap',
@@ -288,6 +295,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($article)
         ->setChild($admin)
         ->setChild($category)
+        ->setChild($contacts)
         ->setChild($login)
         ->setChild($register)
         ->setChild($sitemap)

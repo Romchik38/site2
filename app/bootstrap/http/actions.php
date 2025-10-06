@@ -55,6 +55,17 @@ return function (Container $container) {
         ]
     );
 
+    // Contacts
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Contacts\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('frontend-view'),
+            new Promise ('\Romchik38\Site2\Application\Page\View\ViewService'),
+        ]
+    );
+
     // Sitemap
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction',
