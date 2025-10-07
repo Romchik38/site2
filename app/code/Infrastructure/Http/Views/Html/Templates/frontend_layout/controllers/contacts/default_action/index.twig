@@ -19,6 +19,19 @@
             {{ page.getDescription()|raw }}
         </div>
     </div>
+    <div class="api-contacts-form" style="display: none">
+        <form class="col-sm-6">
+            <div class="mb-3">
+                <label for="formInput1" class="form-label">Your contacts(email, phone etc):</label>
+                <input type="text" class="form-control" id="formInput1" placeholder="name@example.com +380000000" required>
+            </div>
+            <div class="mb-3">
+                <label for="formTextarea1" class="form-label">Message</label>
+                <textarea class="form-control" id="formTextarea1" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary mb-3">Send</button>
+        </form>
+    </div>
 </div>
 <script type="module" src="/media/js/frontend/controllers/contacts/default/index.js" fetchpriority="low"></script>
 {% endblock %}
