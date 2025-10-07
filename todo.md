@@ -2,9 +2,6 @@
 
 ## Current
 
-- pagespeed
-  - `service`
-  - `contacts`
 - `why-subscribe` - add a form
 - database dump
 - add a form
@@ -12,7 +9,7 @@
   - `training`
   - `exams`
   - `attorney-license`
-
+- `about-this-site` - add page speed info
 - banner `img` attribute `alt`
 - all images have `alt`
 
