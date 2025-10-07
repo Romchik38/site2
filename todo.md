@@ -3,7 +3,6 @@
 ## Current
 
 - add a form
-  - `commercial-offer`
   - `training`
   - `exams`
   - `attorney-license`

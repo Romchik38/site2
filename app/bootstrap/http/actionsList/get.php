@@ -40,6 +40,13 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction')
     );
 
+    /** CommercialOffer */    
+    $commercialOffer = new Controller(
+        'commercial-offer',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\CommercialOffer\DefaultAction')
+    );
+    
     /** Contacts */    
     $whySubscribe = new Controller(
         'why-subscribe',
@@ -302,6 +309,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($article)
         ->setChild($admin)
         ->setChild($category)
+        ->setChild($commercialOffer)
         ->setChild($contacts)
         ->setChild($login)
         ->setChild($register)
