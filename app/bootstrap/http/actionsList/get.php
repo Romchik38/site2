@@ -40,6 +40,13 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction')
     );
 
+    /** Contacts */    
+    $whySubscribe = new Controller(
+        'why-subscribe',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\WhySubscribe\DefaultAction')
+    );
+
     /** ARTICLE */
     $article = new Controller(
         'article',
@@ -300,6 +307,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($register)
         ->setChild($sitemap)
         ->setChild($search)
-        ->setChild($serverErrorExample);
+        ->setChild($serverErrorExample)
+        ->setChild($whySubscribe);
     return $root;
 };

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Contacts;
+namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\WhySubscribe;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -60,13 +60,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     private function getPage(): PageDto
     {
-        $command = new Find('contacts', $this->getLanguage());
+        $command = new Find('why-subscribe', $this->getLanguage());
         try {
             return $this->pageService->find($command);
         } catch (NoSuchPageException) {
-            throw new RuntimeException('Contacts view action error: page with url login not found');
+            throw new RuntimeException('Why subscribe view action error: page with url login not found');
         } catch (CouldNotFindException $e) {
-            throw new RuntimeException(sprintf('Contacts view action error %s: ', $e->getMessage()));
+            throw new RuntimeException(sprintf('Why subscribe view action error %s: ', $e->getMessage()));
         }
     }
 }

@@ -2,8 +2,6 @@
 
 ## Current
 
-- `why-subscribe` - add a form
-- database dump
 - add a form
   - `commercial-offer`
   - `training`
