@@ -26,6 +26,23 @@ export default class Component extends EE {
         this.registeredEvents = [];
     }
 
+    appendByClass(className) {
+        if (typeof className !== 'string') {
+            throw new Error('param className is invalid');
+        } else if (className === '') {
+            throw new Error('param className is empty');
+        }
+        var collection = document.getElementsByClassName(className);
+        var len = collection.length;
+        if (len === 0) {
+            throw new Error(`Component container with class ${className} not found`);
+        } else if (len > 1) {
+            throw new Error(`element ${className} is more than one`);
+        }
+        var container = collection[0];
+        container.appendChild(this.node);
+    }
+
     enable() {
         this.node.disabled = false;
     }

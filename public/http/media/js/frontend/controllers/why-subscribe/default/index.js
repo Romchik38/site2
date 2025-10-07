@@ -1,13 +1,13 @@
 'use strict';
 
-import { default as SubscribeForm } from './subscribeForm.js';
+import { default as Form } from '/media/js/modules/components/form.js';
 
-var f = SubscribeForm.fromClass('api-why-subscribe-form');
+var f = Form.fromClass('api-why-subscribe-form');
 
 
 document.addEventListener('DOMContentLoaded', ()=>{
     try {
-        f.render('api-why-subscribe-form-container');
+        f.appendByClass('api-why-subscribe-form-container');
         f.show();
     } catch (e) {
         console.error('Why subscribe does not work correctly');
