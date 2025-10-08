@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Romchik38\Container\Container;
 use Romchik38\Server\Http\Controller\ControllerInterface;
-use Romchik38\Server\Http\Controller\Mappers\ControllerTree\ControllerTreeInterface;
 use Romchik38\Server\Http\Controller\Controller;
 
 return function (Container $container): ControllerInterface {
@@ -18,41 +17,6 @@ return function (Container $container): ControllerInterface {
     
     /** API */
     $api = new Controller('api');
-
-    /** Contacts */    
-    $contacts = new Controller(
-        'contacts',
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Contacts\DefaultAction')
-    );    
-
-    /** SITEMAP */
-    $sitemap = new Controller(
-        'sitemap',
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction')
-    );
-
-    /** SERVER-ERROR example */
-    $serverErrorExample = new Controller(
-        'server-error-example',
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction')
-    );
-
-    /** CommercialOffer */    
-    $commercialOffer = new Controller(
-        'commercial-offer',
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\CommercialOffer\DefaultAction')
-    );
-    
-    /** Contacts */    
-    $whySubscribe = new Controller(
-        'why-subscribe',
-        true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\WhySubscribe\DefaultAction')
-    );
 
     /** ARTICLE */
     $article = new Controller(
@@ -267,13 +231,20 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Category\DynamicAction')
     );
 
-    /** REGISTER */
-    $register = new Controller(
-        'register', 
+    /** Contacts */    
+    $contacts = new Controller(
+        'contacts',
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction')
-    );
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Contacts\DefaultAction')
+    );    
 
+    /** CommercialOffer */    
+    $commercialOffer = new Controller(
+        'commercial-offer',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\CommercialOffer\DefaultAction')
+    );
+    
     /** LOGIN */
     $login = new Controller(
         'login', 
@@ -288,11 +259,12 @@ return function (Container $container): ControllerInterface {
         'login_admin'
     );
     $login->setChild($loginAdmin);
-    
-    $search = new Controller(
-        'search',
+
+    /** REGISTER */
+    $register = new Controller(
+        'register', 
         true,
-        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction')
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Register\DefaultAction')
     );
 
     /** ROOT */
@@ -301,7 +273,41 @@ return function (Container $container): ControllerInterface {
         true,
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DefaultAction'),
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction'),
+    );    
+    
+    $search = new Controller(
+        'search',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Search\DefaultAction')
     );
+
+    /** SITEMAP */
+    $sitemap = new Controller(
+        'sitemap',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Sitemap\DefaultAction')
+    );
+
+    /** SERVER-ERROR example */
+    $serverErrorExample = new Controller(
+        'server-error-example',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\ServerErrorExample\DefaultAction')
+    );
+
+    /** TRAINING */
+    $training = new Controller(
+        'training',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Training\DefaultAction')
+    );  
+    
+    /** WHYSUBSCRIBE */    
+    $whySubscribe = new Controller(
+        'why-subscribe',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\WhySubscribe\DefaultAction')
+    );        
 
     $root
         ->setChild($account)
@@ -316,6 +322,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($sitemap)
         ->setChild($search)
         ->setChild($serverErrorExample)
+        ->setChild($training)
         ->setChild($whySubscribe);
     return $root;
 };

@@ -98,6 +98,17 @@ return function (Container $container) {
         ]
     );
 
+    // Training
+    $container->shared(
+        '\Romchik38\Site2\Infrastructure\Http\Actions\GET\Training\DefaultAction',
+        [
+            new Promise('\Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
+            new Promise('frontend-view'),
+            new Promise ('\Romchik38\Site2\Application\Page\View\ViewService'),
+        ]
+    );    
+
     // WhySubscribe
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\Actions\GET\WhySubscribe\DefaultAction',
