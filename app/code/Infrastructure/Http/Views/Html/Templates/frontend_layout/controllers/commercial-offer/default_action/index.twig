@@ -8,11 +8,9 @@
 {% block content %}
 {% set page = data.page %}
 <div class="container-sm">
-    <div class="row mb-4">
-        <div class="col">
-            <h1 class="text-center">{{ page.getName() }}</h1>
-            <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
-        </div>
+    <div class="row my-4">
+        <h1 class="text-center">{{ page.getName() }}</h1>
+        <p class="lead p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
     </div>
     <div class="row mb-4">
         <div class="col">
