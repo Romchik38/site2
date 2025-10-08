@@ -1,6 +1,17 @@
 #
 #   romanenko-studio.dev - modern and reliable web development!
 #
+#        #####     ######
+#        #    #    #     #
+#        #   #     ##
+#        # ##        ####     ###     ####  #     #
+#        #   #           #    #   #   #      #   #
+#        #    #          #    #   #   ###     # #
+#        #     #   ######     ###     ####     #
+#
+#
 User-agent: *
 Allow: /*about-this-site
 Disallow: /
+
+
