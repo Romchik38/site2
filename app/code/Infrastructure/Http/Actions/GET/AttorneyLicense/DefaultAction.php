@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\Training;
+namespace Romchik38\Site2\Infrastructure\Http\Actions\GET\AttorneyLicense;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -60,13 +60,13 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     private function getPage(): PageDto
     {
-        $command = new Find('training', $this->getLanguage());
+        $command = new Find('attorney-license', $this->getLanguage());
         try {
             return $this->pageService->find($command);
         } catch (NoSuchPageException) {
-            throw new RuntimeException('Training view action error: page with url login not found');
+            throw new RuntimeException('Attorney-license view action error: page with url login not found');
         } catch (CouldNotFindException $e) {
-            throw new RuntimeException(sprintf('Training view action error %s: ', $e->getMessage()));
+            throw new RuntimeException(sprintf('Attorney-license view action error %s: ', $e->getMessage()));
         }
     }
 }

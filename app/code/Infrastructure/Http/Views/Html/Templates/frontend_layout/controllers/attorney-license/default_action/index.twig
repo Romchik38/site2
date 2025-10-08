@@ -1,0 +1,40 @@
+{# 
+    Object      data                    Controller DTO
+    string      template_full_prefix    path to this folder
+#}
+
+{% extends "base_layouts.twig" %}
+
+{% block content %}
+{% set page = data.page %}
+<div class="container-sm">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="text-center">{{ page.getName() }}</h1>
+            <p class="lead mt-5 p-3 bg-light border-start border-5">{{ page.getShortDescription() }}</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col">
+            {{ page.getDescription()|raw }}
+        </div>
+    </div>
+    <form class="col-sm-6 api-attorney-license-form mx-auto border p-2 border-secondary border-3 rounded" style="display: none">
+        <p class="h2">{{ translate.t('page.attorney-license.form.header') }}</p>
+        <div class="mb-3">
+            <label for="formInputFullName" class="form-label">{{ translate.t('Full name') }}:</label>
+            <input type="text" class="form-control" id="formInputFullName" placeholder="{{ translate.t('form.placeholder.full name') }}" required>
+        </div>   
+        <div class="mb-3">
+            <label for="formInputEmail" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="formInputEmail" placeholder="name@example.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="formInputPhone" class="form-label">{{ translate.t('Phone') }}:</label>
+            <input type="text" class="form-control" id="formInputPhone" placeholder="+3800000000" required>
+        </div>        
+        <button type="submit" class="btn btn-secondary mb-3">{{ translate.t('Submit') }}</button>
+    </form>
+</div>
+<script type="module" src="/media/js/frontend/controllers/attorney-license/default/index.js" fetchpriority="low"></script>
+{% endblock %}

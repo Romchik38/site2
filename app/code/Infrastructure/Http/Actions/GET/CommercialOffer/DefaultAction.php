@@ -64,9 +64,9 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         try {
             return $this->pageService->find($command);
         } catch (NoSuchPageException) {
-            throw new RuntimeException('Why subscribe view action error: page with url login not found');
+            throw new RuntimeException('Commercial offer view action error: page with url login not found');
         } catch (CouldNotFindException $e) {
-            throw new RuntimeException(sprintf('Why subscribe view action error %s: ', $e->getMessage()));
+            throw new RuntimeException(sprintf('Commercial offer view action error %s: ', $e->getMessage()));
         }
     }
 }

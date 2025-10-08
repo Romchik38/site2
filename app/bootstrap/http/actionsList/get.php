@@ -223,6 +223,13 @@ return function (Container $container): ControllerInterface {
     ->setChild($adminTranslate)
     ->setChild($adminUsers);
 
+    /** AttorneyLicense */    
+    $attorneyLicense = new Controller(
+        'attorney-license',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\AttorneyLicense\DefaultAction')
+    );    
+
     /** CATEGORY */
     $category = new Controller(
         'category',
@@ -321,6 +328,7 @@ return function (Container $container): ControllerInterface {
         ->setChild($admin)        
         ->setChild($api)
         ->setChild($article)
+        ->setChild($attorneyLicense)
         ->setChild($category)
         ->setChild($commercialOffer)
         ->setChild($contacts)
