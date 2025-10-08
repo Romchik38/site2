@@ -34,7 +34,8 @@
             <input type="text" class="form-control" id="formInputPhone" placeholder="+3800000000" required>
         </div>
         <div class="mb-3">
-            <select class="form-select" aria-label="Exams select">
+            <label for="formSelect" class="form-label">{{ translate.t('Discipline') }}:</label>
+            <select class="form-select" aria-label="Exams select" id="formSelect">
               <option value="1">{{ translate.t('exams.administrative-process') }}</option>
               <option value="2">{{ translate.t('exams.administrative-law') }}</option>
               <option value="3">{{ translate.t('exams.military-law') }}</option>
