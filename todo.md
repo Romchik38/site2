@@ -3,8 +3,6 @@
 ## Current
 
 - add a form
-  - `training`
-  - `exams`
   - `attorney-license`
 - `about-this-site` - add page speed info
 - banner `img` attribute `alt`

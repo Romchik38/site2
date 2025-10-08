@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         f.appendByClass('api-training-form-container');
         f.show();
     } catch (e) {
-        console.error('Why subscribe does not work correctly');
+        console.error('Training does not work correctly');
         console.error(e);
     }
 });

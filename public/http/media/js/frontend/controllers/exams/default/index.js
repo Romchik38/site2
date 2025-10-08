@@ -2,15 +2,15 @@
 
 import { default as Form } from '/media/js/modules/components/form.js';
 
-var f = Form.fromClass('api-commercial-offer-form');
+var f = Form.fromClass('api-exams-form');
 
 
 document.addEventListener('DOMContentLoaded', ()=>{
     try {
-        f.appendByClass('api-commercial-offer-form-container');
+        f.appendByClass('api-exams-form-container');
         f.show();
     } catch (e) {
-        console.error('Commercial offer does not work correctly');
+        console.error('Exams does not work correctly');
         console.error(e);
     }
 });

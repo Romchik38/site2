@@ -245,6 +245,13 @@ return function (Container $container): ControllerInterface {
         $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\CommercialOffer\DefaultAction')
     );
     
+    /** Exams */    
+    $exams = new Controller(
+        'exams',
+        true,
+        $container->get('\Romchik38\Site2\Infrastructure\Http\Actions\GET\Exams\DefaultAction')
+    ); 
+
     /** LOGIN */
     $login = new Controller(
         'login', 
@@ -311,12 +318,13 @@ return function (Container $container): ControllerInterface {
 
     $root
         ->setChild($account)
+        ->setChild($admin)        
         ->setChild($api)
         ->setChild($article)
-        ->setChild($admin)
         ->setChild($category)
         ->setChild($commercialOffer)
         ->setChild($contacts)
+        ->setChild($exams)
         ->setChild($login)
         ->setChild($register)
         ->setChild($sitemap)
