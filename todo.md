@@ -2,7 +2,6 @@
 
 ## Current
 
-- `about-this-site` - add page speed info
 - banner `img` attribute `alt`
 - all images have `alt`
 

@@ -39,6 +39,7 @@ Also, you can inspect additional features:
 - [Minum memory usage](./doc/monitoring/memory.md)
 - [SEO](./doc/seo/readme.md)
 - [Mailer](./doc/mail/readme.md)
+- [PageSpeed Insights](./doc/page-speed/readme.md)
 
 ## Dependencies
 
