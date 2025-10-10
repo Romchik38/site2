@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict SnItwL8ab0rfYTjUVb1a00syjftNfVFdad9wXQ8lzY8bFNNEtMo5sXbfDtCVD97
+\restrict lEjeQy54p8WIc0rcU4jXBCkYHzRkc5szjYM9ee2zWhT3zerTPjXRVIJZJPzHZer
 
 -- Dumped from database version 17.6 (Debian 17.6-2.pgdg13+1)
 -- Dumped by pg_dump version 17.6 (Debian 17.6-2.pgdg13+1)
@@ -1920,6 +1920,16 @@ page.attorney-license.form.header	en	Apply for courses to obtain an attorney's l
 Discipline	en	Discipline
 Discipline	uk	Дисципліна
 page.register.tip	uk	<p>Сторінка реєстрації є несправжньою і не реєструє клієнта. Для здійснення входу перейдіть на <a href="/login">сторінку входу</a> і використовуйте наступне:</p> <ul class="list-group">   <li class="list-group-item">В поле им'я користувача введіть емайл. Можете вказати будь який. Приклад - <kbd>email@example.com</kbd></li>   <li class="list-group-item">Для полі пароль використовуйте, будь ласка правило - довжина<span style="text-align: center;">&nbsp;8 символів, містить хоча б одну маленьку і одну велику букву, цифру і хоча б один зі спеціальних символів&nbsp; _`$%^*'</span>. Пароль не зберігається. Перевірки виконуються тільки на вказані правила. Приклад - <kbd>aA1_hello</kbd></li> </ul>
+page.account.img-user-logo	en	User logo
+page.account.img-user-logo	uk	Логотип користувача
+root.teachers.stub.administrative-law.img-alt	en	Photo of an administrative law teacher
+root.teachers.stub.administrative-law.img-alt	uk	Фото викладача з адміністративного права
+root.teachers.stub.administrative-process.img-alt	en	Photo of the teacher from the administrative process
+root.teachers.stub.administrative-process.img-alt	uk	Фото викладача з адміністративного процесу
+root.teachers.stub.administrative-general.img-alt	en	Photo of a teacher of general administrative law
+root.teachers.stub.administrative-general.img-alt	uk	Фото викладача загального адміністративного права
+Lawshield company logo	en	Lawshield company logo
+Lawshield company logo	uk	Логотип компанії Правощит
 \.
 
 
@@ -2175,6 +2185,11 @@ exams.proceedings
 page.attorney-license.form.header
 Submit
 Discipline
+page.account.img-user-logo
+root.teachers.stub.administrative-law.img-alt
+root.teachers.stub.administrative-process.img-alt
+root.teachers.stub.administrative-general.img-alt
+Lawshield company logo
 \.
 
 
@@ -2716,5 +2731,5 @@ ALTER TABLE ONLY public.translate_entities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict SnItwL8ab0rfYTjUVb1a00syjftNfVFdad9wXQ8lzY8bFNNEtMo5sXbfDtCVD97
+\unrestrict lEjeQy54p8WIc0rcU4jXBCkYHzRkc5szjYM9ee2zWhT3zerTPjXRVIJZJPzHZer
 

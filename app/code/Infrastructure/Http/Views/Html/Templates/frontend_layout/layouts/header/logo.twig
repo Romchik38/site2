@@ -8,13 +8,13 @@
         <div class="col-md-3">
             <div class="d-none d-sm-block">
                 <p class="h1 mt-2 text-center text-md-start">
-                    {{translate.t('header.logo')}}
+                    <a class="link-none" href="{{ urlRoot }}" target="_self">{{translate.t('header.logo')}}</a>
                 </p>
             </div>
         </div>
         <div class="col-sm text-center">
            <a href="{{ urlRoot }}" target="_self">
-                <img src="/media/logo-100.png" class="img" width="100" height="100" alt="Logo" fetchpriority="high">
+                <img src="/media/logo-100.png" class="img" width="100" height="100" alt="{{ translate.t('Lawshield company logo') }}" fetchpriority="high">
             </a>
         </div>
         <div class="col-md-3 mx-auto text-nowrap">
