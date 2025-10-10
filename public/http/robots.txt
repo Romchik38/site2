@@ -12,6 +12,7 @@
 #
 User-agent: *
 Allow: /*about-this-site
+Allow: /sitemap.xml
 Disallow: /
 
 
