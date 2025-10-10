@@ -26,7 +26,7 @@ use function memory_get_usage;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
-    private const DEFAULT_VIEW_NAME = 'root.page_name';
+    private const DEFAULT_VIEW_NAME        = 'root.page_name';
     private const DEFAULT_VIEW_DESCRIPTION = 'root.page_description';
 
     public function __construct(

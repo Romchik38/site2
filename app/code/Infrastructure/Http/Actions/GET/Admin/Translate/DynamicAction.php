@@ -28,6 +28,7 @@ use Romchik38\Site2\Application\Translate\View\ViewService;
 use Romchik38\Site2\Domain\Translate\VO\Identifier;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Translate\DynamicAction\ViewDto;
 
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface

@@ -31,6 +31,7 @@ use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\Query;
 use Romchik38\Site2\Infrastructure\Http\Views\Html\Classes\UrlGeneratorUseUrlBuilder;
 
 use function count;
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface

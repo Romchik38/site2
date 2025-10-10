@@ -24,6 +24,7 @@ use Romchik38\Site2\Application\Article\View\NoSuchArticleException;
 use Romchik38\Site2\Application\Article\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Article\DynamicAction\ViewDTO;
 
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface

@@ -28,6 +28,7 @@ use Romchik38\Site2\Application\Language\List\ListService;
 use Romchik38\Site2\Domain\Category\VO\Identifier as CategoryId;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Category\DynamicAction\ViewDto;
 
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
@@ -53,7 +54,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
         if (! is_string($decodedRoute)) {
             throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
-        
+
         try {
             $categoryId = new CategoryId($decodedRoute);
         } catch (InvalidArgumentException $e) {

@@ -15,7 +15,6 @@ use Romchik38\Server\Http\Controller\Actions\DynamicActionInterface;
 use Romchik38\Server\Http\Controller\Dto\DynamicRouteDTO;
 use Romchik38\Server\Http\Controller\Errors\ActionNotFoundException;
 use Romchik38\Server\Http\Controller\Errors\DynamicActionLogicException;
-use Romchik38\Server\Http\Controller\Name;
 use Romchik38\Server\Http\Routers\Handlers\DynamicRoot\DynamicRootInterface;
 use Romchik38\Server\Http\Views\ControllerViewInterface;
 use Romchik38\Server\Utils\Translate\TranslateInterface;
@@ -26,6 +25,7 @@ use Romchik38\Site2\Application\Page\View\ViewService;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Root\DynamicAction\ViewDTO;
 use RuntimeException;
 
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
@@ -47,7 +47,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
 
-        $command      = new Find($decodedRoute, $this->getLanguage());
+        $command = new Find($decodedRoute, $this->getLanguage());
 
         try {
             $page = $this->pageViewService->find($command);

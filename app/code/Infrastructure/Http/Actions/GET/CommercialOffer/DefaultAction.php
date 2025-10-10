@@ -35,7 +35,6 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-
         $page = $this->getPage();
 
         $dto = new ViewDTO(

@@ -26,6 +26,7 @@ use Romchik38\Site2\Application\Banner\BannerService\Commands\Update;
 use Romchik38\Site2\Domain\Banner\VO\Priority;
 use Romchik38\Site2\Infrastructure\Http\Actions\GET\Admin\Banner\DynamicAction\ViewDto;
 
+use function is_string;
 use function sprintf;
 
 final class DynamicAction extends AbstractMultiLanguageAction implements DynamicActionInterface
@@ -51,7 +52,7 @@ final class DynamicAction extends AbstractMultiLanguageAction implements Dynamic
             throw new DynamicActionLogicException('param decodedRoute is invalid');
         }
 
-        $redirectUri  = $this->urlbuilder->fromArray(['root', 'admin', 'banner']);
+        $redirectUri = $this->urlbuilder->fromArray(['root', 'admin', 'banner']);
 
         try {
             $bannerDto = $this->viewService->find($decodedRoute);
