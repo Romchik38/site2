@@ -6,7 +6,7 @@
             <source media="(max-width: 636px)" width="576" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=576&height=480">
             <source media="(max-width: 844px)" width="768" height="480"  srcset="/img.php?id={{ imageId }}&type=webp&width=768&height=480">
             <source media="(min-width: 844px)" width="1200" height="480" srcset="/img.php?id={{ imageId }}&type=webp&width=1200&height=480">
-            <img class="img-fluid" src="{{ imageUrl }}" alt="" fetchpriority="high">
+            <img class="img-fluid" src="{{ imageUrl }}" alt="{{ banner.getName() }}" fetchpriority="high">
         </picture>
 </div>
 {% endif %}
