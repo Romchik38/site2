@@ -3,6 +3,10 @@
 ## Current
 
 - banner `img` attribute `alt`
+  - root
+  - last articles
+  - category
+  - all categories
 - all images have `alt`
 
 ## Next
