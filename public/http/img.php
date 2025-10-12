@@ -35,6 +35,8 @@ try {
     $logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
     /** @var string|null $imageCacheControlHeader */
     $imageCacheControlHeader = $container->get('img-cache-control-header');
+    /** @var string $imageCacheEnabled */
+    $imageCacheEnabled = $container->get('img-cache-enabled');
 } catch (\Exception $e) {
     http_response_code(500);
     echo 'Server error, pleaser try again later';
@@ -51,28 +53,30 @@ $command = ImgData::fromRequest($data);
 $keyTemplate = 'id:%s<>type:%s<>width:%s<>height:%s';
 
 // Case 1 - from cache
-try {
-    $key = sprintf(
-        $keyTemplate,
-        $command->id,
-        $command->type,
-        $command->width,
-        $command->height
-    );
-
-    $result = $imgCacheViewService->getByKey(new Find($key));
-    header('Content-Type: image/' . $result->type());
-    if ($imageCacheControlHeader !== null) {
-        header('Cache-Control: ' . $imageCacheControlHeader); 
+if ($imageCacheEnabled === true) {
+    try {
+        $key = sprintf(
+            $keyTemplate,
+            $command->id,
+            $command->type,
+            $command->width,
+            $command->height
+        );
+    
+        $result = $imgCacheViewService->getByKey(new Find($key));
+        header('Content-Type: image/' . $result->type());
+        if ($imageCacheControlHeader !== null) {
+            header('Cache-Control: ' . $imageCacheControlHeader); 
+        }
+        echo base64_decode($result->data());
+        exit(0);
+    } catch (NoSuchImageCacheException) {
+        // create new image (see Case 2 below)
+    } catch (CacheRepositoryException $e) {
+        $logger->error($e->getMessage());
+        $logger->sendAllLogs();
+        exit('We are sorry, there is an error on our side, please try later');
     }
-    echo base64_decode($result->data());
-    exit(0);
-} catch (NoSuchImageCacheException) {
-    // create new image (see Case 2 below)
-} catch (CacheRepositoryException $e) {
-    $logger->error($e->getMessage());
-    $logger->sendAllLogs();
-    exit('We are sorry, there is an error on our side, please try later');
 }
 
 // Case 2 - no cache
