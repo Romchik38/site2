@@ -19,7 +19,6 @@ use function imagecreatefromstring;
 use function imagecreatefromwebp;
 use function imagewebp;
 use function is_readable;
-use function is_resource;
 use function ob_get_clean;
 use function ob_start;
 use function sprintf;
@@ -81,28 +80,19 @@ abstract class AbstractImageStorageUseGd
                 )
             );
         }
-
         if ($result === false) {
             throw new RuntimeException(
                 sprintf('failed attempt to create image %s', $fullPath)
             );
-        } elseif (is_resource($result) === true) {
-            throw new RuntimeException(
-                sprintf(
-                    'Image type resurce not expected, failed to create an image from file %s',
-                    $fullPath
-                )
-            );
-        } else {
-            return $result;
         }
+        return $result;
     }
 
     /** @throws RuntimeException */
     protected function createImageFromString(string $data): GdImage
     {
         $image = imagecreatefromstring($data);
-        if ($image === false || is_resource($image) === true) {
+        if ($image === false) {
             throw new RuntimeException('Image creation from string is failed');
         }
         return $image;
