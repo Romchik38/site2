@@ -31,8 +31,12 @@ final class CopyImage extends Image
     ) {
         parent::__construct($dimensions, $size);
 
-        $this->copyWidth  = $copyWidth();
-        $this->copyHeight = $copyHeight();
+        if ($copyWidth() <= 0 || $copyHeight() <= 0) {
+            throw new InvalidArgumentException('Image copy width/height must be greater than 0');
+        } else {
+            $this->copyWidth  = $copyWidth();
+            $this->copyHeight = $copyHeight();
+        }
 
         if (
             $this->width < $this->copyWidth

@@ -54,6 +54,7 @@ class ImageStorage extends AbstractImageStorageUseGd implements ImageStorageInte
             ));
         }
 
+        /** CopyImage is responsable to do all checks */
         try {
             $image = new CopyImage(
                 $demensions,
@@ -64,12 +65,6 @@ class ImageStorage extends AbstractImageStorageUseGd implements ImageStorageInte
             );
         } catch (InvalidArgumentException $e) {
             throw new CouldNotCreateImageException($e->getMessage());
-        }
-
-        if ($image->copyWidth <= 0 || $image->copyHeight <= 0) {
-            throw new CouldNotCreateImageException(
-                sprintf('Image width/height must be greater than 0 in %s', $filePath)
-            );
         }
 
         // 2. Check capabilities
