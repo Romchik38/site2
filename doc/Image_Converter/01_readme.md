@@ -26,3 +26,47 @@ Width and heght sized a restricted with a small list of numbers - 384, 576, 720,
 ## Cache
 
 Image system is built with `cache` based on `Postgresql` database. When request is comes, fist of all `controller` look in the database for requested image. If it is, a `cached copy` returned. Otherwise `controller` pass parameters forward to the `Image converter` service for further processing.
+
+Use config param [img-cache-enabled](./../../app/config/shared/images.php) to disable/enable cache. It turn on by default.
+
+## Logic
+
+Picture No. 141 is taken as an example.
+
+- Original:
+  - width  - 1929
+  - height - 1085
+
+- Copy:
+  - width  - 1080
+  - height - 576
+
+Request for conversion - `/img.php?id=141&type=webp&width=1080&height=576`
+
+### Logic of work
+
+1. First, you need to choose which ratio is smaller, width or height:
+  
+    - 1926/1080 = 1.7861
+    - 1085/576  = 1.8836
+
+    In order not to lose the image, you must first reduce the original by 1.7861.
+    In this case, the width will be fully displayed, and the height will be truncated.
+
+2. Reduce original by 1.7861
+  
+    - 1929/1.7861  = 1080.0067
+    - 1085/1.78614 = 607.4687
+
+    After rounding down:
+    - width  - 1080
+    - height - 607
+
+3. From the resulting image, copy
+
+    - width: copy along X from 0 to 1080
+    - height:
+       - calculate the Y offset: 607-576 = 31 / 2 = 15.5 round down = 15
+       - retreat x 15
+       - add 576: 15+576 = 591
+       - copy along Y from 15 to 591

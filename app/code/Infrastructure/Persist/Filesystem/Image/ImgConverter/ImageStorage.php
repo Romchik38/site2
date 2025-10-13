@@ -76,16 +76,15 @@ class ImageStorage extends AbstractImageStorageUseGd implements ImageStorageInte
         }
 
         // 3 calculate $temporaryWidth / $temporaryHeight
-        if ($image->copyWidth > $image->copyHeight) {
-            $minCopy = $image->copyWidth;
+        $widthScaleRatio = $image->width / $image->copyWidth;
+        $heightScaleRatio = $image->height / $image->copyHeight;
+
+        if ($widthScaleRatio < $heightScaleRatio) {
+            $scaleRatio = $widthScaleRatio;
         } else {
-            $minCopy = $image->copyHeight;
+            $scaleRatio = $heightScaleRatio;
         }
-        if ($image->width > $image->height) {
-            $scaleRatio = $image->height / $minCopy;
-        } else {
-            $scaleRatio = $image->width / $minCopy;
-        }
+
         $temporaryWidth  = (int) ($image->width / $scaleRatio);
         $temporaryHeight = (int) ($image->height / $scaleRatio);
         if ($temporaryWidth <= 0 || $temporaryHeight <= 0) {
