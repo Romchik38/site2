@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict lEjeQy54p8WIc0rcU4jXBCkYHzRkc5szjYM9ee2zWhT3zerTPjXRVIJZJPzHZer
+\restrict 0Vtv7jSelKENhV522Bc8BHyf9KNaQuXSF4hDDVMoecVJKLIHBjHfvf6agSpSO6u
 
 -- Dumped from database version 17.6 (Debian 17.6-2.pgdg13+1)
 -- Dumped by pg_dump version 17.6 (Debian 17.6-2.pgdg13+1)
@@ -732,19 +732,19 @@ reservation-of-employees-for-the-period-of-mobilization	t	1	105	62	2025-06-30 17
 document-verification-for-drivers	t	1	2	2	2024-10-31 19:14:03	2024-11-01 11:48:50	0
 administrative-detention	t	1	97	55	2025-06-27 18:49:55	2025-06-27 18:57:37	0
 laws-and-regulations-governing-the-field-of-military-law	t	1	99	57	2025-06-29 12:42:15	2025-06-29 12:44:17	0
+traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	0
 simplification-of-the-drivers-license-examination-process	t	1	114	1	2024-11-12 17:54:44	2025-07-08 10:48:46	0
 the-importance-of-seat-belts-when-driving-a-car	t	1	89	47	2025-06-24 18:40:16	2025-06-24 18:47:02	0
-impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	2
-amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38	2025-06-29 14:59:54	1
-plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37	3
-increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03	2025-06-15 13:38:03	1
-the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-09-11 13:39:40	2
-traffic-rules	t	1	111	67	2025-07-02 11:42:18	2025-07-02 11:43:42	1
-deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50	2
-using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	1
-rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-09-11 13:37:08	8
-entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	2
-evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	2
+impossibility-of-judicial-appeal-of-summons-to-appear-at-the-tcr	t	1	108	64	2025-07-01 12:06:47	2025-07-01 12:06:47	0
+amendments-resolution-no-76-27.01.23	t	1	100	58	2025-06-29 14:56:38	2025-06-29 14:59:54	0
+plaintiff's-failure-to-appear-in-court	t	1	109	65	2025-07-01 12:32:51	2025-07-01 12:35:37	0
+increase-fines-for-speeding-violations-2025	t	1	87	46	2025-06-15 13:38:03	2025-06-15 13:38:03	0
+the-constitution-of-ukraine-and-the-sphere-of-military-law	t	1	112	68	2025-07-02 12:44:22	2025-09-11 13:39:40	0
+deferrals-from-military-service-for-stepfathers	t	1	110	66	2025-07-02 11:22:05	2025-07-02 11:27:50	0
+using-a-video-recorder	t	1	120	50	2025-06-25 19:24:20	2025-07-09 12:54:04	0
+entering-a-road-with-a-lane-for-route-vehicles	t	1	125	48	2025-06-25 12:54:38	2025-07-12 19:27:39	0
+evidence-in-administrative-law	t	1	98	56	2025-06-28 18:17:49	2025-06-28 18:24:51	0
+rights-of-a-person-held-administratively-liable	t	1	113	69	2025-07-02 14:41:54	2025-09-11 13:37:08	0
 \.
 
 
@@ -1134,11 +1134,10 @@ COPY public.img (identifier, name, author_id, path, active) FROM stdin;
 143	Female judge reviewing documents at the table against the background of a gavel and scales	1	common/CcxkmQXXxcrybUk5bTEX.webp	t
 144	Arrested man with handcuffs behind his back	1	common/WdPjcMKAWGX6IfXbGBwy.webp	t
 150	Table with sheets of paper, pen	1	common/mK8K0TYafhwxgSnNTbWd.webp	t
-147	Wristwatches	1	common/Wlv4qTL5HkxVvk5RHdb0.webp	f
 148	Office meeting	1	common/P5vQ60k5ovI3q1dsKjzf.webp	t
-149	Classroom with desks	1	common/HmzhEiMPLOZP2imAuG01.webp	f
 151	Man showing his lawyer license	1	common/DJbE83wha5uLQFyPAX8M.webp	t
-152	PageSpeed Insights /uk/about-this-site	18	common/UT06dhgHOXJdU9UBhs4l.webp	t
+149	Classroom with desks	1	common/HmzhEiMPLOZP2imAuG01.webp	t
+147	Wristwatches	1	common/Wlv4qTL5HkxVvk5RHdb0.webp	t
 \.
 
 
@@ -1249,18 +1248,16 @@ COPY public.img_translates (img_id, language, description) FROM stdin;
 143	uk	Жінка суддя розглядає документи за столом на фоні молотка та ваг
 144	en	Arrested man with handcuffs behind his back
 144	uk	Заарештований чоловік з наручниками на руках за спиною
-147	en	Wristwatches
-147	uk	Наручні годинники
 148	en	Office meeting
 148	uk	Нарада в кабінеті
-149	en	Classroom with desks
-149	uk	Навчальний клас з партами 
 150	en	Table with sheets of paper, pen
 150	uk	Стіл з аркушами паперу, ручкою
 151	en	Man showing his lawyer license
 151	uk	Чоловік показує свою ліцензію адвоката
-152	en	PageSpeed Insights /uk/about-this-site
-152	uk	PageSpeed Insights /uk/about-this-site
+149	en	Classroom with desks
+149	uk	Навчальний клас з партами 
+147	en	Wristwatches
+147	uk	Наручні годинники
 \.
 
 
@@ -2731,5 +2728,5 @@ ALTER TABLE ONLY public.translate_entities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict lEjeQy54p8WIc0rcU4jXBCkYHzRkc5szjYM9ee2zWhT3zerTPjXRVIJZJPzHZer
+\unrestrict 0Vtv7jSelKENhV522Bc8BHyf9KNaQuXSF4hDDVMoecVJKLIHBjHfvf6agSpSO6u
 
