@@ -25,6 +25,6 @@ final class NotFoundHandler implements RequestHandlerInterface
             'Page not found'
         );
         $html = $this->view->setHandlerData($dto)->toString();
-        return new HtmlResponse($html);
+        return new HtmlResponse($html, 404);
     }
 }
