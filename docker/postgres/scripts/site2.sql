@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 0Vtv7jSelKENhV522Bc8BHyf9KNaQuXSF4hDDVMoecVJKLIHBjHfvf6agSpSO6u
+\restrict N2XKYdkYt4ymZp72phVk6uxNamV3cDfKN5emydQudKqdhqFlCEbSibgGjWeFISa
 
 -- Dumped from database version 17.6 (Debian 17.6-2.pgdg13+1)
 -- Dumped by pg_dump version 17.6 (Debian 17.6-2.pgdg13+1)
@@ -1927,6 +1927,8 @@ root.teachers.stub.administrative-general.img-alt	en	Photo of a teacher of gener
 root.teachers.stub.administrative-general.img-alt	uk	Фото викладача загального адміністративного права
 Lawshield company logo	en	Lawshield company logo
 Lawshield company logo	uk	Логотип компанії Правощит
+auth.wrong-user-or-password	en	The password or username is incorrect.
+auth.wrong-user-or-password	uk	Пароль або імʼя користувача вказано невірно
 \.
 
 
@@ -2187,6 +2189,7 @@ root.teachers.stub.administrative-law.img-alt
 root.teachers.stub.administrative-process.img-alt
 root.teachers.stub.administrative-general.img-alt
 Lawshield company logo
+auth.wrong-user-or-password
 \.
 
 
@@ -2728,5 +2731,5 @@ ALTER TABLE ONLY public.translate_entities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 0Vtv7jSelKENhV522Bc8BHyf9KNaQuXSF4hDDVMoecVJKLIHBjHfvf6agSpSO6u
+\unrestrict N2XKYdkYt4ymZp72phVk6uxNamV3cDfKN5emydQudKqdhqFlCEbSibgGjWeFISa
 
