@@ -1066,6 +1066,7 @@ return function (Container $container) {
             new Promise('\Psr\Log\LoggerInterface'),
             new Promise('\Romchik38\Site2\Application\AdminVisitor\AdminVisitorService'),
             new Promise('\Romchik38\Site2\Application\Visitor\VisitorService'),
+            new Promise('access_logger'),
         ]
     );
 

@@ -21,6 +21,17 @@ return function (Container $container) {
         '\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface'
     );
 
+    // ADMIN ACCESS LOGGER
+    $container->multi(
+        '\Romchik38\Server\Utils\Logger\DeferredLogger\FileLogger',
+        'access_logger',
+        true,
+        [
+            __DIR__ . '/../var/access.log',
+            4,
+        ]
+    );    
+
     // CSRF TOKEN GENERATOR
     $container->multi(
         '\Romchik38\Site2\Infrastructure\Utils\TokenGenerators\CsrfTokenGeneratorUseRandomBytes',

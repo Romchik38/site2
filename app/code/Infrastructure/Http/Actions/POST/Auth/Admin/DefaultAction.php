@@ -29,9 +29,9 @@ use function sprintf;
 
 final class DefaultAction extends AbstractMultiLanguageAction implements DefaultActionInterface
 {
+    /** @todo usage */
     public const NOT_ACTIVE_MESSAGE_KEY        = 'auth.not-active';
-    public const WRONG_PASSWORD_MESSAGE_KEY    = 'auth.wrong-password';
-    public const WRONG_USERNAME_MESSAGE_KEY    = 'auth.wrong-username';
+    public const WRONG_U_OR_P_MESSAGE_KEY      = 'auth.wrong-user-or-password';
     public const SUCCESS_LOGGED_IN_KEY         = 'auth.success-logged-in';
     public const BAD_PROVIDED_DATA_MESSAGE_KEY = 'error.during-check-fix-and-try';
     public const SERVER_ERROR_KEY              = 'server-error.message';
@@ -43,7 +43,8 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         private readonly UrlbuilderInterface $urlbuilder,
         private readonly LoggerInterface $logger,
         private readonly AdminVisitorService $adminVisitorService,
-        private readonly VisitorService $visitorService
+        private readonly VisitorService $visitorService,
+        private readonly LoggerInterface $accessLogger,
     ) {
         parent::__construct($dynamicRootService, $translateService);
     }
@@ -59,13 +60,24 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
         $command  = CheckPassword::fromHash($requestData);
         $urlLogin = $this->urlbuilder->fromArray(['root', 'login', 'admin']);
 
+        $remoteAddr       = $request->getServerParams()['REMOTE_ADDR'] ?? 'Remote address not detected';
+        $accessLogMessage = $remoteAddr . ' - %s';
+
         try {
             $adminUsername = $this->adminUserCheck->checkPassword($command);
         } catch (AdminUserNotActiveException) {
             $this->visitorService->changeMessage($this->translateService->t($this::NOT_ACTIVE_MESSAGE_KEY));
+            $this->accessLogger->error(sprintf(
+                $accessLogMessage,
+                sprintf('access to not active admin account %s', $command->username)
+            ));
             return new RedirectResponse($urlLogin);
         } catch (InvalidPasswordException) {
-            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_PASSWORD_MESSAGE_KEY));
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_U_OR_P_MESSAGE_KEY));
+            $this->accessLogger->error(sprintf(
+                $accessLogMessage,
+                sprintf('wrong password to admin account %s', $command->username)
+            ));
             return new RedirectResponse($urlLogin);
         } catch (InvalidArgumentException $e) {
             $message = sprintf(
@@ -73,9 +85,17 @@ final class DefaultAction extends AbstractMultiLanguageAction implements Default
                 $e->getMessage()
             );
             $this->visitorService->changeMessage($message);
+            $this->accessLogger->error(sprintf(
+                $accessLogMessage,
+                'bad data provided to admin account'
+            ));
             return new RedirectResponse($urlLogin);
         } catch (NoSuchAdminUserException) {
-            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_USERNAME_MESSAGE_KEY));
+            $this->visitorService->changeMessage($this->translateService->t($this::WRONG_U_OR_P_MESSAGE_KEY));
+            $this->accessLogger->error(sprintf(
+                $accessLogMessage,
+                sprintf('access to a non-existent admin account %s', $command->username)
+            ));
             return new RedirectResponse($urlLogin);
         } catch (CouldNotCheckPasswordException $e) {
             $this->visitorService->changeMessage($this->translateService->t($this::SERVER_ERROR_KEY));

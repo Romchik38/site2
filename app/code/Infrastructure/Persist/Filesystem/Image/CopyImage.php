@@ -13,7 +13,9 @@ use function sprintf;
 
 final class CopyImage extends Image
 {
+    /** @var int<1,max> $copyWidth */
     public readonly int $copyWidth;
+    /** @var int<1,max> $copyHeight */
     public readonly int $copyHeight;
     public readonly string $copyType;
     public readonly string $copyMimeType;
