@@ -9,6 +9,10 @@
   - log file -> database
   - database -> templates
 
+- session - check imp.php
+
+- logger - create file om startup
+
 ## Next
 
 ## Later
