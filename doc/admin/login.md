@@ -3,6 +3,7 @@
 - login
 - user data
 - authorization
+- loggin
 
 ## Login
 
@@ -39,3 +40,9 @@ User with `ADMIN_WRITE_ALL` can send all post request except `Manage users` in t
 User with `ADMIN_ROOT` can do all the same and can visit `Manage users`. It should be noted that `Manage users` is a placeholder. This page does nothing.
 
 Read more about [authorization](./authorization.md)
+
+## Loggin
+
+The [access logger](./../logging/readme.md) is used to save messages about failed authentication attempts.
+
+file to log - `app/var/access.log`.

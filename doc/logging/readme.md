@@ -13,3 +13,22 @@ As an example look at the [index.php](./../../public/http/index.php). Messages a
 ```php
 $logger->sendAllLogs();
 ```
+
+## Loggers
+
+- Default logger
+- Access logger
+
+[bootstrap](./../../app/bootstrap/utils.php)
+
+### Default logger
+
+The default logger is used everywhere. It is the standard logger.
+
+file to log - `app/var/file.log`
+
+### Access logger
+
+The access logger is used to save messages about failed authentication attempts.
+
+file to log - `app/var/access.log`
