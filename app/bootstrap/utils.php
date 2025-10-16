@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
+use Romchik38\Container\Promise;
 
 return function (Container $container) {
     // LOGGER
@@ -27,7 +28,7 @@ return function (Container $container) {
         'access_logger',
         true,
         [
-            __DIR__ . '/../var/access.log',
+            new Promise('access.file.path'),
             4,
         ]
     );    
