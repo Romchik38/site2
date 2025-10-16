@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * This file is an example of how you can override configuration data 
+ * located in the config directory. 
+ * Edit it and remove the .example extension to get started.
+ */
+
+declare(strict_types=1);
+
+return [
+    // 'access.file.path' => __DIR__ . '/var/access1.log'
+];

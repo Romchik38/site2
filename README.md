@@ -18,6 +18,7 @@ Also, you can inspect additional features:
 
 - [Routing system](./doc/routing/readme.md) with PSR-7 Request/Response and middlewares
 - [DI Container](./doc/bootstrap/Container.md)
+- [Config](./doc/config/readme.md)
 - [Docker](./doc/docker/00_readme.md) package for developing only
 - [Architecture](./doc/architecture/readme.md)
 - [User login](./doc/frontend/login.md)

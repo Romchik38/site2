@@ -36,6 +36,13 @@ return function (Container $container) {
         $configs = array_merge($configs, $config);
     }
 
+    // Load local config override file if exists
+    $overrideFile = __DIR__ . '/../config.local.php'; 
+    if (file_exists($overrideFile) === true) {
+        $overrideConfig = require $overrideFile;
+        $configs = array_merge($configs, $overrideConfig);
+    }
+
     foreach($configs as $key => $val) {
         $container->add($key, $val);
     }
