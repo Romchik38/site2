@@ -4,7 +4,6 @@
 
 - 404 page
   - language switcher
-  - no index
 
 - link:
   - site2.RSdev
