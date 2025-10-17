@@ -2,9 +2,6 @@
 
 ## Current
 
-- 404 page
-  - language switcher
-
 - link:
   - site2.RSdev
   - site1.RSdev

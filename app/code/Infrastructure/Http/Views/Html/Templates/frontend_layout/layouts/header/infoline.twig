@@ -22,7 +22,11 @@
                         {% set selected = 'selected="true"' %}
                         {% set disabled = 'disabled' %}
                     {% else %}
-                        {% set value = su.withRoot(l) %}
+                        {% if su is not null %}
+                            {% set value = su.withRoot(l) %}
+                        {% else %}
+                            {% set value = '/' ~ l %}
+                        {% endif %}
                     {% endif %}
                     <option value="{{ value }}" {{disabled}} {{selected}}>{{translate.translate('global.language', l)}}</option>
                 {% endfor %}
