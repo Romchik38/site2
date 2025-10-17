@@ -15,7 +15,8 @@ return function (Container $container) {
     $container->shared(
         '\Romchik38\Site2\Infrastructure\Http\RequestHandlers\NotFoundHandler',
         [
-            new Promise('frontend-view-404-page')
+            new Promise('frontend-view-404-page'),
+            new Promise('\Romchik38\Server\Utils\Translate\TranslateInterface'),
         ]
     );
 

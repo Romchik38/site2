@@ -10,19 +10,21 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Romchik38\Server\Http\Views\Dto\DefaultViewDTO;
 use Romchik38\Server\Http\Views\SingleViewInterface;
+use Romchik38\Server\Utils\Translate\TranslateInterface;
 
-final class NotFoundHandler implements RequestHandlerInterface
+final readonly class NotFoundHandler implements RequestHandlerInterface
 {
     public function __construct(
-        private readonly SingleViewInterface $view
+        private SingleViewInterface $view,
+        private TranslateInterface $translate
     ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $dto  = new DefaultViewDTO(
-            '404 Page',
-            'Page not found'
+            $this->translate->t('404.page_name'),
+            $this->translate->t('404.page_description')
         );
         $html = $this->view->setHandlerData($dto)->toString();
         return new HtmlResponse($html, 404);
