@@ -2,9 +2,6 @@
 
 ## Current
 
-- translates
-  - database -> templates (from 3d)
-
 - session - check img.php
 
 - logger - create file om startup
