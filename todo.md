@@ -2,8 +2,6 @@
 
 ## Current
 
-- session - check img.php
-
 - logger - create file om startup
 
 - 404 page

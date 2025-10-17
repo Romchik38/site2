@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * The file demonstrates how a program might look without using 
+ * the server wrapper that index.php uses.
+ * 
+ * - NO SESSION 
+ */
 declare(strict_types=1);
 
 use Romchik38\Server\Models\Errors\NoSuchEntityException;

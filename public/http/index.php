@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * The file demonstrates the program's operation using the server wrapper, 
+ * which img.php does not use.
+ *  
+ * - SESSION ON
+ */
 declare(strict_types=1);
 
 use Romchik38\Container\Container;
