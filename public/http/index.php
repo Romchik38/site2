@@ -53,5 +53,3 @@ $m5 = memory_get_usage(true)/1_000_000;
 
 $logger = $container->get('\Romchik38\Server\Utils\Logger\DeferredLogger\DeferredLoggerInterface');
 $logger->sendAllLogs();
-$accessLogger = $container->get('access_logger');
-$accessLogger->sendAllLogs();

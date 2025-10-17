@@ -24,7 +24,7 @@ return function (Container $container) {
 
     // ADMIN ACCESS LOGGER
     $container->multi(
-        '\Romchik38\Server\Utils\Logger\DeferredLogger\FileLogger',
+        '\Romchik38\Server\Utils\Logger\FileLogger',
         'access_logger',
         true,
         [
