@@ -1,6 +1,6 @@
 # Readme for site2
 
-![status](https://placehold.co/15x15/f03c15/f03c15.png) `status: ready`
+![status](https://placehold.co/15x15/26a269/26a269.png) `status: ready`
 ![phpstan](https://placehold.co/15x15/1589F0/1589F0.png) `phpstan: level 8`
 ![phpunit](https://placehold.co/15x15/c5f015/c5f015.png) `phpunit: low`
 
@@ -11,6 +11,8 @@ Site2 is based on [php-server](https://github.com/Romchik38/server) and [php-con
 - [multilanguage system](./doc/language/01-readme.md)
 - [twig view](./doc/templates/readme.md)
 - [Image Converter](./doc/Image_Converter/01_readme.md)
+
+You can see the optimized and working version of the website in the [live preview](https://site2.romanenko-studio.dev/en/about-this-site).
 
 ## Additional
 
@@ -77,3 +79,9 @@ See docs in [doc folder](./doc/)
 ## Install
 
 Please read [installation guide](./doc/install/readme.md) to run site2 as quickly as possible.
+
+## Other projects
+
+You can view the previous and simpler website — [Site1](https://github.com/Romchik38/site1). It demonstrates a multi-page site with a login system, a sitemap, Google reCAPTCHA, and email-based password recovery.
+
+Look at its [live preview](https://site1.romanenko-studio.dev/).
