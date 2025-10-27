@@ -38,7 +38,7 @@ You can include additional files, such as images or fonts, if necessary. In that
 
 - Can contain at least one submenu.
 - Can be horizontal or vertical, based on your choice.
-- Responsive on mobile devices
+- Responsive on mobile devices.
 
 ### Quality
 
@@ -46,9 +46,9 @@ Your HTML code must pass the [PageSpeed Insights](https://pagespeed.web.dev/) te
 
 ## 3. Development process
 
-- Fork the repository
+- Fork the repository.
 - You can use the [prototype](./../public/http/media/html/admin/menu.html) as a basis for further development.
-- Your work should look like an HTML file, which is located in the /media/html/admin directory. If you have multiple files, please create a separate directory here.
+- Your work should look like an HTML file, which is located in the [admin directory](./../public/http/media/html/admin/). If you have multiple files, please create a separate directory here.
 - Create a pull request or send an [email](mailto:pomahehko.c@gmail.com) to start a review.
 
 If you have any questions, please ask them in the [Issues](https://github.com/Romchik38/site2/issues) section or send an [email](mailto:pomahehko.c@gmail.com).
