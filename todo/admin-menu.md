@@ -38,6 +38,7 @@ You can include additional files, such as images or fonts, if necessary. In that
 
 - Can contain at least one submenu.
 - Can be horizontal or vertical, based on your choice.
+- Responsive on mobile devices
 
 ### Quality
 
@@ -47,14 +48,16 @@ Your HTML code must pass the [PageSpeed Insights](https://pagespeed.web.dev/) te
 
 - Fork the repository
 - You can use the [prototype](./../public/http/media/html/admin/menu.html) as a basis for further development.
-- Your work should look like an HTML file, which is located in the /media/html/admin directory.
+- Your work should look like an HTML file, which is located in the /media/html/admin directory. If you have multiple files, please create a separate directory here.
 - Create a pull request or send an [email](mailto:pomahehko.c@gmail.com) to start a review.
+
+If you have any questions, please ask them in the [Issues](https://github.com/Romchik38/site2/issues) section or send an [email](mailto:pomahehko.c@gmail.com).
 
 ## 4. What you get
 
 You will gain **collaborative development experience**, if you need it. This might be important if you want to showcase your participation in open source projects.
 
-You can **add links to your personal website** and GitHub repository to your prototype. This information will be posted on the pages of this repository, and anyone can view your work. Also, your prototype will be open for indexing by search engines on the [preview website](https://site2.romanenko-studio.dev/en). Thus, you will receive a link to your site, which may increase its ranking.
+You can **add links** to your personal website and GitHub repository to your prototype. This information will be posted on the pages of this repository, and anyone can view your work. Also, your prototype will be open for indexing by search engines on the [preview website](https://site2.romanenko-studio.dev/en). Thus, you will receive a link to your site, which may increase its ranking.
 
 ## 5. Additionally
 
