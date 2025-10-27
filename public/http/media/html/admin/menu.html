@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-lt-installed="true">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard | Lawshield</title>
+    <meta name="description" content="Admin dashboard page">
+    <link rel="stylesheet" href="/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/media/css/admin_main.css">
+</head>
+
+<body class="container-fluid p-0">
+    <header class="container-fluid bg-primary text-white">
+        <div class="row">
+            <div class="col-sm">
+                <span class="me-2">
+                    <a class="link-none-white" href="/en" target="_blank">Frontend</a>
+                </span>
+                <span class="me-2">
+                    <a class="link-none-white" href="/en/admin"
+                        target="_self">Admin</a>
+                </span>
+            </div>
+
+            <!-- Language switcher -->
+            <div class="col-sm-3">
+                <select class="language">
+                    <option value="" disabled="disabled" selected="selected">English</option>
+                    <option value="/uk/admin">Українська</option>
+                </select>
+            </div>
+            <!-- User login data -->
+            <div class="col-sm-3">
+                <div>
+                    <div class="header-user-loggedin" style="display: flex;">
+                        <div class="row">
+                            <div class="col-xl">
+                                <span>Hello,&nbsp;</span><span class="user-name-field me-3">admin</span>
+                            </div>
+                            <div class="col-xl">
+                                <form action="/en/admin/logout" method="post">
+                                    <button class="btn btn-secondary py-0 align-top px-1" type="submit">Log out</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Display a message -->
+    <div class="text-center mb-3" style="height: 9px">
+        <span class="message bg-warning px-2 d-none">You have successfully logged in</span>
+    </div>
+    <!-- Dynamic content start -->
+    <div class="container-sm">
+        <div class="row">
+            <h1 class="text-center">Admin dashboard</h1>
+            <p class="lead description">Admin dashboard page</p>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mx-auto">
+                <h2 class="articles px-2">Articles</h2>
+                <ul>
+                    <li><a href="/en/admin/article">Articles list</a></li>
+                    <li><a href="/en/admin/article/new">Create new</a></li>
+                    <li><a href="/en/admin/article/most_visited">Most visited</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="audios px-2">Audios</h2>
+                <ul>
+                    <li><a href="/en/admin/audio">Audio list</a></li>
+                    <li><a href="/en/admin/audio/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="authors px-2">Authors</h2>
+                <ul>
+                    <li><a href="/en/admin/author">Authors list</a></li>
+                    <li><a href="/en/admin/author/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="banners px-2">Banners</h2>
+                <ul>
+                    <li><a href="/en/admin/banner">Banners list</a></li>
+                    <li><a href="/en/admin/banner/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="categories px-2">Categories</h2>
+                <ul>
+                    <li><a href="/en/admin/category">Categories list</a></li>
+                    <li><a href="/en/admin/category/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="image px-2">Images</h2>
+                <ul>
+                    <li><a href="/en/admin/image">Images list</a></li>
+                    <li><a href="/en/admin/image/new">Create new</a></li>
+                    <li><a href="/en/admin/imagecache">Image cache</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="languages px-2">Languages</h2>
+                <p><a href="/en/admin/language">Languages list</a></p>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="pages px-2">Pages</h2>
+                <ul>
+                    <li><a href="/en/admin/page">Pages list</a></li>
+                    <li><a href="/en/admin/page/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="translates px-2">Translates</h2>
+                <ul>
+                    <li><a href="/en/admin/translate">Translates list</a></li>
+                    <li><a href="/en/admin/translate/new">Create new</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mx-auto">
+                <h2 class="users px-2">Users</h2>
+                <p><a href="/en/admin/users">Manage users</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Dynamic content end -->
+    <!-- Footer -->
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-sm text-center">
+                © 2025 Copyrights by Romanenko Serhii. Read the Site2 license on <a target="_blank"
+                    href="https://github.com/Romchik38/site2/blob/main/LICENSE.md">Github</a> before use it.
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
