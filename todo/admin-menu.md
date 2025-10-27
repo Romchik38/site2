@@ -11,7 +11,7 @@ Status - Opened ![status](https://placehold.co/15x15/26a269/26a269.png)
 
 ## 1. Description
 
-Currently, the administrative part's menu has not been developed. It appears as a set of links to the corresponding categories. You can see what it looks like on this [prototype](./media/html/admin/menu.html).
+Currently, the administrative part's menu has not been developed. It appears as a set of links to the corresponding categories. You can see what it looks like on this [prototype](https://site2.romanenko-studio.dev/media/html/admin/menu.html).
 
 You are invited to participate in the open source development of the Site2 project and create the menu yourself.
 
@@ -26,7 +26,7 @@ You are invited to participate in the open source development of the Site2 proje
 You can use something from the list below, or everything together:
 
 - Any css styles you like.
-- [Bootstrap 5.3.3 css file](/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css).
+- [Bootstrap 5.3.3 css file](./../public/http/media/css/bootstrap-5.3.3-dist/css/bootstrap.min.css).
 - Javascript.
 - [Javascript components](./../public/http/media/js/modules/components/).
 
@@ -46,7 +46,7 @@ Your HTML code must pass the [PageSpeed Insights](https://pagespeed.web.dev/) te
 ## 3. Development process
 
 - Fork the repository
-- You can use the [prototype](./media/html/admin/menu.html) as a basis for further development.
+- You can use the [prototype](./../public/http/media/html/admin/menu.html) as a basis for further development.
 - Your work should look like an HTML file, which is located in the /media/html/admin directory.
 - Create a pull request or send an [email](mailto:pomahehko.c@gmail.com) to start a review.
 
