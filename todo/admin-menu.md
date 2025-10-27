@@ -65,6 +65,8 @@ If you undertake this development and do not spend as little time as possible on
 
 The owner of this repository does not provide any guarantees regarding the placement of your code if you have not fulfilled all the conditions listed above.
 
+If it becomes known that your code was already part of another project's code, it may be removed from this repository without warning.
+
 ## 6. License
 
 Your work will be implemented as part of the Site2 project and may be used under the terms of [the project's general license](./../LICENSE.md).
